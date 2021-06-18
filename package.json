@@ -1,0 +1,66 @@
+{
+  "name": "lessons-app",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "adm-zip": "^0.4.16",
+    "date-fns": "^2.14.0",
+    "file-saver": "^2.0.2",
+    "original-fs": "^1.1.0",
+    "papaparse": "^5.2.0",
+    "react": "^16.13.1",
+    "react-activity": "^2.0.1",
+    "react-bootstrap": "^1.3.0",
+    "react-cookie": "^4.0.3",
+    "react-cropper": "^1.3.0",
+    "react-csv": "^2.0.3",
+    "react-dom": "^16.13.1",
+    "react-ga": "^3.2.1",
+    "react-google-charts": "^3.0.15",
+    "react-router-dom": "^5.2.0",
+    "react-scripts": "^3.4.3",
+    "react-to-print": "^2.12.6",
+    "typescript": "^3.9.5"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject",
+    "lint:only": "eslint src --ext ts,tsx",
+    "lint:fix": "npm run lint:only -- --fix",
+    "predeploy-staging": "export REACT_APP_STAGE=staging&& npm run build",
+    "exec-deploy-staging": "aws s3 sync build/ s3://staging-lessons-app",
+    "postdeploy-staging": "aws cloudfront create-invalidation --distribution-id E2SBDXIK2UVHM9 --paths \"/*\"",
+    "deploy-staging": "npm run predeploy-staging && npm run exec-deploy-staging && npm run postdeploy-staging",
+    "predeploy-prod": "export REACT_APP_STAGE=prod&& npm run build",
+    "exec-deploy-prod": "aws s3 sync build/ s3://lessons-app",
+    "postdeploy-prod": "aws cloudfront create-invalidation --distribution-id E3FB2K4FSP7ZUB --paths \"/*\"",
+    "deploy-prod": "npm run predeploy-prod && npm run exec-deploy-prod && npm run postdeploy-prod"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "devDependencies": {
+    "@types/adm-zip": "^0.4.33",
+    "@types/google.visualization": "0.0.53",
+    "@types/jest": "^26.0.3",
+    "@types/papaparse": "^5.0.4",
+    "@types/react": "^16.9.36",
+    "@types/react-cropper": "^1.3.0",
+    "@types/react-csv": "^1.1.1",
+    "@types/react-dom": "^16.9.8",
+    "@types/react-router-dom": "^5.1.5",
+    "@types/file-saver": "^2.0.1",
+    "google-charts": "^2.0.0"
+  }
+}
