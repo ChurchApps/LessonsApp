@@ -570,3 +570,6 @@ label .description {
 #aboutSection p {color:#b4c5ce;line-height: 30px;}
 #aboutSection b {color:#FFF;}
 #aboutSection .btn {padding-left:20px;padding-right: 20px;}
+
+.videoWrapper { position: relative; padding-bottom: 56.25%; padding-top: 25px; height: 0; }
+.videoWrapper iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%;}
