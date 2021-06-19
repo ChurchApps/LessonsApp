@@ -5,6 +5,7 @@ import { ApiHelper } from "./components";
 import { Switch, Route, Redirect, useLocation } from "react-router-dom";
 import { Forgot } from "./Forgot";
 import { Login } from "./Login";
+import { Home } from "./Home"
 
 import { Authenticated } from "./Authenticated";
 import { Logout } from "./Logout";
@@ -27,13 +28,10 @@ export const Routes = () => {
     if (user === null) return null;
     return (
         <Switch>
-            <Route path="/logout">
-                <Logout />
-            </Route>
+            <Route exact={true} path="/"><Home /></Route>
+            <Route path="/logout"><Logout /></Route>
             <Route path="/login" component={Login}></Route>
-            <Route path="/forgot">
-                <Forgot />
-            </Route>
+            <Route path="/forgot"><Forgot /></Route>
             <PrivateRoute path="/"></PrivateRoute>
         </Switch>
     );

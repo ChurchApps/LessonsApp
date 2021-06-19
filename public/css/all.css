@@ -550,3 +550,23 @@ label .description {
   border: none;
   background: none;
 }
+
+
+.homeSection {padding-top:70px;padding-bottom: 70px;}
+.homeSection .title {font-size:14px; text-transform: uppercase;margin-bottom: 10px;color:#03a9f4;font-weight: bold;}
+.homeSection .title span {color:#03a9f4;}
+.homeSection.alt { color:#FFF; }
+.homeSection.alt .title { color:#FFF; }
+.homeSection h2 {margin-bottom: 30px; font-size:36px; font-weight: bold; }
+.homeSection ul {padding-left:0px;}
+.homeSection li {list-style: none; background: url('/images/home/checkbox.png') 0px 3px no-repeat; padding:0px 0px 15px 37px;}
+
+
+#hero h1 {font-weight: bold;}
+#hero h1 span {color:#03a9f4;font-style: italic;font-weight: normal;}
+#hero {padding-top:50px;padding-bottom: 50px;}
+
+#aboutSection { background-image: url('/images/home/about-bg.jpg'); background-position: center center; background-size: cover; }
+#aboutSection p {color:#b4c5ce;line-height: 30px;}
+#aboutSection b {color:#FFF;}
+#aboutSection .btn {padding-left:20px;padding-right: 20px;}
