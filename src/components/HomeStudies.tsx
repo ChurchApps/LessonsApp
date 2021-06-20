@@ -1,5 +1,5 @@
 import React from "react";
-import { Container, Row, Col, Button } from "react-bootstrap"
+import { Container, Row, Col } from "react-bootstrap"
 import { Link } from "react-router-dom";
 
 
@@ -12,7 +12,7 @@ export const HomeStudies = () => {
                 <h3>High Voltage Kids</h3>
                 <Row>
                     <Col xl={4}>
-                        <img src="/images/tmp/family-mechanics.png" className="img-fluid" />
+                        <img src="/images/tmp/family-mechanics.png" className="img-fluid" alt="Family Mechanics" />
                     </Col>
                     <Col xl={8}>
                         <h3>Family Mechanics</h3>
@@ -24,7 +24,7 @@ export const HomeStudies = () => {
 
                 <Row>
                     <Col xl={4}>
-                        <img src="/images/tmp/deal-or-no-deal.png" className="img-fluid" />
+                        <img src="/images/tmp/deal-or-no-deal.png" className="img-fluid" alt="Deal or no Deal" />
                     </Col>
                     <Col xl={8}>
                         <h3>Deal or No Deal</h3>
@@ -37,7 +37,7 @@ export const HomeStudies = () => {
                 <h3>The Ark Kids</h3>
                 <Row>
                     <Col xl={4}>
-                        <Link to="/studies/1"><img src="/images/tmp/herman-rusty.png" className="img-fluid" /></Link>
+                        <Link to="/studies/1"><img src="/images/tmp/herman-rusty.png" className="img-fluid" alt="Herman and Rusty" /></Link>
                     </Col>
                     <Col xl={8}>
                         <Link to="/studies/1"><h3>Power Up Elementary</h3></Link>

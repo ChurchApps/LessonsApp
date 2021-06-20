@@ -1,6 +1,6 @@
 import React from "react";
 import { Header, Footer, Lesson } from "./components"
-import { Container, Row, Col } from "react-bootstrap"
+import { Container } from "react-bootstrap"
 
 
 export const StudyPage = () => {
@@ -8,7 +8,7 @@ export const StudyPage = () => {
         <link rel="stylesheet" href="/css/cp.css" />
         <Header />
 
-        <div className="homeSection">
+        <div className="pageSection">
             <Container>
                 <div className="text-center">
                     <h2>The Ark Kids: <span>Power Up Elementary</span></h2>

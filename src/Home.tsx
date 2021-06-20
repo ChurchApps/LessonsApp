@@ -1,11 +1,10 @@
 import React from "react";
-import UserContext from "./UserContext"
+//import UserContext from "./UserContext"
 import { Header, Footer, HomeStudies } from "./components"
 import { Container, Row, Col, Button } from "react-bootstrap"
 
 
 export const Home = () => {
-    const context = React.useContext(UserContext)
     return (<>
         <link rel="stylesheet" href="/css/cp.css" />
         <Header />

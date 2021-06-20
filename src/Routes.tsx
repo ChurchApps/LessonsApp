@@ -7,6 +7,7 @@ import { Forgot } from "./Forgot";
 import { Login } from "./Login";
 import { Home } from "./Home"
 import { StudyPage } from "./studies/StudyPage"
+import { LessonPage } from "./studies/lessons/LessonPage"
 
 import { Authenticated } from "./Authenticated";
 import { Logout } from "./Logout";
@@ -29,6 +30,7 @@ export const Routes = () => {
     if (user === null) return null;
     return (
         <Switch>
+            <Route path="/studies/:studyId/lessons/:id"><LessonPage /></Route>
             <Route path="/studies"><StudyPage /></Route>
             <Route exact={true} path="/"><Home /></Route>
             <Route path="/logout"><Logout /></Route>
