@@ -30,7 +30,8 @@ export const Routes = () => {
     if (user === null) return null;
     return (
         <Switch>
-            <Route path="/studies/:studyId/lessons/:id"><LessonPage /></Route>
+
+            <Route path="/studies/:studyId/lessons/:id" component={LessonPage}></Route>
             <Route path="/studies"><StudyPage /></Route>
             <Route exact={true} path="/"><Home /></Route>
             <Route path="/logout"><Logout /></Route>
