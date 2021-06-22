@@ -584,10 +584,29 @@ label .description {
 .videoWrapper { position: relative; padding-bottom: 56.25%; padding-top: 25px; height: 0; }
 .videoWrapper iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%;}
 
-.sectionResources {background-color: #333;color:#EEE; margin-left: -20px;margin-right: -20px;margin-top:-20px}
+.sectionResources {background-color: #03a9f4;color:#EEE; margin-left: -20px;margin-right: -20px;margin-top:-20px}
 .sectionResources .col:last-child {text-align:right;}
 .sectionResources .col:last-child i {margin-left:20px}
-.actions {color:#777;font-style: italic;}
-blockquote {padding-left:20px;border-left:2px solid #24b8ff;margin-bottom: 0px;}
+.sectionResources a {color:#FFF;}
+.pageSection .actions {color:#777;font-style: italic;margin-bottom:5px}
+blockquote {padding-left:20px;border-left:2px solid #24b8ff;margin-bottom: 5px;}
 blockquote p:last-child {margin-bottom: 0px;}
-.role {font-weight: bold; margin-top:20px;}
+
+/*.role {font-weight: bold;}*/
+/*.role {font-weight: bold; text-align: center;}*/
+
+.role { 
+  text-align: center;
+  font-weight:bold;
+  color: #03a9f4;
+  margin-top:-23px;
+  padding-bottom: 10px;
+}
+
+.role span { background:#fff; padding-left:10px; padding-right:10px; }
+
+
+/*.part {border-bottom: 1px solid #ccc;padding-bottom: 20px;padding-top:20px}
+.part:last-child { border-bottom: 0px;}
+*/
+.part {border-top: 1px solid #03a9f4;margin-top:20px;margin-bottom: 20px; padding:10px;}

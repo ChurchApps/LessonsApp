@@ -11,7 +11,12 @@ export const Move = () => {
         </Card.Header>
         <Accordion.Collapse eventKey="move">
             <Card.Body>
-                <p><b>Instructions:</b> Split the kids into small groups</p>
+                <div className="part">
+                    <div className="role"><span>Facilitator</span></div>
+                    <ul className="actions">
+                        <li>Split the kids into small groups</li>
+                    </ul>
+                </div>
             </Card.Body>
         </Accordion.Collapse>
     </Card>);

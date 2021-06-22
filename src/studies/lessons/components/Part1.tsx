@@ -17,7 +17,7 @@ export const Part1 = () => {
                 </Row>
 
                 <div className="part">
-                    <div className="role">Facilitator:</div>
+                    <div className="role"><span>Facilitator</span></div>
                     <ul className="actions">
                         <li>Play Title Slide</li>
                     </ul>
@@ -33,7 +33,7 @@ export const Part1 = () => {
                 </div>
 
                 <div className="part">
-                    <div className="role">Small Group Leader:</div>
+                    <div className="role"><span>Small Group Leader</span></div>
                     <ul className="actions">
                         <li>Give each child one sheet of paper and a writing utensil. Read the following instructions to them carefully. At the end of the activity, they should have drawn a dog (OLDER) or a house (YOUNGER). When they are finished, ask the following questions.</li>
                     </ul>
@@ -92,7 +92,7 @@ export const Part1 = () => {
                 </div>
 
                 <div className="part">
-                    <div className="role">Facilitator:</div>
+                    <div className="role"><span>Facilitator</span></div>
                     <ul className="actions">
                         <li>Play Big Point Slide</li>
                     </ul>

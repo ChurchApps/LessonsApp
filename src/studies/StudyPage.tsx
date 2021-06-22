@@ -12,8 +12,7 @@ export const StudyPage = () => {
             <Container>
                 <div className="text-center">
                     <h2>The Ark Kids: <span>Power Up Elementary</span></h2>
-                    <p><i>A 52 week series for 1st-5th graders</i></p>
-
+                    <p><i>An ongoing series for 1st-5th graders</i></p>
                 </div>
 
                 <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam non tincidunt ante. Cras tortor ipsum, lacinia nec lorem in, lobortis pulvinar risus. Aenean mollis mauris quis ullamcorper placerat. Vestibulum dictum fringilla libero ac faucibus. Sed sollicitudin felis sed fermentum egestas. In et magna consequat, aliquam sapien venenatis, mollis arcu. Nullam fringilla diam non elit luctus, vel tristique metus ultrices. Integer finibus vulputate lectus, ut vestibulum est euismod a. Pellentesque commodo dui et consequat vestibulum. Curabitur non faucibus magna. Praesent laoreet porttitor consequat.</p>

@@ -11,7 +11,12 @@ export const Worship = () => {
         </Card.Header>
         <Accordion.Collapse eventKey="worship">
             <Card.Body>
-                <p><b>Instructions:</b> Select worship music of your choice</p>
+                <div className="part">
+                    <div className="role"><span>Facilitator</span></div>
+                    <ul className="actions">
+                        <li>Select worship music of your choice</li>
+                    </ul>
+                </div>
             </Card.Body>
         </Accordion.Collapse>
     </Card>);

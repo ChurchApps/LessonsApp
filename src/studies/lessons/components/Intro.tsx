@@ -17,7 +17,7 @@ export const Intro = () => {
                 </Row>
 
                 <div className="part">
-                    <div className="role">Facilitator:</div>
+                    <div className="role"><span>Facilitator</span></div>
                     <ul className="actions">
                         <li>Play Title Slide and Timer Video</li>
                     </ul>
@@ -27,7 +27,7 @@ export const Intro = () => {
                 </div>
 
                 <div className="part">
-                    <div className="role">Small Group Leader:</div>
+                    <div className="role"><span>Small Group Leader</span></div>
                     <ul className="actions">
                         <li>Introduce yourself and go over the rules with your small group. Pass around the ball. Whoever has the ball gets to talk.</li>
                     </ul>
@@ -37,7 +37,7 @@ export const Intro = () => {
                 </div>
 
                 <div className="part">
-                    <div className="role">Facilitator:</div>
+                    <div className="role"><span>Facilitator</span></div>
                     <ul className="actions">
                         <li>Play Title Slide</li>
                     </ul>
