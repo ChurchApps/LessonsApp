@@ -610,3 +610,4 @@ blockquote p:last-child {margin-bottom: 0px;}
 .part:last-child { border-bottom: 0px;}
 */
 .part {border-top: 1px solid #03a9f4;margin-top:20px;margin-bottom: 20px; padding:10px;}
+dropdown-menu a { color: #03a9f4;}

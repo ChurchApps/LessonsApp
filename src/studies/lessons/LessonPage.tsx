@@ -1,5 +1,5 @@
 import React from "react";
-import { Header, Footer, LargeGroup, AtHome } from "./components"
+import { Header, Footer, Classroom, AtHome } from "./components"
 import { Container, Accordion } from "react-bootstrap"
 
 
@@ -23,15 +23,11 @@ export const LessonPage = () => {
 
                 <h2>Resources</h2>
                 <Accordion>
-                    <LargeGroup />
+                    <Classroom />
                     <AtHome />
-
                 </Accordion>
-
-
             </Container>
         </div>
-
         <Footer />
     </>);
 }
