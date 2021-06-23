@@ -30,12 +30,12 @@
     "lint:only": "eslint src --ext ts,tsx",
     "lint:fix": "npm run lint:only -- --fix",
     "predeploy-staging": "export REACT_APP_STAGE=staging&& npm run build",
-    "exec-deploy-staging": "aws s3 sync build/ s3://staging-lessons-app",
-    "postdeploy-staging": "aws cloudfront create-invalidation --distribution-id E2SBDXIK2UVHM9 --paths \"/*\"",
+    "exec-deploy-staging": "aws s3 sync build/ s3://staging-lessons",
+    "postdeploy-staging": "aws cloudfront create-invalidation --distribution-id E1ARNZUL5CN6BW --paths \"/*\"",
     "deploy-staging": "npm run predeploy-staging && npm run exec-deploy-staging && npm run postdeploy-staging",
     "predeploy-prod": "export REACT_APP_STAGE=prod&& npm run build",
     "exec-deploy-prod": "aws s3 sync build/ s3://lessons-app",
-    "postdeploy-prod": "aws cloudfront create-invalidation --distribution-id E3FB2K4FSP7ZUB --paths \"/*\"",
+    "postdeploy-prod": "aws cloudfront create-invalidation --distribution-id E1ARNZUL5CN6BW --paths \"/*\"",
     "deploy-prod": "npm run predeploy-prod && npm run exec-deploy-prod && npm run postdeploy-prod"
   },
   "browserslist": {

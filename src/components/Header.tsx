@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 import { Col, Container } from "react-bootstrap";
 
 export const Header: React.FC = () => {
-  const [userName] = React.useState(UserHelper.person?.name?.display || UserHelper.user.displayName);
+  const [userName] = React.useState(UserHelper.person?.name?.display || UserHelper.user?.displayName || "Login");
 
   const context = React.useContext(UserContext);
 
@@ -17,10 +17,10 @@ export const Header: React.FC = () => {
   }
 
   const getChurchLinks = () => {
-    if (UserHelper.churches.length < 2) return null;
+    if (UserHelper.churches?.length < 2) return null;
     else {
       let result: JSX.Element[] = [];
-      UserHelper.churches.forEach(c => {
+      UserHelper.churches?.forEach(c => {
         const churchName = (c.id === UserHelper.currentChurch.id) ? (<b>{c.name}</b>) : (c.name);
         result.push(<li className="nav-tem" key={c.id}><a href="about:blank" data-id={c.id} onClick={switchChurch} className="nav-link"><i className="fas fa-external-link-alt"></i> {churchName}</a></li>);
       });

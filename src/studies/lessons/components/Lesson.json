@@ -1,0 +1,18 @@
+{
+    "section": "Intro",
+    "parts": [
+        {
+            "role": "Facilitator",
+            "steps": [
+                {
+                    "type": "action",
+                    "contents": "Play Title Slide and Timer Video"
+                },
+                {
+                    "type": "quote",
+                    "contents": "&lt;p&gt;Today we are beginning a brand-new series called Power Up! Power is a great thing. Have you ever been out of power at your house? It’s not fun! When you lose power, you can’t turn on the lights, you can’t use the TV, you can’t play video games, you can’t even charge your phone or iPad! Let’s answer this fun question: If you didn’t have power, what would you miss the most?&lt;/p&gt;"
+                }
+            ]
+        }
+    ]
+}

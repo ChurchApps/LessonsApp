@@ -1,0 +1,154 @@
+<provider name="High Voltage Kids">
+  <category name="High Voltage Elementary">
+    <study name="Family Mechanics" shortDescription="An 8 week study for 3rd-5th graders">
+      <description>
+        <![CDATA[
+          You know, families are a lot like cars. They have need a lot of different parts to run smoothly, you have to put the right things in them so they continue to run properly, and when they break down you need to take them to somebody who knows what they’re doing in order to fix it.
+          In this series, we are going to be talking about how we can take care of our families just like we take care of our cars. If you ignore your car, don’t change the oil, don’t change the tires, whatever, it WILL break down. No doubt about it.
+          Your children will learn how to handle conflict in the family in the lesson called “Family Feud.” They will learn how to deal with the pain of divorce in “When The Family Breaks Down.” “Meet The Parents” helps the children discover how they can help influence their parents’ attitudes by loving, honoring, and obeying them. Finally, in “Where’s Dad?”, they will discover the amazing truth about how we all have the same loving heavenly Father. Even if we don’t have a Dad living at home, we can rest assured we will always have a Heavenly Father who will never leave us.
+        ]]>
+      </description>
+      <lesson sort="1" name="Lesson 1">
+        <description>
+          <![CDATA[
+            Every family has struggles. There are days when we get along wonderfully with our brothers, sisters, cousins, etc. There are other days when everything they do gets on our nerves and all we do is fuss and fight.
+            It’s not a surprise when members of the same family fight or argue. That’s to be expected. What we can’t let happen is for those short fights and arguments to turn into “family feuds.” If we don’t try to reconcile quickly, there may be permanent damage done to the family.
+            In this lesson, the children will learn how to put an end to the fights and arguments that creep up in the life of an ordinary family.
+          ]]>
+        </description>
+        <callout sort="1" name="Main Focus" contents="We can’t let fights and arguments to continue in our family." />
+        <callout sort="2" name="Power Verse" contents="Do your part to live in peace with everyone, as much as possible." attribution="Romans 12:18" />
+        <callout sort="3" name="Big Idea" contents="No Matter How You’ve Done Me Wrong, I Know We Can Get Along!" />
+        <venue name="Classroom">
+          <section name="Intro Video">
+            <role name="Leader">
+              <play>Intro Video - Family Feud</play>
+            </role>
+          </section>
+          <section name="Puppet Skit - I'm so Mad at Her!">
+            <note>Character: Silly Willy (a hyperactive puppet that thrives on “scaring” the leader; feel free to use any puppet character that your kids are familiar with from your services)</note>
+            <role name="Silly Willy">
+              <do>Make some noise over by the puppet stage; when the leader comes to check it out, Silly Willy pops up and scares the leader and starts laughing hysterically</do>
+            </role>
+            <role name="Leader">
+              <say>Silly Willy! You shouldn’t scare people like that! It’s not funny! </say>
+            </role>
+            <role name="Silly Willy">
+              <say>Well, I think it’s hilarious, don’t you kids?</say>
+              <do>Kids respond</do>
+            </role>
+            <role name="Leader">
+              <say>Well, I’m getting too old for that. </say>
+            </role>
+            <role name="Silly Willy">
+              <say>Yeah, I noticed. You’re so old, your first pet was a dinosaur.</say>
+            </role>
+            <role name="Leader">
+              <say>Silly Willy!</say>
+            </role>
+            <role name="Silly Willy">
+              <say>You’re so old, you have Adam and Eve’s autograph!</say>
+            </role>
+            <role name="Leader">
+              <say>OK, enough about my age, Silly Willy. We have a lot to learn today about how to end a “Family Feud.”</say>
+            </role>
+            <role name="Silly Willy">
+              <say>What’s a family feud?</say>
+            </role>
+            <role name="Leader">
+              <say>Well, it’s when we get mad at someone in our family or they get mad at us.</say>
+            </role>
+            <role name="Silly Willy">
+              <say>You mean, like my do-do bird sister!</say>
+            </role>
+            <role name="Leader">
+              <say>Silly Willy! First of all, I don’t think you should call your sister those kinds of names.</say>
+            </role>
+            <role name="Silly Willy">
+              <say>Why not? She calls me names! She calls me things that really hurt my feelings. Like the other day she told me I was so ugly, I could go trick or treating dressed as myself.</say>
+            </role>
+            <role name="Leader">
+              <say>Well, that’s not a very nice thing to say is it?</say>
+            </role>
+            <role name="Silly Willy">
+              <say>Nope, that’s why I told her something back. I said, “Oh yeah, well you’re so dumb that your dog teaches YOU tricks!”</say>
+            </role>
+            <role name="Leader">
+              <say>Silly Willy! That’s not the way you are supposed to respond. You shouldn’t say things like that to your sister.</say>
+            </role>
+            <role name="Silly Willy">
+              <say>It doesn’t matter anymore. We’re not talking to each other ever again.</say>
+            </role>
+            <role name="Leader">
+              <say>Silly Willy! That’s not the way families are supposed to be. We are learning in our lesson today that God wants families to love each other and get along. Even when we do get in fights and arguments, we have to do our part to make peace with the other person.</say>
+            </role>
+            <role name="Silly Willy">
+              <say>Yeah, but she’s the one who started it, not me!</say>
+            </role>
+            <role name="Leader">
+              <say>Well, that may be true. But, our Power Verse today teaches us that we have to do everything we can to make peace with everyone as much as possible. We can’t wait for the other person to apologize. We have to do our part and forgive them so that the family can be put back together.</say>
+            </role>
+            <role name="Silly Willy">
+              <say>But, that’s hard to do. She hurt my feelings.</say>
+            </role>
+            <role name="Leader">
+              <say>I know. But, you said some things that hurt her feelings as well. It’s time for YOU to make the first move and make peace.</say>
+            </role>
+            <role name="Silly Willy">
+              <say>You’re right. I should act more like Jesus, huh? He’s always ready to forgive me when I mess up.</say>
+            </role>
+            <role name="Leader">
+              <say>Now, you’re talking! I think you need to go take care of that right now, don’t you?</say>
+            </role>
+            <role name="Silly Willy">
+              <say>I sure do. Thanks for talking some sense into me.</say>
+            </role>
+            <role name="Leader">
+              <say>That’s what I’m here for. See you later, Silly Willy!</say>
+            </role>
+            <role name="Silly Willy">
+              <say>Bye! See ya kids!</say>
+              <do>Exit</do>
+            </role>
+          </section>
+          <section name="Offering Time">
+            <role name="Leader">
+              <do>Take an offering</do>
+            </role>
+          </section>
+          <section name="Praise Songs">
+            <role name="Leader">
+              <do>Select praise songs of your choice</do>
+            </role>
+          </section>
+          <section name="Game Time - Name That TV Family">
+            <role name="Leader">
+              <play>Name That TV Family</play>
+              <do>Choose three boys and three girls who think they know a lot about television. Tell them that they are going to see a picture of a family from television (past and present) and they have to guess the name of the family (or the TV show). The team who guesses the most after the ten questions, wins.</do>
+            </role>
+          </section>
+          <section name="Power Verse">
+            <role name="Leader">
+              <say>“Do your part to live in peace with everyone, as much as possible.” - Romans 12:18 </say>
+            </role>
+          </section>
+          <section name="Worship Songs">
+            <role name="Leader">
+              <do>Select worship songs of your choice</do>
+            </role>
+          </section>
+          <section name="Illustrated Message - Family Feud">
+            <role name="Leader">
+              <say>Family Feud</say>
+            </role>
+          </section>
+          <section name="Review Questions">
+            <role name="Leader">
+              <say>Family Feud</say>
+            </role>
+          </section>
+        </venue>
+      </lesson>
+    </study>
+  </category>
+</provider>
