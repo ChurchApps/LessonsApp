@@ -17,7 +17,7 @@ export const AtHome = () => {
                 <Accordion.Collapse eventKey="watch">
                     <Card.Body>
                         <div className="videoWrapper">
-                            <iframe width="992" height="558" src="https://www.youtube.com/embed/sqftjU3sLOo" title="YouTube video player" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowFullScreen></iframe>
+                            <iframe width="992" height="558" src="https://www.youtube.com/embed/inVOXN6BrV8" title="YouTube video player" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowFullScreen></iframe>
                         </div>
                     </Card.Body>
                 </Accordion.Collapse>
