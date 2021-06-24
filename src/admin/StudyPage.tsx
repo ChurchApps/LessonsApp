@@ -1,7 +1,6 @@
 import React from "react";
-import { DisplayBox, StudyEdit, StudyInterface, ApiHelper, Loading } from "./components"
+import { DisplayBox, StudyEdit, StudyInterface, ApiHelper, Loading, LessonList } from "./components"
 import { Row, Col } from "react-bootstrap"
-import { Link } from "react-router-dom"
 import { RouteComponentProps } from "react-router-dom";
 
 type TParams = { id?: string };
@@ -35,13 +34,12 @@ export const StudyPage = ({ match }: RouteComponentProps<TParams>) => {
 
   }
 
-  //<!--StudyList studyId={match.params.id} -->
   return (<>
     <h1>Study: {study?.name}</h1>
     <Row>
       <Col xl={8}>
         {getStudy()}
-
+        <LessonList studyId={match.params.id} />
       </Col>
     </Row>
   </>);

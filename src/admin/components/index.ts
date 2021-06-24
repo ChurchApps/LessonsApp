@@ -1,4 +1,6 @@
 export * from "../../components"
 export { ProgramEdit } from "./ProgramEdit"
+export { LessonList } from "./LessonList"
+export { LessonEdit } from "./LessonEdit"
 export { StudyEdit } from "./StudyEdit"
 export { StudyList } from "./StudyList"
