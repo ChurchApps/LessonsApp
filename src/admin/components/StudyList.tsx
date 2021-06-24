@@ -1,7 +1,6 @@
 import React from "react";
 import { DisplayBox, ApiHelper, StudyInterface, Loading } from "./"
 import { Link } from "react-router-dom"
-import { RouteComponentProps } from "react-router-dom";
 
 interface Props { programId: string }
 
@@ -14,14 +13,21 @@ export const StudyList: React.FC<Props> = (props) => {
     });
   };
 
+  const getRows = () => {
+    const result: JSX.Element[] = [];
+    studies.forEach(s => {
+      result.push(<tr><td><Link to={"/admin/studies/" + s.id}>{s.name}</Link></td></tr>);
+    });
+    return result;
+  }
+
   const getTable = () => {
     //<thead><tr><th>Name</th></tr></thead>
     if (studies === null) return <Loading />
     else return (
       <table className="table">
-
         <tbody>
-          <tr><td><Link to="/admin/programs/1">High Voltage Elementary</Link></td></tr>
+          {getRows()}
         </tbody>
       </table>
     )
