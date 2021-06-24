@@ -3,7 +3,11 @@ import { ApiHelper, InputBox, ErrorMessages, StudyInterface } from ".";
 import { Redirect } from "react-router-dom";
 import { Row, Col, FormGroup, FormControl, FormLabel } from "react-bootstrap";
 
-interface Props { study: StudyInterface, updatedCallback: (study: StudyInterface) => void }
+interface Props {
+  study: StudyInterface,
+  updatedCallback: (study: StudyInterface) => void,
+  toggleImageEditor: (show: boolean) => void,
+}
 
 export const StudyEdit: React.FC<Props> = (props) => {
   const [study, setStudy] = React.useState<StudyInterface>({} as StudyInterface);
@@ -43,6 +47,11 @@ export const StudyEdit: React.FC<Props> = (props) => {
     }
   }
 
+  const handleImageClick = (e: React.MouseEvent) => {
+    e.preventDefault();
+    props.toggleImageEditor(true);
+  }
+
   React.useEffect(() => { setStudy(props.study) }, [props.study]);
 
   if (redirect !== "") return <Redirect to={redirect} />
@@ -50,6 +59,11 @@ export const StudyEdit: React.FC<Props> = (props) => {
     <InputBox id="studyDetailsBox" headerText="Edit Study" headerIcon="fas fa-list" saveFunction={handleSave} cancelFunction={handleCancel} deleteFunction={handleDelete}>
       <ErrorMessages errors={errors} />
       <Row>
+        <Col sm={3}>
+          <a href="about:blank" className="d-block" onClick={handleImageClick}>
+            <img src={study.image} className="img-fluid profilePic d-block mx-auto" id="imgPreview" alt="study photo" />
+          </a>
+        </Col>
         <Col>
           <FormGroup>
             <FormLabel>Study Name</FormLabel>
