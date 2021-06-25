@@ -21,6 +21,9 @@ export const StudyEdit: React.FC<Props> = (props) => {
     let p = { ...study };
     switch (e.currentTarget.name) {
       case "name": p.name = e.currentTarget.value; break;
+      case "shortDescription": p.shortDescription = e.currentTarget.value; break;
+      case "description": p.description = e.currentTarget.value; break;
+      case "videoEmbedUrl": p.videoEmbedUrl = e.currentTarget.value; break;
     }
     setStudy(p);
   }
@@ -61,7 +64,7 @@ export const StudyEdit: React.FC<Props> = (props) => {
       <Row>
         <Col sm={3}>
           <a href="about:blank" className="d-block" onClick={handleImageClick}>
-            <img src={study.image || "/images/blank.png"} className="img-fluid profilePic d-block mx-auto" id="imgPreview" alt="study photo" />
+            <img src={study.image || "/images/blank.png"} className="img-fluid profilePic d-block mx-auto" id="imgPreview" alt="study" />
           </a>
         </Col>
         <Col sm={9}>
@@ -69,8 +72,20 @@ export const StudyEdit: React.FC<Props> = (props) => {
             <FormLabel>Study Name</FormLabel>
             <FormControl type="text" name="name" value={study.name} onChange={handleChange} onKeyDown={handleKeyDown} />
           </FormGroup>
+          <FormGroup>
+            <FormLabel>One-Line Description</FormLabel>
+            <FormControl type="text" name="shortDescription" value={study.shortDescription} onChange={handleChange} onKeyDown={handleKeyDown} />
+          </FormGroup>
         </Col>
       </Row>
+      <FormGroup>
+        <FormLabel>Description</FormLabel>
+        <FormControl as="textarea" type="text" name="description" value={study.description} onChange={handleChange} onKeyDown={handleKeyDown} />
+      </FormGroup>
+      <FormGroup>
+        <FormLabel>Video Embed Url</FormLabel>
+        <FormControl type="text" name="videoEmbedUrl" value={study.videoEmbedUrl} onChange={handleChange} onKeyDown={handleKeyDown} />
+      </FormGroup>
     </InputBox>
   );
 }

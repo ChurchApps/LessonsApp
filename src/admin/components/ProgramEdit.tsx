@@ -1,5 +1,5 @@
 import React from "react";
-import { ApiHelper, GroupInterface, InputBox, ErrorMessages, ProgramInterface } from ".";
+import { ApiHelper, InputBox, ErrorMessages, ProgramInterface } from ".";
 import { Redirect } from "react-router-dom";
 import { Row, Col, FormGroup, FormControl, FormLabel } from "react-bootstrap";
 
@@ -66,7 +66,7 @@ export const ProgramEdit: React.FC<Props> = (props) => {
       <Row>
         <Col sm={3}>
           <a href="about:blank" className="d-block" onClick={handleImageClick}>
-            <img src={program.image || "/images/blank.png"} className="img-fluid profilePic d-block mx-auto" id="imgPreview" alt="program photo" />
+            <img src={program.image || "/images/blank.png"} className="img-fluid profilePic d-block mx-auto" id="imgPreview" alt="program" />
           </a>
         </Col>
         <Col sm={9}>

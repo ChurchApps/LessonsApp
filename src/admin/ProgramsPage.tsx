@@ -18,7 +18,7 @@ export const ProgramsPage = () => {
     const result: JSX.Element[] = [];
     programs.forEach(p => {
       result.push(<tr>
-        <td className="imgCol"><img src={p.image || "/images/blank.png"} className="img-fluid" alt="program photo" /></td>
+        <td className="imgCol"><img src={p.image || "/images/blank.png"} className="img-fluid" alt="program" /></td>
         <td><Link to={"/admin/programs/" + p.id}>{p.name}</Link></td>
       </tr>);
     });

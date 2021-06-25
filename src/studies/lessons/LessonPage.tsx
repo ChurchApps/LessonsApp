@@ -1,5 +1,5 @@
 import React from "react";
-import { Header, Footer, Classroom, AtHome } from "./components"
+import { Classroom, AtHome } from "./components"
 import { Container, Accordion } from "react-bootstrap"
 
 

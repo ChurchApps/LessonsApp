@@ -17,7 +17,7 @@ export const LessonList: React.FC<Props> = (props) => {
     const result: JSX.Element[] = [];
     lessons.forEach(l => {
       result.push(<tr>
-        <td className="imgCol"><img src={l.image || "/images/blank.png"} className="img-fluid" alt="lesson photo" /></td>
+        <td className="imgCol"><img src={l.image || "/images/blank.png"} className="img-fluid" alt="lesson" /></td>
         <td><Link to={"/admin/lessons/" + l.id}>{l.name + ": " + l.title}</Link></td>
       </tr>);
     });

@@ -63,7 +63,7 @@ export const LessonEdit: React.FC<Props> = (props) => {
       <Row>
         <Col sm={3}>
           <a href="about:blank" className="d-block" onClick={handleImageClick}>
-            <img src={lesson.image || "/images/blank.png"} className="img-fluid profilePic d-block mx-auto" id="imgPreview" alt="lesson photo" />
+            <img src={lesson.image || "/images/blank.png"} className="img-fluid profilePic d-block mx-auto" id="imgPreview" alt="lesson" />
           </a>
         </Col>
         <Col sm={9}>

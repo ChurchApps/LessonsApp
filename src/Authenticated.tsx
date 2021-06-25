@@ -1,6 +1,6 @@
 import React from "react";
 import { Switch, Route, Redirect } from "react-router-dom";
-import { Header, UserHelper } from "./components";
+import { UserHelper } from "./components";
 import { AdminRoutes } from "./admin/AdminRoutes";
 // import UserContext from "./UserContext";
 

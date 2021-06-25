@@ -17,7 +17,8 @@ export const Study: React.FC<Props> = (props) => {
         </Col>
         <Col xl={9}>
           <h3>{props.study.name}</h3>
-          <p>{props.study.name}</p>
+          <p><i>{props.study.shortDescription}</i></p>
+          <p>{props.study.description}</p>
         </Col>
       </Row>
     </Link>

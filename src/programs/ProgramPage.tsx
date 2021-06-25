@@ -1,5 +1,5 @@
 import React from "react";
-import { Loading, Study, ProgramInterface, ProviderInterface, ApiHelper, Studies } from "./components"
+import { Loading, ProgramInterface, ProviderInterface, ApiHelper, Studies } from "./components"
 import { Container } from "react-bootstrap"
 import { RouteComponentProps } from "react-router-dom";
 

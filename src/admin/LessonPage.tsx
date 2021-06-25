@@ -30,7 +30,7 @@ export const LessonPage = ({ match }: RouteComponentProps<TParams>) => {
     if (!lesson) return <Loading />
     return (<Row>
       <Col sm={3}>
-        <img src={lesson.image || "/images/blank.png"} className="img-fluid" alt="lesson photo" />
+        <img src={lesson.image || "/images/blank.png"} className="img-fluid" alt="lesson" />
       </Col>
       <Col><b>Name:</b> {lesson.name}</Col>
     </Row>);

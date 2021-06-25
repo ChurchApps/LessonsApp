@@ -1,7 +1,6 @@
 import React from "react";
 import { DisplayBox, StudyList, ProgramEdit, ProgramInterface, ApiHelper, Loading, ImageEditor } from "./components"
 import { Row, Col } from "react-bootstrap"
-import { Link } from "react-router-dom"
 import { RouteComponentProps } from "react-router-dom";
 
 type TParams = { id?: string };
@@ -24,7 +23,7 @@ export const ProgramPage = ({ match }: RouteComponentProps<TParams>) => {
     if (!program) return <Loading />
     return (<Row>
       <Col sm={3}>
-        <img src={program.image || "/images/blank.png"} className="img-fluid" id="imgPreview" alt="program photo" />
+        <img src={program.image || "/images/blank.png"} className="img-fluid" id="imgPreview" alt="program" />
       </Col>
       <Col sm={9}><b>Name:</b> {program.name}</Col>
     </Row>);
