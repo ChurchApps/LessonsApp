@@ -6,8 +6,6 @@ import { Container, Row, Col, Button } from "react-bootstrap"
 
 export const Home = () => {
   return (<>
-    <link rel="stylesheet" href="/css/cp.css" />
-    <Header />
 
     <div id="hero">
       <Container>
@@ -45,6 +43,6 @@ export const Home = () => {
     <HomeStudies />
     <HomePrograms />
 
-    <Footer />
+
   </>);
 }
