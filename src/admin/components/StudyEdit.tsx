@@ -1,18 +1,17 @@
 import React from "react";
 import { ApiHelper, InputBox, ErrorMessages, StudyInterface } from ".";
 import { Redirect } from "react-router-dom";
-import { Row, Col, FormGroup, FormControl, FormLabel } from "react-bootstrap";
+import { FormGroup, FormControl, FormLabel } from "react-bootstrap";
 
 interface Props {
   study: StudyInterface,
-  updatedCallback: (study: StudyInterface) => void,
-  toggleImageEditor: (show: boolean) => void,
+  updatedCallback: (study: StudyInterface) => void
 }
 
 export const StudyEdit: React.FC<Props> = (props) => {
   const [study, setStudy] = React.useState<StudyInterface>({} as StudyInterface);
   const [errors, setErrors] = React.useState([]);
-  const [redirect, setRedirect] = React.useState("");
+  const [showImageEditor, setShowImageEditor] = React.useState<boolean>(false);
 
   const handleCancel = () => props.updatedCallback(study);
   const handleKeyDown = (e: React.KeyboardEvent<any>) => { if (e.key === "Enter") { e.preventDefault(); handleSave(); } }
@@ -26,6 +25,13 @@ export const StudyEdit: React.FC<Props> = (props) => {
       case "videoEmbedUrl": p.videoEmbedUrl = e.currentTarget.value; break;
     }
     setStudy(p);
+  }
+
+  const handleImageUpdated = (dataUrl: string) => {
+    const s = { ...study };
+    s.image = dataUrl;
+    setStudy(s);
+    setShowImageEditor(false);
   }
 
   const validate = () => {
@@ -46,38 +52,32 @@ export const StudyEdit: React.FC<Props> = (props) => {
 
   const handleDelete = () => {
     if (window.confirm("Are you sure you wish to permanently delete this study?")) {
-      ApiHelper.delete("/studies/" + study.id.toString(), "LessonsApi").then(() => setRedirect("/admin"));
+      ApiHelper.delete("/studies/" + study.id.toString(), "LessonsApi").then(() => props.updatedCallback(null));
     }
   }
 
   const handleImageClick = (e: React.MouseEvent) => {
     e.preventDefault();
-    props.toggleImageEditor(true);
+    setShowImageEditor(true);
   }
 
   React.useEffect(() => { setStudy(props.study) }, [props.study]);
 
-  if (redirect !== "") return <Redirect to={redirect} />
-  else return (
+  return (<>
     <InputBox id="studyDetailsBox" headerText="Edit Study" headerIcon="fas fa-list" saveFunction={handleSave} cancelFunction={handleCancel} deleteFunction={handleDelete}>
       <ErrorMessages errors={errors} />
-      <Row>
-        <Col sm={3}>
-          <a href="about:blank" className="d-block" onClick={handleImageClick}>
-            <img src={study.image || "/images/blank.png"} className="img-fluid profilePic d-block mx-auto" id="imgPreview" alt="study" />
-          </a>
-        </Col>
-        <Col sm={9}>
-          <FormGroup>
-            <FormLabel>Study Name</FormLabel>
-            <FormControl type="text" name="name" value={study.name} onChange={handleChange} onKeyDown={handleKeyDown} />
-          </FormGroup>
-          <FormGroup>
-            <FormLabel>One-Line Description</FormLabel>
-            <FormControl type="text" name="shortDescription" value={study.shortDescription} onChange={handleChange} onKeyDown={handleKeyDown} />
-          </FormGroup>
-        </Col>
-      </Row>
+
+      <a href="about:blank" className="d-block" onClick={handleImageClick}>
+        <img src={study.image || "/images/blank.png"} className="img-fluid profilePic d-block mx-auto" id="imgPreview" alt="study" />
+      </a><br />
+      <FormGroup>
+        <FormLabel>Study Name</FormLabel>
+        <FormControl type="text" name="name" value={study.name} onChange={handleChange} onKeyDown={handleKeyDown} />
+      </FormGroup>
+      <FormGroup>
+        <FormLabel>One-Line Description</FormLabel>
+        <FormControl type="text" name="shortDescription" value={study.shortDescription} onChange={handleChange} onKeyDown={handleKeyDown} />
+      </FormGroup>
       <FormGroup>
         <FormLabel>Description</FormLabel>
         <FormControl as="textarea" type="text" name="description" value={study.description} onChange={handleChange} onKeyDown={handleKeyDown} />
@@ -87,5 +87,5 @@ export const StudyEdit: React.FC<Props> = (props) => {
         <FormControl type="text" name="videoEmbedUrl" value={study.videoEmbedUrl} onChange={handleChange} onKeyDown={handleKeyDown} />
       </FormGroup>
     </InputBox>
-  );
+  </>);
 }

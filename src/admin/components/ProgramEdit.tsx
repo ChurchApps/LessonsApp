@@ -1,18 +1,16 @@
 import React from "react";
-import { ApiHelper, InputBox, ErrorMessages, ProgramInterface } from ".";
-import { Redirect } from "react-router-dom";
-import { Row, Col, FormGroup, FormControl, FormLabel } from "react-bootstrap";
+import { ApiHelper, InputBox, ErrorMessages, ProgramInterface, ImageEditor } from ".";
+import { FormGroup, FormControl, FormLabel } from "react-bootstrap";
 
 interface Props {
   program: ProgramInterface,
-  updatedCallback: (program: ProgramInterface) => void,
-  toggleImageEditor: (show: boolean) => void,
+  updatedCallback: (program: ProgramInterface) => void
 }
 
 export const ProgramEdit: React.FC<Props> = (props) => {
   const [program, setProgram] = React.useState<ProgramInterface>({} as ProgramInterface);
   const [errors, setErrors] = React.useState([]);
-  const [redirect, setRedirect] = React.useState("");
+  const [showImageEditor, setShowImageEditor] = React.useState<boolean>(false);
 
   const handleCancel = () => props.updatedCallback(program);
   const handleKeyDown = (e: React.KeyboardEvent<any>) => { if (e.key === "Enter") { e.preventDefault(); handleSave(); } }
@@ -26,6 +24,13 @@ export const ProgramEdit: React.FC<Props> = (props) => {
       case "videoEmbedUrl": p.videoEmbedUrl = e.currentTarget.value; break;
     }
     setProgram(p);
+  }
+
+  const handleImageUpdated = (dataUrl: string) => {
+    const p = { ...program };
+    p.image = dataUrl;
+    setProgram(p);
+    setShowImageEditor(false);
   }
 
   const validate = () => {
@@ -46,40 +51,41 @@ export const ProgramEdit: React.FC<Props> = (props) => {
 
   const handleDelete = () => {
     if (window.confirm("Are you sure you wish to permanently delete this program?")) {
-      ApiHelper.delete("/programs/" + program.id.toString(), "LessonsApi").then(() => setRedirect("/admin"));
+      ApiHelper.delete("/programs/" + program.id.toString(), "LessonsApi").then(() => props.updatedCallback(null));
     }
   }
 
 
   const handleImageClick = (e: React.MouseEvent) => {
     e.preventDefault();
-    props.toggleImageEditor(true);
+    setShowImageEditor(true);
   }
 
 
   React.useEffect(() => { setProgram(props.program) }, [props.program]);
 
-  if (redirect !== "") return <Redirect to={redirect} />
-  else return (
+
+  const getImageEditor = () => {
+    if (showImageEditor) return (<ImageEditor updatedFunction={handleImageUpdated} imageUrl={program.image} onCancel={() => setShowImageEditor(false)} />)
+  }
+
+
+  return (<>
+    {getImageEditor()}
     <InputBox id="programDetailsBox" headerText="Edit Program" headerIcon="fas fa-list" saveFunction={handleSave} cancelFunction={handleCancel} deleteFunction={handleDelete}>
       <ErrorMessages errors={errors} />
-      <Row>
-        <Col sm={3}>
-          <a href="about:blank" className="d-block" onClick={handleImageClick}>
-            <img src={program.image || "/images/blank.png"} className="img-fluid profilePic d-block mx-auto" id="imgPreview" alt="program" />
-          </a>
-        </Col>
-        <Col sm={9}>
-          <FormGroup>
-            <FormLabel>Program Name</FormLabel>
-            <FormControl type="text" name="name" value={program.name} onChange={handleChange} onKeyDown={handleKeyDown} />
-          </FormGroup>
-          <FormGroup>
-            <FormLabel>One-Line Description</FormLabel>
-            <FormControl type="text" name="shortDescription" value={program.shortDescription} onChange={handleChange} onKeyDown={handleKeyDown} />
-          </FormGroup>
-        </Col>
-      </Row>
+      <a href="about:blank" className="d-block" onClick={handleImageClick}>
+        <img src={program.image || "/images/blank.png"} className="img-fluid profilePic d-block mx-auto" id="imgPreview" alt="program" />
+      </a><br />
+      <FormGroup>
+        <FormLabel>Program Name</FormLabel>
+        <FormControl type="text" name="name" value={program.name} onChange={handleChange} onKeyDown={handleKeyDown} />
+      </FormGroup>
+      <FormGroup>
+        <FormLabel>One-Line Description</FormLabel>
+        <FormControl type="text" name="shortDescription" value={program.shortDescription} onChange={handleChange} onKeyDown={handleKeyDown} />
+      </FormGroup>
+
       <FormGroup>
         <FormLabel>Description</FormLabel>
         <FormControl as="textarea" type="text" name="description" value={program.description} onChange={handleChange} onKeyDown={handleKeyDown} />
@@ -89,5 +95,5 @@ export const ProgramEdit: React.FC<Props> = (props) => {
         <FormControl type="text" name="videoEmbedUrl" value={program.videoEmbedUrl} onChange={handleChange} onKeyDown={handleKeyDown} />
       </FormGroup>
     </InputBox>
-  );
+  </>);
 }
