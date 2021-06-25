@@ -8,7 +8,7 @@ export const LessonList: React.FC<Props> = (props) => {
   const [lessons, setLessons] = React.useState<LessonInterface[]>(null);
 
   const loadData = () => {
-    ApiHelper.getAnonymous("/lessons/study/" + props.studyId, "LessonsApi").then((data: any) => {
+    ApiHelper.get("/lessons/study/" + props.studyId, "LessonsApi").then((data: any) => {
       setLessons(data);
     });
   };

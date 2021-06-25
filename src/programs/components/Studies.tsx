@@ -8,7 +8,7 @@ interface Props {
 export const Studies: React.FC<Props> = (props) => {
   const [studies, setStudies] = React.useState<StudyInterface[]>(null);
   const loadData = () => {
-    ApiHelper.getAnonymous("/studies/program/" + props.programId, "LessonsApi").then((data: StudyInterface[]) => { setStudies(data); });
+    ApiHelper.getAnonymous("/studies/public/program/" + props.programId, "LessonsApi").then((data: StudyInterface[]) => { setStudies(data); });
   };
 
   React.useEffect(loadData, []);

@@ -12,9 +12,9 @@ export const StudyPage = ({ match }: RouteComponentProps<TParams>) => {
   const [study, setStudy] = React.useState<StudyInterface>(null);
 
   const loadData = () => {
-    ApiHelper.getAnonymous("/studies/" + match.params.id, "LessonsApi").then((data: StudyInterface) => {
+    ApiHelper.getAnonymous("/studies/public/" + match.params.id, "LessonsApi").then((data: StudyInterface) => {
       setStudy(data);
-      ApiHelper.getAnonymous("/programs/" + data.programId, "LessonsApi").then((data: ProgramInterface) => { setProgram(data); });
+      ApiHelper.getAnonymous("/programs/public/" + data.programId, "LessonsApi").then((data: ProgramInterface) => { setProgram(data); });
     });
   };
 

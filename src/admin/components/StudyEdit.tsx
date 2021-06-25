@@ -1,6 +1,5 @@
 import React from "react";
 import { ApiHelper, InputBox, ErrorMessages, StudyInterface, ImageEditor } from ".";
-import { Redirect } from "react-router-dom";
 import { FormGroup, FormControl, FormLabel } from "react-bootstrap";
 
 interface Props {

@@ -12,9 +12,9 @@ export const ProgramPage = ({ match }: RouteComponentProps<TParams>) => {
   const [provider, setProvider] = React.useState<ProviderInterface>(null);
 
   const loadData = () => {
-    ApiHelper.getAnonymous("/programs/" + match.params.id, "LessonsApi").then((data: ProgramInterface) => {
+    ApiHelper.getAnonymous("/programs/public/" + match.params.id, "LessonsApi").then((data: ProgramInterface) => {
       setProgram(data);
-      ApiHelper.getAnonymous("/providers/" + data.providerId, "LessonsApi").then((data: any) => { setProvider(data); });
+      ApiHelper.getAnonymous("/providers/public/" + data.providerId, "LessonsApi").then((data: any) => { setProvider(data); });
     });
   };
 

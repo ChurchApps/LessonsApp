@@ -10,7 +10,7 @@ export const HomePrograms = () => {
   const [providers, setProviders] = React.useState<ProviderInterface[]>(null);
 
   const loadData = () => {
-    ApiHelper.getAnonymous("/programs", "LessonsApi").then((data: any) => { setPrograms(data); });
+    ApiHelper.getAnonymous("/programs/public", "LessonsApi").then((data: any) => { setPrograms(data); });
     ApiHelper.getAnonymous("/providers/public", "LessonsApi").then((data: any) => { setProviders(data); });
   };
 

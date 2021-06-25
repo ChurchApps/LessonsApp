@@ -1,6 +1,5 @@
 import React from "react";
 import { DisplayBox, ApiHelper, Loading, ProgramInterface, StudyInterface, LessonInterface, ProgramEdit, StudyEdit, LessonEdit } from "./components"
-import { Link } from "react-router-dom"
 import { Row, Col } from "react-bootstrap";
 
 
@@ -13,7 +12,7 @@ export const AdminPage = () => {
   const [editLesson, setEditLesson] = React.useState<LessonInterface>(null);
 
   const loadData = () => {
-    ApiHelper.getAnonymous("/programs/provider/1", "LessonsApi").then((data: any) => { setPrograms(data); });
+    ApiHelper.get("/programs/provider/1", "LessonsApi").then((data: any) => { setPrograms(data); });
     ApiHelper.get("/studies", "LessonsApi").then((data: any) => { setStudies(data); });
     ApiHelper.get("/lessons", "LessonsApi").then((data: any) => { setLessons(data); });
   };
