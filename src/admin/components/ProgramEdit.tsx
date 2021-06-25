@@ -21,6 +21,9 @@ export const ProgramEdit: React.FC<Props> = (props) => {
     let p = { ...program };
     switch (e.currentTarget.name) {
       case "name": p.name = e.currentTarget.value; break;
+      case "shortDescription": p.shortDescription = e.currentTarget.value; break;
+      case "description": p.description = e.currentTarget.value; break;
+      case "videoEmbedUrl": p.videoEmbedUrl = e.currentTarget.value; break;
     }
     setProgram(p);
   }
@@ -71,8 +74,20 @@ export const ProgramEdit: React.FC<Props> = (props) => {
             <FormLabel>Program Name</FormLabel>
             <FormControl type="text" name="name" value={program.name} onChange={handleChange} onKeyDown={handleKeyDown} />
           </FormGroup>
+          <FormGroup>
+            <FormLabel>One-Line Description</FormLabel>
+            <FormControl type="text" name="shortDescription" value={program.shortDescription} onChange={handleChange} onKeyDown={handleKeyDown} />
+          </FormGroup>
         </Col>
       </Row>
+      <FormGroup>
+        <FormLabel>Description</FormLabel>
+        <FormControl as="textarea" type="text" name="description" value={program.description} onChange={handleChange} onKeyDown={handleKeyDown} />
+      </FormGroup>
+      <FormGroup>
+        <FormLabel>Video Embed Url</FormLabel>
+        <FormControl type="text" name="videoEmbedUrl" value={program.videoEmbedUrl} onChange={handleChange} onKeyDown={handleKeyDown} />
+      </FormGroup>
     </InputBox>
   );
 }
