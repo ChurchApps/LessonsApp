@@ -27,7 +27,8 @@ export const AdminPage = () => {
     const result: JSX.Element[] = [];
     programs.forEach(p => {
       result.push(<tr className="programRow">
-        <td><a href="about:blank" onClick={(e) => { e.preventDefault(); clearEdits(); setEditProgram(p) }}>{p.name}</a></td>
+        <td><a href="about:blank" onClick={(e) => { e.preventDefault(); clearEdits(); setEditProgram(p) }}><i className="fas fa-graduation-cap"></i> {p.name}</a></td>
+        <td><a href="about:blank" onClick={(e) => { e.preventDefault(); clearEdits(); setEditStudy({ programId: p.id }) }}><i className="fas fa-plus"></i></a></td>
       </tr>);
       getStudies(p.id).forEach(i => result.push(i));
     });
@@ -38,7 +39,8 @@ export const AdminPage = () => {
     const result: JSX.Element[] = [];
     studies?.forEach(s => {
       result.push(<tr className="studyRow">
-        <td><a href="about:blank" onClick={(e) => { e.preventDefault(); clearEdits(); setEditStudy(s) }}>{s.name}</a></td>
+        <td><a href="about:blank" onClick={(e) => { e.preventDefault(); clearEdits(); setEditStudy(s) }}><i className="fas fa-layer-group"></i> {s.name}</a></td>
+        <td><a href="about:blank" onClick={(e) => { e.preventDefault(); clearEdits(); setEditLesson({ studyId: s.id }) }}><i className="fas fa-plus"></i></a></td>
       </tr>);
       getLessons(s.id).forEach(i => result.push(i));
     });
@@ -49,7 +51,7 @@ export const AdminPage = () => {
     const result: JSX.Element[] = [];
     lessons?.forEach(l => {
       result.push(<tr className="lessonRow">
-        <td><a href="about:blank" onClick={(e) => { e.preventDefault(); clearEdits(); setEditLesson(l) }}>{l.name}</a></td>
+        <td colSpan={2}><a href="about:blank" onClick={(e) => { e.preventDefault(); clearEdits(); setEditLesson(l) }}><i className="fas fa-book"></i> {l.name}: {l.title}</a></td>
       </tr>);
     });
     return result;
@@ -74,11 +76,15 @@ export const AdminPage = () => {
     return result;
   }
 
+  const getEditContent = () => {
+    return (<a href="about:blank" onClick={(e) => { e.preventDefault(); clearEdits(); setEditProgram({}) }}><i className="fas fa-plus"></i></a>);
+  }
+
   return (<>
     <h1>Programs</h1>
     <Row>
       <Col lg={8}>
-        <DisplayBox headerText="Programs" headerIcon="none" >
+        <DisplayBox headerText="Programs" headerIcon="none" editContent={getEditContent()} >
           {getTable()}
         </DisplayBox>
       </Col>

@@ -1,6 +1,6 @@
 import React from "react";
-import { Loading, ProgramInterface, StudyInterface, ApiHelper, Lesson } from "./components"
-import { Container } from "react-bootstrap"
+import { Loading, ProgramInterface, StudyInterface, ApiHelper, Lessons } from "./components"
+import { Container, Row, Col } from "react-bootstrap"
 import { RouteComponentProps } from "react-router-dom";
 
 type TParams = { id?: string };
@@ -25,6 +25,7 @@ export const StudyPage = ({ match }: RouteComponentProps<TParams>) => {
     if (study.videoEmbedUrl) return (<div className="videoWrapper">
       <iframe width="992" height="558" src={study.videoEmbedUrl} title="YouTube video player" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowFullScreen></iframe>
     </div>);
+    else return <Row><Col lg={{ span: 8, offset: 2 }} ><img src={study.image} className="img-fluid profilePic" alt={study.name} /><br /><br /></Col></Row >
   }
 
   const getStudy = () => {
@@ -45,14 +46,7 @@ export const StudyPage = ({ match }: RouteComponentProps<TParams>) => {
     <div className="pageSection">
       <Container>
         {getStudy()}
-
-        <h2>Lessons</h2>
-
-        <Lesson videoId="b_C1a_SOMWU" title="Power Up Week 1" description="When Ethel and Rusty unleash a giant chocolate bunny on the lab, they quickly realize why it's a good idea to obey. Check out this special Easter episode of The Adventures of Herman and Rusty." />
-        <Lesson videoId="tQB0qhw4j4I" title="Power Up Week 2" description="When Ethel's video goes viral, Skip convinces her to abandon her friends and live a celebrity life. It's up to Herman and Hannah to help her choose the humble attitude." />
-        <Lesson videoId="vKTg0io5RGs" title="Power Up Week 3" description="Rusty refuses to stop playing  Fornite, even though the lab is in danger of blowing up." />
-        <Lesson videoId="0xird8Ucvnw" title="Power Up Week 4" description="Herman is hosting game night at the lab, but things go awry when temptation gets the best of Rusty." />
-
+        <Lessons studyId={study?.id} />
       </Container>
     </div>
   );

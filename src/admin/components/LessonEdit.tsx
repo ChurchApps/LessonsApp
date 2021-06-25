@@ -1,7 +1,6 @@
 import React from "react";
 import { ApiHelper, InputBox, ErrorMessages, LessonInterface, ImageEditor } from ".";
-import { Redirect } from "react-router-dom";
-import { Row, Col, FormGroup, FormControl, FormLabel } from "react-bootstrap";
+import { FormGroup, FormControl, FormLabel, Row, Col } from "react-bootstrap";
 
 interface Props {
   lesson: LessonInterface,
@@ -20,6 +19,11 @@ export const LessonEdit: React.FC<Props> = (props) => {
     let p = { ...lesson };
     switch (e.currentTarget.name) {
       case "name": p.name = e.currentTarget.value; break;
+      case "title": p.title = e.currentTarget.value; break;
+      case "description": p.description = e.currentTarget.value; break;
+      case "live": p.live = e.currentTarget.value === "true"; break;
+      case "sort": p.sort = parseInt(e.currentTarget.value); break;
+
     }
     setLesson(p);
   }
@@ -69,21 +73,40 @@ export const LessonEdit: React.FC<Props> = (props) => {
 
   return (<>
     {getImageEditor()}
-    <InputBox id="lessonDetailsBox" headerText="Edit Lesson" headerIcon="fas fa-list" saveFunction={handleSave} cancelFunction={handleCancel} deleteFunction={handleDelete}>
+    <InputBox id="lessonDetailsBox" headerText="Edit Lesson" headerIcon="fas fa-book" saveFunction={handleSave} cancelFunction={handleCancel} deleteFunction={handleDelete}>
       <ErrorMessages errors={errors} />
       <a href="about:blank" className="d-block" onClick={handleImageClick}>
         <img src={lesson.image || "/images/blank.png"} className="img-fluid profilePic d-block mx-auto" id="imgPreview" alt="lesson" />
       </a><br />
-      <FormGroup>
-        <FormLabel>Live</FormLabel>
-        <FormControl as="select" name="live" value={lesson.live?.toString()} onChange={handleChange}>
-          <option value="false">No</option>
-          <option value="true">Yes</option>
-        </FormControl>
-      </FormGroup>
+      <Row>
+        <Col>
+          <FormGroup>
+            <FormLabel>Live</FormLabel>
+            <FormControl as="select" name="live" value={lesson.live?.toString()} onChange={handleChange}>
+              <option value="false">No</option>
+              <option value="true">Yes</option>
+            </FormControl>
+          </FormGroup>
+        </Col>
+        <Col>
+          <FormGroup>
+            <FormLabel>Order</FormLabel>
+            <FormControl type="number" name="sort" value={lesson.sort} onChange={handleChange} onKeyDown={handleKeyDown} placeholder="1" />
+          </FormGroup>
+        </Col>
+      </Row>
+
       <FormGroup>
         <FormLabel>Lesson Name</FormLabel>
-        <FormControl type="text" name="name" value={lesson.name} onChange={handleChange} onKeyDown={handleKeyDown} />
+        <FormControl type="text" name="name" value={lesson.name} onChange={handleChange} onKeyDown={handleKeyDown} placeholder="Lesson 1" />
+      </FormGroup>
+      <FormGroup>
+        <FormLabel>Title</FormLabel>
+        <FormControl type="text" name="title" value={lesson.title} onChange={handleChange} onKeyDown={handleKeyDown} placeholder="Jesus Feeds 5,000" />
+      </FormGroup>
+      <FormGroup>
+        <FormLabel>Description</FormLabel>
+        <FormControl as="textarea" type="text" name="description" value={lesson.description} onChange={handleChange} onKeyDown={handleKeyDown} />
       </FormGroup>
     </InputBox>
   </>);

@@ -72,7 +72,7 @@ export const ProgramEdit: React.FC<Props> = (props) => {
 
   return (<>
     {getImageEditor()}
-    <InputBox id="programDetailsBox" headerText="Edit Program" headerIcon="fas fa-list" saveFunction={handleSave} cancelFunction={handleCancel} deleteFunction={handleDelete}>
+    <InputBox id="programDetailsBox" headerText="Edit Program" headerIcon="fas fa-graduation-cap" saveFunction={handleSave} cancelFunction={handleCancel} deleteFunction={handleDelete}>
       <ErrorMessages errors={errors} />
       <a href="about:blank" className="d-block" onClick={handleImageClick}>
         <img src={program.image || "/images/blank.png"} className="img-fluid profilePic d-block mx-auto" id="imgPreview" alt="program" />

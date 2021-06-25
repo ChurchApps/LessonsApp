@@ -4,7 +4,7 @@ export * from "../appBase/interfaces";
 export interface ProviderInterface { id?: string, name?: string, }
 export interface ProgramInterface { id?: string, providerId?: string, name?: string, image?: string, shortDescription?: string, description?: string, videoEmbedUrl?: string }
 export interface StudyInterface { id?: string, programId?: string, name?: string, image?: string, shortDescription?: string, description?: string, videoEmbedUrl?: string }
-export interface LessonInterface { id?: string, studyId?: string, name?: string, title: string, image?: string, description: string, live: boolean }
+export interface LessonInterface { id?: string, studyId?: string, name?: string, title?: string, image?: string, description?: string, live?: boolean, sort?: number }
 
 
 export interface VenueInterface { name?: string, sections?: SectionInterface[] }

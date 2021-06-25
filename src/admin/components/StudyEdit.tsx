@@ -1,5 +1,5 @@
 import React from "react";
-import { ApiHelper, InputBox, ErrorMessages, StudyInterface } from ".";
+import { ApiHelper, InputBox, ErrorMessages, StudyInterface, ImageEditor } from ".";
 import { Redirect } from "react-router-dom";
 import { FormGroup, FormControl, FormLabel } from "react-bootstrap";
 
@@ -63,8 +63,15 @@ export const StudyEdit: React.FC<Props> = (props) => {
 
   React.useEffect(() => { setStudy(props.study) }, [props.study]);
 
+
+  const getImageEditor = () => {
+    if (showImageEditor) return (<ImageEditor updatedFunction={handleImageUpdated} imageUrl={study.image} onCancel={() => setShowImageEditor(false)} />)
+  }
+
+
   return (<>
-    <InputBox id="studyDetailsBox" headerText="Edit Study" headerIcon="fas fa-list" saveFunction={handleSave} cancelFunction={handleCancel} deleteFunction={handleDelete}>
+    {getImageEditor()}
+    <InputBox id="studyDetailsBox" headerText="Edit Study" headerIcon="fas fa-layer-group" saveFunction={handleSave} cancelFunction={handleCancel} deleteFunction={handleDelete}>
       <ErrorMessages errors={errors} />
 
       <a href="about:blank" className="d-block" onClick={handleImageClick}>
