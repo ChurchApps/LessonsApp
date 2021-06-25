@@ -1,23 +1,50 @@
 import React from "react";
-import { Lesson } from "./components"
+import { Loading, ProgramInterface, StudyInterface, ApiHelper, Lesson } from "./components"
 import { Container } from "react-bootstrap"
+import { RouteComponentProps } from "react-router-dom";
+
+type TParams = { id?: string };
 
 
-export const StudyPage = () => {
+export const StudyPage = ({ match }: RouteComponentProps<TParams>) => {
+
+  const [program, setProgram] = React.useState<ProgramInterface>(null);
+  const [study, setStudy] = React.useState<StudyInterface>(null);
+
+  const loadData = () => {
+    ApiHelper.getAnonymous("/studies/" + match.params.id, "LessonsApi").then((data: StudyInterface) => {
+      setStudy(data);
+      ApiHelper.getAnonymous("/programs/" + data.programId, "LessonsApi").then((data: ProgramInterface) => { setProgram(data); });
+    });
+  };
+
+  React.useEffect(loadData, []);
+
+
+  const getVideo = () => {
+    if (study.videoEmbedUrl) return (<div className="videoWrapper">
+      <iframe width="992" height="558" src={study.videoEmbedUrl} title="YouTube video player" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowFullScreen></iframe>
+    </div>);
+  }
+
+  const getStudy = () => {
+    if (!program) return <Loading />
+    else return (<>
+      <div className="text-center">
+        <h2>{program?.name || ""}: <span>{study.name}</span></h2>
+        <p><i>{study.shortDescription}</i></p>
+      </div>
+      <p>{study.description}</p>
+      {getVideo()}
+    </>);
+  }
+
+
+
   return (
     <div className="pageSection">
       <Container>
-        <div className="text-center">
-          <h2>The Ark Kids: <span>Power Up Elementary</span></h2>
-          <p><i>An ongoing series for 1st-5th graders</i></p>
-        </div>
-
-        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam non tincidunt ante. Cras tortor ipsum, lacinia nec lorem in, lobortis pulvinar risus. Aenean mollis mauris quis ullamcorper placerat. Vestibulum dictum fringilla libero ac faucibus. Sed sollicitudin felis sed fermentum egestas. In et magna consequat, aliquam sapien venenatis, mollis arcu. Nullam fringilla diam non elit luctus, vel tristique metus ultrices. Integer finibus vulputate lectus, ut vestibulum est euismod a. Pellentesque commodo dui et consequat vestibulum. Curabitur non faucibus magna. Praesent laoreet porttitor consequat.</p>
-
-        <div className="videoWrapper">
-          <iframe width="992" height="558" src="https://www.youtube.com/embed/M9Gq-vmEdR8" title="YouTube video player" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowFullScreen></iframe>
-        </div>
-        <br />
+        {getStudy()}
 
         <h2>Lessons</h2>
 

@@ -38,7 +38,7 @@ export const Routes = () => {
 
       <Switch>
         <Route path="/studies/:studyId/lessons/:id" component={LessonPage}></Route>
-        <Route path="/studies"><StudyPage /></Route>
+        <Route path="/studies/:id" component={StudyPage}></Route>
         <Route path="/programs/:id" component={ProgramPage}></Route>
         <Route exact={true} path="/"><Home /></Route>
         <Route path="/logout"><Logout /></Route>
