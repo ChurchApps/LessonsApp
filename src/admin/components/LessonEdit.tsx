@@ -3,7 +3,11 @@ import { ApiHelper, InputBox, ErrorMessages, LessonInterface } from ".";
 import { Redirect } from "react-router-dom";
 import { Row, Col, FormGroup, FormControl, FormLabel } from "react-bootstrap";
 
-interface Props { lesson: LessonInterface, updatedCallback: (lesson: LessonInterface) => void }
+interface Props {
+  lesson: LessonInterface,
+  updatedCallback: (lesson: LessonInterface) => void,
+  toggleImageEditor: (show: boolean) => void,
+}
 
 export const LessonEdit: React.FC<Props> = (props) => {
   const [lesson, setLesson] = React.useState<LessonInterface>({} as LessonInterface);
@@ -43,6 +47,13 @@ export const LessonEdit: React.FC<Props> = (props) => {
     }
   }
 
+
+  const handleImageClick = (e: React.MouseEvent) => {
+    e.preventDefault();
+    props.toggleImageEditor(true);
+  }
+
+
   React.useEffect(() => { setLesson(props.lesson) }, [props.lesson]);
 
   if (redirect !== "") return <Redirect to={redirect} />
@@ -50,7 +61,12 @@ export const LessonEdit: React.FC<Props> = (props) => {
     <InputBox id="lessonDetailsBox" headerText="Edit Lesson" headerIcon="fas fa-list" saveFunction={handleSave} cancelFunction={handleCancel} deleteFunction={handleDelete}>
       <ErrorMessages errors={errors} />
       <Row>
-        <Col>
+        <Col sm={3}>
+          <a href="about:blank" className="d-block" onClick={handleImageClick}>
+            <img src={lesson.image || "/images/blank.png"} className="img-fluid profilePic d-block mx-auto" id="imgPreview" alt="lesson photo" />
+          </a>
+        </Col>
+        <Col sm={9}>
           <FormGroup>
             <FormLabel>Lesson Name</FormLabel>
             <FormControl type="text" name="name" value={lesson.name} onChange={handleChange} onKeyDown={handleKeyDown} />

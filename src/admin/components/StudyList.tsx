@@ -16,7 +16,10 @@ export const StudyList: React.FC<Props> = (props) => {
   const getRows = () => {
     const result: JSX.Element[] = [];
     studies.forEach(s => {
-      result.push(<tr><td><Link to={"/admin/studies/" + s.id}>{s.name}</Link></td></tr>);
+      result.push(<tr>
+        <td className="imgCol"><img src={s.image || "/images/blank.png"} className="img-fluid" alt="study photo" /></td>
+        <td><Link to={"/admin/studies/" + s.id}>{s.name}</Link></td>
+      </tr>);
     });
     return result;
   }

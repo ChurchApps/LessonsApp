@@ -17,7 +17,10 @@ export const ProgramsPage = () => {
   const getRows = () => {
     const result: JSX.Element[] = [];
     programs.forEach(p => {
-      result.push(<tr><td><Link to={"/admin/programs/" + p.id}>{p.name}</Link></td></tr>);
+      result.push(<tr>
+        <td className="imgCol"><img src={p.image || "/images/blank.png"} className="img-fluid" alt="program photo" /></td>
+        <td><Link to={"/admin/programs/" + p.id}>{p.name}</Link></td>
+      </tr>);
     });
     return result;
   }
@@ -26,7 +29,6 @@ export const ProgramsPage = () => {
     if (programs === null) return <Loading />
     else return (
       <table className="table">
-        <thead><tr><th>Name</th></tr></thead>
         <tbody>
           {getRows()}
         </tbody>

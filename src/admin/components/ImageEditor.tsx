@@ -55,7 +55,7 @@ export const ImageEditor = (props: Props) => {
 
 
   useEffect(() => {
-    setCurrentUrl(props.imageUrl)
+    setCurrentUrl(props.imageUrl || "/images/blank.png")
   }, [props.imageUrl]);
 
   return (

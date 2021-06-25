@@ -3,7 +3,11 @@ import { ApiHelper, GroupInterface, InputBox, ErrorMessages, ProgramInterface } 
 import { Redirect } from "react-router-dom";
 import { Row, Col, FormGroup, FormControl, FormLabel } from "react-bootstrap";
 
-interface Props { program: ProgramInterface, updatedCallback: (program: ProgramInterface) => void }
+interface Props {
+  program: ProgramInterface,
+  updatedCallback: (program: ProgramInterface) => void,
+  toggleImageEditor: (show: boolean) => void,
+}
 
 export const ProgramEdit: React.FC<Props> = (props) => {
   const [program, setProgram] = React.useState<ProgramInterface>({} as ProgramInterface);
@@ -43,6 +47,13 @@ export const ProgramEdit: React.FC<Props> = (props) => {
     }
   }
 
+
+  const handleImageClick = (e: React.MouseEvent) => {
+    e.preventDefault();
+    props.toggleImageEditor(true);
+  }
+
+
   React.useEffect(() => { setProgram(props.program) }, [props.program]);
 
   if (redirect !== "") return <Redirect to={redirect} />
@@ -50,7 +61,12 @@ export const ProgramEdit: React.FC<Props> = (props) => {
     <InputBox id="programDetailsBox" headerText="Edit Program" headerIcon="fas fa-list" saveFunction={handleSave} cancelFunction={handleCancel} deleteFunction={handleDelete}>
       <ErrorMessages errors={errors} />
       <Row>
-        <Col>
+        <Col sm={3}>
+          <a href="about:blank" className="d-block" onClick={handleImageClick}>
+            <img src={program.image || "/images/blank.png"} className="img-fluid profilePic d-block mx-auto" id="imgPreview" alt="program photo" />
+          </a>
+        </Col>
+        <Col sm={9}>
           <FormGroup>
             <FormLabel>Program Name</FormLabel>
             <FormControl type="text" name="name" value={program.name} onChange={handleChange} onKeyDown={handleKeyDown} />

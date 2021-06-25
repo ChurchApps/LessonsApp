@@ -61,10 +61,10 @@ export const StudyEdit: React.FC<Props> = (props) => {
       <Row>
         <Col sm={3}>
           <a href="about:blank" className="d-block" onClick={handleImageClick}>
-            <img src={study.image} className="img-fluid profilePic d-block mx-auto" id="imgPreview" alt="study photo" />
+            <img src={study.image || "/images/blank.png"} className="img-fluid profilePic d-block mx-auto" id="imgPreview" alt="study photo" />
           </a>
         </Col>
-        <Col>
+        <Col sm={9}>
           <FormGroup>
             <FormLabel>Study Name</FormLabel>
             <FormControl type="text" name="name" value={study.name} onChange={handleChange} onKeyDown={handleKeyDown} />
