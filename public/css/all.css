@@ -632,8 +632,11 @@ dropdown-menu a { color: #03a9f4;}
 #adminTree .roleRow td:first-child {padding-left:20px}
 #adminTree .roleRow td:last-child {text-align: right;}
 #adminTree .roleRow td:last-child a { color:#77cc00; }
+#adminTree .roleRow td {border-top:none;padding-top:0px; padding-bottom: 0px;}
 
-#adminTree .actionRow td:first-child {padding-left:40px}
+#adminTree .actionRow td:first-child {padding-left:40px; padding-right: 25px;}
+#adminTree .actionRow td:first-child a {overflow: hidden;height:20px;display:inline-block;}
+#adminTree .actionRow td {border-top:none;padding-top:0px; padding-bottom: 0px;}
 
 
 .venueRow td:last-child {text-align: right;}

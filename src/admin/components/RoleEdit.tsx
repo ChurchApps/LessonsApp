@@ -4,14 +4,14 @@ import { FormGroup, FormControl, FormLabel } from "react-bootstrap";
 
 interface Props {
   role: RoleInterface,
-  updatedCallback: (role: RoleInterface) => void
+  updatedCallback: (role: RoleInterface, created: boolean) => void
 }
 
 export const RoleEdit: React.FC<Props> = (props) => {
   const [role, setRole] = React.useState<RoleInterface>({} as RoleInterface);
   const [errors, setErrors] = React.useState([]);
 
-  const handleCancel = () => props.updatedCallback(role);
+  const handleCancel = () => props.updatedCallback(role, false);
   const handleKeyDown = (e: React.KeyboardEvent<any>) => { if (e.key === "Enter") { e.preventDefault(); handleSave(); } }
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     e.preventDefault();
@@ -34,14 +34,14 @@ export const RoleEdit: React.FC<Props> = (props) => {
     if (validate()) {
       ApiHelper.post("/roles", [role], "LessonsApi").then(data => {
         setRole(data);
-        props.updatedCallback(data);
+        props.updatedCallback(data[0], !props.role.id);
       });
     }
   }
 
   const handleDelete = () => {
     if (window.confirm("Are you sure you wish to permanently delete this role?")) {
-      ApiHelper.delete("/roles/" + role.id.toString(), "LessonsApi").then(() => props.updatedCallback(null));
+      ApiHelper.delete("/roles/" + role.id.toString(), "LessonsApi").then(() => props.updatedCallback(null, false));
     }
   }
 
@@ -49,7 +49,7 @@ export const RoleEdit: React.FC<Props> = (props) => {
 
 
   return (<>
-    <InputBox id="roleDetailsBox" headerText="Edit Role" headerIcon="fas fa-map-marker" saveFunction={handleSave} cancelFunction={handleCancel} deleteFunction={handleDelete}>
+    <InputBox id="roleDetailsBox" headerText={(role?.id) ? "Edit Role" : "Create Role"} headerIcon="fas fa-user-alt" saveFunction={handleSave} cancelFunction={handleCancel} deleteFunction={handleDelete}>
       <ErrorMessages errors={errors} />
       <FormGroup>
         <FormLabel>Order</FormLabel>

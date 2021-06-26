@@ -4,14 +4,14 @@ import { FormGroup, FormControl, FormLabel } from "react-bootstrap";
 
 interface Props {
   section: SectionInterface,
-  updatedCallback: (section: SectionInterface) => void
+  updatedCallback: (section: SectionInterface, created: boolean) => void
 }
 
 export const SectionEdit: React.FC<Props> = (props) => {
   const [section, setSection] = React.useState<SectionInterface>({} as SectionInterface);
   const [errors, setErrors] = React.useState([]);
 
-  const handleCancel = () => props.updatedCallback(section);
+  const handleCancel = () => props.updatedCallback(section, false);
   const handleKeyDown = (e: React.KeyboardEvent<any>) => { if (e.key === "Enter") { e.preventDefault(); handleSave(); } }
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     e.preventDefault();
@@ -34,14 +34,14 @@ export const SectionEdit: React.FC<Props> = (props) => {
     if (validate()) {
       ApiHelper.post("/sections", [section], "LessonsApi").then(data => {
         setSection(data);
-        props.updatedCallback(data);
+        props.updatedCallback(data[0], !props.section.id);
       });
     }
   }
 
   const handleDelete = () => {
     if (window.confirm("Are you sure you wish to permanently delete this section?")) {
-      ApiHelper.delete("/sections/" + section.id.toString(), "LessonsApi").then(() => props.updatedCallback(null));
+      ApiHelper.delete("/sections/" + section.id.toString(), "LessonsApi").then(() => props.updatedCallback(null, false));
     }
   }
 
@@ -49,7 +49,7 @@ export const SectionEdit: React.FC<Props> = (props) => {
 
 
   return (<>
-    <InputBox id="sectionDetailsBox" headerText="Edit Section" headerIcon="fas fa-map-marker" saveFunction={handleSave} cancelFunction={handleCancel} deleteFunction={handleDelete}>
+    <InputBox id="sectionDetailsBox" headerText={(section?.id) ? "Edit Section" : "Create Section"} headerIcon="fas fa-tasks" saveFunction={handleSave} cancelFunction={handleCancel} deleteFunction={handleDelete}>
       <ErrorMessages errors={errors} />
       <FormGroup>
         <FormLabel>Order</FormLabel>

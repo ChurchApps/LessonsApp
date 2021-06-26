@@ -4,14 +4,14 @@ import { FormGroup, FormControl, FormLabel } from "react-bootstrap";
 
 interface Props {
   action: ActionInterface,
-  updatedCallback: (action: ActionInterface) => void
+  updatedCallback: (action: ActionInterface, created: boolean) => void
 }
 
 export const ActionEdit: React.FC<Props> = (props) => {
   const [action, setAction] = React.useState<ActionInterface>({} as ActionInterface);
   const [errors, setErrors] = React.useState([]);
 
-  const handleCancel = () => props.updatedCallback(action);
+  const handleCancel = () => props.updatedCallback(action, false);
   const handleKeyDown = (e: React.KeyboardEvent<any>) => { if (e.key === "Enter") { e.preventDefault(); handleSave(); } }
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     e.preventDefault();
@@ -37,14 +37,14 @@ export const ActionEdit: React.FC<Props> = (props) => {
       if (!a.actionType) a.actionType = "Say";
       ApiHelper.post("/actions", [a], "LessonsApi").then(data => {
         setAction(data);
-        props.updatedCallback(data);
+        props.updatedCallback(data[0], !props.action.id);
       });
     }
   }
 
   const handleDelete = () => {
     if (window.confirm("Are you sure you wish to permanently delete this action?")) {
-      ApiHelper.delete("/actions/" + action.id.toString(), "LessonsApi").then(() => props.updatedCallback(null));
+      ApiHelper.delete("/actions/" + action.id.toString(), "LessonsApi").then(() => props.updatedCallback(null, false));
     }
   }
 
@@ -52,7 +52,7 @@ export const ActionEdit: React.FC<Props> = (props) => {
 
 
   return (<>
-    <InputBox id="actionDetailsBox" headerText="Edit Action" headerIcon="fas fa-map-marker" saveFunction={handleSave} cancelFunction={handleCancel} deleteFunction={handleDelete}>
+    <InputBox id="actionDetailsBox" headerText={(action?.id) ? "Edit Action" : "Create Action"} headerIcon="fas fa-check" saveFunction={handleSave} cancelFunction={handleCancel} deleteFunction={handleDelete}>
       <ErrorMessages errors={errors} />
       <FormGroup>
         <FormLabel>Order</FormLabel>
