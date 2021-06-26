@@ -1,5 +1,5 @@
 import React from "react";
-import { DisplayBox, ApiHelper, Loading, ProgramInterface, StudyInterface, LessonInterface, ProgramEdit, StudyEdit, LessonEdit } from "./components"
+import { DisplayBox, ApiHelper, Loading, ProgramInterface, StudyInterface, LessonInterface, ProgramEdit, StudyEdit, LessonEdit, VenueList } from "./components"
 import { Row, Col } from "react-bootstrap";
 
 
@@ -10,6 +10,7 @@ export const AdminPage = () => {
   const [editProgram, setEditProgram] = React.useState<ProgramInterface>(null);
   const [editStudy, setEditStudy] = React.useState<StudyInterface>(null);
   const [editLesson, setEditLesson] = React.useState<LessonInterface>(null);
+  const [venuesLessonId, setVenuesLessonId] = React.useState<string>(null);
 
   const loadData = () => {
     ApiHelper.get("/programs/provider/1", "LessonsApi").then((data: any) => { setPrograms(data); });
@@ -50,7 +51,8 @@ export const AdminPage = () => {
     const result: JSX.Element[] = [];
     lessons?.forEach(l => {
       result.push(<tr className="lessonRow">
-        <td colSpan={2}><a href="about:blank" onClick={(e) => { e.preventDefault(); clearEdits(); setEditLesson(l) }}><i className="fas fa-book"></i> {l.name}: {l.title}</a></td>
+        <td><a href="about:blank" onClick={(e) => { e.preventDefault(); clearEdits(); setEditLesson(l) }}><i className="fas fa-book"></i> {l.name}: {l.title}</a></td>
+        <td><a href="about:blank" onClick={(e) => { e.preventDefault(); clearEdits(); setVenuesLessonId(l.id); }}><i className="fas fa-map-marker"></i></a></td>
       </tr>);
     });
     return result;
@@ -72,6 +74,7 @@ export const AdminPage = () => {
     if (editProgram) result.push(<ProgramEdit program={editProgram} updatedCallback={handleUpdated} />)
     else if (editStudy) result.push(<StudyEdit study={editStudy} updatedCallback={handleUpdated} />)
     else if (editLesson) result.push(<LessonEdit lesson={editLesson} updatedCallback={handleUpdated} />)
+    else if (venuesLessonId) result.push(<VenueList lessonId={venuesLessonId} />)
     return result;
   }
 

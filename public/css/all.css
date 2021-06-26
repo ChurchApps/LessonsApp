@@ -623,3 +623,8 @@ dropdown-menu a { color: #03a9f4;}
 #adminTree .studyRow td:last-child a { color:#77cc00; }
 
 #adminTree .lessonRow td:first-child {padding-left:40px}
+#adminTree .lessonRow td:last-child {text-align: right;}
+#adminTree .lessonRow td:last-child a { color:#77cc00; }
+
+.venueRow td:last-child {text-align: right;}
+.venueRow td:last-child a { color:#77cc00; }

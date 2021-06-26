@@ -7,7 +7,7 @@ export interface StudyInterface { id?: string, programId?: string, name?: string
 export interface LessonInterface { id?: string, studyId?: string, name?: string, title?: string, image?: string, description?: string, live?: boolean, sort?: number }
 
 
-export interface VenueInterface { name?: string, sections?: SectionInterface[] }
+export interface VenueInterface { id?: string, lessonId: string, name?: string, sections?: SectionInterface[], sort?: number }
 export interface SectionInterface { name?: string, roles: RoleInterface[], actions: ActionInterface[] }
 export interface RoleInterface { name: string, actions?: ActionInterface }
 export interface ActionInterface { actionType: string, contents: string }
