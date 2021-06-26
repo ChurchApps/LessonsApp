@@ -1,6 +1,7 @@
 import React from "react";
 import { Switch, Route } from "react-router-dom";
 import { AdminPage } from "./AdminPage";
+import { VenuePage } from "./VenuePage";
 
 
 interface Props {
@@ -12,6 +13,7 @@ interface Props {
 export const AdminRoutes: React.FC<Props> = (props) => {
   return (
     <Switch>
+      <Route path="/admin/venue/:id" component={VenuePage}></Route>
       <Route path="/admin" component={AdminPage}></Route>
     </Switch>
   );

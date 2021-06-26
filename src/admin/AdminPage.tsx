@@ -1,5 +1,5 @@
 import React from "react";
-import { DisplayBox, ApiHelper, Loading, ProgramInterface, StudyInterface, LessonInterface, ProgramEdit, StudyEdit, LessonEdit, VenueList } from "./components"
+import { DisplayBox, ApiHelper, Loading, ProgramInterface, StudyInterface, LessonInterface, ProgramEdit, StudyEdit, LessonEdit, VenueList, ArrayHelper } from "./components"
 import { Row, Col } from "react-bootstrap";
 
 
@@ -20,7 +20,7 @@ export const AdminPage = () => {
 
   React.useEffect(loadData, []);
 
-  const clearEdits = () => { setEditProgram(null); setEditStudy(null); setEditLesson(null); }
+  const clearEdits = () => { setEditProgram(null); setEditStudy(null); setEditLesson(null); setVenuesLessonId(null); }
   const handleUpdated = () => { loadData(); setEditProgram(null); setEditStudy(null); setEditLesson(null); };
 
   const getRows = () => {
@@ -37,24 +37,28 @@ export const AdminPage = () => {
 
   const getStudies = (programId: string) => {
     const result: JSX.Element[] = [];
-    studies?.forEach(s => {
-      result.push(<tr className="studyRow">
-        <td><a href="about:blank" onClick={(e) => { e.preventDefault(); clearEdits(); setEditStudy(s) }}><i className="fas fa-layer-group"></i> {s.name}</a></td>
-        <td><a href="about:blank" onClick={(e) => { e.preventDefault(); clearEdits(); setEditLesson({ studyId: s.id }) }}><i className="fas fa-plus"></i></a></td>
-      </tr>);
-      getLessons(s.id).forEach(i => result.push(i));
-    });
+    if (studies) {
+      ArrayHelper.getAll(studies, "programId", programId).forEach(s => {
+        result.push(<tr className="studyRow">
+          <td><a href="about:blank" onClick={(e) => { e.preventDefault(); clearEdits(); setEditStudy(s) }}><i className="fas fa-layer-group"></i> {s.name}</a></td>
+          <td><a href="about:blank" onClick={(e) => { e.preventDefault(); clearEdits(); setEditLesson({ studyId: s.id }) }}><i className="fas fa-plus"></i></a></td>
+        </tr>);
+        getLessons(s.id).forEach(i => result.push(i));
+      });
+    }
     return result;
   }
 
   const getLessons = (studyId: string) => {
     const result: JSX.Element[] = [];
-    lessons?.forEach(l => {
-      result.push(<tr className="lessonRow">
-        <td><a href="about:blank" onClick={(e) => { e.preventDefault(); clearEdits(); setEditLesson(l) }}><i className="fas fa-book"></i> {l.name}: {l.title}</a></td>
-        <td><a href="about:blank" onClick={(e) => { e.preventDefault(); clearEdits(); setVenuesLessonId(l.id); }}><i className="fas fa-map-marker"></i></a></td>
-      </tr>);
-    });
+    if (lessons) {
+      ArrayHelper.getAll(lessons, "studyId", studyId).forEach(l => {
+        result.push(<tr className="lessonRow">
+          <td><a href="about:blank" onClick={(e) => { e.preventDefault(); clearEdits(); setEditLesson(l) }}><i className="fas fa-book"></i> {l.name}: {l.title}</a></td>
+          <td><a href="about:blank" onClick={(e) => { e.preventDefault(); clearEdits(); setVenuesLessonId(l.id); }}><i className="fas fa-map-marker"></i></a></td>
+        </tr>);
+      });
+    }
     return result;
   }
 

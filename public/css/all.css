@@ -626,5 +626,15 @@ dropdown-menu a { color: #03a9f4;}
 #adminTree .lessonRow td:last-child {text-align: right;}
 #adminTree .lessonRow td:last-child a { color:#77cc00; }
 
+#adminTree .sectionRow td:last-child {text-align: right;}
+#adminTree .sectionRow td:last-child a { color:#77cc00; }
+
+#adminTree .roleRow td:first-child {padding-left:20px}
+#adminTree .roleRow td:last-child {text-align: right;}
+#adminTree .roleRow td:last-child a { color:#77cc00; }
+
+#adminTree .actionRow td:first-child {padding-left:40px}
+
+
 .venueRow td:last-child {text-align: right;}
 .venueRow td:last-child a { color:#77cc00; }
