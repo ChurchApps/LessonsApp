@@ -33,7 +33,7 @@ export class EnvironmentHelper {
     //NOTE: None of these values are secret.
     static initStaging = () => {
         EnvironmentHelper.AccessApi = "https://accessapi.staging.churchapps.org";
-        EnvironmentHelper.LessonsApi = "https://api.lessons.church";
+        EnvironmentHelper.LessonsApi = "https://api.staging.lessons.church";
         EnvironmentHelper.ContentRoot = "https://content.staging.churchapps.org";
         EnvironmentHelper.AccountsAppUrl = "https://accounts.staging.churchapps.org";
         EnvironmentHelper.ChurchAppsUrl = "https://staging.churchapps.org";
@@ -43,7 +43,7 @@ export class EnvironmentHelper {
     //NOTE: None of these values are secret.
     static initProd = () => {
         EnvironmentHelper.AccessApi = "https://accessapi.churchapps.org";
-        EnvironmentHelper.LessonsApi = "https://attendanceapi.churchapps.org";
+        EnvironmentHelper.LessonsApi = "https://api.lessons.church";
         EnvironmentHelper.ContentRoot = "https://content.churchapps.org";
         EnvironmentHelper.AccountsAppUrl = "https://accounts.churchapps.org";
         EnvironmentHelper.ChurchAppsUrl = "https://churchapps.org";

@@ -1,0 +1,18 @@
+<resources>
+  <resource name="Lesson Slides" contentType="lesson" contentId="1">
+    <variant name="Pro Presenter" fileBame="LessonSlides.pro6" downloadDefault="true" />
+    <variant name="PowerPoint" fileName="LessonSlides.ppt" />
+    <variant name="JPEGs" playerDefault="true">
+      <asset name="Title Slide" fileName="TitleSlide.jpg" />
+      <asset name="Big Idea" fileName="BigIdea.jpg" />
+    </variant>
+  </resource>
+  <resource name="Lesson Video" contentType="lesson" contentId="1">
+    <variant name="720p" fileName="Lesson720.mp4" playerDefault="true" />
+  </resource>
+  <resource name="Countdown Video" contentType="program" contentId="100">
+    <variant name="5 minutes" fileName="Countdown5min.mp4" />
+    <variant name="60 secons" fileName="Countdown5min.mp4" playerDefault="true" />
+    <variant name="10 seconds" fileName="Countdown5min.mp4" />
+  </resource>
+</resource>

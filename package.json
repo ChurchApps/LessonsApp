@@ -52,6 +52,7 @@
   },
   "devDependencies": {
     "@types/adm-zip": "^0.4.33",
+    "@types/file-saver": "^2.0.1",
     "@types/google.visualization": "0.0.53",
     "@types/jest": "^26.0.3",
     "@types/papaparse": "^5.0.4",
@@ -60,7 +61,6 @@
     "@types/react-csv": "^1.1.1",
     "@types/react-dom": "^16.9.8",
     "@types/react-router-dom": "^5.1.5",
-    "@types/file-saver": "^2.0.1",
     "google-charts": "^2.0.0"
   }
 }
