@@ -638,6 +638,11 @@ dropdown-menu a { color: #03a9f4;}
 #adminTree .actionRow td:first-child a {overflow: hidden;height:20px;display:inline-block;}
 #adminTree .actionRow td {border-top:none;padding-top:0px; padding-bottom: 0px;}
 
+#resourceTree .resourceRow td:last-child {text-align: right;}
+#resourceTree .resourceRow td:last-child a { color:#77cc00; }
+#resourceTree .resourceRow td:last-child .dropdown-menu a { color:#333; }
+
+
 
 .venueRow td:last-child {text-align: right;}
 .venueRow td:last-child a { color:#77cc00; }

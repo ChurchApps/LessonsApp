@@ -59,6 +59,7 @@ export const ResourceList: React.FC<Props> = (props) => {
     resources.forEach(r => {
       result.push(<tr className="resourceRow">
         <td><a href="about:blank" onClick={(e) => { e.preventDefault(); clearEdits(); setEditResource(r) }}><i className="fas fa-file-alt"></i> {r.name}</a></td>
+        <td><a id={"addBtnGroup_" + r.id} data-cy="add-button" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" href="about:blank"><i className="fas fa-plus"></i></a>{getDropDownMenu(r.id)}</td>
       </tr>);
       getVariants(r.id).forEach((v: any) => result.push(v));
       getAssets(r.id).forEach((a: any) => result.push(a));
@@ -69,12 +70,20 @@ export const ResourceList: React.FC<Props> = (props) => {
   const getTable = () => {
     if (resources === null) return <Loading />
     else return (
-      <table className="table">
+      <table className="table" id="resourceTree">
         <tbody>
           {getRows()}
         </tbody>
       </table>
     )
+  }
+
+  const getDropDownMenu = (resourceId: string) => {
+    return (
+      <div className="dropdown-menu" aria-labelledby={"addBtnGroup_" + resourceId}>
+        <a className="dropdown-item" data-cy="add-variant" href="about:blank" onClick={(e: React.MouseEvent) => { e.preventDefault(); setEditVariant({ resourceId: resourceId }); }}><i className="fas fa-copy"></i> Add Variant</a>
+        <a className="dropdown-item" data-cy="add-asset" href="about:blank" onClick={(e: React.MouseEvent) => { e.preventDefault(); setEditAsset({ resourceId: resourceId }); }}><i className="fas fa-list-ol"></i> Add Asset</a>
+      </div>);
   }
 
 
