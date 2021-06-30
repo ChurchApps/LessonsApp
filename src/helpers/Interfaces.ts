@@ -5,6 +5,7 @@ export interface ProgramInterface { id?: string, providerId?: string, name?: str
 export interface StudyInterface { id?: string, programId?: string, name?: string, image?: string, shortDescription?: string, description?: string, videoEmbedUrl?: string }
 export interface LessonInterface { id?: string, studyId?: string, name?: string, title?: string, image?: string, description?: string, live?: boolean, sort?: number }
 
+export interface FileInterface { id?: string, resourceId?: string, fileName?: string, contentPath?: string, fileType?: string, size?: number, dateModified?: Date, fileContents?: string }
 export interface VenueInterface { id?: string, lessonId?: string, name?: string, sections?: SectionInterface[], sort?: number }
 export interface SectionInterface { id?: string, lessonId?: string, venueId?: string, name?: string, sort?: number, roles?: RoleInterface[], actions?: ActionInterface[] }
 export interface RoleInterface { id?: string, lessonId?: string, sectionId?: string, name?: string, sort?: number, actions?: ActionInterface }

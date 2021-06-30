@@ -1,6 +1,7 @@
 import React from "react";
 import { DisplayBox, ApiHelper, ResourceInterface, Loading, ResourceEdit, AssetInterface, VariantInterface, ArrayHelper } from "."
 import { Link } from "react-router-dom"
+import { VariantEdit } from "./VariantEdit";
 
 interface Props { contentType: string, contentId: string }
 
@@ -78,6 +79,7 @@ export const ResourceList: React.FC<Props> = (props) => {
     )
   }
 
+
   const getDropDownMenu = (resourceId: string) => {
     return (
       <div className="dropdown-menu" aria-labelledby={"addBtnGroup_" + resourceId}>
@@ -85,14 +87,13 @@ export const ResourceList: React.FC<Props> = (props) => {
         <a className="dropdown-item" data-cy="add-asset" href="about:blank" onClick={(e: React.MouseEvent) => { e.preventDefault(); setEditAsset({ resourceId: resourceId }); }}><i className="fas fa-list-ol"></i> Add Asset</a>
       </div>);
   }
-
-
   const getEditContent = () => {
     return (<a href="about:blank" onClick={(e) => { e.preventDefault(); setEditResource({ contentType: props.contentType, contentId: props.contentId }) }}><i className="fas fa-plus"></i></a>);
   }
 
   React.useEffect(loadData, [props.contentType, props.contentId]);
 
+  if (editVariant) return <VariantEdit variant={editVariant} updatedCallback={() => { setEditVariant(null); loadData() }} />
   if (editResource) return <ResourceEdit resource={editResource} updatedCallback={() => { setEditResource(null); loadData() }} />
   else return (<>
     <DisplayBox headerText="Resources" headerIcon="fas fa-file-alt" editContent={getEditContent()} >
