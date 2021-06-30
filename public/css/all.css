@@ -642,6 +642,7 @@ dropdown-menu a { color: #03a9f4;}
 #resourceTree .resourceRow td:last-child a { color:#77cc00; }
 #resourceTree .resourceRow td:last-child .dropdown-menu a { color:#333; }
 
+#resourceTree .variantRow td:first-child {padding-left: 20px;}
 
 
 .venueRow td:last-child {text-align: right;}

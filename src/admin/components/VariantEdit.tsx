@@ -45,6 +45,8 @@ export const VariantEdit: React.FC<Props> = (props) => {
     if (validate()) setPendingFileSave(true);
   }
 
+  const getDeleteFunction = () => (props.variant?.id) ? handleDelete : undefined
+
   const handleDelete = () => {
     if (window.confirm("Are you sure you wish to permanently delete this variant?")) {
       ApiHelper.delete("/variants/" + variant.id.toString(), "LessonsApi").then(() => props.updatedCallback(null));
@@ -55,7 +57,7 @@ export const VariantEdit: React.FC<Props> = (props) => {
 
 
   return (<>
-    <InputBox id="variantDetailsBox" headerText="Edit Variant" headerIcon="fas fa-copy" saveFunction={handleSave} cancelFunction={handleCancel} deleteFunction={handleDelete}>
+    <InputBox id="variantDetailsBox" headerText="Edit Variant" headerIcon="fas fa-copy" saveFunction={handleSave} cancelFunction={handleCancel} deleteFunction={getDeleteFunction()}>
       <ErrorMessages errors={errors} />
       <FormGroup>
         <FormLabel>Variant Name</FormLabel>

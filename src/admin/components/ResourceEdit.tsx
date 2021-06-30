@@ -38,8 +38,10 @@ export const ResourceEdit: React.FC<Props> = (props) => {
     }
   }
 
+  const getDeleteFunction = () => (props.resource?.id) ? handleDelete : undefined
+
   const handleDelete = () => {
-    if (window.confirm("Are you sure you wish to permanently delete this resource?")) {
+    if (window.confirm("Are you sure you wish to permanently delete this resource?  This will delete all variants and assets.")) {
       ApiHelper.delete("/resources/" + resource.id.toString(), "LessonsApi").then(() => props.updatedCallback(null));
     }
   }
@@ -48,7 +50,7 @@ export const ResourceEdit: React.FC<Props> = (props) => {
 
 
   return (<>
-    <InputBox id="resourceDetailsBox" headerText="Edit Resource" headerIcon="fas fa-file-alt" saveFunction={handleSave} cancelFunction={handleCancel} deleteFunction={handleDelete}>
+    <InputBox id="resourceDetailsBox" headerText="Edit Resource" headerIcon="fas fa-file-alt" saveFunction={handleSave} cancelFunction={handleCancel} deleteFunction={getDeleteFunction()}>
       <ErrorMessages errors={errors} />
       <FormGroup>
         <FormLabel>Resource Name</FormLabel>

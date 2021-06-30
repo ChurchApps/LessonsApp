@@ -1,6 +1,5 @@
 import React from "react";
-import { DisplayBox, ApiHelper, ResourceInterface, Loading, ResourceEdit, AssetInterface, VariantInterface, ArrayHelper } from "."
-import { Link } from "react-router-dom"
+import { DisplayBox, ApiHelper, ResourceInterface, Loading, ResourceEdit, AssetInterface, VariantInterface, ArrayHelper, AssetEdit } from "."
 import { VariantEdit } from "./VariantEdit";
 
 interface Props { contentType: string, contentId: string }
@@ -36,7 +35,7 @@ export const ResourceList: React.FC<Props> = (props) => {
     if (variants) {
       ArrayHelper.getAll(variants, "resourceId", resourceId).forEach(v => {
         result.push(<tr className="variantRow">
-          <td><a href="about:blank" onClick={(e) => { e.preventDefault(); clearEdits(); setEditVariant(v) }}><i className="fas fa-copy"></i> {v.name}</a></td>
+          <td colSpan={2}><a href="about:blank" onClick={(e) => { e.preventDefault(); clearEdits(); setEditVariant(v) }}><i className="fas fa-copy"></i> {v.name}</a></td>
         </tr>);
       });
     }
@@ -48,7 +47,7 @@ export const ResourceList: React.FC<Props> = (props) => {
     if (assets) {
       ArrayHelper.getAll(assets, "resourceId", resourceId).forEach(a => {
         result.push(<tr className="assetRow">
-          <td><a href="about:blank" onClick={(e) => { e.preventDefault(); clearEdits(); setEditAsset(a) }}><i className="fas fa-list-ol"></i> {a.name}</a></td>
+          <td colSpan={2}><a href="about:blank" onClick={(e) => { e.preventDefault(); clearEdits(); setEditAsset(a) }}><i className="fas fa-list-ol"></i> {a.name}</a></td>
         </tr>);
       });
     }
@@ -71,7 +70,7 @@ export const ResourceList: React.FC<Props> = (props) => {
   const getTable = () => {
     if (resources === null) return <Loading />
     else return (
-      <table className="table" id="resourceTree">
+      <table className="table table-sm table-borderless" id="resourceTree">
         <tbody>
           {getRows()}
         </tbody>
@@ -94,6 +93,7 @@ export const ResourceList: React.FC<Props> = (props) => {
   React.useEffect(loadData, [props.contentType, props.contentId]);
 
   if (editVariant) return <VariantEdit variant={editVariant} updatedCallback={() => { setEditVariant(null); loadData() }} />
+  if (editAsset) return <AssetEdit asset={editAsset} updatedCallback={() => { setEditAsset(null); loadData() }} />
   if (editResource) return <ResourceEdit resource={editResource} updatedCallback={() => { setEditResource(null); loadData() }} />
   else return (<>
     <DisplayBox headerText="Resources" headerIcon="fas fa-file-alt" editContent={getEditContent()} >

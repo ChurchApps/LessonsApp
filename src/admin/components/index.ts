@@ -1,4 +1,5 @@
 export * from "../../components"
+export { AssetEdit } from "./AssetEdit"
 export { ActionEdit } from "./ActionEdit"
 export { ProgramEdit } from "./ProgramEdit"
 export { LessonEdit } from "./LessonEdit"
