@@ -1,5 +1,5 @@
 import React from "react";
-import { DisplayBox, ApiHelper, Loading, SectionInterface, RoleInterface, ActionInterface, SectionEdit, RoleEdit, ActionEdit, ArrayHelper, VenueInterface, LessonInterface } from "./components"
+import { DisplayBox, ApiHelper, Loading, SectionInterface, RoleInterface, ActionInterface, SectionEdit, RoleEdit, ActionEdit, ArrayHelper, VenueInterface, LessonInterface, StudyInterface } from "./components"
 import { Row, Col } from "react-bootstrap";
 import { RouteComponentProps } from "react-router-dom";
 
@@ -9,6 +9,7 @@ type TParams = { id?: string };
 export const VenuePage = ({ match }: RouteComponentProps<TParams>) => {
   const [venue, setVenue] = React.useState<VenueInterface>(null);
   const [lesson, setLesson] = React.useState<LessonInterface>(null);
+  const [study, setStudy] = React.useState<StudyInterface>(null);
   const [sections, setSections] = React.useState<SectionInterface[]>(null);
   const [roles, setRoles] = React.useState<RoleInterface[]>(null);
   const [actions, setActions] = React.useState<ActionInterface[]>(null);
@@ -19,7 +20,10 @@ export const VenuePage = ({ match }: RouteComponentProps<TParams>) => {
   const loadData = () => {
     ApiHelper.get("/venues/" + match.params.id, "LessonsApi").then((v: VenueInterface) => {
       setVenue(v);
-      ApiHelper.get("/lessons/" + v.lessonId, "LessonsApi").then((data: any) => { setLesson(data); });
+      ApiHelper.get("/lessons/" + v.lessonId, "LessonsApi").then((data: any) => {
+        setLesson(data);
+        ApiHelper.get("/studies/" + data.studyId, "LessonsApi").then((d: any) => { setStudy(d); });
+      });
       ApiHelper.get("/sections/public/lesson/" + v.lessonId, "LessonsApi").then((data: any) => { setSections(data); });
       ApiHelper.get("/roles/public/lesson/" + v.lessonId, "LessonsApi").then((data: any) => { setRoles(data); });
       ApiHelper.get("/actions/public/lesson/" + v.lessonId, "LessonsApi").then((data: any) => { setActions(data); });
@@ -120,7 +124,7 @@ export const VenuePage = ({ match }: RouteComponentProps<TParams>) => {
     const result: JSX.Element[] = [];
     if (editSection) result.push(<SectionEdit section={editSection} updatedCallback={handleSectionUpdated} />)
     else if (editRole) result.push(<RoleEdit role={editRole} updatedCallback={handleRoleUpdated} />)
-    else if (editAction) result.push(<ActionEdit action={editAction} updatedCallback={handleActionUpdated} />)
+    else if (editAction) result.push(<ActionEdit action={editAction} studyId={study?.id || ""} programId={study?.programId || ""} updatedCallback={handleActionUpdated} />)
     return result;
   }
 
