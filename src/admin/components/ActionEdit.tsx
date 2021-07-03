@@ -5,18 +5,16 @@ import { ArrayHelper, AssetInterface, ResourceInterface } from "../../helpers";
 
 interface Props {
   action: ActionInterface,
-  studyId: string,
-  programId: string,
+  lessonResources: ResourceInterface[],
+  studyResources: ResourceInterface[],
+  programResources: ResourceInterface[],
+  allAssets: AssetInterface[],
   updatedCallback: (action: ActionInterface, created: boolean) => void
 }
 
 export const ActionEdit: React.FC<Props> = (props) => {
   const [action, setAction] = React.useState<ActionInterface>({} as ActionInterface);
   const [errors, setErrors] = React.useState([]);
-  const [lessonResources, setLessonResources] = React.useState<ResourceInterface[]>(null);
-  const [studyResources, setStudyResources] = React.useState<ResourceInterface[]>(null);
-  const [programResources, setProgramResources] = React.useState<ResourceInterface[]>(null);
-  const [allAssets, setAllAssets] = React.useState<AssetInterface[]>(null);
 
 
   const handleCancel = () => props.updatedCallback(action, false);
@@ -45,27 +43,6 @@ export const ActionEdit: React.FC<Props> = (props) => {
         break;
     }
     setAction(a);
-  }
-
-  const checkResourcesLoaded = () => {
-    if (action?.actionType === "Play") {
-      if (!lessonResources) ApiHelper.get("/resources/content/lesson/" + action.lessonId, "LessonsApi").then((data: any) => { setLessonResources(data); });
-      if (!studyResources) ApiHelper.get("/resources/content/study/" + props.studyId, "LessonsApi").then((data: any) => { setStudyResources(data); });
-      if (!programResources) ApiHelper.get("/resources/content/program/" + props.programId, "LessonsApi").then((data: any) => { setProgramResources(data); });
-    }
-  }
-
-  const checkAssetsLoaded = () => {
-    if (allAssets === null) {
-      if (lessonResources && studyResources && programResources) {
-        const allResources = [].concat(lessonResources).concat(studyResources).concat(programResources);
-        if (allResources.length > 0) {
-          if (!action.resourceId) action.resourceId = allResources[0].id;
-          const resourceIds: string[] = ArrayHelper.getUniqueValues(allResources, "id");
-          ApiHelper.get("/assets/resourceIds?resourceIds=" + resourceIds.join(","), "LessonsApi").then((data: any) => { setAllAssets(data); })
-        }
-      }
-    }
   }
 
   const validate = () => {
@@ -105,8 +82,8 @@ export const ActionEdit: React.FC<Props> = (props) => {
 
 
   const getAsset = () => {
-    if (allAssets && action?.resourceId) {
-      const assets = ArrayHelper.getAll(allAssets, "resourceId", action.resourceId);
+    if (props.allAssets && action?.resourceId) {
+      const assets = ArrayHelper.getAll(props.allAssets, "resourceId", action.resourceId);
       if (assets.length > 0) {
         const assetItems: JSX.Element[] = []
         assets.forEach((a: AssetInterface) => assetItems.push(<option value={a.id}>{a.name}</option>))
@@ -127,14 +104,14 @@ export const ActionEdit: React.FC<Props> = (props) => {
 
   const getResource = () => {
     if (action.actionType === "Play") {
-      if (lessonResources && studyResources && programResources) {
+      if (props.lessonResources && props.studyResources && props.programResources) {
         return (<>
           <FormGroup>
             <FormLabel>Resource</FormLabel>
             <FormControl as="select" name="resource" id="resourceSelect" value={action.resourceId} onChange={handleChange}>
-              {getResourceGroup("Lesson", lessonResources)}
-              {getResourceGroup("Study", studyResources)}
-              {getResourceGroup("Program", programResources)}
+              {getResourceGroup("Lesson", props.lessonResources)}
+              {getResourceGroup("Study", props.studyResources)}
+              {getResourceGroup("Program", props.programResources)}
             </FormControl>
           </FormGroup>
           {getAsset()}
@@ -154,8 +131,6 @@ export const ActionEdit: React.FC<Props> = (props) => {
 
 
   React.useEffect(() => { setAction(props.action) }, [props.action]);
-  React.useEffect(checkResourcesLoaded, [action]);
-  React.useEffect(checkAssetsLoaded, [lessonResources, studyResources, programResources]);
 
 
   return (<>
