@@ -46,6 +46,7 @@ export const FileUpload: React.FC<Props> = (props) => {
     f.size = uploadedFile.size;
     f.fileType = uploadedFile.type;
     f.fileName = uploadedFile.name;
+
     const base64 = await convertBase64();
     f.fileContents = base64 as string;
     const data: FileInterface[] = await ApiHelper.post("/files", [f], "LessonsApi");
@@ -53,8 +54,15 @@ export const FileUpload: React.FC<Props> = (props) => {
     props.saveCallback(data[0]);
   }
 
+  const checkSave = () => {
+    if (props.pendingSave) {
+      if (uploadedFile.size > 0) handleSave();
+      else props.saveCallback(file);
+    }
+  }
+
   React.useEffect(loadData, [props.fileId]);
-  React.useEffect(() => { if (props.pendingSave) handleSave() }, [props.pendingSave]);
+  React.useEffect(checkSave, [props.pendingSave]);
 
   const getFileLink = () => {
     if (file) {

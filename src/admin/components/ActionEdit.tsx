@@ -1,7 +1,7 @@
 import React from "react";
 import { ApiHelper, InputBox, ErrorMessages, ActionInterface } from ".";
 import { FormGroup, FormControl, FormLabel } from "react-bootstrap";
-import { ResourceInterface } from "../../helpers";
+import { ArrayHelper, AssetInterface, ResourceInterface } from "../../helpers";
 
 interface Props {
   action: ActionInterface,
@@ -13,10 +13,10 @@ interface Props {
 export const ActionEdit: React.FC<Props> = (props) => {
   const [action, setAction] = React.useState<ActionInterface>({} as ActionInterface);
   const [errors, setErrors] = React.useState([]);
-
   const [lessonResources, setLessonResources] = React.useState<ResourceInterface[]>(null);
   const [studyResources, setStudyResources] = React.useState<ResourceInterface[]>(null);
   const [programResources, setProgramResources] = React.useState<ResourceInterface[]>(null);
+  const [allAssets, setAllAssets] = React.useState<AssetInterface[]>(null);
 
 
   const handleCancel = () => props.updatedCallback(action, false);
@@ -32,8 +32,16 @@ export const ActionEdit: React.FC<Props> = (props) => {
       case "content": a.content = e.currentTarget.value; break;
       case "resource":
         a.resourceId = e.currentTarget.value;
+        a.assetId = null;
         let select = e.currentTarget as HTMLSelectElement;
         a.content = select.options[select.selectedIndex].text;
+        break;
+      case "asset":
+        a.assetId = e.currentTarget.value;
+        if (a.assetId === "") a.assetId = null;
+        let resourceSelect = document.getElementById("resourceSelect") as HTMLSelectElement;
+        let assetSelect = e.currentTarget as HTMLSelectElement;
+        a.content = resourceSelect.options[resourceSelect.selectedIndex].text + " - " + assetSelect.options[assetSelect.selectedIndex].text;
         break;
     }
     setAction(a);
@@ -47,9 +55,22 @@ export const ActionEdit: React.FC<Props> = (props) => {
     }
   }
 
+  const checkAssetsLoaded = () => {
+    if (allAssets === null) {
+      if (lessonResources && studyResources && programResources) {
+        const allResources = [].concat(lessonResources).concat(studyResources).concat(programResources);
+        if (allResources.length > 0) {
+          if (!action.resourceId) action.resourceId = allResources[0].id;
+          const resourceIds: string[] = ArrayHelper.getUniqueValues(allResources, "id");
+          ApiHelper.get("/assets/resourceIds?resourceIds=" + resourceIds.join(","), "LessonsApi").then((data: any) => { setAllAssets(data); })
+        }
+      }
+    }
+  }
+
   const validate = () => {
     let errors = [];
-    if (action.sort === -1) errors.push("Please enter a action name.");
+    if (action.content === "") errors.push("Please enter content text.");
     setErrors(errors);
     return errors.length === 0;
   }
@@ -82,18 +103,42 @@ export const ActionEdit: React.FC<Props> = (props) => {
     }
   }
 
+
+  const getAsset = () => {
+    if (allAssets && action?.resourceId) {
+      const assets = ArrayHelper.getAll(allAssets, "resourceId", action.resourceId);
+      if (assets.length > 0) {
+        const assetItems: JSX.Element[] = []
+        assets.forEach((a: AssetInterface) => assetItems.push(<option value={a.id}>{a.name}</option>))
+
+        return (<>
+          <FormGroup>
+            <FormLabel>Asset</FormLabel>
+            <FormControl as="select" name="asset" value={action.assetId} onChange={handleChange}>
+              <option value="">All</option>
+              {assetItems}
+            </FormControl>
+          </FormGroup>
+        </>);
+      }
+    }
+
+  }
+
   const getResource = () => {
     if (action.actionType === "Play") {
       if (lessonResources && studyResources && programResources) {
-        if (!action.resourceId) action.resourceId = lessonResources.concat(studyResources).concat(programResources)[0].id;
-        return (<FormGroup>
-          <FormLabel>Resource</FormLabel>
-          <FormControl as="select" name="resource" value={action.resourceId} onChange={handleChange}>
-            {getResourceGroup("Lesson", lessonResources)}
-            {getResourceGroup("Study", studyResources)}
-            {getResourceGroup("Program", programResources)}
-          </FormControl>
-        </FormGroup>);
+        return (<>
+          <FormGroup>
+            <FormLabel>Resource</FormLabel>
+            <FormControl as="select" name="resource" id="resourceSelect" value={action.resourceId} onChange={handleChange}>
+              {getResourceGroup("Lesson", lessonResources)}
+              {getResourceGroup("Study", studyResources)}
+              {getResourceGroup("Program", programResources)}
+            </FormControl>
+          </FormGroup>
+          {getAsset()}
+        </>);
       }
     }
   }
@@ -109,7 +154,8 @@ export const ActionEdit: React.FC<Props> = (props) => {
 
 
   React.useEffect(() => { setAction(props.action) }, [props.action]);
-  React.useEffect(() => { checkResourcesLoaded() }, [action]);
+  React.useEffect(checkResourcesLoaded, [action]);
+  React.useEffect(checkAssetsLoaded, [lessonResources, studyResources, programResources]);
 
 
   return (<>

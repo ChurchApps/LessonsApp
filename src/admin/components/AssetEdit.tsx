@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React from "react";
 import { ApiHelper, InputBox, ErrorMessages, AssetInterface, FileInterface } from ".";
 import { FormGroup, FormControl, FormLabel } from "react-bootstrap";
 import { FileUpload } from "./FileUpload";
@@ -17,11 +17,12 @@ export const AssetEdit: React.FC<Props> = (props) => {
   const handleKeyDown = (e: React.KeyboardEvent<any>) => { if (e.key === "Enter") { e.preventDefault(); handleSave(); } }
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     e.preventDefault();
-    let v = { ...asset };
+    let a = { ...asset };
     switch (e.currentTarget.name) {
-      case "name": v.name = e.currentTarget.value; break;
+      case "name": a.name = e.currentTarget.value; break;
+      case "sort": a.sort = parseInt(e.currentTarget.value); break;
     }
-    setAsset(v);
+    setAsset(a);
   }
 
   const validate = () => {
@@ -59,6 +60,12 @@ export const AssetEdit: React.FC<Props> = (props) => {
   return (<>
     <InputBox id="assetDetailsBox" headerText="Edit Asset" headerIcon="fas fa-copy" saveFunction={handleSave} cancelFunction={handleCancel} deleteFunction={getDeleteFunction()}>
       <ErrorMessages errors={errors} />
+
+      <FormGroup>
+        <FormLabel>Order</FormLabel>
+        <FormControl type="number" name="sort" value={asset.sort} onChange={handleChange} onKeyDown={handleKeyDown} placeholder="1" />
+      </FormGroup>
+
       <FormGroup>
         <FormLabel>Asset Name</FormLabel>
         <FormControl type="text" name="name" value={asset.name} onChange={handleChange} onKeyDown={handleKeyDown} placeholder="Asset 1" />

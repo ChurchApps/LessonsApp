@@ -12,5 +12,5 @@ export interface RoleInterface { id?: string, lessonId?: string, sectionId?: str
 export interface ActionInterface { id?: string, lessonId?: string, roleId?: string, actionType?: string, content?: string, sort?: number, resourceId?: string, assetId?: string }
 
 export interface ResourceInterface { id?: string, contentType?: string, contentId?: string, name?: string, }
-export interface AssetInterface { id?: string, resourceId?: string, fileId?: string, name?: string, sort?: string }
+export interface AssetInterface { id?: string, resourceId?: string, fileId?: string, name?: string, sort?: number }
 export interface VariantInterface { id?: string, resourceId?: string, fileId?: string, name?: string, downloadDefault?: boolean, playerDefault?: boolean }

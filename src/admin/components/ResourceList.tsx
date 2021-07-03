@@ -78,12 +78,16 @@ export const ResourceList: React.FC<Props> = (props) => {
     )
   }
 
+  const createAsset = (resourceId: string) => {
+    setEditAsset({ resourceId: resourceId, sort: assets?.length + 1 || 1 });
+
+  }
 
   const getDropDownMenu = (resourceId: string) => {
     return (
       <div className="dropdown-menu" aria-labelledby={"addBtnGroup_" + resourceId}>
         <a className="dropdown-item" data-cy="add-variant" href="about:blank" onClick={(e: React.MouseEvent) => { e.preventDefault(); setEditVariant({ resourceId: resourceId }); }}><i className="fas fa-copy"></i> Add Variant</a>
-        <a className="dropdown-item" data-cy="add-asset" href="about:blank" onClick={(e: React.MouseEvent) => { e.preventDefault(); setEditAsset({ resourceId: resourceId }); }}><i className="fas fa-list-ol"></i> Add Asset</a>
+        <a className="dropdown-item" data-cy="add-asset" href="about:blank" onClick={(e: React.MouseEvent) => { e.preventDefault(); createAsset(resourceId); }}><i className="fas fa-list-ol"></i> Add Asset</a>
       </div>);
   }
   const getEditContent = () => {

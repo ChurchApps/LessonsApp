@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React from "react";
 import { ApiHelper, InputBox, ErrorMessages, VariantInterface, FileInterface } from ".";
 import { FormGroup, FormControl, FormLabel } from "react-bootstrap";
 import { FileUpload } from "./FileUpload";
