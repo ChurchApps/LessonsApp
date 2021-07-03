@@ -1,5 +1,5 @@
 import React from "react";
-import { DisplayBox, ApiHelper, Loading, SectionInterface, RoleInterface, ActionInterface, SectionEdit, RoleEdit, ActionEdit, ArrayHelper, VenueInterface, LessonInterface } from "./components"
+import { DisplayBox, ApiHelper, Loading, SectionInterface, RoleInterface, ActionInterface, SectionEdit, RoleEdit, ActionEdit, ArrayHelper, VenueInterface, LessonInterface, StudyInterface, ResourceInterface, AssetInterface } from "./components"
 import { Row, Col } from "react-bootstrap";
 import { RouteComponentProps } from "react-router-dom";
 
@@ -9,6 +9,7 @@ type TParams = { id?: string };
 export const VenuePage = ({ match }: RouteComponentProps<TParams>) => {
   const [venue, setVenue] = React.useState<VenueInterface>(null);
   const [lesson, setLesson] = React.useState<LessonInterface>(null);
+  const [study, setStudy] = React.useState<StudyInterface>(null);
   const [sections, setSections] = React.useState<SectionInterface[]>(null);
   const [roles, setRoles] = React.useState<RoleInterface[]>(null);
   const [actions, setActions] = React.useState<ActionInterface[]>(null);
@@ -16,10 +17,38 @@ export const VenuePage = ({ match }: RouteComponentProps<TParams>) => {
   const [editRole, setEditRole] = React.useState<RoleInterface>(null);
   const [editAction, setEditAction] = React.useState<ActionInterface>(null);
 
+  const [lessonResources, setLessonResources] = React.useState<ResourceInterface[]>(null);
+  const [studyResources, setStudyResources] = React.useState<ResourceInterface[]>(null);
+  const [programResources, setProgramResources] = React.useState<ResourceInterface[]>(null);
+  const [allAssets, setAllAssets] = React.useState<AssetInterface[]>(null);
+
+  const loadResources = () => {
+    if (lesson && study) {
+      ApiHelper.get("/resources/content/lesson/" + lesson.id, "LessonsApi").then((data: any) => { setLessonResources(data); });
+      ApiHelper.get("/resources/content/study/" + study.id, "LessonsApi").then((data: any) => { setStudyResources(data); });
+      ApiHelper.get("/resources/content/program/" + study.programId, "LessonsApi").then((data: any) => { setProgramResources(data); });
+    }
+  }
+
+  const loadAssets = () => {
+    if (allAssets === null) {
+      if (lessonResources && studyResources && programResources) {
+        const allResources = [].concat(lessonResources).concat(studyResources).concat(programResources);
+        if (allResources.length > 0) {
+          const resourceIds: string[] = ArrayHelper.getUniqueValues(allResources, "id");
+          ApiHelper.get("/assets/resourceIds?resourceIds=" + resourceIds.join(","), "LessonsApi").then((data: any) => { setAllAssets(data); })
+        }
+      }
+    }
+  }
+
   const loadData = () => {
     ApiHelper.get("/venues/" + match.params.id, "LessonsApi").then((v: VenueInterface) => {
       setVenue(v);
-      ApiHelper.get("/lessons/" + v.lessonId, "LessonsApi").then((data: any) => { setLesson(data); });
+      ApiHelper.get("/lessons/" + v.lessonId, "LessonsApi").then((data: any) => {
+        setLesson(data);
+        ApiHelper.get("/studies/" + data.studyId, "LessonsApi").then((d: any) => { setStudy(d); });
+      });
       ApiHelper.get("/sections/public/lesson/" + v.lessonId, "LessonsApi").then((data: any) => { setSections(data); });
       ApiHelper.get("/roles/public/lesson/" + v.lessonId, "LessonsApi").then((data: any) => { setRoles(data); });
       ApiHelper.get("/actions/public/lesson/" + v.lessonId, "LessonsApi").then((data: any) => { setActions(data); });
@@ -28,6 +57,8 @@ export const VenuePage = ({ match }: RouteComponentProps<TParams>) => {
   };
 
   React.useEffect(loadData, []);
+  React.useEffect(loadResources, [lesson, study]);
+  React.useEffect(loadAssets, [lessonResources, studyResources, programResources]);
 
   const clearEdits = () => { setEditSection(null); setEditRole(null); setEditAction(null); }
   const handleUpdated = () => { loadData(); setEditSection(null); setEditRole(null); setEditAction(null); };
@@ -120,7 +151,7 @@ export const VenuePage = ({ match }: RouteComponentProps<TParams>) => {
     const result: JSX.Element[] = [];
     if (editSection) result.push(<SectionEdit section={editSection} updatedCallback={handleSectionUpdated} />)
     else if (editRole) result.push(<RoleEdit role={editRole} updatedCallback={handleRoleUpdated} />)
-    else if (editAction) result.push(<ActionEdit action={editAction} updatedCallback={handleActionUpdated} />)
+    else if (editAction) result.push(<ActionEdit action={editAction} updatedCallback={handleActionUpdated} lessonResources={lessonResources} studyResources={studyResources} programResources={programResources} allAssets={allAssets} />);
     return result;
   }
 

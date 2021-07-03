@@ -1,15 +1,21 @@
 import React from "react";
 import { ApiHelper, InputBox, ErrorMessages, ActionInterface } from ".";
 import { FormGroup, FormControl, FormLabel } from "react-bootstrap";
+import { ArrayHelper, AssetInterface, ResourceInterface } from "../../helpers";
 
 interface Props {
   action: ActionInterface,
+  lessonResources: ResourceInterface[],
+  studyResources: ResourceInterface[],
+  programResources: ResourceInterface[],
+  allAssets: AssetInterface[],
   updatedCallback: (action: ActionInterface, created: boolean) => void
 }
 
 export const ActionEdit: React.FC<Props> = (props) => {
   const [action, setAction] = React.useState<ActionInterface>({} as ActionInterface);
   const [errors, setErrors] = React.useState([]);
+
 
   const handleCancel = () => props.updatedCallback(action, false);
   const handleKeyDown = (e: React.KeyboardEvent<any>) => { if (e.key === "Enter") { e.preventDefault(); handleSave(); } }
@@ -18,15 +24,30 @@ export const ActionEdit: React.FC<Props> = (props) => {
     let a = { ...action };
     switch (e.currentTarget.name) {
       case "sort": a.sort = parseInt(e.currentTarget.value); break;
-      case "actionType": a.actionType = e.currentTarget.value; break;
+      case "actionType":
+        a.actionType = e.currentTarget.value;
+        break;
       case "content": a.content = e.currentTarget.value; break;
+      case "resource":
+        a.resourceId = e.currentTarget.value;
+        a.assetId = null;
+        let select = e.currentTarget as HTMLSelectElement;
+        a.content = select.options[select.selectedIndex].text;
+        break;
+      case "asset":
+        a.assetId = e.currentTarget.value;
+        if (a.assetId === "") a.assetId = null;
+        let resourceSelect = document.getElementById("resourceSelect") as HTMLSelectElement;
+        let assetSelect = e.currentTarget as HTMLSelectElement;
+        a.content = resourceSelect.options[resourceSelect.selectedIndex].text + " - " + assetSelect.options[assetSelect.selectedIndex].text;
+        break;
     }
     setAction(a);
   }
 
   const validate = () => {
     let errors = [];
-    if (action.sort === -1) errors.push("Please enter a action name.");
+    if (action.content === "") errors.push("Please enter content text.");
     setErrors(errors);
     return errors.length === 0;
   }
@@ -35,6 +56,8 @@ export const ActionEdit: React.FC<Props> = (props) => {
     if (validate()) {
       const a = action;
       if (!a.actionType) a.actionType = "Say";
+      if (a.actionType !== "Play") { a.resourceId = null; a.assetId = null; }
+
       ApiHelper.post("/actions", [a], "LessonsApi").then(data => {
         setAction(data);
         props.updatedCallback(data[0], !props.action.id);
@@ -47,6 +70,65 @@ export const ActionEdit: React.FC<Props> = (props) => {
       ApiHelper.delete("/actions/" + action.id.toString(), "LessonsApi").then(() => props.updatedCallback(null, false));
     }
   }
+
+  const getContent = () => {
+    if (action.actionType !== "Play") {
+      return (<FormGroup>
+        <FormLabel>Content</FormLabel>
+        <FormControl type="text" name="content" value={action.content} onChange={handleChange} onKeyDown={handleKeyDown} placeholder="" />
+      </FormGroup>);
+    }
+  }
+
+
+  const getAsset = () => {
+    if (props.allAssets && action?.resourceId) {
+      const assets = ArrayHelper.getAll(props.allAssets, "resourceId", action.resourceId);
+      if (assets.length > 0) {
+        const assetItems: JSX.Element[] = []
+        assets.forEach((a: AssetInterface) => assetItems.push(<option value={a.id}>{a.name}</option>))
+
+        return (<>
+          <FormGroup>
+            <FormLabel>Asset</FormLabel>
+            <FormControl as="select" name="asset" value={action.assetId} onChange={handleChange}>
+              <option value="">All</option>
+              {assetItems}
+            </FormControl>
+          </FormGroup>
+        </>);
+      }
+    }
+
+  }
+
+  const getResource = () => {
+    if (action.actionType === "Play") {
+      if (props.lessonResources && props.studyResources && props.programResources) {
+        return (<>
+          <FormGroup>
+            <FormLabel>Resource</FormLabel>
+            <FormControl as="select" name="resource" id="resourceSelect" value={action.resourceId} onChange={handleChange}>
+              {getResourceGroup("Lesson", props.lessonResources)}
+              {getResourceGroup("Study", props.studyResources)}
+              {getResourceGroup("Program", props.programResources)}
+            </FormControl>
+          </FormGroup>
+          {getAsset()}
+        </>);
+      }
+    }
+  }
+
+
+  const getResourceGroup = (groupName: string, resources: ResourceInterface[]) => {
+    if (resources.length > 0) {
+      const items: JSX.Element[] = [];
+      resources.forEach(r => { items.push(<option value={r.id}>{r.name}</option>) })
+      return <optgroup label={groupName}>{items}</optgroup>
+    }
+  }
+
 
   React.useEffect(() => { setAction(props.action) }, [props.action]);
 
@@ -63,12 +145,11 @@ export const ActionEdit: React.FC<Props> = (props) => {
         <FormControl as="select" name="actionType" value={action.actionType} onChange={handleChange}>
           <option value="Say">Say</option>
           <option value="Do">Do</option>
+          <option value="Play">Play</option>
         </FormControl>
       </FormGroup>
-      <FormGroup>
-        <FormLabel>Content</FormLabel>
-        <FormControl type="text" name="content" value={action.content} onChange={handleChange} onKeyDown={handleKeyDown} placeholder="" />
-      </FormGroup>
+      {getContent()}
+      {getResource()}
     </InputBox>
   </>);
 }
