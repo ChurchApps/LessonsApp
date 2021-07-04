@@ -10,10 +10,10 @@ interface Props {
 
 export const Lesson: React.FC<Props> = (props) => {
   return (
-    <Link to="/studies/1/lessons/1" style={{ textDecoration: "none", color: "inherit" }} >
+    <Link to={"/lessons/" + props.lesson.id} style={{ textDecoration: "none", color: "inherit" }} >
       <Row style={{ paddingBottom: 20, paddingTop: 20, borderBottom: "1px solid #CCC" }}>
         <Col xl={3}>
-          <Link to="/studies/1/lessons/1"><img src={props.lesson.image} className="img-fluid" alt={props.lesson.name} /></Link>
+          <Link to={"/lessons/" + props.lesson.id}><img src={props.lesson.image} className="img-fluid" alt={props.lesson.name} /></Link>
         </Col>
         <Col xl={9}>
           <div className="title">{props.lesson.name}</div>

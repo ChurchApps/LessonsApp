@@ -1,6 +1,6 @@
 import React from "react";
 import { RouteComponentProps } from "react-router-dom";
-import { LessonInterface, StudyInterface, ProgramInterface, ApiHelper, Loading } from "./components";
+import { LessonInterface, StudyInterface, ProgramInterface, ApiHelper, Loading, Venues } from "./components";
 import { Container, Row, Col, Accordion } from "react-bootstrap"
 
 type TParams = { id?: string };
@@ -12,22 +12,22 @@ export const LessonPage = ({ match }: RouteComponentProps<TParams>) => {
   const [lesson, setLesson] = React.useState<LessonInterface>(null);
 
   const loadData = async () => {
-    const l = await ApiHelper.getAnonymous("/lessons/public/" + match.params.id, "LessonsApi");
+    const l: LessonInterface = await ApiHelper.getAnonymous("/lessons/public/" + match.params.id, "LessonsApi");
     setLesson(l);
-    const s = await ApiHelper.getAnonymous("/studies/public/" + l.id, "LessonsApi");
+    const s: StudyInterface = await ApiHelper.getAnonymous("/studies/public/" + l.studyId, "LessonsApi");
     setStudy(s);
-    const p = await ApiHelper.getAnonymous("/programs/public/" + match.params.id, "LessonsApi");
+    const p: ProgramInterface = await ApiHelper.getAnonymous("/programs/public/" + s.programId, "LessonsApi");
     setProgram(p);
   };
 
-  React.useEffect(() => { loadData() }, [loadData]);
+  React.useEffect(() => { loadData() }, []);
 
 
   const getLesson = () => {
     if (!lesson) return <Loading />
     else return (<>
       <div className="text-center">
-        <div className="title">{program.name}</div>
+        <div className="title">{program?.name}</div>
         <h2>{study?.name}: <span>{lesson?.name}</span></h2>
       </div>
       <p>{lesson.description}</p>
@@ -49,10 +49,7 @@ export const LessonPage = ({ match }: RouteComponentProps<TParams>) => {
       <Container>
         {getLesson()}
 
-        <h2>Outlines</h2>
-        <Accordion>
-
-        </Accordion>
+        <Venues lessonId={lesson?.id || ""} />
       </Container>
     </div>
   );
