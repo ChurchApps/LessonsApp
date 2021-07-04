@@ -23,7 +23,7 @@ export const LessonEdit: React.FC<Props> = (props) => {
       case "description": p.description = e.currentTarget.value; break;
       case "live": p.live = e.currentTarget.value === "true"; break;
       case "sort": p.sort = parseInt(e.currentTarget.value); break;
-
+      case "videoEmbedUrl": p.videoEmbedUrl = e.currentTarget.value; break;
     }
     setLesson(p);
   }
@@ -107,6 +107,10 @@ export const LessonEdit: React.FC<Props> = (props) => {
       <FormGroup>
         <FormLabel>Description</FormLabel>
         <FormControl as="textarea" type="text" name="description" value={lesson.description} onChange={handleChange} onKeyDown={handleKeyDown} />
+      </FormGroup>
+      <FormGroup>
+        <FormLabel>Video Embed Url</FormLabel>
+        <FormControl type="text" name="videoEmbedUrl" value={lesson.videoEmbedUrl} onChange={handleChange} onKeyDown={handleKeyDown} />
       </FormGroup>
     </InputBox>
   </>);
