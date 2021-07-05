@@ -1,5 +1,5 @@
 import React from "react";
-import { VenueInterface, Downloads, Section, ResourceInterface, AssetInterface } from ".";
+import { VenueInterface, Downloads, Section, ResourceInterface } from ".";
 import { Accordion, Row, Col } from "react-bootstrap"
 
 interface Props {

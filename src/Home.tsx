@@ -1,6 +1,6 @@
 import React from "react";
 //import UserContext from "./UserContext"
-import { HomeStudies, HomePrograms } from "./components"
+import { HomePrograms } from "./components"
 import { Container, Row, Col, Button } from "react-bootstrap"
 
 //<HomeStudies />

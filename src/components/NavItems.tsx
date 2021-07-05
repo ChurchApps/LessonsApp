@@ -1,15 +1,15 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { useLocation } from "react-router-dom";
+//import { useLocation } from "react-router-dom";
 
 interface Props {
   prefix?: String;
 }
 
 export const NavItems: React.FC<Props> = (props) => {
-  const location = useLocation();
+  //const location = useLocation();
   const getSelected = (): string => {
-    let url = location.pathname;
+    //let url = location.pathname;
     let result = "Lessons";
     //if (url.indexOf("/profile") > -1) result = "Profile";
     return result;

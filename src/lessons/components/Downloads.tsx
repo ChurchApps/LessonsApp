@@ -1,5 +1,5 @@
 import React from "react";
-import { ResourceInterface, VariantInterface } from ".";
+import { ResourceInterface } from ".";
 import { Row, Col } from "react-bootstrap";
 
 

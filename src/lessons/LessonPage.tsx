@@ -20,7 +20,11 @@ export const LessonPage = ({ match }: RouteComponentProps<TParams>) => {
     setProgram(p);
   };
 
-  React.useEffect(() => { loadData() }, []);
+  const checkLoadData = () => {
+    loadData();
+  }
+
+  React.useEffect(checkLoadData, []);
 
 
   const getLesson = () => {

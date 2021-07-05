@@ -35,7 +35,7 @@
     "deploy-staging": "npm run predeploy-staging && npm run exec-deploy-staging && npm run postdeploy-staging",
     "predeploy-prod": "export REACT_APP_STAGE=prod&& npm run build",
     "exec-deploy-prod": "aws s3 sync build/ s3://lessons-app",
-    "postdeploy-prod": "aws cloudfront create-invalidation --distribution-id E1ARNZUL5CN6BW --paths \"/*\"",
+    "postdeploy-prod": "aws cloudfront create-invalidation --distribution-id EIZYEII3TBNZ --paths \"/*\"",
     "deploy-prod": "npm run predeploy-prod && npm run exec-deploy-prod && npm run postdeploy-prod"
   },
   "browserslist": {

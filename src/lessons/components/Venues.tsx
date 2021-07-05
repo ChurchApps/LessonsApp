@@ -1,6 +1,6 @@
 import React from "react";
 import { VenueInterface, ApiHelper, Loading, Venue, ArrayHelper } from ".";
-import { ResourceInterface, AssetInterface } from "../../helpers";
+import { ResourceInterface } from "../../helpers";
 
 
 interface Props {
@@ -21,7 +21,7 @@ export const Venues: React.FC<Props> = (props) => {
     }
   }
 
-  React.useEffect(() => { loadData() }, [props.lessonId]);
+  React.useEffect(loadData, [props.lessonId]);
 
   const getVenues = () => {
     if (venues === null) return <Loading />
