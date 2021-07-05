@@ -1,7 +1,7 @@
 import React from "react";
 import { RouteComponentProps } from "react-router-dom";
 import { LessonInterface, StudyInterface, ProgramInterface, ApiHelper, Loading, Venues } from "./components";
-import { Container, Row, Col, Accordion } from "react-bootstrap"
+import { Container, Row, Col } from "react-bootstrap"
 
 type TParams = { id?: string };
 

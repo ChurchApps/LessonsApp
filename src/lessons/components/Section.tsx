@@ -1,6 +1,7 @@
 import React from "react";
 import { Accordion, Card, Button } from "react-bootstrap"
-import { SectionInterface } from "../../helpers";
+import { ActionInterface, SectionInterface } from "../../helpers";
+import { Action } from "./Action"
 
 interface Props {
   section: SectionInterface
@@ -8,17 +9,32 @@ interface Props {
 
 export const Section: React.FC<Props> = (props) => {
 
+  const getActions = (actions: ActionInterface[]) => {
+    const result: JSX.Element[] = [];
+    actions.forEach(a => { result.push(<Action action={a} />) });
+    return result;
+  }
+
+  const getParts = () => {
+    const result: JSX.Element[] = [];
+    props.section?.roles?.forEach(r => {
+      result.push(<div className="part">
+        <div className="role"><span>{r.name}</span></div>
+        {getActions(r.actions)}
+      </div>);
+    });
+    return result;
+  }
+
   return (<Card>
     <Card.Header>
-      <Accordion.Toggle as={Button} variant="link" eventKey="watch">
-        Watch as a Family
+      <Accordion.Toggle as={Button} variant="link" eventKey={props.section.id}>
+        {props.section.name}
       </Accordion.Toggle>
     </Card.Header>
-    <Accordion.Collapse eventKey="watch">
+    <Accordion.Collapse eventKey={props.section.id}>
       <Card.Body>
-        <div className="videoWrapper">
-          <iframe width="992" height="558" src="https://www.youtube.com/embed/inVOXN6BrV8" title="YouTube video player" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowFullScreen></iframe>
-        </div>
+        {getParts()}
       </Card.Body>
     </Accordion.Collapse>
   </Card>);
