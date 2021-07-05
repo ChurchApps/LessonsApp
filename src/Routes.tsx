@@ -7,8 +7,9 @@ import { Forgot } from "./Forgot";
 import { Login } from "./Login";
 import { Home } from "./Home"
 import { StudyPage } from "./studies/StudyPage"
-import { LessonPage } from "./studies/lessons/LessonPage"
+import { LessonPage as LessonPageMockup } from "./studies/lessons/LessonPage"
 import { ProgramPage } from "./programs/ProgramPage"
+import { LessonPage } from "./lessons/LessonPage"
 
 import { Authenticated } from "./Authenticated";
 import { Logout } from "./Logout";
@@ -37,7 +38,8 @@ export const Routes = () => {
       <Header />
 
       <Switch>
-        <Route path="/studies/:studyId/lessons/:id" component={LessonPage}></Route>
+        <Route path="/studies/:studyId/lessons/:id" component={LessonPageMockup}></Route>
+        <Route path="/lessons/:id" component={LessonPage}></Route>
         <Route path="/studies/:id" component={StudyPage}></Route>
         <Route path="/programs/:id" component={ProgramPage}></Route>
         <Route exact={true} path="/"><Home /></Route>

@@ -3,6 +3,7 @@ import React from "react";
 import { HomeStudies, HomePrograms } from "./components"
 import { Container, Row, Col, Button } from "react-bootstrap"
 
+//<HomeStudies />
 
 export const Home = () => {
   return (<>
@@ -40,7 +41,7 @@ export const Home = () => {
       </Container>
     </div>
 
-    <HomeStudies />
+
     <HomePrograms />
 
 
