@@ -16,7 +16,7 @@ export const AdminPage = () => {
   const [resourceContentId, setResourceContentId] = React.useState<string>(null);
 
   const loadData = () => {
-    ApiHelper.get("/programs/provider/1", "LessonsApi").then((data: any) => { setPrograms(data); });
+    ApiHelper.get("/programs", "LessonsApi").then((data: any) => { setPrograms(data); });
     ApiHelper.get("/studies", "LessonsApi").then((data: any) => { setStudies(data); });
     ApiHelper.get("/lessons", "LessonsApi").then((data: any) => { setLessons(data); });
   };

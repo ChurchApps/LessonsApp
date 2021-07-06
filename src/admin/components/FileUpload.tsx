@@ -47,8 +47,11 @@ export const FileUpload: React.FC<Props> = (props) => {
     f.fileType = uploadedFile.type;
     f.fileName = uploadedFile.name;
 
-    const base64 = await convertBase64();
-    f.fileContents = base64 as string;
+    const preUploaded: boolean = await preUpload();
+    if (!preUploaded) {
+      const base64 = await convertBase64();
+      f.fileContents = base64 as string;
+    }
     const data: FileInterface[] = await ApiHelper.post("/files", [f], "LessonsApi");
     setFile(data[0]);
     props.saveCallback(data[0]);
@@ -60,6 +63,27 @@ export const FileUpload: React.FC<Props> = (props) => {
       else props.saveCallback(file);
     }
   }
+
+  const preUpload = async () => {
+    const params = { resourceId: props.resourceId, fileName: uploadedFile.name }
+    const presigned = await ApiHelper.post("/files/postUrl", params, "LessonsApi");
+    const doUpload = presigned.key !== undefined;
+    if (doUpload) await postPresignedFile(presigned);
+    return doUpload;
+  }
+
+  //This will throw a CORS error if ran from localhost
+  const postPresignedFile = (presigned: any) => {
+    const formData = new FormData();
+    formData.append("key", presigned.key);
+    formData.append("acl", "public-read");
+    for (const property in presigned.fields) formData.append(property, presigned.fields[property]);
+    const f: any = document.getElementById('fileUpload');
+    formData.append("file", f.files[0])
+    const requestOptions: RequestInit = { method: "POST", body: formData };
+    return fetch(presigned.url, requestOptions);
+  }
+
 
   React.useEffect(loadData, [props.fileId]);
   React.useEffect(checkSave, [props.pendingSave]);
@@ -75,7 +99,7 @@ export const FileUpload: React.FC<Props> = (props) => {
     <FormGroup>
       <FormLabel>File</FormLabel>
       {getFileLink()}
-      <input type="file" onChange={handleChange} />
+      <input id="fileUpload" type="file" onChange={handleChange} />
     </FormGroup>
   </>);
 }
