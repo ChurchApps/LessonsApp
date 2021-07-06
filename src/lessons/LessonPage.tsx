@@ -34,8 +34,9 @@ export const LessonPage = ({ match }: RouteComponentProps<TParams>) => {
         <div className="title">{program?.name}</div>
         <h2>{study?.name}: <span>{lesson?.name}</span></h2>
       </div>
-      <p>{lesson.description}</p>
       {getVideo()}
+      <p>{lesson.description}</p>
+
     </>);
   }
 

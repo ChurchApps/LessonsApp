@@ -49,7 +49,7 @@ export const VenuePage = ({ match }: RouteComponentProps<TParams>) => {
         setLesson(data);
         ApiHelper.get("/studies/" + data.studyId, "LessonsApi").then((d: any) => { setStudy(d); });
       });
-      ApiHelper.get("/sections/public/lesson/" + v.lessonId, "LessonsApi").then((data: any) => { setSections(data); });
+      ApiHelper.get("/sections/venue/" + v.id, "LessonsApi").then((data: any) => { setSections(data); });
       ApiHelper.get("/roles/public/lesson/" + v.lessonId, "LessonsApi").then((data: any) => { setRoles(data); });
       ApiHelper.get("/actions/public/lesson/" + v.lessonId, "LessonsApi").then((data: any) => { setActions(data); });
     });
