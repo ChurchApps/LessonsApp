@@ -27,6 +27,10 @@ export const Section: React.FC<Props> = (props) => {
     return result;
   }
 
+  const getMaterials = () => {
+    if (props.section.materials) return (<div className="materials"><b>Materials:</b> {props.section.materials}</div>)
+  }
+
   return (<Card>
     <Card.Header>
       <Accordion.Toggle as={Button} variant="link" eventKey={props.section.id}>
@@ -35,6 +39,7 @@ export const Section: React.FC<Props> = (props) => {
     </Card.Header>
     <Accordion.Collapse eventKey={props.section.id}>
       <Card.Body>
+        {getMaterials()}
         {getParts()}
       </Card.Body>
     </Accordion.Collapse>

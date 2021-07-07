@@ -147,6 +147,7 @@ export const ActionEdit: React.FC<Props> = (props) => {
           <option value="Say">Say</option>
           <option value="Do">Do</option>
           <option value="Play">Play</option>
+          <option value="Note">Note</option>
         </FormControl>
       </FormGroup>
       {getContent()}

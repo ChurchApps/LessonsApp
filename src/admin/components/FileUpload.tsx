@@ -77,6 +77,7 @@ export const FileUpload: React.FC<Props> = (props) => {
     const formData = new FormData();
     formData.append("key", presigned.key);
     formData.append("acl", "public-read");
+    formData.append("Content-Type", uploadedFile.type)
     for (const property in presigned.fields) formData.append(property, presigned.fields[property]);
     const f: any = document.getElementById('fileUpload');
     formData.append("file", f.files[0])

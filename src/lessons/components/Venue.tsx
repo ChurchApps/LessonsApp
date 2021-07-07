@@ -21,7 +21,7 @@ export const Venue: React.FC<Props> = (props) => {
     props.venue.sections?.forEach(s => {
       sections.push(<Section section={s} resources={props.resources} />);
     });
-    return <Accordion>{sections}</Accordion>
+    return <Accordion defaultActiveKey={props.venue.sections[0].id}>{sections}</Accordion>
   }
 
   return (<>

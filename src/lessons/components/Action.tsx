@@ -21,6 +21,9 @@ export const Action: React.FC<Props> = (props) => {
   let result = <></>;
 
   switch (props.action.actionType) {
+    case "Note":
+      result = <div className="note"><b>Note:</b> {props.action.content}</div>
+      break;
     case "Do":
       result = <ul className="actions"><li><ReactMarkdown>{props.action.content}</ReactMarkdown></li></ul>
       break;
