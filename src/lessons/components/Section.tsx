@@ -1,17 +1,18 @@
 import React from "react";
 import { Accordion, Card, Button } from "react-bootstrap"
-import { ActionInterface, SectionInterface } from "../../helpers";
+import { ActionInterface, SectionInterface, ResourceInterface } from "../../helpers";
 import { Action } from "./Action"
 
 interface Props {
-  section: SectionInterface
+  section: SectionInterface,
+  resources: ResourceInterface[]
 }
 
 export const Section: React.FC<Props> = (props) => {
 
   const getActions = (actions: ActionInterface[]) => {
     const result: JSX.Element[] = [];
-    actions.forEach(a => { result.push(<Action action={a} />) });
+    actions.forEach(a => { result.push(<Action action={a} resources={props.resources} />) });
     return result;
   }
 

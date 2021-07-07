@@ -14,7 +14,7 @@ export const Venue: React.FC<Props> = (props) => {
     const sections: JSX.Element[] = [];
 
     props.venue.sections?.forEach(s => {
-      sections.push(<Section section={s} />);
+      sections.push(<Section section={s} resources={props.resources} />);
     });
     return <Accordion>{sections}</Accordion>
   }
