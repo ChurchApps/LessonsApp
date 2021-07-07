@@ -609,7 +609,7 @@ blockquote p:last-child {margin-bottom: 0px;}
 /*.part {border-bottom: 1px solid #ccc;padding-bottom: 20px;padding-top:20px}
 .part:last-child { border-bottom: 0px;}
 */
-.part {border-top: 1px solid #03a9f4;margin-top:20px;margin-bottom: 20px; padding:10px;}
+.part {border-top: 1px solid #03a9f4;margin-top:5px;margin-bottom: 5px; padding:10px;}
 dropdown-menu a { color: #03a9f4;}
 
 .imgCol {width:100px;}
@@ -648,3 +648,19 @@ dropdown-menu a { color: #03a9f4;}
 
 .venueRow td:last-child {text-align: right;}
 .venueRow td:last-child a { color:#77cc00; }
+
+
+@media screen {
+  .printOnly {display: none;}
+}
+
+@media print
+{
+  @page {margin-top:20px;margin-bottom: 20px;}
+  body {background-color:#FFF;}
+  .collapse:not(.show) {display:block}
+  blockquote {border-top:none;border-bottom: none;border-right: none;}
+  .card {border:none;}
+  .accordion {width:100%;}
+  .actions p {margin-bottom: 0.3rem;}
+}
