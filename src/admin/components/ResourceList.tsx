@@ -79,8 +79,14 @@ export const ResourceList: React.FC<Props> = (props) => {
   }
 
   const createAsset = (resourceId: string) => {
-    setEditAsset({ resourceId: resourceId, sort: assets?.length + 1 || 1 });
+    const resourceAssets = ArrayHelper.getAll(assets || [], "resourceId", resourceId);
+    setEditAsset({ resourceId: resourceId, sort: resourceAssets?.length + 1 || 1 });
+  }
 
+  const handleAssetCallback = (asset: AssetInterface) => {
+    if (asset.id && !editAsset.id) createAsset(asset.resourceId);
+    else setEditAsset(null);
+    loadData();
   }
 
   const getDropDownMenu = (resourceId: string) => {
@@ -97,7 +103,7 @@ export const ResourceList: React.FC<Props> = (props) => {
   React.useEffect(loadData, [props.contentType, props.contentId]);
 
   if (editVariant) return <VariantEdit variant={editVariant} updatedCallback={() => { setEditVariant(null); loadData() }} />
-  if (editAsset) return <AssetEdit asset={editAsset} updatedCallback={() => { setEditAsset(null); loadData() }} />
+  if (editAsset) return <AssetEdit asset={editAsset} updatedCallback={handleAssetCallback} />
   if (editResource) return <ResourceEdit resource={editResource} updatedCallback={() => { setEditResource(null); loadData() }} />
   else return (<>
     <DisplayBox headerText="Resources" headerIcon="fas fa-file-alt" editContent={getEditContent()} >

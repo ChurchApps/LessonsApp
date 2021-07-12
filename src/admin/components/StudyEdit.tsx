@@ -1,6 +1,6 @@
 import React from "react";
 import { ApiHelper, InputBox, ErrorMessages, StudyInterface, ImageEditor } from ".";
-import { FormGroup, FormControl, FormLabel } from "react-bootstrap";
+import { FormGroup, FormControl, FormLabel, Row, Col } from "react-bootstrap";
 
 interface Props {
   study: StudyInterface,
@@ -22,6 +22,8 @@ export const StudyEdit: React.FC<Props> = (props) => {
       case "shortDescription": p.shortDescription = e.currentTarget.value; break;
       case "description": p.description = e.currentTarget.value; break;
       case "videoEmbedUrl": p.videoEmbedUrl = e.currentTarget.value; break;
+      case "live": p.live = e.currentTarget.value === "true"; break;
+      case "sort": p.sort = parseInt(e.currentTarget.value); break;
     }
     setStudy(p);
   }
@@ -76,6 +78,23 @@ export const StudyEdit: React.FC<Props> = (props) => {
       <a href="about:blank" className="d-block" onClick={handleImageClick}>
         <img src={study.image || "/images/blank.png"} className="img-fluid profilePic d-block mx-auto" id="imgPreview" alt="study" />
       </a><br />
+      <Row>
+        <Col>
+          <FormGroup>
+            <FormLabel>Live</FormLabel>
+            <FormControl as="select" name="live" value={study.live?.toString()} onChange={handleChange}>
+              <option value="false">No</option>
+              <option value="true">Yes</option>
+            </FormControl>
+          </FormGroup>
+        </Col>
+        <Col>
+          <FormGroup>
+            <FormLabel>Order</FormLabel>
+            <FormControl type="number" name="sort" value={study.sort} onChange={handleChange} onKeyDown={handleKeyDown} placeholder="1" />
+          </FormGroup>
+        </Col>
+      </Row>
       <FormGroup>
         <FormLabel>Study Name</FormLabel>
         <FormControl type="text" name="name" value={study.name} onChange={handleChange} onKeyDown={handleKeyDown} />

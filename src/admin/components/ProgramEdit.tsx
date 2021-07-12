@@ -18,9 +18,11 @@ export const ProgramEdit: React.FC<Props> = (props) => {
     e.preventDefault();
     let p = { ...program };
     switch (e.currentTarget.name) {
+      case "live": p.live = e.currentTarget.value === "true"; break;
       case "name": p.name = e.currentTarget.value; break;
       case "shortDescription": p.shortDescription = e.currentTarget.value; break;
       case "description": p.description = e.currentTarget.value; break;
+      case "aboutSection": p.aboutSection = e.currentTarget.value; break;
       case "videoEmbedUrl": p.videoEmbedUrl = e.currentTarget.value; break;
     }
     setProgram(p);
@@ -78,6 +80,13 @@ export const ProgramEdit: React.FC<Props> = (props) => {
         <img src={program.image || "/images/blank.png"} className="img-fluid profilePic d-block mx-auto" id="imgPreview" alt="program" />
       </a><br />
       <FormGroup>
+        <FormLabel>Live</FormLabel>
+        <FormControl as="select" name="live" value={program.live?.toString()} onChange={handleChange}>
+          <option value="false">No</option>
+          <option value="true">Yes</option>
+        </FormControl>
+      </FormGroup>
+      <FormGroup>
         <FormLabel>Program Name</FormLabel>
         <FormControl type="text" name="name" value={program.name} onChange={handleChange} onKeyDown={handleKeyDown} />
       </FormGroup>
@@ -85,10 +94,13 @@ export const ProgramEdit: React.FC<Props> = (props) => {
         <FormLabel>One-Line Description</FormLabel>
         <FormControl type="text" name="shortDescription" value={program.shortDescription} onChange={handleChange} onKeyDown={handleKeyDown} />
       </FormGroup>
-
       <FormGroup>
         <FormLabel>Description</FormLabel>
         <FormControl as="textarea" type="text" name="description" value={program.description} onChange={handleChange} onKeyDown={handleKeyDown} />
+      </FormGroup>
+      <FormGroup>
+        <FormLabel>About Section</FormLabel>
+        <FormControl as="textarea" type="text" name="aboutSection" value={program.aboutSection} onChange={handleChange} onKeyDown={handleKeyDown} />
       </FormGroup>
       <FormGroup>
         <FormLabel>Video Embed Url</FormLabel>

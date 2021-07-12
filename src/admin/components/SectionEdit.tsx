@@ -18,6 +18,7 @@ export const SectionEdit: React.FC<Props> = (props) => {
     let s = { ...section };
     switch (e.currentTarget.name) {
       case "name": s.name = e.currentTarget.value; break;
+      case "materials": s.materials = e.currentTarget.value; break;
       case "sort": s.sort = parseInt(e.currentTarget.value); break;
     }
     setSection(s);
@@ -58,6 +59,10 @@ export const SectionEdit: React.FC<Props> = (props) => {
       <FormGroup>
         <FormLabel>Section Name</FormLabel>
         <FormControl type="text" name="name" value={section.name} onChange={handleChange} onKeyDown={handleKeyDown} placeholder="Section 1" />
+      </FormGroup>
+      <FormGroup>
+        <FormLabel>Materials Needed</FormLabel>
+        <FormControl type="text" name="materials" value={section.materials} onChange={handleChange} onKeyDown={handleKeyDown} placeholder="" />
       </FormGroup>
     </InputBox>
   </>);
