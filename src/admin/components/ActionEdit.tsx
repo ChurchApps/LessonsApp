@@ -74,7 +74,7 @@ export const ActionEdit: React.FC<Props> = (props) => {
   const getContent = () => {
     if (action.actionType !== "Play") {
       return (<FormGroup>
-        <a href="https://www.markdownguide.org/cheat-sheet/" target="_blank" style={{ float: "right" }}>Markdown Guide</a>
+        <a href="https://www.markdownguide.org/cheat-sheet/" target="_blank" rel="noopener noreferrer" style={{ float: "right" }}>Markdown Guide</a>
         <FormLabel>Content</FormLabel>
         <FormControl type="text" name="content" as="textarea" rows={8} value={action.content} onChange={handleChange} placeholder="" />
       </FormGroup>);

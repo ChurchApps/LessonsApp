@@ -402,6 +402,7 @@ label .description {
 .materials {background-color: #03a9f4;color:#EEE; margin-left: -20px;margin-right: -20px;margin-top:-20px; padding-left: 20px;margin-bottom: 20px;}
 .materials a {color:#FFF;}
 .pageSection .actions {color:#777;font-style: italic;margin-bottom:5px}
+.pageSection .actions strong {color:#333;}
 .pageSection .note {color:#777;font-style: italic;margin-bottom:5px}
 blockquote {padding-left:20px;border-left:2px solid #24b8ff;margin-bottom: 5px;}
 blockquote p:last-child {margin-bottom: 0px;}

@@ -79,7 +79,8 @@ export const ResourceList: React.FC<Props> = (props) => {
   }
 
   const createAsset = (resourceId: string) => {
-    setEditAsset({ resourceId: resourceId, sort: assets?.length + 1 || 1 });
+    const resourceAssets = ArrayHelper.getAll(assets || [], "resourceId", resourceId);
+    setEditAsset({ resourceId: resourceId, sort: resourceAssets?.length + 1 || 1 });
   }
 
   const handleAssetCallback = (asset: AssetInterface) => {

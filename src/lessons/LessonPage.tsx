@@ -1,6 +1,6 @@
 import React from "react";
 import { RouteComponentProps } from "react-router-dom";
-import { LessonInterface, StudyInterface, ProgramInterface, ApiHelper, Loading, Venues } from "./components";
+import { LessonInterface, StudyInterface, ProgramInterface, ApiHelper, Loading, Venues, AboutProgram } from "./components";
 import { Container, Row, Col } from "react-bootstrap"
 
 type TParams = { id?: string };
@@ -35,15 +35,15 @@ export const LessonPage = ({ match }: RouteComponentProps<TParams>) => {
         <h2>{study?.name}: <span>{lesson?.name}</span></h2>
       </div>
       {getVideo()}
-      <p>{lesson.description}</p>
+      <p>{lesson?.description}</p>
 
     </>);
   }
 
 
   const getVideo = () => {
-    if (lesson.videoEmbedUrl) return (<div className="videoWrapper">
-      <iframe width="992" height="558" src={study.videoEmbedUrl} title="YouTube video player" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowFullScreen></iframe>
+    if (lesson?.videoEmbedUrl) return (<div className="videoWrapper">
+      <iframe width="992" height="558" src={lesson?.videoEmbedUrl} title="YouTube video player" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowFullScreen></iframe>
     </div>);
     else return <Row><Col lg={{ span: 8, offset: 2 }} ><img src={lesson.image} className="img-fluid profilePic" alt={lesson.name} /><br /><br /></Col></Row >
   }
@@ -55,6 +55,7 @@ export const LessonPage = ({ match }: RouteComponentProps<TParams>) => {
         {getLesson()}
 
         <Venues lessonId={lesson?.id || ""} />
+        <AboutProgram program={program} />
       </Container>
     </div>
   );
