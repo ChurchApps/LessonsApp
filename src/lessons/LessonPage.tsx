@@ -31,8 +31,8 @@ export const LessonPage = ({ match }: RouteComponentProps<TParams>) => {
     if (!lesson) return <Loading />
     else return (<>
       <div className="text-center">
-        <div className="title">{program?.name}</div>
-        <h2>{study?.name}: <span>{lesson?.name}</span></h2>
+        <div className="title">{program?.name}: <span>{study?.name}</span></div>
+        <h2>{lesson?.name}: <span>{lesson?.title}</span></h2>
       </div>
       {getVideo()}
       <p>{lesson?.description}</p>
