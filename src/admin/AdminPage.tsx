@@ -107,9 +107,11 @@ export const AdminPage = () => {
     <h1>Programs</h1>
     <Row>
       <Col lg={8}>
-        <DisplayBox headerText="Programs" headerIcon="none" editContent={getEditContent()} >
-          {getTable()}
-        </DisplayBox>
+        <div className="scrollingList">
+          <DisplayBox headerText="Programs" headerIcon="none" editContent={getEditContent()} >
+            {getTable()}
+          </DisplayBox>
+        </div>
       </Col>
       <Col lg={4}>
         {getSidebar()}

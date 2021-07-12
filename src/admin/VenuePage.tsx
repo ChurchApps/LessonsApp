@@ -163,9 +163,11 @@ export const VenuePage = ({ match }: RouteComponentProps<TParams>) => {
     <h1>{lesson?.name}: {venue?.name}</h1>
     <Row>
       <Col lg={8}>
-        <DisplayBox headerText="Sections" headerIcon="none" editContent={getEditContent()} >
-          {getTable()}
-        </DisplayBox>
+        <div className="scrollingList">
+          <DisplayBox headerText="Sections" headerIcon="none" editContent={getEditContent()} >
+            {getTable()}
+          </DisplayBox>
+        </div>
       </Col>
       <Col lg={4}>
         {getSidebar()}

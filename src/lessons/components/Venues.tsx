@@ -34,8 +34,6 @@ export const Venues: React.FC<Props> = (props) => {
           s.roles?.forEach(r => {
             r.actions?.forEach(a => {
               if (a.resourceId) {
-                console.log(a.resourceId)
-                console.log(allResources)
                 if (allResources) {
                   const r: ResourceInterface = ArrayHelper.getOne(allResources, "id", a.resourceId);
                   if (r && resources.indexOf(r) === -1) resources.push(r);
@@ -45,6 +43,7 @@ export const Venues: React.FC<Props> = (props) => {
           })
         })
 
+        resources.sort((a, b) => (a.name > b.name) ? 1 : -1)
 
         result.push(<Venue venue={v} resources={resources} />)
       });

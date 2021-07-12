@@ -464,6 +464,8 @@ dropdown-menu a { color: #03a9f4;}
 .venueRow td:last-child {text-align: right;}
 .venueRow td:last-child a { color:#77cc00; }
 
+.scrollingList {max-height: 80vh;overflow-y: scroll; overflow-x: hidden;}
+
 
 @media screen {
   .printOnly {display: none;}
