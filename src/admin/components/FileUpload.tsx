@@ -1,6 +1,7 @@
 import React from "react";
 import { ApiHelper, FileInterface } from ".";
-import { FormGroup, FormLabel } from "react-bootstrap";
+import { FormGroup, FormLabel, ProgressBar } from "react-bootstrap";
+import axios from "axios"
 
 interface Props {
   resourceId: string,
@@ -12,6 +13,7 @@ interface Props {
 export const FileUpload: React.FC<Props> = (props) => {
   const [file, setFile] = React.useState<FileInterface>({} as FileInterface);
   const [uploadedFile, setUploadedFile] = React.useState<File>({} as File);
+  const [uploadProgress, setUploadProgress] = React.useState(-1);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     e.preventDefault();
@@ -81,8 +83,20 @@ export const FileUpload: React.FC<Props> = (props) => {
     for (const property in presigned.fields) formData.append(property, presigned.fields[property]);
     const f: any = document.getElementById('fileUpload');
     formData.append("file", f.files[0])
-    const requestOptions: RequestInit = { method: "POST", body: formData };
-    return fetch(presigned.url, requestOptions);
+    //const requestOptions: RequestInit = { method: "POST", body: formData };
+
+    const axiosConfig = {
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+      onUploadProgress: (data: any) => {
+        setUploadProgress(Math.round((100 * data.loaded) / data.total));
+      }
+    }
+
+
+    return axios.post(presigned.url, formData, axiosConfig);
+    //return fetch(presigned.url, requestOptions);
   }
 
 
@@ -90,7 +104,10 @@ export const FileUpload: React.FC<Props> = (props) => {
   React.useEffect(checkSave, [props.pendingSave]);
 
   const getFileLink = () => {
-    if (file) {
+    if (uploadProgress > -1) {
+      return <ProgressBar now={uploadProgress} />
+    }
+    else if (file) {
       console.log(file.contentPath);
       return <div><a href={file.contentPath}>{file.fileName}</a></div>
     }
