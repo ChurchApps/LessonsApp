@@ -405,7 +405,7 @@ label .description {
 .pageSection .actions strong {color:#333;}
 .pageSection .note {color:#777;font-style: italic;margin-bottom:5px}
 /*blockquote {padding-left:20px;border-left:2px solid #24b8ff;margin-bottom: 10px;}*/
-blockquote {padding-left:80px;margin-bottom: 10px;padding-right: 80px;text-align: center;}
+blockquote {padding-left:7%;margin-bottom: 10px;padding-right: 7%;text-align: center;}
 blockquote p:last-child {margin-bottom: 0px;}
 
 /*.role {font-weight: bold;}*/
