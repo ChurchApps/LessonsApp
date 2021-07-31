@@ -1,5 +1,5 @@
 import React from "react";
-import { ApiHelper, InputBox, ErrorMessages, LessonInterface, ImageEditor } from ".";
+import { ApiHelper, InputBox, ErrorMessages, LessonInterface, ImageEditor, StudyInterface, ProgramInterface } from ".";
 import { FormGroup, FormControl, FormLabel, Row, Col } from "react-bootstrap";
 
 interface Props {
@@ -9,8 +9,12 @@ interface Props {
 
 export const LessonEdit: React.FC<Props> = (props) => {
   const [lesson, setLesson] = React.useState<LessonInterface>({} as LessonInterface);
+  const [study, setStudy] = React.useState<StudyInterface>({});
+  const [program, setProgram] = React.useState<ProgramInterface>({});
+
   const [errors, setErrors] = React.useState([]);
   const [showImageEditor, setShowImageEditor] = React.useState<boolean>(false);
+
 
   const handleCancel = () => props.updatedCallback(lesson);
   const handleKeyDown = (e: React.KeyboardEvent<any>) => { if (e.key === "Enter") { e.preventDefault(); handleSave(); } }
@@ -20,6 +24,7 @@ export const LessonEdit: React.FC<Props> = (props) => {
     switch (e.currentTarget.name) {
       case "name": p.name = e.currentTarget.value; break;
       case "title": p.title = e.currentTarget.value; break;
+      case "slug": p.slug = e.currentTarget.value; break;
       case "description": p.description = e.currentTarget.value; break;
       case "live": p.live = e.currentTarget.value === "true"; break;
       case "sort": p.sort = parseInt(e.currentTarget.value); break;
@@ -28,6 +33,12 @@ export const LessonEdit: React.FC<Props> = (props) => {
     setLesson(p);
   }
 
+  const loadStudy = (studyId: string) => {
+    ApiHelper.get("/studies/" + studyId, "LessonsApi").then((s: StudyInterface) => {
+      setStudy(s);
+      ApiHelper.get("/programs/" + s.programId, "LessonsApi").then((data: ProgramInterface) => { setProgram(data); });
+    });
+  };
 
   const handleImageUpdated = (dataUrl: string) => {
     const l = { ...lesson };
@@ -64,7 +75,7 @@ export const LessonEdit: React.FC<Props> = (props) => {
   }
 
 
-  React.useEffect(() => { setLesson(props.lesson) }, [props.lesson]);
+  React.useEffect(() => { setLesson(props.lesson); loadStudy(props.lesson.studyId); }, [props.lesson]);
 
 
   const getImageEditor = () => {
@@ -103,6 +114,11 @@ export const LessonEdit: React.FC<Props> = (props) => {
       <FormGroup>
         <FormLabel>Title</FormLabel>
         <FormControl type="text" name="title" value={lesson.title} onChange={handleChange} onKeyDown={handleKeyDown} placeholder="Jesus Feeds 5,000" />
+      </FormGroup>
+      <FormGroup>
+        <FormLabel>Url Slug</FormLabel>
+        <div><a href={"https://lessons.church/" + program?.slug + "/" + study?.slug + "/" + lesson.slug + "/"} target="_blank" rel="noopener noreferrer">{"https://lessons.church/" + program?.slug + "/" + study?.slug + "/" + lesson.slug + "/"}</a></div>
+        <FormControl type="text" name="slug" value={lesson.slug} onChange={handleChange} onKeyDown={handleKeyDown} />
       </FormGroup>
       <FormGroup>
         <FormLabel>Description</FormLabel>

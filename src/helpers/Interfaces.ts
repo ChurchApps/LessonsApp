@@ -1,9 +1,9 @@
 export * from "../appBase/interfaces";
 
 export interface ProviderInterface { id?: string, name?: string, }
-export interface ProgramInterface { id?: string, providerId?: string, name?: string, image?: string, shortDescription?: string, description?: string, videoEmbedUrl?: string, live?: boolean, aboutSection?: string }
-export interface StudyInterface { id?: string, programId?: string, name?: string, image?: string, shortDescription?: string, description?: string, videoEmbedUrl?: string, live?: boolean, sort?: number }
-export interface LessonInterface { id?: string, studyId?: string, name?: string, title?: string, image?: string, description?: string, live?: boolean, sort?: number, videoEmbedUrl?: string }
+export interface ProgramInterface { id?: string, providerId?: string, name?: string, slug?: string, image?: string, shortDescription?: string, description?: string, videoEmbedUrl?: string, live?: boolean, aboutSection?: string }
+export interface StudyInterface { id?: string, programId?: string, name?: string, slug?: string, image?: string, shortDescription?: string, description?: string, videoEmbedUrl?: string, live?: boolean, sort?: number }
+export interface LessonInterface { id?: string, studyId?: string, name?: string, slug?: string, title?: string, image?: string, description?: string, live?: boolean, sort?: number, videoEmbedUrl?: string }
 
 export interface FileInterface { id?: string, resourceId?: string, fileName?: string, contentPath?: string, fileType?: string, size?: number, dateModified?: Date, fileContents?: string }
 export interface VenueInterface { id?: string, lessonId?: string, name?: string, sections?: SectionInterface[], sort?: number }

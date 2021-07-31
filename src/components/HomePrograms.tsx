@@ -17,13 +17,14 @@ export const HomePrograms = () => {
   React.useEffect(loadData, []);
 
   const getProgram = (p: ProgramInterface) => {
+    const url = "/" + p.slug + "/";
     return (<>
       <Row>
         <Col xl={4}>
-          <Link to={"/programs/" + p.id}><img src={p.image} className="img-fluid" alt={p.name} /></Link>
+          <Link to={url}><img src={p.image} className="img-fluid" alt={p.name} /></Link>
         </Col>
         <Col xl={8}>
-          <Link to={"/programs/" + p.id}><h3>{p.name}</h3></Link>
+          <Link to={url}><h3>{p.name}</h3></Link>
           <p><i>{p.shortDescription}</i></p>
           <p>{p.description}</p>
         </Col>

@@ -1,23 +1,24 @@
 import React from "react";
 import { StudyInterface, ApiHelper, Loading, Study } from ".";
+import { ProgramInterface } from "../../helpers";
 
 interface Props {
-  programId?: string,
+  program?: ProgramInterface,
 }
 
 export const Studies: React.FC<Props> = (props) => {
   const [studies, setStudies] = React.useState<StudyInterface[]>(null);
   const loadData = () => {
-    ApiHelper.getAnonymous("/studies/public/program/" + props.programId, "LessonsApi").then((data: StudyInterface[]) => { setStudies(data); });
+    if (props.program) ApiHelper.getAnonymous("/studies/public/program/" + props.program?.id, "LessonsApi").then((data: StudyInterface[]) => { setStudies(data); });
   };
 
-  React.useEffect(loadData, []);
+  React.useEffect(loadData, [props.program]);
 
   const getStudies = () => {
     if (studies === null) return <Loading />
     else {
       const result: JSX.Element[] = [];
-      studies.forEach(s => { result.push(<Study study={s} />) });
+      studies.forEach(s => { result.push(<Study program={props.program} study={s} />) });
       return <>{result}</>;
     }
   }

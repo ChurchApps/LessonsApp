@@ -20,6 +20,7 @@ export const ProgramEdit: React.FC<Props> = (props) => {
     switch (e.currentTarget.name) {
       case "live": p.live = e.currentTarget.value === "true"; break;
       case "name": p.name = e.currentTarget.value; break;
+      case "slug": p.slug = e.currentTarget.value; break;
       case "shortDescription": p.shortDescription = e.currentTarget.value; break;
       case "description": p.description = e.currentTarget.value; break;
       case "aboutSection": p.aboutSection = e.currentTarget.value; break;
@@ -89,6 +90,11 @@ export const ProgramEdit: React.FC<Props> = (props) => {
       <FormGroup>
         <FormLabel>Program Name</FormLabel>
         <FormControl type="text" name="name" value={program.name} onChange={handleChange} onKeyDown={handleKeyDown} />
+      </FormGroup>
+      <FormGroup>
+        <FormLabel>Url Slug</FormLabel>
+        <div><a href={"https://lessons.church/" + program.slug + "/"} target="_blank" rel="noopener noreferrer">{"https://lessons.church/" + program.slug + "/"}</a></div>
+        <FormControl type="text" name="slug" value={program.slug} onChange={handleChange} onKeyDown={handleKeyDown} />
       </FormGroup>
       <FormGroup>
         <FormLabel>One-Line Description</FormLabel>
