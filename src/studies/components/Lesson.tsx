@@ -1,19 +1,23 @@
 import React from "react";
 import { Row, Col } from "react-bootstrap"
 import { Link } from "react-router-dom";
-import { LessonInterface } from "../../helpers";
+import { LessonInterface, StudyInterface, ProgramInterface } from ".";
 
 
 interface Props {
-  lesson: LessonInterface
+  lesson: LessonInterface,
+  study: StudyInterface,
+  program: ProgramInterface
 }
 
 export const Lesson: React.FC<Props> = (props) => {
+  const url = "/" + props.program.slug + "/" + props.study.slug + "/" + props.lesson.slug + "/";
+
   return (
-    <Link to={"/lessons/" + props.lesson.id} style={{ textDecoration: "none", color: "inherit" }} >
+    <Link to={url} style={{ textDecoration: "none", color: "inherit" }} >
       <Row style={{ paddingBottom: 20, paddingTop: 20, borderBottom: "1px solid #CCC" }}>
         <Col xl={3}>
-          <Link to={"/lessons/" + props.lesson.id}><img src={props.lesson.image} className="img-fluid" alt={props.lesson.name} /></Link>
+          <Link to={url}><img src={props.lesson.image} className="img-fluid" alt={props.lesson.name} /></Link>
         </Col>
         <Col xl={9}>
           <div className="title">{props.lesson.name}</div>

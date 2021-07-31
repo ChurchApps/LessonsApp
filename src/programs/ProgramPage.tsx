@@ -3,7 +3,7 @@ import { Loading, ProgramInterface, ProviderInterface, ApiHelper, Studies } from
 import { Container } from "react-bootstrap"
 import { RouteComponentProps } from "react-router-dom";
 
-type TParams = { id?: string };
+type TParams = { programSlug?: string };
 
 
 export const ProgramPage = ({ match }: RouteComponentProps<TParams>) => {
@@ -12,7 +12,7 @@ export const ProgramPage = ({ match }: RouteComponentProps<TParams>) => {
   const [provider, setProvider] = React.useState<ProviderInterface>(null);
 
   const loadData = () => {
-    ApiHelper.getAnonymous("/programs/public/" + match.params.id, "LessonsApi").then((data: ProgramInterface) => {
+    ApiHelper.getAnonymous("/programs/public/slug/" + match.params.programSlug, "LessonsApi").then((data: ProgramInterface) => {
       setProgram(data);
       ApiHelper.getAnonymous("/providers/public/" + data.providerId, "LessonsApi").then((data: any) => { setProvider(data); });
     });
@@ -44,7 +44,7 @@ export const ProgramPage = ({ match }: RouteComponentProps<TParams>) => {
       <Container>
         {getProgram()}
         <br />
-        <Studies programId={match.params.id} />
+        <Studies program={program} />
       </Container>
     </div>
 

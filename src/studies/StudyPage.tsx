@@ -3,7 +3,7 @@ import { Loading, ProgramInterface, StudyInterface, ApiHelper, Lessons } from ".
 import { Container, Row, Col } from "react-bootstrap"
 import { RouteComponentProps } from "react-router-dom";
 
-type TParams = { id?: string };
+type TParams = { programSlug: string, studySlug: string };
 
 
 export const StudyPage = ({ match }: RouteComponentProps<TParams>) => {
@@ -12,10 +12,8 @@ export const StudyPage = ({ match }: RouteComponentProps<TParams>) => {
   const [study, setStudy] = React.useState<StudyInterface>(null);
 
   const loadData = () => {
-    ApiHelper.getAnonymous("/studies/public/" + match.params.id, "LessonsApi").then((data: StudyInterface) => {
-      setStudy(data);
-      ApiHelper.getAnonymous("/programs/public/" + data.programId, "LessonsApi").then((data: ProgramInterface) => { setProgram(data); });
-    });
+    ApiHelper.getAnonymous("/studies/public/slug/" + match.params.studySlug, "LessonsApi").then((data: StudyInterface) => { setStudy(data); });
+    ApiHelper.getAnonymous("/programs/public/slug/" + match.params.programSlug, "LessonsApi").then((data: ProgramInterface) => { setProgram(data); });
   };
 
   React.useEffect(loadData, []);
@@ -29,10 +27,10 @@ export const StudyPage = ({ match }: RouteComponentProps<TParams>) => {
   }
 
   const getStudy = () => {
-    if (!program) return <Loading />
+    if (!program || !study) return <Loading />
     else return (<>
       <div className="text-center">
-        <h2>{program?.name || ""}: <span>{study.name}</span></h2>
+        <h2>{program?.name || ""}: <span>{study?.name}</span></h2>
         <p><i>{study.shortDescription}</i></p>
       </div>
       <p>{study.description}</p>
@@ -46,7 +44,7 @@ export const StudyPage = ({ match }: RouteComponentProps<TParams>) => {
     <div className="pageSection">
       <Container>
         {getStudy()}
-        <Lessons studyId={study?.id} />
+        <Lessons study={study} program={program} />
       </Container>
     </div>
   );

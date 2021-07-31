@@ -3,7 +3,7 @@ import { RouteComponentProps } from "react-router-dom";
 import { LessonInterface, StudyInterface, ProgramInterface, ApiHelper, Loading, Venues, AboutProgram } from "./components";
 import { Container, Row, Col } from "react-bootstrap"
 
-type TParams = { id?: string };
+type TParams = { programSlug: string, studySlug: string, lessonSlug: string };
 
 export const LessonPage = ({ match }: RouteComponentProps<TParams>) => {
 
@@ -12,12 +12,9 @@ export const LessonPage = ({ match }: RouteComponentProps<TParams>) => {
   const [lesson, setLesson] = React.useState<LessonInterface>(null);
 
   const loadData = async () => {
-    const l: LessonInterface = await ApiHelper.getAnonymous("/lessons/public/" + match.params.id, "LessonsApi");
-    setLesson(l);
-    const s: StudyInterface = await ApiHelper.getAnonymous("/studies/public/" + l.studyId, "LessonsApi");
-    setStudy(s);
-    const p: ProgramInterface = await ApiHelper.getAnonymous("/programs/public/" + s.programId, "LessonsApi");
-    setProgram(p);
+    ApiHelper.getAnonymous("/lessons/public/slug/" + match.params.lessonSlug, "LessonsApi").then((data: LessonInterface) => { setLesson(data); });
+    ApiHelper.getAnonymous("/studies/public/slug/" + match.params.studySlug, "LessonsApi").then((data: StudyInterface) => { setStudy(data); });
+    ApiHelper.getAnonymous("/programs/public/slug/" + match.params.programSlug, "LessonsApi").then((data: ProgramInterface) => { setProgram(data); });
   };
 
   const checkLoadData = () => {

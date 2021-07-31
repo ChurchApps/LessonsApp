@@ -39,13 +39,13 @@ export const Routes = () => {
 
       <Switch>
         <Route path="/studies/:studyId/lessons/:id" component={LessonPageMockup}></Route>
-        <Route path="/lessons/:id" component={LessonPage}></Route>
-        <Route path="/studies/:id" component={StudyPage}></Route>
-        <Route path="/programs/:id" component={ProgramPage}></Route>
         <Route exact={true} path="/"><Home /></Route>
         <Route path="/logout"><Logout /></Route>
         <Route path="/login" component={Login}></Route>
         <Route path="/forgot"><Forgot /></Route>
+        <Route path="/:programSlug/:studySlug/:lessonSlug" component={LessonPage}></Route>
+        <Route path="/:programSlug/:studySlug" component={StudyPage}></Route>
+        <Route path="/:programSlug/" component={ProgramPage}></Route>
         <PrivateRoute path="/"></PrivateRoute>
       </Switch>
       <Footer />
