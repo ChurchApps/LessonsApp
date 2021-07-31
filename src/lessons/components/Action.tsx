@@ -13,8 +13,8 @@ export const Action: React.FC<Props> = (props) => {
     const resource: ResourceInterface = ArrayHelper.getOne(props.resources || [], "id", props.action.resourceId);
     const asset = (props.action.assetId && resource) ? ArrayHelper.getOne(resource?.assets || [], "id", props.action.assetId) : null;
 
-    if (asset) return <><a href={resource.variants[0]?.file.contentPath} target="_blank" rel="noopenner noreferrer">{resource.name}</a>: <a href={asset.file.contentPath} target="_blank" rel="noopenner noreferrer">{asset.name}</a></>
-    else if (resource) return <a href={resource.variants[0]?.file.contentPath} target="_blank" rel="noopenner noreferrer">{resource.name}</a>
+    if (asset) return <><a href={resource.variants[0]?.file.contentPath} target="_blank" rel="noopener noreferrer">{resource.name}</a>: <a href={asset.file.contentPath} target="_blank" rel="noopener noreferrer">{asset.name}</a></>
+    else if (resource) return <a href={resource.variants[0]?.file.contentPath} target="_blank" rel="noopener noreferrer">{resource.name}</a>
     return props.action.content;
   }
 

@@ -1,5 +1,5 @@
 import React from "react";
-import { ApiHelper, InputBox, ErrorMessages, StudyInterface, ImageEditor } from ".";
+import { ApiHelper, InputBox, ErrorMessages, StudyInterface, ImageEditor, ProgramInterface } from ".";
 import { FormGroup, FormControl, FormLabel, Row, Col } from "react-bootstrap";
 
 interface Props {
@@ -8,7 +8,8 @@ interface Props {
 }
 
 export const StudyEdit: React.FC<Props> = (props) => {
-  const [study, setStudy] = React.useState<StudyInterface>({} as StudyInterface);
+  const [study, setStudy] = React.useState<StudyInterface>({});
+  const [program, setProgram] = React.useState<ProgramInterface>({});
   const [errors, setErrors] = React.useState([]);
   const [showImageEditor, setShowImageEditor] = React.useState<boolean>(false);
 
@@ -19,6 +20,7 @@ export const StudyEdit: React.FC<Props> = (props) => {
     let p = { ...study };
     switch (e.currentTarget.name) {
       case "name": p.name = e.currentTarget.value; break;
+      case "slug": p.slug = e.currentTarget.value; break;
       case "shortDescription": p.shortDescription = e.currentTarget.value; break;
       case "description": p.description = e.currentTarget.value; break;
       case "videoEmbedUrl": p.videoEmbedUrl = e.currentTarget.value; break;
@@ -27,6 +29,11 @@ export const StudyEdit: React.FC<Props> = (props) => {
     }
     setStudy(p);
   }
+
+
+  const loadProgram = (programId: string) => {
+    ApiHelper.get("/programs/" + programId, "LessonsApi").then((data: ProgramInterface) => { setProgram(data); });
+  };
 
   const handleImageUpdated = (dataUrl: string) => {
     const s = { ...study };
@@ -62,7 +69,7 @@ export const StudyEdit: React.FC<Props> = (props) => {
     setShowImageEditor(true);
   }
 
-  React.useEffect(() => { setStudy(props.study) }, [props.study]);
+  React.useEffect(() => { setStudy(props.study); loadProgram(props.study.programId) }, [props.study]);
 
 
   const getImageEditor = () => {
@@ -98,6 +105,11 @@ export const StudyEdit: React.FC<Props> = (props) => {
       <FormGroup>
         <FormLabel>Study Name</FormLabel>
         <FormControl type="text" name="name" value={study.name} onChange={handleChange} onKeyDown={handleKeyDown} />
+      </FormGroup>
+      <FormGroup>
+        <FormLabel>Url Slug</FormLabel>
+        <div><a href={"https://lessons.church/" + program?.slug + "/" + study.slug + "/"} target="_blank" rel="noopener noreferrer">{"https://lessons.church/" + program?.slug + "/" + study.slug + "/"}</a></div>
+        <FormControl type="text" name="slug" value={study.slug} onChange={handleChange} onKeyDown={handleKeyDown} />
       </FormGroup>
       <FormGroup>
         <FormLabel>One-Line Description</FormLabel>
