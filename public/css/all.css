@@ -407,6 +407,7 @@ label .description {
 /*blockquote {padding-left:20px;border-left:2px solid #24b8ff;margin-bottom: 10px;}*/
 blockquote {padding-left:7%;margin-bottom: 10px;padding-right: 7%;text-align: center;}
 blockquote p:last-child {margin-bottom: 0px;}
+blockquote ol {text-align: left;}
 
 /*.role {font-weight: bold;}*/
 /*.role {font-weight: bold; text-align: center;}*/
