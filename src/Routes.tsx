@@ -41,10 +41,11 @@ export const Routes = () => {
         <Route path="/logout"><Logout /></Route>
         <Route path="/login" component={Login}></Route>
         <Route path="/forgot"><Forgot /></Route>
+        <PrivateRoute path="/"></PrivateRoute>
         <Route path="/:programSlug/:studySlug/:lessonSlug" component={LessonPage}></Route>
         <Route path="/:programSlug/:studySlug" component={StudyPage}></Route>
         <Route path="/:programSlug/" component={ProgramPage}></Route>
-        <PrivateRoute path="/"></PrivateRoute>
+
       </Switch>
       <Footer />
       <iframe title="print" style={{ display: "none" }} src="about:blank" id="printFrame"></iframe>
