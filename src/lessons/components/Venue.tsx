@@ -2,6 +2,7 @@ import React from "react";
 import { VenueInterface, Downloads, Section, ResourceInterface } from ".";
 import { Accordion, Row, Col } from "react-bootstrap"
 import { useReactToPrint } from "react-to-print";
+import { SectionAlt } from "./SectionAlt"
 
 interface Props {
   venue: VenueInterface,
@@ -18,9 +19,16 @@ export const Venue: React.FC<Props> = (props) => {
   const getSections = () => {
     const sections: JSX.Element[] = [];
 
-    props.venue.sections?.forEach(s => {
-      sections.push(<Section section={s} resources={props.resources} />);
-    });
+    if (window.location.href.indexOf("alt=1") > -1) {
+      props.venue.sections?.forEach(s => {
+        sections.push(<SectionAlt section={s} resources={props.resources} />);
+      });
+    } else {
+      props.venue.sections?.forEach(s => {
+        sections.push(<Section section={s} resources={props.resources} />);
+      });
+    }
+
     return <Accordion defaultActiveKey={props.venue.sections[0].id}>{sections}</Accordion>
   }
 

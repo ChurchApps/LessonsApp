@@ -4,6 +4,7 @@
   "private": true,
   "dependencies": {
     "adm-zip": "^0.4.16",
+    "axios": "^0.21.1",
     "date-fns": "^2.14.0",
     "file-saver": "^2.0.2",
     "original-fs": "^1.1.0",
@@ -53,6 +54,7 @@
   },
   "devDependencies": {
     "@types/adm-zip": "^0.4.33",
+    "@types/axios": "^0.14.0",
     "@types/file-saver": "^2.0.1",
     "@types/google.visualization": "0.0.53",
     "@types/jest": "^26.0.3",
