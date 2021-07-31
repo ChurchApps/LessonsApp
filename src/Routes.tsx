@@ -7,7 +7,6 @@ import { Forgot } from "./Forgot";
 import { Login } from "./Login";
 import { Home } from "./Home"
 import { StudyPage } from "./studies/StudyPage"
-import { LessonPage as LessonPageMockup } from "./studies/lessons/LessonPage"
 import { ProgramPage } from "./programs/ProgramPage"
 import { LessonPage } from "./lessons/LessonPage"
 
@@ -38,7 +37,6 @@ export const Routes = () => {
       <Header />
 
       <Switch>
-        <Route path="/studies/:studyId/lessons/:id" component={LessonPageMockup}></Route>
         <Route exact={true} path="/"><Home /></Route>
         <Route path="/logout"><Logout /></Route>
         <Route path="/login" component={Login}></Route>
