@@ -283,11 +283,6 @@ h1 {
   border-color: #bb0000;
 }
 
-.card-header {
-  padding-top: 5px;
-  padding-bottom: 5px;
-}
-
 .nav-tabs {
   border-bottom: none;
 }
@@ -399,34 +394,15 @@ label .description {
 .videoWrapper { position: relative; padding-bottom: 56.25%; padding-top: 25px; height: 0; }
 .videoWrapper iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%;}
 
-.materials {background-color: #03a9f4;color:#EEE; margin-left: -20px;margin-right: -20px;margin-top:-20px; padding-left: 20px;margin-bottom: 20px;}
-.materials a {color:#FFF;}
-.pageSection .actions {color:#777;font-style: italic;margin-bottom:5px}
-.pageSection .actions strong {color:#333;}
-.pageSection .note {color:#777;font-style: italic;margin-bottom:5px}
-/*blockquote {padding-left:20px;border-left:2px solid #24b8ff;margin-bottom: 10px;}*/
-blockquote {padding-left:7%;margin-bottom: 10px;padding-right: 7%;text-align: center;}
-blockquote p:last-child {margin-bottom: 0px;}
-blockquote ol {text-align: left;}
 
 /*.role {font-weight: bold;}*/
 /*.role {font-weight: bold; text-align: center;}*/
-
-.role { 
-  text-align: center;
-  font-weight:bold;
-  color: #03a9f4;
-  margin-top:-23px;
-  padding-bottom: 10px;
-}
-
-.role span { background:#fff; padding-left:10px; padding-right:10px; }
 
 
 /*.part {border-bottom: 1px solid #ccc;padding-bottom: 20px;padding-top:20px}
 .part:last-child { border-bottom: 0px;}
 */
-.part {border-top: 1px solid #03a9f4;margin-top:5px;margin-bottom: 5px; padding:10px;}
+
 dropdown-menu a { color: #03a9f4;}
 
 .imgCol {width:100px;}
@@ -468,6 +444,41 @@ dropdown-menu a { color: #03a9f4;}
 
 .scrollingList {max-height: 80vh;overflow-y: scroll; overflow-x: hidden;}
 
+.accordion .card {background-color: #f3f3f6;border-right:none;border-left:none; margin-bottom:10px;}
+.accordion .card-header { padding-top: 5px; padding-bottom: 5px }
+.accordion .card-header.active { background-color: #03a9f4; }
+.accordion .card-header.active .btn { color:#FFF; }
+.accordion .card-body {background-color: #F1F1F1;}
+.accordion .collapse, .accordion .collapsing { border: 1px solid #03a9f4; margin-top:10px;margin-bottom: 10px; }
+.accordion.part .part { padding:10px;}
+.accordion .role { text-align: center; font-weight:bold; color: #00c213; background:#fff; padding: 5px; margin-bottom:10px; }
+.accordion .actions {color:#333;font-weight: bold;margin-bottom:5px}
+.accordion .actions li { list-style-type: none; padding-left: 10px; }
+.accordion .play {color:#333;margin-bottom:5px}
+.accordion .play li { list-style-type: none; margin-bottom: 10px; }
+.accordion .play li:before {content:"\f144"; color:#00c213; font-family:"Font Awesome 5 Free"; margin-left: -15px; margin-right: 10px; font-weight: bold; }
+.accordion .note {color:#777;font-style: italic;margin-bottom:5px;padding-left:30px;}
+.accordion .note b {color:#000;}
+.accordion blockquote {padding-left:30px;margin-bottom: 15px;color:#555;}
+.accordion blockquote p:last-child {margin-bottom: 0px;}
+.accordion blockquote ol {text-align: left;}
+
+
+.materials {background-color: #03a9f4;color:#EEE; margin-left: -20px;margin-right: -20px;margin-top:-20px; padding-left: 20px;margin-bottom: 20px;}
+.materials a {color:#FFF;}
+
+.btn-light {border:1px solid #333;}
+
+
+
+
+
+
+/*blockquote {padding-left:20px;border-left:2px solid #24b8ff;margin-bottom: 10px;}*/
+
+
+
+
 
 @media screen {
   .printOnly {display: none;}
@@ -478,8 +489,13 @@ dropdown-menu a { color: #03a9f4;}
   @page {margin-top:20px;margin-bottom: 20px;}
   body {background-color:#FFF;}
   .collapse:not(.show) {display:block}
-  blockquote {border-top:none;border-bottom: none;border-right: none;}
+  blockquote {border-top:none;border-bottom: none;border-right: none;margin-left:20px;}
   .card {border:none;}
   .accordion {width:100%;}
   .actions p {margin-bottom: 0.3rem;}
+  .accordion .card {background-color: #FFF;}
+  .accordion .card-body {background-color: #FFF;}
+  .accordion .card-header, .accordion .card-header.active  { background-color: #EEE; }
+  .accordion .card-header.active .btn { color:#03a9f4; }
+  .accordion .collapse { border: none; margin-top:0px;margin-bottom: 0px; }
 }

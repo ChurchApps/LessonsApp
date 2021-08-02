@@ -32,7 +32,7 @@ export const ActionAlt: React.FC<Props> = (props) => {
       result = <blockquote><ReactMarkdown>{"**" + props.role.name + ":** " + props.action.content}</ReactMarkdown></blockquote>
       break;
     case "Play":
-      result = <ul className="actions"><li>Play: {getPlayLink()}</li></ul>
+      result = <ul className="actions"><li><b>Play:</b> {getPlayLink()}</li></ul>
       break;
   }
 

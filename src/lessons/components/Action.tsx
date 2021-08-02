@@ -31,7 +31,7 @@ export const Action: React.FC<Props> = (props) => {
       result = <blockquote><p><ReactMarkdown>{props.action.content}</ReactMarkdown></p></blockquote>
       break;
     case "Play":
-      result = <ul className="actions"><li>Play: {getPlayLink()}</li></ul>
+      result = <ul className="play"><li><b>Play:</b> {getPlayLink()}</li></ul>
       break;
   }
 

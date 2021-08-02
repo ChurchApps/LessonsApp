@@ -6,6 +6,8 @@ import { Action } from "./Action"
 interface Props {
   section: SectionInterface,
   resources: ResourceInterface[]
+  toggleActive: (sectionId: string) => void,
+  activeSectionId: string
 }
 
 export const Section: React.FC<Props> = (props) => {
@@ -32,8 +34,8 @@ export const Section: React.FC<Props> = (props) => {
   }
 
   return (<Card>
-    <Card.Header>
-      <Accordion.Toggle as={Button} variant="link" eventKey={props.section.id}>
+    <Card.Header className={(props.activeSectionId === props.section?.id) ? "active" : ""}>
+      <Accordion.Toggle as={Button} variant="link" eventKey={props.section.id} onClick={() => { props.toggleActive(props.section.id) }}  >
         {props.section.name}
       </Accordion.Toggle>
     </Card.Header>

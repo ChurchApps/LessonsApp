@@ -35,7 +35,7 @@ export const Downloads: React.FC<Props> = (props) => {
 
   if (props.resources && props.resources.length > 0) {
     return (<div className="dropdown">
-      <button className="btn btn-primary dropdown-toggle btn-sm float-right" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+      <button className="btn btn-light dropdown-toggle btn-sm float-right" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
         Downloads
       </button>
       <div className="dropdown-menu" aria-labelledby="dropdownMenuButton">
