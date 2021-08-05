@@ -743,7 +743,7 @@ dropdown-menu a {
 }
 
 @media (min-width: 1400px) {
-  #navbar .container {
+  .container {
     max-width: 1140px;
   }
 }
