@@ -10,6 +10,10 @@ export function Layout({ children }: Props) {
     <div>
       <Head>
         <link rel="icon" href="/favicon.ico" />
+        <link
+          href="https://fonts.googleapis.com/css?family=Roboto"
+          rel="stylesheet"
+        />
       </Head>
       <Header />
       <main>{children}</main>
