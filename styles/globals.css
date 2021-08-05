@@ -447,7 +447,7 @@ label .description {
 }
 
 #aboutSection {
-  background-image: url("/images/home/about-bg.jpg");
+  background-image: url("/images/about-bg.jpg");
   background-position: center center;
   background-size: cover;
 }
