@@ -1,6 +1,8 @@
 import Link from "next/link";
+import Image from "next/image";
 import { Container, Col } from "react-bootstrap";
 import { NavItems } from "./index";
+import Logo from "@public/images/logo.png";
 
 export function Header() {
   return (
@@ -9,9 +11,11 @@ export function Header() {
         <Container>
           <div className="d-flex justify-content-between">
             <div>
-              <a className="navbar-brand" href="/">
-                <img src="/images/logo.png" alt="logo" />
-              </a>
+              <Link href="/">
+                <a className="navbar-brand">
+                  <Image src={Logo} alt="logo" />
+                </a>
+              </Link>
             </div>
 
             <Col

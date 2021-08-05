@@ -72,8 +72,8 @@ h1 {
 }
 
 .navbar-brand {
-  padding-top: 5px;
-  padding-bottom: 0px;
+  margin-top: 5px;
+  display: block;
 }
 
 .navbar-brand img {
