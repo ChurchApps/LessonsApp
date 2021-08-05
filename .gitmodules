@@ -1,0 +1,3 @@
+[submodule "appBase"]
+	path = appBase
+	url = https://github.com/LiveChurchSolutions/AppBase.git
