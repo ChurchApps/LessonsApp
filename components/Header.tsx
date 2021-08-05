@@ -1,6 +1,8 @@
 import Link from "next/link";
 import Image from "next/image";
 import { Container, Col } from "react-bootstrap";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faLock } from "@fortawesome/free-solid-svg-icons";
 import { NavItems } from "./index";
 import Logo from "@public/images/logo.png";
 
@@ -55,6 +57,19 @@ export function Header() {
           </div>
         </Container>
       </div>
+      <div className="container collapse" id="userMenu">
+        <div>
+          <ul id="nav-menu" className="nav d-flex flex-column">
+            <NavItems />
+            <Link href="/logout">
+              <a>
+                <FontAwesomeIcon icon={faLock} /> Logout
+              </a>
+            </Link>
+          </ul>
+        </div>
+      </div>
+      <div id="navSpacer" />
     </div>
   );
 }
