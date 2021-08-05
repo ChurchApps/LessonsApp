@@ -1,8 +1,15 @@
 import Head from "next/head";
+import { GetStaticProps } from "next";
 import { Container, Row, Col, Button } from "react-bootstrap";
-import { Layout } from "@components/index";
+import { Layout, Programs } from "@components/index";
+import { ApiHelper, ProgramInterface, ProviderInterface } from "@utils/index";
 
-export default function Home() {
+type Props = {
+  programs: ProgramInterface[];
+  providers: ProviderInterface[];
+};
+
+export default function Home({ programs, providers }: Props) {
   return (
     <Layout>
       <Head>
@@ -69,6 +76,25 @@ export default function Home() {
           </Row>
         </Container>
       </div>
+      <Programs programs={programs} providers={providers} />
     </Layout>
   );
 }
+
+export const getStaticProps: GetStaticProps = async () => {
+  const programs: ProgramInterface[] = await ApiHelper.getAnonymous(
+    "/programs/public",
+    "LessonsApi"
+  );
+  const providers: ProviderInterface[] = await ApiHelper.getAnonymous(
+    "/providers/public",
+    "LessonsApi"
+  );
+
+  return {
+    props: {
+      programs,
+      providers,
+    },
+  };
+};

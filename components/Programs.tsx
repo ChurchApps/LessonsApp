@@ -1,0 +1,65 @@
+import Link from "next/link";
+import Image from "next/image";
+import { Container, Row, Col } from "react-bootstrap";
+import { ProgramInterface, ProviderInterface } from "@utils/index";
+import ProgramImage from "@public/images/elementary.png";
+
+type Props = {
+  programs: ProgramInterface[];
+  providers: ProviderInterface[];
+};
+
+export function Programs({ programs, providers }: Props) {
+  function createProgram({
+    slug,
+    image,
+    name,
+    shortDescription,
+    description,
+    id,
+  }: ProgramInterface) {
+    const url = "/" + slug + "/";
+    return (
+      <div key={id}>
+        <Row>
+          <Col xl={4}>
+            <Link href={url}>
+              <a>
+                <Image src={ProgramImage} className="img-fluid" alt={name} />
+              </a>
+            </Link>
+          </Col>
+          <Col xl={8}>
+            <Link href={url}>
+              <a>
+                <h3>{name}</h3>
+              </a>
+            </Link>
+            <p>
+              <i>{shortDescription}</i>
+            </p>
+            <p>{description}</p>
+          </Col>
+        </Row>
+        <hr />
+      </div>
+    );
+  }
+
+  const programsView = providers.map((provider) => {
+    return programs
+      .filter((program) => program.providerId === provider.id)
+      .map((p) => createProgram(p));
+  });
+
+  return (
+    <div className="homeSection">
+      <Container>
+        <h2 className="text-center">
+          Browse <span>Available Programs</span>
+        </h2>
+        {programsView}
+      </Container>
+    </div>
+  );
+}
