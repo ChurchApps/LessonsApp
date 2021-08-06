@@ -47,9 +47,20 @@ export function Programs({ programs, providers }: Props) {
   }
 
   const programsView = providers.map((provider) => {
-    return programs
+    const view = programs
       .filter((program) => program.providerId === provider.id)
       .map((p) => createProgram(p));
+
+    return (
+      view.length > 0 && (
+        <div key={provider.id}>
+          <h3 className="mb-4" style={{ fontWeight: "bold" }}>
+            {provider.name}
+          </h3>
+          {view}
+        </div>
+      )
+    );
   });
 
   return (
