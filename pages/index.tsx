@@ -12,9 +12,6 @@ type Props = {
 export default function Home({ programs, providers }: Props) {
   return (
     <Layout>
-      <Head>
-        <title>Lessons.church - Free Church Curriculum</title>
-      </Head>
       <div id="hero">
         <Container>
           <Row>

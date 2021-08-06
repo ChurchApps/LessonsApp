@@ -9,6 +9,9 @@ type Props = {
 export function Layout({ children }: Props) {
   return (
     <div>
+      <Head>
+        <title>Lessons.church - Free Church Curriculum</title>
+      </Head>
       <Header />
       <main>{children}</main>
       <Footer />
