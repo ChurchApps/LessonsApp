@@ -6,7 +6,7 @@
 NEXT_PUBLIC_ACCESS_API=https://accessapi.staging.churchapps.org
 NEXT_PUBLIC_LESSONS_API=https://api.staging.lessons.church
 
-NEXT_PUBLIC_CONTENT_ROOT=https://content.staging.churchapps.org
+NEXT_PUBLIC_CONTENT_ROOT=https://content.staging.lessons.church
 NEXT_PUBLIC_ACCOUNTS_APP_URL=https://accounts.staging.churchapps.org
 NEXT_PUBLIC_CHURCH_APPS_URL=https://staging.churchapps.org
 
