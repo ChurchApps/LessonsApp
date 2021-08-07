@@ -8,4 +8,7 @@ module.exports = {
     NEXT_PUBLIC_CHURCH_APPS_URL: process.env.NEXT_PUBLIC_CHURCH_APPS_URL,
     NEXT_PUBLIC_GOOGLE_ANALYTICS: process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS,
   },
+  images: {
+    domains: [process.env.NEXT_PUBLIC_CONTENT_ROOT.replace("https://", "")],
+  },
 };
