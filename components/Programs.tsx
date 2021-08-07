@@ -2,7 +2,6 @@ import Link from "next/link";
 import Image from "next/image";
 import { Container, Row, Col } from "react-bootstrap";
 import { ProgramInterface, ProviderInterface } from "@utils/index";
-import ProgramImage from "@public/images/elementary.png";
 
 type Props = {
   programs: ProgramInterface[];
@@ -25,7 +24,13 @@ export function Programs({ programs, providers }: Props) {
           <Col xl={4}>
             <Link href={url}>
               <a>
-                <Image src={ProgramImage} className="img-fluid" alt={name} />
+                <Image
+                  src={image}
+                  className="img-fluid"
+                  alt={name}
+                  width={356}
+                  height={200}
+                />
               </a>
             </Link>
           </Col>
