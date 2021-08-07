@@ -69,13 +69,15 @@ export function Programs({ programs, providers }: Props) {
   });
 
   return (
-    <div className="homeSection">
-      <Container>
-        <h2 className="text-center">
-          Browse <span>Available Programs</span>
-        </h2>
-        {programsView}
-      </Container>
-    </div>
+    programsView.length > 0 && (
+      <div className="homeSection">
+        <Container>
+          <h2 className="text-center">
+            Browse <span>Available Programs</span>
+          </h2>
+          {programsView}
+        </Container>
+      </div>
+    )
   );
 }
