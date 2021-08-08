@@ -23,13 +23,13 @@ export function Studies({ studies, slug }: Props) {
         <Col xl={3}>
           <Link href={studyUrl}>
             <a>
-              {/* <Image
+              <Image
                 src={study.image}
                 className="img-fluid"
                 alt={study.name}
                 width={260}
                 height={145}
-              /> */}
+              />
             </a>
           </Link>
         </Col>
