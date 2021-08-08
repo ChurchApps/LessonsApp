@@ -11,7 +11,7 @@ export function Lessons({ lessons, slug }: Props) {
   function createLesson(lesson: LessonInterface) {
     const url = slug + `/${lesson.slug}`;
     return (
-      <Link href={url}>
+      <Link href={url} key={lesson.id}>
         <a style={{ textDecoration: "none", color: "inherit" }}>
           <Row
             style={{
