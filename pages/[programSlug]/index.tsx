@@ -45,7 +45,9 @@ export default function ProgramPage({ program, provider, studies }: Props) {
           {video}
           <br />
           <br />
-          <Studies studies={studies} programSlug={program.slug} />
+          {studies?.length > 0 && (
+            <Studies studies={studies} slug={`/${program.slug}`} />
+          )}
         </Container>
       </div>
     </Layout>

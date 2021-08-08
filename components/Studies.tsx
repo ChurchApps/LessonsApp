@@ -5,16 +5,12 @@ import { StudyInterface } from "@utils/index";
 
 type Props = {
   studies: StudyInterface[];
-  programSlug: string;
+  slug: string;
 };
 
-const myLoader = ({ src, width, quality }) => {
-  return `https://example.com/${src}?w=${width}&q=${quality || 75}`;
-};
-
-export function Studies({ studies, programSlug }: Props) {
+export function Studies({ studies, slug }: Props) {
   const createStudy = (study: StudyInterface) => {
-    const studyUrl = "/" + programSlug + "/" + study.slug;
+    const studyUrl = slug + `/${study.slug}`;
     return (
       <Row
         style={{
@@ -27,13 +23,13 @@ export function Studies({ studies, programSlug }: Props) {
         <Col xl={3}>
           <Link href={studyUrl}>
             <a>
-              <Image
+              {/* <Image
                 src={study.image}
                 className="img-fluid"
                 alt={study.name}
                 width={260}
                 height={145}
-              />
+              /> */}
             </a>
           </Link>
         </Col>
