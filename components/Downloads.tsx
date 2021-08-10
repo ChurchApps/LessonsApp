@@ -1,4 +1,4 @@
-import { Row, Col } from "react-bootstrap";
+import { Row, Col, Button, Dropdown } from "react-bootstrap";
 import { ResourceInterface } from "@utils/index";
 
 type Props = {
@@ -58,22 +58,15 @@ export function Downloads({ resources }: Props) {
 
   return (
     resources.length > 0 && (
-      <div className="dropdown">
-        <button
-          className="btn btn-light dropdown-toggle btn-sm float-right"
-          type="button"
-          style={{ float: "right" }}
-          id="dropdownMenuButton"
-          data-toggle="dropdown"
-          aria-haspopup="true"
-          aria-expanded="false"
-        >
+      <Dropdown style={{ float: "right" }}>
+        <Dropdown.Toggle variant="light" id="dropdownMenuButton" size="sm">
           Downloads
-        </button>
-        <div className="dropdown-menu" aria-labelledby="dropdownMenuButton">
+        </Dropdown.Toggle>
+
+        <Dropdown.Menu style={{ width: "215px" }}>
           {getResources()}
-        </div>
-      </div>
+        </Dropdown.Menu>
+      </Dropdown>
     )
   );
 }
