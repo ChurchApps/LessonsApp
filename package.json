@@ -24,6 +24,7 @@
     "react-csv": "^2.0.3",
     "react-dom": "17.0.2",
     "react-google-charts": "^3.0.15",
+    "react-markdown": "^6.0.3",
     "react-router-dom": "^5.2.0",
     "react-to-print": "^2.13.0",
     "yup": "^0.32.9"
