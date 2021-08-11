@@ -1,7 +1,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import { Row, Col } from "react-bootstrap";
-import { LessonInterface } from "@utils/index";
+import { LessonInterface } from "@/utils/index";
 
 type Props = {
   slug: string;

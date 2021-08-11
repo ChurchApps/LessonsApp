@@ -3,7 +3,7 @@ import {
   SectionInterface,
   ResourceInterface,
   ActionInterface,
-} from "@utils/index";
+} from "@/utils/index";
 import { Action } from "./Action";
 
 type Props = {

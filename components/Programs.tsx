@@ -1,7 +1,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import { Container, Row, Col } from "react-bootstrap";
-import { ProgramInterface, ProviderInterface } from "@utils/index";
+import { ProgramInterface, ProviderInterface } from "@/utils/index";
 
 type Props = {
   programs: ProgramInterface[];

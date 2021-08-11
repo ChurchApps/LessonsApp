@@ -1,14 +1,14 @@
 import { GetStaticPaths, GetStaticProps } from "next";
 import Image from "next/image";
 import { Container, Row, Col } from "react-bootstrap";
-import { Layout, Lessons } from "@components/index";
+import { Layout, Lessons } from "@/components/index";
 import {
   ApiHelper,
   ProgramInterface,
   StudyInterface,
   LessonInterface,
   ArrayHelper,
-} from "@utils/index";
+} from "@/utils/index";
 
 type Props = {
   study: StudyInterface;

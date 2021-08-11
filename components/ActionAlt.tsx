@@ -4,7 +4,7 @@ import {
   ActionInterface,
   ResourceInterface,
   ArrayHelper,
-} from "@utils/index";
+} from "@/utils/index";
 
 type Props = {
   role: RoleInterface;

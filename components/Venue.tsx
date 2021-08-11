@@ -3,7 +3,7 @@ import { useReactToPrint } from "react-to-print";
 import { Row, Col, Accordion } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPrint } from "@fortawesome/free-solid-svg-icons";
-import { VenueInterface, ResourceInterface } from "@utils/index";
+import { VenueInterface, ResourceInterface } from "@/utils/index";
 import { Downloads } from "./Downloads";
 import { SectionAlt } from "./SectionAlt";
 import { Section } from "./Section";

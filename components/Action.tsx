@@ -1,5 +1,5 @@
 import ReactMarkdown from "react-markdown";
-import { ResourceInterface, ArrayHelper, ActionInterface } from "@utils/index";
+import { ResourceInterface, ArrayHelper, ActionInterface } from "@/utils/index";
 
 type Props = {
   action: ActionInterface;

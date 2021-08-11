@@ -1,5 +1,5 @@
 import { Card, Accordion, Button } from "react-bootstrap";
-import { SectionInterface, ResourceInterface } from "@utils/index";
+import { SectionInterface, ResourceInterface } from "@/utils/index";
 import { ActionAlt } from "./ActionAlt";
 
 type Props = {

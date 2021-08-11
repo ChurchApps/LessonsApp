@@ -4,7 +4,7 @@ import { Container, Col } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faLock } from "@fortawesome/free-solid-svg-icons";
 import { NavItems } from "./index";
-import Logo from "@public/images/logo.png";
+import Logo from "@/public/images/logo.png";
 
 export function Header() {
   return (
