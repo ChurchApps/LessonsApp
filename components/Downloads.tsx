@@ -1,5 +1,5 @@
 import { Row, Col, Dropdown } from "react-bootstrap";
-import { ResourceInterface } from "@/utils/index";
+import { ResourceInterface } from "@/utils";
 
 type Props = {
   resources: ResourceInterface[];

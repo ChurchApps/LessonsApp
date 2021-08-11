@@ -3,7 +3,7 @@
 import "bootstrap/dist/css/bootstrap.min.css";
 import "@styles/globals.css";
 import type { AppProps } from "next/app";
-import { EnvironmentHelper } from "@/utils/index";
+import { EnvironmentHelper } from "@/utils";
 
 EnvironmentHelper.init();
 

@@ -1,4 +1,4 @@
-import { VenueInterface, ResourceInterface, ArrayHelper } from "@/utils/index";
+import { VenueInterface, ResourceInterface, ArrayHelper } from "@/utils";
 import { Venue } from "./Venue";
 
 type Props = {

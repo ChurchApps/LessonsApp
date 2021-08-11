@@ -1,8 +1,8 @@
 import Head from "next/head";
 import { GetStaticProps } from "next";
 import { Container, Row, Col, Button } from "react-bootstrap";
-import { Layout, Programs } from "@/components/index";
-import { ApiHelper, ProgramInterface, ProviderInterface } from "@/utils/index";
+import { Layout, Programs } from "@/components";
+import { ApiHelper, ProgramInterface, ProviderInterface } from "@/utils";
 
 type Props = {
   programs: ProgramInterface[];

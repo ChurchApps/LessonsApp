@@ -1,4 +1,4 @@
-export * from "@appBase/interfaces";
+export * from "@/appBase/interfaces";
 
 export interface ProviderInterface {
   id?: string;

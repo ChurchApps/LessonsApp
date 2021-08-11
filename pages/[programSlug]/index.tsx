@@ -1,12 +1,12 @@
 import { GetStaticPaths, GetStaticProps } from "next";
 import { Container } from "react-bootstrap";
-import { Layout, Studies } from "@/components/index";
+import { Layout, Studies } from "@/components";
 import {
   ProgramInterface,
   ApiHelper,
   ProviderInterface,
   StudyInterface,
-} from "@/utils/index";
+} from "@/utils";
 
 type Props = {
   program: ProgramInterface;

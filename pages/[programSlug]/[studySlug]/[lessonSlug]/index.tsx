@@ -2,7 +2,7 @@ import { GetStaticPaths, GetStaticProps } from "next";
 import Image from "next/image";
 import { Container, Row, Col } from "react-bootstrap";
 import ReactMarkdown from "react-markdown";
-import { Layout, Venues } from "@/components/index";
+import { Layout, Venues } from "@/components";
 import {
   ApiHelper,
   ProgramInterface,
@@ -11,7 +11,7 @@ import {
   ArrayHelper,
   VenueInterface,
   ResourceInterface,
-} from "@/utils/index";
+} from "@/utils";
 
 type Props = {
   program: ProgramInterface;
