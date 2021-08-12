@@ -746,3 +746,46 @@ dropdown-menu a {
     max-width: 1140px;
   }
 }
+
+.smallCenterBlock {
+  max-width: 350px;
+  margin-left: auto;
+  margin-right: auto;
+}
+.login-logo {
+  margin-top: 100px;
+  margin-bottom: 60px;
+}
+#loginBox {
+  background-color: #fff;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  padding: 20px;
+}
+#loginBox .form-group {
+  margin-bottom: 1rem;
+}
+.signin-button {
+  width: 100%;
+}
+.text-right {
+  text-align: right;
+}
+.pwd-container {
+  position: relative;
+}
+.pwd-container input {
+  padding-right: 50px;
+}
+.pwd-container svg {
+  position: absolute;
+  cursor: pointer;
+  top: 12.5px;
+  right: 15px;
+}
+.icon-lightgrey {
+  color: lightgray;
+}
+.icon-grey {
+  color: grey;
+}
