@@ -4,17 +4,23 @@ import { Footer } from "./Footer";
 
 type Props = {
   children: React.ReactNode;
+  withoutNavbar?: boolean;
+  withoutFooter?: boolean;
 };
 
-export function Layout({ children }: Props) {
+export function Layout({
+  children,
+  withoutNavbar = false,
+  withoutFooter = false,
+}: Props) {
   return (
     <div>
       <Head>
         <title>Lessons.church - Free Church Curriculum</title>
       </Head>
-      <Header />
+      {!withoutNavbar && <Header />}
       <main>{children}</main>
-      <Footer />
+      {!withoutFooter && <Footer />}
     </div>
   );
 }
