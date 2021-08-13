@@ -47,6 +47,7 @@ export function AuthProvider({ children }: Props) {
     }
     if (selectedChurch) {
       setCookies("email", `${state.user?.email}`, { path: "/" });
+      setState({ ...state, loggedIn: true });
       router.push("/admin");
     }
   }, [churches, performFirstSelection, selectedChurch]);
@@ -54,26 +55,23 @@ export function AuthProvider({ children }: Props) {
   const contextValue: IAuth = {
     ...state,
     login: async (data) => {
-      console.log("login initiated");
-      setState({ ...state, loading: true, error: null });
-      return login(data)
-        .then(({ user, churches }: LoginResponseInterface) => {
-          setState({
-            ...state,
-            loggedIn: true,
-            user: user,
-            loading: false,
-            error: null,
-          });
-          setChurches(churches);
-        })
-        .catch((error) => {
-          setState({
-            ...state,
-            error,
-            loading: false,
-          });
+      try {
+        setState({ ...state, loading: true, error: null });
+        const { user, churches }: LoginResponseInterface = await login(data);
+        setState({
+          ...state,
+          user: user,
+          loading: false,
+          error: null,
         });
+        setChurches(churches);
+      } catch (error) {
+        setState({
+          ...state,
+          error,
+          loading: false,
+        });
+      }
     },
     logout: () => {
       removeCookie("jwt");

@@ -28,7 +28,7 @@ const APP_NAME = "Lessons";
 
 export function ChurchProvider({ children }: Props) {
   const [state, setState] = React.useState<IChurch>(initialChurchData);
-  const [cookies, setCookie] = useCookies(["jwt"]);
+  const [_, setCookie] = useCookies(["jwt"]);
 
   React.useEffect(() => {
     if (state.churches?.length > 0) {

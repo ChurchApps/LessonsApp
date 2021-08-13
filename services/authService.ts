@@ -2,7 +2,7 @@ import { ApiHelper, LoginResponseInterface, UserInterface } from "@/utils";
 
 type Payload = UserInterface | { jwt: string } | { authGuid: string };
 
-export function login(data: Payload) {
+export function login(data: Payload): Promise<LoginResponseInterface> {
   return new Promise(async (resolve, reject) => {
     try {
       const response: LoginResponseInterface = await ApiHelper.postAnonymous(
