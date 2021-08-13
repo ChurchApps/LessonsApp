@@ -789,3 +789,6 @@ dropdown-menu a {
 .icon-grey {
   color: grey;
 }
+.form-control.is-invalid {
+  background-image: none;
+}

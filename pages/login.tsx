@@ -2,7 +2,9 @@ import Image from "next/image";
 import { Formik } from "formik";
 import * as yup from "yup";
 import { Form, Button } from "react-bootstrap";
-import { Layout, PasswordField } from "@/components";
+import { Layout, PasswordField, ErrorMessages } from "@/components";
+import { UserInterface } from "@/utils";
+import { useAuth } from "@/hooks/useAuth";
 import Logo from "@/public/images/logo.png";
 
 const schema = yup.object().shape({
@@ -13,8 +15,11 @@ const schema = yup.object().shape({
   password: yup.string().required("Please enter your password."),
 });
 
+const APP_NAME = "Lessons";
+
 export default function Login() {
-  const initialValues = { email: "", password: "" };
+  const initialValues: UserInterface = { email: "", password: "" };
+  const { login, loading, error } = useAuth();
 
   return (
     <Layout withoutNavbar withoutFooter>
@@ -22,21 +27,15 @@ export default function Login() {
         <div className="login-logo">
           <Image src={Logo} alt="logo" width={350} height={60} />
         </div>
+        <ErrorMessages errors={!error ? null : [error]} />
         <div id="loginBox">
           <h2>Please sign in</h2>
           <Formik
             validationSchema={schema}
             initialValues={initialValues}
-            onSubmit={console.log}
+            onSubmit={login}
           >
-            {({
-              handleSubmit,
-              handleChange,
-              values,
-              touched,
-              errors,
-              isSubmitting,
-            }) => (
+            {({ handleSubmit, handleChange, values, touched, errors }) => (
               <Form noValidate onSubmit={handleSubmit}>
                 <Form.Group>
                   <Form.Control
@@ -57,9 +56,6 @@ export default function Login() {
                   <PasswordField
                     value={values.password}
                     onChange={handleChange}
-                    onKeyDown={(e) =>
-                      e.key === "Enter" && console.log("enter clicked...")
-                    }
                     isInvalid={touched.password && !!errors.password}
                     errorText={errors.password}
                   />
@@ -69,9 +65,9 @@ export default function Login() {
                   size="lg"
                   variant="primary"
                   className="signin-button"
-                  disabled={isSubmitting}
+                  disabled={loading}
                 >
-                  {isSubmitting ? "Please wait..." : "Sign in"}
+                  {loading ? "Please wait..." : "Sign in"}
                 </Button>
               </Form>
             )}
