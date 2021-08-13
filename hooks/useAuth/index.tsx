@@ -3,7 +3,7 @@ import { useRouter } from "next/router";
 import { useCookies } from "react-cookie";
 import { AuthContext, initialAuthData } from "./context";
 import { useChurch } from "../useChurch";
-import { IAuth } from "./types";
+import { IAuth, LoginPayload } from "./types";
 import { login } from "@/services/authService";
 import { ApiHelper, LoginResponseInterface } from "@/utils";
 
@@ -33,7 +33,7 @@ export function AuthProvider({ children }: Props) {
   React.useEffect(() => {
     if (cookies.jwt) {
       setState({ ...state, user: { email: cookies.email } });
-      login({ jwt: cookies.jwt });
+      performLogin({ jwt: cookies.jwt });
     }
   }, []);
 
@@ -52,27 +52,30 @@ export function AuthProvider({ children }: Props) {
     }
   }, [churches, performFirstSelection, selectedChurch]);
 
+  async function performLogin(data: LoginPayload) {
+    try {
+      console.log("initiated!!");
+      setState({ ...state, loading: true, error: null });
+      const { user, churches }: LoginResponseInterface = await login(data);
+      setState({
+        ...state,
+        user: user,
+        loading: false,
+        error: null,
+      });
+      setChurches(churches);
+    } catch (error) {
+      setState({
+        ...state,
+        error,
+        loading: false,
+      });
+    }
+  }
+
   const contextValue: IAuth = {
     ...state,
-    login: async (data) => {
-      try {
-        setState({ ...state, loading: true, error: null });
-        const { user, churches }: LoginResponseInterface = await login(data);
-        setState({
-          ...state,
-          user: user,
-          loading: false,
-          error: null,
-        });
-        setChurches(churches);
-      } catch (error) {
-        setState({
-          ...state,
-          error,
-          loading: false,
-        });
-      }
-    },
+    login: performLogin,
     logout: () => {
       removeCookie("jwt");
       removeCookie("email");

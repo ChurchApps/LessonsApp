@@ -1,11 +1,16 @@
 import { UserInterface } from "@/utils";
 
+export type LoginPayload =
+  | UserInterface
+  | { jwt: string }
+  | { authGuid: string };
+
 export interface IAuth {
   loading: boolean;
   loggedIn: boolean;
   error: string;
   user: UserInterface;
 
-  login: (data: UserInterface) => Promise<void>;
+  login: (data: LoginPayload) => Promise<void>;
   logout: () => void;
 }
