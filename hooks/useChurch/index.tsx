@@ -30,6 +30,7 @@ export function ChurchProvider({ children }: Props) {
   const [state, setState] = React.useState<IChurch>(initialChurchData);
   const [_, setCookie] = useCookies(["jwt"]);
 
+  // perform automatic church selection on login
   React.useEffect(() => {
     if (state.churches?.length > 0) {
       selectChurch();

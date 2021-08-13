@@ -30,6 +30,7 @@ export function AuthProvider({ children }: Props) {
   const { setChurches, churches, performFirstSelection, selectedChurch } =
     useChurch();
 
+  // auto-login when user refreshes the page
   React.useEffect(() => {
     if (cookies.jwt) {
       setState({ ...state, user: { email: cookies.email } });
@@ -37,6 +38,7 @@ export function AuthProvider({ children }: Props) {
     }
   }, []);
 
+  // check if the user has access to the app
   React.useEffect(() => {
     if (performFirstSelection && churches?.length === 0) {
       setState({
@@ -54,7 +56,6 @@ export function AuthProvider({ children }: Props) {
 
   async function performLogin(data: LoginPayload) {
     try {
-      console.log("initiated!!");
       setState({ ...state, loading: true, error: null });
       const { user, churches }: LoginResponseInterface = await login(data);
       setState({
