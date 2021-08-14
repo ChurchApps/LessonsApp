@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import Image from "next/image";
 import { FormGroup, FormControl, FormLabel } from "react-bootstrap";
 import { ErrorMessages, InputBox } from "../index";
 import { ImageEditor } from "./ImageEditor";
@@ -122,11 +123,13 @@ export function ProgramEdit(props: Props) {
       >
         <ErrorMessages errors={errors} />
         <a href="about:blank" className="d-block" onClick={handleImageClick}>
-          <img
+          <Image
             src={program.image || "/images/blank.png"}
             className="img-fluid profilePic d-block mx-auto"
             id="imgPreview"
             alt="program"
+            height={185}
+            width={330}
           />
         </a>
         <br />
