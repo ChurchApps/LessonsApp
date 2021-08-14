@@ -1,4 +1,5 @@
-import React from "react";
+import { useState, useEffect } from "react";
+import Image from "next/image";
 import { FormGroup, FormControl, FormLabel, Row, Col } from "react-bootstrap";
 import { InputBox, ErrorMessages } from "../index";
 import { ApiHelper, StudyInterface, ProgramInterface } from "@/utils";
@@ -10,10 +11,10 @@ interface Props {
 }
 
 export function StudyEdit(props: Props) {
-  const [study, setStudy] = React.useState<StudyInterface>({});
-  const [program, setProgram] = React.useState<ProgramInterface>({});
-  const [errors, setErrors] = React.useState([]);
-  const [showImageEditor, setShowImageEditor] = React.useState<boolean>(false);
+  const [study, setStudy] = useState<StudyInterface>({});
+  const [program, setProgram] = useState<ProgramInterface>({});
+  const [errors, setErrors] = useState([]);
+  const [showImageEditor, setShowImageEditor] = useState<boolean>(false);
 
   const handleCancel = () => props.updatedCallback(study);
   const handleKeyDown = (e: React.KeyboardEvent<any>) => {
@@ -99,7 +100,7 @@ export function StudyEdit(props: Props) {
     setShowImageEditor(true);
   };
 
-  React.useEffect(() => {
+  useEffect(() => {
     setStudy(props.study);
     loadProgram(props.study.programId);
   }, [props.study]);
@@ -129,11 +130,13 @@ export function StudyEdit(props: Props) {
         <ErrorMessages errors={errors} />
 
         <a href="about:blank" className="d-block" onClick={handleImageClick}>
-          <img
+          <Image
             src={study.image || "/images/blank.png"}
             className="img-fluid profilePic d-block mx-auto"
             id="imgPreview"
             alt="study"
+            height={185}
+            width={330}
           />
         </a>
         <br />
