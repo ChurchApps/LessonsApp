@@ -33,8 +33,13 @@ export function AuthProvider({ children }: Props) {
   // auto-login when user refreshes the page
   React.useEffect(() => {
     if (cookies.jwt) {
-      setState({ ...state, user: { email: cookies.email } });
-      performLogin({ jwt: cookies.jwt });
+      const mutatedState = {
+        user: {
+          email: cookies.email,
+        },
+        isRelogin: true,
+      };
+      performLogin({ jwt: cookies.jwt }, mutatedState);
     }
   }, []);
 
@@ -54,15 +59,16 @@ export function AuthProvider({ children }: Props) {
     }
   }, [churches, performFirstSelection, selectedChurch]);
 
-  async function performLogin(data: LoginPayload) {
+  async function performLogin(data: LoginPayload, stateUpdates?: any) {
     try {
-      setState({ ...state, loading: true, error: null });
+      setState({ ...state, loading: true, error: null, ...stateUpdates });
       const { user, churches }: LoginResponseInterface = await login(data);
       setState({
         ...state,
         user: user,
         loading: false,
         error: null,
+        isRelogin: false,
       });
       setChurches(churches);
     } catch (error) {
@@ -70,6 +76,7 @@ export function AuthProvider({ children }: Props) {
         ...state,
         error,
         loading: false,
+        isRelogin: false,
       });
     }
   }

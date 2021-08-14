@@ -5,6 +5,7 @@ import { IAuth } from "./types";
 export const initialAuthData: IAuth = {
   loading: false,
   loggedIn: false,
+  isRelogin: false,
   error: null,
   user: null,
 

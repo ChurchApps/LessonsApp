@@ -1,7 +1,7 @@
 import Image from "next/image";
 import { Formik } from "formik";
 import * as yup from "yup";
-import { Form, Button } from "react-bootstrap";
+import { Form, Button, Alert } from "react-bootstrap";
 import { Layout, PasswordField, ErrorMessages } from "@/components";
 import { UserInterface } from "@/utils";
 import { useAuth } from "@/hooks/useAuth";
@@ -19,7 +19,11 @@ const APP_NAME = "Lessons";
 
 export default function Login() {
   const initialValues: UserInterface = { email: "", password: "" };
-  const { login, loading, error } = useAuth();
+  const { login, loading, error, isRelogin, user } = useAuth();
+
+  function handleSubmit(data: UserInterface) {
+    login(data);
+  }
 
   return (
     <Layout withoutNavbar withoutFooter>
@@ -28,12 +32,18 @@ export default function Login() {
           <Image src={Logo} alt="logo" width={350} height={60} />
         </div>
         <ErrorMessages errors={!error ? null : [error]} />
+        {isRelogin && loading && (
+          <Alert variant="info">
+            Welcome back, <b>{user.email}</b>! Please wait while we load your
+            data.
+          </Alert>
+        )}
         <div id="loginBox">
           <h2>Please sign in</h2>
           <Formik
             validationSchema={schema}
             initialValues={initialValues}
-            onSubmit={login}
+            onSubmit={handleSubmit}
           >
             {({ handleSubmit, handleChange, values, touched, errors }) => (
               <Form noValidate onSubmit={handleSubmit}>

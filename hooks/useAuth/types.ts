@@ -8,6 +8,7 @@ export type LoginPayload =
 export interface IAuth {
   loading: boolean;
   loggedIn: boolean;
+  isRelogin: boolean;
   error: string;
   user: UserInterface;
 
