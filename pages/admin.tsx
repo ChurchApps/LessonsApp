@@ -8,6 +8,8 @@ import {
   ProgramEdit,
   StudyEdit,
   LessonEdit,
+  VenueList,
+  ResourceList,
 } from "@/components";
 import { useAuth } from "@/hooks/useAuth";
 import {
@@ -255,15 +257,15 @@ export default function Admin() {
           key="lessonEdit"
         />
       );
-    // else if (venuesLessonId)
-    //   result.push(<VenueList lessonId={venuesLessonId} />);
-    // else if (resourceContentType && resourceContentId)
-    //   result.push(
-    //     <ResourceList
-    //       contentType={resourceContentType}
-    //       contentId={resourceContentId}
-    //     />
-    //   );
+    else if (venuesLessonId)
+      result.push(<VenueList lessonId={venuesLessonId} key="venueLesson" />);
+    else if (resourceContentType && resourceContentId)
+      result.push(
+        <ResourceList
+          contentType={resourceContentType}
+          contentId={resourceContentId}
+        />
+      );
     return result;
   }
 
