@@ -12,6 +12,9 @@ export { LessonEdit } from "./admin/LessonEdit";
 export { VenueEdit } from "./admin/VenueEdit";
 export { VenueList } from "./admin/VenueList";
 export { ResourceList } from "./admin/ResourceList";
+export { SectionEdit } from "./admin/SectionEdit";
+export { RoleEdit } from "./admin/RoleEdit";
+export { ActionEdit } from "./admin/ActionEdit";
 
 export { ErrorMessages } from "@/appBase/components/ErrorMessages";
 export { DisplayBox } from "@/appBase/components/DisplayBox";
