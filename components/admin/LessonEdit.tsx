@@ -2,20 +2,27 @@ import { useState, useEffect } from "react";
 import Image from "next/image";
 import { FormGroup, FormControl, FormLabel, Row, Col } from "react-bootstrap";
 import { InputBox, ErrorMessages, ImageEditor } from "../index";
-import { ApiHelper, StudyInterface, ProgramInterface } from "@/utils";
+import {
+  ApiHelper,
+  LessonInterface,
+  StudyInterface,
+  ProgramInterface,
+} from "@/utils";
 
 type Props = {
-  study: StudyInterface;
-  updatedCallback: (study: StudyInterface) => void;
+  lesson: LessonInterface;
+  updatedCallback: (lesson: LessonInterface) => void;
 };
 
-export function StudyEdit(props: Props) {
+export function LessonEdit(props: Props) {
+  const [lesson, setLesson] = useState<LessonInterface>({} as LessonInterface);
   const [study, setStudy] = useState<StudyInterface>({});
   const [program, setProgram] = useState<ProgramInterface>({});
+
   const [errors, setErrors] = useState([]);
   const [showImageEditor, setShowImageEditor] = useState<boolean>(false);
 
-  const handleCancel = () => props.updatedCallback(study);
+  const handleCancel = () => props.updatedCallback(lesson);
   const handleKeyDown = (e: React.KeyboardEvent<any>) => {
     if (e.key === "Enter") {
       e.preventDefault();
@@ -26,22 +33,19 @@ export function StudyEdit(props: Props) {
     e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
   ) => {
     e.preventDefault();
-    let p = { ...study };
+    let p = { ...lesson };
     switch (e.currentTarget.name) {
       case "name":
         p.name = e.currentTarget.value;
         break;
+      case "title":
+        p.title = e.currentTarget.value;
+        break;
       case "slug":
         p.slug = e.currentTarget.value;
         break;
-      case "shortDescription":
-        p.shortDescription = e.currentTarget.value;
-        break;
       case "description":
         p.description = e.currentTarget.value;
-        break;
-      case "videoEmbedUrl":
-        p.videoEmbedUrl = e.currentTarget.value;
         break;
       case "live":
         p.live = e.currentTarget.value === "true";
@@ -49,36 +53,44 @@ export function StudyEdit(props: Props) {
       case "sort":
         p.sort = parseInt(e.currentTarget.value);
         break;
+      case "videoEmbedUrl":
+        p.videoEmbedUrl = e.currentTarget.value;
+        break;
     }
-    setStudy(p);
+    setLesson(p);
   };
 
-  const loadProgram = (programId: string) => {
-    ApiHelper.get("/programs/" + programId, "LessonsApi").then(
-      (data: ProgramInterface) => {
-        setProgram(data);
+  const loadStudy = (studyId: string) => {
+    ApiHelper.get("/studies/" + studyId, "LessonsApi").then(
+      (s: StudyInterface) => {
+        setStudy(s);
+        ApiHelper.get("/programs/" + s.programId, "LessonsApi").then(
+          (data: ProgramInterface) => {
+            setProgram(data);
+          }
+        );
       }
     );
   };
 
   const handleImageUpdated = (dataUrl: string) => {
-    const s = { ...study };
-    s.image = dataUrl;
-    setStudy(s);
+    const l = { ...lesson };
+    l.image = dataUrl;
+    setLesson(l);
     setShowImageEditor(false);
   };
 
   const validate = () => {
     let errors = [];
-    if (study.name === "") errors.push("Please enter a study name.");
+    if (lesson.name === "") errors.push("Please enter a lesson name.");
     setErrors(errors);
     return errors.length === 0;
   };
 
   const handleSave = () => {
     if (validate()) {
-      ApiHelper.post("/studies", [study], "LessonsApi").then((data) => {
-        setStudy(data);
+      ApiHelper.post("/lessons", [lesson], "LessonsApi").then((data) => {
+        setLesson(data);
         props.updatedCallback(data);
       });
     }
@@ -86,9 +98,9 @@ export function StudyEdit(props: Props) {
 
   const handleDelete = () => {
     if (
-      window.confirm("Are you sure you wish to permanently delete this study?")
+      window.confirm("Are you sure you wish to permanently delete this lesson?")
     ) {
-      ApiHelper.delete("/studies/" + study.id.toString(), "LessonsApi").then(
+      ApiHelper.delete("/lessons/" + lesson.id.toString(), "LessonsApi").then(
         () => props.updatedCallback(null)
       );
     }
@@ -100,16 +112,16 @@ export function StudyEdit(props: Props) {
   };
 
   useEffect(() => {
-    setStudy(props.study);
-    loadProgram(props.study.programId);
-  }, [props.study]);
+    setLesson(props.lesson);
+    loadStudy(props.lesson.studyId);
+  }, [props.lesson]);
 
   const getImageEditor = () => {
     if (showImageEditor)
       return (
         <ImageEditor
           updatedFunction={handleImageUpdated}
-          imageUrl={study.image}
+          imageUrl={lesson.image}
           onCancel={() => setShowImageEditor(false)}
         />
       );
@@ -119,21 +131,20 @@ export function StudyEdit(props: Props) {
     <>
       {getImageEditor()}
       <InputBox
-        id="studyDetailsBox"
-        headerText="Edit Study"
-        headerIcon="fas fa-layer-group"
+        id="lessonDetailsBox"
+        headerText="Edit Lesson"
+        headerIcon="fas fa-book"
         saveFunction={handleSave}
         cancelFunction={handleCancel}
         deleteFunction={handleDelete}
       >
         <ErrorMessages errors={errors} />
-
         <a href="about:blank" className="d-block" onClick={handleImageClick}>
           <Image
-            src={study.image || "/images/blank.png"}
+            src={lesson.image || "/images/blank.png"}
             className="img-fluid profilePic d-block mx-auto"
             id="imgPreview"
-            alt="study"
+            alt="lesson"
             height={185}
             width={330}
           />
@@ -146,7 +157,7 @@ export function StudyEdit(props: Props) {
               <FormControl
                 as="select"
                 name="live"
-                value={study.live?.toString()}
+                value={lesson.live?.toString()}
                 onChange={handleChange}
               >
                 <option value="false">No</option>
@@ -160,7 +171,7 @@ export function StudyEdit(props: Props) {
               <FormControl
                 type="number"
                 name="sort"
-                value={study.sort}
+                value={lesson.sort}
                 onChange={handleChange}
                 onKeyDown={handleKeyDown}
                 placeholder="1"
@@ -168,14 +179,27 @@ export function StudyEdit(props: Props) {
             </FormGroup>
           </Col>
         </Row>
+
         <FormGroup>
-          <FormLabel>Study Name</FormLabel>
+          <FormLabel>Lesson Name</FormLabel>
           <FormControl
             type="text"
             name="name"
-            value={study.name}
+            value={lesson.name}
             onChange={handleChange}
             onKeyDown={handleKeyDown}
+            placeholder="Lesson 1"
+          />
+        </FormGroup>
+        <FormGroup>
+          <FormLabel>Title</FormLabel>
+          <FormControl
+            type="text"
+            name="title"
+            value={lesson.title}
+            onChange={handleChange}
+            onKeyDown={handleKeyDown}
+            placeholder="Jesus Feeds 5,000"
           />
         </FormGroup>
         <FormGroup>
@@ -186,7 +210,9 @@ export function StudyEdit(props: Props) {
                 "https://lessons.church/" +
                 program?.slug +
                 "/" +
-                study.slug +
+                study?.slug +
+                "/" +
+                lesson.slug +
                 "/"
               }
               target="_blank"
@@ -195,24 +221,16 @@ export function StudyEdit(props: Props) {
               {"https://lessons.church/" +
                 program?.slug +
                 "/" +
-                study.slug +
+                study?.slug +
+                "/" +
+                lesson.slug +
                 "/"}
             </a>
           </div>
           <FormControl
             type="text"
             name="slug"
-            value={study.slug}
-            onChange={handleChange}
-            onKeyDown={handleKeyDown}
-          />
-        </FormGroup>
-        <FormGroup>
-          <FormLabel>One-Line Description</FormLabel>
-          <FormControl
-            type="text"
-            name="shortDescription"
-            value={study.shortDescription}
+            value={lesson.slug}
             onChange={handleChange}
             onKeyDown={handleKeyDown}
           />
@@ -223,7 +241,7 @@ export function StudyEdit(props: Props) {
             as="textarea"
             type="text"
             name="description"
-            value={study.description}
+            value={lesson.description}
             onChange={handleChange}
             onKeyDown={handleKeyDown}
           />
@@ -233,7 +251,7 @@ export function StudyEdit(props: Props) {
           <FormControl
             type="text"
             name="videoEmbedUrl"
-            value={study.videoEmbedUrl}
+            value={lesson.videoEmbedUrl}
             onChange={handleChange}
             onKeyDown={handleKeyDown}
           />

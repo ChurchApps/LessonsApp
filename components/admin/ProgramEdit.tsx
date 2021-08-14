@@ -1,8 +1,7 @@
 import { useState, useEffect } from "react";
 import Image from "next/image";
 import { FormGroup, FormControl, FormLabel } from "react-bootstrap";
-import { ErrorMessages, InputBox } from "../index";
-import { ImageEditor } from "./ImageEditor";
+import { ErrorMessages, InputBox, ImageEditor } from "../index";
 import { ApiHelper, ProgramInterface } from "@/utils";
 
 type Props = {

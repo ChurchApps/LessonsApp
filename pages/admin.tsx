@@ -7,6 +7,7 @@ import {
   Loading,
   ProgramEdit,
   StudyEdit,
+  LessonEdit,
 } from "@/components";
 import { useAuth } from "@/hooks/useAuth";
 import {
@@ -246,10 +247,10 @@ export default function Admin() {
           key="studyEdit"
         />
       );
-    // else if (editLesson)
-    //   result.push(
-    //     <LessonEdit lesson={editLesson} updatedCallback={handleUpdated} />
-    //   );
+    else if (editLesson)
+      result.push(
+        <LessonEdit lesson={editLesson} updatedCallback={handleUpdated} />
+      );
     // else if (venuesLessonId)
     //   result.push(<VenueList lessonId={venuesLessonId} />);
     // else if (resourceContentType && resourceContentId)
