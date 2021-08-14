@@ -6,6 +6,7 @@ export { Lessons } from "./Lessons";
 export { Venues } from "./Venues";
 export { PasswordField } from "./PasswordField";
 export { ProgramEdit } from "./admin/ProgramEdit";
+export { StudyEdit } from "./admin/StudyEdit";
 
 export { ErrorMessages } from "@/appBase/components/ErrorMessages";
 export { DisplayBox } from "@/appBase/components/DisplayBox";

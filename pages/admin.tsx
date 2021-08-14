@@ -1,7 +1,13 @@
 import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import { Row, Col, Container } from "react-bootstrap";
-import { Layout, DisplayBox, Loading, ProgramEdit } from "@/components";
+import {
+  Layout,
+  DisplayBox,
+  Loading,
+  ProgramEdit,
+  StudyEdit,
+} from "@/components";
 import { useAuth } from "@/hooks/useAuth";
 import {
   ApiHelper,
@@ -232,10 +238,14 @@ export default function Admin() {
           key="programEdit"
         />
       );
-    // else if (editStudy)
-    //   result.push(
-    //     <StudyEdit study={editStudy} updatedCallback={handleUpdated} />
-    //   );
+    else if (editStudy)
+      result.push(
+        <StudyEdit
+          study={editStudy}
+          updatedCallback={handleUpdated}
+          key="studyEdit"
+        />
+      );
     // else if (editLesson)
     //   result.push(
     //     <LessonEdit lesson={editLesson} updatedCallback={handleUpdated} />
