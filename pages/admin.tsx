@@ -249,7 +249,11 @@ export default function Admin() {
       );
     else if (editLesson)
       result.push(
-        <LessonEdit lesson={editLesson} updatedCallback={handleUpdated} />
+        <LessonEdit
+          lesson={editLesson}
+          updatedCallback={handleUpdated}
+          key="lessonEdit"
+        />
       );
     // else if (venuesLessonId)
     //   result.push(<VenueList lessonId={venuesLessonId} />);
