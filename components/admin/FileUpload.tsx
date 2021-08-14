@@ -113,8 +113,12 @@ export function FileUpload(props: Props) {
     //return fetch(presigned.url, requestOptions);
   };
 
-  useEffect(loadData, [props.fileId]);
-  useEffect(checkSave, [props.pendingSave]);
+  useEffect(loadData, [props.fileId, props.resourceId]);
+  useEffect(
+    checkSave,
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [props.pendingSave]
+  );
 
   const getFileLink = () => {
     if (uploadProgress > -1) {

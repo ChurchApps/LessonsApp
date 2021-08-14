@@ -52,9 +52,13 @@ export default function Venue() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  useEffect(loadData, []);
+  useEffect(loadData, [pathId]);
   useEffect(loadResources, [lesson, study]);
-  useEffect(loadAssets, [lessonResources, studyResources, programResources]);
+  useEffect(
+    loadAssets,
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [lessonResources, studyResources, programResources]
+  );
 
   function loadResources() {
     if (lesson && study) {
