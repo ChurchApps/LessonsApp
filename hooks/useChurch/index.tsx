@@ -3,7 +3,7 @@ import { useCookies } from "react-cookie";
 import { ChurchContext, initialChurchData } from "./context";
 import { AuthContext } from "../useAuth/context";
 import { IChurch } from "./types";
-import { ChurchInterface } from "@/utils";
+import { ChurchInterface, ApiHelper } from "@/utils";
 
 export function useChurch() {
   const churchContext = React.useContext(ChurchContext);
@@ -51,6 +51,11 @@ export function ChurchProvider({ children }: Props) {
     });
 
     setState({ ...state, selectedChurch: church });
+
+    ApiHelper.setDefaultPermissions(church.jwt);
+    church.apis.forEach((api) => {
+      ApiHelper.setPermissions(api.keyName, api.jwt, api.permissions);
+    });
   }
 
   const contextValue: IChurch = {
