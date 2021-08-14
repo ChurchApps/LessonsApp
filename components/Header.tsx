@@ -4,9 +4,34 @@ import { Container, Col } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faLock } from "@fortawesome/free-solid-svg-icons";
 import { NavItems } from "./index";
+import { useAuth } from "@/hooks/useAuth";
 import Logo from "@/public/images/logo.png";
 
 export function Header() {
+  const { user } = useAuth();
+
+  const userAction =
+    user && user.firstName ? (
+      <a
+        href="about:blank"
+        data-cy="settings-dropdown"
+        id="userMenuLink"
+        data-toggle="collapse"
+        data-target="#userMenu"
+        aria-controls="navbarToggleMenu"
+        aria-expanded="false"
+        aria-label="Toggle navigation"
+        onClick={(e) => e.preventDefault()}
+      >
+        {`${user.firstName} ${user.lastName}`}{" "}
+        <i className="fas fa-caret-down" />
+      </a>
+    ) : (
+      <Link href="/login">
+        <a>Login</a>
+      </Link>
+    );
+
   return (
     <div>
       <div id="navbar" className="fixed-top">
@@ -39,20 +64,7 @@ export function Header() {
             </Col>
 
             <div className="d-flex align-items-center" id="navRight">
-              <Link href="/login">
-                <a
-                  href="about:blank"
-                  data-cy="settings-dropdown"
-                  id="userMenuLink"
-                  data-toggle="collapse"
-                  data-target="#userMenu"
-                  aria-controls="navbarToggleMenu"
-                  aria-expanded="false"
-                  aria-label="Toggle navigation"
-                >
-                  Login
-                </a>
-              </Link>
+              {userAction}
             </div>
           </div>
         </Container>

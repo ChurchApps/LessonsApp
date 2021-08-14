@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { useRouter } from "next/router";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUser } from "@fortawesome/free-solid-svg-icons";
 import { IconProp } from "@fortawesome/fontawesome-svg-core";
@@ -24,8 +25,9 @@ const TABS: Tab[] = [
 ];
 
 export function NavItems({ prefix }: Props) {
+  const router = useRouter();
   function getClass(sectionName: string) {
-    return sectionName === "Lessons" ? "nav-link active" : "nav-link";
+    return router.pathname === "/lessons" ? "nav-link active" : "nav-link";
   }
 
   function createTab({ key, url, icon, label }: Tab) {
