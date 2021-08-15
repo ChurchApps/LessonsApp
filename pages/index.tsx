@@ -93,5 +93,6 @@ export const getStaticProps: GetStaticProps = async () => {
       programs,
       providers,
     },
+    revalidate: 30,
   };
 };
