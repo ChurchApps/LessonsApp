@@ -18,7 +18,7 @@ type Tab = {
 const TABS: Tab[] = [
   {
     key: "Lessons",
-    url: "/lessons",
+    url: "/",
     icon: faUser,
     label: "Lessons",
   },
