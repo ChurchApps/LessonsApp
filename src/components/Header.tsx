@@ -5,7 +5,6 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faLock } from "@fortawesome/free-solid-svg-icons";
 import { NavItems } from "./index";
 import { useAuth } from "@/hooks/useAuth";
-import Logo from "@/public/images/logo.png";
 
 export function Header() {
   const { user } = useAuth();
@@ -40,7 +39,12 @@ export function Header() {
             <div>
               <Link href="/">
                 <a className="navbar-brand">
-                  <Image src={Logo} alt="logo" />
+                  <Image
+                    src="/images/logo.png"
+                    alt="logo"
+                    height={35}
+                    width={200}
+                  />
                 </a>
               </Link>
             </div>
