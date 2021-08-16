@@ -6,17 +6,14 @@ import "@/styles/globals.css";
 import type { AppProps } from "next/app";
 import { EnvironmentHelper } from "@/utils";
 import { AuthProvider } from "@/hooks/useAuth";
-import { ChurchProvider } from "@/hooks/useChurch";
 
 EnvironmentHelper.init();
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
-    <ChurchProvider>
-      <AuthProvider>
-        <Component {...pageProps} />
-      </AuthProvider>
-    </ChurchProvider>
+    <AuthProvider>
+      <Component {...pageProps} />
+    </AuthProvider>
   );
 }
 export default MyApp;

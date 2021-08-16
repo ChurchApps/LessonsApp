@@ -2,10 +2,14 @@ import * as React from "react";
 import { useRouter } from "next/router";
 import { useCookies } from "react-cookie";
 import { AuthContext, initialAuthData } from "./context";
-import { useChurch } from "../useChurch";
 import { IAuth, LoginPayload } from "./types";
 import { login } from "@/services/authService";
-import { ApiHelper, LoginResponseInterface } from "@/utils";
+import {
+  ApiHelper,
+  LoginResponseInterface,
+  UserHelper,
+  ChurchInterface,
+} from "@/utils";
 
 export function useAuth() {
   const context = React.useContext(AuthContext);
@@ -21,14 +25,14 @@ type Props = {
   children: React.ReactNode;
 };
 
+const APP_NAME = "Lessons";
+
 const protectedRoutes = ["/admin"];
 
 export function AuthProvider({ children }: Props) {
   const [state, setState] = React.useState<IAuth>(initialAuthData);
-  const [cookies, setCookies, removeCookie] = useCookies(["jwt", "email"]);
+  const [cookies, setCookie, removeCookie] = useCookies(["jwt", "email"]);
   const router = useRouter();
-  const { setChurches, churches, performFirstSelection, selectedChurch } =
-    useChurch();
 
   // auto-login when user refreshes the page
   React.useEffect(() => {
@@ -43,26 +47,21 @@ export function AuthProvider({ children }: Props) {
     }
   }, []);
 
-  // check if the user has access to the app
-  React.useEffect(() => {
-    if (performFirstSelection && churches?.length === 0) {
-      setState({
-        ...state,
-        error: "The provided login does not have access to this application.",
-      });
-      return;
-    }
-    if (selectedChurch) {
-      setCookies("email", `${state.user?.email}`, { path: "/" });
-      setState({ ...state, loggedIn: true });
-      router.push("/admin");
-    }
-  }, [churches, performFirstSelection, selectedChurch]);
-
   async function performLogin(data: LoginPayload, stateUpdates?: any) {
     try {
       setState({ ...state, loading: true, error: null, ...stateUpdates });
       const { user, churches }: LoginResponseInterface = await login(data);
+
+      const LessonChurches: ChurchInterface[] = [];
+      churches.forEach((church) => {
+        if (church.apps.some((c) => c.appName === APP_NAME)) {
+          churches.push(church);
+        }
+      });
+      UserHelper.churches = LessonChurches;
+      setCookie("email", user.email, { path: "/" });
+      UserHelper.selectChurch();
+
       setState({
         ...state,
         user: user,
@@ -70,7 +69,8 @@ export function AuthProvider({ children }: Props) {
         error: null,
         isRelogin: false,
       });
-      setChurches(churches);
+
+      // setChurches(churches);
     } catch (error) {
       setState({
         ...state,
