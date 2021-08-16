@@ -5,7 +5,6 @@ import { Form, Button, Alert } from "react-bootstrap";
 import { Layout, PasswordField, ErrorMessages } from "@/components";
 import { UserInterface } from "@/utils";
 import { useAuth } from "@/hooks/useAuth";
-import Logo from "@/public/images/logo.png";
 
 const schema = yup.object().shape({
   email: yup
@@ -29,7 +28,7 @@ export default function Login() {
     <Layout withoutNavbar withoutFooter>
       <div className="smallCenterBlock">
         <div className="login-logo">
-          <Image src={Logo} alt="logo" width={350} height={60} />
+          <Image src="/images/logo.png" alt="logo" width={350} height={60} />
         </div>
         <ErrorMessages errors={!error ? null : [error]} />
         {isRelogin && loading && (
