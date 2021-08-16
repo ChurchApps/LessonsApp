@@ -1,4 +1,5 @@
 import { useState } from "react";
+import Link from "next/link";
 import { Formik, FormikHelpers } from "formik";
 import { Form, Button } from "react-bootstrap";
 import * as yup from "yup";
@@ -105,7 +106,7 @@ export default function Forgot() {
           <div className="text-right">
             <a href={EnvironmentHelper.ChurchAppsUrl}>Register</a> &nbsp; |
             &nbsp;
-            <a href="/login">Login</a>&nbsp;
+            <Link href="/login">Login</Link>&nbsp;
           </div>
         </div>
       </div>

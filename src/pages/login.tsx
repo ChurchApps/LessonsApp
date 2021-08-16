@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 import { Formik } from "formik";
 import * as yup from "yup";
 import { Form, Button, Alert } from "react-bootstrap";
@@ -83,7 +84,7 @@ export default function Login() {
           </Formik>
           <br />
           <div className="text-right">
-            <a href="/forgot">Forgot Password</a>&nbsp;
+            <Link href="/forgot">Forgot Password</Link>&nbsp;
           </div>
         </div>
       </div>
