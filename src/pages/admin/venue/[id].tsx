@@ -61,7 +61,7 @@ export default function Venue() {
     if (loggedIn) {
       loadResources();
     }
-  }, [lesson, study]);
+  }, [lesson, study, loggedIn]);
   useEffect(
     () => {
       if (loggedIn) {
