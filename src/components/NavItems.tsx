@@ -1,39 +1,54 @@
-import React from "react";
-import { Link } from "react-router-dom";
-//import { useLocation } from "react-router-dom";
+import Link from "next/link";
+import { useRouter } from "next/router";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faUser } from "@fortawesome/free-solid-svg-icons";
+import { IconProp } from "@fortawesome/fontawesome-svg-core";
 
-interface Props {
-  prefix?: String;
-}
-
-export const NavItems: React.FC<Props> = (props) => {
-  //const location = useLocation();
-  const getSelected = (): string => {
-    //let url = location.pathname;
-    let result = "Lessons";
-    //if (url.indexOf("/profile") > -1) result = "Profile";
-    return result;
-  };
-
-  const getClass = (sectionName: string): string => {
-    if (sectionName === getSelected()) return "nav-link active";
-    else return "nav-link";
-  };
-
-  const getTab = (key: string, url: string, icon: string, label: string) => (
-    <li key={key} className="nav-item" data-toggle={props.prefix === "main" ? null : "collapse"} data-target={props.prefix === "main" ? null : "#userMenu"} id={(props.prefix || "") + key + "Tab"}>
-      <Link className={getClass(key)} to={url}>
-        <i className={icon}></i> {label}
-      </Link>
-    </li>
-  );
-
-  const getTabs = () => {
-    let tabs = [];
-    tabs.push(getTab("Lessons", "/lessons", "fas fa-user", "Lessons"));
-    //tabs.push(getTab("Profile", "/profile", "fas fa-user", "Profile"));
-    return tabs;
-  };
-
-  return <>{getTabs()}</>;
+type Props = {
+  prefix?: string;
 };
+
+type Tab = {
+  key: string;
+  url: string;
+  icon: IconProp;
+  label: string;
+};
+
+const TABS: Tab[] = [
+  {
+    key: "Lessons",
+    url: "/",
+    icon: faUser,
+    label: "Lessons",
+  },
+];
+
+export function NavItems({ prefix }: Props) {
+  const router = useRouter();
+  function getClass(sectionName: string) {
+    return router.pathname === "/lessons" ? "nav-link active" : "nav-link";
+  }
+
+  function createTab({ key, url, icon, label }: Tab) {
+    return (
+      <li
+        key={key}
+        className="nav-item"
+        data-toggle={prefix === "main" ? null : "collapse"}
+        data-target={prefix === "main" ? null : "#userMenu"}
+        id={(prefix || "") + key + "Tab"}
+      >
+        <Link href={url}>
+          <a className={getClass(key)}>
+            <FontAwesomeIcon icon={icon} /> {label}
+          </a>
+        </Link>
+      </li>
+    );
+  }
+
+  const tabs = TABS.map((t) => createTab(t));
+
+  return <>{tabs}</>;
+}

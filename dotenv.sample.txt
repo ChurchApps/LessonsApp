@@ -1,12 +1,14 @@
-PORT=3600
+# change file name to .env
 
-#Update values and rename to .env.  For local development you may keep these values.
-REACT_APP_ACCESS_API=https://accessapi.staging.churchapps.org
-REACT_APP_LEARNING_API=https://attendanceapi.staging.churchapps.org
+# before adding env variables make sure you know how env variables work with
+# nextjs - https://nextjs.org/docs/basic-features/environment-variables
 
-REACT_APP_CONTENT_ROOT=https://content.staging.churchapps.org
-REACT_APP_ACCOUNTS_APP_URL=https://accounts.staging.churchapps.org
-REACT_APP_CHURCH_APPS_URL=https://staging.churchapps.org
+NEXT_PUBLIC_ACCESS_API=https://accessapi.staging.churchapps.org
+NEXT_PUBLIC_LESSONS_API=https://api.staging.lessons.church
+
+NEXT_PUBLIC_CONTENT_ROOT=https://content.staging.lessons.church
+NEXT_PUBLIC_ACCOUNTS_APP_URL=https://accounts.staging.churchapps.org
+NEXT_PUBLIC_CHURCH_APPS_URL=https://staging.churchapps.org
 
 #Optional - UA-123456789-1
-REACT_APP_GOOGLE_ANALYTICS=
+NEXT_PUBLIC_GOOGLE_ANALYTICS=
