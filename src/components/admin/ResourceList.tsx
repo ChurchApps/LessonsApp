@@ -1,11 +1,5 @@
 import React from "react";
-import {
-  ApiHelper,
-  ResourceInterface,
-  AssetInterface,
-  VariantInterface,
-  ArrayHelper,
-} from "@/utils";
+import { ApiHelper, ResourceInterface, AssetInterface, VariantInterface, ArrayHelper } from "@/utils";
 import { DisplayBox, Loading } from "../index";
 import { VariantEdit } from "./VariantEdit";
 import { ResourceEdit } from "./ResourceEdit";
@@ -20,8 +14,7 @@ export const ResourceList: React.FC<Props> = (props) => {
   const [resources, setResources] = React.useState<ResourceInterface[]>(null);
   const [assets, setAssets] = React.useState<AssetInterface[]>(null);
   const [variants, setVariants] = React.useState<VariantInterface[]>(null);
-  const [editResource, setEditResource] =
-    React.useState<ResourceInterface>(null);
+  const [editResource, setEditResource] = React.useState<ResourceInterface>(null);
   const [editVariant, setEditVariant] = React.useState<VariantInterface>(null);
   const [editAsset, setEditAsset] = React.useState<AssetInterface>(null);
 
@@ -31,29 +24,19 @@ export const ResourceList: React.FC<Props> = (props) => {
 
   const loadData = () => {
     if (props.contentType && props.contentId) {
-      ApiHelper.get(
-        "/resources/content/" + props.contentType + "/" + props.contentId,
-        "LessonsApi"
-      ).then((data: ResourceInterface[]) => {
-        setResources(data);
-        if (data.length === 0) {
-          setAssets([]);
-          setVariants([]);
-        } else {
-          ApiHelper.get(
-            "/assets/content/" + props.contentType + "/" + props.contentId,
-            "LessonsApi"
-          ).then((data: any) => {
-            setAssets(data);
-          });
-          ApiHelper.get(
-            "/variants/content/" + props.contentType + "/" + props.contentId,
-            "LessonsApi"
-          ).then((data: any) => {
-            setVariants(data);
-          });
-        }
-      });
+      ApiHelper.get("/resources/content/" + props.contentType + "/" + props.contentId, "LessonsApi")
+        .then((data: ResourceInterface[]) => {
+          setResources(data);
+          if (data.length === 0) {
+            setAssets([]);
+            setVariants([]);
+          } else {
+            ApiHelper.get("/assets/content/" + props.contentType + "/" + props.contentId, "LessonsApi")
+              .then((data: any) => { setAssets(data); });
+            ApiHelper.get("/variants/content/" + props.contentType + "/" + props.contentId, "LessonsApi")
+              .then((data: any) => { setVariants(data); });
+          }
+        });
     }
   };
 
@@ -64,14 +47,7 @@ export const ResourceList: React.FC<Props> = (props) => {
         result.push(
           <tr className="variantRow">
             <td colSpan={2}>
-              <a
-                href="about:blank"
-                onClick={(e) => {
-                  e.preventDefault();
-                  clearEdits();
-                  setEditVariant(v);
-                }}
-              >
+              <a href="about:blank" onClick={(e) => { e.preventDefault(); clearEdits(); setEditVariant(v); }} >
                 <i className="fas fa-copy"></i> {v.name}
               </a>
             </td>
@@ -89,14 +65,7 @@ export const ResourceList: React.FC<Props> = (props) => {
         result.push(
           <tr className="assetRow">
             <td colSpan={2}>
-              <a
-                href="about:blank"
-                onClick={(e) => {
-                  e.preventDefault();
-                  clearEdits();
-                  setEditAsset(a);
-                }}
-              >
+              <a href="about:blank" onClick={(e) => { e.preventDefault(); clearEdits(); setEditAsset(a); }} >
                 <i className="fas fa-list-ol"></i> {a.name}
               </a>
             </td>
@@ -113,27 +82,12 @@ export const ResourceList: React.FC<Props> = (props) => {
       result.push(
         <tr className="resourceRow">
           <td>
-            <a
-              href="about:blank"
-              onClick={(e) => {
-                e.preventDefault();
-                clearEdits();
-                setEditResource(r);
-              }}
-            >
+            <a href="about:blank" onClick={(e) => { e.preventDefault(); clearEdits(); setEditResource(r); }} >
               <i className="fas fa-file-alt"></i> {r.name}
             </a>
           </td>
           <td>
-            <a
-              id={"addBtnGroup_" + r.id}
-              data-cy="add-button"
-              type="button"
-              data-toggle="dropdown"
-              aria-haspopup="true"
-              aria-expanded="false"
-              href="about:blank"
-            >
+            <a id={"addBtnGroup_" + r.id} data-cy="add-button" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" href="about:blank" >
               <i className="fas fa-plus"></i>
             </a>
             {getDropDownMenu(r.id)}
@@ -148,24 +102,16 @@ export const ResourceList: React.FC<Props> = (props) => {
 
   const getTable = () => {
     if (resources === null) return <Loading />;
-    else
-      return (
-        <table className="table table-sm table-borderless" id="resourceTree">
-          <tbody>{getRows()}</tbody>
-        </table>
-      );
+    else return (
+      <table className="table table-sm table-borderless" id="resourceTree">
+        <tbody>{getRows()}</tbody>
+      </table>
+    );
   };
 
   const createAsset = (resourceId: string) => {
-    const resourceAssets = ArrayHelper.getAll(
-      assets || [],
-      "resourceId",
-      resourceId
-    );
-    setEditAsset({
-      resourceId: resourceId,
-      sort: resourceAssets?.length + 1 || 1,
-    });
+    const resourceAssets = ArrayHelper.getAll(assets || [], "resourceId", resourceId);
+    setEditAsset({ resourceId: resourceId, sort: resourceAssets?.length + 1 || 1, });
   };
 
   const handleAssetCallback = (asset: AssetInterface) => {
@@ -176,47 +122,20 @@ export const ResourceList: React.FC<Props> = (props) => {
 
   const getDropDownMenu = (resourceId: string) => {
     return (
-      <div
-        className="dropdown-menu"
-        aria-labelledby={"addBtnGroup_" + resourceId}
-      >
-        <a
-          className="dropdown-item"
-          data-cy="add-variant"
-          href="about:blank"
-          onClick={(e: React.MouseEvent) => {
-            e.preventDefault();
-            setEditVariant({ resourceId: resourceId });
-          }}
-        >
+      <div className="dropdown-menu" aria-labelledby={"addBtnGroup_" + resourceId} >
+        <a className="dropdown-item" data-cy="add-variant" href="about:blank" onClick={(e: React.MouseEvent) => { e.preventDefault(); setEditVariant({ resourceId: resourceId }); }} >
           <i className="fas fa-copy"></i> Add Variant
         </a>
-        <a
-          className="dropdown-item"
-          data-cy="add-asset"
-          href="about:blank"
-          onClick={(e: React.MouseEvent) => {
-            e.preventDefault();
-            createAsset(resourceId);
-          }}
-        >
+        <a className="dropdown-item" data-cy="add-asset" href="about:blank" onClick={(e: React.MouseEvent) => { e.preventDefault(); createAsset(resourceId); }} >
           <i className="fas fa-list-ol"></i> Add Asset
         </a>
       </div>
     );
   };
+
   const getEditContent = () => {
     return (
-      <a
-        href="about:blank"
-        onClick={(e) => {
-          e.preventDefault();
-          setEditResource({
-            contentType: props.contentType,
-            contentId: props.contentId,
-          });
-        }}
-      >
+      <a href="about:blank" onClick={(e) => { e.preventDefault(); setEditResource({ contentType: props.contentType, contentId: props.contentId, }); }} >
         <i className="fas fa-plus"></i>
       </a>
     );
@@ -234,28 +153,12 @@ export const ResourceList: React.FC<Props> = (props) => {
         }}
       />
     );
-  if (editAsset)
-    return (
-      <AssetEdit asset={editAsset} updatedCallback={handleAssetCallback} />
-    );
-  if (editResource)
-    return (
-      <ResourceEdit
-        resource={editResource}
-        updatedCallback={() => {
-          setEditResource(null);
-          loadData();
-        }}
-      />
-    );
+  if (editAsset) return (<AssetEdit asset={editAsset} updatedCallback={handleAssetCallback} />);
+  if (editResource) return (<ResourceEdit resource={editResource} updatedCallback={() => { setEditResource(null); loadData(); }} />);
   else
     return (
       <>
-        <DisplayBox
-          headerText="Resources"
-          headerIcon="fas fa-file-alt"
-          editContent={getEditContent()}
-        >
+        <DisplayBox headerText="Resources" headerIcon="fas fa-file-alt" editContent={getEditContent()} >
           {getTable()}
         </DisplayBox>
       </>
