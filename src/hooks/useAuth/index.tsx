@@ -52,25 +52,38 @@ export function AuthProvider({ children }: Props) {
       setState({ ...state, loading: true, error: null, ...stateUpdates });
       const { user, churches }: LoginResponseInterface = await login(data);
 
-      const LessonChurches: ChurchInterface[] = [];
+      const lessonChurches: ChurchInterface[] = [];
       churches.forEach((church) => {
         if (church.apps.some((c) => c.appName === APP_NAME)) {
-          churches.push(church);
+          lessonChurches.push(church);
         }
       });
-      UserHelper.churches = LessonChurches;
-      setCookie("email", user.email, { path: "/" });
+      UserHelper.churches = lessonChurches;
       UserHelper.selectChurch();
+
+      if (!UserHelper.currentChurch) {
+        setState({
+          ...state,
+          error: "The provided login does not have access to this application.",
+        });
+        return;
+      }
+
+      setCookie("email", user.email, { path: "/" });
+      UserHelper.currentChurch.apis.forEach((api) => {
+        if (api.keyName === "AccessApi")
+          setCookie("jwt", api.jwt, { path: "/" });
+      });
 
       setState({
         ...state,
         user: user,
         loading: false,
         error: null,
+        loggedIn: true,
         isRelogin: false,
       });
-
-      // setChurches(churches);
+      router.push("/admin");
     } catch (error) {
       setState({
         ...state,
