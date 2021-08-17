@@ -47,33 +47,36 @@ export function AuthProvider({ children }: Props) {
     }
   }, []);
 
+  function handleChurches(churches: ChurchInterface[]) {
+    const lessonChurches: ChurchInterface[] = [];
+    churches.forEach((church) => {
+      if (church.apps.some((c) => c.appName === APP_NAME)) {
+        lessonChurches.push(church);
+      }
+    });
+    UserHelper.churches = lessonChurches;
+    UserHelper.selectChurch();
+
+    if (!UserHelper.currentChurch) {
+      setState({
+        ...state,
+        error: "The provided login does not have access to this application.",
+      });
+      return;
+    }
+
+    UserHelper.currentChurch.apis.forEach((api) => {
+      if (api.keyName === "AccessApi") setCookie("jwt", api.jwt, { path: "/" });
+    });
+  }
+
   async function performLogin(data: LoginPayload, stateUpdates?: any) {
     try {
       setState({ ...state, loading: true, error: null, ...stateUpdates });
       const { user, churches }: LoginResponseInterface = await login(data);
 
-      const lessonChurches: ChurchInterface[] = [];
-      churches.forEach((church) => {
-        if (church.apps.some((c) => c.appName === APP_NAME)) {
-          lessonChurches.push(church);
-        }
-      });
-      UserHelper.churches = lessonChurches;
-      UserHelper.selectChurch();
-
-      if (!UserHelper.currentChurch) {
-        setState({
-          ...state,
-          error: "The provided login does not have access to this application.",
-        });
-        return;
-      }
-
+      handleChurches(churches);
       setCookie("email", user.email, { path: "/" });
-      UserHelper.currentChurch.apis.forEach((api) => {
-        if (api.keyName === "AccessApi")
-          setCookie("jwt", api.jwt, { path: "/" });
-      });
 
       setState({
         ...state,
@@ -83,7 +86,12 @@ export function AuthProvider({ children }: Props) {
         loggedIn: true,
         isRelogin: false,
       });
-      router.push("/admin");
+
+      // redirection for login / auto login on refresh
+      const paths = ["login", "admin"];
+      if (paths.some((p) => router.pathname.includes(p))) {
+        router.push("/admin");
+      }
     } catch (error) {
       setState({
         ...state,
