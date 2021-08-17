@@ -4,7 +4,7 @@ import { Formik } from "formik";
 import * as yup from "yup";
 import { Form, Button, Alert } from "react-bootstrap";
 import { Layout, PasswordField, ErrorMessages } from "@/components";
-import { UserInterface } from "@/utils";
+import { EnvironmentHelper, UserInterface } from "@/utils";
 import { useAuth } from "@/hooks/useAuth";
 
 const schema = yup.object().shape({
@@ -33,50 +33,23 @@ export default function Login() {
         </div>
         <ErrorMessages errors={!error ? null : [error]} />
         {isRelogin && loading && (
-          <Alert variant="info">
-            Welcome back, <b>{user.email}</b>! Please wait while we load your
-            data.
-          </Alert>
+          <Alert variant="info">Welcome back, <b>{user.email}</b>! Please wait while we load your data.</Alert>
         )}
         <div id="loginBox">
           <h2>Please sign in</h2>
-          <Formik
-            validationSchema={schema}
-            initialValues={initialValues}
-            onSubmit={handleSubmit}
-          >
+          <Formik validationSchema={schema} initialValues={initialValues} onSubmit={handleSubmit} >
             {({ handleSubmit, handleChange, values, touched, errors }) => (
               <Form noValidate onSubmit={handleSubmit}>
                 <Form.Group>
-                  <Form.Control
-                    type="text"
-                    aria-label="email"
-                    id="email"
-                    name="email"
-                    value={values.email}
-                    onChange={handleChange}
-                    placeholder="Email address"
-                    isInvalid={touched.email && !!errors.email}
-                  />
+                  <Form.Control type="text" aria-label="email" id="email" name="email" value={values.email} onChange={handleChange} placeholder="Email address" isInvalid={touched.email && !!errors.email} />
                   <Form.Control.Feedback type="invalid">
                     {errors.email}
                   </Form.Control.Feedback>
                 </Form.Group>
                 <Form.Group>
-                  <PasswordField
-                    value={values.password}
-                    onChange={handleChange}
-                    isInvalid={touched.password && !!errors.password}
-                    errorText={errors.password}
-                  />
+                  <PasswordField value={values.password} onChange={handleChange} isInvalid={touched.password && !!errors.password} errorText={errors.password} />
                 </Form.Group>
-                <Button
-                  type="submit"
-                  size="lg"
-                  variant="primary"
-                  className="signin-button"
-                  disabled={loading}
-                >
+                <Button type="submit" size="lg" variant="primary" className="signin-button" disabled={loading} >
                   {loading ? "Please wait..." : "Sign in"}
                 </Button>
               </Form>
@@ -84,6 +57,7 @@ export default function Login() {
           </Formik>
           <br />
           <div className="text-right">
+            <Link href={EnvironmentHelper.ChurchAppsUrl}>Register</Link> &nbsp; | &nbsp;
             <Link href="/forgot">Forgot Password</Link>&nbsp;
           </div>
         </div>
