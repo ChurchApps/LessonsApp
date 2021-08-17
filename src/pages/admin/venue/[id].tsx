@@ -52,12 +52,24 @@ export default function Venue() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  useEffect(loadData, [pathId]);
-  useEffect(loadResources, [lesson, study]);
+  useEffect(() => {
+    if (loggedIn) {
+      loadData();
+    }
+  }, [pathId, loggedIn]);
+  useEffect(() => {
+    if (loggedIn) {
+      loadResources();
+    }
+  }, [lesson, study]);
   useEffect(
-    loadAssets,
+    () => {
+      if (loggedIn) {
+        loadAssets();
+      }
+    },
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    [lessonResources, studyResources, programResources]
+    [lessonResources, studyResources, programResources, loggedIn]
   );
 
   function loadResources() {
