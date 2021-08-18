@@ -1,5 +1,4 @@
 import Link from "next/link";
-import Image from "next/image";
 import { Row, Col } from "react-bootstrap";
 import { StudyInterface } from "@/utils";
 
@@ -23,12 +22,10 @@ export function Studies({ studies, slug }: Props) {
         <Col xl={3}>
           <Link href={studyUrl}>
             <a>
-              <Image
+              <img
                 src={study.image}
                 className="img-fluid"
                 alt={study.name}
-                width={260}
-                height={145}
               />
             </a>
           </Link>

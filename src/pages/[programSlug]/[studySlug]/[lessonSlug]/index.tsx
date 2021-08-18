@@ -1,5 +1,4 @@
 import { GetStaticPaths, GetStaticProps } from "next";
-import Image from "next/image";
 import { Container, Row, Col } from "react-bootstrap";
 import ReactMarkdown from "react-markdown";
 import { Layout, Venues } from "@/components";
@@ -43,12 +42,10 @@ export default function LessonsPage({
   ) : (
     <Row>
       <Col lg={{ span: 8, offset: 2 }}>
-        <Image
+        <img
           src={lesson.image}
           className="img-fluid profilePic"
           alt={lesson.name}
-          height={410}
-          width={730}
         />
         <br />
         <br />

@@ -1,5 +1,4 @@
 import Link from "next/link";
-import Image from "next/image";
 import { Container, Col, Dropdown } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faLock } from "@fortawesome/free-solid-svg-icons";
@@ -35,11 +34,9 @@ export function Header() {
             <div>
               <Link href="/">
                 <a className="navbar-brand">
-                  <Image
+                  <img
                     src="/images/logo.png"
                     alt="logo"
-                    height={35}
-                    width={200}
                   />
                 </a>
               </Link>

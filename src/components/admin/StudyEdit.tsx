@@ -1,5 +1,4 @@
 import { useState, useEffect } from "react";
-import Image from "next/image";
 import { FormGroup, FormControl, FormLabel, Row, Col } from "react-bootstrap";
 import { InputBox, ErrorMessages, ImageEditor } from "../index";
 import { ApiHelper, StudyInterface, ProgramInterface } from "@/utils";
@@ -129,13 +128,11 @@ export function StudyEdit(props: Props) {
         <ErrorMessages errors={errors} />
 
         <a href="about:blank" className="d-block" onClick={handleImageClick}>
-          <Image
+          <img
             src={study.image || "/images/blank.png"}
             className="img-fluid profilePic d-block mx-auto"
             id="imgPreview"
             alt="study"
-            height={185}
-            width={330}
           />
         </a>
         <br />
