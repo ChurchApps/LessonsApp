@@ -18,6 +18,8 @@ export { ActionEdit } from "./admin/ActionEdit";
 
 export { ClassroomList } from "./cp/ClassroomList";
 export { ClassroomEdit } from "./cp/ClassroomEdit";
+export { ScheduleList } from "./cp/ScheduleList";
+export { ScheduleEdit } from "./cp/ScheduleEdit";
 
 export { ErrorMessages } from "@/appBase/components/ErrorMessages";
 export { DisplayBox } from "@/appBase/components/DisplayBox";

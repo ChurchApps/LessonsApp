@@ -1,13 +1,13 @@
-import { useEffect, useState } from "react";
+import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
 import { Row, Col, Container } from "react-bootstrap";
-import { Layout, DisplayBox, Loading, ProgramEdit, StudyEdit, LessonEdit, VenueList, ResourceList, ClassroomList, } from "@/components";
+import { Layout, ClassroomList, ScheduleList, } from "@/components";
 import { useAuth } from "@/hooks/useAuth";
-import { ApiHelper, LessonInterface, ProgramInterface, StudyInterface, ArrayHelper } from "@/utils";
 
 export default function Admin() {
   const router = useRouter();
   const { loggedIn } = useAuth();
+  const [classroomId, setClassroomId] = useState("");
 
   useEffect(() => {
     if (!loggedIn) {
@@ -16,30 +16,23 @@ export default function Admin() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  useEffect(() => {
-    if (loggedIn) {
-      loadData();
-    }
-  }, [loggedIn]);
 
-  function loadData() {
-
+  const getScheduleSection = () => {
+    if (classroomId === "") return <p>Select or add a classroom to manage schedules.</p>
+    else return <ScheduleList classroomId={classroomId} />
   }
+
 
   return (
     <Layout>
       <Container>
-        <h1>Classrooms</h1>
+        <h1>Manage Classroom Schedules</h1>
         <Row>
           <Col lg={8}>
-
-            <DisplayBox headerText="Schedule" headerIcon="none"  >
-              table goes here
-            </DisplayBox>
-
+            {getScheduleSection()}
           </Col>
           <Col lg={4}>
-            <ClassroomList />
+            <ClassroomList classroomSelected={setClassroomId} />
 
           </Col>
         </Row>

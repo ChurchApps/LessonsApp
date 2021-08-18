@@ -3,8 +3,11 @@ import Link from "next/link";
 import { ClassroomInterface, ApiHelper } from "@/utils";
 import { DisplayBox, Loading, ClassroomEdit } from "../index";
 
+type Props = {
+  classroomSelected: (classroomId: string) => void;
+};
 
-export function ClassroomList() {
+export function ClassroomList(props: Props) {
   const [classrooms, setClassrooms] = useState<ClassroomInterface[]>(null);
   const [editClassroom, setEditClassroom] = useState<ClassroomInterface>(null);
 
@@ -20,8 +23,10 @@ export function ClassroomList() {
       result.push(
         <tr className="classroomRow" key={c.id}>
           <td>
-            <i className="fas fa-map-marker"></i>{" "}
-            <Link href={"/admin/classroom/" + c.id}><a>{c.name}</a></Link>
+            <i className="fas fa-graduation-cap"></i>{" "}
+            <a href="about:blank" onClick={(e) => { e.preventDefault(); props.classroomSelected(c.id); }} >
+              {c.name}
+            </a>
           </td>
           <td>
             <a href="about:blank" onClick={(e) => { e.preventDefault(); setEditClassroom(c); }} >

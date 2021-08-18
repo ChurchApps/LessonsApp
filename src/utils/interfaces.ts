@@ -116,3 +116,11 @@ export interface ClassroomInterface {
   churchId?: string;
   name?: string;
 }
+export interface ScheduleInterface {
+  id?: string;
+  churchId?: string;
+  classroomId?: string;
+  scheduledDate?: Date;
+  lessonId?: string;
+  displayName?: string;
+}
