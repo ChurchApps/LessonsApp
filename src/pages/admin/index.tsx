@@ -264,6 +264,7 @@ export default function Admin() {
         <ResourceList
           contentType={resourceContentType}
           contentId={resourceContentId}
+          key="resourceList"
         />
       );
     return result;

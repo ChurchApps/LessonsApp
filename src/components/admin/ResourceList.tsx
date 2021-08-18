@@ -45,7 +45,7 @@ export const ResourceList: React.FC<Props> = (props) => {
     if (variants) {
       ArrayHelper.getAll(variants, "resourceId", resourceId).forEach((v) => {
         result.push(
-          <tr className="variantRow">
+          <tr className="variantRow" key={`v-${v.id}`}>
             <td colSpan={2}>
               <a href="about:blank" onClick={(e) => { e.preventDefault(); clearEdits(); setEditVariant(v); }} >
                 <i className="fas fa-copy"></i> {v.name}
@@ -63,7 +63,7 @@ export const ResourceList: React.FC<Props> = (props) => {
     if (assets) {
       ArrayHelper.getAll(assets, "resourceId", resourceId).forEach((a) => {
         result.push(
-          <tr className="assetRow">
+          <tr className="assetRow" key={`a-${a.id}`}>
             <td colSpan={2}>
               <a href="about:blank" onClick={(e) => { e.preventDefault(); clearEdits(); setEditAsset(a); }} >
                 <i className="fas fa-list-ol"></i> {a.name}
@@ -80,7 +80,7 @@ export const ResourceList: React.FC<Props> = (props) => {
     const result: JSX.Element[] = [];
     resources.forEach((r) => {
       result.push(
-        <tr className="resourceRow">
+        <tr className="resourceRow" key={`r-${r.id}`}>
           <td>
             <a href="about:blank" onClick={(e) => { e.preventDefault(); clearEdits(); setEditResource(r); }} >
               <i className="fas fa-file-alt"></i> {r.name}
