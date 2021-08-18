@@ -10,6 +10,7 @@ type Props = {
 };
 
 export default function Home({ programs, providers }: Props) {
+  console.log("Environment: Staging")
   return (
     <Layout>
       <div id="hero">
