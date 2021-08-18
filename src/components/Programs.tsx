@@ -1,5 +1,4 @@
 import Link from "next/link";
-import Image from "next/image";
 import { Container, Row, Col } from "react-bootstrap";
 import { ProgramInterface, ProviderInterface } from "@/utils";
 
@@ -24,12 +23,10 @@ export function Programs({ programs, providers }: Props) {
           <Col xl={4}>
             <Link href={url}>
               <a>
-                <Image
+                <img
                   src={image}
                   className="img-fluid"
                   alt={name}
-                  width={356}
-                  height={200}
                 />
               </a>
             </Link>

@@ -1,5 +1,4 @@
 import Link from "next/link";
-import Image from "next/image";
 import { Row, Col } from "react-bootstrap";
 import { LessonInterface } from "@/utils";
 
@@ -22,12 +21,10 @@ export function Lessons({ lessons, slug }: Props) {
             }}
           >
             <Col xl={3}>
-              <Image
+              <img
                 src={lesson.image}
                 className="img-fluid"
                 alt={lesson.name}
-                width={260}
-                height={145}
               />
             </Col>
             <Col xl={9}>

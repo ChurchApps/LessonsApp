@@ -1,5 +1,4 @@
 import { GetStaticPaths, GetStaticProps } from "next";
-import Image from "next/image";
 import { Container, Row, Col } from "react-bootstrap";
 import { Layout, Lessons } from "@/components";
 import {
@@ -32,12 +31,10 @@ export default function StudyPage({ study, program, lessons }: Props) {
   ) : (
     <Row>
       <Col lg={{ span: 8, offset: 2 }}>
-        <Image
+        <img
           src={study.image}
           className="img-fluid profilePic"
           alt={study.name}
-          width={260}
-          height={145}
         />
         <br />
         <br />

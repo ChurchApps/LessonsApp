@@ -1,4 +1,3 @@
-import Image from "next/image";
 import Link from "next/link";
 import { Formik } from "formik";
 import * as yup from "yup";
@@ -29,7 +28,7 @@ export default function Login() {
     <Layout withoutNavbar withoutFooter>
       <div className="smallCenterBlock">
         <div className="login-logo">
-          <Image src="/images/logo.png" alt="logo" width={350} height={60} />
+          <img src="/images/logo.png" alt="logo" width={350} height={60} />
         </div>
         <ErrorMessages errors={!error ? null : [error]} />
         {isRelogin && loading && (
