@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
-import Link from "next/link";
 import { ScheduleInterface, ApiHelper } from "@/utils";
 import { DisplayBox, Loading, ScheduleEdit } from "../index";
+import { DateHelper } from "@/appBase/helpers";
 
 
 type Props = {
@@ -15,7 +15,7 @@ export function ScheduleList(props: Props) {
   const [editSchedule, setEditSchedule] = useState<ScheduleInterface>(null);
 
   const loadData = () => {
-    ApiHelper.get("/schedules", "LessonsApi").then((data: any) => {
+    ApiHelper.get("/schedules/classroom/" + props.classroomId, "LessonsApi").then((data: any) => {
       setSchedules(data);
     });
   };
@@ -26,8 +26,11 @@ export function ScheduleList(props: Props) {
       result.push(
         <tr className="scheduleRow" key={s.id}>
           <td>
-            <i className="fas fa-map-marker"></i>{" "}
-            <Link href={"/admin/schedule/" + s.id}><a>{s.displayName}</a></Link>
+            <i className="fas fa-calendar-alt"></i>{" "}
+            {DateHelper.formatHtml5Date(s?.scheduledDate)}
+          </td>
+          <td>
+            {s.displayName}
           </td>
           <td>
             <a href="about:blank" onClick={(e) => { e.preventDefault(); setEditSchedule(s); }} >
@@ -52,13 +55,13 @@ export function ScheduleList(props: Props) {
 
   const getEditContent = () => {
     return (
-      <a href="about:blank" onClick={(e) => { e.preventDefault(); setEditSchedule({}); }}>
+      <a href="about:blank" onClick={(e) => { e.preventDefault(); setEditSchedule({ classroomId: props.classroomId, }); }}>
         <i className="fas fa-plus"></i>
       </a>
     );
   };
 
-  useEffect(loadData, []);
+  useEffect(loadData, [props.classroomId]);
 
   if (editSchedule) return (<ScheduleEdit schedule={editSchedule} updatedCallback={() => { setEditSchedule(null); loadData(); }} />);
   else
