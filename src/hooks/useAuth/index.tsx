@@ -105,6 +105,14 @@ export function AuthProvider({ children }: Props) {
     ...state,
     login: performLogin,
     logout: () => {
+      setState({
+        ...state,
+        user: null,
+        loggedIn: false,
+        loading: false,
+        isRelogin: false,
+        error: ""
+      })
       removeCookie("jwt");
       removeCookie("email");
 
