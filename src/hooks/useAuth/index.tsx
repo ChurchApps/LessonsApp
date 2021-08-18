@@ -27,7 +27,7 @@ type Props = {
 
 const APP_NAME = "Lessons";
 
-const protectedRoutes = ["/admin"];
+const protectedRoutes = ["/admin", "/cp"];
 
 export function AuthProvider({ children }: Props) {
   const [state, setState] = React.useState<IAuth>(initialAuthData);
@@ -85,9 +85,11 @@ export function AuthProvider({ children }: Props) {
       });
 
       // redirection for login / auto login on refresh
-      const paths = ["login", "admin"];
+      //const paths = ["login", "admin", "cp"];
+      const paths = ["login"];
       if (paths.some((p) => router.pathname.includes(p))) {
-        router.push("/admin");
+        //router.push("/admin");
+        router.push("/cp");
       }
     } catch (error) {
       setState({

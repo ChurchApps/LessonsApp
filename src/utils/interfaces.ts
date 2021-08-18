@@ -111,3 +111,8 @@ export interface ResourceInterface {
   variants?: VariantInterface[];
   assets?: AssetInterface[];
 }
+export interface ClassroomInterface {
+  id?: string;
+  churchId?: string;
+  name?: string;
+}
