@@ -1,35 +1,31 @@
 import Link from "next/link";
 import Image from "next/image";
-import { Container, Col } from "react-bootstrap";
+import { Container, Col, Dropdown } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faLock } from "@fortawesome/free-solid-svg-icons";
 import { NavItems } from "./index";
 import { useAuth } from "@/hooks/useAuth";
 
 export function Header() {
-  const { user } = useAuth();
+  const { user, logout, loggedIn } = useAuth();
 
-  const userAction =
-    user && user.firstName ? (
-      <a
-        href="about:blank"
-        data-cy="settings-dropdown"
-        id="userMenuLink"
-        data-toggle="collapse"
-        data-target="#userMenu"
-        aria-controls="navbarToggleMenu"
-        aria-expanded="false"
-        aria-label="Toggle navigation"
-        onClick={(e) => e.preventDefault()}
-      >
-        {`${user.firstName} ${user.lastName}`}{" "}
-        <i className="fas fa-caret-down" />
-      </a>
-    ) : (
-      <Link href="/login">
-        <a>Login</a>
-      </Link>
-    );
+  const userAction = loggedIn ? (
+    <Dropdown>
+      <Dropdown.Toggle className="no-default-style toggle-button" as="button">
+        {`${user.firstName} ${user.lastName}`}
+      </Dropdown.Toggle>
+
+      <Dropdown.Menu>
+        <Dropdown.Item as="button" onClick={logout}>
+          <FontAwesomeIcon icon={faLock} /> Logout
+        </Dropdown.Item>
+      </Dropdown.Menu>
+    </Dropdown>
+  ) : (
+    <Link href="/login">
+      <a>Login</a>
+    </Link>
+  );
 
   return (
     <div>
@@ -72,18 +68,6 @@ export function Header() {
             </div>
           </div>
         </Container>
-      </div>
-      <div className="container collapse" id="userMenu">
-        <div>
-          <ul id="nav-menu" className="nav d-flex flex-column">
-            <NavItems />
-            <Link href="/logout">
-              <a>
-                <FontAwesomeIcon icon={faLock} /> Logout
-              </a>
-            </Link>
-          </ul>
-        </div>
       </div>
       <div id="navSpacer" />
     </div>

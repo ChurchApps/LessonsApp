@@ -84,7 +84,6 @@ h1 {
 
 #navRight {
   white-space: nowrap;
-  overflow: hidden;
 }
 
 #navRight img {
@@ -795,4 +794,32 @@ dropdown-menu a {
 }
 .form-control.is-invalid {
   background-image: none;
+}
+.toggle-button {
+  color: #24b8ff;
+}
+.toggle-button:hover {
+  color: #0056b3;
+  text-decoration: underline;
+}
+.dropdown-menu {
+  width: 223px;
+  background-color: #fff;
+  color: #333;
+  float: right;
+  box-shadow: 3px 3px 3px #999;
+  padding: 0;
+}
+.dropdown-menu button {
+  padding: 0.5rem 1rem;
+}
+.dropdown-item:hover {
+  text-decoration: none;
+  background-color: #03a9f4;
+  color: #fff;
+}
+.dropdown-item:active {
+  text-decoration: none;
+  background-color: #03a9f4;
+  color: #fff;
 }
