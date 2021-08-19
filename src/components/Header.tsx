@@ -1,11 +1,22 @@
 import Link from "next/link";
+import { useRouter } from "next/router"
 import { Container, Dropdown } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faLock } from "@fortawesome/free-solid-svg-icons";
+import { faLock, faUser } from "@fortawesome/free-solid-svg-icons";
 import { useAuth } from "@/hooks/useAuth";
+import { UserHelper, Permissions } from "@/utils";
 
 export function Header() {
   const { user, logout, loggedIn } = useAuth();
+  const router = useRouter()
+
+  const adminItems = UserHelper.checkAccess(
+    Permissions.lessonsApi.lessons.edit
+  ) && (
+    <Dropdown.Item as="button" onClick={() => router.push("/admin")}>
+      <FontAwesomeIcon icon={faUser} /> Admin
+    </Dropdown.Item>
+  );
 
   const userAction = loggedIn ? (
     <Dropdown>
@@ -14,6 +25,7 @@ export function Header() {
       </Dropdown.Toggle>
 
       <Dropdown.Menu>
+        {adminItems}
         <Dropdown.Item as="button" onClick={logout}>
           <FontAwesomeIcon icon={faLock} /> Logout
         </Dropdown.Item>
@@ -33,10 +45,7 @@ export function Header() {
             <div>
               <Link href="/">
                 <a className="navbar-brand">
-                  <img
-                    src="/images/logo.png"
-                    alt="logo"
-                  />
+                  <img src="/images/logo.png" alt="logo" />
                 </a>
               </Link>
             </div>
