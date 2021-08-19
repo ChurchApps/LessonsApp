@@ -22,6 +22,7 @@ export function Header() {
     </Dropdown.Item>
   );
 
+
   const userAction = loggedIn ? (
     <Dropdown>
       <Dropdown.Toggle className="no-default-style toggle-button" as="button">
