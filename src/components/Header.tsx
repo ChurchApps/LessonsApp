@@ -1,8 +1,7 @@
 import Link from "next/link";
-import { Container, Col, Dropdown } from "react-bootstrap";
+import { Container, Dropdown } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faLock } from "@fortawesome/free-solid-svg-icons";
-import { NavItems } from "./index";
 import { useAuth } from "@/hooks/useAuth";
 
 export function Header() {
