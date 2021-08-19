@@ -177,7 +177,6 @@ export default function Venue() {
   };
 
   const handleActionUpdated = (action: ActionInterface, created: boolean) => {
-    console.log(action);
     handleUpdated();
     if (created) createAction(action.roleId, action.sort + 1);
   };
