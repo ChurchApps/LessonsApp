@@ -83,14 +83,6 @@ export function AuthProvider({ children }: Props) {
         loggedIn: true,
         isRelogin: false,
       });
-
-      // redirection for login / auto login on refresh
-      //const paths = ["login", "admin", "cp"];
-      const paths = ["login"];
-      if (paths.some((p) => router.pathname.includes(p))) {
-        //router.push("/admin");
-        router.push("/cp");
-      }
     } catch (error) {
       setState({
         ...state,
@@ -111,16 +103,16 @@ export function AuthProvider({ children }: Props) {
         loggedIn: false,
         loading: false,
         isRelogin: false,
-        error: ""
-      })
+        error: "",
+      });
       removeCookie("jwt");
       removeCookie("email");
 
       ApiHelper.clearPermissions();
 
-      if (protectedRoutes.includes(router.pathname)) {
-        router.push("/");
-      }
+      setTimeout(() => {
+        window.location.href = "/";
+      }, 300);
     },
   };
 

@@ -1,12 +1,22 @@
 import Link from "next/link";
-import { Container, Col, Dropdown } from "react-bootstrap";
+import { useRouter } from "next/router"
+import { Container, Dropdown } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faLock } from "@fortawesome/free-solid-svg-icons";
-import { NavItems } from "./index";
+import { faLock, faUser } from "@fortawesome/free-solid-svg-icons";
 import { useAuth } from "@/hooks/useAuth";
+import { UserHelper, Permissions } from "@/utils";
 
 export function Header() {
   const { user, logout, loggedIn } = useAuth();
+  const router = useRouter()
+
+  const adminItems = UserHelper.checkAccess(
+    Permissions.lessonsApi.lessons.edit
+  ) && (
+    <Dropdown.Item as="button" onClick={() => router.push("/admin")}>
+      <FontAwesomeIcon icon={faUser} /> Admin
+    </Dropdown.Item>
+  );
 
   const userAction = loggedIn ? (
     <Dropdown>
@@ -15,6 +25,7 @@ export function Header() {
       </Dropdown.Toggle>
 
       <Dropdown.Menu>
+        {adminItems}
         <Dropdown.Item as="button" onClick={logout}>
           <FontAwesomeIcon icon={faLock} /> Logout
         </Dropdown.Item>
@@ -34,32 +45,10 @@ export function Header() {
             <div>
               <Link href="/">
                 <a className="navbar-brand">
-                  <img
-                    src="/images/logo.png"
-                    alt="logo"
-                  />
+                  <img src="/images/logo.png" alt="logo" />
                 </a>
               </Link>
             </div>
-
-            <Col
-              className="d-none d-md-block"
-              style={{
-                borderLeft: "2px solid #EEE",
-                borderRight: "2px solid #EEE",
-                maxWidth: "703px",
-                margin: "0 15px",
-              }}
-            >
-              <ul
-                id="nav-main"
-                className="nav nav-fill d-flex overflow-hidden"
-                style={{ height: "55px" }}
-              >
-                <NavItems prefix="main" />
-              </ul>
-            </Col>
-
             <div className="d-flex align-items-center" id="navRight">
               {userAction}
             </div>
