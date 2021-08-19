@@ -4,7 +4,7 @@ import { Row, Col, Container } from "react-bootstrap";
 import { Layout, ClassroomList, ScheduleList, } from "@/components";
 import { useAuth } from "@/hooks/useAuth";
 
-export default function Admin() {
+export default function CP() {
   const router = useRouter();
   const { loggedIn } = useAuth();
   const [classroomId, setClassroomId] = useState("");
