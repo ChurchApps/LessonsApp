@@ -124,7 +124,6 @@ export function FileUpload(props: Props) {
     if (uploadProgress > -1) {
       return <ProgressBar now={uploadProgress} />;
     } else if (file) {
-      console.log(file.contentPath);
       return (
         <div>
           <a href={file.contentPath}>{file.fileName}</a>

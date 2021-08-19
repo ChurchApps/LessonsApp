@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { useRouter } from "next/router"
 import { Formik } from "formik";
 import * as yup from "yup";
 import { Form, Button, Alert } from "react-bootstrap";
@@ -14,11 +15,14 @@ const schema = yup.object().shape({
   password: yup.string().required("Please enter your password."),
 });
 
-const APP_NAME = "Lessons";
-
 export default function Login() {
   const initialValues: UserInterface = { email: "", password: "" };
-  const { login, loading, error, isRelogin, user } = useAuth();
+  const { login, loading, error, isRelogin, user, loggedIn } = useAuth();
+  const router = useRouter()
+
+  if (loggedIn) {
+    router.push("/")
+  }
 
   function handleSubmit(data: UserInterface) {
     login(data);
