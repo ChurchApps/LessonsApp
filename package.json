@@ -29,6 +29,7 @@
     "react-markdown": "^6.0.3",
     "react-router-dom": "^5.2.0",
     "react-to-print": "^2.13.0",
+    "stripe": "^8.170.0",
     "yup": "^0.32.9"
   },
   "devDependencies": {
