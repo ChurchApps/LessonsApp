@@ -3,11 +3,13 @@ import { useRouter } from "next/router";
 import { Row, Col, Container } from "react-bootstrap";
 import { Layout, ClassroomList, ScheduleList, } from "@/components";
 import { useAuth } from "@/hooks/useAuth";
+import { PlaylistFeed } from "@/components/cp/PlaylistFeed";
 
 export default function CP() {
   const router = useRouter();
   const { loggedIn } = useAuth();
   const [classroomId, setClassroomId] = useState("");
+  const [feedClassroomId, setFeedClassroomId] = useState("");
 
   useEffect(() => {
     if (!loggedIn) {
@@ -16,10 +18,17 @@ export default function CP() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  const handleShowFeed = (classroomId: string) => {
+    setFeedClassroomId(classroomId);
+  }
 
   const getScheduleSection = () => {
     if (classroomId === "") return <p>Select or add a classroom to manage schedules.</p>
     else return <ScheduleList classroomId={classroomId} />
+  }
+
+  const getPlaylistFeed = () => {
+    if (feedClassroomId) return <PlaylistFeed classroomId={feedClassroomId} hideFeed={() => { setFeedClassroomId("") }} />
   }
 
 
@@ -32,8 +41,8 @@ export default function CP() {
             {getScheduleSection()}
           </Col>
           <Col lg={4}>
-            <ClassroomList classroomSelected={setClassroomId} />
-
+            {getPlaylistFeed()}
+            <ClassroomList classroomSelected={setClassroomId} showFeed={handleShowFeed} />
           </Col>
         </Row>
       </Container>
