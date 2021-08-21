@@ -1,3 +1,7 @@
+:root {
+  scroll-behavior: auto;
+}
+
 body {
   font-family: "Roboto", sans-serif;
   color: #333;
