@@ -5,6 +5,7 @@ import { DisplayBox, Loading, ClassroomEdit } from "../index";
 
 type Props = {
   classroomSelected: (classroomId: string) => void;
+  showFeed: (classroomId: string) => void;
 };
 
 export function ClassroomList(props: Props) {
@@ -29,6 +30,9 @@ export function ClassroomList(props: Props) {
             </a>
           </td>
           <td style={{ textAlign: "right" }}>
+            <a href="about:blank" onClick={(e) => { e.preventDefault(); props.showFeed(c.id); }} style={{ marginRight: 10 }} className="green" >
+              <i className="fas fa-rss"></i>
+            </a>
             <a href="about:blank" onClick={(e) => { e.preventDefault(); setEditClassroom(c); }} >
               <i className="fas fa-pencil-alt"></i>
             </a>

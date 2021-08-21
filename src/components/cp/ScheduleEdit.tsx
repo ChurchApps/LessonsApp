@@ -23,7 +23,7 @@ export function ScheduleEdit(props: Props) {
   const loadPrograms = () => {
     ApiHelper.getAnonymous("/programs/public/", "LessonsApi").then((data: any) => {
       setPrograms(data);
-      if (!programId) setProgramId(data[0].id);
+      if (!programId || !ArrayHelper.getOne(data, "id", programId)) setProgramId(data[0].id);
       console.log(programId);
     });
   };
@@ -31,12 +31,21 @@ export function ScheduleEdit(props: Props) {
   const loadStudies = () => {
     if (programId) ApiHelper.getAnonymous("/studies/public/program/" + programId, "LessonsApi").then((data: any) => {
       setStudies(data);
-      if (!studyId) setStudyId(data[0].id)
+      if (!studyId || !ArrayHelper.getOne(data, "id", studyId)) setStudyId(data[0].id)
     });
   }
 
   const loadLessons = () => {
-    if (programId) ApiHelper.getAnonymous("/lessons/public/study/" + studyId, "LessonsApi").then((data: any) => { setLessons(data); });
+    if (programId) ApiHelper.getAnonymous("/lessons/public/study/" + studyId, "LessonsApi").then((data: any) => {
+      setLessons(data);
+      if (schedule) {
+        if (!schedule.lessonId || !ArrayHelper.getOne(data, "id", schedule.lessonId)) {
+          let s = schedule;
+          s.lessonId = data[0].id;
+          setSchedule(s);
+        }
+      }
+    });
   }
 
 

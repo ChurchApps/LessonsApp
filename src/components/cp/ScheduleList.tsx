@@ -55,9 +55,11 @@ export function ScheduleList(props: Props) {
 
   const getEditContent = () => {
     return (
-      <a href="about:blank" onClick={(e) => { e.preventDefault(); setEditSchedule({ classroomId: props.classroomId, }); }}>
-        <i className="fas fa-plus"></i>
-      </a>
+      <>
+        <a href="about:blank" onClick={(e) => { e.preventDefault(); setEditSchedule({ classroomId: props.classroomId, }); }}>
+          <i className="fas fa-plus"></i>
+        </a>
+      </>
     );
   };
 
