@@ -32,7 +32,7 @@ export function ScheduleList(props: Props) {
           <td>
             {s.displayName}
           </td>
-          <td>
+          <td style={{ textAlign: "right" }}>
             <a href="about:blank" onClick={(e) => { e.preventDefault(); setEditSchedule(s); }} >
               <i className="fas fa-pencil-alt"></i>
             </a>

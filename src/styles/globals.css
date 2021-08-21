@@ -822,3 +822,14 @@ dropdown-menu a {
   background-color: #03a9f4;
   color: #fff;
 }
+.no-caret{
+  padding-right:0px;
+  padding-left:0px;
+  padding-top:0px;
+  padding-bottom: 0px;
+}
+.no-caret i {margin-right: 0px !important;}
+.no-caret:after {
+    display: none;
+}
+.green {color:#77cc00; }
