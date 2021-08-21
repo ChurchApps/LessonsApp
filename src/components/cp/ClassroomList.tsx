@@ -28,7 +28,7 @@ export function ClassroomList(props: Props) {
               {c.name}
             </a>
           </td>
-          <td>
+          <td style={{ textAlign: "right" }}>
             <a href="about:blank" onClick={(e) => { e.preventDefault(); setEditClassroom(c); }} >
               <i className="fas fa-pencil-alt"></i>
             </a>

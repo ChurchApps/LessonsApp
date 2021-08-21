@@ -4,6 +4,7 @@ import { DisplayBox, Loading } from "../index";
 import { VariantEdit } from "./VariantEdit";
 import { ResourceEdit } from "./ResourceEdit";
 import { AssetEdit } from "./AssetEdit";
+import { Dropdown } from "react-bootstrap";
 
 interface Props {
   contentType: string;
@@ -87,10 +88,14 @@ export const ResourceList: React.FC<Props> = (props) => {
             </a>
           </td>
           <td>
-            <a id={"addBtnGroup_" + r.id} data-cy="add-button" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" href="about:blank" >
-              <i className="fas fa-plus"></i>
-            </a>
-            {getDropDownMenu(r.id)}
+            <Dropdown>
+              <Dropdown.Toggle variant="link" id="dropdownMenuButton" data-cy="add-button" className="no-caret green" >
+                <i className="fas fa-plus"></i>
+              </Dropdown.Toggle>
+
+              {getDropDownMenu(r.id)}
+            </Dropdown>
+
           </td>
         </tr>
       );
@@ -122,14 +127,14 @@ export const ResourceList: React.FC<Props> = (props) => {
 
   const getDropDownMenu = (resourceId: string) => {
     return (
-      <div className="dropdown-menu" aria-labelledby={"addBtnGroup_" + resourceId} >
+      <Dropdown.Menu>
         <a className="dropdown-item" data-cy="add-variant" href="about:blank" onClick={(e: React.MouseEvent) => { e.preventDefault(); setEditVariant({ resourceId: resourceId }); }} >
           <i className="fas fa-copy"></i> Add Variant
         </a>
         <a className="dropdown-item" data-cy="add-asset" href="about:blank" onClick={(e: React.MouseEvent) => { e.preventDefault(); createAsset(resourceId); }} >
           <i className="fas fa-list-ol"></i> Add Asset
         </a>
-      </div>
+      </Dropdown.Menu>
     );
   };
 

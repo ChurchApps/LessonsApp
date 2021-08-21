@@ -13,6 +13,8 @@
     "@fortawesome/free-brands-svg-icons": "^5.15.4",
     "@fortawesome/free-solid-svg-icons": "^5.15.4",
     "@fortawesome/react-fontawesome": "^0.1.15",
+    "@stripe/react-stripe-js": "^1.4.1",
+    "@stripe/stripe-js": "^1.17.1",
     "axios": "^0.21.1",
     "bootstrap": "^5.1.0",
     "date-fns": "^2.23.0",
@@ -29,6 +31,7 @@
     "react-markdown": "^6.0.3",
     "react-router-dom": "^5.2.0",
     "react-to-print": "^2.13.0",
+    "stripe": "^8.170.0",
     "yup": "^0.32.9"
   },
   "devDependencies": {
