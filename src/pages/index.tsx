@@ -3,6 +3,7 @@ import { GetStaticProps } from "next";
 import { Container, Row, Col, Button } from "react-bootstrap";
 import { Layout, Programs } from "@/components";
 import { ApiHelper, ProgramInterface, ProviderInterface } from "@/utils";
+import { ComingSoon } from "@/components/ComingSoon";
 
 type Props = {
   programs: ProgramInterface[];
@@ -10,6 +11,10 @@ type Props = {
 };
 
 export default function Home({ programs, providers }: Props) {
+  return (<Layout withoutNavbar withoutFooter>
+    <ComingSoon />
+
+  </Layout>);
   return (
     <Layout>
       <div id="hero">
