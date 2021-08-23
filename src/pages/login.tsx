@@ -21,7 +21,8 @@ export default function Login() {
   const router = useRouter()
 
   if (loggedIn) {
-    router.push("/")
+    //router.push("/")
+    router.push("/admin") //temporary while coming soon page is up.
   }
 
   function handleSubmit(data: UserInterface) {
