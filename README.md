@@ -8,6 +8,7 @@ Pull requests are welcome. For major changes, please open an issue first to disc
 
 ### Depends on
 * [AccessApi](https://github.com/LiveChurchSolutions/AccessApi)
+* [MembershipApi](https://github.com/LiveChurchSolutions/MembershipApi)
 * [LessonsApi](https://github.com/LiveChurchSolutions/LessonsApi)
 
 ### Dev Setup Instructions
