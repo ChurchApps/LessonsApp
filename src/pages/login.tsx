@@ -26,9 +26,11 @@ export default function Login() {
     await ApiHelper.post("/churchApps/register", { appName: "Lessons" }, "AccessApi");
   }
 
+  const appUrl = (process.browser) ? window.location.href : "";
+
   return (
     <Layout withoutNavbar withoutFooter>
-      <LoginPage auth={null} context={null} jwt={null} appName="Lessons.church" successCallback={loginSuccess} registerChurchCallback={postChurchRegister} appUrl={window.location.href} />
+      <LoginPage auth={null} context={null} jwt={null} appName="Lessons.church" successCallback={loginSuccess} registerChurchCallback={postChurchRegister} appUrl={appUrl} />
     </Layout>
   );
 }
