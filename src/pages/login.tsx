@@ -1,71 +1,36 @@
-import Link from "next/link";
 import { useRouter } from "next/router"
-import { Formik } from "formik";
-import * as yup from "yup";
-import { Form, Button, Alert } from "react-bootstrap";
-import { Layout, PasswordField, ErrorMessages } from "@/components";
-import { EnvironmentHelper, UserInterface } from "@/utils";
+import { Layout } from "@/components";
+import { ChurchInterface, UserHelper } from "@/utils";
 import { useAuth } from "@/hooks/useAuth";
-
-const schema = yup.object().shape({
-  email: yup
-    .string()
-    .required("Please enter your email address.")
-    .email("Please enter a valid email address."),
-  password: yup.string().required("Please enter your password."),
-});
+import { LoginPage } from "@/appBase/pageComponents/LoginPage";
+import { ApiHelper } from "@/appBase/helpers"
 
 export default function Login() {
-  const initialValues: UserInterface = { email: "", password: "" };
-  const { login, loading, error, isRelogin, user, loggedIn } = useAuth();
+  const { login, loggedIn } = useAuth();
   const router = useRouter()
 
   if (loggedIn) {
-    //router.push("/")
-    router.push("/admin") //temporary while coming soon page is up.
+    router.push("/")
+    //router.push("/admin") //temporary while coming soon page is up.
   }
 
-  function handleSubmit(data: UserInterface) {
-    login(data);
+  const loginSuccess = () => {
+    login(UserHelper.user);
   }
+
+  const postChurchRegister = async (church: ChurchInterface) => {
+    console.log("POST CHURCH REGISTER");
+
+    console.log(church);
+
+    await ApiHelper.post("/churchApps/register", { appName: "Lessons" }, "AccessApi");
+  }
+
+  const appUrl = (process.browser) ? window.location.href : "";
 
   return (
     <Layout withoutNavbar withoutFooter>
-      <div className="smallCenterBlock">
-        <div className="login-logo">
-          <img src="/images/logo.png" alt="logo" width={350} height={60} />
-        </div>
-        <ErrorMessages errors={!error ? null : [error]} />
-        {isRelogin && loading && (
-          <Alert variant="info">Welcome back, <b>{user.email}</b>! Please wait while we load your data.</Alert>
-        )}
-        <div id="loginBox">
-          <h2>Please sign in</h2>
-          <Formik validationSchema={schema} initialValues={initialValues} onSubmit={handleSubmit} >
-            {({ handleSubmit, handleChange, values, touched, errors }) => (
-              <Form noValidate onSubmit={handleSubmit}>
-                <Form.Group>
-                  <Form.Control type="text" aria-label="email" id="email" name="email" value={values.email} onChange={handleChange} placeholder="Email address" isInvalid={touched.email && !!errors.email} />
-                  <Form.Control.Feedback type="invalid">
-                    {errors.email}
-                  </Form.Control.Feedback>
-                </Form.Group>
-                <Form.Group>
-                  <PasswordField value={values.password} onChange={handleChange} isInvalid={touched.password && !!errors.password} errorText={errors.password} />
-                </Form.Group>
-                <Button type="submit" size="lg" variant="primary" className="signin-button" disabled={loading} >
-                  {loading ? "Please wait..." : "Sign in"}
-                </Button>
-              </Form>
-            )}
-          </Formik>
-          <br />
-          <div className="text-right">
-            <Link href={EnvironmentHelper.ChurchAppsUrl}>Register</Link> &nbsp; | &nbsp;
-            <Link href="/forgot">Forgot Password</Link>&nbsp;
-          </div>
-        </div>
-      </div>
+      <LoginPage auth={null} context={null} jwt={null} appName="Lessons.church" successCallback={loginSuccess} registerChurchCallback={postChurchRegister} appUrl={appUrl} />
     </Layout>
   );
 }
