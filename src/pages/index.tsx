@@ -11,11 +11,11 @@ type Props = {
 };
 
 export default function Home({ programs, providers }: Props) {
-  return (<Layout withoutNavbar withoutFooter>
-    <ComingSoon />
-
-  </Layout>);
-  return (
+  if (false) {
+    return (<Layout withoutNavbar withoutFooter>
+      <ComingSoon />
+    </Layout>);
+  } else return (
     <Layout>
       <div id="hero">
         <Container>
