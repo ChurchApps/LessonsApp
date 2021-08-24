@@ -28,7 +28,7 @@ export default function Login() {
 
   return (
     <Layout withoutNavbar withoutFooter>
-      <LoginPage auth={null} context={null} jwt={null} appName="Lessons.church" successCallback={loginSuccess} registerChurchCallback={postChurchRegister} />
+      <LoginPage auth={null} context={null} jwt={null} appName="Lessons.church" successCallback={loginSuccess} registerChurchCallback={postChurchRegister} appUrl={window.location.href} />
     </Layout>
   );
 }
