@@ -2,6 +2,7 @@ import { ApiHelper } from "./index";
 
 export class EnvironmentHelper {
   private static AccessApi = "";
+  private static MembershipApi = "";
   private static LessonsApi = "";
 
   static ContentRoot = "";
@@ -22,23 +23,15 @@ export class EnvironmentHelper {
         break;
     }
     ApiHelper.apiConfigs = [
-      {
-        keyName: "AccessApi",
-        url: EnvironmentHelper.AccessApi,
-        jwt: "",
-        permisssions: [],
-      },
-      {
-        keyName: "LessonsApi",
-        url: EnvironmentHelper.LessonsApi,
-        jwt: "",
-        permisssions: [],
-      },
+      { keyName: "AccessApi", url: EnvironmentHelper.AccessApi, jwt: "", permisssions: [], },
+      { keyName: "MembershipApi", url: EnvironmentHelper.MembershipApi, jwt: "", permisssions: [], },
+      { keyName: "LessonsApi", url: EnvironmentHelper.LessonsApi, jwt: "", permisssions: [], },
     ];
   };
 
   static initDev = () => {
     EnvironmentHelper.AccessApi = process.env.NEXT_PUBLIC_ACCESS_API || "";
+    EnvironmentHelper.MembershipApi = process.env.NEXT_PUBLIC_MEMBERSHIP_API || "";
     EnvironmentHelper.LessonsApi = process.env.NEXT_PUBLIC_LESSONS_API || "";
     EnvironmentHelper.ContentRoot = process.env.NEXT_PUBLIC_CONTENT_ROOT || "";
     EnvironmentHelper.AccountsAppUrl =
@@ -52,6 +45,7 @@ export class EnvironmentHelper {
   //NOTE: None of these values are secret.
   static initStaging = () => {
     EnvironmentHelper.AccessApi = "https://accessapi.staging.churchapps.org";
+    EnvironmentHelper.MembershipApi = "https://membershipapi.staging.churchapps.org";
     EnvironmentHelper.LessonsApi = "https://api.staging.lessons.church";
     EnvironmentHelper.ContentRoot = "https://content.staging.churchapps.org";
     EnvironmentHelper.AccountsAppUrl =
@@ -63,6 +57,7 @@ export class EnvironmentHelper {
   //NOTE: None of these values are secret.
   static initProd = () => {
     EnvironmentHelper.AccessApi = "https://accessapi.churchapps.org";
+    EnvironmentHelper.MembershipApi = "https://membershipapi.churchapps.org";
     EnvironmentHelper.LessonsApi = "https://api.lessons.church";
     EnvironmentHelper.ContentRoot = "https://content.churchapps.org";
     EnvironmentHelper.AccountsAppUrl = "https://accounts.churchapps.org";
