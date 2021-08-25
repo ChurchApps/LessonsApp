@@ -1,6 +1,8 @@
 import { GetStaticPaths, GetStaticProps } from "next";
 import { Container } from "react-bootstrap";
 import { Layout, Studies } from "@/components";
+import ReactMarkdown from "react-markdown";
+
 import {
   ProgramInterface,
   ApiHelper,
@@ -41,7 +43,7 @@ export default function ProgramPage({ program, provider, studies }: Props) {
               <i>{program.shortDescription}</i>
             </p>
           </div>
-          <p>{program.description}</p>
+          <p><ReactMarkdown>{program.description}</ReactMarkdown></p>
           {video}
           <br />
           <br />
