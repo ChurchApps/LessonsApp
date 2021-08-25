@@ -33,7 +33,7 @@ export default function Home({ programs, providers }: Props) {
                 free of charge.
               </p>
               <div>
-                <Button variant="success" size="lg" href="#register">
+                <Button variant="success" size="lg" href="/login">
                   Get Started for Free
                 </Button>
               </div>

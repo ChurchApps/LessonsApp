@@ -837,3 +837,5 @@ dropdown-menu a {
     display: none;
 }
 .green {color:#77cc00; }
+
+.downloadsDropDown .dropdown-menu.show { width:400px !important; }

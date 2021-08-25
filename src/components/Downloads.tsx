@@ -58,7 +58,7 @@ export function Downloads({ resources }: Props) {
 
   return (
     resources.length > 0 && (
-      <Dropdown style={{ float: "right" }}>
+      <Dropdown className="downloadsDropDown" style={{ float: "right" }}>
         <Dropdown.Toggle variant="light" id="dropdownMenuButton" size="sm">
           Downloads
         </Dropdown.Toggle>
