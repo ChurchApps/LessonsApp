@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { Container, Row, Col } from "react-bootstrap";
 import { ProgramInterface, ProviderInterface } from "@/utils";
+import ReactMarkdown from "react-markdown";
 
 type Props = {
   programs: ProgramInterface[];
@@ -40,7 +41,7 @@ export function Programs({ programs, providers }: Props) {
             <p>
               <i>{shortDescription}</i>
             </p>
-            <p>{description}</p>
+            <p><ReactMarkdown>{description}</ReactMarkdown></p>
           </Col>
         </Row>
         <hr />
