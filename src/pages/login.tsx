@@ -19,10 +19,6 @@ export default function Login() {
   }
 
   const postChurchRegister = async (church: ChurchInterface) => {
-    console.log("POST CHURCH REGISTER");
-
-    console.log(church);
-
     await ApiHelper.post("/churchApps/register", { appName: "Lessons" }, "AccessApi");
   }
 
@@ -30,7 +26,7 @@ export default function Login() {
 
   return (
     <Layout withoutNavbar withoutFooter>
-      <LoginPage auth={null} context={null} jwt={null} appName="Lessons.church" successCallback={loginSuccess} registerChurchCallback={postChurchRegister} appUrl={appUrl} />
+      <LoginPage auth={null} context={null} jwt={null} appName="Lessons.church" successCallback={loginSuccess} churchRegisteredCallback={postChurchRegister} appUrl={appUrl} />
     </Layout>
   );
 }
