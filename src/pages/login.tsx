@@ -26,7 +26,7 @@ export default function Login() {
 
   return (
     <Layout withoutNavbar withoutFooter>
-      <LoginPage auth={null} context={null} jwt={null} appName="Lessons.church" successCallback={loginSuccess} churchRegisteredCallback={postChurchRegister} appUrl={appUrl} />
+      <LoginPage auth={null} context={null} jwt={null} appName="Lessons.church" loginSuccessOverride={loginSuccess} churchRegisteredCallback={postChurchRegister} appUrl={appUrl} />
     </Layout>
   );
 }
