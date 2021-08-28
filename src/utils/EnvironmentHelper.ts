@@ -23,9 +23,9 @@ export class EnvironmentHelper {
         break;
     }
     ApiHelper.apiConfigs = [
-      { keyName: "AccessApi", url: EnvironmentHelper.AccessApi, jwt: "", permisssions: [], },
-      { keyName: "MembershipApi", url: EnvironmentHelper.MembershipApi, jwt: "", permisssions: [], },
-      { keyName: "LessonsApi", url: EnvironmentHelper.LessonsApi, jwt: "", permisssions: [], },
+      { keyName: "AccessApi", url: EnvironmentHelper.AccessApi, jwt: "", permisssions: [] },
+      { keyName: "MembershipApi", url: EnvironmentHelper.MembershipApi, jwt: "", permisssions: [] },
+      { keyName: "LessonsApi", url: EnvironmentHelper.LessonsApi, jwt: "", permisssions: [] },
     ];
   };
 
@@ -34,12 +34,9 @@ export class EnvironmentHelper {
     EnvironmentHelper.MembershipApi = process.env.NEXT_PUBLIC_MEMBERSHIP_API || "";
     EnvironmentHelper.LessonsApi = process.env.NEXT_PUBLIC_LESSONS_API || "";
     EnvironmentHelper.ContentRoot = process.env.NEXT_PUBLIC_CONTENT_ROOT || "";
-    EnvironmentHelper.AccountsAppUrl =
-      process.env.NEXT_PUBLIC_ACCOUNTS_APP_URL || "";
-    EnvironmentHelper.ChurchAppsUrl =
-      process.env.NEXT_PUBLIC_CHURCH_APPS_URL || "";
-    EnvironmentHelper.GoogleAnalyticsTag =
-      process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS || "";
+    EnvironmentHelper.AccountsAppUrl = process.env.NEXT_PUBLIC_ACCOUNTS_APP_URL || "";
+    EnvironmentHelper.ChurchAppsUrl = process.env.NEXT_PUBLIC_CHURCH_APPS_URL || "";
+    EnvironmentHelper.GoogleAnalyticsTag = process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS || "";
   };
 
   //NOTE: None of these values are secret.
@@ -48,8 +45,7 @@ export class EnvironmentHelper {
     EnvironmentHelper.MembershipApi = "https://membershipapi.staging.churchapps.org";
     EnvironmentHelper.LessonsApi = "https://api.staging.lessons.church";
     EnvironmentHelper.ContentRoot = "https://content.staging.churchapps.org";
-    EnvironmentHelper.AccountsAppUrl =
-      "https://accounts.staging.churchapps.org";
+    EnvironmentHelper.AccountsAppUrl = "https://accounts.staging.churchapps.org";
     EnvironmentHelper.ChurchAppsUrl = "https://staging.churchapps.org";
     EnvironmentHelper.GoogleAnalyticsTag = "";
   };
@@ -62,6 +58,6 @@ export class EnvironmentHelper {
     EnvironmentHelper.ContentRoot = "https://content.churchapps.org";
     EnvironmentHelper.AccountsAppUrl = "https://accounts.churchapps.org";
     EnvironmentHelper.ChurchAppsUrl = "https://churchapps.org";
-    EnvironmentHelper.GoogleAnalyticsTag = "";
+    EnvironmentHelper.GoogleAnalyticsTag = "UA-164774603-9";
   };
 }
