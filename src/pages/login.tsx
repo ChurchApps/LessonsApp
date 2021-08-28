@@ -1,6 +1,6 @@
 import { useRouter } from "next/router"
 import { Layout } from "@/components";
-import { ChurchInterface, UserHelper } from "@/utils";
+import { ChurchInterface, UserHelper, gaEvent, EnvironmentHelper, UserInterface } from "@/utils";
 import { useAuth } from "@/hooks/useAuth";
 import { LoginPage } from "@/appBase/pageComponents/LoginPage";
 import { ApiHelper } from "@/appBase/helpers"
@@ -20,13 +20,22 @@ export default function Login() {
 
   const postChurchRegister = async (church: ChurchInterface) => {
     await ApiHelper.post("/churchApps/register", { appName: "Lessons" }, "AccessApi");
+    if (EnvironmentHelper.GoogleAnalyticsTag !== "") {
+      gaEvent({ category: "Church", action: "Register" })
+    }
+  }
+
+  const trackUserRegister = async (user: UserInterface) => {
+    if (EnvironmentHelper.GoogleAnalyticsTag !== "") {
+      gaEvent({ category: "User", action: "Register" });
+    }
   }
 
   const appUrl = (process.browser) ? window.location.href : "";
 
   return (
     <Layout withoutNavbar withoutFooter>
-      <LoginPage auth={null} context={null} jwt={null} appName="Lessons.church" loginSuccessOverride={loginSuccess} churchRegisteredCallback={postChurchRegister} appUrl={appUrl} />
+      <LoginPage auth={null} context={null} jwt={null} appName="Lessons.church" loginSuccessOverride={loginSuccess} churchRegisteredCallback={postChurchRegister} appUrl={appUrl} userRegisteredCallback={trackUserRegister} />
     </Layout>
   );
 }
