@@ -1,6 +1,6 @@
 import { useRouter } from "next/router"
 import { Layout } from "@/components";
-import { ChurchInterface, UserHelper, gaEvent, EnvironmentHelper, UserInterface } from "@/utils";
+import { ChurchInterface, UserHelper, GoogleAnalyticsHelper, EnvironmentHelper, UserInterface } from "@/utils";
 import { useAuth } from "@/hooks/useAuth";
 import { LoginPage } from "@/appBase/pageComponents/LoginPage";
 import { ApiHelper } from "@/appBase/helpers"
@@ -21,13 +21,13 @@ export default function Login() {
   const postChurchRegister = async (church: ChurchInterface) => {
     await ApiHelper.post("/churchApps/register", { appName: "Lessons" }, "AccessApi");
     if (EnvironmentHelper.GoogleAnalyticsTag !== "") {
-      gaEvent({ category: "Church", action: "Register" })
+      GoogleAnalyticsHelper.gaEvent({ category: "Church", action: "Register" })
     }
   }
 
   const trackUserRegister = async (user: UserInterface) => {
     if (EnvironmentHelper.GoogleAnalyticsTag !== "") {
-      gaEvent({ category: "User", action: "Register" });
+      GoogleAnalyticsHelper.gaEvent({ category: "User", action: "Register" });
     }
   }
 
