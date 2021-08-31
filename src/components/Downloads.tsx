@@ -16,8 +16,8 @@ export function Downloads({ resources }: Props) {
     return (
       <div className="downloadResource" key={r.id}>
         <Row>
-          <Col>{r?.name}</Col>
-          <Col style={{ textAlign: "right" }}>{downloadLink}</Col>
+          <Col xs={8}>{r?.name}</Col>
+          <Col xs={4} style={{ textAlign: "right" }}>{downloadLink}</Col>
         </Row>
       </div>
     );
@@ -33,8 +33,8 @@ export function Downloads({ resources }: Props) {
     return (
       <div className="downloadResource" key={r.id}>
         <Row>
-          <Col>{r?.name}</Col>
-          <Col style={{ textAlign: "right" }}>
+          <Col xs={8}>{r?.name}</Col>
+          <Col xs={4} style={{ textAlign: "right" }}>
             <Dropdown>
               <Dropdown.Toggle size="sm" variant="success">Download</Dropdown.Toggle>
               <Dropdown.Menu  >
