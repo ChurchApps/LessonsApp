@@ -14,7 +14,7 @@ export function Downloads({ resources }: Props) {
   const getSingleVariant = (r: ResourceInterface) => {
     let downloadLink = (<a href={r.variants[0].file?.contentPath} download={true} className="btn btn-sm btn-success">Download</a>);
     return (
-      <div className="dropdown-item" key={r.id}>
+      <div className="downloadResource" key={r.id}>
         <Row>
           <Col>{r?.name}</Col>
           <Col style={{ textAlign: "right" }}>{downloadLink}</Col>
@@ -31,7 +31,7 @@ export function Downloads({ resources }: Props) {
     });
 
     return (
-      <div className="dropdown-item" key={r.id}>
+      <div className="downloadResource" key={r.id}>
         <Row>
           <Col>{r?.name}</Col>
           <Col style={{ textAlign: "right" }}>
@@ -107,7 +107,7 @@ export function Downloads({ resources }: Props) {
           Downloads
         </Dropdown.Toggle>
 
-        <Dropdown.Menu as={CustomMenu}>
+        <Dropdown.Menu>
           {getResources()}
         </Dropdown.Menu>
       </Dropdown>
