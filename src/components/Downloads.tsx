@@ -1,7 +1,6 @@
 import { Row, Col, Dropdown, Accordion, Card } from "react-bootstrap";
 import { ArrayHelper, ResourceInterface } from "@/utils";
-import { propTypes } from "react-bootstrap/esm/Image";
-import React, { LegacyRef, useState } from "react"
+import { forwardRef, LegacyRef } from "react"
 import { faChevronDown } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
@@ -90,7 +89,7 @@ export function Downloads({ resources }: Props) {
     else return getNoAccordion();
   }
 
-  const CustomMenu = React.forwardRef(
+  const CustomMenu = forwardRef(
     (refProps: any, ref: LegacyRef<HTMLDivElement>) => {
       return (<div ref={ref} style={refProps.style} className={refProps.className} >
         {refProps.children}
