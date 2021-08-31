@@ -860,7 +860,7 @@ dropdown-menu a {
 .downloadAccordion .card-body { background-color: #FFF;}
 
 .downloadsDropDown .dropdown-menu.show .dropdown-menu.show { width:inherit !important; }
-.downloadResource {padding:5px;p}
+.downloadResource {padding:5px;}
 
 @media (max-width: 600px) { 
   .downloadAccordion { min-width:90vw !important; }
