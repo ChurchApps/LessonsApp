@@ -10,9 +10,7 @@ type Props = {
 };
 
 export function VariantEdit(props: Props) {
-  const [variant, setVariant] = React.useState<VariantInterface>(
-    {} as VariantInterface
-  );
+  const [variant, setVariant] = React.useState<VariantInterface>({} as VariantInterface);
   const [errors, setErrors] = React.useState([]);
   const [pendingFileSave, setPendingFileSave] = React.useState(false);
 
@@ -23,12 +21,13 @@ export function VariantEdit(props: Props) {
       handleSave();
     }
   };
-  const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
-  ) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     e.preventDefault();
     let v = { ...variant };
     switch (e.currentTarget.name) {
+      case "hidden":
+        v.hidden = e.currentTarget.value === "true";
+        break;
       case "name":
         v.name = e.currentTarget.value;
         break;
@@ -61,50 +60,28 @@ export function VariantEdit(props: Props) {
     props.variant?.id ? handleDelete : undefined;
 
   const handleDelete = () => {
-    if (
-      window.confirm(
-        "Are you sure you wish to permanently delete this variant?"
-      )
-    ) {
-      ApiHelper.delete("/variants/" + variant.id.toString(), "LessonsApi").then(
-        () => props.updatedCallback(null)
-      );
+    if (window.confirm("Are you sure you wish to permanently delete this variant?")) {
+      ApiHelper.delete("/variants/" + variant.id.toString(), "LessonsApi").then(() => props.updatedCallback(null));
     }
   };
 
-  React.useEffect(() => {
-    setVariant(props.variant);
-  }, [props.variant]);
+  React.useEffect(() => { setVariant(props.variant); }, [props.variant]);
 
   return (
-    <>
-      <InputBox
-        id="variantDetailsBox"
-        headerText="Edit Variant"
-        headerIcon="fas fa-copy"
-        saveFunction={handleSave}
-        cancelFunction={handleCancel}
-        deleteFunction={getDeleteFunction()}
-      >
-        <ErrorMessages errors={errors} />
-        <FormGroup>
-          <FormLabel>Variant Name</FormLabel>
-          <FormControl
-            type="text"
-            name="name"
-            value={variant.name}
-            onChange={handleChange}
-            onKeyDown={handleKeyDown}
-            placeholder="Variant 1"
-          />
-        </FormGroup>
-        <FileUpload
-          resourceId={props.variant?.resourceId}
-          fileId={variant?.fileId}
-          pendingSave={pendingFileSave}
-          saveCallback={handleFileSaved}
-        />
-      </InputBox>
-    </>
+    <InputBox id="variantDetailsBox" headerText="Edit Variant" headerIcon="fas fa-copy" saveFunction={handleSave} cancelFunction={handleCancel} deleteFunction={getDeleteFunction()} >
+      <ErrorMessages errors={errors} />
+      <FormGroup>
+        <FormLabel>Hidden</FormLabel>
+        <FormControl as="select" name="hidden" value={variant.hidden?.toString()} onChange={handleChange} onKeyDown={handleKeyDown} >
+          <option value="false">No</option>
+          <option value="true">Yes</option>
+        </FormControl>
+      </FormGroup>
+      <FormGroup>
+        <FormLabel>Variant Name</FormLabel>
+        <FormControl type="text" name="name" value={variant.name} onChange={handleChange} onKeyDown={handleKeyDown} placeholder="Variant 1" />
+      </FormGroup>
+      <FileUpload resourceId={props.variant?.resourceId} fileId={variant?.fileId} pendingSave={pendingFileSave} saveCallback={handleFileSaved} />
+    </InputBox>
   );
 }

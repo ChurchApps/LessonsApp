@@ -101,6 +101,7 @@ export interface VariantInterface {
   name?: string;
   downloadDefault?: boolean;
   playerDefault?: boolean;
+  hidden?: boolean;
   file?: FileInterface;
 }
 export interface ResourceInterface {
