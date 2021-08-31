@@ -863,7 +863,7 @@ dropdown-menu a {
 .downloadResource {padding-top:5px;padding-bottom: 5px;}
 
 @media (max-width: 600px) { 
-  .downloadsDropDown .dropdown-menu.show { width:100% !important; }
+  .downloadAccordion { min-width:90vw !important; }
 }
 
 @media (min-width: 601px) { 
