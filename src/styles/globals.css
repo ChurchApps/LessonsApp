@@ -813,9 +813,15 @@ dropdown-menu a {
   box-shadow: 3px 3px 3px #999;
   padding: 0;
 }
+/*
 .dropdown-menu button {
   padding: 0.5rem 1rem;
+}*/
+
+.dropdown-menu .btn {
+  min-width:90px;
 }
+
 .dropdown-item:hover {
   text-decoration: none;
   background-color: #03a9f4;
@@ -839,3 +845,4 @@ dropdown-menu a {
 .green {color:#77cc00; }
 
 .downloadsDropDown .dropdown-menu.show { width:400px !important; }
+.downloadsDropDown .dropdown-menu.show .dropdown-menu.show { width:inherit !important; }
