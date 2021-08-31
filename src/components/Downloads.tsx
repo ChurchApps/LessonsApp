@@ -3,6 +3,7 @@ import { ArrayHelper, ResourceInterface } from "@/utils";
 import { forwardRef, LegacyRef } from "react"
 import { faChevronDown } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { ForwardedRef } from "react";
 
 type Props = {
   resources: ResourceInterface[];
@@ -89,8 +90,8 @@ export function Downloads({ resources }: Props) {
     else return getNoAccordion();
   }
 
-  const CustomMenu = forwardRef(
-    (refProps: any, ref: LegacyRef<HTMLDivElement>) => {
+  const CustomMenu = forwardRef<HTMLDivElement>(
+    (refProps: any, ref: ForwardedRef<HTMLDivElement>) => {
       return (<div ref={ref} style={refProps.style} className={refProps.className} >
         {refProps.children}
       </div>);
