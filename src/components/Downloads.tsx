@@ -37,7 +37,7 @@ export function Downloads({ resources }: Props) {
           <Col style={{ textAlign: "right" }}>
             <Dropdown>
               <Dropdown.Toggle size="sm" variant="success">Download</Dropdown.Toggle>
-              <Dropdown.Menu>
+              <Dropdown.Menu  >
                 {dropdownItems}
               </Dropdown.Menu>
             </Dropdown>
@@ -102,8 +102,8 @@ export function Downloads({ resources }: Props) {
 
   return (
     resources.length > 0 && (
-      <Dropdown className="downloadsDropDown" style={{ float: "right" }}>
-        <Dropdown.Toggle variant="light" id="dropdownMenuButton" size="sm">
+      <Dropdown className="downloadsDropDown" alignRight={true} >
+        <Dropdown.Toggle variant="light" id="dropdownMenuButton" size="sm" style={{ float: "right" }} >
           Downloads
         </Dropdown.Toggle>
 
