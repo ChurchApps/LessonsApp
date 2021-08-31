@@ -845,5 +845,27 @@ dropdown-menu a {
 }
 .green {color:#77cc00; }
 
-.downloadsDropDown .dropdown-menu.show { width:400px !important; }
+.downloadAccordion .card  { margin-bottom: 0px;border-top:none; border-bottom: none;}
+.downloadAccordion .card > button {
+  border:none;
+  text-align: left;
+  background-color:#03a9f4;
+  color:#FFF;
+  padding-left:5px;
+  padding-top:8px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid #FFF;
+}
+.downloadAccordion .collapse, .downloadAccordion .collapsing {margin-bottom: 0px; margin-top:0px; border-top:none; border-bottom: none;}
+.downloadAccordion .card-body { background-color: #FFF;}
+
 .downloadsDropDown .dropdown-menu.show .dropdown-menu.show { width:inherit !important; }
+
+
+@media (max-width: 600px) { 
+  .downloadsDropDown .dropdown-menu.show { width:100% !important; }
+}
+
+@media (min-width: 601px) { 
+  .downloadsDropDown .dropdown-menu.show { width:400px !important; }
+}

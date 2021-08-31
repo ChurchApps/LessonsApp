@@ -9,26 +9,27 @@ type Props = {
 };
 
 export function ResourceEdit(props: Props) {
-  const [resource, setResource] = useState<ResourceInterface>(
-    {} as ResourceInterface
-  );
+  const [resource, setResource] = useState<ResourceInterface>({} as ResourceInterface);
   const [errors, setErrors] = useState([]);
 
   const handleCancel = () => props.updatedCallback(resource);
+
   const handleKeyDown = (e: React.KeyboardEvent<any>) => {
     if (e.key === "Enter") {
       e.preventDefault();
       handleSave();
     }
   };
-  const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
-  ) => {
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     e.preventDefault();
     let v = { ...resource };
     switch (e.currentTarget.name) {
       case "name":
         v.name = e.currentTarget.value;
+        break;
+      case "category":
+        v.category = e.currentTarget.value;
         break;
     }
     setResource(v);
@@ -50,47 +51,28 @@ export function ResourceEdit(props: Props) {
     }
   };
 
-  const getDeleteFunction = () =>
-    props.resource?.id ? handleDelete : undefined;
+  const getDeleteFunction = () => props.resource?.id ? handleDelete : undefined;
 
   const handleDelete = () => {
-    if (
-      window.confirm(
-        "Are you sure you wish to permanently delete this resource?  This will delete all variants and assets."
-      )
-    ) {
-      ApiHelper.delete(
-        "/resources/" + resource.id.toString(),
-        "LessonsApi"
-      ).then(() => props.updatedCallback(null));
+    if (window.confirm("Are you sure you wish to permanently delete this resource?  This will delete all variants and assets.")) {
+      ApiHelper.delete("/resources/" + resource.id.toString(), "LessonsApi")
+        .then(() => props.updatedCallback(null));
     }
   };
 
-  useEffect(() => {
-    setResource(props.resource);
-  }, [props.resource]);
+  useEffect(() => { setResource(props.resource); }, [props.resource]);
 
   return (
     <>
-      <InputBox
-        id="resourceDetailsBox"
-        headerText="Edit Resource"
-        headerIcon="fas fa-file-alt"
-        saveFunction={handleSave}
-        cancelFunction={handleCancel}
-        deleteFunction={getDeleteFunction()}
-      >
+      <InputBox id="resourceDetailsBox" headerText="Edit Resource" headerIcon="fas fa-file-alt" saveFunction={handleSave} cancelFunction={handleCancel} deleteFunction={getDeleteFunction()} >
         <ErrorMessages errors={errors} />
         <FormGroup>
+          <FormLabel>Category</FormLabel>
+          <FormControl type="text" name="category" value={resource.category} onChange={handleChange} onKeyDown={handleKeyDown} placeholder="Videos" />
+        </FormGroup>
+        <FormGroup>
           <FormLabel>Resource Name</FormLabel>
-          <FormControl
-            type="text"
-            name="name"
-            value={resource.name}
-            onChange={handleChange}
-            onKeyDown={handleKeyDown}
-            placeholder="Resource 1"
-          />
+          <FormControl type="text" name="name" value={resource.name} onChange={handleChange} onKeyDown={handleKeyDown} placeholder="Countdown Video" />
         </FormGroup>
       </InputBox>
     </>

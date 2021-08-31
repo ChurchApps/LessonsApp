@@ -107,6 +107,7 @@ export interface ResourceInterface {
   id?: string;
   contentType?: string;
   contentId?: string;
+  category?: string;
   name?: string;
   variants?: VariantInterface[];
   assets?: AssetInterface[];

@@ -1,5 +1,9 @@
-import { Row, Col, Dropdown } from "react-bootstrap";
-import { ResourceInterface } from "@/utils";
+import { Row, Col, Dropdown, Accordion, Card } from "react-bootstrap";
+import { ArrayHelper, ResourceInterface } from "@/utils";
+import { propTypes } from "react-bootstrap/esm/Image";
+import React, { LegacyRef, useState } from "react"
+import { faChevronDown } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 type Props = {
   resources: ResourceInterface[];
@@ -19,23 +23,6 @@ export function Downloads({ resources }: Props) {
     );
   }
 
-  const getMultiVariant = (r: ResourceInterface) => {
-    const result: JSX.Element[] = []
-    result.push(<h6 key={r.id}>{r.name}</h6>);
-    r.variants.forEach((v) => {
-      let downloadLink = (<a href={v.file?.contentPath} download={true} className="btn btn-sm btn-success">Download</a>);
-      result.push(
-        <div className="dropdown-item" key={v.id}>
-          <Row>
-            <Col>{v?.name}</Col>
-            <Col style={{ textAlign: "right" }}>{downloadLink}</Col>
-          </Row>
-        </div>
-      );
-    });
-    result.push(<div className="dropdown-divider" key={`divider-${r.id}`}></div>);
-    return result;
-  }
 
   const getMultiVariantAlt = (r: ResourceInterface) => {
     const dropdownItems: JSX.Element[] = []
@@ -60,16 +47,58 @@ export function Downloads({ resources }: Props) {
     );
   }
 
+  const getAccordion = (categories: string[]) => {
+    const accordionItems: JSX.Element[] = [];
+    categories.forEach(cat => {
+      const catName = cat ? cat : "Other";
+      const catResources: JSX.Element[] = [];
+      ArrayHelper.getAll(resources, "category", cat).forEach(r => {
+        catResources.push(getResource(r));
+      });
 
-  function getResources() {
-    const result: JSX.Element[] = [];
-    resources?.forEach((r) => {
-      if (r.variants.length === 1) result.push(getSingleVariant(r));
-      else if (r.variants.length > 1) result.push(getMultiVariantAlt(r)); //result.concat(getMultiVariant(r));
+      accordionItems.push(<Card>
+        <Accordion.Toggle eventKey={catName}><FontAwesomeIcon icon={faChevronDown} /> {catName}</Accordion.Toggle>
+        <Accordion.Collapse eventKey={catName}>
+          <Card.Body>{catResources}</Card.Body>
+        </Accordion.Collapse>
+      </Card>);
     });
-    console.log(result);
+
+    return (
+      <Accordion className="downloadAccordion" >
+        {accordionItems}
+      </Accordion>
+    );
+
+  }
+
+  function getNoAccordion() {
+    const result: JSX.Element[] = [];
+    resources?.forEach((r) => { result.push(getResource(r)); });
     return result;
   }
+
+  const getResource = (resource: ResourceInterface) => {
+    if (resource.variants.length === 1) return (getSingleVariant(resource));
+    else if (resource.variants.length > 1) return (getMultiVariantAlt(resource)); //result.concat(getMultiVariant(r));
+  }
+
+  const getResources = () => {
+    resources.forEach(r => { if (!r.category) r.category = ""; });
+    const categories = ArrayHelper.getUniqueValues(resources, "category");
+    if (categories.length > 1) return getAccordion(categories);
+    else return getNoAccordion();
+  }
+
+  const CustomMenu = React.forwardRef(
+    (refProps: any, ref: LegacyRef<HTMLDivElement>) => {
+      return (<div ref={ref} style={refProps.style} className={refProps.className} >
+        {refProps.children}
+      </div>);
+    },
+  );
+
+
 
   return (
     resources.length > 0 && (
@@ -78,7 +107,7 @@ export function Downloads({ resources }: Props) {
           Downloads
         </Dropdown.Toggle>
 
-        <Dropdown.Menu style={{ width: "215px" }}>
+        <Dropdown.Menu as={CustomMenu}>
           {getResources()}
         </Dropdown.Menu>
       </Dropdown>
