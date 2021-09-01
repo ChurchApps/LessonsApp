@@ -2,17 +2,17 @@ import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
 import { Row, Col, Container } from "react-bootstrap";
 import { Layout, ClassroomList, ScheduleList, } from "@/components";
-import { useAuth } from "@/hooks/useAuth";
 import { PlaylistFeed } from "@/components/cp/PlaylistFeed";
+import { ApiHelper } from "@/utils";
 
 export default function CP() {
   const router = useRouter();
-  const { loggedIn } = useAuth();
+  const { isAuthenticated } = ApiHelper;
   const [classroomId, setClassroomId] = useState("");
   const [feedClassroomId, setFeedClassroomId] = useState("");
 
   useEffect(() => {
-    if (!loggedIn) {
+    if (!isAuthenticated) {
       router.push("/login");
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
