@@ -3,11 +3,9 @@ import { useRouter } from "next/router"
 import { Container, Dropdown } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faLock, faUser, faCalendarAlt } from "@fortawesome/free-solid-svg-icons";
-import { useAuth } from "@/hooks/useAuth";
-import { UserHelper, Permissions } from "@/utils";
+import { UserHelper, Permissions, ApiHelper } from "@/utils";
 
 export function Header() {
-  const { user, logout, loggedIn } = useAuth();
   const router = useRouter()
 
   const adminItems = UserHelper.checkAccess(Permissions.lessonsApi.lessons.edit) && (
@@ -22,11 +20,14 @@ export function Header() {
     </Dropdown.Item>
   );
 
+  function logout() {
+    router.push("/logout")
+  }
 
-  const userAction = loggedIn ? (
+  const userAction = ApiHelper.isAuthenticated ? (
     <Dropdown>
       <Dropdown.Toggle className="no-default-style toggle-button" as="button">
-        {`${user.firstName} ${user.lastName}`}
+        {`${UserHelper.user.firstName} ${UserHelper.user.lastName}`}
       </Dropdown.Toggle>
 
       <Dropdown.Menu>

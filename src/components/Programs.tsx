@@ -41,7 +41,7 @@ export function Programs({ programs, providers }: Props) {
             <p>
               <i>{shortDescription}</i>
             </p>
-            <p><ReactMarkdown>{description}</ReactMarkdown></p>
+            <ReactMarkdown>{description}</ReactMarkdown>
           </Col>
         </Row>
         <hr />

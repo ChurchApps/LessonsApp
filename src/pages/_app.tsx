@@ -7,13 +7,15 @@ import { useEffect } from "react";
 import type { AppProps } from "next/app";
 import Head from "next/head";
 import { useRouter } from "next/router";
+import { useCookies } from "react-cookie"
 import { EnvironmentHelper, GoogleAnalyticsHelper } from "@/utils";
-import { AuthProvider } from "@/hooks/useAuth";
 
 EnvironmentHelper.init();
 
 function MyApp({ Component, pageProps }: AppProps) {
   const router = useRouter();
+  const [cookies] = useCookies();
+
   useEffect(() => {
     if (EnvironmentHelper.GoogleAnalyticsTag) {
       const handleRouteChange = (url: string) => {
@@ -26,8 +28,15 @@ function MyApp({ Component, pageProps }: AppProps) {
     }
   }, [router.events]);
 
+  // auto login when jwt found in cookies
+  useEffect(() => {
+    if (cookies.jwt && !router.pathname.includes('login')) {
+      router.push("/login")
+    }
+  }, [])
+
   return (
-    <AuthProvider>
+    <>
       <Head>
         {EnvironmentHelper.GoogleAnalyticsTag && (
           <>
@@ -48,7 +57,7 @@ function MyApp({ Component, pageProps }: AppProps) {
         )}
       </Head>
       <Component {...pageProps} />
-    </AuthProvider>
+    </>
   );
 }
 export default MyApp;
