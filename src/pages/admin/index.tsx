@@ -11,7 +11,6 @@ import {
   VenueList,
   ResourceList,
 } from "@/components";
-import { useAuth } from "@/hooks/useAuth";
 import {
   ApiHelper,
   LessonInterface,
@@ -31,20 +30,20 @@ export default function Admin() {
   const [resourceContentType, setResourceContentType] = useState<string>(null);
   const [resourceContentId, setResourceContentId] = useState<string>(null);
   const router = useRouter();
-  const { loggedIn } = useAuth();
+  const { isAuthenticated } = ApiHelper
 
   useEffect(() => {
-    if (!loggedIn) {
+    if (!isAuthenticated) {
       router.push("/login");
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {
-    if (loggedIn) {
+    if (isAuthenticated) {
       loadData();
     }
-  }, [loggedIn]);
+  }, [isAuthenticated]);
 
   function loadData() {
     ApiHelper.get("/programs", "LessonsApi").then((data: any) => {

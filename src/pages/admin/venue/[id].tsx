@@ -9,7 +9,6 @@ import {
   RoleEdit,
   ActionEdit,
 } from "@/components";
-import { useAuth } from "@/hooks/useAuth";
 import {
   VenueInterface,
   LessonInterface,
@@ -41,35 +40,35 @@ export default function Venue() {
   const [programResources, setProgramResources] =
     useState<ResourceInterface[]>(null);
   const [allAssets, setAllAssets] = useState<AssetInterface[]>(null);
-  const { loggedIn } = useAuth();
+  const { isAuthenticated } = ApiHelper;
   const router = useRouter();
   const pathId = router.query.id;
 
   useEffect(() => {
-    if (!loggedIn) {
+    if (!isAuthenticated) {
       router.push("/login");
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {
-    if (loggedIn) {
+    if (isAuthenticated) {
       loadData();
     }
-  }, [pathId, loggedIn]);
+  }, [pathId, isAuthenticated]);
   useEffect(() => {
-    if (loggedIn) {
+    if (isAuthenticated) {
       loadResources();
     }
-  }, [lesson, study, loggedIn]);
+  }, [lesson, study, isAuthenticated]);
   useEffect(
     () => {
-      if (loggedIn) {
+      if (isAuthenticated) {
         loadAssets();
       }
     },
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    [lessonResources, studyResources, programResources, loggedIn]
+    [lessonResources, studyResources, programResources, isAuthenticated]
   );
 
   function loadResources() {
