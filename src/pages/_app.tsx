@@ -29,12 +29,13 @@ function MyApp({ Component, pageProps }: AppProps) {
   }, [router.events]);
 
   // auto login when jwt found in cookies
+  /*
   useEffect(() => {
     if (cookies.jwt && !router.pathname.includes('login')) {
       router.push("/login")
     }
   }, [])
-
+*/
   return (
     <>
       <Head>
