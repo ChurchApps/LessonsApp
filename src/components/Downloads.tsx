@@ -27,7 +27,7 @@ export function Downloads({ resources }: Props) {
   const getMultiVariantAlt = (r: ResourceInterface) => {
     const dropdownItems: JSX.Element[] = []
     r.variants.forEach((v) => {
-      dropdownItems.push(<Dropdown.Item href={v.file?.contentPath} download={true}>{v.name}</Dropdown.Item>);
+      dropdownItems.push(<Dropdown.Item href={v.file?.contentPath} download={true} key={v.id}>{v.name}</Dropdown.Item>);
     });
 
     return (
