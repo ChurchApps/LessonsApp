@@ -6,6 +6,7 @@ import { ApiHelper, ResourceInterface } from "@/utils";
 type Props = {
   resource: ResourceInterface;
   updatedCallback: (resource: ResourceInterface) => void;
+  contentDisplayName: string;
 };
 
 export function ResourceEdit(props: Props) {
@@ -64,7 +65,7 @@ export function ResourceEdit(props: Props) {
 
   return (
     <>
-      <InputBox id="resourceDetailsBox" headerText="Edit Resource" headerIcon="fas fa-file-alt" saveFunction={handleSave} cancelFunction={handleCancel} deleteFunction={getDeleteFunction()} >
+      <InputBox id="resourceDetailsBox" headerText={props.contentDisplayName} headerIcon="fas fa-file-alt" saveFunction={handleSave} cancelFunction={handleCancel} deleteFunction={getDeleteFunction()} >
         <ErrorMessages errors={errors} />
         <FormGroup>
           <FormLabel>Category</FormLabel>

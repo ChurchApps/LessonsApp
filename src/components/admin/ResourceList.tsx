@@ -9,6 +9,7 @@ import { Dropdown } from "react-bootstrap";
 interface Props {
   contentType: string;
   contentId: string;
+  contentDisplayName: string;
 }
 
 export const ResourceList: React.FC<Props> = (props) => {
@@ -92,10 +93,8 @@ export const ResourceList: React.FC<Props> = (props) => {
               <Dropdown.Toggle variant="link" id="dropdownMenuButton" data-cy="add-button" className="no-caret green" >
                 <i className="fas fa-plus"></i>
               </Dropdown.Toggle>
-
               {getDropDownMenu(r.id)}
             </Dropdown>
-
           </td>
         </tr>
       );
@@ -148,22 +147,13 @@ export const ResourceList: React.FC<Props> = (props) => {
 
   React.useEffect(loadData, [props.contentType, props.contentId]);
 
-  if (editVariant)
-    return (
-      <VariantEdit
-        variant={editVariant}
-        updatedCallback={() => {
-          setEditVariant(null);
-          loadData();
-        }}
-      />
-    );
+  if (editVariant) return (<VariantEdit variant={editVariant} updatedCallback={() => { setEditVariant(null); loadData(); }} />);
   if (editAsset) return (<AssetEdit asset={editAsset} updatedCallback={handleAssetCallback} />);
-  if (editResource) return (<ResourceEdit resource={editResource} updatedCallback={() => { setEditResource(null); loadData(); }} />);
+  if (editResource) return (<ResourceEdit resource={editResource} contentDisplayName={props.contentDisplayName} updatedCallback={() => { setEditResource(null); loadData(); }} />);
   else
     return (
       <>
-        <DisplayBox headerText="Resources" headerIcon="fas fa-file-alt" editContent={getEditContent()} >
+        <DisplayBox headerText={props.contentDisplayName} headerIcon="fas fa-file-alt" editContent={getEditContent()} >
           {getTable()}
         </DisplayBox>
       </>
