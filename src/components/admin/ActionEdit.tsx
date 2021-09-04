@@ -1,13 +1,7 @@
 import { useState, useEffect } from "react";
 import { FormGroup, FormControl, FormLabel } from "react-bootstrap";
 import { InputBox, ErrorMessages } from "../index";
-import {
-  ArrayHelper,
-  AssetInterface,
-  ResourceInterface,
-  ActionInterface,
-  ApiHelper,
-} from "@/utils";
+import { ArrayHelper, AssetInterface, ResourceInterface, ActionInterface, ApiHelper } from "@/utils";
 
 type Props = {
   action: ActionInterface;
@@ -23,15 +17,15 @@ export function ActionEdit(props: Props) {
   const [errors, setErrors] = useState([]);
 
   const handleCancel = () => props.updatedCallback(action, false);
+
   const handleKeyDown = (e: React.KeyboardEvent<any>) => {
     if (e.key === "Enter") {
       e.preventDefault();
       handleSave();
     }
   };
-  const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
-  ) => {
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     e.preventDefault();
     let a = { ...action };
     switch (e.currentTarget.name) {
@@ -53,14 +47,9 @@ export function ActionEdit(props: Props) {
       case "asset":
         a.assetId = e.currentTarget.value;
         if (a.assetId === "") a.assetId = null;
-        let resourceSelect = document.getElementById(
-          "resourceSelect"
-        ) as HTMLSelectElement;
+        let resourceSelect = document.getElementById("resourceSelect") as HTMLSelectElement;
         let assetSelect = e.currentTarget as HTMLSelectElement;
-        a.content =
-          resourceSelect.options[resourceSelect.selectedIndex].text +
-          " - " +
-          assetSelect.options[assetSelect.selectedIndex].text;
+        a.content = resourceSelect.options[resourceSelect.selectedIndex].text + " - " + assetSelect.options[assetSelect.selectedIndex].text;
         break;
     }
     setAction(a);
@@ -77,7 +66,7 @@ export function ActionEdit(props: Props) {
     if (validate()) {
       const a = action;
       if (!a.actionType) a.actionType = "Say";
-      if (a.actionType !== "Play") {
+      if (a.actionType !== "Play" && a.actionType !== "Download") {
         a.resourceId = null;
         a.assetId = null;
       }
@@ -90,9 +79,7 @@ export function ActionEdit(props: Props) {
   };
 
   const handleDelete = () => {
-    if (
-      window.confirm("Are you sure you wish to permanently delete this action?")
-    ) {
+    if (window.confirm("Are you sure you wish to permanently delete this action?")) {
       ApiHelper.delete("/actions/" + action.id.toString(), "LessonsApi").then(
         () => props.updatedCallback(null, false)
       );
@@ -100,27 +87,14 @@ export function ActionEdit(props: Props) {
   };
 
   const getContent = () => {
-    if (action.actionType !== "Play") {
+    if (action.actionType !== "Play" && action.actionType !== "Download") {
       return (
         <FormGroup>
-          <a
-            href="https://www.markdownguide.org/cheat-sheet/"
-            target="_blank"
-            rel="noopener noreferrer"
-            style={{ float: "right" }}
-          >
+          <a href="https://www.markdownguide.org/cheat-sheet/" target="_blank" rel="noopener noreferrer" style={{ float: "right" }}>
             Markdown Guide
           </a>
           <FormLabel>Content</FormLabel>
-          <FormControl
-            type="text"
-            name="content"
-            as="textarea"
-            rows={8}
-            value={action.content}
-            onChange={handleChange}
-            placeholder=""
-          />
+          <FormControl type="text" name="content" as="textarea" rows={8} value={action.content} onChange={handleChange} placeholder="" />
         </FormGroup>
       );
     }
@@ -128,11 +102,7 @@ export function ActionEdit(props: Props) {
 
   const getAsset = () => {
     if (props.allAssets && action?.resourceId) {
-      const assets = ArrayHelper.getAll(
-        props.allAssets,
-        "resourceId",
-        action.resourceId
-      );
+      const assets = ArrayHelper.getAll(props.allAssets, "resourceId", action.resourceId);
       if (assets.length > 0) {
         const assetItems: JSX.Element[] = [];
         assets.forEach((a: AssetInterface) =>
@@ -143,12 +113,7 @@ export function ActionEdit(props: Props) {
           <>
             <FormGroup>
               <FormLabel>Asset</FormLabel>
-              <FormControl
-                as="select"
-                name="asset"
-                value={action.assetId}
-                onChange={handleChange}
-              >
+              <FormControl as="select" name="asset" value={action.assetId} onChange={handleChange} >
                 <option value="">All</option>
                 {assetItems}
               </FormControl>
@@ -160,23 +125,13 @@ export function ActionEdit(props: Props) {
   };
 
   const getResource = () => {
-    if (action.actionType === "Play") {
-      if (
-        props.lessonResources &&
-        props.studyResources &&
-        props.programResources
-      ) {
+    if (action.actionType === "Play" || action.actionType === "Download") {
+      if (props.lessonResources && props.studyResources && props.programResources) {
         return (
           <>
             <FormGroup>
               <FormLabel>Resource</FormLabel>
-              <FormControl
-                as="select"
-                name="resource"
-                id="resourceSelect"
-                value={action.resourceId}
-                onChange={handleChange}
-              >
+              <FormControl as="select" name="resource" id="resourceSelect" value={action.resourceId} onChange={handleChange} >
                 {getResourceGroup("Lesson", props.lessonResources)}
                 {getResourceGroup("Study", props.studyResources)}
                 {getResourceGroup("Program", props.programResources)}
@@ -189,10 +144,7 @@ export function ActionEdit(props: Props) {
     }
   };
 
-  const getResourceGroup = (
-    groupName: string,
-    resources: ResourceInterface[]
-  ) => {
+  const getResourceGroup = (groupName: string, resources: ResourceInterface[]) => {
     if (resources.length > 0) {
       const items: JSX.Element[] = [];
       resources.forEach((r) => {
@@ -202,43 +154,23 @@ export function ActionEdit(props: Props) {
     }
   };
 
-  useEffect(() => {
-    setAction(props.action);
-  }, [props.action]);
+  useEffect(() => { setAction(props.action); }, [props.action]);
 
   return (
     <>
-      <InputBox
-        id="actionDetailsBox"
-        headerText={action?.id ? "Edit Action" : "Create Action"}
-        headerIcon="fas fa-check"
-        saveFunction={handleSave}
-        cancelFunction={handleCancel}
-        deleteFunction={handleDelete}
-      >
+      <InputBox id="actionDetailsBox" headerText={action?.id ? "Edit Action" : "Create Action"} headerIcon="fas fa-check" saveFunction={handleSave} cancelFunction={handleCancel} deleteFunction={handleDelete} >
         <ErrorMessages errors={errors} />
         <FormGroup>
           <FormLabel>Order</FormLabel>
-          <FormControl
-            type="number"
-            name="sort"
-            value={action.sort}
-            onChange={handleChange}
-            onKeyDown={handleKeyDown}
-            placeholder="1"
-          />
+          <FormControl type="number" name="sort" value={action.sort} onChange={handleChange} onKeyDown={handleKeyDown} placeholder="1" />
         </FormGroup>
         <FormGroup>
           <FormLabel>Action Type</FormLabel>
-          <FormControl
-            as="select"
-            name="actionType"
-            value={action.actionType}
-            onChange={handleChange}
-          >
+          <FormControl as="select" name="actionType" value={action.actionType} onChange={handleChange} >
             <option value="Say">Say</option>
             <option value="Do">Do</option>
             <option value="Play">Play</option>
+            <option value="Download">Download</option>
             <option value="Note">Note</option>
           </FormControl>
         </FormGroup>
