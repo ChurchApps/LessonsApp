@@ -15,7 +15,8 @@ export default function Login() {
   }
 
   const loginSuccess = () => {
-    console.log("login success callback...")
+    console.log("login success callback...");
+    router.push("/");
   }
 
   const postChurchRegister = async (church: ChurchInterface) => {
