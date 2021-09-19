@@ -20,7 +20,6 @@ export default function Login() {
   }
 
   const postChurchRegister = async (church: ChurchInterface) => {
-    await ApiHelper.post("/churchApps/register", { appName: "Lessons" }, "AccessApi");
     if (EnvironmentHelper.GoogleAnalyticsTag !== "") {
       GoogleAnalyticsHelper.gaEvent({ category: "Church", action: "Register" })
     }
