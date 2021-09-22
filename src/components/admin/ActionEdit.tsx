@@ -69,6 +69,13 @@ export function ActionEdit(props: Props) {
       if (a.actionType !== "Play" && a.actionType !== "Download") {
         a.resourceId = null;
         a.assetId = null;
+      } else {
+        if (a.resourceId === null) {
+          if (props.lessonResources.length > 0) a.resourceId = props.lessonResources[0].id;
+          else if (props.studyResources.length > 0) a.resourceId = props.studyResources[0].id;
+          else if (props.programResources.length > 0) a.resourceId = props.programResources[0].id;
+
+        }
       }
 
       ApiHelper.post("/actions", [a], "LessonsApi").then((data) => {
