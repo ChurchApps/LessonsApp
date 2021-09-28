@@ -33,7 +33,7 @@ export function Header() {
       <Dropdown.Menu>
         {adminItems}
         {cpItems}
-        <Dropdown.Item href={EnvironmentHelper.AccountsAppUrl + "/login?jwt=" + UserHelper.user.jwt + "&returnUrl=%2Fprofile&subdomain=" + UserHelper.currentChurch.subDomain}>
+        <Dropdown.Item href={EnvironmentHelper.AccountsAppUrl + "/login?jwt=" + UserHelper.user.jwt + "&returnUrl=%2Fprofile&keyName=" + UserHelper.currentChurch.subDomain}>
           <FontAwesomeIcon icon={faUser} /> Profile
         </Dropdown.Item>
         <Dropdown.Item as="button" onClick={logout}>
