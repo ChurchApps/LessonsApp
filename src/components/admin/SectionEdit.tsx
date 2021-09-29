@@ -9,21 +9,16 @@ type Props = {
 };
 
 export function SectionEdit(props: Props) {
-  const [section, setSection] = useState<SectionInterface>(
-    {} as SectionInterface
-  );
+  const [section, setSection] = useState<SectionInterface>({} as SectionInterface);
   const [errors, setErrors] = useState([]);
 
   const handleCancel = () => props.updatedCallback(section, false);
+
   const handleKeyDown = (e: React.KeyboardEvent<any>) => {
-    if (e.key === "Enter") {
-      e.preventDefault();
-      handleSave();
-    }
+    if (e.key === "Enter") { e.preventDefault(); handleSave(); }
   };
-  const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
-  ) => {
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     e.preventDefault();
     let s = { ...section };
     switch (e.currentTarget.name) {
@@ -57,64 +52,29 @@ export function SectionEdit(props: Props) {
   };
 
   const handleDelete = () => {
-    if (
-      window.confirm(
-        "Are you sure you wish to permanently delete this section?"
-      )
-    ) {
-      ApiHelper.delete("/sections/" + section.id.toString(), "LessonsApi").then(
-        () => props.updatedCallback(null, false)
+    if (window.confirm("Are you sure you wish to permanently delete this section?")) {
+      ApiHelper.delete("/sections/" + section.id.toString(), "LessonsApi").then(() => props.updatedCallback(null, false)
       );
     }
   };
 
-  useEffect(() => {
-    setSection(props.section);
-  }, [props.section]);
+  useEffect(() => { setSection(props.section); }, [props.section]);
 
   return (
     <>
-      <InputBox
-        id="sectionDetailsBox"
-        headerText={section?.id ? "Edit Section" : "Create Section"}
-        headerIcon="fas fa-tasks"
-        saveFunction={handleSave}
-        cancelFunction={handleCancel}
-        deleteFunction={handleDelete}
-      >
+      <InputBox id="sectionDetailsBox" headerText={section?.id ? "Edit Section" : "Create Section"} headerIcon="fas fa-tasks" saveFunction={handleSave} cancelFunction={handleCancel} deleteFunction={handleDelete} >
         <ErrorMessages errors={errors} />
         <FormGroup>
           <FormLabel>Order</FormLabel>
-          <FormControl
-            type="number"
-            name="sort"
-            value={section.sort}
-            onChange={handleChange}
-            onKeyDown={handleKeyDown}
-            placeholder="1"
-          />
+          <FormControl type="number" name="sort" value={section.sort} onChange={handleChange} onKeyDown={handleKeyDown} placeholder="1" />
         </FormGroup>
         <FormGroup>
           <FormLabel>Section Name</FormLabel>
-          <FormControl
-            type="text"
-            name="name"
-            value={section.name}
-            onChange={handleChange}
-            onKeyDown={handleKeyDown}
-            placeholder="Section 1"
-          />
+          <FormControl type="text" name="name" value={section.name} onChange={handleChange} onKeyDown={handleKeyDown} placeholder="Section 1" />
         </FormGroup>
         <FormGroup>
           <FormLabel>Materials Needed</FormLabel>
-          <FormControl
-            type="text"
-            name="materials"
-            value={section.materials}
-            onChange={handleChange}
-            onKeyDown={handleKeyDown}
-            placeholder=""
-          />
+          <FormControl type="text" name="materials" value={section.materials} onChange={handleChange} onKeyDown={handleKeyDown} placeholder="" />
         </FormGroup>
       </InputBox>
     </>

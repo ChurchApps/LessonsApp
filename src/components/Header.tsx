@@ -3,7 +3,7 @@ import { useRouter } from "next/router"
 import { Container, Dropdown } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faLock, faUser, faCalendarAlt } from "@fortawesome/free-solid-svg-icons";
-import { UserHelper, Permissions, ApiHelper } from "@/utils";
+import { UserHelper, Permissions, ApiHelper, EnvironmentHelper } from "@/utils";
 
 export function Header() {
   const router = useRouter()
@@ -33,6 +33,9 @@ export function Header() {
       <Dropdown.Menu>
         {adminItems}
         {cpItems}
+        <Dropdown.Item href={EnvironmentHelper.AccountsAppUrl + "/login?jwt=" + UserHelper.user.jwt + "&returnUrl=%2Fprofile&keyName=" + UserHelper.currentChurch.subDomain}>
+          <FontAwesomeIcon icon={faUser} /> Profile
+        </Dropdown.Item>
         <Dropdown.Item as="button" onClick={logout}>
           <FontAwesomeIcon icon={faLock} /> Logout
         </Dropdown.Item>

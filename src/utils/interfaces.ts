@@ -126,3 +126,9 @@ export interface ScheduleInterface {
   lessonId?: string;
   displayName?: string;
 }
+
+export interface CopySectionInterface {
+  sourceLessonId?: string,
+  sourceVenueId?: string,
+  sourceSectionId?: string
+}
