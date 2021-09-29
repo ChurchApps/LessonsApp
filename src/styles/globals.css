@@ -862,6 +862,8 @@ dropdown-menu a {
 .downloadsDropDown .dropdown-menu.show .dropdown-menu.show { width:inherit !important; }
 .downloadResource {padding:5px;}
 
+a.dropdown-toggle::after {display: none;}
+
 @media (max-width: 600px) { 
   .downloadAccordion { min-width:90vw !important; }
 }
