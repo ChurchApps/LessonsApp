@@ -35,7 +35,8 @@ export default function Login() {
   let jwt: string = "", auth: string = "";
   if (!ApiHelper.isAuthenticated) {
     auth = router.query.auth as string
-    jwt = router.query.jwt as string || cookies.jwt
+    let search = new URLSearchParams(process.browser ? window.location.search : "");
+    jwt = search.get("jwt") || cookies.jwt
   }
 
   return (
