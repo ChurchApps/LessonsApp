@@ -1,5 +1,5 @@
 import { Row, Col, Dropdown, Accordion, Card } from "react-bootstrap";
-import { ArrayHelper, ResourceInterface } from "@/utils";
+import { ArrayHelper, GoogleAnalyticsHelper, ResourceInterface, VariantInterface } from "@/utils";
 //import { forwardRef, LegacyRef } from "react"
 import { faChevronDown } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -9,10 +9,19 @@ type Props = {
   resources: ResourceInterface[];
 };
 
-export function Downloads({ resources }: Props) {
+export function Downloads(props: Props) {
+
+
+  const trackDownload = (variant: VariantInterface) => {
+    const resource: ResourceInterface = ArrayHelper.getOne(props.resources, "id", variant.resourceId);
+    const action = resource.name + " - " + variant.name;
+    const label = window.location.pathname;
+    GoogleAnalyticsHelper.gaEvent({ category: "Download", action: action, label: label })
+  }
 
   const getSingleVariant = (r: ResourceInterface) => {
-    let downloadLink = (<a href={r.variants[0].file?.contentPath} download={true} className="btn btn-sm btn-success">Download</a>);
+    const variant = r.variants[0];
+    let downloadLink = (<a href={variant.file?.contentPath} onClick={() => { trackDownload(variant) }} download={true} className="btn btn-sm btn-success">Download</a>);
     return (
       <div className="downloadResource" key={r.id}>
         <Row>
@@ -27,7 +36,8 @@ export function Downloads({ resources }: Props) {
   const getMultiVariantAlt = (r: ResourceInterface) => {
     const dropdownItems: JSX.Element[] = []
     r.variants.forEach((v) => {
-      dropdownItems.push(<Dropdown.Item href={v.file?.contentPath} download={true} key={v.id}>{v.name}</Dropdown.Item>);
+      const variant = v;
+      dropdownItems.push(<Dropdown.Item href={v.file?.contentPath} download={true} key={v.id} onClick={() => { trackDownload(variant) }}  >{v.name}</Dropdown.Item>);
     });
 
     return (
@@ -52,7 +62,7 @@ export function Downloads({ resources }: Props) {
     categories.forEach(cat => {
       const catName = cat ? cat : "Other";
       const catResources: JSX.Element[] = [];
-      ArrayHelper.getAll(resources, "category", cat).forEach(r => {
+      ArrayHelper.getAll(props.resources, "category", cat).forEach(r => {
         catResources.push(getResource(r));
       });
 
@@ -74,7 +84,7 @@ export function Downloads({ resources }: Props) {
 
   function getNoAccordion() {
     const result: JSX.Element[] = [];
-    resources?.forEach((r) => { result.push(getResource(r)); });
+    props.resources?.forEach((r) => { result.push(getResource(r)); });
     return result;
   }
 
@@ -84,8 +94,8 @@ export function Downloads({ resources }: Props) {
   }
 
   const getResources = () => {
-    resources.forEach(r => { if (!r.category) r.category = ""; });
-    const categories = ArrayHelper.getUniqueValues(resources, "category");
+    props.resources.forEach(r => { if (!r.category) r.category = ""; });
+    const categories = ArrayHelper.getUniqueValues(props.resources, "category");
     if (categories.length > 1) return getAccordion(categories);
     else return getNoAccordion();
   }
@@ -101,7 +111,7 @@ export function Downloads({ resources }: Props) {
 
 
   return (
-    resources.length > 0 && (
+    props.resources.length > 0 && (
       <Dropdown className="downloadsDropDown" alignRight={true} >
         <Dropdown.Toggle variant="light" id="dropdownMenuButton" size="sm" style={{ float: "right" }} >
           Downloads
