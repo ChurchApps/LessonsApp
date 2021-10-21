@@ -21,7 +21,7 @@ export function Downloads(props: Props) {
 
   const getSingleVariant = (r: ResourceInterface) => {
     const variant = r.variants[0];
-    let downloadLink = (<a href={variant.file?.contentPath} onClick={() => { trackDownload(variant) }} download={true} className="btn btn-sm btn-success">Download</a>);
+    let downloadLink = (<a href={variant.file?.contentPath + "&download=1"} onClick={() => { trackDownload(variant) }} download={true} className="btn btn-sm btn-success">Download</a>);
     return (
       <div className="downloadResource" key={r.id}>
         <Row>
@@ -37,7 +37,7 @@ export function Downloads(props: Props) {
     const dropdownItems: JSX.Element[] = []
     r.variants.forEach((v) => {
       const variant = v;
-      dropdownItems.push(<Dropdown.Item href={v.file?.contentPath} download={true} key={v.id} onClick={() => { trackDownload(variant) }}  >{v.name}</Dropdown.Item>);
+      dropdownItems.push(<Dropdown.Item href={v.file?.contentPath + "&download=1"} download={true} key={v.id} onClick={() => { trackDownload(variant) }}  >{v.name}</Dropdown.Item>);
     });
 
     return (
