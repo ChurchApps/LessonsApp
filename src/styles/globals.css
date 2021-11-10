@@ -864,6 +864,8 @@ dropdown-menu a {
 
 a.dropdown-toggle::after {display: none;}
 
+#resourcesBox .content {min-height: 110px;}
+
 @media (max-width: 600px) { 
   .downloadAccordion { min-width:90vw !important; }
 }
