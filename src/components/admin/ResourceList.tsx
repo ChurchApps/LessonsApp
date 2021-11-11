@@ -153,7 +153,7 @@ export const ResourceList: React.FC<Props> = (props) => {
   else
     return (
       <>
-        <DisplayBox headerText={props.contentDisplayName} headerIcon="fas fa-file-alt" editContent={getEditContent()} >
+        <DisplayBox id="resourcesBox" headerText={props.contentDisplayName} headerIcon="fas fa-file-alt" editContent={getEditContent()} >
           {getTable()}
         </DisplayBox>
       </>

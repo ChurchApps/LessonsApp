@@ -42,7 +42,7 @@ export function Action(props: Props) {
 
   switch (props.action.actionType) {
     case "Note":
-      result = (<div className="note"><b>Note:</b> {props.action.content}</div>);
+      result = (<div className="note"><b>Note:</b> <ReactMarkdown>{props.action.content}</ReactMarkdown></div>);
       break;
     case "Do":
       result = (<ul className="actions"><li><ReactMarkdown>{props.action.content}</ReactMarkdown></li></ul>);
