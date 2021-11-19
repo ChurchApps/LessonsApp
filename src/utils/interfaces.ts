@@ -104,8 +104,16 @@ export interface VariantInterface {
   hidden?: boolean;
   file?: FileInterface;
 }
+export interface BundleInterface {
+  id?: string;
+  contentType?: string;
+  contentId?: string;
+  name?: string;
+  resources?: ResourceInterface[];
+}
 export interface ResourceInterface {
   id?: string;
+  bundleId?: string;
   contentType?: string;
   contentId?: string;
   category?: string;

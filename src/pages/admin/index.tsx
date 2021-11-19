@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import { Row, Col, Container } from "react-bootstrap";
-import { Layout, DisplayBox, Loading, ProgramEdit, StudyEdit, LessonEdit, VenueList, ResourceList } from "@/components";
+import { Layout, DisplayBox, Loading, ProgramEdit, StudyEdit, LessonEdit, VenueList, BundleList } from "@/components";
 import { ApiHelper, LessonInterface, ProgramInterface, StudyInterface, ArrayHelper, } from "@/utils";
 
 export default function Admin() {
@@ -148,7 +148,7 @@ export default function Admin() {
     else if (editStudy) result.push(<StudyEdit study={editStudy} updatedCallback={handleUpdated} key="studyEdit" />);
     else if (editLesson) result.push(<LessonEdit lesson={editLesson} updatedCallback={handleUpdated} key="lessonEdit" />);
     else if (venuesLessonId) result.push(<VenueList lessonId={venuesLessonId} key="venueLesson" />);
-    else if (resourceContentType && resourceContentId) result.push(<ResourceList contentType={resourceContentType} contentId={resourceContentId} key="resourceList" contentDisplayName={resourceName} />);
+    else if (resourceContentType && resourceContentId) result.push(<BundleList contentType={resourceContentType} contentId={resourceContentId} key="bundleList" contentDisplayName={resourceName} />);
     return result;
   }
 
