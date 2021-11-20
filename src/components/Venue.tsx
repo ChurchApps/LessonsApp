@@ -3,7 +3,7 @@ import { useReactToPrint } from "react-to-print";
 import { Row, Col, Accordion } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPrint } from "@fortawesome/free-solid-svg-icons";
-import { VenueInterface, ResourceInterface } from "@/utils";
+import { VenueInterface, ResourceInterface, BundleInterface } from "@/utils";
 import { Downloads } from "./Downloads";
 import { SectionAlt } from "./SectionAlt";
 import { Section } from "./Section";
@@ -11,12 +11,16 @@ import { Section } from "./Section";
 type Props = {
   venue: VenueInterface;
   resources: ResourceInterface[];
+  bundles: BundleInterface[];
 };
 
-export function Venue({ venue, resources }: Props) {
+export function Venue(props: Props) {
+
+  console.log("Venue bundles: " + props.bundles.length)
+
   const contentRef = React.useRef<HTMLDivElement>(null);
   const [activeSectionId, setActiveSectionId] = React.useState<string>(
-    venue.sections[0].id
+    props.venue.sections[0].id
   );
 
   const handleToggle = (sectionId: string) => {
@@ -34,17 +38,17 @@ export function Venue({ venue, resources }: Props) {
       typeof window !== "undefined" &&
       window.location.href.indexOf("alt=1") > -1
     ) {
-      venue.sections?.forEach((s) => {
+      props.venue.sections?.forEach((s) => {
         sections.push(
-          <SectionAlt section={s} resources={resources} key={s.id} />
+          <SectionAlt section={s} resources={props.resources} key={s.id} />
         );
       });
     } else {
-      venue.sections?.forEach((s) => {
+      props.venue.sections?.forEach((s) => {
         sections.push(
           <Section
             section={s}
-            resources={resources}
+            resources={props.resources}
             toggleActive={handleToggle}
             activeSectionId={activeSectionId}
             key={s.id}
@@ -60,14 +64,14 @@ export function Venue({ venue, resources }: Props) {
     <div>
       <Row>
         <Col>
-          <h4>{venue.name}</h4>
+          <h4>{props.venue.name}</h4>
         </Col>
         <Col>
-          <Downloads resources={resources} />
+          <Downloads bundles={props.bundles} />
           <button
             type="button"
             className="btn btn-sm btn-light"
-            key={"print" + venue.id}
+            key={"print" + props.venue.id}
             onClick={handlePrint}
             title="print"
             style={{ float: "right", marginRight: 10 }}
@@ -77,7 +81,7 @@ export function Venue({ venue, resources }: Props) {
         </Col>
       </Row>
       <div ref={contentRef}>
-        <h2 className="printOnly">{venue.name} Instructions</h2>
+        <h2 className="printOnly">{props.venue.name} Instructions</h2>
         {getSections()}
       </div>
     </div>

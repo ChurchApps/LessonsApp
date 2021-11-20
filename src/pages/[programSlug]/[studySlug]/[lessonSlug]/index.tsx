@@ -2,11 +2,11 @@ import { GetStaticPaths, GetStaticProps } from "next";
 import { Container, Row, Col } from "react-bootstrap";
 import ReactMarkdown from "react-markdown";
 import { Layout, Venues } from "@/components";
-import { ApiHelper, ProgramInterface, StudyInterface, LessonInterface, ArrayHelper, VenueInterface, ResourceInterface } from "@/utils";
+import { ApiHelper, ProgramInterface, StudyInterface, LessonInterface, ArrayHelper, VenueInterface, ResourceInterface, BundleInterface } from "@/utils";
 
-type Props = { program: ProgramInterface; study: StudyInterface; lesson: LessonInterface; venues: VenueInterface[]; resources: ResourceInterface[]; };
+type Props = { program: ProgramInterface; study: StudyInterface; lesson: LessonInterface; venues: VenueInterface[]; resources: ResourceInterface[]; bundles: BundleInterface[]; };
 
-export default function LessonsPage({ program, study, lesson, venues, resources, }: Props) {
+export default function LessonsPage({ program, study, lesson, venues, resources, bundles }: Props) {
 
   const video = lesson.videoEmbedUrl ? (
     <div className="videoWrapper">
@@ -34,7 +34,7 @@ export default function LessonsPage({ program, study, lesson, venues, resources,
           </div>
           {video}
           <p>{lesson?.description}</p>
-          <Venues venues={venues} resources={resources} />
+          <Venues venues={venues} resources={resources} bundles={bundles} />
           {program.aboutSection && (
             <>
               <h4 style={{ marginTop: 40 }}>About {program.name}</h4>
@@ -95,12 +95,15 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
   const lesson: LessonInterface = await ApiHelper.getAnonymous("/lessons/public/slug/" + study.id + "/" + params.lessonSlug, "LessonsApi");
   const venues: VenueInterface[] = await ApiHelper.getAnonymous("/venues/public/lesson/" + lesson.id, "LessonsApi");
   const resources: ResourceInterface[] = await ApiHelper.getAnonymous("/resources/public/lesson/" + lesson.id, "LessonsApi");
+  const bundles: BundleInterface[] = await ApiHelper.getAnonymous("/bundles/public/lesson/" + lesson.id, "LessonsApi");
   resources?.forEach(r => {
     if (r.variants) r.variants = ArrayHelper.getAll(r.variants, "hidden", false);
-  })
+  });
+
+  console.log("BUndles: " + bundles.length)
 
   return {
-    props: { program, study, lesson, venues, resources, },
+    props: { program, study, lesson, venues, resources, bundles },
     revalidate: 30,
   };
 

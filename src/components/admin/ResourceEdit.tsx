@@ -68,10 +68,6 @@ export function ResourceEdit(props: Props) {
       <InputBox id="resourceDetailsBox" headerText={props.contentDisplayName} headerIcon="fas fa-file-alt" saveFunction={handleSave} cancelFunction={handleCancel} deleteFunction={getDeleteFunction()} >
         <ErrorMessages errors={errors} />
         <FormGroup>
-          <FormLabel>Category</FormLabel>
-          <FormControl type="text" name="category" value={resource.category} onChange={handleChange} onKeyDown={handleKeyDown} placeholder="Videos" />
-        </FormGroup>
-        <FormGroup>
           <FormLabel>Resource Name</FormLabel>
           <FormControl type="text" name="name" value={resource.name} onChange={handleChange} onKeyDown={handleKeyDown} placeholder="Countdown Video" />
         </FormGroup>

@@ -1,22 +1,23 @@
-import { VenueInterface, ResourceInterface, ArrayHelper } from "@/utils";
+import { VenueInterface, ResourceInterface, ArrayHelper, BundleInterface } from "@/utils";
 import { Venue } from "./Venue";
 
 type Props = {
   venues: VenueInterface[];
   resources: ResourceInterface[];
+  bundles: BundleInterface[];
 };
 
-export function Venues({ venues, resources: allResources }: Props) {
-  const venueViews = venues.map((v) => {
+export function Venues(props: Props) {
+  const venueViews = props.venues.map((v) => {
     const resources: ResourceInterface[] = [];
 
     v.sections?.forEach((s) => {
       s.roles?.forEach((r) => {
         r.actions?.forEach((a) => {
           if (a.resourceId) {
-            if (allResources) {
+            if (props.resources) {
               const r: ResourceInterface = ArrayHelper.getOne(
-                allResources,
+                props.resources,
                 "id",
                 a.resourceId
               );
@@ -27,13 +28,15 @@ export function Venues({ venues, resources: allResources }: Props) {
       });
     });
 
+    const bundleIds = ArrayHelper.getUniqueValues(resources, "bundleId");
+    const bundles = ArrayHelper.getAllArray(props.bundles, "id", bundleIds)
     resources.sort((a, b) => (a.name > b.name ? 1 : -1));
 
     return (
       <div key={v.id}>
         <br />
         <br />
-        <Venue venue={v} resources={resources} />
+        <Venue venue={v} resources={resources} bundles={bundles} />
       </div>
     );
   });
