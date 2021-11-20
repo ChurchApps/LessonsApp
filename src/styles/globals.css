@@ -564,6 +564,16 @@ dropdown-menu a {
   padding-bottom: 0px;
 }
 
+#resourceTree .bundleRow td:last-child {
+  text-align: right;
+}
+#resourceTree .bundleRow td:last-child a {
+  color: #77cc00;
+}
+#resourceTree .bundleRow td:last-child a i {
+  margin-right: 1px;
+}
+
 #resourceTree .resourceRow td:last-child {
   text-align: right;
 }
@@ -573,12 +583,14 @@ dropdown-menu a {
 #resourceTree .resourceRow td:last-child .dropdown-menu a {
   color: #333;
 }
-
+#resourceTree .resourceRow td:first-child {
+  padding-left: 15px;
+}
 #resourceTree .variantRow td:first-child {
-  padding-left: 20px;
+  padding-left: 30px;
 }
 #resourceTree .assetRow td:first-child {
-  padding-left: 20px;
+  padding-left: 30px;
 }
 
 .venueRow td:last-child {
@@ -860,11 +872,11 @@ dropdown-menu a {
 .downloadAccordion .card-body { background-color: #FFF;}
 
 .downloadsDropDown .dropdown-menu.show .dropdown-menu.show { width:inherit !important; }
-.downloadResource {padding:5px;}
+.downloadResource {padding:5px 10px;}
 
 a.dropdown-toggle::after {display: none;}
 
-#resourcesBox .content {min-height: 110px;}
+#resourcesBox .content {padding-bottom: 50px;}
 
 @media (max-width: 600px) { 
   .downloadAccordion { min-width:90vw !important; }
