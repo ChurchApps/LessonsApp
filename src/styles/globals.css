@@ -872,7 +872,7 @@ dropdown-menu a {
 .downloadAccordion .card-body { background-color: #FFF;}
 
 .downloadsDropDown .dropdown-menu.show .dropdown-menu.show { width:inherit !important; }
-.downloadResource {padding:5px;}
+.downloadResource {padding:5px 10px;}
 
 a.dropdown-toggle::after {display: none;}
 

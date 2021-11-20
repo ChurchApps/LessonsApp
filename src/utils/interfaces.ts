@@ -110,6 +110,7 @@ export interface BundleInterface {
   contentId?: string;
   name?: string;
   resources?: ResourceInterface[];
+  file?: FileInterface;
 }
 export interface ResourceInterface {
   id?: string;
