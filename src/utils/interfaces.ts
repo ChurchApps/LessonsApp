@@ -116,8 +116,6 @@ export interface BundleInterface {
 export interface ResourceInterface {
   id?: string;
   bundleId?: string;
-  contentType?: string;
-  contentId?: string;
   category?: string;
   name?: string;
   variants?: VariantInterface[];
