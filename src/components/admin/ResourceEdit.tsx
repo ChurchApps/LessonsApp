@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { FormGroup, FormControl, FormLabel } from "react-bootstrap";
 import { InputBox, ErrorMessages } from "../index";
-import { ApiHelper, ResourceInterface } from "@/utils";
+import { ApiHelper, BundleInterface, LessonInterface, ResourceInterface, StudyInterface } from "@/utils";
 
 type Props = {
   resource: ResourceInterface;
@@ -10,6 +10,7 @@ type Props = {
 };
 
 export function ResourceEdit(props: Props) {
+  const [bundles, setBundles] = useState<BundleInterface[]>([]);
   const [resource, setResource] = useState<ResourceInterface>({} as ResourceInterface);
   const [errors, setErrors] = useState([]);
 
@@ -24,16 +25,16 @@ export function ResourceEdit(props: Props) {
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     e.preventDefault();
-    let v = { ...resource };
+    let r = { ...resource };
     switch (e.currentTarget.name) {
       case "name":
-        v.name = e.currentTarget.value;
+        r.name = e.currentTarget.value;
         break;
-      case "category":
-        v.category = e.currentTarget.value;
+      case "bundleId":
+        r.bundleId = e.currentTarget.value;
         break;
     }
-    setResource(v);
+    setResource(r);
   };
 
   const validate = () => {
@@ -61,12 +62,60 @@ export function ResourceEdit(props: Props) {
     }
   };
 
-  useEffect(() => { setResource(props.resource); }, [props.resource]);
+  const loadBundles = async (currentBundle: BundleInterface) => {
+    let programId = "";
+    let studyId = "";
+    switch (currentBundle.contentType) {
+      case "program":
+        programId = currentBundle.contentId;
+        break;
+      case "study":
+        studyId = currentBundle.contentId;
+        let study: StudyInterface = await ApiHelper.get("/studies/" + studyId, "LessonsApi");
+        programId = study.programId;
+        break;
+      case "lesson":
+        let lesson: LessonInterface = await ApiHelper.get("/lessons/" + currentBundle.contentId, "LessonsApi")
+        studyId = lesson.studyId;
+        study = await ApiHelper.get("/studies/" + studyId, "LessonsApi");
+        programId = study.programId;
+        break;
+    }
+    const available: BundleInterface[] = await ApiHelper.get("/bundles/available?programId=" + programId + "&studyId=" + studyId, "LessonsApi");
+    setBundles(available);
+  }
+
+  useEffect(() => {
+    setResource(props.resource);
+    ApiHelper.get("/bundles/" + props.resource.bundleId, "LessonsApi").then(bundle => {
+      loadBundles(bundle);
+    });
+  }, [props.resource]);
+
+
+
+
+  const getBundleOptions = () => {
+    const result: JSX.Element[] = [];
+    bundles?.forEach(b => {
+      let displayType = "Lesson";
+      if (b.contentType === "study") displayType = "Study";
+      if (b.contentType === "program") displayType = "Program";
+      result.push(<option value={b.id}>{displayType} - {b.contentName}: {b.name}</option>)
+    });
+    return result;
+  }
 
   return (
     <>
       <InputBox id="resourceDetailsBox" headerText={props.contentDisplayName} headerIcon="fas fa-file-alt" saveFunction={handleSave} cancelFunction={handleCancel} deleteFunction={getDeleteFunction()} >
         <ErrorMessages errors={errors} />
+        <FormGroup>
+          <FormLabel>Bundle</FormLabel>
+          <FormControl as="select" name="bundleId" value={resource.bundleId} onChange={handleChange}>
+            {getBundleOptions()}
+          </FormControl>
+        </FormGroup>
         <FormGroup>
           <FormLabel>Resource Name</FormLabel>
           <FormControl type="text" name="name" value={resource.name} onChange={handleChange} onKeyDown={handleKeyDown} placeholder="Countdown Video" />
