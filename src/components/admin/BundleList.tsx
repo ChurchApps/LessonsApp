@@ -132,7 +132,7 @@ export const BundleList: React.FC<Props> = (props) => {
             </a>
           </td>
           <td>
-            <a href="about:blank" onClick={(e) => { e.preventDefault(); setEditResource({ contentType: props.contentType, contentId: props.contentId, category: bundle.name, bundleId: bundle.id }); }} >
+            <a href="about:blank" onClick={(e) => { e.preventDefault(); setEditResource({ category: bundle.name, bundleId: bundle.id }); }} >
               <i className="fas fa-plus"></i>
             </a>
           </td>
@@ -182,7 +182,7 @@ export const BundleList: React.FC<Props> = (props) => {
 
   const getEditContent = () => {
     return (
-      <a href="about:blank" onClick={(e) => { e.preventDefault(); setEditResource({ contentType: props.contentType, contentId: props.contentId, }); }} >
+      <a href="about:blank" onClick={(e) => { e.preventDefault(); setEditBundle({ contentType: props.contentType, contentId: props.contentId }); }} >
         <i className="fas fa-plus"></i>
       </a>
     );
