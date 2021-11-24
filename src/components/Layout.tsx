@@ -6,21 +6,18 @@ type Props = {
   children: React.ReactNode;
   withoutNavbar?: boolean;
   withoutFooter?: boolean;
+  pageTitle?: string;
 };
 
-export function Layout({
-  children,
-  withoutNavbar = false,
-  withoutFooter = false,
-}: Props) {
+export function Layout(props: Props) {
   return (
     <div>
       <Head>
-        <title>Lessons.church - Free Church Curriculum</title>
+        <title>{props.pageTitle || "Lessons.church - Free Church Curriculum"}</title>
       </Head>
-      {!withoutNavbar && <Header />}
-      <main>{children}</main>
-      {!withoutFooter && <Footer />}
+      {!props.withoutNavbar && <Header />}
+      <main>{props.children}</main>
+      {!props.withoutFooter && <Footer />}
     </div>
   );
 }

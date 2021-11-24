@@ -6,39 +6,39 @@ import { ApiHelper, ProgramInterface, StudyInterface, LessonInterface, ArrayHelp
 
 type Props = { program: ProgramInterface; study: StudyInterface; lesson: LessonInterface; venues: VenueInterface[]; resources: ResourceInterface[]; bundles: BundleInterface[]; };
 
-export default function LessonsPage({ program, study, lesson, venues, resources, bundles }: Props) {
+export default function LessonsPage(props: Props) {
 
-  const video = lesson.videoEmbedUrl ? (
+  const video = props.lesson.videoEmbedUrl ? (
     <div className="videoWrapper">
-      <iframe width="992" height="558" src={lesson?.videoEmbedUrl} title="YouTube video player" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowFullScreen ></iframe>
+      <iframe width="992" height="558" src={props.lesson?.videoEmbedUrl} title="YouTube video player" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowFullScreen ></iframe>
     </div>
   ) : (
     <Row>
       <Col lg={{ span: 8, offset: 2 }}>
-        <img src={lesson.image} className="img-fluid profilePic" alt={lesson.name} /><br /><br />
+        <img src={props.lesson.image} className="img-fluid profilePic" alt={props.lesson.name} /><br /><br />
       </Col>
     </Row>
   );
 
   return (
-    <Layout>
+    <Layout pageTitle={props.program.name + ": " + props.lesson?.title + " - Lessons.church"}>
       <div className="pageSection">
         <Container>
           <div className="text-center">
             <div className="title">
-              {program?.name}: <span>{study?.name}</span>
+              {props.program?.name}: <span>{props.study?.name}</span>
             </div>
             <h2>
-              {lesson?.name}: <span>{lesson?.title}</span>
+              {props.lesson?.name}: <span>{props.lesson?.title}</span>
             </h2>
           </div>
           {video}
-          <p>{lesson?.description}</p>
-          <Venues venues={venues} resources={resources} bundles={bundles} />
-          {program.aboutSection && (
+          <p>{props.lesson?.description}</p>
+          <Venues venues={props.venues} resources={props.resources} bundles={props.bundles} />
+          {props.program.aboutSection && (
             <>
-              <h4 style={{ marginTop: 40 }}>About {program.name}</h4>
-              <ReactMarkdown>{program.aboutSection}</ReactMarkdown>
+              <h4 style={{ marginTop: 40 }}>About {props.program.name}</h4>
+              <ReactMarkdown>{props.program.aboutSection}</ReactMarkdown>
             </>
           )}
         </Container>
@@ -48,45 +48,21 @@ export default function LessonsPage({ program, study, lesson, venues, resources,
 }
 
 export const getStaticPaths: GetStaticPaths = async () => {
-  const programs: ProgramInterface[] = await ApiHelper.getAnonymous(
-    "/programs/public",
-    "LessonsApi"
-  );
-
+  const programs: ProgramInterface[] = await ApiHelper.getAnonymous("/programs/public", "LessonsApi");
   const programsIds = programs.map((p) => p.id);
 
-  const studies: StudyInterface[] = await ApiHelper.getAnonymous(
-    `/studies/public/programs?ids=${escape(programsIds.join(","))}`,
-    "LessonsApi"
-  );
-
+  const studies: StudyInterface[] = await ApiHelper.getAnonymous(`/studies/public/programs?ids=${escape(programsIds.join(","))}`, "LessonsApi");
   const studyIds = studies.map((s) => s.id);
 
-  const lessons: LessonInterface[] = await ApiHelper.getAnonymous(
-    `/lessons/public/studies?ids=${escape(studyIds.join(","))}`,
-    "LessonsApi"
-  );
+  const lessons: LessonInterface[] = await ApiHelper.getAnonymous(`/lessons/public/studies?ids=${escape(studyIds.join(","))}`, "LessonsApi");
 
   const paths = lessons.map((l) => {
     const study: StudyInterface = ArrayHelper.getOne(studies, "id", l.studyId);
-    const program: ProgramInterface = ArrayHelper.getOne(
-      programs,
-      "id",
-      study.programId
-    );
-    return {
-      params: {
-        programSlug: program.slug,
-        studySlug: study.slug,
-        lessonSlug: l.slug,
-      },
-    };
+    const program: ProgramInterface = ArrayHelper.getOne(programs, "id", study.programId);
+    return { params: { programSlug: program.slug, studySlug: study.slug, lessonSlug: l.slug, }, };
   });
 
-  return {
-    paths,
-    fallback: "blocking",
-  };
+  return { paths, fallback: "blocking", };
 };
 
 export const getStaticProps: GetStaticProps = async ({ params }) => {
@@ -99,8 +75,6 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
   resources?.forEach(r => {
     if (r.variants) r.variants = ArrayHelper.getAll(r.variants, "hidden", false);
   });
-
-  console.log("BUndles: " + bundles.length)
 
   return {
     props: { program, study, lesson, venues, resources, bundles },
