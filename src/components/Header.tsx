@@ -55,7 +55,7 @@ export function Header() {
             <div>
               <Link href="/">
                 <a className="navbar-brand">
-                  <img src="/images/logo.png" alt="logo" />
+                  <img src="/images/logo.png" alt="Lessons.church - Free Curriculum for Churches" />
                 </a>
               </Link>
             </div>

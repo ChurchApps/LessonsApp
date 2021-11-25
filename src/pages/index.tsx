@@ -3,7 +3,6 @@ import { GetStaticProps } from "next";
 import { Container, Row, Col, Button } from "react-bootstrap";
 import { Layout, Programs } from "@/components";
 import { ApiHelper, ProgramInterface, ProviderInterface } from "@/utils";
-import { ComingSoon } from "@/components/ComingSoon";
 
 type Props = {
   programs: ProgramInterface[];
@@ -11,11 +10,7 @@ type Props = {
 };
 
 export default function Home({ programs, providers }: Props) {
-  if (false) {
-    return (<Layout withoutNavbar withoutFooter>
-      <ComingSoon />
-    </Layout>);
-  } else return (
+  return (
     <Layout metaDescription="Church budgets prohibit teaching the word of God in the most effective way possible. We provide high quality content to churches completely free of charge, thanks to our generous partners.">
       <div id="hero">
         <Container>
