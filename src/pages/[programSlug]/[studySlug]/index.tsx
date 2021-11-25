@@ -9,33 +9,33 @@ type Props = {
   lessons: LessonInterface[];
 };
 
-export default function StudyPage({ study, program, lessons }: Props) {
-  const video = study.videoEmbedUrl ? (
+export default function StudyPage(props: Props) {
+  const video = props.study.videoEmbedUrl ? (
     <div className="videoWrapper">
-      <iframe width="992" height="558" src={study.videoEmbedUrl} title="YouTube video player" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowFullScreen ></iframe>
+      <iframe width="992" height="558" src={props.study.videoEmbedUrl} title="YouTube video player" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowFullScreen ></iframe>
     </div>
   ) : (
     <Row>
       <Col lg={{ span: 8, offset: 2 }}>
-        <img src={study.image} className="img-fluid profilePic" alt={study.name} /><br /><br />
+        <img src={props.study.image} className="img-fluid profilePic" alt={props.study.name} /><br /><br />
       </Col>
     </Row>
   );
 
   return (
-    <Layout>
+    <Layout pageTitle={props.program.name + ": " + props.study?.name + " - Lessons.church"} metaDescription={props.study.description}>
       <div className="pageSection">
         <Container>
           <div className="text-center">
-            <h2>{program?.name || ""}: <span>{study?.name}</span></h2>
-            <p><i>{study.shortDescription}</i></p>
+            <h2>{props.program?.name || ""}: <span>{props.study?.name}</span></h2>
+            <p><i>{props.study.shortDescription}</i></p>
           </div>
-          <p>{study.description}</p>
+          <p>{props.study.description}</p>
           {video}
           <br />
           <br />
-          {lessons?.length > 0 && (
-            <Lessons lessons={lessons} slug={`/${program.slug}/${study.slug}`}
+          {props.lessons?.length > 0 && (
+            <Lessons lessons={props.lessons} slug={`/${props.program.slug}/${props.study.slug}`}
             />
           )}
         </Container>

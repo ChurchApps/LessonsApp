@@ -9,10 +9,7 @@ export default function Login() {
   const router = useRouter()
   const [cookies] = useCookies()
 
-  if (ApiHelper.isAuthenticated && UserHelper.currentChurch) {
-    router.push("/")
-    //router.push("/admin") //temporary while coming soon page is up.
-  }
+  if (ApiHelper.isAuthenticated && UserHelper.currentChurch) { router.push("/") }
 
   const loginSuccess = () => {
     console.log("login success callback...");
