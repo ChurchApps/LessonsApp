@@ -21,7 +21,7 @@ export default function LessonsPage(props: Props) {
   );
 
   return (
-    <Layout pageTitle={props.program.name + ": " + props.lesson?.title + " - Lessons.church"}>
+    <Layout pageTitle={props.program.name + ": " + props.lesson?.title + " - Lessons.church"} metaDescription={props.lesson.description}>
       <div className="pageSection">
         <Container>
           <div className="text-center">

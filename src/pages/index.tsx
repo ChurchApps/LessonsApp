@@ -16,7 +16,7 @@ export default function Home({ programs, providers }: Props) {
       <ComingSoon />
     </Layout>);
   } else return (
-    <Layout>
+    <Layout metaDescription="Church budgets prohibit teaching the word of God in the most effective way possible. We provide high quality content to churches completely free of charge, thanks to our generous partners.">
       <div id="hero">
         <Container>
           <Row>

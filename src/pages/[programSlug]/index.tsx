@@ -26,7 +26,7 @@ export default function ProgramPage(props: Props) {
   );
 
   return (
-    <Layout pageTitle={props.program.name + " - Lessons.church"}>
+    <Layout pageTitle={props.program.name + " - Lessons.church"} metaDescription={props.program.description}>
       <div className="pageSection">
         <Container>
           <div className="text-center">

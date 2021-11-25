@@ -23,7 +23,7 @@ export default function StudyPage(props: Props) {
   );
 
   return (
-    <Layout pageTitle={props.program.name + ": " + props.study?.name + " - Lessons.church"}>
+    <Layout pageTitle={props.program.name + ": " + props.study?.name + " - Lessons.church"} metaDescription={props.study.description}>
       <div className="pageSection">
         <Container>
           <div className="text-center">
