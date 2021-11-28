@@ -3,6 +3,7 @@ export { Programs } from "./Programs";
 export { Studies } from "./Studies";
 export { Lessons } from "./Lessons";
 export { Venues } from "./Venues";
+export { Venue } from "./Venue";
 export { PasswordField } from "./PasswordField";
 export { ProgramEdit } from "./admin/ProgramEdit";
 export { StudyEdit } from "./admin/StudyEdit";

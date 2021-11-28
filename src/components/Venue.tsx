@@ -12,6 +12,7 @@ type Props = {
   venue: VenueInterface;
   resources: ResourceInterface[];
   bundles: BundleInterface[];
+  hidePrint?: boolean;
 };
 
 export function Venue(props: Props) {
@@ -60,6 +61,14 @@ export function Venue(props: Props) {
     return <Accordion defaultActiveKey={activeSectionId}>{sections}</Accordion>;
   }
 
+  const getPrint = () => {
+    if (!props.hidePrint) {
+      return (<button type="button" className="btn btn-sm btn-light" key={"print" + props.venue.id} onClick={handlePrint} title="print" style={{ float: "right", marginRight: 10 }} >
+        <FontAwesomeIcon icon={faPrint} />
+      </button>);
+    }
+  }
+
   return (
     <div>
       <Row>
@@ -68,16 +77,7 @@ export function Venue(props: Props) {
         </Col>
         <Col>
           <Downloads bundles={props.bundles} />
-          <button
-            type="button"
-            className="btn btn-sm btn-light"
-            key={"print" + props.venue.id}
-            onClick={handlePrint}
-            title="print"
-            style={{ float: "right", marginRight: 10 }}
-          >
-            <FontAwesomeIcon icon={faPrint} />
-          </button>
+          {getPrint()}
         </Col>
       </Row>
       <div ref={contentRef}>
