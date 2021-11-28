@@ -878,6 +878,9 @@ a.dropdown-toggle::after {display: none;}
 
 #resourcesBox .content {padding-bottom: 50px;}
 
+.bigLink {background-color:#24b8ff; color :#FFF; border-bottom: 1px solid #FFFFFF; font-size:22px; padding-top:15px;padding-bottom: 15px;padding-left:10px; padding-right:10px; display: block;}
+.bigLink span {display:block;font-size:16px;}
+
 @media (max-width: 600px) { 
   .downloadAccordion { min-width:90vw !important; }
 }
