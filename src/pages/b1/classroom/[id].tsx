@@ -4,7 +4,7 @@ import { Container } from "react-bootstrap";
 import { Layout } from "@/components";
 import { ApiHelper, ClassroomInterface, ScheduleInterface } from "@/utils";
 import Link from "next/link";
-import { DateHelper } from "@/appBase/helpers";
+import { ArrayHelper, DateHelper } from "@/appBase/helpers";
 
 
 export default function Venue() {
@@ -40,7 +40,25 @@ export default function Venue() {
     return result;
   }
 
+  const checkRedirect = () => {
+    if (schedules) {
+      let notExpired: ScheduleInterface[] = [];
+      const cutOff = new Date();
+      cutOff.setDate(cutOff.getDate() - 1);
+      schedules.forEach(s => { if (DateHelper.convertToDate(s.scheduledDate) >= cutOff) notExpired.push(s); });
 
+      if (notExpired.length > 0) {
+        notExpired = notExpired.sort((a, b) => {
+          const dateA = DateHelper.convertToDate(a.scheduledDate);
+          const dateB = DateHelper.convertToDate(b.scheduledDate);
+          return (dateA < dateB) ? -1 : 1;
+        });
+        window.location.href = "/b1/schedule/" + notExpired[0].id;
+      }
+    }
+  }
+
+  checkRedirect();
 
   return (
     <Layout withoutNavbar={true} withoutFooter={true}>

@@ -606,6 +606,8 @@ dropdown-menu a {
   overflow-x: hidden;
 }
 
+
+
 .accordion .card {
   background-color: #f3f3f6;
   border-right: none;
@@ -878,8 +880,18 @@ a.dropdown-toggle::after {display: none;}
 
 #resourcesBox .content {padding-bottom: 50px;}
 
-.bigLink {background-color:#24b8ff; color :#FFF; border-bottom: 1px solid #FFFFFF; font-size:22px; padding-top:15px;padding-bottom: 15px;padding-left:10px; padding-right:10px; display: block;}
+.bigLink {background-color:#1c75bc; color :#FFF; border-bottom: 1px solid #FFFFFF; font-size:22px; padding-top:15px;padding-bottom: 15px;padding-left:10px; padding-right:10px; display: block;}
+.bigLink:hover {color:#FFF;}
 .bigLink span {display:block;font-size:16px;}
+
+
+.b1 .accordion .card-header.active {
+  background-color: #1c75bc;
+}
+
+.b1 .accordion .collapsing {
+  border: 1px solid #1c75bc;
+}
 
 @media (max-width: 600px) { 
   .downloadAccordion { min-width:90vw !important; }

@@ -25,7 +25,7 @@ export default function Venue() {
 
   const getRows = () => {
     const result: JSX.Element[] = [];
-    classrooms.forEach(c => {
+    classrooms?.forEach(c => {
       result.push(<Link href={"/b1/classroom/" + c.id} ><a className="bigLink">{c.name}</a></Link>)
     })
     return result;
@@ -33,13 +33,16 @@ export default function Venue() {
 
 
 
-  return (
-    <Layout withoutNavbar={true} withoutFooter={true}>
-      <Container>
-        <h1>Select a Room</h1>
-      </Container>
-      {getRows()}
-      <br />
-    </Layout>
-  );
+  if (classrooms?.length === 1) window.location.href = "/b1/classroom/" + classrooms[0].id;
+  else {
+    return (
+      <Layout withoutNavbar={true} withoutFooter={true}>
+        <Container>
+          <h1>Select a Room</h1>
+        </Container>
+        {getRows()}
+        <br />
+      </Layout>
+    );
+  }
 }
