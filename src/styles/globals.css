@@ -499,7 +499,7 @@ dropdown-menu a {
 .imgCol img {
   width: 100px;
 }
-
+/*
 #adminTree .programRow td:last-child {
   text-align: right;
 }
@@ -526,6 +526,7 @@ dropdown-menu a {
 #adminTree .lessonRow td:last-child a {
   color: #77cc00;
 }
+*/
 
 #adminTree .sectionRow td:last-child {
   text-align: right;
@@ -563,7 +564,7 @@ dropdown-menu a {
   padding-top: 0px;
   padding-bottom: 0px;
 }
-
+/*
 #resourceTree .bundleRow td:last-child {
   text-align: right;
 }
@@ -591,7 +592,7 @@ dropdown-menu a {
 }
 #resourceTree .assetRow td:first-child {
   padding-left: 30px;
-}
+}*/
 
 .venueRow td:last-child {
   text-align: right;
@@ -897,11 +898,12 @@ a.dropdown-toggle::after {display: none;}
 .adminAccordion span a {color:#7c0;}
 .adminAccordion .card {  border:none;margin-bottom: 0px;border-bottom: 1px solid #EEE;}
 .adminAccordion .card-header {  background-color: #FFF; padding:0px; border-bottom: none; padding-top:2px;padding-bottom: 2px;}
-.adminAccordion .fa-chevron-down { padding-right: 10px; color:#777;}
+.adminAccordion .fa-chevron-down { padding-right: 10px; color:#CCC;}
 .adminAccordion .collapse.show, .adminAccordion .collapsing {margin:0px;border:none;}
 .adminAccordion .card-body {padding:0px;background-color: #FFF;}
 .studyAccordion .fa-chevron-down { padding-right: 25px;}
-.lessonDiv  {padding-left: 60px;border-top:1px solid #EEE;padding-top:2px;padding-bottom: 2px;;}
+.resourceAccordion .fa-chevron-down { padding-right: 25px;}
+.lessonDiv, .assetDiv, .variantDiv  {padding-left: 55px;border-top:1px solid #EEE;padding-top:2px;padding-bottom: 2px;;}
 
 @media (max-width: 600px) { 
   .downloadAccordion { min-width:90vw !important; }

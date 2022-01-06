@@ -6,6 +6,8 @@ import { ResourceEdit } from "./ResourceEdit";
 import { AssetEdit } from "./AssetEdit";
 import { Dropdown } from "react-bootstrap";
 import { BundleEdit } from "./BundleEdit";
+import { Accordion } from "react-bootstrap";
+import { Card } from "react-bootstrap";
 
 interface Props {
   contentType: string;
@@ -59,6 +61,33 @@ export const BundleList: React.FC<Props> = (props) => {
     if (resources) {
 
       ArrayHelper.getAll(resources, "bundleId", bundleId).forEach((r) => {
+
+        result.push(<Card>
+          <Card.Header>
+            <span style={{ float: "right" }}>
+              <Dropdown>
+                <Dropdown.Toggle variant="link" id="dropdownMenuButton" data-cy="add-button" className="no-caret green" >
+                  <i className="fas fa-plus"></i>
+                </Dropdown.Toggle>
+                {getDropDownMenu(r.id)}
+              </Dropdown>
+            </span>
+            <Accordion.Toggle as={Card.Header} className="text-decoration-none" eventKey={`r-${r.id}`} >
+              <i className="fas fa-chevron-down"></i>
+              <a href="about:blank" onClick={(e) => { e.preventDefault(); clearEdits(); setEditResource(r); }} >
+                <i className="fas fa-file-alt"></i> {r.name}
+              </a>
+            </Accordion.Toggle>
+          </Card.Header>
+          <Accordion.Collapse eventKey={`r-${r.id}`} >
+            <Card.Body>
+              {getVariants(r.id)}
+              {getAssets(r.id)}
+            </Card.Body>
+          </Accordion.Collapse>
+        </Card>);
+
+        /*
         result.push(
           <tr className="resourceRow" key={`r-${r.id}`}>
             <td>
@@ -78,6 +107,7 @@ export const BundleList: React.FC<Props> = (props) => {
         );
         getVariants(r.id).forEach((v: any) => result.push(v));
         getAssets(r.id).forEach((a: any) => result.push(a));
+        */
       });
 
     }
@@ -89,13 +119,11 @@ export const BundleList: React.FC<Props> = (props) => {
     if (variants) {
       ArrayHelper.getAll(variants, "resourceId", resourceId).forEach((v) => {
         result.push(
-          <tr className="variantRow" key={`v-${v.id}`}>
-            <td colSpan={2}>
-              <a href="about:blank" onClick={(e) => { e.preventDefault(); clearEdits(); setEditVariant(v); }} >
-                <i className="fas fa-copy"></i> {v.name}
-              </a>
-            </td>
-          </tr>
+          <div className="variantDiv" key={`v-${v.id}`}>
+            <a href="about:blank" onClick={(e) => { e.preventDefault(); clearEdits(); setEditVariant(v); }} >
+              <i className="fas fa-copy"></i> {v.name}
+            </a>
+          </div>
         );
       });
     }
@@ -107,50 +135,76 @@ export const BundleList: React.FC<Props> = (props) => {
     if (assets) {
       ArrayHelper.getAll(assets, "resourceId", resourceId).forEach((a) => {
         result.push(
-          <tr className="assetRow" key={`a-${a.id}`}>
-            <td colSpan={2}>
-              <a href="about:blank" onClick={(e) => { e.preventDefault(); clearEdits(); setEditAsset(a); }} >
-                <i className="fas fa-list-ol"></i> {a.name}
-              </a>
-            </td>
-          </tr>
+          <div className="assetDiv" key={`a-${a.id}`}>
+            <a href="about:blank" onClick={(e) => { e.preventDefault(); clearEdits(); setEditAsset(a); }} >
+              <i className="fas fa-list-ol"></i> {a.name}
+            </a>
+          </div>
         );
       });
     }
     return result;
   };
 
-  const getRows = () => {
+  const getBundles = () => {
     const result: JSX.Element[] = [];
     bundles.forEach(b => {
       const bundle = b;
-      result.push(
-        <tr className="bundleRow" key={`b-${b.id}`}>
-          <td>
-            <a href="about:blank" onClick={(e) => { e.preventDefault(); clearEdits(); setEditBundle(b); }} >
-              <i className="fas fa-file-archive"></i> {b.name}
-            </a>
-          </td>
-          <td>
+
+
+      result.push(<Card>
+        <Card.Header>
+          <span style={{ float: "right" }}>
             <a href="about:blank" onClick={(e) => { e.preventDefault(); setEditResource({ category: bundle.name, bundleId: bundle.id }); }} >
               <i className="fas fa-plus"></i>
             </a>
-          </td>
-        </tr>
-      );
-      getResources(b.id).forEach((r: any) => result.push(r));
+          </span>
+          <Accordion.Toggle as={Card.Header} className="text-decoration-none" eventKey={`b-${b.id}`} >
+            <i className="fas fa-chevron-down"></i>
+            <a href="about:blank" onClick={(e) => { e.preventDefault(); clearEdits(); setEditBundle(b); }} >
+              <i className="fas fa-file-archive"></i> {b.name}
+            </a>
+          </Accordion.Toggle>
+        </Card.Header>
+        <Accordion.Collapse eventKey={`b-${b.id}`}>
+          <Card.Body>
+            <Accordion className="adminAccordion resourceAccordion">
+              {getResources(b.id)}
+            </Accordion>
+          </Card.Body>
+        </Accordion.Collapse>
+      </Card>);
+
+
+      /*
+            result.push(
+              <tr className="bundleRow" key={`b-${b.id}`}>
+                <td>
+                  <a href="about:blank" onClick={(e) => { e.preventDefault(); clearEdits(); setEditBundle(b); }} >
+                    <i className="fas fa-file-archive"></i> {b.name}
+                  </a>
+                </td>
+                <td>
+                  <a href="about:blank" onClick={(e) => { e.preventDefault(); setEditResource({ category: bundle.name, bundleId: bundle.id }); }} >
+                    <i className="fas fa-plus"></i>
+                  </a>
+                </td>
+              </tr>
+            );
+            getResources(b.id).forEach((r: any) => result.push(r));
+            */
     });
 
     return result;
   };
 
 
-  const getTable = () => {
+  const getAccordion = () => {
     if (resources === null) return <Loading />;
     else return (
-      <table className="table table-sm table-borderless" id="resourceTree">
-        <tbody>{getRows()}</tbody>
-      </table>
+      <Accordion className="adminAccordion">
+        {getBundles()}
+      </Accordion>
     );
   };
 
@@ -198,7 +252,7 @@ export const BundleList: React.FC<Props> = (props) => {
     return (
       <>
         <DisplayBox id="resourcesBox" headerText={props.contentDisplayName} headerIcon="fas fa-file-archive" editContent={getEditContent()} >
-          {getTable()}
+          {getAccordion()}
         </DisplayBox>
       </>
     );

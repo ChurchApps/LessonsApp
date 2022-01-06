@@ -57,37 +57,32 @@ export default function Admin() {
     const result: JSX.Element[] = [];
     programs.forEach((p) => {
 
-      result.push(
-
-        <Card>
-          <Card.Header>
-            <span style={{ float: "right" }}>
-              <a href="about:blank" onClick={(e) => { e.preventDefault(); clearEdits(); showResources("program", p.id, p.name); }} >
-                <i className="fas fa-file-alt"></i>
-              </a>{" "}
-              &nbsp;
-              <a href="about:blank" onClick={(e) => { e.preventDefault(); clearEdits(); setEditStudy({ programId: p.id }); }} >
-                <i className="fas fa-plus"></i>
-              </a>
-            </span>
-            <Accordion.Toggle as={Card.Header} className="text-decoration-none" eventKey={`p-${p.id}`} >
-              <i className="fas fa-chevron-down"></i>
-              <a href="about:blank" onClick={(e) => { e.preventDefault(); clearEdits(); setEditProgram(p); }} >
-                <i className="fas fa-graduation-cap"></i> {p.name}
-              </a>
-            </Accordion.Toggle>
-          </Card.Header>
-          <Accordion.Collapse eventKey={`p-${p.id}`}>
-            <Card.Body>
-              <Accordion className="adminAccordion studyAccordion">
-                {getStudies(p.id)}
-              </Accordion>
-            </Card.Body>
-          </Accordion.Collapse>
-        </Card >
-
-
-      );
+      result.push(<Card>
+        <Card.Header>
+          <span style={{ float: "right" }}>
+            <a href="about:blank" onClick={(e) => { e.preventDefault(); clearEdits(); showResources("program", p.id, p.name); }} >
+              <i className="fas fa-file-alt"></i>
+            </a>{" "}
+            &nbsp;
+            <a href="about:blank" onClick={(e) => { e.preventDefault(); clearEdits(); setEditStudy({ programId: p.id }); }} >
+              <i className="fas fa-plus"></i>
+            </a>
+          </span>
+          <Accordion.Toggle as={Card.Header} className="text-decoration-none" eventKey={`p-${p.id}`} >
+            <i className="fas fa-chevron-down"></i>
+            <a href="about:blank" onClick={(e) => { e.preventDefault(); clearEdits(); setEditProgram(p); }} >
+              <i className="fas fa-graduation-cap"></i> {p.name}
+            </a>
+          </Accordion.Toggle>
+        </Card.Header>
+        <Accordion.Collapse eventKey={`p-${p.id}`}>
+          <Card.Body>
+            <Accordion className="adminAccordion studyAccordion">
+              {getStudies(p.id)}
+            </Accordion>
+          </Card.Body>
+        </Accordion.Collapse>
+      </Card>);
       /*
               <tr className="programRow" key={`p-${p.id}`}>
           <td>
@@ -116,35 +111,30 @@ export default function Admin() {
     if (studies) {
       ArrayHelper.getAll(studies, "programId", programId).forEach((s) => {
 
-        result.push(
-          <Card>
-            <Card.Header>
-              <span style={{ float: "right" }}>
-                <a href="about:blank" onClick={(e) => { e.preventDefault(); clearEdits(); showResources("study", s.id, s.name); }} >
-                  <i className="fas fa-file-alt"></i>
-                </a>{" "}
-                &nbsp;
-                <a href="about:blank" onClick={(e) => { e.preventDefault(); clearEdits(); setEditLesson({ studyId: s.id }); }} >
-                  <i className="fas fa-plus"></i>
-                </a>
-              </span>
-              <Accordion.Toggle as={Card.Header} className="text-decoration-none" eventKey={`s-${s.id}`} >
-                <i className="fas fa-chevron-down"></i>
-                <a href="about:blank" onClick={(e) => { e.preventDefault(); clearEdits(); setEditStudy(s); }} >
-                  <i className="fas fa-layer-group"></i> {s.name}
-                </a>
-              </Accordion.Toggle>
-
-
-
-            </Card.Header>
-            <Accordion.Collapse eventKey={`s-${s.id}`} >
-              <Card.Body>
-                {getLessons(s.id)}
-              </Card.Body>
-            </Accordion.Collapse>
-          </Card>
-        );
+        result.push(<Card>
+          <Card.Header>
+            <span style={{ float: "right" }}>
+              <a href="about:blank" onClick={(e) => { e.preventDefault(); clearEdits(); showResources("study", s.id, s.name); }} >
+                <i className="fas fa-file-alt"></i>
+              </a>{" "}
+              &nbsp;
+              <a href="about:blank" onClick={(e) => { e.preventDefault(); clearEdits(); setEditLesson({ studyId: s.id }); }} >
+                <i className="fas fa-plus"></i>
+              </a>
+            </span>
+            <Accordion.Toggle as={Card.Header} className="text-decoration-none" eventKey={`s-${s.id}`} >
+              <i className="fas fa-chevron-down"></i>
+              <a href="about:blank" onClick={(e) => { e.preventDefault(); clearEdits(); setEditStudy(s); }} >
+                <i className="fas fa-layer-group"></i> {s.name}
+              </a>
+            </Accordion.Toggle>
+          </Card.Header>
+          <Accordion.Collapse eventKey={`s-${s.id}`} >
+            <Card.Body>
+              {getLessons(s.id)}
+            </Card.Body>
+          </Accordion.Collapse>
+        </Card>);
 
 
         /*
@@ -178,7 +168,7 @@ export default function Admin() {
     if (lessons) {
       ArrayHelper.getAll(lessons, "studyId", studyId).forEach((l) => {
         result.push(
-          <div className="lessonDiv">
+          <div className="lessonDiv" key={"l" + l.id}>
             <span style={{ float: "right" }}>
               <a href="about:blank" onClick={(e) => { e.preventDefault(); clearEdits(); showResources("lesson", l.id, l.name); }} >
                 <i className="fas fa-file-alt"></i>
@@ -227,14 +217,13 @@ export default function Admin() {
 
   return (
     <Layout>
-      <Container>
+      <Container style={{ minHeight: 700 }}>
         <h1>Programs</h1>
         <Row>
           <Col lg={8}>
             <DisplayBox headerText="Programs" headerIcon="none" editContent={getEditContent} >
               {getAccordion()}
             </DisplayBox>
-
           </Col>
           <Col lg={4}>{getSidebar()}</Col>
         </Row>
