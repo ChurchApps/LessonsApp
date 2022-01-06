@@ -71,6 +71,7 @@ export default function Admin() {
               </a>
             </span>
             <Accordion.Toggle as={Card.Header} className="text-decoration-none" eventKey={`p-${p.id}`} >
+              <i className="fas fa-chevron-down"></i>
               <a href="about:blank" onClick={(e) => { e.preventDefault(); clearEdits(); setEditProgram(p); }} >
                 <i className="fas fa-graduation-cap"></i> {p.name}
               </a>
@@ -128,6 +129,7 @@ export default function Admin() {
                 </a>
               </span>
               <Accordion.Toggle as={Card.Header} className="text-decoration-none" eventKey={`s-${s.id}`} >
+                <i className="fas fa-chevron-down"></i>
                 <a href="about:blank" onClick={(e) => { e.preventDefault(); clearEdits(); setEditStudy(s); }} >
                   <i className="fas fa-layer-group"></i> {s.name}
                 </a>
@@ -196,7 +198,7 @@ export default function Admin() {
     return result;
   }
 
-  function getTable() {
+  function getAccordion() {
     if (programs === null) return <Loading />;
     else
       return (
@@ -229,11 +231,10 @@ export default function Admin() {
         <h1>Programs</h1>
         <Row>
           <Col lg={8}>
-            <div className="scrollingList">
-              <DisplayBox headerText="Programs" headerIcon="none" editContent={getEditContent} >
-                {getTable()}
-              </DisplayBox>
-            </div>
+            <DisplayBox headerText="Programs" headerIcon="none" editContent={getEditContent} >
+              {getAccordion()}
+            </DisplayBox>
+
           </Col>
           <Col lg={4}>{getSidebar()}</Col>
         </Row>
