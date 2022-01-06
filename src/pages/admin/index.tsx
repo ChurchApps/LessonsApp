@@ -1,8 +1,10 @@
 import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
-import { Row, Col, Container } from "react-bootstrap";
+import { Row, Col, Container, Accordion, Card } from "react-bootstrap";
 import { Layout, DisplayBox, Loading, ProgramEdit, StudyEdit, LessonEdit, VenueList, BundleList } from "@/components";
 import { ApiHelper, LessonInterface, ProgramInterface, StudyInterface, ArrayHelper, } from "@/utils";
+import { Button } from "react-bootstrap";
+
 
 export default function Admin() {
   const [programs, setPrograms] = useState<ProgramInterface[]>(null);
@@ -51,11 +53,38 @@ export default function Admin() {
     setResourceName(name);
   }
 
-  function getRows() {
+  function getPrograms() {
     const result: JSX.Element[] = [];
     programs.forEach((p) => {
-      result.push(
-        <tr className="programRow" key={`p-${p.id}`}>
+
+      result.push(<Card>
+        <Card.Header>
+          <span style={{ float: "right" }}>
+            <a href="about:blank" onClick={(e) => { e.preventDefault(); clearEdits(); showResources("program", p.id, p.name); }} >
+              <i className="fas fa-file-alt"></i>
+            </a>{" "}
+            &nbsp;
+            <a href="about:blank" onClick={(e) => { e.preventDefault(); clearEdits(); setEditStudy({ programId: p.id }); }} >
+              <i className="fas fa-plus"></i>
+            </a>
+          </span>
+          <Accordion.Toggle as={Card.Header} className="text-decoration-none" eventKey={`p-${p.id}`} >
+            <i className="fas fa-chevron-down"></i>
+            <a href="about:blank" onClick={(e) => { e.preventDefault(); clearEdits(); setEditProgram(p); }} >
+              <i className="fas fa-graduation-cap"></i> {p.name}
+            </a>
+          </Accordion.Toggle>
+        </Card.Header>
+        <Accordion.Collapse eventKey={`p-${p.id}`}>
+          <Card.Body>
+            <Accordion className="adminAccordion studyAccordion">
+              {getStudies(p.id)}
+            </Accordion>
+          </Card.Body>
+        </Accordion.Collapse>
+      </Card>);
+      /*
+              <tr className="programRow" key={`p-${p.id}`}>
           <td>
             <a href="about:blank" onClick={(e) => { e.preventDefault(); clearEdits(); setEditProgram(p); }} >
               <i className="fas fa-graduation-cap"></i> {p.name}
@@ -71,8 +100,8 @@ export default function Admin() {
             </a>
           </td>
         </tr>
-      );
-      getStudies(p.id).forEach((i) => result.push(i));
+      */
+
     });
     return result;
   }
@@ -81,14 +110,10 @@ export default function Admin() {
     const result: JSX.Element[] = [];
     if (studies) {
       ArrayHelper.getAll(studies, "programId", programId).forEach((s) => {
-        result.push(
-          <tr className="studyRow" key={`s-${s.id}`}>
-            <td>
-              <a href="about:blank" onClick={(e) => { e.preventDefault(); clearEdits(); setEditStudy(s); }} >
-                <i className="fas fa-layer-group"></i> {s.name}
-              </a>
-            </td>
-            <td>
+
+        result.push(<Card>
+          <Card.Header>
+            <span style={{ float: "right" }}>
               <a href="about:blank" onClick={(e) => { e.preventDefault(); clearEdits(); showResources("study", s.id, s.name); }} >
                 <i className="fas fa-file-alt"></i>
               </a>{" "}
@@ -96,10 +121,43 @@ export default function Admin() {
               <a href="about:blank" onClick={(e) => { e.preventDefault(); clearEdits(); setEditLesson({ studyId: s.id }); }} >
                 <i className="fas fa-plus"></i>
               </a>
-            </td>
-          </tr>
-        );
-        getLessons(s.id).forEach((i) => result.push(i));
+            </span>
+            <Accordion.Toggle as={Card.Header} className="text-decoration-none" eventKey={`s-${s.id}`} >
+              <i className="fas fa-chevron-down"></i>
+              <a href="about:blank" onClick={(e) => { e.preventDefault(); clearEdits(); setEditStudy(s); }} >
+                <i className="fas fa-layer-group"></i> {s.name}
+              </a>
+            </Accordion.Toggle>
+          </Card.Header>
+          <Accordion.Collapse eventKey={`s-${s.id}`} >
+            <Card.Body>
+              {getLessons(s.id)}
+            </Card.Body>
+          </Accordion.Collapse>
+        </Card>);
+
+
+        /*
+                result.push(
+                  <tr className="studyRow" key={`s-${s.id}`}>
+                    <td>
+                      <a href="about:blank" onClick={(e) => { e.preventDefault(); clearEdits(); setEditStudy(s); }} >
+                        <i className="fas fa-layer-group"></i> {s.name}
+                      </a>
+                    </td>
+                    <td>
+                      <a href="about:blank" onClick={(e) => { e.preventDefault(); clearEdits(); showResources("study", s.id, s.name); }} >
+                        <i className="fas fa-file-alt"></i>
+                      </a>{" "}
+                      &nbsp;
+                      <a href="about:blank" onClick={(e) => { e.preventDefault(); clearEdits(); setEditLesson({ studyId: s.id }); }} >
+                        <i className="fas fa-plus"></i>
+                      </a>
+                    </td>
+                  </tr>
+                );
+                getLessons(s.id).forEach((i) => result.push(i));
+                */
       });
     }
     return result;
@@ -110,13 +168,8 @@ export default function Admin() {
     if (lessons) {
       ArrayHelper.getAll(lessons, "studyId", studyId).forEach((l) => {
         result.push(
-          <tr className="lessonRow" key={`l-${l.id}`}>
-            <td>
-              <a href="about:blank" onClick={(e) => { e.preventDefault(); clearEdits(); setEditLesson(l); }} >
-                <i className="fas fa-book"></i> {l.name}: {l.title}
-              </a>
-            </td>
-            <td>
+          <div className="lessonDiv" key={"l" + l.id}>
+            <span style={{ float: "right" }}>
               <a href="about:blank" onClick={(e) => { e.preventDefault(); clearEdits(); showResources("lesson", l.id, l.name); }} >
                 <i className="fas fa-file-alt"></i>
               </a>{" "}
@@ -124,21 +177,25 @@ export default function Admin() {
               <a href="about:blank" onClick={(e) => { e.preventDefault(); clearEdits(); setVenuesLessonId(l.id); }} >
                 <i className="fas fa-map-marker"></i>
               </a>
-            </td>
-          </tr>
+            </span>
+            <a href="about:blank" onClick={(e) => { e.preventDefault(); clearEdits(); setEditLesson(l); }} >
+              <i className="fas fa-book"></i> {l.name}: {l.title}
+            </a>
+          </div>
         );
       });
     }
     return result;
   }
 
-  function getTable() {
+  function getAccordion() {
     if (programs === null) return <Loading />;
     else
       return (
-        <table className="table table-sm" id="adminTree">
-          <tbody>{getRows()}</tbody>
-        </table>
+        <Accordion className="adminAccordion">
+          {getPrograms()}
+        </Accordion>
+
       );
   }
 
@@ -160,15 +217,13 @@ export default function Admin() {
 
   return (
     <Layout>
-      <Container>
+      <Container style={{ minHeight: 700 }}>
         <h1>Programs</h1>
         <Row>
           <Col lg={8}>
-            <div className="scrollingList">
-              <DisplayBox headerText="Programs" headerIcon="none" editContent={getEditContent} >
-                {getTable()}
-              </DisplayBox>
-            </div>
+            <DisplayBox headerText="Programs" headerIcon="none" editContent={getEditContent} >
+              {getAccordion()}
+            </DisplayBox>
           </Col>
           <Col lg={4}>{getSidebar()}</Col>
         </Row>
