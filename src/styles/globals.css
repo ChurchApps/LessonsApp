@@ -893,6 +893,15 @@ a.dropdown-toggle::after {display: none;}
   border: 1px solid #1c75bc;
 }
 
+
+.adminAccordion span a {color:#7c0;}
+.adminAccordion .card {  border:none;margin-bottom: 0px;border-bottom: 1px solid #EEE;}
+.adminAccordion .card-header {  background-color: #FFF; padding:0px; border-bottom: none;}
+.adminAccordion .collapse.show, .adminAccordion .collapsing {margin:0px;border:none;}
+.adminAccordion .card-body {padding:0px;background-color: #FFF;}
+.studyAccordion .card-header {padding-left: 10px;padding-top:2px;padding-bottom: 2px;}
+.lessonDiv  {padding-left: 40px;border-top:1px solid #EEE;padding-top:2px;padding-bottom: 2px;;}
+
 @media (max-width: 600px) { 
   .downloadAccordion { min-width:90vw !important; }
 }
