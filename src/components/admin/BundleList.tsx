@@ -65,7 +65,7 @@ export const BundleList: React.FC<Props> = (props) => {
         result.push(<Card>
           <Card.Header>
             <span style={{ float: "right" }}>
-              <Dropdown>
+              <Dropdown drop="left">
                 <Dropdown.Toggle variant="link" id="dropdownMenuButton" data-cy="add-button" className="no-caret green" >
                   <i className="fas fa-plus"></i>
                 </Dropdown.Toggle>
