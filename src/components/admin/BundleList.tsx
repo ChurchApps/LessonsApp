@@ -8,6 +8,7 @@ import { Dropdown } from "react-bootstrap";
 import { BundleEdit } from "./BundleEdit";
 import { Accordion } from "react-bootstrap";
 import { Card } from "react-bootstrap";
+import { BulkAssetAdd } from "./BulkAssetAdd";
 
 interface Props {
   contentType: string;
@@ -24,6 +25,7 @@ export const BundleList: React.FC<Props> = (props) => {
   const [editResource, setEditResource] = React.useState<ResourceInterface>(null);
   const [editVariant, setEditVariant] = React.useState<VariantInterface>(null);
   const [editAsset, setEditAsset] = React.useState<AssetInterface>(null);
+  const [bulkResourceId, setBulkResourceId] = React.useState<string>(null);
 
   const clearEdits = () => {
     setEditResource(null);
@@ -214,9 +216,19 @@ export const BundleList: React.FC<Props> = (props) => {
     setEditAsset({ resourceId: resourceId, sort: resourceAssets?.length + 1 || 1, });
   };
 
+  const bulkCreateAsset = (resourceId: string) => {
+    const resourceAssets = ArrayHelper.getAll(assets || [], "resourceId", resourceId);
+    setBulkResourceId(resourceId);
+  };
+
   const handleAssetCallback = (asset: AssetInterface) => {
     if (asset.id && !editAsset.id) createAsset(asset.resourceId);
     else setEditAsset(null);
+    loadData();
+  };
+
+  const handleBulkAssetCallback = () => {
+    setBulkResourceId(null);
     loadData();
   };
 
@@ -228,6 +240,9 @@ export const BundleList: React.FC<Props> = (props) => {
         </a>
         <a className="dropdown-item" data-cy="add-asset" href="about:blank" onClick={(e: React.MouseEvent) => { e.preventDefault(); createAsset(resourceId); }} >
           <i className="fas fa-list-ol"></i> Add Asset
+        </a>
+        <a className="dropdown-item" data-cy="bulk-add-asset" href="about:blank" onClick={(e: React.MouseEvent) => { e.preventDefault(); bulkCreateAsset(resourceId); }} >
+          <i className="fas fa-list-ol"></i> Bulk Add Asset
         </a>
       </Dropdown.Menu>
     );
@@ -246,6 +261,7 @@ export const BundleList: React.FC<Props> = (props) => {
 
   if (editVariant) return (<VariantEdit variant={editVariant} updatedCallback={() => { setEditVariant(null); loadData(); }} />);
   if (editAsset) return (<AssetEdit asset={editAsset} updatedCallback={handleAssetCallback} />);
+  if (bulkResourceId) return (<BulkAssetAdd resourceId={bulkResourceId} updatedCallback={handleBulkAssetCallback} />);
   if (editResource) return (<ResourceEdit resource={editResource} contentDisplayName={props.contentDisplayName} updatedCallback={() => { setEditResource(null); loadData(); }} />);
   if (editBundle) return (<BundleEdit bundle={editBundle} contentDisplayName={props.contentDisplayName} updatedCallback={() => { setEditBundle(null); loadData(); }} />);
   else
