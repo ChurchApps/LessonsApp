@@ -222,7 +222,7 @@ export const BundleList: React.FC<Props> = (props) => {
   };
 
   const handleAssetCallback = (asset: AssetInterface) => {
-    if (asset.id && !editAsset.id) createAsset(asset.resourceId);
+    if (asset && asset.id && !editAsset.id) createAsset(asset.resourceId);
     else setEditAsset(null);
     loadData();
   };
