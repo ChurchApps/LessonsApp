@@ -49,7 +49,7 @@ export function BulkFileUpload(props: Props) {
     formData.append("Content-Type", uploadedFile.type);
     for (const property in presigned.fields) formData.append(property, presigned.fields[property]);
     const f: any = document.getElementById("fileUpload");
-    formData.append("file", f.files[0]);
+    formData.append("file", uploadedFile);
 
     const completedPercent = Math.round((index / uploadedFiles.length) * 100);
 
