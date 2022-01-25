@@ -161,7 +161,26 @@ export function ActionEdit(props: Props) {
     }
   };
 
-  useEffect(() => { setAction(props.action); }, [props.action]);
+  const updateResource = () => {
+    if (action.actionType === "Play" || action.actionType === "Download") {
+      const el: any = document.getElementById("resourceSelect");
+      if (el.options.length > 0 && el.selectedIndex === 0) {
+        const optVal = el.options[0].value;
+        if (optVal !== action.resourceId) {
+          let a = { ...action };
+          a.resourceId = optVal;
+          a.assetId = null;
+          a.content = el.options[0].text;
+          setAction(a);
+        }
+      }
+    }
+  }
+
+  useEffect(() => {
+    setAction(props.action);
+    setTimeout(updateResource, 500);
+  }, [props.action]);
 
   return (
     <>
