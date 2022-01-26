@@ -168,7 +168,7 @@ export function ScheduleEdit(props: Props) {
     }
   }
 
-  useEffect(() => { loadPrograms(); }, []);
+  useEffect(() => { if (props.schedule) loadPrograms(); }, [props.schedule?.id]);
   useEffect(() => { loadStudies(); }, [programId]);
   useEffect(() => { loadLessons(); }, [studyId]);
   useEffect(() => { loadVenues(); }, [schedule?.lessonId]);
