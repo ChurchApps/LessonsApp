@@ -126,6 +126,17 @@ export interface ClassroomInterface {
   churchId?: string;
   name?: string;
 }
+
+export interface CustomizationInterface {
+  id?: string;
+  churchId?: string;
+  venueId?: string;
+  contentType?: string;
+  contentId?: string;
+  action?: string;
+  actionContent?: string;
+}
+
 export interface ScheduleInterface {
   id?: string;
   churchId?: string;

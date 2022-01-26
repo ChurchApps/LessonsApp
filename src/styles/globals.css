@@ -554,7 +554,7 @@ dropdown-menu a {
   padding-left: 40px;
   padding-right: 25px;
 }
-#adminTree .actionRow td:first-child a {
+#adminTree .actionRow td:first-child a, #adminTree .actionRow td:first-child span {
   overflow: hidden;
   height: 20px;
   display: inline-block;
@@ -564,6 +564,17 @@ dropdown-menu a {
   padding-top: 0px;
   padding-bottom: 0px;
 }
+
+.hoverHighlight:hover  { background-color:#FFFFCC;}
+.removed { color:#990000; text-decoration: line-through; }
+.removed td { position:relative; }
+.removed td:not(:last-child):before {
+  content: " ";
+  position: absolute;
+  left: 0; top: 50%; width: 100%;
+  border-bottom: 1px solid #990000; 
+}
+
 /*
 #resourceTree .bundleRow td:last-child {
   text-align: right;
