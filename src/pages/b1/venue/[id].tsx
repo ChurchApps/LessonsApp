@@ -2,11 +2,13 @@ import React, { useState, useEffect } from "react";
 import { useRouter } from "next/router";
 import { Container } from "react-bootstrap";
 import { Layout, Venue } from "@/components";
-import { ApiHelper, LessonInterface, VenueInterface } from "@/utils";
+import { ApiHelper, ClassroomInterface, LessonInterface, VenueInterface } from "@/utils";
+import Link from "next/link";
 
 export default function B1Venue() {
   const [venue, setVenue] = useState<VenueInterface>(null);
   const [lesson, setLesson] = useState<LessonInterface>(null);
+  const [classroom, setClassroom] = useState<ClassroomInterface>(null);
   const router = useRouter();
   const id = router.query.id;
 
@@ -15,13 +17,15 @@ export default function B1Venue() {
   console.log("Venue PAGE")
 
   const loadData = async () => {
-    console.log("LOAD DATA")
     if (id) {
       const v: VenueInterface = await ApiHelper.get("/venues/public/" + id, "LessonsApi");
-      console.log(JSON.stringify(v));
       setVenue(v);
       const l: LessonInterface = await ApiHelper.get("/lessons/public/" + v.lessonId, "LessonsApi")
       setLesson(l);
+
+      let search = new URLSearchParams(process.browser ? window.location.search : "");
+      const classroomId = search.get("classroomId");
+      ApiHelper.get("/classrooms/" + classroomId, "LessonsApi").then((c: ClassroomInterface) => { setClassroom(c); });
     }
   }
 
@@ -33,6 +37,7 @@ export default function B1Venue() {
 
   return (
     <Layout withoutNavbar={true} withoutFooter={true}>
+      <Link href={"/b1/" + classroom?.churchId}>Go back</Link>
       <Container>
         <h1>{lesson?.title}</h1>
       </Container>

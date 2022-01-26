@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { ScheduleInterface, ApiHelper } from "@/utils";
 import { DisplayBox, Loading, ScheduleEdit } from "../index";
 import { DateHelper } from "@/appBase/helpers";
+import Link from "next/link";
 
 
 type Props = {
@@ -21,6 +22,7 @@ export function ScheduleList(props: Props) {
   };
 
   const getRows = () => {
+    //<Link href={"/cp/venue/" + s.venueId}><a><i className="fas fa-user-cog"></i></a></Link>
     const result: JSX.Element[] = [];
     schedules.forEach((s) => {
       result.push(
@@ -30,12 +32,11 @@ export function ScheduleList(props: Props) {
             {DateHelper.formatHtml5Date(s?.scheduledDate)}
           </td>
           <td>
+
             {s.displayName}
           </td>
           <td style={{ textAlign: "right" }}>
-            <a href="about:blank" onClick={(e) => { e.preventDefault(); setEditSchedule(s); }} >
-              <i className="fas fa-pencil-alt"></i>
-            </a>
+            <a href="about:blank" onClick={(e) => { e.preventDefault(); setEditSchedule(s); }} ><i className="fas fa-pencil-alt"></i></a>
           </td>
         </tr>
       );

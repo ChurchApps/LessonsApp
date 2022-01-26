@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useRouter } from "next/router";
 import { Container } from "react-bootstrap";
-import { Layout, Venue } from "@/components";
+import { Layout } from "@/components";
 import { ApiHelper, LessonInterface, ScheduleInterface, VenueInterface } from "@/utils";
 import Link from "next/link";
 
@@ -13,6 +13,9 @@ export default function B1Schedule() {
   const id = router.query.id;
 
   useEffect(() => { loadData(); }, [id]);
+
+  let search = new URLSearchParams(process.browser ? window.location.search : "");
+  const classroomId = search.get("classroomId");
 
   const loadData = async () => {
     if (id) {
@@ -28,7 +31,7 @@ export default function B1Schedule() {
     if (venues) {
       const result: JSX.Element[] = [];
       venues.forEach(v => {
-        result.push(<Link href={"/b1/venue/" + v.id} ><a className="bigLink">{v.name}</a></Link>);
+        result.push(<Link href={"/b1/venue/" + v.id + "?classroomId=" + classroomId} ><a className="bigLink">{v.name}</a></Link>);
       });
       return result;
 
