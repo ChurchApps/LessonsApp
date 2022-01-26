@@ -132,6 +132,7 @@ export interface ScheduleInterface {
   classroomId?: string;
   scheduledDate?: Date;
   lessonId?: string;
+  venueId?: string;
   displayName?: string;
 }
 

@@ -31,38 +31,16 @@ export function PlaylistFeed(props: Props) {
 
   useEffect(loadData, [props.classroomId]);
 
-  const getContents = () => {
-    if (venues.length == 0) return getNoVenues();
-    else return getVenues();
-  }
-
-  const getNoVenues = () => {
-    return <p>There are currently no schedules for this room.  Schedule at least one session first.</p>
-  }
-
-  const getVenueOptions = () => {
-    const result: JSX.Element[] = [];
-    venues.forEach(v => {
-      result.push(<option>{v.name}</option>);
-    });
-    return result;
-  }
 
   const getFeedUrl = () => {
-    return "https://api.lessons.church/classrooms/playlist/" + props.classroomId + "?venueName=" + escape(venueName);
+    return "https://api.lessons.church/classrooms/playlist/" + props.classroomId;
   }
 
-  const getVenues = () => {
+  const getContents = () => {
     return (<>
       <FormGroup>
-        <FormLabel>Venue</FormLabel>
-        <FormControl as="select" name="name" value={venueName} onChange={handleChange}>
-          {getVenueOptions()}
-        </FormControl>
-      </FormGroup>
-      <FormGroup>
         <FormLabel>Feed Url</FormLabel>
-        <FormControl type="text" name="feedUrl" value={getFeedUrl()} />
+        <FormControl as="textarea" type="text" name="feedUrl" value={getFeedUrl()} />
       </FormGroup>
     </>);
 
@@ -70,7 +48,7 @@ export function PlaylistFeed(props: Props) {
 
   return (
     <>
-      <InputBox id="feedBox" headerText="Get Feed" headerIcon="fas fa-rss" saveFunction={handleCancel} >
+      <InputBox id="feedBox" headerText="Get Feed" headerIcon="fas fa-rss" saveFunction={handleCancel} saveText="Done" >
         {getContents()}
       </InputBox>
     </>
