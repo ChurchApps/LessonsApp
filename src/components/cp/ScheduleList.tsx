@@ -22,7 +22,6 @@ export function ScheduleList(props: Props) {
   };
 
   const getRows = () => {
-    //<Link href={"/cp/venue/" + s.venueId}><a><i className="fas fa-user-cog"></i></a></Link>
     const result: JSX.Element[] = [];
     schedules.forEach((s) => {
       result.push(
@@ -32,7 +31,7 @@ export function ScheduleList(props: Props) {
             {DateHelper.formatHtml5Date(s?.scheduledDate)}
           </td>
           <td>
-
+            <Link href={"/cp/venue/" + s.venueId}><a><i className="fas fa-user-cog"></i></a></Link>
             {s.displayName}
           </td>
           <td style={{ textAlign: "right" }}>
