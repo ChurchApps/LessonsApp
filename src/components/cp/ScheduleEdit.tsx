@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { FormGroup, FormControl, FormLabel } from "react-bootstrap";
 import { InputBox, ErrorMessages } from "../index";
-import { ApiHelper, LessonInterface, ProgramInterface, ScheduleInterface, StudyInterface } from "@/utils";
+import { ApiHelper, LessonInterface, ProgramInterface, ScheduleInterface, StudyInterface, VenueInterface } from "@/utils";
 import { ArrayHelper, DateHelper } from "@/appBase/helpers";
 
 type Props = {
@@ -17,6 +17,7 @@ export function ScheduleEdit(props: Props) {
   const [studyId, setStudyId] = useState("");
   const [studies, setStudies] = useState<StudyInterface[]>([]);
   const [lessons, setLessons] = useState<LessonInterface[]>([]);
+  const [venues, setVenues] = useState<VenueInterface[]>([]);
 
 
   //TODO: load existing data on edit
@@ -42,6 +43,19 @@ export function ScheduleEdit(props: Props) {
         if (!schedule.lessonId || !ArrayHelper.getOne(data, "id", schedule.lessonId)) {
           let s = schedule;
           s.lessonId = data[0].id;
+          setSchedule(s);
+        }
+      }
+    });
+  }
+
+  const loadVenues = () => {
+    if (schedule?.lessonId) ApiHelper.getAnonymous("/venues/public/lesson/" + schedule.lessonId, "LessonsApi").then((data: any) => {
+      setVenues(data);
+      if (schedule) {
+        if (!schedule.venueId || !ArrayHelper.getOne(data, "id", schedule.venueId)) {
+          let s = schedule;
+          s.venueId = data[0].id;
           setSchedule(s);
         }
       }
@@ -77,6 +91,9 @@ export function ScheduleEdit(props: Props) {
         break;
       case "lesson":
         s.lessonId = e.currentTarget.value;
+        break;
+      case "venue":
+        s.venueId = e.currentTarget.value;
         break;
     }
     setSchedule(s);
@@ -136,6 +153,12 @@ export function ScheduleEdit(props: Props) {
     return result;
   }
 
+  const getVenueOptions = () => {
+    const result: JSX.Element[] = [];
+    venues.forEach(v => result.push(<option value={v.id}>{v.name}</option>));
+    return result;
+  }
+
   const populateSchedule = async (schedule: ScheduleInterface) => {
     if (schedule.id) {
       const lesson = await ApiHelper.getAnonymous("/lessons/public/" + schedule.lessonId, "LessonsApi");
@@ -148,6 +171,7 @@ export function ScheduleEdit(props: Props) {
   useEffect(() => { loadPrograms(); }, []);
   useEffect(() => { loadStudies(); }, [programId]);
   useEffect(() => { loadLessons(); }, [studyId]);
+  useEffect(() => { loadVenues(); }, [schedule?.lessonId]);
   useEffect(() => { setSchedule(props.schedule); populateSchedule(props.schedule) }, [props.schedule]);
 
   return (
@@ -174,6 +198,12 @@ export function ScheduleEdit(props: Props) {
           <FormLabel>Lesson</FormLabel>
           <FormControl as="select" name="lesson" value={schedule?.lessonId} onChange={handleChange}>
             {getLessonOptions()}
+          </FormControl>
+        </FormGroup>
+        <FormGroup>
+          <FormLabel>Venue</FormLabel>
+          <FormControl as="select" name="venue" value={schedule?.venueId} onChange={handleChange}>
+            {getVenueOptions()}
           </FormControl>
         </FormGroup>
 
