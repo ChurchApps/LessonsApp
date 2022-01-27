@@ -3,9 +3,8 @@ import { useReactToPrint } from "react-to-print";
 import { Row, Col, Accordion } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPrint } from "@fortawesome/free-solid-svg-icons";
-import { VenueInterface, ResourceInterface, BundleInterface } from "@/utils";
+import { VenueInterface, ResourceInterface, BundleInterface, CustomizationInterface, ArrayHelper } from "@/utils";
 import { Downloads } from "./Downloads";
-import { SectionAlt } from "./SectionAlt";
 import { Section } from "./Section";
 
 type Props = {
@@ -13,6 +12,7 @@ type Props = {
   resources: ResourceInterface[];
   bundles: BundleInterface[];
   hidePrint?: boolean;
+  customizations?: CustomizationInterface[]
 };
 
 export function Venue(props: Props) {
@@ -20,44 +20,17 @@ export function Venue(props: Props) {
   console.log("Venue bundles: " + props.bundles.length)
 
   const contentRef = React.useRef<HTMLDivElement>(null);
-  const [activeSectionId, setActiveSectionId] = React.useState<string>(
-    props.venue.sections[0].id
-  );
+  const [activeSectionId, setActiveSectionId] = React.useState<string>(props.venue.sections[0].id);
 
-  const handleToggle = (sectionId: string) => {
-    setActiveSectionId(sectionId);
-  };
+  const handleToggle = (sectionId: string) => { setActiveSectionId(sectionId); };
 
-  const handlePrint = useReactToPrint({
-    content: () => contentRef.current,
-  });
+  const handlePrint = useReactToPrint({ content: () => contentRef.current });
 
   function getSections() {
     const sections: JSX.Element[] = [];
-
-    if (
-      typeof window !== "undefined" &&
-      window.location.href.indexOf("alt=1") > -1
-    ) {
-      props.venue.sections?.forEach((s) => {
-        sections.push(
-          <SectionAlt section={s} resources={props.resources} key={s.id} />
-        );
-      });
-    } else {
-      props.venue.sections?.forEach((s) => {
-        sections.push(
-          <Section
-            section={s}
-            resources={props.resources}
-            toggleActive={handleToggle}
-            activeSectionId={activeSectionId}
-            key={s.id}
-          />
-        );
-      });
-    }
-
+    props.venue.sections?.forEach((s) => {
+      sections.push(<Section section={s} resources={props.resources} toggleActive={handleToggle} activeSectionId={activeSectionId} key={s.id} customizations={props.customizations} />);
+    });
     return <Accordion defaultActiveKey={activeSectionId}>{sections}</Accordion>;
   }
 
@@ -68,6 +41,7 @@ export function Venue(props: Props) {
       </button>);
     }
   }
+
 
   return (
     <div>

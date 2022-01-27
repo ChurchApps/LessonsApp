@@ -1,5 +1,5 @@
 import { Card, Accordion, Button } from "react-bootstrap";
-import { SectionInterface, ResourceInterface, ActionInterface } from "@/utils";
+import { SectionInterface, ResourceInterface, ActionInterface, ArrayHelper, CustomizationInterface } from "@/utils";
 import { Action } from "./Action";
 
 type Props = {
@@ -7,21 +7,33 @@ type Props = {
   resources: ResourceInterface[];
   toggleActive: (id: string) => void;
   activeSectionId: string;
+  customizations?: CustomizationInterface[]
 };
 
-export function Section({ section, resources, toggleActive, activeSectionId, }: Props) {
+export function Section(props: Props) {
+
   const getActions = (actions: ActionInterface[]) => {
     const result: JSX.Element[] = [];
     actions.forEach((a) => {
-      result.push(<Action action={a} resources={resources} key={a.id} />);
+      if (!shouldHide(a.id)) {
+        result.push(<Action action={a} resources={props.resources} key={a.id} />);
+      }
     });
     return result;
   };
 
+  const shouldHide = (id: string) => {
+    let result = false;
+    if (props.customizations?.length > 0) {
+      result = ArrayHelper.getAll(props.customizations, "contentId", id).length > 0;
+    }
+    return result;
+  }
+
   const getParts = () => {
     const result: JSX.Element[] = [];
-    section?.roles?.forEach((r) => {
-      result.push(
+    props.section?.roles?.forEach((r) => {
+      if (!shouldHide(r.id)) result.push(
         <div className="part" key={r.id}>
           <div className="role">
             <span>{r.name}</span>
@@ -35,32 +47,29 @@ export function Section({ section, resources, toggleActive, activeSectionId, }: 
 
   const getMaterials = () => {
     const downloads = [];
-
-    section.roles?.forEach(r => {
+    props.section.roles?.forEach(r => {
       r.actions.forEach(a => {
-        if (a.actionType === "Download") {
-          downloads.push(a.content);
-        }
+        if (a.actionType === "Download") downloads.push(a.content);
       })
     })
-
-    if (section.materials || downloads) {
+    if (props.section.materials || downloads) {
       return (<div className="materials">
-        <b>Materials:</b> {section.materials} {downloads}
+        <b>Materials:</b> {props.section.materials} {downloads}
       </div>)
     }
-
   }
 
 
+
+  if (shouldHide(props.section?.id)) return <></>
   return (
     <Card>
-      <Card.Header className={activeSectionId === section?.id ? "active" : ""}>
-        <Accordion.Toggle as={Button} variant="link" className="text-decoration-none" eventKey={section.id} onClick={() => { toggleActive(section.id); }} >
-          {section.name}
+      <Card.Header className={props.activeSectionId === props.section?.id ? "active" : ""}>
+        <Accordion.Toggle as={Button} variant="link" className="text-decoration-none" eventKey={props.section.id} onClick={() => { props.toggleActive(props.section.id); }} >
+          {props.section.name}
         </Accordion.Toggle>
       </Card.Header>
-      <Accordion.Collapse eventKey={section.id}>
+      <Accordion.Collapse eventKey={props.section.id}>
         <Card.Body>
           {getMaterials()}
           {getParts()}

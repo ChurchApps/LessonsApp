@@ -31,7 +31,7 @@ export default function Venue() {
   const getRows = () => {
     const result: JSX.Element[] = [];
     schedules?.forEach(s => {
-      result.push(<Link href={"/b1/schedule/" + s.id + "?classroomId=" + classroom?.id} ><a className="bigLink">
+      result.push(<Link href={"/b1/venue/" + s.venueId + "?classroomId=" + classroom?.id} ><a className="bigLink">
         {DateHelper.getShortDate(DateHelper.convertToDate(s.scheduledDate))}
         <span>{s.displayName}</span>
       </a></Link>);
@@ -53,7 +53,7 @@ export default function Venue() {
           const dateB = DateHelper.convertToDate(b.scheduledDate);
           return (dateA < dateB) ? -1 : 1;
         });
-        window.location.href = "/b1/schedule/" + notExpired[0].id + "?classroomId=" + classroom?.id;
+        window.location.href = "/b1/venue/" + notExpired[0].venueId + "?classroomId=" + classroom?.id;
       }
     }
   }
