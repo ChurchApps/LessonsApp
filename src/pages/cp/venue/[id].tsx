@@ -52,7 +52,10 @@ export default function Venue() {
   const getRows = () => {
     const result: JSX.Element[] = [];
     sections.forEach((s) => {
-      result.push(<tr className="sectionRow hoverHighlight" key={`s-${s.id}`}>
+      const removed = (ArrayHelper.getOne(customizations, "contentId", s.id));
+      const removedClass = (removed) ? " removed" : "";
+
+      result.push(<tr className={"sectionRow hoverHighlight" + removedClass} key={`s-${s.id}`}>
         <td>
           <i className="fas fa-tasks"></i> {s.name}
         </td>
@@ -62,47 +65,49 @@ export default function Venue() {
           </a>
         </td>
       </tr>);
-      getRoles(s.id).forEach((r) => result.push(r));
+      getRoles(s.id, removed).forEach((r) => result.push(r));
     });
     return result;
   };
 
-  const getRoles = (sectionId: string) => {
+  const getRoles = (sectionId: string, parentRemoved: boolean) => {
     const result: JSX.Element[] = [];
     if (roles) {
       ArrayHelper.getAll(roles, "sectionId", sectionId).forEach((r) => {
-        result.push(<tr className="roleRow hoverHighlight" key={`r-${r.id}`}>
-          <td>
-            <i className="fas fa-user-alt"></i> {r.name}
-          </td>
-          <td>
-            <a href="about:blank" onClick={(e) => { e.preventDefault(); toggleTrash("role", r.id) }}>
-              <i className="fas fa-trash-alt text-danger"></i>
-            </a>
-          </td>
+        const removed = (parentRemoved || ArrayHelper.getOne(customizations, "contentId", r.id));
+        const removedClass = (removed) ? " removed" : "";
+        const deleteLink = (parentRemoved)
+          ? <></>
+          : (<a href="about:blank" onClick={(e) => { e.preventDefault(); toggleTrash("role", r.id) }}><i className="fas fa-trash-alt text-danger"></i></a>)
+
+        result.push(<tr className={"roleRow hoverHighlight" + removedClass} key={`r-${r.id}`}>
+          <td><i className="fas fa-user-alt"></i> {r.name}</td>
+          <td>{deleteLink}</td>
         </tr>);
-        getActions(r.id).forEach((i) => result.push(i));
+        getActions(r.id, removed).forEach((i) => result.push(i));
       });
     }
     return result;
   };
 
-  const getActions = (roleId: string) => {
+  const getActions = (roleId: string, parentRemoved: boolean) => {
     const result: JSX.Element[] = [];
     if (actions) {
       ArrayHelper.getAll(actions, "roleId", roleId).forEach((a: ActionInterface) => {
+        const removed = (parentRemoved || ArrayHelper.getOne(customizations, "contentId", a.id));
+        const removedClass = (removed) ? " removed" : "";
 
-        const removedClass = (ArrayHelper.getOne(customizations, "contentId", a.id)) ? " removed" : "";
+        const deleteLink = (parentRemoved)
+          ? <></>
+          : (<a href="about:blank" onClick={(e) => { e.preventDefault(); toggleTrash("action", a.id) }}><i className="fas fa-trash-alt text-danger"></i></a>)
+
+
         result.push(
           <tr className={"actionRow hoverHighlight" + removedClass} key={`a-${a.id}`}>
             <td>
               <span><i className="fas fa-check"></i> {a.actionType}: {a.content}</span>
             </td>
-            <td>
-              <a href="about:blank" onClick={(e) => { e.preventDefault(); toggleTrash("action", a.id) }}>
-                <i className="fas fa-trash-alt text-danger"></i>
-              </a>
-            </td>
+            <td>{deleteLink}</td>
           </tr>
         );
       });
