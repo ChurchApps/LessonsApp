@@ -1,5 +1,5 @@
 import { Row, Col, Dropdown } from "react-bootstrap";
-import { BundleInterface, GoogleAnalyticsHelper } from "@/utils";
+import { ApiHelper, BundleInterface, GoogleAnalyticsHelper, UserHelper } from "@/utils";
 
 type Props = {
   bundles: BundleInterface[];
@@ -11,7 +11,16 @@ export function Downloads(props: Props) {
   const trackDownload = (bundle: BundleInterface) => {
     const action = bundle.name;
     const label = window.location.pathname;
-    GoogleAnalyticsHelper.gaEvent({ category: "Download", action: action, label: label })
+    GoogleAnalyticsHelper.gaEvent({ category: "Download", action: action, label: label });
+    const download = {
+      lessonId: bundle.contentId,
+      fileId: bundle.file.id,
+      userId: UserHelper.user?.id || "",
+      ipAddress: "",
+      downloadDate: new Date(),
+      fileName: "Bundle - " + bundle.name
+    }
+    ApiHelper.post("/downloads", [download], "LessonsApi");
   }
 
 

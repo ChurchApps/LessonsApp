@@ -1,9 +1,10 @@
 import ReactMarkdown from "react-markdown";
-import { ResourceInterface, ArrayHelper, ActionInterface, GoogleAnalyticsHelper, VariantInterface, AssetInterface } from "@/utils";
+import { ResourceInterface, ArrayHelper, ActionInterface, GoogleAnalyticsHelper, VariantInterface, AssetInterface, UserHelper, BundleInterface, ApiHelper } from "@/utils";
 
 type Props = {
   action: ActionInterface;
   resources: ResourceInterface[];
+  lessonId: string;
 };
 
 export function Action(props: Props) {
@@ -14,6 +15,15 @@ export function Action(props: Props) {
     const action = resource.name + " - " + variant.name;
     const label = window.location.pathname;
     GoogleAnalyticsHelper.gaEvent({ category: "Download", action: action, label: label })
+    const download = {
+      lessonId: props.lessonId,
+      fileId: variant.fileId,
+      userId: UserHelper.user?.id || "",
+      ipAddress: "",
+      downloadDate: new Date(),
+      fileName: "Variant - " + variant.name
+    }
+    ApiHelper.post("/downloads", [download], "LessonsApi");
   }
 
   const trackAssetDownload = (asset: AssetInterface) => {
@@ -21,6 +31,15 @@ export function Action(props: Props) {
     const action = resource.name + " - " + asset.name;
     const label = window.location.pathname;
     GoogleAnalyticsHelper.gaEvent({ category: "Download Asset", action: action, label: label })
+    const download = {
+      lessonId: props.lessonId,
+      fileId: asset.fileId,
+      userId: UserHelper.user?.id || "",
+      ipAddress: "",
+      downloadDate: new Date(),
+      fileName: "Asset - " + asset.name
+    }
+    ApiHelper.post("/downloads", [download], "LessonsApi");
   }
 
 
