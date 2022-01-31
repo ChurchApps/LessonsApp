@@ -16,7 +16,7 @@ export function Section(props: Props) {
     const result: JSX.Element[] = [];
     actions.forEach((a) => {
       if (!shouldHide(a.id)) {
-        result.push(<Action action={a} resources={props.resources} key={a.id} />);
+        result.push(<Action action={a} resources={props.resources} key={a.id} lessonId={props.section.lessonId} />);
       }
     });
     return result;

@@ -152,3 +152,13 @@ export interface CopySectionInterface {
   sourceVenueId?: string,
   sourceSectionId?: string
 }
+
+export interface DownloadInterface {
+  id?: string,
+  lessonId?: string,
+  fileId?: string,
+  userId?: string,
+  ipAddress?: string,
+  downloadDate?: Date,
+  fileName?: string
+}
