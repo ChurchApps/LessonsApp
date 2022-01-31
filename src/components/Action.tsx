@@ -19,6 +19,7 @@ export function Action(props: Props) {
       lessonId: props.lessonId,
       fileId: variant.fileId,
       userId: UserHelper.user?.id || "",
+      churchId: UserHelper.currentChurch?.id || "",
       ipAddress: "",
       downloadDate: new Date(),
       fileName: "Variant - " + variant.name
@@ -35,6 +36,7 @@ export function Action(props: Props) {
       lessonId: props.lessonId,
       fileId: asset.fileId,
       userId: UserHelper.user?.id || "",
+      churchId: UserHelper.currentChurch?.id || "",
       ipAddress: "",
       downloadDate: new Date(),
       fileName: "Asset - " + asset.name
