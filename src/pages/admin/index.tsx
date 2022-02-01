@@ -4,6 +4,7 @@ import { Row, Col, Container, Accordion, Card } from "react-bootstrap";
 import { Layout, DisplayBox, Loading, ProgramEdit, StudyEdit, LessonEdit, VenueList, BundleList } from "@/components";
 import { ApiHelper, LessonInterface, ProgramInterface, StudyInterface, ArrayHelper, } from "@/utils";
 import { Button } from "react-bootstrap";
+import Link from "next/link";
 
 
 export default function Admin() {
@@ -60,6 +61,12 @@ export default function Admin() {
       result.push(<Card>
         <Card.Header>
           <span style={{ float: "right" }}>
+            <Link href={"/admin/stats/" + p.id}>
+              <a>
+                <i className="fas fa-chart-bar"></i>
+              </a>
+            </Link>{" "}
+            &nbsp;
             <a href="about:blank" onClick={(e) => { e.preventDefault(); clearEdits(); showResources("program", p.id, p.name); }} >
               <i className="fas fa-file-alt"></i>
             </a>{" "}
