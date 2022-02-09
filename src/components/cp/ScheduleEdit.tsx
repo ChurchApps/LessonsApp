@@ -25,7 +25,6 @@ export function ScheduleEdit(props: Props) {
     ApiHelper.getAnonymous("/programs/public/", "LessonsApi").then((data: any) => {
       setPrograms(data);
       if (!programId || !ArrayHelper.getOne(data, "id", programId)) setProgramId(data[0].id);
-      console.log(programId);
     });
   };
 
@@ -41,7 +40,7 @@ export function ScheduleEdit(props: Props) {
       setLessons(data);
       if (schedule) {
         if (!schedule.lessonId || !ArrayHelper.getOne(data, "id", schedule.lessonId)) {
-          let s = schedule;
+          let s = { ...schedule };
           s.lessonId = data[0].id;
           setSchedule(s);
         }
@@ -54,7 +53,7 @@ export function ScheduleEdit(props: Props) {
       setVenues(data);
       if (schedule) {
         if (!schedule.venueId || !ArrayHelper.getOne(data, "id", schedule.venueId)) {
-          let s = schedule;
+          let s = { ...schedule };
           s.venueId = data[0].id;
           setSchedule(s);
         }
@@ -117,7 +116,7 @@ export function ScheduleEdit(props: Props) {
   const handleSave = () => {
     if (validate()) {
 
-      const s = schedule;
+      const s = { ...schedule };
       s.displayName = getDisplayName();
 
       ApiHelper.post("/schedules", [s], "LessonsApi").then((data) => {
@@ -202,7 +201,7 @@ export function ScheduleEdit(props: Props) {
         </FormGroup>
         <FormGroup>
           <FormLabel>Venue</FormLabel>
-          <FormControl as="select" name="venue" value={schedule?.venueId} onChange={handleChange}>
+          <FormControl as="select" name="venue" id="venue" value={schedule?.venueId} onChange={handleChange}>
             {getVenueOptions()}
           </FormControl>
         </FormGroup>
