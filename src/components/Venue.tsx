@@ -20,7 +20,7 @@ export function Venue(props: Props) {
   console.log("Venue bundles: " + props.bundles.length)
 
   const contentRef = React.useRef<HTMLDivElement>(null);
-  const [activeSectionId, setActiveSectionId] = React.useState<string>(props.venue.sections[0].id);
+  const [activeSectionId, setActiveSectionId] = React.useState<string>(props.venue.sections[0]?.id || "");
 
   const handleToggle = (sectionId: string) => { setActiveSectionId(sectionId); };
 
