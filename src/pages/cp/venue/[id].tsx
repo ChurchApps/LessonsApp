@@ -1,8 +1,8 @@
 import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
-import { Row, Col, Container, Dropdown } from "react-bootstrap";
-import { Layout, DisplayBox, Loading, SectionEdit, RoleEdit, ActionEdit, SectionCopy } from "@/components";
-import { VenueInterface, LessonInterface, StudyInterface, SectionInterface, RoleInterface, ActionInterface, ResourceInterface, AssetInterface, ApiHelper, ArrayHelper, CopySectionInterface, CustomizationInterface } from "@/utils";
+import { Container } from "react-bootstrap";
+import { Layout, DisplayBox, Loading } from "@/components";
+import { VenueInterface, LessonInterface, StudyInterface, SectionInterface, RoleInterface, ActionInterface, ApiHelper, ArrayHelper, CustomizationInterface } from "@/utils";
 
 export default function Venue() {
   const [venue, setVenue] = useState<VenueInterface>(null);
@@ -49,23 +49,43 @@ export default function Venue() {
     ApiHelper.get("/customizations/venue/" + venue.id, "LessonsApi").then(data => setCustomizations(data));
   }
 
+
+
+  const move = async (contentType: string, item: any, swap: any) => {
+    const contentCustomizations = ArrayHelper.getAll(customizations, "contentType", contentType);
+    let itemCust: CustomizationInterface = ArrayHelper.getOne(contentCustomizations, "contentId", item.id);
+    let swapCust: CustomizationInterface = ArrayHelper.getOne(contentCustomizations, "contentId", swap.id);
+
+    if (!itemCust) itemCust = { contentType, contentId: item.id, venueId: venue.id, action: "sort", actionContent: item.sort };
+    if (!swapCust) swapCust = { contentType, contentId: swap.id, venueId: venue.id, action: "sort", actionContent: swap.sort };
+
+    const swapSort = swapCust.actionContent;
+    swapCust.actionContent = itemCust.actionContent;
+    itemCust.actionContent = swapSort;
+
+    await ApiHelper.post("/customizations", [itemCust, swapCust], "LessonsApi");
+    ApiHelper.get("/customizations/venue/" + venue.id, "LessonsApi").then(data => setCustomizations(data));
+  }
+
   const getRows = () => {
     const result: JSX.Element[] = [];
-    sections.forEach((s) => {
-      const removed = (ArrayHelper.getOne(customizations, "contentId", s.id));
+    const sorted: SectionInterface[] = applyCustomSort(sections, "section");
+    let idx = 0;
+    sorted.forEach((s) => {
+      const removed = determineRemoved(s.id);
       const removedClass = (removed) ? " removed" : "";
+      const links = getLinks("section", s.id, false, idx, sorted);
 
       result.push(<tr className={"sectionRow hoverHighlight" + removedClass} key={`s-${s.id}`}>
         <td>
           <i className="fas fa-tasks"></i> {s.name}
         </td>
         <td>
-          <a href="about:blank" onClick={(e) => { e.preventDefault(); toggleTrash("section", s.id) }}>
-            <i className="fas fa-trash-alt text-danger"></i>
-          </a>
+          {links}
         </td>
       </tr>);
       getRoles(s.id, removed).forEach((r) => result.push(r));
+      idx++;
     });
     return result;
   };
@@ -73,43 +93,52 @@ export default function Venue() {
   const getRoles = (sectionId: string, parentRemoved: boolean) => {
     const result: JSX.Element[] = [];
     if (roles) {
-      ArrayHelper.getAll(roles, "sectionId", sectionId).forEach((r) => {
-        const removed = (parentRemoved || ArrayHelper.getOne(customizations, "contentId", r.id));
+      let idx = 0;
+      const filtered = ArrayHelper.getAll(roles, "sectionId", sectionId)
+      const sorted: RoleInterface[] = applyCustomSort(filtered, "role");
+      sorted.forEach((r) => {
+        const removed = parentRemoved || determineRemoved(r.id);
         const removedClass = (removed) ? " removed" : "";
-        const deleteLink = (parentRemoved)
-          ? <></>
-          : (<a href="about:blank" onClick={(e) => { e.preventDefault(); toggleTrash("role", r.id) }}><i className="fas fa-trash-alt text-danger"></i></a>)
+        const links = getLinks("role", r.id, parentRemoved, idx, sorted);
 
         result.push(<tr className={"roleRow hoverHighlight" + removedClass} key={`r-${r.id}`}>
           <td><i className="fas fa-user-alt"></i> {r.name}</td>
-          <td>{deleteLink}</td>
+          <td>{links}</td>
         </tr>);
         getActions(r.id, removed).forEach((i) => result.push(i));
+        idx++;
       });
     }
     return result;
   };
 
+  const determineRemoved = (contentId: string) => {
+    let result = false;
+    const allRemoved = ArrayHelper.getAll(customizations, "action", "removed");
+    if (allRemoved.length > 0) result = ArrayHelper.getOne(allRemoved, "contentId", contentId) !== null
+    return result;
+  }
+
   const getActions = (roleId: string, parentRemoved: boolean) => {
     const result: JSX.Element[] = [];
     if (actions) {
-      ArrayHelper.getAll(actions, "roleId", roleId).forEach((a: ActionInterface) => {
-        const removed = (parentRemoved || ArrayHelper.getOne(customizations, "contentId", a.id));
+      let idx = 0;
+      const filtered = ArrayHelper.getAll(actions, "roleId", roleId);
+      const sorted: ActionInterface[] = applyCustomSort(filtered, "action");
+      sorted.forEach((a: ActionInterface) => {
+        const removed = parentRemoved || determineRemoved(a.id);
         const removedClass = (removed) ? " removed" : "";
 
-        const deleteLink = (parentRemoved)
-          ? <></>
-          : (<a href="about:blank" onClick={(e) => { e.preventDefault(); toggleTrash("action", a.id) }}><i className="fas fa-trash-alt text-danger"></i></a>)
-
-
+        const links = getLinks("action", a.id, parentRemoved, idx, sorted);
         result.push(
           <tr className={"actionRow hoverHighlight" + removedClass} key={`a-${a.id}`}>
             <td>
               <span><i className="fas fa-check"></i> {a.actionType}: {a.content}</span>
             </td>
-            <td>{deleteLink}</td>
+            <td>{links}</td>
           </tr>
         );
+        idx++;
       });
     }
     return result;
@@ -122,6 +151,45 @@ export default function Venue() {
     </table>);
   };
 
+  const applyCustomSort = (array: any[], contentType: string) => {
+    if (!customizations || customizations.length === 0) return array;
+    const contentItems = ArrayHelper.getAll(customizations, "contentType", contentType);
+    const sortItems = ArrayHelper.getAll(contentItems, "action", "sort");
+    if (!sortItems) return array;
+    else {
+      const result = [...array];
+      //console.log("SORT ITEMS: " + sortItems.length)
+      result.forEach((item: any) => {
+        const cust = ArrayHelper.getOne(sortItems, "contentId", item.id);
+        if (cust) item.sort = parseFloat(cust.actionContent);
+      })
+
+      return result.sort((a: any, b: any) => {
+        if (a.sort < b.sort) return -1; else return 1;
+      });
+    }
+  }
+
+
+  const getDeleteLink = (contentType: string, contentId: string) => {
+    return (<a href="about:blank" onClick={(e) => { e.preventDefault(); toggleTrash(contentType, contentId) }}><i className="fas fa-trash-alt text-danger"></i></a>)
+  }
+
+  const getUpLink = (contentType: string, item: any, swapItem: any) => {
+    return (<a href="about:blank" onClick={(e) => { e.preventDefault(); move(contentType, item, swapItem) }}><i className="fas fa-arrow-up text-info"></i></a>)
+  }
+
+  const getDownLink = (contentType: string, item: any, swapItem: any) => {
+    return (<a href="about:blank" onClick={(e) => { e.preventDefault(); move(contentType, item, swapItem) }}><i className="fas fa-arrow-down text-info"></i></a>)
+  }
+
+  const getLinks = (contentType: string, contentId: string, parentRemoved: boolean, index: number, array: any[]) => {
+    const result: JSX.Element[] = [];
+    if (index > 0) result.push(getUpLink(contentType, array[index], array[index - 1]));
+    if (index < array.length - 1) result.push(getDownLink(contentType, array[index], array[index + 1]));
+    if (!parentRemoved) result.push(getDeleteLink(contentType, contentId));
+    return result;
+  }
 
 
   return (

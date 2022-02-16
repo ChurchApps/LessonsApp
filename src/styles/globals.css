@@ -566,6 +566,9 @@ dropdown-menu a {
 }
 
 .hoverHighlight:hover  { background-color:#FFFFCC;}
+.hoverHighlight td:last-child  { opacity: 0; white-space: nowrap; text-align: right;}
+.hoverHighlight:hover td:last-child  { opacity: 1;}
+
 .removed { color:#990000; text-decoration: line-through; }
 .removed td { position:relative; }
 .removed td:not(:last-child):before {
