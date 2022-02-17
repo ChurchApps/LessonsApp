@@ -114,7 +114,7 @@ export default function Venue() {
 
   const determineRemoved = (contentId: string) => {
     let result = false;
-    const allRemoved = ArrayHelper.getAll(customizations, "action", "removed");
+    const allRemoved = ArrayHelper.getAll(customizations, "action", "remove");
     if (allRemoved.length > 0) result = ArrayHelper.getOne(allRemoved, "contentId", contentId) !== null
     return result;
   }
