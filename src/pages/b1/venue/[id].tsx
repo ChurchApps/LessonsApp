@@ -38,6 +38,7 @@ export default function B1Venue() {
     }
   }
 
+
   return (
     <Layout withoutNavbar={true} withoutFooter={true}>
       <Link href={"/b1/" + classroom?.churchId}>Go back</Link>

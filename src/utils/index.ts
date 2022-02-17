@@ -4,3 +4,4 @@ export { Permissions } from "./Permissions";
 
 export * from "./interfaces";
 export { GoogleAnalyticsHelper } from "./GoogleAnalyticsHelper";
+export { CustomizationHelper } from "./CustomizationHelper";

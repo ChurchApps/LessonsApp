@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
 import { Container } from "react-bootstrap";
 import { Layout, DisplayBox, Loading } from "@/components";
-import { VenueInterface, LessonInterface, StudyInterface, SectionInterface, RoleInterface, ActionInterface, ApiHelper, ArrayHelper, CustomizationInterface } from "@/utils";
+import { VenueInterface, LessonInterface, StudyInterface, SectionInterface, RoleInterface, ActionInterface, ApiHelper, ArrayHelper, CustomizationInterface, CustomizationHelper } from "@/utils";
 
 export default function Venue() {
   const [venue, setVenue] = useState<VenueInterface>(null);
@@ -69,7 +69,7 @@ export default function Venue() {
 
   const getRows = () => {
     const result: JSX.Element[] = [];
-    const sorted: SectionInterface[] = applyCustomSort(sections, "section");
+    const sorted: SectionInterface[] = CustomizationHelper.applyCustomSort(customizations, sections, "section");
     let idx = 0;
     sorted.forEach((s) => {
       const removed = determineRemoved(s.id);
@@ -95,7 +95,7 @@ export default function Venue() {
     if (roles) {
       let idx = 0;
       const filtered = ArrayHelper.getAll(roles, "sectionId", sectionId)
-      const sorted: RoleInterface[] = applyCustomSort(filtered, "role");
+      const sorted: RoleInterface[] = CustomizationHelper.applyCustomSort(customizations, filtered, "role");
       sorted.forEach((r) => {
         const removed = parentRemoved || determineRemoved(r.id);
         const removedClass = (removed) ? " removed" : "";
@@ -124,7 +124,7 @@ export default function Venue() {
     if (actions) {
       let idx = 0;
       const filtered = ArrayHelper.getAll(actions, "roleId", roleId);
-      const sorted: ActionInterface[] = applyCustomSort(filtered, "action");
+      const sorted: ActionInterface[] = CustomizationHelper.applyCustomSort(customizations, filtered, "action");
       sorted.forEach((a: ActionInterface) => {
         const removed = parentRemoved || determineRemoved(a.id);
         const removedClass = (removed) ? " removed" : "";
@@ -151,24 +151,6 @@ export default function Venue() {
     </table>);
   };
 
-  const applyCustomSort = (array: any[], contentType: string) => {
-    if (!customizations || customizations.length === 0) return array;
-    const contentItems = ArrayHelper.getAll(customizations, "contentType", contentType);
-    const sortItems = ArrayHelper.getAll(contentItems, "action", "sort");
-    if (!sortItems) return array;
-    else {
-      const result = [...array];
-      //console.log("SORT ITEMS: " + sortItems.length)
-      result.forEach((item: any) => {
-        const cust = ArrayHelper.getOne(sortItems, "contentId", item.id);
-        if (cust) item.sort = parseFloat(cust.actionContent);
-      })
-
-      return result.sort((a: any, b: any) => {
-        if (a.sort < b.sort) return -1; else return 1;
-      });
-    }
-  }
 
 
   const getDeleteLink = (contentType: string, contentId: string) => {
