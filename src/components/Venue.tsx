@@ -3,7 +3,7 @@ import { useReactToPrint } from "react-to-print";
 import { Row, Col, Accordion } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPrint } from "@fortawesome/free-solid-svg-icons";
-import { VenueInterface, ResourceInterface, BundleInterface, CustomizationInterface } from "@/utils";
+import { VenueInterface, ResourceInterface, BundleInterface, CustomizationInterface, CustomizationHelper } from "@/utils";
 import { Downloads } from "./Downloads";
 import { Section } from "./Section";
 
@@ -28,9 +28,14 @@ export function Venue(props: Props) {
 
   function getSections() {
     const sections: JSX.Element[] = [];
-    props.venue.sections?.forEach((s) => {
-      sections.push(<Section section={s} resources={props.resources} toggleActive={handleToggle} activeSectionId={activeSectionId} key={s.id} customizations={props.customizations} />);
-    });
+
+    if (props.venue.sections) {
+      const customSections = CustomizationHelper.applyCustomSort(props.customizations, props.venue.sections, "section");
+      customSections.forEach((s) => {
+        sections.push(<Section section={s} resources={props.resources} toggleActive={handleToggle} activeSectionId={activeSectionId} key={s.id} customizations={props.customizations} />);
+      });
+    }
+
     return <Accordion defaultActiveKey={activeSectionId}>{sections}</Accordion>;
   }
 
