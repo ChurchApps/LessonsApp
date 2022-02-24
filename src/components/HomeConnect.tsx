@@ -18,7 +18,7 @@ export function HomeConnect() {
                   See the video to learn how you can easily present your lessons from a Fire stick each week, even if the Internet goes down.
                 </p>
                 <p>In addition your volunteers can use the B1.church app to see the leaders notes each week.  There is nothing to print.</p>
-                <p>View <a href="http://support.churchapps.org/lessons/setup.html" target="_blank">our guide</a> on setting up schedules to configure your church.</p>
+                <p>View <a href="http://support.churchapps.org/lessons/setup.html" target="_blank" rel="noreferrer">our guide</a> on setting up schedules to configure your church.</p>
               </Col>
               <Col md={7}>
                 <div className="videoWrapper">
