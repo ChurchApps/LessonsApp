@@ -18,6 +18,7 @@ export function ScheduleEdit(props: Props) {
   const [studies, setStudies] = useState<StudyInterface[]>([]);
   const [lessons, setLessons] = useState<LessonInterface[]>([]);
   const [venues, setVenues] = useState<VenueInterface[]>([]);
+  const [readyToLoad, setReadyToLoad] = useState(false);
 
 
   //TODO: load existing data on edit
@@ -158,20 +159,26 @@ export function ScheduleEdit(props: Props) {
     return result;
   }
 
-  const populateSchedule = async (schedule: ScheduleInterface) => {
-    if (schedule.id) {
-      const lesson = await ApiHelper.getAnonymous("/lessons/public/" + schedule.lessonId, "LessonsApi");
-      const study = await ApiHelper.getAnonymous("/studies/public/" + lesson.studyId, "LessonsApi");
-      setProgramId(study.programId);
-      setStudyId(study.id);
+  const populateSchedule = async (s: ScheduleInterface) => {
+    setSchedule(props.schedule);
+    if (s.id) {
+      const l = await ApiHelper.getAnonymous("/lessons/public/" + s.lessonId, "LessonsApi");
+      const st = await ApiHelper.getAnonymous("/studies/public/" + l.studyId, "LessonsApi");
+      setProgramId(st.programId);
+      setStudyId(st.id);
     }
+    setReadyToLoad(true);
   }
 
-  useEffect(() => { if (props.schedule) loadPrograms(); }, [props.schedule?.id]);
-  useEffect(() => { loadStudies(); }, [programId]);
-  useEffect(() => { loadLessons(); }, [studyId]);
-  useEffect(() => { loadVenues(); }, [schedule?.lessonId]);
-  useEffect(() => { setSchedule(props.schedule); populateSchedule(props.schedule) }, [props.schedule]);
+  const init = () => {
+    populateSchedule(props.schedule);
+  }
+
+  useEffect(() => { if (readyToLoad) loadStudies(); }, [programId, readyToLoad]);
+  useEffect(() => { if (readyToLoad) loadLessons(); }, [studyId, readyToLoad]);
+  useEffect(() => { if (readyToLoad) loadVenues(); }, [schedule?.lessonId, readyToLoad]);
+  useEffect(init, [props.schedule]);
+  useEffect(() => { if (readyToLoad) loadPrograms() }, [readyToLoad]);
 
   return (
     <>
