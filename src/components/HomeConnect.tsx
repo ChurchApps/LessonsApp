@@ -25,7 +25,7 @@ export function HomeConnect() {
                   <iframe
                     width="992"
                     height="558"
-                    src={"https://www.youtube.com/embed/VSEee0KOYCQ"}
+                    src={"https://www.youtube.com/embed/cOep9hdBey4"}
                     title="Lessons.church App"
                     frameBorder="0"
                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
