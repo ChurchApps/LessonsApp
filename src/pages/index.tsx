@@ -20,12 +20,9 @@ export default function Home({ programs, providers }: Props) {
                 Completely <span>Free Curriculum</span> for Churches
               </h1>
               <p>
-                We believe that limited church budgets should never stand in the
-                way of teaching both children and adults the word of God in the
-                most effective way possible. By partnering with generous
-                creators willing to donate their work for other churches to use
-                we are able to provide this content for your church completely
-                free of charge.
+                We believe that limited church budgets should never stand in the way of teaching both children and adults the word of God in the
+                most effective way possible. By partnering with generous creators willing to donate their work for other churches to use
+                we are able to provide this content for your church completely free of charge.
               </p>
               <div>
                 <Button variant="success" size="lg" href="/login">
@@ -45,20 +42,11 @@ export default function Home({ programs, providers }: Props) {
 }
 
 export const getStaticProps: GetStaticProps = async () => {
-  const programs: ProgramInterface[] = await ApiHelper.getAnonymous(
-    "/programs/public",
-    "LessonsApi"
-  );
-  const providers: ProviderInterface[] = await ApiHelper.getAnonymous(
-    "/providers/public",
-    "LessonsApi"
-  );
+  const programs: ProgramInterface[] = await ApiHelper.getAnonymous("/programs/public", "LessonsApi");
+  const providers: ProviderInterface[] = await ApiHelper.getAnonymous("/providers/public", "LessonsApi");
 
   return {
-    props: {
-      programs,
-      providers,
-    },
+    props: { programs, providers },
     revalidate: 30,
   };
 };
