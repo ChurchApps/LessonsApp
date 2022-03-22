@@ -8,39 +8,20 @@ type Props = {
   providers: ProviderInterface[];
 };
 
-export function Programs({ programs, providers }: Props) {
-  function createProgram({
-    slug,
-    image,
-    name,
-    shortDescription,
-    description,
-    id,
-  }: ProgramInterface) {
+export function Programs(props: Props) {
+
+  function createProgram({ slug, image, name, shortDescription, description, id }: ProgramInterface) {
+    console.log(slug);
     const url = "/" + slug + "/";
     return (
       <div key={id}>
         <Row>
           <Col xl={4}>
-            <Link href={url}>
-              <a>
-                <img
-                  src={image}
-                  className="img-fluid"
-                  alt={name}
-                />
-              </a>
-            </Link>
+            <Link href={url}><a><img src={image} className="img-fluid" alt={name} /></a></Link>
           </Col>
           <Col xl={8}>
-            <Link href={url}>
-              <a>
-                <h3>{name}</h3>
-              </a>
-            </Link>
-            <p>
-              <i>{shortDescription}</i>
-            </p>
+            <Link href={url}><a><h3>{name}</h3></a></Link>
+            <p><i>{shortDescription}</i></p>
             <ReactMarkdown>{description}</ReactMarkdown>
           </Col>
         </Row>
@@ -49,22 +30,21 @@ export function Programs({ programs, providers }: Props) {
     );
   }
 
-  const programsView = providers
+  const programsView = props.providers
     .map((provider) => {
-      const view = programs
+      console.log(provider.name)
+      const view = props.programs
         .filter((program) => program.providerId === provider.id)
         .map((p) => createProgram(p));
 
-      return (
-        view.length > 0 && (
-          <div key={provider.id}>
-            <h3 className="mb-4" style={{ fontWeight: "bold" }}>
-              {provider.name}
-            </h3>
-            {view}
-          </div>
-        )
-      );
+      return (view.length > 0 && (
+        <div key={provider.id}>
+          <h3 className="mb-4" style={{ fontWeight: "bold" }}>
+            {provider.name}
+          </h3>
+          {view}
+        </div>
+      ));
     })
     .filter((p) => p);
 

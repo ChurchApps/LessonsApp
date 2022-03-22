@@ -709,6 +709,9 @@ dropdown-menu a {
 .accordion blockquote ol {
   text-align: left;
 }
+.accordion blockquote ul ul {
+  margin-top:-15px;
+}
 
 .materials {
   background-color: #03a9f4;
