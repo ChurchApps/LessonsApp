@@ -8,13 +8,21 @@ type Props = {
   withoutFooter?: boolean;
   pageTitle?: string;
   metaDescription?: string;
+  image?: string;
 };
 
 
 
 export function Layout(props: Props) {
   const getDescription = () => {
-    if (props.metaDescription) return (<meta name="description" content={props.metaDescription}></meta>);
+    if (props.metaDescription) return (<>
+      <meta name="description" content={props.metaDescription}></meta>
+      <meta property="og:description" content={props.metaDescription}></meta>
+    </>);
+  }
+
+  const getImage = () => {
+    if (props.image) return (<meta property="og:image" content={props.image}></meta>);
   }
 
   return (
@@ -22,6 +30,7 @@ export function Layout(props: Props) {
       <Head>
         <title>{props.pageTitle || "Lessons.church - Free Church Curriculum"}</title>
         {getDescription()}
+        {getImage()}
       </Head>
       {!props.withoutNavbar && <Header />}
       <main>{props.children}</main>
