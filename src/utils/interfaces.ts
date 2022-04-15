@@ -50,6 +50,7 @@ export interface FileInterface {
   size?: number;
   dateModified?: Date;
   fileContents?: string;
+  thumbPath?: string;
 }
 export interface VenueInterface {
   id?: string;

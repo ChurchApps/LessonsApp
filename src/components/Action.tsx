@@ -1,5 +1,5 @@
 import ReactMarkdown from "react-markdown";
-import { ResourceInterface, ArrayHelper, ActionInterface, GoogleAnalyticsHelper, VariantInterface, AssetInterface, UserHelper, BundleInterface, ApiHelper } from "@/utils";
+import { ResourceInterface, ArrayHelper, ActionInterface, GoogleAnalyticsHelper, VariantInterface, AssetInterface, UserHelper, BundleInterface, ApiHelper, FileInterface } from "@/utils";
 
 type Props = {
   action: ActionInterface;
@@ -44,18 +44,39 @@ export function Action(props: Props) {
     ApiHelper.post("/downloads", [download], "LessonsApi");
   }
 
+  const getPreview = (variants: VariantInterface[], asset: AssetInterface, name: string) => {
+    let files: FileInterface[] = [];
+
+    variants?.forEach(v => { if (v.file) files.push(v.file) });
+    if (asset?.file) files.push(asset.file);
+    let result = <></>
+
+    files.forEach(f => {
+      if (f?.thumbPath) result = <div className="playPreview"><img src={f.thumbPath} alt={name} /></div>
+      else if (f?.fileType === "image/jpeg") result = <div className="playPreview"><img src={f.contentPath} alt={name} /></div>
+    })
+
+    return result;
+  }
 
   const getPlayLink = () => {
     const resource: ResourceInterface = ArrayHelper.getOne(props.resources || [], "id", props.action.resourceId);
     const asset = (props.action.assetId && resource) ? ArrayHelper.getOne(resource?.assets || [], "id", props.action.assetId) : null;
 
-    if (asset)
+
+    if (asset) {
       return (<>
+        {getPreview(null, asset, resource.name)}
         <a href={resource.variants[0]?.file?.contentPath} target="_blank" rel="noopener noreferrer" onClick={() => { trackDownload(resource.variants[0]) }} >{resource.name}</a>
         :{" "}
         <a href={asset?.file?.contentPath} target="_blank" rel="noopener noreferrer" onClick={() => { trackAssetDownload(asset) }} >{asset.name}</a>
       </>);
-    else if (resource) return (<a href={resource.variants[0]?.file?.contentPath} target="_blank" rel="noopener noreferrer" onClick={() => { trackDownload(resource.variants[0]) }} > {resource.name} </a>);
+    } else if (resource) {
+      return (<>
+        {getPreview(resource.variants, null, resource.name)}
+        <a href={resource.variants[0]?.file?.contentPath} target="_blank" rel="noopener noreferrer" onClick={() => { trackDownload(resource.variants[0]) }} > {resource.name} </a>
+      </>);
+    }
     return props.action.content;
   };
 
