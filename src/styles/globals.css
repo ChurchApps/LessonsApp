@@ -1072,6 +1072,7 @@ a.dropdown-toggle::after {
 
 .playPreview img {
   max-height: 150px;
+  max-width: 100%;
   margin-bottom: 20px;
 }
 
@@ -1152,6 +1153,11 @@ a.dropdown-toggle::after {
 @media (max-width: 600px) {
   .downloadAccordion {
     min-width: 90vw !important;
+  }
+
+  .playPreview {
+    clear: both;
+    float: none;
   }
 }
 
