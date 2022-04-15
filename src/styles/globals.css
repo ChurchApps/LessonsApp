@@ -717,6 +717,10 @@ dropdown-menu a {
   margin-bottom: 10px;
 }
 
+.accordion .part {
+  clear: both;
+}
+
 .accordion.part .part {
   padding: 10px;
 }
