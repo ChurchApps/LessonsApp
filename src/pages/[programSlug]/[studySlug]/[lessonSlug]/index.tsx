@@ -73,6 +73,7 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
   const venues: VenueInterface[] = await ApiHelper.getAnonymous("/venues/public/lesson/" + lesson.id, "LessonsApi");
   const resources: ResourceInterface[] = await ApiHelper.getAnonymous("/resources/public/lesson/" + lesson.id, "LessonsApi");
   const bundles: BundleInterface[] = await ApiHelper.getAnonymous("/bundles/public/lesson/" + lesson.id, "LessonsApi");
+
   resources?.forEach(r => {
     if (r.variants) r.variants = ArrayHelper.getAll(r.variants, "hidden", false);
   });

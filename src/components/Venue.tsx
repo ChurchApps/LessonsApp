@@ -16,7 +16,6 @@ type Props = {
 };
 
 export function Venue(props: Props) {
-
   const contentRef = React.useRef<HTMLDivElement>(null);
   const [activeSectionId, setActiveSectionId] = React.useState<string>(props.venue.sections[0]?.id || "");
 
