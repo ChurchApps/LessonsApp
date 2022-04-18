@@ -8,6 +8,7 @@ type Props = {
   withoutFooter?: boolean;
   pageTitle?: string;
   metaDescription?: string;
+  ogDescription?: string;
   image?: string;
 };
 
@@ -17,7 +18,7 @@ export function Layout(props: Props) {
   const getDescription = () => {
     if (props.metaDescription) return (<>
       <meta name="description" content={props.metaDescription}></meta>
-      <meta property="og:description" content={props.metaDescription}></meta>
+      <meta property="og:description" content={props.ogDescription || props.metaDescription}></meta>
     </>);
   }
 
