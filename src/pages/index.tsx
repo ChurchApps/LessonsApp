@@ -12,10 +12,11 @@ type Props = {
 export default function Home({ programs, providers }: Props) {
 
   let description = "Church budgets prohibit teaching the word of God in the most effective way possible. We provide high quality content to churches completely free of charge, thanks to our generous partners."
-  let pageImage = "https://lessons.church/images/logo.png";
+  let ogDescription = "We provide high quality content to churches completely free of charge, thanks to our generous partners."
+  let pageImage = "https://lessons.church/images/og-image.png";
 
   return (
-    <Layout metaDescription={description} image={pageImage}>
+    <Layout metaDescription={description} image={pageImage} ogDescription={ogDescription}>
       <div id="hero">
         <Container>
           <Row>
