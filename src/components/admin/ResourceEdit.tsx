@@ -33,6 +33,9 @@ export function ResourceEdit(props: Props) {
       case "bundleId":
         r.bundleId = e.currentTarget.value;
         break;
+      case "loopVideo":
+        r.loopVideo = e.currentTarget.value === "true";
+        break;
     }
     setResource(r);
   };
@@ -119,6 +122,13 @@ export function ResourceEdit(props: Props) {
         <FormGroup>
           <FormLabel>Resource Name</FormLabel>
           <FormControl type="text" name="name" value={resource.name} onChange={handleChange} onKeyDown={handleKeyDown} placeholder="Countdown Video" />
+        </FormGroup>
+        <FormGroup>
+          <FormLabel>Looping Video</FormLabel>
+          <FormControl as="select" name="loopVideo" value={resource.loopVideo?.toString()} onChange={handleChange}>
+            <option value="false">No</option>
+            <option value="true">Yes</option>
+          </FormControl>
         </FormGroup>
       </InputBox>
     </>
