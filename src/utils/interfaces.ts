@@ -121,6 +121,7 @@ export interface ResourceInterface {
   name?: string;
   variants?: VariantInterface[];
   assets?: AssetInterface[];
+  loopVideo?: boolean;
 }
 export interface ClassroomInterface {
   id?: string;
