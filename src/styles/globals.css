@@ -1046,6 +1046,7 @@ a.dropdown-toggle::after {
 
 #resourcesBox .content {
   padding-bottom: 50px;
+  overflow: visible;
 }
 
 .bigLink {
