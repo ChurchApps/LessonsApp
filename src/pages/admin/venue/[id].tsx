@@ -195,7 +195,7 @@ export default function Venue() {
 
   const getEditContent = () => {
     return (
-      <Dropdown>
+      <Dropdown drop="left">
         <Dropdown.Toggle as="a" variant="success"><i className="fas fa-plus"></i></Dropdown.Toggle>
         <Dropdown.Menu>
           <Dropdown.Item onClick={(e) => { e.preventDefault(); createSection(); }}><i className="fas fa-plus"></i> Create New</Dropdown.Item>
