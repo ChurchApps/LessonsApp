@@ -5,6 +5,7 @@ import { Layout, DisplayBox, Loading, ProgramEdit, StudyEdit, LessonEdit, VenueL
 import { ApiHelper, LessonInterface, ProgramInterface, StudyInterface, ArrayHelper, } from "@/utils";
 import { Button } from "react-bootstrap";
 import Link from "next/link";
+import { Wrapper } from "@/components/Wrapper";
 
 
 export default function Admin() {
@@ -223,18 +224,16 @@ export default function Admin() {
   );
 
   return (
-    <Layout>
-      <Container style={{ minHeight: 700 }}>
-        <h1>Programs</h1>
-        <Row>
-          <Col lg={8}>
-            <DisplayBox headerText="Programs" headerIcon="none" editContent={getEditContent} >
-              {getAccordion()}
-            </DisplayBox>
-          </Col>
-          <Col lg={4}>{getSidebar()}</Col>
-        </Row>
-      </Container>
-    </Layout>
+    <Wrapper>
+      <h1>Programs</h1>
+      <Row>
+        <Col lg={8}>
+          <DisplayBox headerText="Programs" headerIcon="none" editContent={getEditContent} >
+            {getAccordion()}
+          </DisplayBox>
+        </Col>
+        <Col lg={4}>{getSidebar()}</Col>
+      </Row>
+    </Wrapper>
   );
 }
