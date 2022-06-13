@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { useRouter } from "next/router";
-import { Container } from "react-bootstrap";
 import { Layout, Venue } from "@/components";
 import { ApiHelper, ClassroomInterface, CustomizationInterface, LessonInterface, VenueInterface } from "@/utils";
 import Link from "next/link";
+import { Container } from "@mui/material";
 
 export default function B1Venue() {
   const [venue, setVenue] = useState<VenueInterface>(null);
@@ -38,11 +38,10 @@ export default function B1Venue() {
     }
   }
 
-
   return (
     <Layout withoutNavbar={true} withoutFooter={true}>
       <Link href={"/b1/" + classroom?.churchId}>Go back</Link>
-      <Container>
+      <Container fixed>
         <h1>{lesson?.title}</h1>
       </Container>
       <div className="b1">

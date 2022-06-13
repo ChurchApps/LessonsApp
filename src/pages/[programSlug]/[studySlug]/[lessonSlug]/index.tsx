@@ -1,9 +1,8 @@
 import { GetStaticPaths, GetStaticProps } from "next";
-import { Container, Row, Col } from "react-bootstrap";
 import ReactMarkdown from "react-markdown";
 import { Layout, Venues } from "@/components";
 import { ApiHelper, ProgramInterface, StudyInterface, LessonInterface, ArrayHelper, VenueInterface, ResourceInterface, BundleInterface } from "@/utils";
-import { Grid } from "@mui/material";
+import { Grid, Container } from "@mui/material";
 
 type Props = { program: ProgramInterface; study: StudyInterface; lesson: LessonInterface; venues: VenueInterface[]; resources: ResourceInterface[]; bundles: BundleInterface[]; };
 
@@ -26,7 +25,7 @@ export default function LessonsPage(props: Props) {
   return (
     <Layout pageTitle={title} metaDescription={props.lesson.description} image={props.lesson.image} >
       <div className="pageSection">
-        <Container>
+        <Container fixed>
           <div className="text-center">
             <div className="title">
               {props.program?.name}: <span>{props.study?.name}</span>

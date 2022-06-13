@@ -1,11 +1,11 @@
-import { Grid } from "@mui/material";
-import { Button, Col, Container, Row } from "react-bootstrap";
+import { Container, Grid } from "@mui/material";
+import { Button } from "react-bootstrap";
 
 export function HomeAbout() {
 
   return (
     <div className="homeSection alt" id="aboutSection">
-      <Container>
+      <Container fixed>
         <Grid container spacing={3}>
           <Grid item md={1} sm={0} />
           <Grid item md={10} sm={12} className="text-center">

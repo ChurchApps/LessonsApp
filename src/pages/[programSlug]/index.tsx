@@ -1,8 +1,8 @@
 import { GetStaticPaths, GetStaticProps } from "next";
-import { Container } from "react-bootstrap";
 import { Layout, Studies } from "@/components";
 import ReactMarkdown from "react-markdown";
 import { ProgramInterface, ApiHelper, ProviderInterface, StudyInterface, } from "@/utils";
+import { Container } from "@mui/material";
 
 type Props = {
   program: ProgramInterface;
@@ -28,7 +28,7 @@ export default function ProgramPage(props: Props) {
   return (
     <Layout pageTitle={props.program.name + " - Lessons.church"} metaDescription={props.program.description} image={props.program.image}>
       <div className="pageSection">
-        <Container>
+        <Container fixed>
           <div className="text-center">
             <h2>
               {props.provider?.name || ""}: <span>{props.program.name}</span>

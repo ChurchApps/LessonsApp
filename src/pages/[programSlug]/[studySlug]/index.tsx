@@ -1,8 +1,7 @@
 import { GetStaticPaths, GetStaticProps } from "next";
-import { Container, Row, Col } from "react-bootstrap";
 import { Layout, Lessons } from "@/components";
 import { ApiHelper, ProgramInterface, StudyInterface, LessonInterface, ArrayHelper } from "@/utils";
-import { Grid } from "@mui/material";
+import { Grid, Container } from "@mui/material";
 
 type Props = {
   study: StudyInterface;
@@ -28,7 +27,7 @@ export default function StudyPage(props: Props) {
   return (
     <Layout pageTitle={title} metaDescription={props.study.description} image={props.study.image}>
       <div className="pageSection">
-        <Container>
+        <Container fixed>
           <div className="text-center">
             <h2>{props.program?.name || ""}: <span>{props.study?.name}</span></h2>
             <p><i>{props.study.shortDescription}</i></p>

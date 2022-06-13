@@ -1,9 +1,10 @@
 import Link from "next/link";
 import { useRouter } from "next/router"
-import { Container, Dropdown } from "react-bootstrap";
+import { Dropdown } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faLock, faUser, faCalendarAlt } from "@fortawesome/free-solid-svg-icons";
 import { UserHelper, Permissions, ApiHelper, EnvironmentHelper } from "@/utils";
+import { Container } from "@mui/material";
 
 export function Header() {
   const router = useRouter()
@@ -50,7 +51,7 @@ export function Header() {
   return (
     <div>
       <div id="navbar" className="fixed-top">
-        <Container>
+        <Container fixed>
           <div className="d-flex justify-content-between">
             <div>
               <Link href="/">
