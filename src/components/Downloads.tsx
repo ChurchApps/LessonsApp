@@ -1,5 +1,6 @@
 import { Row, Col, Dropdown } from "react-bootstrap";
 import { ApiHelper, BundleInterface, GoogleAnalyticsHelper, UserHelper } from "@/utils";
+import { Grid } from "@mui/material";
 
 type Props = {
   bundles: BundleInterface[];
@@ -32,10 +33,10 @@ export function Downloads(props: Props) {
       let downloadLink = (<a href={b.file?.contentPath + "&download=1"} onClick={() => { trackDownload(bundle) }} download={true} className="btn btn-sm btn-success">Download</a>);
       result.push(
         <div className="downloadResource" key={b.id}>
-          <Row>
-            <Col xs={8}>{b?.name}</Col>
-            <Col xs={4} style={{ textAlign: "right" }}>{downloadLink}</Col>
-          </Row>
+          <Grid container spacing={3}>
+            <Grid item xs={8}>{b?.name}</Grid>
+            <Grid item xs={4} style={{ textAlign: "right" }}>{downloadLink}</Grid>
+          </Grid>
         </div>
       );
     });

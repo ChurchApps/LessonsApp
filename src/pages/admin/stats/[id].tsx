@@ -4,6 +4,8 @@ import { Row, Col, Container, InputGroup, FormGroup, FormControl, } from "react-
 import { Layout, DisplayBox, InputBox } from "@/components";
 import { ApiHelper, ChurchInterface, ProgramInterface } from "@/utils";
 import { ArrayHelper, DateHelper } from "@/appBase/helpers";
+import { Wrapper } from "@/components/Wrapper";
+import { Grid } from "@mui/material";
 
 
 
@@ -77,45 +79,43 @@ export default function Admin() {
   }
 
   return (
-    <Layout>
-      <Container style={{ minHeight: 700 }}>
-        <h1>Stats for {program?.name}</h1>
-        <Row>
-          <Col lg={8}>
-            <DisplayBox headerText="Unique Downloads by Study" headerIcon="fas fa-chart-bar" >
-              <p>Note: These are <u>unique</u> counts.  A person may download multiple files within a lesson, download a lesson multiple times, or download multiple lessons within a series.  All of these scenarios counts as a single record on this report.</p>
-              <table className="table table-striped reportTable">
-                <thead>
-                  <tr><th>Study</th><th>Unique Downloads</th></tr>
-                </thead>
-                {getStudyRows()}
-              </table>
-            </DisplayBox>
+    <Wrapper>
+      <h1>Stats for {program?.name}</h1>
+      <Grid container spacing={3}>
+        <Grid item md={8} xs={12}>
+          <DisplayBox headerText="Unique Downloads by Study" headerIcon="fas fa-chart-bar" >
+            <p>Note: These are <u>unique</u> counts.  A person may download multiple files within a lesson, download a lesson multiple times, or download multiple lessons within a series.  All of these scenarios counts as a single record on this report.</p>
+            <table className="table table-striped reportTable">
+              <thead>
+                <tr><th>Study</th><th>Unique Downloads</th></tr>
+              </thead>
+              {getStudyRows()}
+            </table>
+          </DisplayBox>
 
-            <DisplayBox headerText="Church List" headerIcon="fas fa-chart-bar" >
-              <p>Note: Login is not required to download items, so many churches will download the files anonymously.  This is a list of churches who were logged in when downloading resources.</p>
-              <table className="table table-striped reportTable">
-                <thead>
-                  <tr><th>Church</th><th>Location</th></tr>
-                </thead>
-                {getChurchRows()}
-              </table>
-            </DisplayBox>
-          </Col>
-          <Col lg={4}>
-            <InputBox headerText="Filter" headerIcon="fas fa-chart-bar" saveFunction={filterResults} saveText="Update" >
-              <FormGroup>
-                <label>Start Date</label>
-                <FormControl id="startDate" type="date" aria-label="date" value={DateHelper.formatHtml5Date(startDate)} onChange={handleChange} />
-              </FormGroup>
-              <FormGroup>
-                <label>End Date</label>
-                <FormControl id="endDate" type="date" aria-label="date" value={DateHelper.formatHtml5Date(endDate)} onChange={handleChange} />
-              </FormGroup>
-            </InputBox>
-          </Col>
-        </Row>
-      </Container>
-    </Layout>
+          <DisplayBox headerText="Church List" headerIcon="fas fa-chart-bar" >
+            <p>Note: Login is not required to download items, so many churches will download the files anonymously.  This is a list of churches who were logged in when downloading resources.</p>
+            <table className="table table-striped reportTable">
+              <thead>
+                <tr><th>Church</th><th>Location</th></tr>
+              </thead>
+              {getChurchRows()}
+            </table>
+          </DisplayBox>
+        </Grid>
+        <Grid item md={4} xs={12}>
+          <InputBox headerText="Filter" headerIcon="fas fa-chart-bar" saveFunction={filterResults} saveText="Update" >
+            <FormGroup>
+              <label>Start Date</label>
+              <FormControl id="startDate" type="date" aria-label="date" value={DateHelper.formatHtml5Date(startDate)} onChange={handleChange} />
+            </FormGroup>
+            <FormGroup>
+              <label>End Date</label>
+              <FormControl id="endDate" type="date" aria-label="date" value={DateHelper.formatHtml5Date(endDate)} onChange={handleChange} />
+            </FormGroup>
+          </InputBox>
+        </Grid>
+      </Grid>
+    </Wrapper>
   );
 }

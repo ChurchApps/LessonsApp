@@ -6,6 +6,7 @@ import { faPrint } from "@fortawesome/free-solid-svg-icons";
 import { VenueInterface, ResourceInterface, BundleInterface, CustomizationInterface, CustomizationHelper } from "@/utils";
 import { Downloads } from "./Downloads";
 import { Section } from "./Section";
+import { Grid } from "@mui/material";
 
 type Props = {
   venue: VenueInterface;
@@ -47,15 +48,15 @@ export function Venue(props: Props) {
 
   return (
     <div>
-      <Row>
-        <Col>
+      <Grid container spacing={3}>
+        <Grid item xs={6}>
           <h4>{props.venue.name}</h4>
-        </Col>
-        <Col>
+        </Grid>
+        <Grid item xs={6}>
           <Downloads bundles={props.bundles} />
           {getPrint()}
-        </Col>
-      </Row>
+        </Grid>
+      </Grid>
       <div ref={contentRef}>
         <h2 className="printOnly">{props.venue.name} Instructions</h2>
         {getSections()}

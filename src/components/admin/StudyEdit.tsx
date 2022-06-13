@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { FormGroup, FormControl, FormLabel, Row, Col } from "react-bootstrap";
 import { InputBox, ErrorMessages, ImageEditor } from "../index";
 import { ApiHelper, StudyInterface, ProgramInterface } from "@/utils";
+import { Grid } from "@mui/material";
 
 type Props = {
   study: StudyInterface;
@@ -136,8 +137,8 @@ export function StudyEdit(props: Props) {
           />
         </a>
         <br />
-        <Row>
-          <Col>
+        <Grid container spacing={3}>
+          <Grid item xs={6}>
             <FormGroup>
               <FormLabel>Live</FormLabel>
               <FormControl
@@ -150,8 +151,8 @@ export function StudyEdit(props: Props) {
                 <option value="true">Yes</option>
               </FormControl>
             </FormGroup>
-          </Col>
-          <Col>
+          </Grid>
+          <Grid item xs={6}>
             <FormGroup>
               <FormLabel>Order</FormLabel>
               <FormControl
@@ -163,8 +164,8 @@ export function StudyEdit(props: Props) {
                 placeholder="1"
               />
             </FormGroup>
-          </Col>
-        </Row>
+          </Grid>
+        </Grid>
         <FormGroup>
           <FormLabel>Study Name</FormLabel>
           <FormControl

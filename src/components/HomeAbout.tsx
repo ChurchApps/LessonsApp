@@ -1,3 +1,4 @@
+import { Grid } from "@mui/material";
 import { Button, Col, Container, Row } from "react-bootstrap";
 
 export function HomeAbout() {
@@ -5,8 +6,9 @@ export function HomeAbout() {
   return (
     <div className="homeSection alt" id="aboutSection">
       <Container>
-        <Row>
-          <Col lg={{ span: 10, offset: 1 }} className="text-center">
+        <Grid container spacing={3}>
+          <Grid item md={1} sm={0} />
+          <Grid item md={10} sm={12} className="text-center">
             <div className="title">
               <span>Who we are</span>
             </div>
@@ -35,8 +37,8 @@ export function HomeAbout() {
             <Button variant="light" href="https://livecs.org/">
               Learn More
             </Button>
-          </Col>
-        </Row>
+          </Grid>
+        </Grid>
       </Container>
     </div>
   );

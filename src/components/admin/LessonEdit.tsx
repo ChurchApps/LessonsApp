@@ -7,6 +7,7 @@ import {
   StudyInterface,
   ProgramInterface,
 } from "@/utils";
+import { Grid } from "@mui/material";
 
 type Props = {
   lesson: LessonInterface;
@@ -147,8 +148,8 @@ export function LessonEdit(props: Props) {
           />
         </a>
         <br />
-        <Row>
-          <Col>
+        <Grid container spacing={3}>
+          <Grid item xs={6}>
             <FormGroup>
               <FormLabel>Live</FormLabel>
               <FormControl
@@ -161,21 +162,14 @@ export function LessonEdit(props: Props) {
                 <option value="true">Yes</option>
               </FormControl>
             </FormGroup>
-          </Col>
-          <Col>
+          </Grid>
+          <Grid item xs={6}>
             <FormGroup>
               <FormLabel>Order</FormLabel>
-              <FormControl
-                type="number"
-                name="sort"
-                value={lesson.sort}
-                onChange={handleChange}
-                onKeyDown={handleKeyDown}
-                placeholder="1"
-              />
+              <FormControl type="number" name="sort" value={lesson.sort} onChange={handleChange} onKeyDown={handleKeyDown} placeholder="1" />
             </FormGroup>
-          </Col>
-        </Row>
+          </Grid>
+        </Grid>
 
         <FormGroup>
           <FormLabel>Lesson Name</FormLabel>

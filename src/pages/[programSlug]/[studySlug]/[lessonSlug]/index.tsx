@@ -3,6 +3,7 @@ import { Container, Row, Col } from "react-bootstrap";
 import ReactMarkdown from "react-markdown";
 import { Layout, Venues } from "@/components";
 import { ApiHelper, ProgramInterface, StudyInterface, LessonInterface, ArrayHelper, VenueInterface, ResourceInterface, BundleInterface } from "@/utils";
+import { Grid } from "@mui/material";
 
 type Props = { program: ProgramInterface; study: StudyInterface; lesson: LessonInterface; venues: VenueInterface[]; resources: ResourceInterface[]; bundles: BundleInterface[]; };
 
@@ -13,11 +14,12 @@ export default function LessonsPage(props: Props) {
       <iframe width="992" height="558" src={props.lesson?.videoEmbedUrl} title="YouTube video player" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowFullScreen ></iframe>
     </div>
   ) : (
-    <Row>
-      <Col lg={{ span: 8, offset: 2 }}>
+    <Grid container spacing={3}>
+      <Grid item md={2} sm={0} />
+      <Grid item md={8} sm={12}>
         <img src={props.lesson.image} className="img-fluid profilePic" alt={props.lesson.name} /><br /><br />
-      </Col>
-    </Row>
+      </Grid>
+    </Grid>
   );
 
   const title = props.program.name + ": " + props.lesson?.title + " - Lessons.church";

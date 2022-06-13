@@ -2,6 +2,7 @@ import { GetStaticPaths, GetStaticProps } from "next";
 import { Container, Row, Col } from "react-bootstrap";
 import { Layout, Lessons } from "@/components";
 import { ApiHelper, ProgramInterface, StudyInterface, LessonInterface, ArrayHelper } from "@/utils";
+import { Grid } from "@mui/material";
 
 type Props = {
   study: StudyInterface;
@@ -15,11 +16,12 @@ export default function StudyPage(props: Props) {
       <iframe width="992" height="558" src={props.study.videoEmbedUrl} title="YouTube video player" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowFullScreen ></iframe>
     </div>
   ) : (
-    <Row>
-      <Col lg={{ span: 8, offset: 2 }}>
+    <Grid container spacing={3}>
+      <Grid item md={2} sm={0} />
+      <Grid item md={8} sm={12}>
         <img src={props.study.image} className="img-fluid profilePic" alt={props.study.name} /><br /><br />
-      </Col>
-    </Row>
+      </Grid>
+    </Grid>
   );
 
   let title = props.program.name + ": " + props.study?.name + " - Lessons.church";

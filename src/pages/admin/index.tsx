@@ -6,6 +6,7 @@ import { ApiHelper, LessonInterface, ProgramInterface, StudyInterface, ArrayHelp
 import { Button } from "react-bootstrap";
 import Link from "next/link";
 import { Wrapper } from "@/components/Wrapper";
+import { Grid } from "@mui/material";
 
 
 export default function Admin() {
@@ -226,14 +227,14 @@ export default function Admin() {
   return (
     <Wrapper>
       <h1>Programs</h1>
-      <Row>
-        <Col lg={8}>
+      <Grid container spacing={3}>
+        <Grid item md={8} xs={12}>
           <DisplayBox headerText="Programs" headerIcon="none" editContent={getEditContent} >
             {getAccordion()}
           </DisplayBox>
-        </Col>
-        <Col lg={4}>{getSidebar()}</Col>
-      </Row>
+        </Grid>
+        <Grid item md={4} xs={12}>{getSidebar()}</Grid>
+      </Grid>
     </Wrapper>
   );
 }

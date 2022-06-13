@@ -1,8 +1,10 @@
 import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
 import { Row, Col, Container, Dropdown } from "react-bootstrap";
-import { Layout, DisplayBox, Loading, SectionEdit, RoleEdit, ActionEdit, SectionCopy } from "@/components";
+import { DisplayBox, Loading, SectionEdit, RoleEdit, ActionEdit, SectionCopy } from "@/components";
 import { VenueInterface, LessonInterface, StudyInterface, SectionInterface, RoleInterface, ActionInterface, ResourceInterface, AssetInterface, ApiHelper, ArrayHelper, CopySectionInterface } from "@/utils";
+import { Wrapper } from "@/components/Wrapper";
+import { Grid } from "@mui/material";
 
 export default function Venue() {
   const [venue, setVenue] = useState<VenueInterface>(null);
@@ -207,20 +209,18 @@ export default function Venue() {
 
 
   return (
-    <Layout>
-      <Container>
-        <h1>{lesson?.name}: {venue?.name}</h1>
-        <Row>
-          <Col lg={8}>
-            <div className="scrollingList">
-              <DisplayBox headerText="Sections" headerIcon="none" editContent={getEditContent()}>
-                {getTable()}
-              </DisplayBox>
-            </div>
-          </Col>
-          <Col lg={4}>{getSidebar()}</Col>
-        </Row>
-      </Container>
-    </Layout>
+    <Wrapper>
+      <h1>{lesson?.name}: {venue?.name}</h1>
+      <Grid container spacing={3}>
+        <Grid item md={8} xs={12}>
+          <div className="scrollingList">
+            <DisplayBox headerText="Sections" headerIcon="none" editContent={getEditContent()}>
+              {getTable()}
+            </DisplayBox>
+          </div>
+        </Grid>
+        <Grid item md={4} xs={12}>{getSidebar()}</Grid>
+      </Grid>
+    </Wrapper>
   );
 }
