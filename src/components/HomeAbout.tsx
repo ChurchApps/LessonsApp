@@ -1,5 +1,4 @@
-import { Container, Grid } from "@mui/material";
-import { Button } from "react-bootstrap";
+import { Button, Container, Grid } from "@mui/material";
 
 export function HomeAbout() {
 
@@ -34,7 +33,7 @@ export function HomeAbout() {
               501(c)(3) that was founded in 2012 with the goal of helping
               small churches with their technical needs.
             </p>
-            <Button variant="light" href="https://livecs.org/">
+            <Button color="info" variant="contained" size="large" href="https://livecs.org/">
               Learn More
             </Button>
           </Grid>

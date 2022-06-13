@@ -1,8 +1,7 @@
 import { GetStaticProps } from "next";
-import { Button } from "react-bootstrap";
 import { HomeAbout, HomeConnect, Layout, Programs } from "@/components";
 import { ApiHelper, ProgramInterface, ProviderInterface } from "@/utils";
-import { Grid, Container } from "@mui/material";
+import { Grid, Container, Button } from "@mui/material";
 
 type Props = {
   programs: ProgramInterface[];
@@ -31,7 +30,8 @@ export default function Home({ programs, providers }: Props) {
                 we are able to provide this content for your church completely free of charge.
               </p>
               <div>
-                <Button variant="success" size="lg" href="/login">
+
+                <Button color="success" variant="contained" size="large" href="/login">
                   Get Started for Free
                 </Button>
               </div>

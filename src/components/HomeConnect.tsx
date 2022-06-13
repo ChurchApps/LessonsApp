@@ -1,5 +1,4 @@
-import { Grid, Container } from "@mui/material";
-import { Button } from "react-bootstrap";
+import { Grid, Container, Button } from "@mui/material";
 
 export function HomeConnect() {
 
@@ -39,12 +38,12 @@ export function HomeConnect() {
             <Grid container spacing={3} style={{ marginTop: 20 }}>
               <Grid item xs={6}>
                 <div className="d-grid gap-2">
-                  <Button size="lg" variant="success" href="https://play.google.com/store/apps/details?id=church.b1.mobile" target="_blank">Get B1.church App for Volunteers</Button>
+                  <Button color="success" variant="contained" size="large" href="https://play.google.com/store/apps/details?id=church.b1.mobile" target="_blank">Get B1.church App for Volunteers</Button>
                 </div>
               </Grid>
               <Grid item xs={6}>
                 <div className="d-grid gap-2">
-                  <Button size="lg" variant="primary" href="https://www.amazon.com/dp/B09T38BNQG/" target="_blank">Get Lessons.church App for TVs</Button>
+                  <Button color="primary" variant="contained" size="large" href="https://www.amazon.com/dp/B09T38BNQG/" target="_blank">Get Lessons.church App for TVs</Button>
                 </div>
               </Grid>
             </Grid>
