@@ -1,6 +1,6 @@
 import React from "react";
 import UserContext from "../utils/UserContext";
-import { Box, List } from "@mui/material";
+import { Box, createTheme, CssBaseline, List, ThemeProvider } from "@mui/material";
 import { SiteWrapper, NavItem } from "../appBase/components";
 import { UserHelper, Permissions } from "@/utils";
 import { useRouter } from "next/router"
@@ -18,8 +18,23 @@ export const Wrapper: React.FC<Props> = props => {
 
   const navContent = <><List component="nav">{tabs}</List></>
 
-  return <Box sx={{ display: "flex", backgroundColor: "#EEE" }}>
-    <SiteWrapper navContent={navContent} context={context}>{props.children}</SiteWrapper>
-  </Box>
+  const mdTheme = createTheme({
+    palette: {
+      secondary: {
+        main: "#444444"
+      }
+    },
+    components: {
+      MuiTextField: { defaultProps: { margin: "normal" } },
+      MuiFormControl: { defaultProps: { margin: "normal" } }
+    }
+  });
+
+  return <ThemeProvider theme={mdTheme}>
+    <CssBaseline />
+    <Box sx={{ display: "flex", backgroundColor: "#EEE" }}>
+      <SiteWrapper navContent={navContent} context={context}>{props.children}</SiteWrapper>
+    </Box>
+  </ThemeProvider>
 
 };

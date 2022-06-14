@@ -1,13 +1,13 @@
-import { Row, Col, Dropdown } from "react-bootstrap";
 import { ApiHelper, BundleInterface, GoogleAnalyticsHelper, UserHelper } from "@/utils";
-import { Grid } from "@mui/material";
+import { Grid, Menu, MenuItem, Icon, Button } from "@mui/material";
+import { useState } from "react";
 
 type Props = {
   bundles: BundleInterface[];
 };
 
 export function Downloads(props: Props) {
-
+  const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
 
   const trackDownload = (bundle: BundleInterface) => {
     const action = bundle.name;
@@ -33,10 +33,12 @@ export function Downloads(props: Props) {
       let downloadLink = (<a href={b.file?.contentPath + "&download=1"} onClick={() => { trackDownload(bundle) }} download={true} className="btn btn-sm btn-success">Download</a>);
       result.push(
         <div className="downloadResource" key={b.id}>
-          <Grid container spacing={3}>
-            <Grid item xs={8}>{b?.name}</Grid>
-            <Grid item xs={4} style={{ textAlign: "right" }}>{downloadLink}</Grid>
-          </Grid>
+          <MenuItem>
+            <Grid container spacing={3}>
+              <Grid item xs={8}>{b?.name}</Grid>
+              <Grid item xs={4} style={{ textAlign: "right" }}>{downloadLink}</Grid>
+            </Grid>
+          </MenuItem>
         </div>
       );
     });
@@ -47,15 +49,12 @@ export function Downloads(props: Props) {
 
   return (
     props.bundles.length > 0 && (
-      <Dropdown className="downloadsDropDown" alignRight={true} >
-        <Dropdown.Toggle variant="light" id="dropdownMenuButton" size="sm" style={{ float: "right" }} >
-          Downloads
-        </Dropdown.Toggle>
-
-        <Dropdown.Menu>
+      <>
+        <Button id="downloadButton" variant="contained" onClick={(e) => setAnchorEl(e.currentTarget)} endIcon={<Icon>keyboard_arrow_down</Icon>} size="small" style={{ float: "right" }}>Downloads</Button>
+        <Menu id="basic-menu" anchorEl={anchorEl} open={Boolean(anchorEl)} onClose={() => { setAnchorEl(null) }} MenuListProps={{ "aria-labelledby": "downloadButton" }}>
           {getBundles()}
-        </Dropdown.Menu>
-      </Dropdown>
+        </Menu>
+      </>
     )
   );
 }

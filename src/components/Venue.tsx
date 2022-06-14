@@ -4,7 +4,7 @@ import { Accordion } from "react-bootstrap";
 import { VenueInterface, ResourceInterface, BundleInterface, CustomizationInterface, CustomizationHelper } from "@/utils";
 import { Downloads } from "./Downloads";
 import { Section } from "./Section";
-import { Grid } from "@mui/material";
+import { Grid, Icon } from "@mui/material";
 
 type Props = {
   venue: VenueInterface;
@@ -42,7 +42,6 @@ export function Venue(props: Props) {
       </button>);
     }
   }
-
 
   return (
     <div>

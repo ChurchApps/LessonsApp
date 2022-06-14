@@ -9,7 +9,6 @@ type Props = {
 
 export function Action(props: Props) {
 
-
   const trackDownload = (variant: VariantInterface) => {
     const resource: ResourceInterface = ArrayHelper.getOne(props.resources, "id", variant.resourceId);
     const action = resource.name + " - " + variant.name;

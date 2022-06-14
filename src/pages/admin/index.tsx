@@ -1,12 +1,12 @@
 import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import { Row, Col, Container, Accordion, Card } from "react-bootstrap";
-import { Layout, DisplayBox, Loading, ProgramEdit, StudyEdit, LessonEdit, VenueList, BundleList } from "@/components";
+import { Layout, DisplayBox, Loading, ProgramEdit, StudyEdit, LessonEdit, VenueList, BundleList, InputBox } from "@/components";
 import { ApiHelper, LessonInterface, ProgramInterface, StudyInterface, ArrayHelper, } from "@/utils";
 import { Button } from "react-bootstrap";
 import Link from "next/link";
 import { Wrapper } from "@/components/Wrapper";
-import { Grid } from "@mui/material";
+import { Grid, TextField } from "@mui/material";
 
 
 export default function Admin() {
@@ -227,8 +227,10 @@ export default function Admin() {
   return (
     <Wrapper>
       <h1>Programs</h1>
+
       <Grid container spacing={3}>
         <Grid item md={8} xs={12}>
+
           <DisplayBox headerText="Programs" headerIcon="none" editContent={getEditContent} >
             {getAccordion()}
           </DisplayBox>

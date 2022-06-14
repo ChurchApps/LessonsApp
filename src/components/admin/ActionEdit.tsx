@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
-import { FormGroup, FormControl, FormLabel } from "react-bootstrap";
 import { InputBox, ErrorMessages } from "../index";
 import { ArrayHelper, AssetInterface, ResourceInterface, ActionInterface, ApiHelper } from "@/utils";
+import { InputLabel, MenuItem, Select, FormControl, TextField, SelectChangeEvent } from "@mui/material";
 
 type Props = {
   action: ActionInterface;
@@ -25,30 +25,30 @@ export function ActionEdit(props: Props) {
     }
   };
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement> | SelectChangeEvent<string>) => {
     e.preventDefault();
     let a = { ...action };
-    switch (e.currentTarget.name) {
+    switch (e.target.name) {
       case "sort":
-        a.sort = parseInt(e.currentTarget.value);
+        a.sort = parseInt(e.target.value);
         break;
       case "actionType":
-        a.actionType = e.currentTarget.value;
+        a.actionType = e.target.value;
         break;
       case "content":
-        a.content = e.currentTarget.value;
+        a.content = e.target.value;
         break;
       case "resource":
-        a.resourceId = e.currentTarget.value;
+        a.resourceId = e.target.value;
         a.assetId = null;
         let select = e.currentTarget as HTMLSelectElement;
         a.content = select.options[select.selectedIndex].text;
         break;
       case "asset":
-        a.assetId = e.currentTarget.value;
+        a.assetId = e.target.value;
         if (a.assetId === "") a.assetId = null;
         let resourceSelect = document.getElementById("resourceSelect") as HTMLSelectElement;
-        let assetSelect = e.currentTarget as HTMLSelectElement;
+        let assetSelect = e.target as HTMLSelectElement;
         a.content = resourceSelect.options[resourceSelect.selectedIndex].text + " - " + assetSelect.options[assetSelect.selectedIndex].text;
         break;
     }
@@ -95,15 +95,8 @@ export function ActionEdit(props: Props) {
 
   const getContent = () => {
     if (action.actionType !== "Play" && action.actionType !== "Download") {
-      return (
-        <FormGroup>
-          <a href="https://www.markdownguide.org/cheat-sheet/" target="_blank" rel="noopener noreferrer" style={{ float: "right" }}>
-            Markdown Guide
-          </a>
-          <FormLabel>Content</FormLabel>
-          <FormControl type="text" name="content" as="textarea" rows={8} value={action.content} onChange={handleChange} placeholder="" />
-        </FormGroup>
-      );
+      const markdownLink = <a href="https://www.markdownguide.org/cheat-sheet/" target="_blank" rel="noopener noreferrer" style={{ float: "right" }}>Markdown Guide</a>
+      return <TextField fullWidth multiline label={<>Content &nbsp; {markdownLink}</>} name="content" rows={8} value={action.content} onChange={handleChange} placeholder="" />
     }
   };
 
@@ -112,21 +105,15 @@ export function ActionEdit(props: Props) {
       const assets = ArrayHelper.getAll(props.allAssets, "resourceId", action.resourceId);
       if (assets.length > 0) {
         const assetItems: JSX.Element[] = [];
-        assets.forEach((a: AssetInterface) =>
-          assetItems.push(<option value={a.id}>{a.name}</option>)
-        );
+        assets.forEach((a: AssetInterface) => assetItems.push(<MenuItem value={a.id}>{a.name}</MenuItem>));
 
-        return (
-          <>
-            <FormGroup>
-              <FormLabel>Asset</FormLabel>
-              <FormControl as="select" name="asset" value={action.assetId} onChange={handleChange} >
-                <option value="">All</option>
-                {assetItems}
-              </FormControl>
-            </FormGroup>
-          </>
-        );
+        return (<FormControl fullWidth>
+          <InputLabel>Asset</InputLabel>
+          <Select label="Asset" name="asset" value={action.assetId} onChange={handleChange} >
+            <MenuItem value="">All</MenuItem>
+            {assetItems}
+          </Select>
+        </FormControl>);
       }
     }
   };
@@ -136,14 +123,16 @@ export function ActionEdit(props: Props) {
       if (props.lessonResources && props.studyResources && props.programResources) {
         return (
           <>
-            <FormGroup>
-              <FormLabel>Resource</FormLabel>
-              <FormControl as="select" name="resource" id="resourceSelect" value={action.resourceId} onChange={handleChange} >
+            <FormControl fullWidth>
+              <InputLabel>Resource</InputLabel>
+              <Select label="Resource" name="resource" id="resourceSelect" value={action.resourceId} onChange={handleChange} >
                 {getResourceGroup("Lesson", props.lessonResources)}
                 {getResourceGroup("Study", props.studyResources)}
                 {getResourceGroup("Program", props.programResources)}
-              </FormControl>
-            </FormGroup>
+              </Select>
+            </FormControl>
+
+
             {getAsset()}
           </>
         );
@@ -154,10 +143,9 @@ export function ActionEdit(props: Props) {
   const getResourceGroup = (groupName: string, resources: ResourceInterface[]) => {
     if (resources.length > 0) {
       const items: JSX.Element[] = [];
-      resources.forEach((r) => {
-        items.push(<option value={r.id}>{r.name}</option>);
-      });
-      return <optgroup label={groupName}>{items}</optgroup>;
+      items.push(<MenuItem disabled value="">{groupName}</MenuItem>);
+      resources.forEach((r) => { items.push(<MenuItem value={r.id}>{r.name}</MenuItem>); });
+      return items;
     }
   };
 
@@ -186,20 +174,20 @@ export function ActionEdit(props: Props) {
     <>
       <InputBox id="actionDetailsBox" headerText={action?.id ? "Edit Action" : "Create Action"} headerIcon="fas fa-check" saveFunction={handleSave} cancelFunction={handleCancel} deleteFunction={handleDelete} >
         <ErrorMessages errors={errors} />
-        <FormGroup>
-          <FormLabel>Order</FormLabel>
-          <FormControl type="number" name="sort" value={action.sort} onChange={handleChange} onKeyDown={handleKeyDown} placeholder="1" />
-        </FormGroup>
-        <FormGroup>
-          <FormLabel>Action Type</FormLabel>
-          <FormControl as="select" name="actionType" value={action.actionType} onChange={handleChange} >
-            <option value="Say">Say</option>
-            <option value="Do">Do</option>
-            <option value="Play">Play</option>
-            <option value="Download">Download</option>
-            <option value="Note">Note</option>
-          </FormControl>
-        </FormGroup>
+        <TextField fullWidth label="Order" type="number" name="sort" value={action.sort} onChange={handleChange} onKeyDown={handleKeyDown} placeholder="1" />
+
+        <FormControl fullWidth>
+          <InputLabel>Action Type</InputLabel>
+          <Select label="Action Type" name="actionType" value={action.actionType} onChange={handleChange} >
+            <MenuItem value="Say">Say</MenuItem>
+            <MenuItem value="Do">Do</MenuItem>
+            <MenuItem value="Play">Play</MenuItem>
+            <MenuItem value="Download">Download</MenuItem>
+            <MenuItem value="Note">Note</MenuItem>
+            <MenuItem value="">None</MenuItem>
+            <MenuItem value="Stripe">Stripe</MenuItem>
+          </Select>
+        </FormControl>
         {getContent()}
         {getResource()}
       </InputBox>
