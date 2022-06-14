@@ -1,8 +1,7 @@
 import { useState, useEffect } from "react";
-import { FormGroup, FormControl, FormLabel } from "react-bootstrap";
 import { InputBox, ErrorMessages, ImageEditor } from "../index";
 import { ApiHelper, LessonInterface, StudyInterface, ProgramInterface } from "@/utils";
-import { Grid } from "@mui/material";
+import { FormControl, Grid, InputLabel, MenuItem, Select, SelectChangeEvent, TextField } from "@mui/material";
 
 type Props = {
   lesson: LessonInterface;
@@ -26,46 +25,27 @@ export function LessonEdit(props: Props) {
     }
   };
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement> | SelectChangeEvent<string>) => {
     e.preventDefault();
     let p = { ...lesson };
-    switch (e.currentTarget.name) {
-      case "name":
-        p.name = e.currentTarget.value;
-        break;
-      case "title":
-        p.title = e.currentTarget.value;
-        break;
-      case "slug":
-        p.slug = e.currentTarget.value;
-        break;
-      case "description":
-        p.description = e.currentTarget.value;
-        break;
-      case "live":
-        p.live = e.currentTarget.value === "true";
-        break;
-      case "sort":
-        p.sort = parseInt(e.currentTarget.value);
-        break;
-      case "videoEmbedUrl":
-        p.videoEmbedUrl = e.currentTarget.value;
-        break;
+    const val = e.target.value;
+    switch (e.target.name) {
+      case "name": p.name = val; break;
+      case "title": p.title = val; break;
+      case "slug": p.slug = val; break;
+      case "description": p.description = val; break;
+      case "live": p.live = val === "true"; break;
+      case "sort": p.sort = parseInt(val); break;
+      case "videoEmbedUrl": p.videoEmbedUrl = val; break;
     }
     setLesson(p);
   };
 
   const loadStudy = (studyId: string) => {
-    ApiHelper.get("/studies/" + studyId, "LessonsApi").then(
-      (s: StudyInterface) => {
-        setStudy(s);
-        ApiHelper.get("/programs/" + s.programId, "LessonsApi").then(
-          (data: ProgramInterface) => {
-            setProgram(data);
-          }
-        );
-      }
-    );
+    ApiHelper.get("/studies/" + studyId, "LessonsApi").then((s: StudyInterface) => {
+      setStudy(s);
+      ApiHelper.get("/programs/" + s.programId, "LessonsApi").then((data: ProgramInterface) => { setProgram(data); });
+    });
   };
 
   const handleImageUpdated = (dataUrl: string) => {
@@ -92,12 +72,8 @@ export function LessonEdit(props: Props) {
   };
 
   const handleDelete = () => {
-    if (
-      window.confirm("Are you sure you wish to permanently delete this lesson?")
-    ) {
-      ApiHelper.delete("/lessons/" + lesson.id.toString(), "LessonsApi").then(
-        () => props.updatedCallback(null)
-      );
+    if (window.confirm("Are you sure you wish to permanently delete this lesson?")) {
+      ApiHelper.delete("/lessons/" + lesson.id.toString(), "LessonsApi").then(() => props.updatedCallback(null));
     }
   };
 
@@ -106,142 +82,47 @@ export function LessonEdit(props: Props) {
     setShowImageEditor(true);
   };
 
-  useEffect(() => {
-    setLesson(props.lesson);
-    loadStudy(props.lesson.studyId);
-  }, [props.lesson]);
+  useEffect(() => { setLesson(props.lesson); loadStudy(props.lesson.studyId); }, [props.lesson]);
 
   const getImageEditor = () => {
     if (showImageEditor)
-      return (
-        <ImageEditor
-          updatedFunction={handleImageUpdated}
-          imageUrl={lesson.image}
-          onCancel={() => setShowImageEditor(false)}
-        />
-      );
+      return (<ImageEditor updatedFunction={handleImageUpdated} imageUrl={lesson.image} onCancel={() => setShowImageEditor(false)} />);
   };
 
   return (
     <>
       {getImageEditor()}
-      <InputBox
-        id="lessonDetailsBox"
-        headerText="Edit Lesson"
-        headerIcon="fas fa-book"
-        saveFunction={handleSave}
-        cancelFunction={handleCancel}
-        deleteFunction={handleDelete}
-      >
+      <InputBox id="lessonDetailsBox" headerText="Edit Lesson" headerIcon="fas fa-book" saveFunction={handleSave} cancelFunction={handleCancel} deleteFunction={handleDelete} >
         <ErrorMessages errors={errors} />
         <a href="about:blank" className="d-block" onClick={handleImageClick}>
-          <img
-            src={lesson.image || "/images/blank.png"}
-            className="img-fluid profilePic d-block mx-auto"
-            id="imgPreview"
-            alt="lesson"
-          />
+          <img src={lesson.image || "/images/blank.png"} className="img-fluid profilePic d-block mx-auto" id="imgPreview" alt="lesson" />
         </a>
         <br />
         <Grid container spacing={3}>
           <Grid item xs={6}>
-            <FormGroup>
-              <FormLabel>Live</FormLabel>
-              <FormControl
-                as="select"
-                name="live"
-                value={lesson.live?.toString()}
-                onChange={handleChange}
-              >
-                <option value="false">No</option>
-                <option value="true">Yes</option>
-              </FormControl>
-            </FormGroup>
+            <FormControl fullWidth>
+              <InputLabel>Live</InputLabel>
+              <Select label="Live" name="live" value={lesson.live?.toString()} onChange={handleChange}>
+                <MenuItem value="false">No</MenuItem>
+                <MenuItem value="true">Yes</MenuItem>
+              </Select>
+            </FormControl>
+
           </Grid>
           <Grid item xs={6}>
-            <FormGroup>
-              <FormLabel>Order</FormLabel>
-              <FormControl type="number" name="sort" value={lesson.sort} onChange={handleChange} onKeyDown={handleKeyDown} placeholder="1" />
-            </FormGroup>
+            <TextField fullWidth label="Order" name="sort" type="number" value={lesson.sort} onChange={handleChange} onKeyDown={handleKeyDown} placeholder="1" />
           </Grid>
         </Grid>
-
-        <FormGroup>
-          <FormLabel>Lesson Name</FormLabel>
-          <FormControl
-            type="text"
-            name="name"
-            value={lesson.name}
-            onChange={handleChange}
-            onKeyDown={handleKeyDown}
-            placeholder="Lesson 1"
-          />
-        </FormGroup>
-        <FormGroup>
-          <FormLabel>Title</FormLabel>
-          <FormControl
-            type="text"
-            name="title"
-            value={lesson.title}
-            onChange={handleChange}
-            onKeyDown={handleKeyDown}
-            placeholder="Jesus Feeds 5,000"
-          />
-        </FormGroup>
-        <FormGroup>
-          <FormLabel>Url Slug</FormLabel>
-          <div>
-            <a
-              href={
-                "https://lessons.church/" +
-                program?.slug +
-                "/" +
-                study?.slug +
-                "/" +
-                lesson.slug +
-                "/"
-              }
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              {"https://lessons.church/" +
-                program?.slug +
-                "/" +
-                study?.slug +
-                "/" +
-                lesson.slug +
-                "/"}
-            </a>
-          </div>
-          <FormControl
-            type="text"
-            name="slug"
-            value={lesson.slug}
-            onChange={handleChange}
-            onKeyDown={handleKeyDown}
-          />
-        </FormGroup>
-        <FormGroup>
-          <FormLabel>Description</FormLabel>
-          <FormControl
-            as="textarea"
-            type="text"
-            name="description"
-            value={lesson.description}
-            onChange={handleChange}
-            onKeyDown={handleKeyDown}
-          />
-        </FormGroup>
-        <FormGroup>
-          <FormLabel>Video Embed Url</FormLabel>
-          <FormControl
-            type="text"
-            name="videoEmbedUrl"
-            value={lesson.videoEmbedUrl}
-            onChange={handleChange}
-            onKeyDown={handleKeyDown}
-          />
-        </FormGroup>
+        <TextField fullWidth label="Lesson Name" name="name" value={lesson.name} onChange={handleChange} onKeyDown={handleKeyDown} placeholder="Lesson 1" />
+        <TextField fullWidth label="Title" name="title" value={lesson.title} onChange={handleChange} onKeyDown={handleKeyDown} placeholder="Jesus Feeds 5,000" />
+        <TextField fullWidth label="Url Slug" name="slug" value={lesson.slug} onChange={handleChange} onKeyDown={handleKeyDown} />
+        <div>
+          <a href={"https://lessons.church/" + program?.slug + "/" + study?.slug + "/" + lesson.slug + "/"} target="_blank" rel="noopener noreferrer">
+            {"https://lessons.church/" + program?.slug + "/" + study?.slug + "/" + lesson.slug + "/"}
+          </a>
+        </div>
+        <TextField fullWidth multiline label="Description" name="description" value={lesson.description} onChange={handleChange} onKeyDown={handleKeyDown} />
+        <TextField fullWidth label="Video Embed Url" name="videoEmbedUrl" value={lesson.videoEmbedUrl} onChange={handleChange} onKeyDown={handleKeyDown} />
       </InputBox>
     </>
   );
