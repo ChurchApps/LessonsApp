@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { FormGroup, FormLabel, ProgressBar } from "react-bootstrap";
+import { ProgressBar } from "react-bootstrap";
 import axios from "axios";
 import { ApiHelper, FileInterface } from "@/utils";
 
@@ -75,11 +75,9 @@ export function BulkFileUpload(props: Props) {
 
   return (
     <>
-      <FormGroup>
-        <FormLabel>Files:</FormLabel>
-        {getFileLink()}
-        <input id="fileUpload" type="file" onChange={handleChange} multiple={true} />
-      </FormGroup>
+      <label>Files:</label>
+      {getFileLink()}
+      <input id="fileUpload" type="file" onChange={handleChange} multiple={true} />
     </>
   );
 }

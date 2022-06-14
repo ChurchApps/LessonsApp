@@ -1,12 +1,7 @@
 import { useState, useEffect } from "react";
-import { FormGroup, FormControl, FormLabel, Row, Col } from "react-bootstrap";
+import { FormGroup, FormControl, FormLabel } from "react-bootstrap";
 import { InputBox, ErrorMessages, ImageEditor } from "../index";
-import {
-  ApiHelper,
-  LessonInterface,
-  StudyInterface,
-  ProgramInterface,
-} from "@/utils";
+import { ApiHelper, LessonInterface, StudyInterface, ProgramInterface } from "@/utils";
 import { Grid } from "@mui/material";
 
 type Props = {
@@ -23,15 +18,15 @@ export function LessonEdit(props: Props) {
   const [showImageEditor, setShowImageEditor] = useState<boolean>(false);
 
   const handleCancel = () => props.updatedCallback(lesson);
+
   const handleKeyDown = (e: React.KeyboardEvent<any>) => {
     if (e.key === "Enter") {
       e.preventDefault();
       handleSave();
     }
   };
-  const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
-  ) => {
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     e.preventDefault();
     let p = { ...lesson };
     switch (e.currentTarget.name) {

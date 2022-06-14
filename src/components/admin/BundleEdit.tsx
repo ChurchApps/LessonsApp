@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
-import { FormGroup, FormControl, FormLabel } from "react-bootstrap";
 import { InputBox, ErrorMessages } from "../index";
 import { ApiHelper, BundleInterface } from "@/utils";
+import { TextField } from "@mui/material";
 
 type Props = {
   bundle: BundleInterface;
@@ -22,7 +22,7 @@ export function BundleEdit(props: Props) {
     }
   };
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     e.preventDefault();
     let v = { ...bundle };
     switch (e.currentTarget.name) {
@@ -64,10 +64,7 @@ export function BundleEdit(props: Props) {
     <>
       <InputBox id="bundleDetailsBox" headerText={props.contentDisplayName} headerIcon="fas fa-file-alt" saveFunction={handleSave} cancelFunction={handleCancel} deleteFunction={getDeleteFunction()} >
         <ErrorMessages errors={errors} />
-        <FormGroup>
-          <FormLabel>Bundle Name</FormLabel>
-          <FormControl type="text" name="name" value={bundle.name} onChange={handleChange} onKeyDown={handleKeyDown} placeholder="Countdown Video" />
-        </FormGroup>
+        <TextField fullWidth label="Bundle Name" name="name" value={bundle.name} onChange={handleChange} onKeyDown={handleKeyDown} placeholder="Countdown Video" />
       </InputBox>
     </>
   );

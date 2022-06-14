@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { FormGroup, FormLabel, ProgressBar } from "react-bootstrap";
+import { ProgressBar } from "react-bootstrap";
 import axios from "axios";
 import { ApiHelper, FileInterface } from "@/utils";
 
@@ -134,11 +134,9 @@ export function FileUpload(props: Props) {
 
   return (
     <>
-      <FormGroup>
-        <FormLabel>File</FormLabel>
-        {getFileLink()}
-        <input id="fileUpload" type="file" onChange={handleChange} />
-      </FormGroup>
+      <label>File</label>
+      {getFileLink()}
+      <input id="fileUpload" type="file" onChange={handleChange} />
     </>
   );
 }
