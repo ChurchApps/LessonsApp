@@ -1,23 +1,21 @@
 import Link from "next/link";
 import { useRouter } from "next/router"
 import { Dropdown } from "react-bootstrap";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faLock, faUser, faCalendarAlt } from "@fortawesome/free-solid-svg-icons";
 import { UserHelper, Permissions, ApiHelper, EnvironmentHelper } from "@/utils";
-import { Container } from "@mui/material";
+import { Container, Icon } from "@mui/material";
 
 export function Header() {
   const router = useRouter()
 
   const adminItems = UserHelper.checkAccess(Permissions.lessonsApi.lessons.edit) && (
     <Dropdown.Item as="button" onClick={() => router.push("/admin")}>
-      <FontAwesomeIcon icon={faUser} /> Admin
+      <Icon>admin_panel_settings</Icon> Admin
     </Dropdown.Item>
   );
 
   const cpItems = UserHelper.checkAccess(Permissions.lessonsApi.lessons.editSchedules) && (
     <Dropdown.Item as="button" onClick={() => router.push("/cp")}>
-      <FontAwesomeIcon icon={faCalendarAlt} /> Schedules
+      <Icon>calendar_month</Icon> Schedules
     </Dropdown.Item>
   );
 
@@ -35,10 +33,10 @@ export function Header() {
         {adminItems}
         {cpItems}
         <Dropdown.Item href={EnvironmentHelper.AccountsAppUrl + "/login?jwt=" + UserHelper.user.jwt + "&returnUrl=%2Fprofile&keyName=" + UserHelper.currentChurch?.subDomain}>
-          <FontAwesomeIcon icon={faUser} /> Profile
+          <Icon>person</Icon> Profile
         </Dropdown.Item>
         <Dropdown.Item as="button" onClick={logout}>
-          <FontAwesomeIcon icon={faLock} /> Logout
+          <Icon>logout</Icon> Logout
         </Dropdown.Item>
       </Dropdown.Menu>
     </Dropdown>

@@ -1,8 +1,6 @@
 import * as React from "react";
 import { useReactToPrint } from "react-to-print";
-import { Row, Col, Accordion } from "react-bootstrap";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPrint } from "@fortawesome/free-solid-svg-icons";
+import { Accordion } from "react-bootstrap";
 import { VenueInterface, ResourceInterface, BundleInterface, CustomizationInterface, CustomizationHelper } from "@/utils";
 import { Downloads } from "./Downloads";
 import { Section } from "./Section";
@@ -40,7 +38,7 @@ export function Venue(props: Props) {
   const getPrint = () => {
     if (!props.hidePrint) {
       return (<button type="button" className="btn btn-sm btn-light" key={"print" + props.venue.id} onClick={handlePrint} title="print" style={{ float: "right", marginRight: 10 }} >
-        <FontAwesomeIcon icon={faPrint} />
+        <Icon>print</Icon>
       </button>);
     }
   }
