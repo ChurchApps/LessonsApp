@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { useRouter } from "next/router"
 import { UserHelper, Permissions, ApiHelper } from "@/utils";
-import { Container, Icon, Menu, MenuItem } from "@mui/material";
+import { ClickAwayListener, Container, Icon, Menu, MenuItem } from "@mui/material";
 import { useState } from "react";
 
 export function Header() {
@@ -22,8 +22,10 @@ export function Header() {
 
   const userAction = ApiHelper.isAuthenticated ? (
     <>
-      <a id="userMenuLink" href="about:blank" onClick={(e) => { e.preventDefault(); console.log("Menu Click"); setMenuAnchor((Boolean(menuAnchor)) ? null : document.getElementById("navSpacer")); }}>{`${UserHelper.user.firstName} ${UserHelper.user.lastName}`}<Icon style={{ paddingTop: 6 }}>expand_more</Icon></a>
-      <Menu id="userMenu" anchorEl={menuAnchor} open={Boolean(menuAnchor)} onClose={() => { setMenuAnchor(null) }} MenuListProps={{ "aria-labelledby": "userMenuLink" }} style={{ marginRight: 120, marginTop: -55 }} >
+      <ClickAwayListener onClickAway={() => setMenuAnchor(null)}>
+        <a id="userMenuLink" href="about:blank" onClick={(e) => { e.preventDefault(); setMenuAnchor((Boolean(menuAnchor)) ? null : e.target); }}>{`${UserHelper.user.firstName} ${UserHelper.user.lastName}`}<Icon style={{ paddingTop: 6 }}>expand_more</Icon></a>
+      </ClickAwayListener>
+      <Menu id="userMenu" anchorEl={menuAnchor} open={Boolean(menuAnchor)} onClose={() => { setMenuAnchor(null) }} MenuListProps={{ "aria-labelledby": "userMenuLink" }} style={{ top: "0", width: "min-content" }} >
         {adminItems}
         {cpItems}
         <MenuItem onClick={() => { logout(); }} ><Icon>logout</Icon> Logout</MenuItem>
@@ -34,9 +36,6 @@ export function Header() {
       <a>Login</a>
     </Link>
   );
-
-  console.log("Menu anchor is: ")
-  console.log(menuAnchor);
 
   return (
     <div>
