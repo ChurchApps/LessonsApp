@@ -1,6 +1,5 @@
 import * as React from "react";
 import { useReactToPrint } from "react-to-print";
-import { Accordion } from "react-bootstrap";
 import { VenueInterface, ResourceInterface, BundleInterface, CustomizationInterface, CustomizationHelper } from "@/utils";
 import { Downloads } from "./Downloads";
 import { Section } from "./Section";
@@ -32,7 +31,7 @@ export function Venue(props: Props) {
       });
     }
 
-    return <Accordion defaultActiveKey={activeSectionId}>{sections}</Accordion>;
+    return <div className="accordion" > {sections}</div >;
   }
 
   const getPrint = () => {

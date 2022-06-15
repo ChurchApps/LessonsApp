@@ -5,10 +5,8 @@ import { VariantEdit } from "./VariantEdit";
 import { ResourceEdit } from "./ResourceEdit";
 import { AssetEdit } from "./AssetEdit";
 import { BundleEdit } from "./BundleEdit";
-import { Accordion } from "react-bootstrap";
-import { Card } from "react-bootstrap";
 import { BulkAssetAdd } from "./BulkAssetAdd";
-import { Button, Icon, Menu, MenuItem } from "@mui/material";
+import { Accordion, AccordionDetails, AccordionSummary, Icon, Menu, MenuItem } from "@mui/material";
 import { SmallButton } from "@/appBase/components";
 
 interface Props {
@@ -28,6 +26,8 @@ export const BundleList: React.FC<Props> = (props) => {
   const [editAsset, setEditAsset] = React.useState<AssetInterface>(null);
   const [bulkResourceId, setBulkResourceId] = React.useState<string>(null);
   const [menuAnchor, setMenuAnchor] = useState<null | any>(null);
+  const [expandedBundleId, setExpandedBundleId] = useState<string>("");
+  const [expandedResourceId, setExpandedResourceId] = useState<string>("");
 
   const clearEdits = () => {
     setEditResource(null);
@@ -63,28 +63,23 @@ export const BundleList: React.FC<Props> = (props) => {
   const getResources = (bundleId: string) => {
     const result: JSX.Element[] = [];
     if (resources) {
-
       ArrayHelper.getAll(resources, "bundleId", bundleId).forEach((r) => {
-
-        result.push(<Card>
-          <Card.Header>
-            <span style={{ float: "right" }}>
-              {getDropDownMenu(r.id)}
-            </span>
-            <Accordion.Toggle as={Card.Header} className="text-decoration-none" eventKey={`r-${r.id}`} >
-              <i className="fas fa-chevron-down"></i>
+        result.push(<Accordion expanded={expandedResourceId === r.id} onChange={() => { setExpandedResourceId((expandedResourceId === r.id) ? "" : r.id); }} elevation={0}>
+          <AccordionSummary expandIcon={<Icon>expand_more</Icon>} aria-controls="panel1bh-content" id="panel1bh-header" >
+            <div style={{ width: "100%", paddingRight: 20 }}>
+              <span style={{ float: "right" }}>
+                {getDropDownMenu(r.id)}
+              </span>
               <a href="about:blank" onClick={(e) => { e.preventDefault(); clearEdits(); setEditResource(r); }} >
                 <i className="fas fa-file-alt"></i> {r.name}
               </a>
-            </Accordion.Toggle>
-          </Card.Header>
-          <Accordion.Collapse eventKey={`r-${r.id}`} >
-            <Card.Body>
-              {getVariants(r.id)}
-              {getAssets(r.id)}
-            </Card.Body>
-          </Accordion.Collapse>
-        </Card>);
+            </div>
+          </AccordionSummary>
+          <AccordionDetails>
+            {getVariants(r.id)}
+            {getAssets(r.id)}
+          </AccordionDetails>
+        </Accordion>);
       });
     }
     return result;
@@ -126,29 +121,26 @@ export const BundleList: React.FC<Props> = (props) => {
     const result: JSX.Element[] = [];
     bundles.forEach(b => {
       const bundle = b;
-
-      result.push(<Card>
-        <Card.Header>
-          <span style={{ float: "right" }}>
-            <a href="about:blank" onClick={(e) => { e.preventDefault(); setEditResource({ category: bundle.name, bundleId: bundle.id }); }} >
-              <i className="fas fa-plus"></i>
-            </a>
-          </span>
-          <Accordion.Toggle as={Card.Header} className="text-decoration-none" eventKey={`b-${b.id}`} >
-            <i className="fas fa-chevron-down"></i>
+      result.push(<Accordion expanded={expandedBundleId === b.id} onChange={() => { setExpandedBundleId((expandedBundleId === b.id) ? "" : b.id); }} elevation={0}>
+        <AccordionSummary expandIcon={<Icon>expand_more</Icon>} aria-controls="panel1bh-content" id="panel1bh-header" >
+          <div style={{ width: "100%", paddingRight: 20 }}>
+            <span style={{ float: "right" }}>
+              <a href="about:blank" onClick={(e) => { e.preventDefault(); setEditResource({ category: bundle.name, bundleId: bundle.id }); }} >
+                <i className="fas fa-plus"></i>
+              </a>
+            </span>
             <a href="about:blank" onClick={(e) => { e.preventDefault(); clearEdits(); setEditBundle(b); }} >
               <i className="fas fa-file-archive"></i> {b.name}
             </a>
-          </Accordion.Toggle>
-        </Card.Header>
-        <Accordion.Collapse eventKey={`b-${b.id}`}>
-          <Card.Body>
-            <Accordion className="adminAccordion resourceAccordion">
-              {getResources(b.id)}
-            </Accordion>
-          </Card.Body>
-        </Accordion.Collapse>
-      </Card>);
+          </div>
+        </AccordionSummary>
+        <AccordionDetails>
+          <div className="adminAccordion resourceAccordion">
+            {getResources(b.id)}
+          </div>
+        </AccordionDetails>
+      </Accordion>);
+
     });
 
     return result;
