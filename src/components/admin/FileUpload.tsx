@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
-import { ProgressBar } from "react-bootstrap";
 import axios from "axios";
 import { ApiHelper, FileInterface } from "@/utils";
+import { LinearProgress } from "@mui/material";
 
 type Props = {
   resourceId: string;
@@ -21,28 +21,19 @@ export function FileUpload(props: Props) {
   };
 
   const loadData = () => {
-    if (props.fileId)
-      ApiHelper.get("/files/" + props.fileId, "LessonsApi").then(
-        (data: FileInterface) => {
-          data.resourceId = props.resourceId;
-          setFile(data);
-        }
-      );
-    else {
-      setFile({ resourceId: props.resourceId });
-    }
+    if (props.fileId) ApiHelper.get("/files/" + props.fileId, "LessonsApi").then((data: FileInterface) => {
+      data.resourceId = props.resourceId;
+      setFile(data);
+    });
+    else setFile({ resourceId: props.resourceId });
   };
 
   const convertBase64 = () => {
     return new Promise((resolve, reject) => {
       const fileReader = new FileReader();
       fileReader.readAsDataURL(uploadedFile);
-      fileReader.onload = () => {
-        resolve(fileReader.result);
-      };
-      fileReader.onerror = (error) => {
-        reject(error);
-      };
+      fileReader.onload = () => { resolve(fileReader.result); };
+      fileReader.onerror = (error) => { reject(error); };
     });
   };
 
@@ -57,11 +48,7 @@ export function FileUpload(props: Props) {
       const base64 = await convertBase64();
       f.fileContents = base64 as string;
     }
-    const data: FileInterface[] = await ApiHelper.post(
-      "/files",
-      [f],
-      "LessonsApi"
-    );
+    const data: FileInterface[] = await ApiHelper.post("/files", [f], "LessonsApi");
     setFile(data[0]);
     props.saveCallback(data[0]);
   };
@@ -74,15 +61,8 @@ export function FileUpload(props: Props) {
   };
 
   const preUpload = async () => {
-    const params = {
-      resourceId: props.resourceId,
-      fileName: uploadedFile.name,
-    };
-    const presigned = await ApiHelper.post(
-      "/files/postUrl",
-      params,
-      "LessonsApi"
-    );
+    const params = { resourceId: props.resourceId, fileName: uploadedFile.name };
+    const presigned = await ApiHelper.post("/files/postUrl", params, "LessonsApi");
     const doUpload = presigned.key !== undefined;
     if (doUpload) await postPresignedFile(presigned);
     return doUpload;
@@ -101,35 +81,21 @@ export function FileUpload(props: Props) {
     //const requestOptions: RequestInit = { method: "POST", body: formData };
 
     const axiosConfig = {
-      headers: {
-        "Content-Type": "multipart/form-data",
-      },
+      headers: { "Content-Type": "multipart/form-data" },
       onUploadProgress: (data: any) => {
         setUploadProgress(Math.round((100 * data.loaded) / data.total));
       },
     };
 
     return axios.post(presigned.url, formData, axiosConfig);
-    //return fetch(presigned.url, requestOptions);
   };
 
   useEffect(loadData, [props.fileId, props.resourceId]);
-  useEffect(
-    checkSave,
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    [props.pendingSave]
-  );
+  useEffect(checkSave, [props.pendingSave]);
 
   const getFileLink = () => {
-    if (uploadProgress > -1) {
-      return <ProgressBar now={uploadProgress} />;
-    } else if (file) {
-      return (
-        <div>
-          <a href={file.contentPath}>{file.fileName}</a>
-        </div>
-      );
-    }
+    if (uploadProgress > -1) return <LinearProgress value={uploadProgress} />;
+    else if (file) return (<div><a href={file.contentPath}>{file.fileName}</a></div>);
   };
 
   return (

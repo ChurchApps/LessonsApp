@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
-import { ProgressBar } from "react-bootstrap";
 import axios from "axios";
 import { ApiHelper, FileInterface } from "@/utils";
+import { LinearProgress } from "@mui/material";
 
 type Props = {
   resourceId: string;
@@ -69,7 +69,7 @@ export function BulkFileUpload(props: Props) {
 
   const getFileLink = () => {
     if (uploadProgress > -1) {
-      return <ProgressBar now={uploadProgress} />;
+      return <LinearProgress value={uploadProgress} />;
     } else return <br />
   };
 
