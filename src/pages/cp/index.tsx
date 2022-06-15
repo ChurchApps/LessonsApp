@@ -1,9 +1,10 @@
 import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
-import { Row, Col, Container } from "react-bootstrap";
-import { Layout, ClassroomList, ScheduleList, } from "@/components";
+import { ClassroomList, ScheduleList, } from "@/components";
 import { PlaylistFeed } from "@/components/cp/PlaylistFeed";
 import { ApiHelper } from "@/utils";
+import { Wrapper } from "@/components/Wrapper";
+import { Grid } from "@mui/material";
 
 export default function CP() {
   const router = useRouter();
@@ -33,19 +34,17 @@ export default function CP() {
 
 
   return (
-    <Layout>
-      <Container>
-        <h1>Manage Classroom Schedules</h1>
-        <Row>
-          <Col lg={8}>
-            {getScheduleSection()}
-          </Col>
-          <Col lg={4}>
-            {getPlaylistFeed()}
-            <ClassroomList classroomSelected={setClassroomId} showFeed={handleShowFeed} />
-          </Col>
-        </Row>
-      </Container>
-    </Layout>
+    <Wrapper>
+      <h1>Manage Classroom Schedules</h1>
+      <Grid container spacing={3}>
+        <Grid item md={8} xs={12}>
+          {getScheduleSection()}
+        </Grid>
+        <Grid item md={4} xs={12}>
+          {getPlaylistFeed()}
+          <ClassroomList classroomSelected={setClassroomId} showFeed={handleShowFeed} />
+        </Grid>
+      </Grid>
+    </Wrapper>
   );
 }

@@ -1,8 +1,8 @@
 import React from "react";
-import { FormGroup, FormControl, FormLabel } from "react-bootstrap";
 import { InputBox, ErrorMessages } from "../index";
 import { ApiHelper, VariantInterface, FileInterface } from "@/utils";
 import { FileUpload } from "./FileUpload";
+import { FormControl, InputLabel, MenuItem, Select, SelectChangeEvent, TextField } from "@mui/material";
 
 type Props = {
   variant: VariantInterface;
@@ -21,16 +21,12 @@ export function VariantEdit(props: Props) {
       handleSave();
     }
   };
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement> | SelectChangeEvent<string>) => {
     e.preventDefault();
     let v = { ...variant };
-    switch (e.currentTarget.name) {
-      case "hidden":
-        v.hidden = e.currentTarget.value === "true";
-        break;
-      case "name":
-        v.name = e.currentTarget.value;
-        break;
+    switch (e.target.name) {
+      case "hidden": v.hidden = e.target.value === "true"; break;
+      case "name": v.name = e.target.value; break;
     }
     setVariant(v);
   };
@@ -70,17 +66,14 @@ export function VariantEdit(props: Props) {
   return (
     <InputBox id="variantDetailsBox" headerText="Edit Variant" headerIcon="fas fa-copy" saveFunction={handleSave} cancelFunction={handleCancel} deleteFunction={getDeleteFunction()} >
       <ErrorMessages errors={errors} />
-      <FormGroup>
-        <FormLabel>Hidden</FormLabel>
-        <FormControl as="select" name="hidden" value={variant.hidden?.toString()} onChange={handleChange} onKeyDown={handleKeyDown} >
-          <option value="false">No</option>
-          <option value="true">Yes</option>
-        </FormControl>
-      </FormGroup>
-      <FormGroup>
-        <FormLabel>Variant Name</FormLabel>
-        <FormControl type="text" name="name" value={variant.name} onChange={handleChange} onKeyDown={handleKeyDown} placeholder="Variant 1" />
-      </FormGroup>
+      <FormControl fullWidth>
+        <InputLabel>Hidden</InputLabel>
+        <Select label="Hidden" name="hidden" value={variant.hidden?.toString()} onChange={handleChange}>
+          <MenuItem value="false">No</MenuItem>
+          <MenuItem value="true">Yes</MenuItem>
+        </Select>
+      </FormControl>
+      <TextField fullWidth label="Variant Name" name="name" value={variant.name} onChange={handleChange} onKeyDown={handleKeyDown} placeholder="PDF" />
       <FileUpload resourceId={props.variant?.resourceId} fileId={variant?.fileId} pendingSave={pendingFileSave} saveCallback={handleFileSaved} />
     </InputBox>
   );

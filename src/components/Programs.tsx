@@ -1,7 +1,7 @@
 import Link from "next/link";
-import { Container, Row, Col } from "react-bootstrap";
 import { ProgramInterface, ProviderInterface } from "@/utils";
 import ReactMarkdown from "react-markdown";
+import { Container, Grid } from "@mui/material";
 
 type Props = {
   programs: ProgramInterface[];
@@ -15,16 +15,16 @@ export function Programs(props: Props) {
     const url = "/" + slug + "/";
     return (
       <div key={id}>
-        <Row>
-          <Col xl={4}>
+        <Grid container spacing={3}>
+          <Grid item md={4} xs={12}>
             <Link href={url}><a><img src={image} className="img-fluid" alt={name} /></a></Link>
-          </Col>
-          <Col xl={8}>
+          </Grid>
+          <Grid item md={8} xs={12}>
             <Link href={url}><a><h3>{name}</h3></a></Link>
             <p><i>{shortDescription}</i></p>
             <ReactMarkdown>{description}</ReactMarkdown>
-          </Col>
-        </Row>
+          </Grid>
+        </Grid>
         <hr />
       </div>
     );
@@ -51,7 +51,7 @@ export function Programs(props: Props) {
   return (
     programsView.length > 0 && (
       <div className="homeSection">
-        <Container>
+        <Container fixed>
           <h2 className="text-center">
             Browse <span>Available Programs</span>
           </h2>

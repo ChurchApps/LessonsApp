@@ -1,8 +1,8 @@
 import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
-import { Container } from "react-bootstrap";
 import { Layout, DisplayBox, Loading } from "@/components";
 import { VenueInterface, LessonInterface, StudyInterface, SectionInterface, RoleInterface, ActionInterface, ApiHelper, ArrayHelper, CustomizationInterface, CustomizationHelper } from "@/utils";
+import { Container } from "@mui/material";
 
 export default function Venue() {
   const [venue, setVenue] = useState<VenueInterface>(null);
@@ -173,10 +173,9 @@ export default function Venue() {
     return result;
   }
 
-
   return (
     <Layout>
-      <Container>
+      <Container fixed>
         <h1>Customize Lesson</h1>
         <p>You can customize each lesson for you church by removing sections you do not wish to use.</p>
         <h4>{study?.name} - {lesson?.name}: {venue?.name}</h4>

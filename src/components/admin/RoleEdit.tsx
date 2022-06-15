@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
-import { FormGroup, FormControl, FormLabel } from "react-bootstrap";
 import { ApiHelper, RoleInterface } from "@/utils";
 import { InputBox, ErrorMessages } from "../index";
+import { TextField } from "@mui/material";
 
 type Props = {
   role: RoleInterface;
@@ -13,24 +13,20 @@ export function RoleEdit(props: Props) {
   const [errors, setErrors] = useState([]);
 
   const handleCancel = () => props.updatedCallback(role, false);
+
   const handleKeyDown = (e: React.KeyboardEvent<any>) => {
     if (e.key === "Enter") {
       e.preventDefault();
       handleSave();
     }
   };
-  const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
-  ) => {
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     e.preventDefault();
     let r = { ...role };
     switch (e.currentTarget.name) {
-      case "name":
-        r.name = e.currentTarget.value;
-        break;
-      case "sort":
-        r.sort = parseInt(e.currentTarget.value);
-        break;
+      case "name": r.name = e.currentTarget.value; break;
+      case "sort": r.sort = parseInt(e.currentTarget.value); break;
     }
     setRole(r);
   };
@@ -52,53 +48,18 @@ export function RoleEdit(props: Props) {
   };
 
   const handleDelete = () => {
-    if (
-      window.confirm("Are you sure you wish to permanently delete this role?")
-    ) {
-      ApiHelper.delete("/roles/" + role.id.toString(), "LessonsApi").then(() =>
-        props.updatedCallback(null, false)
-      );
+    if (window.confirm("Are you sure you wish to permanently delete this role?")) {
+      ApiHelper.delete("/roles/" + role.id.toString(), "LessonsApi").then(() => props.updatedCallback(null, false));
     }
   };
 
-  useEffect(() => {
-    setRole(props.role);
-  }, [props.role]);
+  useEffect(() => { setRole(props.role); }, [props.role]);
 
   return (
-    <>
-      <InputBox
-        id="roleDetailsBox"
-        headerText={role?.id ? "Edit Role" : "Create Role"}
-        headerIcon="fas fa-user-alt"
-        saveFunction={handleSave}
-        cancelFunction={handleCancel}
-        deleteFunction={handleDelete}
-      >
-        <ErrorMessages errors={errors} />
-        <FormGroup>
-          <FormLabel>Order</FormLabel>
-          <FormControl
-            type="number"
-            name="sort"
-            value={role.sort}
-            onChange={handleChange}
-            onKeyDown={handleKeyDown}
-            placeholder="1"
-          />
-        </FormGroup>
-        <FormGroup>
-          <FormLabel>Role Name</FormLabel>
-          <FormControl
-            type="text"
-            name="name"
-            value={role.name}
-            onChange={handleChange}
-            onKeyDown={handleKeyDown}
-            placeholder="Role 1"
-          />
-        </FormGroup>
-      </InputBox>
-    </>
+    <InputBox id="roleDetailsBox" headerText={role?.id ? "Edit Role" : "Create Role"} headerIcon="fas fa-user-alt" saveFunction={handleSave} cancelFunction={handleCancel} deleteFunction={handleDelete}>
+      <ErrorMessages errors={errors} />
+      <TextField fullWidth label="Order" type="number" name="sort" value={role.sort} onChange={handleChange} onKeyDown={handleKeyDown} placeholder="1" />
+      <TextField fullWidth label="Role Name" name="name" value={role.name} onChange={handleChange} onKeyDown={handleKeyDown} placeholder="Leader" />
+    </InputBox>
   );
 }

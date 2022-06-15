@@ -1,12 +1,13 @@
-import { Button, Col, Container, Row } from "react-bootstrap";
+import { Button, Container, Grid } from "@mui/material";
 
 export function HomeAbout() {
 
   return (
     <div className="homeSection alt" id="aboutSection">
-      <Container>
-        <Row>
-          <Col lg={{ span: 10, offset: 1 }} className="text-center">
+      <Container fixed>
+        <Grid container spacing={3}>
+          <Grid item md={1} sm={0} />
+          <Grid item md={10} sm={12} className="text-center">
             <div className="title">
               <span>Who we are</span>
             </div>
@@ -32,11 +33,11 @@ export function HomeAbout() {
               501(c)(3) that was founded in 2012 with the goal of helping
               small churches with their technical needs.
             </p>
-            <Button variant="light" href="https://livecs.org/">
+            <Button color="info" variant="contained" size="large" href="https://livecs.org/">
               Learn More
             </Button>
-          </Col>
-        </Row>
+          </Grid>
+        </Grid>
       </Container>
     </div>
   );

@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { useRouter } from "next/router";
-import { Container } from "react-bootstrap";
 import { Layout } from "@/components";
 import { ApiHelper, ChurchInterface, ClassroomInterface } from "@/utils";
 import Link from "next/link";
+import { Container } from "@mui/material";
 
 
 export default function Venue() {
@@ -37,7 +37,7 @@ export default function Venue() {
   else {
     return (
       <Layout withoutNavbar={true} withoutFooter={true}>
-        <Container>
+        <Container fixed>
           <h1>Select a Room</h1>
         </Container>
         {getRows()}

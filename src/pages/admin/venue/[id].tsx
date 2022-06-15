@@ -1,8 +1,9 @@
 import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
-import { Row, Col, Container, Dropdown } from "react-bootstrap";
-import { Layout, DisplayBox, Loading, SectionEdit, RoleEdit, ActionEdit, SectionCopy } from "@/components";
+import { DisplayBox, Loading, SectionEdit, RoleEdit, ActionEdit, SectionCopy } from "@/components";
 import { VenueInterface, LessonInterface, StudyInterface, SectionInterface, RoleInterface, ActionInterface, ResourceInterface, AssetInterface, ApiHelper, ArrayHelper, CopySectionInterface } from "@/utils";
+import { Wrapper } from "@/components/Wrapper";
+import { Button, Grid, Icon, Menu, MenuItem } from "@mui/material";
 
 export default function Venue() {
   const [venue, setVenue] = useState<VenueInterface>(null);
@@ -15,6 +16,7 @@ export default function Venue() {
   const [editSection, setEditSection] = useState<SectionInterface>(null);
   const [editRole, setEditRole] = useState<RoleInterface>(null);
   const [editAction, setEditAction] = useState<ActionInterface>(null);
+  const [menuAnchor, setMenuAnchor] = useState<null | HTMLElement>(null);
 
   const [lessonResources, setLessonResources] = useState<ResourceInterface[]>(null);
   const [studyResources, setStudyResources] = useState<ResourceInterface[]>(null);
@@ -195,32 +197,30 @@ export default function Venue() {
 
   const getEditContent = () => {
     return (
-      <Dropdown drop="left">
-        <Dropdown.Toggle as="a" variant="success"><i className="fas fa-plus"></i></Dropdown.Toggle>
-        <Dropdown.Menu>
-          <Dropdown.Item onClick={(e) => { e.preventDefault(); createSection(); }}><i className="fas fa-plus"></i> Create New</Dropdown.Item>
-          <Dropdown.Item onClick={(e) => { e.preventDefault(); duplicateSection(); }}><i className="fas fa-copy"></i> Copy Existing</Dropdown.Item>
-        </Dropdown.Menu>
-      </Dropdown>
+      <>
+        <Button id="addVenueMenu" variant="contained" onClick={(e) => setMenuAnchor(e.currentTarget)} size="small" style={{ float: "right" }}><Icon>add</Icon> Add</Button>
+        <Menu id="addVenueMenu" anchorEl={menuAnchor} open={Boolean(menuAnchor)} onClose={() => { setMenuAnchor(null) }} MenuListProps={{ "aria-labelledby": "downloadButton" }}>
+          <MenuItem onClick={() => { createSection(); }} ><Icon>add</Icon> Create New</MenuItem>
+          <MenuItem onClick={() => { duplicateSection(); }} ><Icon>content_copy</Icon> Copy Existing</MenuItem>
+        </Menu>
+      </>
     );
   };
 
 
   return (
-    <Layout>
-      <Container>
-        <h1>{lesson?.name}: {venue?.name}</h1>
-        <Row>
-          <Col lg={8}>
-            <div className="scrollingList">
-              <DisplayBox headerText="Sections" headerIcon="none" editContent={getEditContent()}>
-                {getTable()}
-              </DisplayBox>
-            </div>
-          </Col>
-          <Col lg={4}>{getSidebar()}</Col>
-        </Row>
-      </Container>
-    </Layout>
+    <Wrapper>
+      <h1>{lesson?.name}: {venue?.name}</h1>
+      <Grid container spacing={3}>
+        <Grid item md={8} xs={12}>
+          <div className="scrollingList">
+            <DisplayBox headerText="Sections" headerIcon="none" editContent={getEditContent()}>
+              {getTable()}
+            </DisplayBox>
+          </div>
+        </Grid>
+        <Grid item md={4} xs={12}>{getSidebar()}</Grid>
+      </Grid>
+    </Wrapper>
   );
 }
