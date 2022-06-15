@@ -1,5 +1,4 @@
 import Link from "next/link";
-import { Row, Col } from "react-bootstrap";
 import { StudyInterface } from "@/utils";
 import { Grid } from "@mui/material";
 

@@ -1,13 +1,10 @@
 import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
-import { Row, Col, Container, InputGroup, FormGroup, FormControl, } from "react-bootstrap";
-import { Layout, DisplayBox, InputBox } from "@/components";
+import { DisplayBox, InputBox } from "@/components";
 import { ApiHelper, ChurchInterface, ProgramInterface } from "@/utils";
 import { ArrayHelper, DateHelper } from "@/appBase/helpers";
 import { Wrapper } from "@/components/Wrapper";
-import { Grid } from "@mui/material";
-
-
+import { Grid, TextField } from "@mui/material";
 
 export default function Admin() {
 
@@ -44,15 +41,11 @@ export default function Admin() {
 
   }
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
-    const val = e.currentTarget.value;
-    switch (e.currentTarget.id) {
-      case "startDate":
-        setStartDate(new Date(val));
-        break;
-      case "endDate":
-        setEndDate(new Date(val));
-        break;
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    const val = e.target.value;
+    switch (e.target.name) {
+      case "startDate": setStartDate(new Date(val)); break;
+      case "endDate": setEndDate(new Date(val)); break;
     }
   }
 
@@ -105,14 +98,8 @@ export default function Admin() {
         </Grid>
         <Grid item md={4} xs={12}>
           <InputBox headerText="Filter" headerIcon="fas fa-chart-bar" saveFunction={filterResults} saveText="Update" >
-            <FormGroup>
-              <label>Start Date</label>
-              <FormControl id="startDate" type="date" aria-label="date" value={DateHelper.formatHtml5Date(startDate)} onChange={handleChange} />
-            </FormGroup>
-            <FormGroup>
-              <label>End Date</label>
-              <FormControl id="endDate" type="date" aria-label="date" value={DateHelper.formatHtml5Date(endDate)} onChange={handleChange} />
-            </FormGroup>
+            <TextField fullWidth label="Start Date" name="startDate" type="date" aria-label="date" value={DateHelper.formatHtml5Date(startDate)} onChange={handleChange} />
+            <TextField fullWidth label="End Date" name="endDate" type="date" aria-label="date" value={DateHelper.formatHtml5Date(endDate)} onChange={handleChange} />
           </InputBox>
         </Grid>
       </Grid>

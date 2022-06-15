@@ -1,14 +1,15 @@
-import React from "react";
+import React, { useState } from "react";
 import { ApiHelper, ResourceInterface, AssetInterface, VariantInterface, ArrayHelper, BundleInterface } from "@/utils";
 import { DisplayBox, Loading } from "../index";
 import { VariantEdit } from "./VariantEdit";
 import { ResourceEdit } from "./ResourceEdit";
 import { AssetEdit } from "./AssetEdit";
-import { Dropdown } from "react-bootstrap";
 import { BundleEdit } from "./BundleEdit";
 import { Accordion } from "react-bootstrap";
 import { Card } from "react-bootstrap";
 import { BulkAssetAdd } from "./BulkAssetAdd";
+import { Button, Icon, Menu, MenuItem } from "@mui/material";
+import { SmallButton } from "@/appBase/components";
 
 interface Props {
   contentType: string;
@@ -26,6 +27,7 @@ export const BundleList: React.FC<Props> = (props) => {
   const [editVariant, setEditVariant] = React.useState<VariantInterface>(null);
   const [editAsset, setEditAsset] = React.useState<AssetInterface>(null);
   const [bulkResourceId, setBulkResourceId] = React.useState<string>(null);
+  const [menuAnchor, setMenuAnchor] = useState<null | any>(null);
 
   const clearEdits = () => {
     setEditResource(null);
@@ -67,12 +69,7 @@ export const BundleList: React.FC<Props> = (props) => {
         result.push(<Card>
           <Card.Header>
             <span style={{ float: "right" }}>
-              <Dropdown drop="left">
-                <Dropdown.Toggle variant="link" id="dropdownMenuButton" data-cy="add-button" className="no-caret green" >
-                  <i className="fas fa-plus"></i>
-                </Dropdown.Toggle>
-                {getDropDownMenu(r.id)}
-              </Dropdown>
+              {getDropDownMenu(r.id)}
             </span>
             <Accordion.Toggle as={Card.Header} className="text-decoration-none" eventKey={`r-${r.id}`} >
               <i className="fas fa-chevron-down"></i>
@@ -88,30 +85,7 @@ export const BundleList: React.FC<Props> = (props) => {
             </Card.Body>
           </Accordion.Collapse>
         </Card>);
-
-        /*
-        result.push(
-          <tr className="resourceRow" key={`r-${r.id}`}>
-            <td>
-              <a href="about:blank" onClick={(e) => { e.preventDefault(); clearEdits(); setEditResource(r); }} >
-                <i className="fas fa-file-alt"></i> {r.name}
-              </a>
-            </td>
-            <td>
-              <Dropdown>
-                <Dropdown.Toggle variant="link" id="dropdownMenuButton" data-cy="add-button" className="no-caret green" >
-                  <i className="fas fa-plus"></i>
-                </Dropdown.Toggle>
-                {getDropDownMenu(r.id)}
-              </Dropdown>
-            </td>
-          </tr>
-        );
-        getVariants(r.id).forEach((v: any) => result.push(v));
-        getAssets(r.id).forEach((a: any) => result.push(a));
-        */
       });
-
     }
     return result;
   };
@@ -153,7 +127,6 @@ export const BundleList: React.FC<Props> = (props) => {
     bundles.forEach(b => {
       const bundle = b;
 
-
       result.push(<Card>
         <Card.Header>
           <span style={{ float: "right" }}>
@@ -176,30 +149,10 @@ export const BundleList: React.FC<Props> = (props) => {
           </Card.Body>
         </Accordion.Collapse>
       </Card>);
-
-
-      /*
-            result.push(
-              <tr className="bundleRow" key={`b-${b.id}`}>
-                <td>
-                  <a href="about:blank" onClick={(e) => { e.preventDefault(); clearEdits(); setEditBundle(b); }} >
-                    <i className="fas fa-file-archive"></i> {b.name}
-                  </a>
-                </td>
-                <td>
-                  <a href="about:blank" onClick={(e) => { e.preventDefault(); setEditResource({ category: bundle.name, bundleId: bundle.id }); }} >
-                    <i className="fas fa-plus"></i>
-                  </a>
-                </td>
-              </tr>
-            );
-            getResources(b.id).forEach((r: any) => result.push(r));
-            */
     });
 
     return result;
   };
-
 
   const getAccordion = () => {
     if (resources === null) return <Loading />;
@@ -209,7 +162,6 @@ export const BundleList: React.FC<Props> = (props) => {
       </Accordion>
     );
   };
-
 
   const createAsset = (resourceId: string) => {
     const resourceAssets = ArrayHelper.getAll(assets || [], "resourceId", resourceId);
@@ -234,17 +186,14 @@ export const BundleList: React.FC<Props> = (props) => {
 
   const getDropDownMenu = (resourceId: string) => {
     return (
-      <Dropdown.Menu>
-        <a className="dropdown-item" data-cy="add-variant" href="about:blank" onClick={(e: React.MouseEvent) => { e.preventDefault(); setEditVariant({ resourceId: resourceId }); }} >
-          <i className="fas fa-copy"></i> Add Variant
-        </a>
-        <a className="dropdown-item" data-cy="add-asset" href="about:blank" onClick={(e: React.MouseEvent) => { e.preventDefault(); createAsset(resourceId); }} >
-          <i className="fas fa-list-ol"></i> Add Asset
-        </a>
-        <a className="dropdown-item" data-cy="bulk-add-asset" href="about:blank" onClick={(e: React.MouseEvent) => { e.preventDefault(); bulkCreateAsset(resourceId); }} >
-          <i className="fas fa-list-ol"></i> Bulk Add Asset
-        </a>
-      </Dropdown.Menu>
+      <>
+        <SmallButton icon="add" onClick={(e) => setMenuAnchor(e.currentTarget)} />
+        <Menu id="addMenu" anchorEl={menuAnchor} open={Boolean(menuAnchor)} onClose={() => { setMenuAnchor(null) }} MenuListProps={{ "aria-labelledby": "addMenuButton" }}>
+          <MenuItem onClick={() => { setEditVariant({ resourceId: resourceId }); }} ><Icon>add</Icon> Add Variant</MenuItem>
+          <MenuItem onClick={() => { createAsset(resourceId); }} ><Icon>list</Icon> Add Asset</MenuItem>
+          <MenuItem onClick={() => { bulkCreateAsset(resourceId); }} ><Icon>list</Icon> Bulk Add Asset</MenuItem>
+        </Menu>
+      </>
     );
   };
 

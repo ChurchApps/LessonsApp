@@ -71,12 +71,12 @@ export function ScheduleEdit(props: Props) {
     }
   };
 
-  const handleProgramChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+  const handleProgramChange = (e: SelectChangeEvent<string>) => {
     e.preventDefault();
     setProgramId(e.target.value);
   };
 
-  const handleStudyChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+  const handleStudyChange = (e: SelectChangeEvent<string>) => {
     e.preventDefault();
     setStudyId(e.target.value);
   };
@@ -177,7 +177,7 @@ export function ScheduleEdit(props: Props) {
         <TextField fullWidth label="Schedule Date" type="date" name="scheduledDate" value={DateHelper.formatHtml5Date(schedule?.scheduledDate)} onChange={handleChange} onKeyDown={handleKeyDown} />
         <FormControl fullWidth>
           <InputLabel>Program</InputLabel>
-          <Select label="Program" name="provider" value={programId} onChange={handleChange}>
+          <Select label="Program" name="program" value={programId} onChange={handleProgramChange}>
             {getProgramOptions()}
           </Select>
         </FormControl>
