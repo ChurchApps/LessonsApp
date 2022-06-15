@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
-import { FormGroup, FormControl, FormLabel } from "react-bootstrap";
 import { ApiHelper, CopySectionInterface, SectionInterface, VenueInterface } from "@/utils";
 import { InputBox, ErrorMessages } from "../index";
+import { FormControl, InputLabel, Select, SelectChangeEvent } from "@mui/material";
 
 type Props = {
   copySection: CopySectionInterface,
@@ -12,22 +12,20 @@ type Props = {
 export function SectionCopy(props: Props) {
   const [copySection, setCopySection] = useState<CopySectionInterface>({} as CopySectionInterface);
   const [errors, setErrors] = useState([]);
-
   const [venues, setVenues] = useState<VenueInterface[]>([]);
   const [sections, setSections] = useState<SectionInterface[]>([]);
 
-
   const handleCancel = () => props.updatedCallback();
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
+  const handleChange = (e: SelectChangeEvent<string>) => {
     e.preventDefault();
     let s = { ...copySection };
-    switch (e.currentTarget.name) {
+    switch (e.target.name) {
       case "venue":
-        s.sourceVenueId = e.currentTarget.value;
+        s.sourceVenueId = e.target.value;
         break;
       case "section":
-        s.sourceSectionId = e.currentTarget.value;
+        s.sourceSectionId = e.target.value;
         break;
     }
     setCopySection(s);
@@ -50,7 +48,6 @@ export function SectionCopy(props: Props) {
 
   const init = () => {
     setCopySection(props.copySection);
-
     ApiHelper.get("/venues/lesson/" + props.copySection.sourceLessonId, "LessonsApi").then((data: VenueInterface[]) => {
       setVenues(data);
       if (data.length > 0) {
@@ -63,10 +60,7 @@ export function SectionCopy(props: Props) {
   }
 
   const populateSections = () => {
-    console.log("loading sections");
     ApiHelper.get("/sections/venue/" + copySection.sourceVenueId, "LessonsApi").then((data: SectionInterface[]) => {
-      console.log("loaded sections");
-      console.log(data);
       setSections(data);
       if (data.length > 0) {
         const cs = { ...copySection };
@@ -103,18 +97,19 @@ export function SectionCopy(props: Props) {
     <>
       <InputBox id="sectionDetailsBox" headerText="Copy Section From" headerIcon="fas fa-tasks" saveFunction={handleSave} cancelFunction={handleCancel} saveText="Copy!" >
         <ErrorMessages errors={errors} />
-        <FormGroup>
-          <FormLabel>Venue</FormLabel>
-          <FormControl as="select" name="venue" value={copySection.sourceVenueId} onChange={handleChange}>
+
+        <FormControl fullWidth>
+          <InputLabel>Venue</InputLabel>
+          <Select label="Venue" name="venue" value={copySection.sourceVenueId} onChange={handleChange}>
             {getVenueOptions()}
-          </FormControl>
-        </FormGroup>
-        <FormGroup>
-          <FormLabel>Section</FormLabel>
-          <FormControl as="select" name="section" value={copySection.sourceSectionId} onChange={handleChange}>
+          </Select>
+        </FormControl>
+        <FormControl fullWidth>
+          <InputLabel>Section</InputLabel>
+          <Select label="Section" name="section" value={copySection.sourceSectionId} onChange={handleChange}>
             {getSectionOptions()}
-          </FormControl>
-        </FormGroup>
+          </Select>
+        </FormControl>
       </InputBox>
     </>
   );

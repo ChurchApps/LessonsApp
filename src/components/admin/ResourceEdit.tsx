@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
-import { FormGroup, FormControl, FormLabel } from "react-bootstrap";
 import { InputBox, ErrorMessages } from "../index";
 import { ApiHelper, BundleInterface, LessonInterface, ResourceInterface, StudyInterface } from "@/utils";
+import { FormControl, InputLabel, MenuItem, Select, SelectChangeEvent, TextField } from "@mui/material";
 
 type Props = {
   resource: ResourceInterface;
@@ -23,18 +23,18 @@ export function ResourceEdit(props: Props) {
     }
   };
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement> | SelectChangeEvent<string>) => {
     e.preventDefault();
     let r = { ...resource };
-    switch (e.currentTarget.name) {
+    switch (e.target.name) {
       case "name":
-        r.name = e.currentTarget.value;
+        r.name = e.target.value;
         break;
       case "bundleId":
-        r.bundleId = e.currentTarget.value;
+        r.bundleId = e.target.value;
         break;
       case "loopVideo":
-        r.loopVideo = e.currentTarget.value === "true";
+        r.loopVideo = e.target.value === "true";
         break;
     }
     setResource(r);
@@ -95,42 +95,34 @@ export function ResourceEdit(props: Props) {
     });
   }, [props.resource]);
 
-
-
-
   const getBundleOptions = () => {
     const result: JSX.Element[] = [];
     bundles?.forEach(b => {
       let displayType = "Lesson";
       if (b.contentType === "study") displayType = "Study";
       if (b.contentType === "program") displayType = "Program";
-      result.push(<option value={b.id}>{displayType} - {b.contentName}: {b.name}</option>)
+      result.push(<MenuItem value={b.id}>{displayType} - {b.contentName}: {b.name}</MenuItem>)
     });
     return result;
   }
 
   return (
-    <>
-      <InputBox id="resourceDetailsBox" headerText={props.contentDisplayName} headerIcon="fas fa-file-alt" saveFunction={handleSave} cancelFunction={handleCancel} deleteFunction={getDeleteFunction()} >
-        <ErrorMessages errors={errors} />
-        <FormGroup>
-          <FormLabel>Bundle</FormLabel>
-          <FormControl as="select" name="bundleId" value={resource.bundleId} onChange={handleChange}>
-            {getBundleOptions()}
-          </FormControl>
-        </FormGroup>
-        <FormGroup>
-          <FormLabel>Resource Name</FormLabel>
-          <FormControl type="text" name="name" value={resource.name} onChange={handleChange} onKeyDown={handleKeyDown} placeholder="Countdown Video" />
-        </FormGroup>
-        <FormGroup>
-          <FormLabel>Looping Video</FormLabel>
-          <FormControl as="select" name="loopVideo" value={resource.loopVideo?.toString()} onChange={handleChange}>
-            <option value="false">No</option>
-            <option value="true">Yes</option>
-          </FormControl>
-        </FormGroup>
-      </InputBox>
-    </>
+    <InputBox id="resourceDetailsBox" headerText={props.contentDisplayName} headerIcon="fas fa-file-alt" saveFunction={handleSave} cancelFunction={handleCancel} deleteFunction={getDeleteFunction()} >
+      <ErrorMessages errors={errors} />
+      <FormControl fullWidth>
+        <InputLabel>Bundle</InputLabel>
+        <Select label="Bundle" name="bundleId" value={resource.bundleId} onChange={handleChange}>
+          {getBundleOptions()}
+        </Select>
+      </FormControl>
+      <TextField fullWidth label="Resource Name" name="name" value={resource.name} onChange={handleChange} onKeyDown={handleKeyDown} placeholder="Countdown Video" />
+      <FormControl fullWidth>
+        <InputLabel>Looping Video</InputLabel>
+        <Select label="Looping Video" name="bundleId" value={resource.loopVideo?.toString()} onChange={handleChange}>
+          <MenuItem value="false">No</MenuItem>
+          <MenuItem value="true">Yes</MenuItem>
+        </Select>
+      </FormControl>
+    </InputBox>
   );
 }

@@ -1,8 +1,8 @@
 import { useState, useEffect } from "react";
-import { FormGroup, FormControl, FormLabel } from "react-bootstrap";
-import { InputBox, ErrorMessages } from "../index";
-import { ApiHelper, ClassroomInterface } from "@/utils";
+import { InputBox } from "../index";
+import { ApiHelper } from "@/utils";
 import { VenueInterface } from "@/utils/interfaces";
+import { TextField } from "@mui/material";
 
 type Props = {
   classroomId: string;
@@ -37,13 +37,7 @@ export function PlaylistFeed(props: Props) {
   }
 
   const getContents = () => {
-    return (<>
-      <FormGroup>
-        <FormLabel>Feed Url</FormLabel>
-        <FormControl as="textarea" type="text" name="feedUrl" value={getFeedUrl()} />
-      </FormGroup>
-    </>);
-
+    return (<TextField fullWidth multiline label="Feed Url" type="text" name="feedUrl" value={getFeedUrl()} />);
   }
 
   return (

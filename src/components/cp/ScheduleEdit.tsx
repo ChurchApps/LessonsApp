@@ -1,8 +1,8 @@
 import { useState, useEffect } from "react";
-import { FormGroup, FormControl, FormLabel } from "react-bootstrap";
 import { InputBox, ErrorMessages } from "../index";
 import { ApiHelper, LessonInterface, ProgramInterface, ScheduleInterface, StudyInterface, VenueInterface } from "@/utils";
 import { ArrayHelper, DateHelper } from "@/appBase/helpers";
+import { FormControl, InputLabel, Select, SelectChangeEvent, TextField } from "@mui/material";
 
 type Props = {
   schedule: ScheduleInterface;
@@ -62,7 +62,6 @@ export function ScheduleEdit(props: Props) {
     });
   }
 
-
   const handleCancel = () => props.updatedCallback(schedule);
 
   const handleKeyDown = (e: React.KeyboardEvent<any>) => {
@@ -82,19 +81,13 @@ export function ScheduleEdit(props: Props) {
     setStudyId(e.target.value);
   };
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement> | SelectChangeEvent<string>) => {
     e.preventDefault();
     let s = { ...schedule };
-    switch (e.currentTarget.name) {
-      case "scheduledDate":
-        s.scheduledDate = new Date(e.currentTarget.value);
-        break;
-      case "lesson":
-        s.lessonId = e.currentTarget.value;
-        break;
-      case "venue":
-        s.venueId = e.currentTarget.value;
-        break;
+    switch (e.target.name) {
+      case "scheduledDate": s.scheduledDate = new Date(e.target.value); break;
+      case "lesson": s.lessonId = e.target.value; break;
+      case "venue": s.venueId = e.target.value; break;
     }
     setSchedule(s);
   };
@@ -107,16 +100,13 @@ export function ScheduleEdit(props: Props) {
   };
 
   const getDisplayName = () => {
-    //const programName = ArrayHelper.getOne(programs, "id", programId).name;
     const studyName = ArrayHelper.getOne(studies, "id", studyId).name;
     const lessonName = ArrayHelper.getOne(lessons, "id", schedule.lessonId).name;
-    //return programName + ": " + studyName + " - " + lessonName;
     return studyName + " - " + lessonName;
   }
 
   const handleSave = () => {
     if (validate()) {
-
       const s = { ...schedule };
       s.displayName = getDisplayName();
 
@@ -184,35 +174,31 @@ export function ScheduleEdit(props: Props) {
     <>
       <InputBox id="scheduleDetailsBox" headerText="Edit Schedule" headerIcon="fas fa-graduation-cap" saveFunction={handleSave} cancelFunction={handleCancel} deleteFunction={handleDelete} >
         <ErrorMessages errors={errors} />
-        <FormGroup>
-          <FormLabel>Schedule Date</FormLabel>
-          <FormControl type="date" name="scheduledDate" value={DateHelper.formatHtml5Date(schedule?.scheduledDate)} onChange={handleChange} onKeyDown={handleKeyDown} />
-        </FormGroup>
-        <FormGroup>
-          <FormLabel>Program</FormLabel>
-          <FormControl as="select" name="provider" value={programId} onChange={handleProgramChange}>
+        <TextField fullWidth label="Schedule Date" type="date" name="scheduledDate" value={DateHelper.formatHtml5Date(schedule?.scheduledDate)} onChange={handleChange} onKeyDown={handleKeyDown} />
+        <FormControl fullWidth>
+          <InputLabel>Program</InputLabel>
+          <Select label="Program" name="provider" value={programId} onChange={handleChange}>
             {getProgramOptions()}
-          </FormControl>
-        </FormGroup>
-        <FormGroup>
-          <FormLabel>Study</FormLabel>
-          <FormControl as="select" name="study" value={studyId} onChange={handleStudyChange}>
+          </Select>
+        </FormControl>
+        <FormControl fullWidth>
+          <InputLabel>Study</InputLabel>
+          <Select label="Study" name="study" value={studyId} onChange={handleStudyChange}>
             {getStudyOptions()}
-          </FormControl>
-        </FormGroup>
-        <FormGroup>
-          <FormLabel>Lesson</FormLabel>
-          <FormControl as="select" name="lesson" value={schedule?.lessonId} onChange={handleChange}>
+          </Select>
+        </FormControl>
+        <FormControl fullWidth>
+          <InputLabel>Lesson</InputLabel>
+          <Select label="Lesson" name="lesson" value={schedule?.lessonId} onChange={handleChange}>
             {getLessonOptions()}
-          </FormControl>
-        </FormGroup>
-        <FormGroup>
-          <FormLabel>Venue</FormLabel>
-          <FormControl as="select" name="venue" id="venue" value={schedule?.venueId} onChange={handleChange}>
+          </Select>
+        </FormControl>
+        <FormControl fullWidth>
+          <InputLabel>Venue</InputLabel>
+          <Select label="Venue" name="venue" id="venue" value={schedule?.venueId} onChange={handleChange}>
             {getVenueOptions()}
-          </FormControl>
-        </FormGroup>
-
+          </Select>
+        </FormControl>
       </InputBox>
     </>
   );
