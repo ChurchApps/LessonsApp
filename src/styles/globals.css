@@ -602,8 +602,8 @@ dropdown-menu a {
 
 #adminTree .roleRow td {
   border-top: none;
-  padding-top: 0px;
-  padding-bottom: 0px;
+  padding-top: 5px;
+  padding-bottom: 5px;
 }
 
 #adminTree .actionRow td:first-child {
@@ -1110,11 +1110,6 @@ a.dropdown-toggle::after {
   border: 1px solid #1c75bc;
 }
 
-
-.adminAccordion span a {
-  color: #7c0;
-}
-
 .adminAccordion .card {
   border: none;
   margin-bottom: 0px;
@@ -1154,19 +1149,23 @@ a.dropdown-toggle::after {
   padding-right: 0px;
 }
 
-.lessonDiv {
-  padding-right: 64px
-}
 
 .lessonDiv,
 .assetDiv,
 .variantDiv {
-  padding-left: 55px;
   border-top: 1px solid #EEE;
   padding-top: 2px;
   padding-bottom: 2px;
   ;
 }
+
+.lessonDiv {
+  padding-right: 60px;
+  clear: both;
+  padding-top: 5px;
+  padding-bottom: 5px;
+}
+
 
 .reportTable> :not(:first-child) {
   border-top: 1px solid #ccc;
@@ -1196,4 +1195,9 @@ a.dropdown-toggle::after {
   .downloadsDropDown .dropdown-menu.show {
     width: 400px !important;
   }
+}
+
+/*temp because of bootstrap*/
+button:focus {
+  outline: none;
 }

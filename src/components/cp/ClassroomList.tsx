@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import Link from "next/link";
 import { ClassroomInterface, ApiHelper } from "@/utils";
 import { DisplayBox, Loading, ClassroomEdit } from "../index";
+import { SmallButton } from "@/appBase/components";
 
 type Props = {
   classroomSelected: (classroomId: string) => void;
@@ -30,12 +31,8 @@ export function ClassroomList(props: Props) {
             </a>
           </td>
           <td style={{ textAlign: "right" }}>
-            <a href="about:blank" onClick={(e) => { e.preventDefault(); props.showFeed(c.id); }} style={{ marginRight: 10 }} className="green" >
-              <i className="fas fa-rss"></i>
-            </a>
-            <a href="about:blank" onClick={(e) => { e.preventDefault(); setEditClassroom(c); }} >
-              <i className="fas fa-pencil-alt"></i>
-            </a>
+            <SmallButton icon="rss_feed" text="Subscribe" onClick={() => { props.showFeed(c.id); }} /> &nbsp;
+            <SmallButton icon="edit" text="Edit" onClick={() => { setEditClassroom(c); }} />
           </td>
         </tr>
       );
@@ -54,11 +51,7 @@ export function ClassroomList(props: Props) {
   };
 
   const getEditContent = () => {
-    return (
-      <a href="about:blank" onClick={(e) => { e.preventDefault(); setEditClassroom({}); }}>
-        <i className="fas fa-plus"></i>
-      </a>
-    );
+    return (<SmallButton icon="add" onClick={() => { setEditClassroom({}) }} />);
   };
 
   useEffect(loadData, []);

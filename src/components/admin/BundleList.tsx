@@ -92,7 +92,7 @@ export const BundleList: React.FC<Props> = (props) => {
         result.push(
           <div className="variantDiv" key={`v-${v.id}`}>
             <a href="about:blank" onClick={(e) => { e.preventDefault(); clearEdits(); setEditVariant(v); }} >
-              <i className="fas fa-copy"></i> {v.name}
+              <Icon>file_copy</Icon> {v.name}
             </a>
           </div>
         );
@@ -108,7 +108,7 @@ export const BundleList: React.FC<Props> = (props) => {
         result.push(
           <div className="assetDiv" key={`a-${a.id}`}>
             <a href="about:blank" onClick={(e) => { e.preventDefault(); clearEdits(); setEditAsset(a); }} >
-              <i className="fas fa-list-ol"></i> {a.name}
+              <Icon>format_list_numbered</Icon> {a.name}
             </a>
           </div>
         );
@@ -125,13 +125,12 @@ export const BundleList: React.FC<Props> = (props) => {
         <AccordionSummary expandIcon={<Icon>expand_more</Icon>} aria-controls="panel1bh-content" id="panel1bh-header" >
           <div style={{ width: "100%", paddingRight: 20 }}>
             <span style={{ float: "right" }}>
-              <a href="about:blank" onClick={(e) => { e.preventDefault(); setEditResource({ category: bundle.name, bundleId: bundle.id }); }} >
-                <i className="fas fa-plus"></i>
-              </a>
+              <SmallButton icon="add" onClick={() => { setEditResource({ category: bundle.name, bundleId: bundle.id }); }} text="Resource" />
             </span>
-            <a href="about:blank" onClick={(e) => { e.preventDefault(); clearEdits(); setEditBundle(b); }} >
-              <i className="fas fa-file-archive"></i> {b.name}
+            <a href="about:blank" onClick={(e) => { e.preventDefault(); clearEdits(); setEditBundle(b); }} color="error">
+              {b.name}
             </a>
+
           </div>
         </AccordionSummary>
         <AccordionDetails>
@@ -179,11 +178,11 @@ export const BundleList: React.FC<Props> = (props) => {
   const getDropDownMenu = (resourceId: string) => {
     return (
       <>
-        <SmallButton icon="add" onClick={(e) => setMenuAnchor(e.currentTarget)} />
+        <SmallButton icon="add" text="Add" onClick={(e) => setMenuAnchor(e.currentTarget)} />
         <Menu id="addMenu" anchorEl={menuAnchor} open={Boolean(menuAnchor)} onClose={() => { setMenuAnchor(null) }} MenuListProps={{ "aria-labelledby": "addMenuButton" }}>
-          <MenuItem onClick={() => { setEditVariant({ resourceId: resourceId }); }} ><Icon>add</Icon> Add Variant</MenuItem>
-          <MenuItem onClick={() => { createAsset(resourceId); }} ><Icon>list</Icon> Add Asset</MenuItem>
-          <MenuItem onClick={() => { bulkCreateAsset(resourceId); }} ><Icon>list</Icon> Bulk Add Asset</MenuItem>
+          <MenuItem onClick={() => { setEditVariant({ resourceId: resourceId }); }} ><Icon>file_copy</Icon> Add Variant</MenuItem>
+          <MenuItem onClick={() => { createAsset(resourceId); }} ><Icon>format_list_numbered</Icon> Add Asset</MenuItem>
+          <MenuItem onClick={() => { bulkCreateAsset(resourceId); }} ><Icon>format_list_numbered</Icon> Bulk Add Asset</MenuItem>
         </Menu>
       </>
     );
@@ -191,11 +190,7 @@ export const BundleList: React.FC<Props> = (props) => {
 
 
   const getEditContent = () => {
-    return (
-      <a href="about:blank" onClick={(e) => { e.preventDefault(); setEditBundle({ contentType: props.contentType, contentId: props.contentId }); }} >
-        <i className="fas fa-plus"></i>
-      </a>
-    );
+    return (<SmallButton icon="add" onClick={() => { setEditBundle({ contentType: props.contentType, contentId: props.contentId }); }} />);
   };
 
   React.useEffect(() => { loadData() }, [props.contentType, props.contentId]);

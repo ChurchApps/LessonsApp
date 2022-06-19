@@ -5,6 +5,7 @@ import { ApiHelper, LessonInterface, ProgramInterface, StudyInterface, ArrayHelp
 import Link from "next/link";
 import { Wrapper } from "@/components/Wrapper";
 import { Accordion, AccordionDetails, AccordionSummary, Grid, Icon } from "@mui/material";
+import { SmallButton } from "@/appBase/components";
 
 
 export default function Admin() {
@@ -64,11 +65,11 @@ export default function Admin() {
           <AccordionSummary expandIcon={<Icon>expand_more</Icon>} aria-controls="panel1bh-content" id="panel1bh-header" >
             <div style={{ width: "100%", paddingRight: 20 }}>
               <span style={{ float: "right" }}>
-                <Link href={"/admin/stats/" + p.id}><a><i className="fas fa-chart-bar"></i></a></Link>{" "}
+                <SmallButton href={"/admin/stats/" + p.id} icon="show_chart" text="Stats" />
                 &nbsp;
-                <a href="about:blank" onClick={(e) => { e.preventDefault(); clearEdits(); showResources("program", p.id, p.name); }} ><i className="fas fa-file-alt"></i></a>{" "}
+                <SmallButton icon="add" text="Study" onClick={() => { clearEdits(); setEditStudy({ programId: p.id }); }} />
                 &nbsp;
-                <a href="about:blank" onClick={(e) => { e.preventDefault(); clearEdits(); setEditStudy({ programId: p.id }); }} ><i className="fas fa-plus"></i></a>
+                <SmallButton icon="file_upload" text="Files" onClick={() => { clearEdits(); showResources("program", p.id, p.name); }} />
               </span>
               <a href="about:blank" onClick={(e) => { e.preventDefault(); clearEdits(); setEditProgram(p); }} >
                 <i className="fas fa-graduation-cap"></i> {p.name}
@@ -92,13 +93,9 @@ export default function Admin() {
             <AccordionSummary expandIcon={<Icon>expand_more</Icon>} aria-controls="panel1bh-content" id="panel1bh-header" >
               <div style={{ width: "100%", paddingRight: 20 }}>
                 <span style={{ float: "right" }}>
-                  <a href="about:blank" onClick={(e) => { e.preventDefault(); clearEdits(); showResources("study", s.id, s.name); }} >
-                    <i className="fas fa-file-alt"></i>
-                  </a>{" "}
+                  <SmallButton icon="add" text="Lesson" onClick={() => { clearEdits(); setEditLesson({ studyId: s.id }); }} />
                   &nbsp;
-                  <a href="about:blank" onClick={(e) => { e.preventDefault(); clearEdits(); setEditLesson({ studyId: s.id }); }} >
-                    <i className="fas fa-plus"></i>
-                  </a>
+                  <SmallButton icon="file_upload" text="Files" onClick={() => { clearEdits(); showResources("study", s.id, s.name); }} />
                 </span>
                 <a href="about:blank" onClick={(e) => { e.preventDefault(); clearEdits(); setEditStudy(s); }} >
                   <i className="fas fa-layer-group"></i> {s.name}
@@ -121,13 +118,9 @@ export default function Admin() {
         result.push(
           <div className="lessonDiv" key={"l" + l.id}>
             <span style={{ float: "right" }}>
-              <a href="about:blank" onClick={(e) => { e.preventDefault(); clearEdits(); showResources("lesson", l.id, l.name); }} >
-                <i className="fas fa-file-alt"></i>
-              </a>{" "}
+              <SmallButton icon="map_marker" text="Venues" onClick={() => { clearEdits(); setVenuesLessonId(l.id); }} />
               &nbsp;
-              <a href="about:blank" onClick={(e) => { e.preventDefault(); clearEdits(); setVenuesLessonId(l.id); }} >
-                <i className="fas fa-map-marker"></i>
-              </a>
+              <SmallButton icon="file_upload" text="Files" onClick={() => { clearEdits(); showResources("lesson", l.id, l.name); }} />
             </span>
             <a href="about:blank" onClick={(e) => { e.preventDefault(); clearEdits(); setEditLesson(l); }} >
               <i className="fas fa-book"></i> {l.name}: {l.title}
@@ -154,11 +147,7 @@ export default function Admin() {
     return result;
   }
 
-  const getEditContent = (
-    <a href="about:blank" onClick={(e) => { e.preventDefault(); clearEdits(); setEditProgram({}); }} >
-      <i className="fas fa-plus"></i>
-    </a>
-  );
+  const getEditContent = (<SmallButton icon="add" onClick={() => { clearEdits(); setEditProgram({}); }} />);
 
   return (
     <Wrapper>
@@ -166,7 +155,6 @@ export default function Admin() {
 
       <Grid container spacing={3}>
         <Grid item md={8} xs={12}>
-
           <DisplayBox headerText="Programs" headerIcon="none" editContent={getEditContent} >
             {getAccordion()}
           </DisplayBox>

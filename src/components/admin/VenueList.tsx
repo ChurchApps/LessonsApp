@@ -2,6 +2,8 @@ import { useState, useEffect } from "react";
 import Link from "next/link";
 import { VenueInterface, ApiHelper } from "@/utils";
 import { DisplayBox, Loading, VenueEdit } from "../index";
+import { SmallButton } from "@/appBase/components";
+import { Icon } from "@mui/material";
 
 type Props = {
   lessonId: string;
@@ -26,22 +28,12 @@ export function VenueList(props: Props) {
       result.push(
         <tr className="venueRow" key={v.id}>
           <td>
-            <i className="fas fa-map-marker"></i>{" "}
+            <Icon>map_marker</Icon>{" "}
             <Link href={"/admin/venue/" + v.id}>
               <a>{v.name}</a>
             </Link>
           </td>
-          <td>
-            <a
-              href="about:blank"
-              onClick={(e) => {
-                e.preventDefault();
-                setEditVenue(v);
-              }}
-            >
-              <i className="fas fa-pencil-alt"></i>
-            </a>
-          </td>
+          <td><SmallButton icon="edit" text="Edit" onClick={() => { setEditVenue(v); }} /></td>
         </tr>
       );
     });
@@ -60,41 +52,14 @@ export function VenueList(props: Props) {
   };
 
   const getEditContent = () => {
-    return (
-      <a
-        href="about:blank"
-        onClick={(e) => {
-          e.preventDefault();
-          setEditVenue({ lessonId: props.lessonId });
-        }}
-      >
-        <i className="fas fa-plus"></i>
-      </a>
-    );
+    return (<SmallButton icon="add" onClick={() => { setEditVenue({ lessonId: props.lessonId }); }} />);
   };
 
   useEffect(loadData, [props.lessonId]);
 
-  if (editVenue)
-    return (
-      <VenueEdit
-        venue={editVenue}
-        updatedCallback={() => {
-          setEditVenue(null);
-          loadData();
-        }}
-      />
-    );
+  if (editVenue) return (<VenueEdit venue={editVenue} updatedCallback={() => { setEditVenue(null); loadData(); }} />);
   else
-    return (
-      <>
-        <DisplayBox
-          headerText="Venues"
-          headerIcon="fas fa-map-marker"
-          editContent={getEditContent()}
-        >
-          {getTable()}
-        </DisplayBox>
-      </>
-    );
+    return (<DisplayBox headerText="Venues" headerIcon="map_marker" editContent={getEditContent()}>
+      {getTable()}
+    </DisplayBox>);
 }

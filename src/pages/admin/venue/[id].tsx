@@ -4,6 +4,7 @@ import { DisplayBox, Loading, SectionEdit, RoleEdit, ActionEdit, SectionCopy } f
 import { VenueInterface, LessonInterface, StudyInterface, SectionInterface, RoleInterface, ActionInterface, ResourceInterface, AssetInterface, ApiHelper, ArrayHelper, CopySectionInterface } from "@/utils";
 import { Wrapper } from "@/components/Wrapper";
 import { Button, Grid, Icon, Menu, MenuItem } from "@mui/material";
+import { SmallButton } from "@/appBase/components";
 
 export default function Venue() {
   const [venue, setVenue] = useState<VenueInterface>(null);
@@ -16,7 +17,7 @@ export default function Venue() {
   const [editSection, setEditSection] = useState<SectionInterface>(null);
   const [editRole, setEditRole] = useState<RoleInterface>(null);
   const [editAction, setEditAction] = useState<ActionInterface>(null);
-  const [menuAnchor, setMenuAnchor] = useState<null | HTMLElement>(null);
+  const [menuAnchor, setMenuAnchor] = useState<any>(null);
 
   const [lessonResources, setLessonResources] = useState<ResourceInterface[]>(null);
   const [studyResources, setStudyResources] = useState<ResourceInterface[]>(null);
@@ -128,11 +129,7 @@ export default function Venue() {
             <i className="fas fa-tasks"></i> {s.name}
           </a>
         </td>
-        <td>
-          <a href="about:blank" onClick={(e) => { e.preventDefault(); createRole(s.id); }} >
-            <i className="fas fa-plus"></i>
-          </a>
-        </td>
+        <td><SmallButton icon="add" text="Role" onClick={(e) => { createRole(s.id); }} /></td>
       </tr>);
       getRoles(s.id).forEach((r) => result.push(r));
     });
@@ -149,11 +146,7 @@ export default function Venue() {
               <i className="fas fa-user-alt"></i> {r.name}
             </a>
           </td>
-          <td>
-            <a href="about:blank" onClick={(e) => { e.preventDefault(); createAction(r.id); }} >
-              <i className="fas fa-plus"></i>
-            </a>
-          </td>
+          <td><SmallButton onClick={() => { createAction(r.id); }} icon="add" text="Action" /></td>
         </tr>);
         getActions(r.id).forEach((i) => result.push(i));
       });
@@ -198,7 +191,8 @@ export default function Venue() {
   const getEditContent = () => {
     return (
       <>
-        <Button id="addVenueMenu" variant="contained" onClick={(e) => setMenuAnchor(e.currentTarget)} size="small" style={{ float: "right" }}><Icon>add</Icon> Add</Button>
+        <span style={{ float: "right" }}><SmallButton icon="add" onClick={(e) => { setMenuAnchor(e.currentTarget) }} />
+        </span>
         <Menu id="addVenueMenu" anchorEl={menuAnchor} open={Boolean(menuAnchor)} onClose={() => { setMenuAnchor(null) }} MenuListProps={{ "aria-labelledby": "downloadButton" }}>
           <MenuItem onClick={() => { createSection(); }} ><Icon>add</Icon> Create New</MenuItem>
           <MenuItem onClick={() => { duplicateSection(); }} ><Icon>content_copy</Icon> Copy Existing</MenuItem>
@@ -214,7 +208,7 @@ export default function Venue() {
       <Grid container spacing={3}>
         <Grid item md={8} xs={12}>
           <div className="scrollingList">
-            <DisplayBox headerText="Sections" headerIcon="none" editContent={getEditContent()}>
+            <DisplayBox headerText="Sections" headerIcon="list" editContent={getEditContent()}>
               {getTable()}
             </DisplayBox>
           </div>

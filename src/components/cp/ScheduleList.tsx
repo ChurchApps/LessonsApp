@@ -3,6 +3,7 @@ import { ScheduleInterface, ApiHelper } from "@/utils";
 import { DisplayBox, Loading, ScheduleEdit } from "../index";
 import { DateHelper } from "@/appBase/helpers";
 import Link from "next/link";
+import { SmallButton } from "@/appBase/components";
 
 
 type Props = {
@@ -54,13 +55,7 @@ export function ScheduleList(props: Props) {
   };
 
   const getEditContent = () => {
-    return (
-      <>
-        <a href="about:blank" onClick={(e) => { e.preventDefault(); setEditSchedule({ classroomId: props.classroomId, }); }}>
-          <i className="fas fa-plus"></i>
-        </a>
-      </>
-    );
+    return (<SmallButton icon="add" onClick={() => { setEditSchedule({ classroomId: props.classroomId, }); }} />);
   };
 
   useEffect(loadData, [props.classroomId]);
