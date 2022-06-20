@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
-import { FormGroup, FormControl, FormLabel } from "react-bootstrap";
 import { InputBox, ErrorMessages } from "../index";
 import { ApiHelper, VenueInterface } from "@/utils";
+import { TextField } from "@mui/material";
 
 type Props = {
   venue: VenueInterface;
@@ -15,22 +15,15 @@ export function VenueEdit(props: Props) {
   const handleCancel = () => props.updatedCallback(venue);
 
   const handleKeyDown = (e: React.KeyboardEvent<any>) => {
-    if (e.key === "Enter") {
-      e.preventDefault();
-      handleSave();
-    }
+    if (e.key === "Enter") { e.preventDefault(); handleSave(); }
   };
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     e.preventDefault();
     let v = { ...venue };
     switch (e.currentTarget.name) {
-      case "name":
-        v.name = e.currentTarget.value;
-        break;
-      case "sort":
-        v.sort = parseInt(e.currentTarget.value);
-        break;
+      case "name": v.name = e.currentTarget.value; break;
+      case "sort": v.sort = parseInt(e.currentTarget.value); break;
     }
     setVenue(v);
   };
@@ -53,9 +46,7 @@ export function VenueEdit(props: Props) {
 
   const handleDelete = () => {
     if (window.confirm("Are you sure you wish to permanently delete this venue?")) {
-      ApiHelper.delete("/venues/" + venue.id.toString(), "LessonsApi").then(
-        () => props.updatedCallback(null)
-      );
+      ApiHelper.delete("/venues/" + venue.id.toString(), "LessonsApi").then(() => props.updatedCallback(null));
     }
   };
 
@@ -63,16 +54,10 @@ export function VenueEdit(props: Props) {
 
   return (
     <>
-      <InputBox id="venueDetailsBox" headerText="Edit Venue" headerIcon="fas fa-map-marker" saveFunction={handleSave} cancelFunction={handleCancel} deleteFunction={handleDelete} >
+      <InputBox id="venueDetailsBox" headerText="Edit Venue" headerIcon="map_marker" saveFunction={handleSave} cancelFunction={handleCancel} deleteFunction={handleDelete} >
         <ErrorMessages errors={errors} />
-        <FormGroup>
-          <FormLabel>Order</FormLabel>
-          <FormControl type="number" name="sort" value={venue.sort} onChange={handleChange} onKeyDown={handleKeyDown} placeholder="1" />
-        </FormGroup>
-        <FormGroup>
-          <FormLabel>Venue Name</FormLabel>
-          <FormControl type="text" name="name" value={venue.name} onChange={handleChange} onKeyDown={handleKeyDown} placeholder="Venue 1" />
-        </FormGroup>
+        <TextField fullWidth label="Order" type="number" name="sort" value={venue.sort} onChange={handleChange} onKeyDown={handleKeyDown} placeholder="1" />
+        <TextField fullWidth label="Venue Name" value={venue.name} onChange={handleChange} onKeyDown={handleKeyDown} placeholder="Small Group" />
       </InputBox>
     </>
   );

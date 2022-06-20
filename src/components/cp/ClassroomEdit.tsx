@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
-import { FormGroup, FormControl, FormLabel } from "react-bootstrap";
 import { InputBox, ErrorMessages } from "../index";
 import { ApiHelper, ClassroomInterface } from "@/utils";
+import { TextField } from "@mui/material";
 
 type Props = {
   classroom: ClassroomInterface;
@@ -21,13 +21,11 @@ export function ClassroomEdit(props: Props) {
     }
   };
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     e.preventDefault();
     let v = { ...classroom };
     switch (e.currentTarget.name) {
-      case "name":
-        v.name = e.currentTarget.value;
-        break;
+      case "name": v.name = e.currentTarget.value; break;
     }
     setClassroom(v);
   };
@@ -50,23 +48,16 @@ export function ClassroomEdit(props: Props) {
 
   const handleDelete = () => {
     if (window.confirm("Are you sure you wish to permanently delete this classroom?")) {
-      ApiHelper.delete("/classrooms/" + classroom.id.toString(), "LessonsApi").then(
-        () => props.updatedCallback(null)
-      );
+      ApiHelper.delete("/classrooms/" + classroom.id.toString(), "LessonsApi").then(() => props.updatedCallback(null));
     }
   };
 
   useEffect(() => { setClassroom(props.classroom); }, [props.classroom]);
 
   return (
-    <>
-      <InputBox id="classroomDetailsBox" headerText="Edit Classroom" headerIcon="fas fa-graduation-cap" saveFunction={handleSave} cancelFunction={handleCancel} deleteFunction={handleDelete} >
-        <ErrorMessages errors={errors} />
-        <FormGroup>
-          <FormLabel>Classroom Name</FormLabel>
-          <FormControl type="text" name="name" value={classroom.name} onChange={handleChange} onKeyDown={handleKeyDown} placeholder="Classroom 1" />
-        </FormGroup>
-      </InputBox>
-    </>
+    <InputBox id="classroomDetailsBox" headerText="Edit Classroom" headerIcon="fas fa-graduation-cap" saveFunction={handleSave} cancelFunction={handleCancel} deleteFunction={handleDelete} >
+      <ErrorMessages errors={errors} />
+      <TextField fullWidth label="Classroom Name" name="name" value={classroom.name} onChange={handleChange} onKeyDown={handleKeyDown} placeholder="3rd-5th Grade" />
+    </InputBox>
   );
 }

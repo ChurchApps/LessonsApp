@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
-import { FormGroup, FormControl, FormLabel } from "react-bootstrap";
 import { ApiHelper, SectionInterface } from "@/utils";
 import { InputBox, ErrorMessages } from "../index";
+import { TextField } from "@mui/material";
 
 type Props = {
   section: SectionInterface;
@@ -18,7 +18,7 @@ export function SectionEdit(props: Props) {
     if (e.key === "Enter") { e.preventDefault(); handleSave(); }
   };
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     e.preventDefault();
     let s = { ...section };
     switch (e.currentTarget.name) {
@@ -64,18 +64,9 @@ export function SectionEdit(props: Props) {
     <>
       <InputBox id="sectionDetailsBox" headerText={section?.id ? "Edit Section" : "Create Section"} headerIcon="fas fa-tasks" saveFunction={handleSave} cancelFunction={handleCancel} deleteFunction={handleDelete} >
         <ErrorMessages errors={errors} />
-        <FormGroup>
-          <FormLabel>Order</FormLabel>
-          <FormControl type="number" name="sort" value={section.sort} onChange={handleChange} onKeyDown={handleKeyDown} placeholder="1" />
-        </FormGroup>
-        <FormGroup>
-          <FormLabel>Section Name</FormLabel>
-          <FormControl type="text" name="name" value={section.name} onChange={handleChange} onKeyDown={handleKeyDown} placeholder="Section 1" />
-        </FormGroup>
-        <FormGroup>
-          <FormLabel>Materials Needed</FormLabel>
-          <FormControl type="text" name="materials" value={section.materials} onChange={handleChange} onKeyDown={handleKeyDown} placeholder="" />
-        </FormGroup>
+        <TextField label="Order" fullWidth type="number" name="sort" value={section.sort} onChange={handleChange} onKeyDown={handleKeyDown} placeholder="1" />
+        <TextField label="Section Name" fullWidth name="name" value={section.name} onChange={handleChange} onKeyDown={handleKeyDown} placeholder="Section 1" />
+        <TextField label="Materials Needed" fullWidth name="materials" value={section.materials} onChange={handleChange} onKeyDown={handleKeyDown} placeholder="" />
       </InputBox>
     </>
   );

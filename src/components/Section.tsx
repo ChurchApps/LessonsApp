@@ -1,6 +1,6 @@
-import { Card, Accordion, Button } from "react-bootstrap";
 import { SectionInterface, ResourceInterface, ActionInterface, ArrayHelper, CustomizationInterface, CustomizationHelper } from "@/utils";
 import { Action } from "./Action";
+import { Accordion, AccordionDetails, AccordionSummary, Icon } from "@mui/material";
 
 type Props = {
   section: SectionInterface;
@@ -67,19 +67,15 @@ export function Section(props: Props) {
 
 
   if (shouldHide(props.section?.id)) return <></>
-  return (
-    <Card>
-      <Card.Header className={props.activeSectionId === props.section?.id ? "active" : ""}>
-        <Accordion.Toggle as={Button} variant="link" className="text-decoration-none" eventKey={props.section.id} onClick={() => { props.toggleActive(props.section.id); }} >
-          {props.section.name}
-        </Accordion.Toggle>
-      </Card.Header>
-      <Accordion.Collapse eventKey={props.section.id}>
-        <Card.Body>
-          {getMaterials()}
-          {getParts()}
-        </Card.Body>
-      </Accordion.Collapse>
-    </Card>
+  else return (
+    <Accordion expanded={props.activeSectionId === props.section?.id} onChange={() => { props.toggleActive((props.activeSectionId === props.section.id) ? null : props.section.id); }}>
+      <AccordionSummary expandIcon={<Icon>expand_more</Icon>} aria-controls="panel1bh-content" id="panel1bh-header" >
+        {props.section.name}
+      </AccordionSummary>
+      <AccordionDetails>
+        {getMaterials()}
+        {getParts()}
+      </AccordionDetails>
+    </Accordion>
   );
 }

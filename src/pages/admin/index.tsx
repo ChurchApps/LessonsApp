@@ -1,10 +1,11 @@
 import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
-import { Row, Col, Container, Accordion, Card } from "react-bootstrap";
-import { Layout, DisplayBox, Loading, ProgramEdit, StudyEdit, LessonEdit, VenueList, BundleList } from "@/components";
+import { DisplayBox, Loading, ProgramEdit, StudyEdit, LessonEdit, VenueList, BundleList } from "@/components";
 import { ApiHelper, LessonInterface, ProgramInterface, StudyInterface, ArrayHelper, } from "@/utils";
-import { Button } from "react-bootstrap";
 import Link from "next/link";
+import { Wrapper } from "@/components/Wrapper";
+import { Accordion, AccordionDetails, AccordionSummary, Grid, Icon } from "@mui/material";
+import { SmallButton } from "@/appBase/components";
 
 
 export default function Admin() {
@@ -20,6 +21,8 @@ export default function Admin() {
   const [resourceName, setResourceName] = useState<string>(null);
   const router = useRouter();
   const { isAuthenticated } = ApiHelper
+  const [expandedProgramId, setExpandedProgramId] = useState<string>("");
+  const [expandedStudyId, setExpandedStudyId] = useState<string>("");
 
   useEffect(() => {
     if (!isAuthenticated) { router.push("/login"); }
@@ -57,58 +60,26 @@ export default function Admin() {
   function getPrograms() {
     const result: JSX.Element[] = [];
     programs.forEach((p) => {
-
-      result.push(<Card>
-        <Card.Header>
-          <span style={{ float: "right" }}>
-            <Link href={"/admin/stats/" + p.id}>
-              <a>
-                <i className="fas fa-chart-bar"></i>
+      result.push(
+        <Accordion expanded={expandedProgramId === p.id} onChange={() => { setExpandedProgramId((expandedProgramId === p.id) ? "" : p.id); }} className="adminAccordion programAccordion">
+          <AccordionSummary expandIcon={<Icon>expand_more</Icon>} aria-controls="panel1bh-content" id="panel1bh-header" >
+            <div style={{ width: "100%", paddingRight: 20 }}>
+              <span style={{ float: "right" }}>
+                <SmallButton href={"/admin/stats/" + p.id} icon="show_chart" text="Stats" />
+                &nbsp;
+                <SmallButton icon="add" text="Study" onClick={() => { clearEdits(); setEditStudy({ programId: p.id }); }} />
+                &nbsp;
+                <SmallButton icon="file_upload" text="Files" onClick={() => { clearEdits(); showResources("program", p.id, p.name); }} />
+              </span>
+              <a href="about:blank" onClick={(e) => { e.preventDefault(); clearEdits(); setEditProgram(p); }} >
+                <i className="fas fa-graduation-cap"></i> {p.name}
               </a>
-            </Link>{" "}
-            &nbsp;
-            <a href="about:blank" onClick={(e) => { e.preventDefault(); clearEdits(); showResources("program", p.id, p.name); }} >
-              <i className="fas fa-file-alt"></i>
-            </a>{" "}
-            &nbsp;
-            <a href="about:blank" onClick={(e) => { e.preventDefault(); clearEdits(); setEditStudy({ programId: p.id }); }} >
-              <i className="fas fa-plus"></i>
-            </a>
-          </span>
-          <Accordion.Toggle as={Card.Header} className="text-decoration-none" eventKey={`p-${p.id}`} >
-            <i className="fas fa-chevron-down"></i>
-            <a href="about:blank" onClick={(e) => { e.preventDefault(); clearEdits(); setEditProgram(p); }} >
-              <i className="fas fa-graduation-cap"></i> {p.name}
-            </a>
-          </Accordion.Toggle>
-        </Card.Header>
-        <Accordion.Collapse eventKey={`p-${p.id}`}>
-          <Card.Body>
-            <Accordion className="adminAccordion studyAccordion">
-              {getStudies(p.id)}
-            </Accordion>
-          </Card.Body>
-        </Accordion.Collapse>
-      </Card>);
-      /*
-              <tr className="programRow" key={`p-${p.id}`}>
-          <td>
-            <a href="about:blank" onClick={(e) => { e.preventDefault(); clearEdits(); setEditProgram(p); }} >
-              <i className="fas fa-graduation-cap"></i> {p.name}
-            </a>
-          </td>
-          <td>
-            <a href="about:blank" onClick={(e) => { e.preventDefault(); clearEdits(); showResources("program", p.id, p.name); }} >
-              <i className="fas fa-file-alt"></i>
-            </a>{" "}
-            &nbsp;
-            <a href="about:blank" onClick={(e) => { e.preventDefault(); clearEdits(); setEditStudy({ programId: p.id }); }} >
-              <i className="fas fa-plus"></i>
-            </a>
-          </td>
-        </tr>
-      */
-
+            </div>
+          </AccordionSummary>
+          <AccordionDetails>
+            {getStudies(p.id)}
+          </AccordionDetails>
+        </Accordion>)
     });
     return result;
   }
@@ -117,54 +88,24 @@ export default function Admin() {
     const result: JSX.Element[] = [];
     if (studies) {
       ArrayHelper.getAll(studies, "programId", programId).forEach((s) => {
-
-        result.push(<Card>
-          <Card.Header>
-            <span style={{ float: "right" }}>
-              <a href="about:blank" onClick={(e) => { e.preventDefault(); clearEdits(); showResources("study", s.id, s.name); }} >
-                <i className="fas fa-file-alt"></i>
-              </a>{" "}
-              &nbsp;
-              <a href="about:blank" onClick={(e) => { e.preventDefault(); clearEdits(); setEditLesson({ studyId: s.id }); }} >
-                <i className="fas fa-plus"></i>
-              </a>
-            </span>
-            <Accordion.Toggle as={Card.Header} className="text-decoration-none" eventKey={`s-${s.id}`} >
-              <i className="fas fa-chevron-down"></i>
-              <a href="about:blank" onClick={(e) => { e.preventDefault(); clearEdits(); setEditStudy(s); }} >
-                <i className="fas fa-layer-group"></i> {s.name}
-              </a>
-            </Accordion.Toggle>
-          </Card.Header>
-          <Accordion.Collapse eventKey={`s-${s.id}`} >
-            <Card.Body>
+        result.push(
+          <Accordion expanded={expandedStudyId === s.id} onChange={() => { setExpandedStudyId((expandedStudyId === s.id) ? "" : s.id); }} className="adminAccordion studyAccordion" elevation={0}>
+            <AccordionSummary expandIcon={<Icon>expand_more</Icon>} aria-controls="panel1bh-content" id="panel1bh-header" >
+              <div style={{ width: "100%", paddingRight: 20 }}>
+                <span style={{ float: "right" }}>
+                  <SmallButton icon="add" text="Lesson" onClick={() => { clearEdits(); setEditLesson({ studyId: s.id }); }} />
+                  &nbsp;
+                  <SmallButton icon="file_upload" text="Files" onClick={() => { clearEdits(); showResources("study", s.id, s.name); }} />
+                </span>
+                <a href="about:blank" onClick={(e) => { e.preventDefault(); clearEdits(); setEditStudy(s); }} >
+                  <i className="fas fa-layer-group"></i> {s.name}
+                </a>
+              </div>
+            </AccordionSummary>
+            <AccordionDetails>
               {getLessons(s.id)}
-            </Card.Body>
-          </Accordion.Collapse>
-        </Card>);
-
-
-        /*
-                result.push(
-                  <tr className="studyRow" key={`s-${s.id}`}>
-                    <td>
-                      <a href="about:blank" onClick={(e) => { e.preventDefault(); clearEdits(); setEditStudy(s); }} >
-                        <i className="fas fa-layer-group"></i> {s.name}
-                      </a>
-                    </td>
-                    <td>
-                      <a href="about:blank" onClick={(e) => { e.preventDefault(); clearEdits(); showResources("study", s.id, s.name); }} >
-                        <i className="fas fa-file-alt"></i>
-                      </a>{" "}
-                      &nbsp;
-                      <a href="about:blank" onClick={(e) => { e.preventDefault(); clearEdits(); setEditLesson({ studyId: s.id }); }} >
-                        <i className="fas fa-plus"></i>
-                      </a>
-                    </td>
-                  </tr>
-                );
-                getLessons(s.id).forEach((i) => result.push(i));
-                */
+            </AccordionDetails>
+          </Accordion>)
       });
     }
     return result;
@@ -177,13 +118,9 @@ export default function Admin() {
         result.push(
           <div className="lessonDiv" key={"l" + l.id}>
             <span style={{ float: "right" }}>
-              <a href="about:blank" onClick={(e) => { e.preventDefault(); clearEdits(); showResources("lesson", l.id, l.name); }} >
-                <i className="fas fa-file-alt"></i>
-              </a>{" "}
+              <SmallButton icon="map_marker" text="Venues" onClick={() => { clearEdits(); setVenuesLessonId(l.id); }} />
               &nbsp;
-              <a href="about:blank" onClick={(e) => { e.preventDefault(); clearEdits(); setVenuesLessonId(l.id); }} >
-                <i className="fas fa-map-marker"></i>
-              </a>
+              <SmallButton icon="file_upload" text="Files" onClick={() => { clearEdits(); showResources("lesson", l.id, l.name); }} />
             </span>
             <a href="about:blank" onClick={(e) => { e.preventDefault(); clearEdits(); setEditLesson(l); }} >
               <i className="fas fa-book"></i> {l.name}: {l.title}
@@ -197,13 +134,7 @@ export default function Admin() {
 
   function getAccordion() {
     if (programs === null) return <Loading />;
-    else
-      return (
-        <Accordion className="adminAccordion">
-          {getPrograms()}
-        </Accordion>
-
-      );
+    else return getPrograms();
   }
 
   function getSidebar() {
@@ -216,25 +147,20 @@ export default function Admin() {
     return result;
   }
 
-  const getEditContent = (
-    <a href="about:blank" onClick={(e) => { e.preventDefault(); clearEdits(); setEditProgram({}); }} >
-      <i className="fas fa-plus"></i>
-    </a>
-  );
+  const getEditContent = (<SmallButton icon="add" onClick={() => { clearEdits(); setEditProgram({}); }} />);
 
   return (
-    <Layout>
-      <Container style={{ minHeight: 700 }}>
-        <h1>Programs</h1>
-        <Row>
-          <Col lg={8}>
-            <DisplayBox headerText="Programs" headerIcon="none" editContent={getEditContent} >
-              {getAccordion()}
-            </DisplayBox>
-          </Col>
-          <Col lg={4}>{getSidebar()}</Col>
-        </Row>
-      </Container>
-    </Layout>
+    <Wrapper>
+      <h1>Programs</h1>
+
+      <Grid container spacing={3}>
+        <Grid item md={8} xs={12}>
+          <DisplayBox headerText="Programs" headerIcon="none" editContent={getEditContent} >
+            {getAccordion()}
+          </DisplayBox>
+        </Grid>
+        <Grid item md={4} xs={12}>{getSidebar()}</Grid>
+      </Grid>
+    </Wrapper>
   );
 }

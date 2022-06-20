@@ -1,8 +1,8 @@
 import React, { useEffect } from "react";
 import Cropper from "react-cropper";
-import { Button } from "react-bootstrap";
 import "cropperjs/dist/cropper.css";
 import { InputBox } from "../index";
+import { SmallButton } from "@/appBase/components";
 
 type Props = {
   imageUrl: string;
@@ -30,23 +30,8 @@ export function ImageEditor(props: Props) {
 
   const getHeaderButton = () => (
     <div>
-      <input
-        type="file"
-        onChange={handleUpload}
-        id="fileUpload"
-        accept="image/*"
-        style={{ display: "none" }}
-      />
-      <Button
-        size="sm"
-        variant="info"
-        onClick={(e: React.MouseEvent) => {
-          e.preventDefault();
-          document.getElementById("fileUpload").click();
-        }}
-      >
-        Upload
-      </Button>
+      <input type="file" onChange={handleUpload} id="fileUpload" accept="image/*" style={{ display: "none" }} />
+      <SmallButton text="Upload" onClick={() => { document.getElementById("fileUpload").click(); }} icon="upload" />
     </div>
   );
 
@@ -72,29 +57,11 @@ export function ImageEditor(props: Props) {
   const handleSave = () => props.updatedFunction(dataUrl);
   const handleDelete = () => props.updatedFunction("");
 
-  useEffect(() => {
-    setCurrentUrl(props.imageUrl || "/images/blank.png");
-  }, [props.imageUrl]);
+  useEffect(() => { setCurrentUrl(props.imageUrl || "/images/blank.png"); }, [props.imageUrl]);
 
   return (
-    <InputBox
-      id="cropperBox"
-      headerIcon=""
-      headerText="Crop"
-      saveFunction={handleSave}
-      saveText={"Update"}
-      cancelFunction={props.onCancel}
-      deleteFunction={handleDelete}
-      headerActionContent={getHeaderButton()}
-    >
-      <Cropper
-        ref={cropper}
-        src={currentUrl}
-        style={{ height: 240, width: "100%" }}
-        aspectRatio={16 / 9}
-        guides={false}
-        crop={handleCrop}
-      />
+    <InputBox id="cropperBox" headerIcon="" headerText="Crop" saveFunction={handleSave} saveText={"Update"} cancelFunction={props.onCancel} deleteFunction={handleDelete} headerActionContent={getHeaderButton()} >
+      <Cropper ref={cropper} src={currentUrl} style={{ height: 240, width: "100%" }} aspectRatio={16 / 9} guides={false} crop={handleCrop} />
     </InputBox>
   );
 }

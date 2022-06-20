@@ -7,7 +7,6 @@ export { Studies } from "./Studies";
 export { Venues } from "./Venues";
 export { Venue } from "./Venue";
 
-export { PasswordField } from "./PasswordField";
 export { ProgramEdit } from "./admin/ProgramEdit";
 export { StudyEdit } from "./admin/StudyEdit";
 export { ImageEditor } from "./admin/ImageEditor";

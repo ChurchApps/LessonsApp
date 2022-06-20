@@ -1,8 +1,8 @@
 import { useState, useEffect } from "react";
-import { FormGroup, FormControl, FormLabel } from "react-bootstrap";
 import { ApiHelper, AssetInterface, FileInterface } from "@/utils";
 import { InputBox, ErrorMessages } from "../index";
 import { FileUpload } from "./FileUpload";
+import { TextField } from "@mui/material";
 
 type Props = {
   asset: AssetInterface;
@@ -21,9 +21,7 @@ export function AssetEdit(props: Props) {
       handleSave();
     }
   };
-  const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
-  ) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     e.preventDefault();
     let a = { ...asset };
     switch (e.currentTarget.name) {
@@ -54,9 +52,7 @@ export function AssetEdit(props: Props) {
     });
   };
 
-  const handleSave = () => {
-    if (validate()) setPendingFileSave(true);
-  };
+  const handleSave = () => { if (validate()) setPendingFileSave(true); };
 
   const getDeleteFunction = () => (props.asset?.id ? handleDelete : undefined);
 
@@ -70,51 +66,15 @@ export function AssetEdit(props: Props) {
     }
   };
 
-  useEffect(() => {
-    setAsset(props.asset);
-  }, [props.asset]);
+  useEffect(() => { setAsset(props.asset); }, [props.asset]);
 
   return (
     <>
-      <InputBox
-        id="assetDetailsBox"
-        headerText="Edit Asset"
-        headerIcon="fas fa-copy"
-        saveFunction={handleSave}
-        cancelFunction={handleCancel}
-        deleteFunction={getDeleteFunction()}
-      >
+      <InputBox id="assetDetailsBox" headerText="Edit Asset" headerIcon="fas fa-copy" saveFunction={handleSave} cancelFunction={handleCancel} deleteFunction={getDeleteFunction()}>
         <ErrorMessages errors={errors} />
-
-        <FormGroup>
-          <FormLabel>Order</FormLabel>
-          <FormControl
-            type="number"
-            name="sort"
-            value={asset.sort}
-            onChange={handleChange}
-            onKeyDown={handleKeyDown}
-            placeholder="1"
-          />
-        </FormGroup>
-
-        <FormGroup>
-          <FormLabel>Asset Name</FormLabel>
-          <FormControl
-            type="text"
-            name="name"
-            value={asset.name}
-            onChange={handleChange}
-            onKeyDown={handleKeyDown}
-            placeholder="Asset 1"
-          />
-        </FormGroup>
-        <FileUpload
-          resourceId={props.asset?.resourceId}
-          fileId={asset?.fileId}
-          pendingSave={pendingFileSave}
-          saveCallback={handleFileSaved}
-        />
+        <TextField label="Order" fullWidth type="number" name="sort" value={asset.sort} onChange={handleChange} onKeyDown={handleKeyDown} placeholder="1" />
+        <TextField label="Asset Name" fullWidth name="name" value={asset.name} onChange={handleChange} onKeyDown={handleKeyDown} placeholder="Asset 1" />
+        <FileUpload resourceId={props.asset?.resourceId} fileId={asset?.fileId} pendingSave={pendingFileSave} saveCallback={handleFileSaved} />
       </InputBox>
     </>
   );

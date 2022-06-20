@@ -1,11 +1,10 @@
 import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
-import { Row, Col, Container, InputGroup, FormGroup, FormControl, } from "react-bootstrap";
-import { Layout, DisplayBox, InputBox } from "@/components";
+import { DisplayBox, InputBox } from "@/components";
 import { ApiHelper, ChurchInterface, ProgramInterface } from "@/utils";
 import { ArrayHelper, DateHelper } from "@/appBase/helpers";
-
-
+import { Wrapper } from "@/components/Wrapper";
+import { Grid, TextField } from "@mui/material";
 
 export default function Admin() {
 
@@ -42,15 +41,11 @@ export default function Admin() {
 
   }
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
-    const val = e.currentTarget.value;
-    switch (e.currentTarget.id) {
-      case "startDate":
-        setStartDate(new Date(val));
-        break;
-      case "endDate":
-        setEndDate(new Date(val));
-        break;
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    const val = e.target.value;
+    switch (e.target.name) {
+      case "startDate": setStartDate(new Date(val)); break;
+      case "endDate": setEndDate(new Date(val)); break;
     }
   }
 
@@ -77,45 +72,37 @@ export default function Admin() {
   }
 
   return (
-    <Layout>
-      <Container style={{ minHeight: 700 }}>
-        <h1>Stats for {program?.name}</h1>
-        <Row>
-          <Col lg={8}>
-            <DisplayBox headerText="Unique Downloads by Study" headerIcon="fas fa-chart-bar" >
-              <p>Note: These are <u>unique</u> counts.  A person may download multiple files within a lesson, download a lesson multiple times, or download multiple lessons within a series.  All of these scenarios counts as a single record on this report.</p>
-              <table className="table table-striped reportTable">
-                <thead>
-                  <tr><th>Study</th><th>Unique Downloads</th></tr>
-                </thead>
-                {getStudyRows()}
-              </table>
-            </DisplayBox>
+    <Wrapper>
+      <h1>Stats for {program?.name}</h1>
+      <Grid container spacing={3}>
+        <Grid item md={8} xs={12}>
+          <DisplayBox headerText="Unique Downloads by Study" headerIcon="fas fa-chart-bar" >
+            <p>Note: These are <u>unique</u> counts.  A person may download multiple files within a lesson, download a lesson multiple times, or download multiple lessons within a series.  All of these scenarios counts as a single record on this report.</p>
+            <table className="table table-striped reportTable">
+              <thead>
+                <tr><th>Study</th><th>Unique Downloads</th></tr>
+              </thead>
+              {getStudyRows()}
+            </table>
+          </DisplayBox>
 
-            <DisplayBox headerText="Church List" headerIcon="fas fa-chart-bar" >
-              <p>Note: Login is not required to download items, so many churches will download the files anonymously.  This is a list of churches who were logged in when downloading resources.</p>
-              <table className="table table-striped reportTable">
-                <thead>
-                  <tr><th>Church</th><th>Location</th></tr>
-                </thead>
-                {getChurchRows()}
-              </table>
-            </DisplayBox>
-          </Col>
-          <Col lg={4}>
-            <InputBox headerText="Filter" headerIcon="fas fa-chart-bar" saveFunction={filterResults} saveText="Update" >
-              <FormGroup>
-                <label>Start Date</label>
-                <FormControl id="startDate" type="date" aria-label="date" value={DateHelper.formatHtml5Date(startDate)} onChange={handleChange} />
-              </FormGroup>
-              <FormGroup>
-                <label>End Date</label>
-                <FormControl id="endDate" type="date" aria-label="date" value={DateHelper.formatHtml5Date(endDate)} onChange={handleChange} />
-              </FormGroup>
-            </InputBox>
-          </Col>
-        </Row>
-      </Container>
-    </Layout>
+          <DisplayBox headerText="Church List" headerIcon="fas fa-chart-bar" >
+            <p>Note: Login is not required to download items, so many churches will download the files anonymously.  This is a list of churches who were logged in when downloading resources.</p>
+            <table className="table table-striped reportTable">
+              <thead>
+                <tr><th>Church</th><th>Location</th></tr>
+              </thead>
+              {getChurchRows()}
+            </table>
+          </DisplayBox>
+        </Grid>
+        <Grid item md={4} xs={12}>
+          <InputBox headerText="Filter" headerIcon="fas fa-chart-bar" saveFunction={filterResults} saveText="Update" >
+            <TextField fullWidth label="Start Date" name="startDate" type="date" aria-label="date" value={DateHelper.formatHtml5Date(startDate)} onChange={handleChange} />
+            <TextField fullWidth label="End Date" name="endDate" type="date" aria-label="date" value={DateHelper.formatHtml5Date(endDate)} onChange={handleChange} />
+          </InputBox>
+        </Grid>
+      </Grid>
+    </Wrapper>
   );
 }

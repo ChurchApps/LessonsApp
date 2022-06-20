@@ -1,8 +1,7 @@
-import Head from "next/head";
 import { GetStaticProps } from "next";
-import { Container, Row, Col, Button } from "react-bootstrap";
 import { HomeAbout, HomeConnect, Layout, Programs } from "@/components";
 import { ApiHelper, ProgramInterface, ProviderInterface } from "@/utils";
+import { Grid, Container, Button } from "@mui/material";
 
 type Props = {
   programs: ProgramInterface[];
@@ -18,9 +17,10 @@ export default function Home({ programs, providers }: Props) {
   return (
     <Layout metaDescription={description} image={pageImage} ogDescription={ogDescription}>
       <div id="hero">
-        <Container>
-          <Row>
-            <Col lg={{ span: 8, offset: 2 }} className="text-center">
+        <Container fixed>
+          <Grid container spacing={3}>
+            <Grid item md={2} sm={0} />
+            <Grid item md={8} sm={12} className="text-center">
               <h1>
                 Completely <span>Free Curriculum</span> for Churches
               </h1>
@@ -30,12 +30,13 @@ export default function Home({ programs, providers }: Props) {
                 we are able to provide this content for your church completely free of charge.
               </p>
               <div>
-                <Button variant="success" size="lg" href="/login">
+
+                <Button color="success" variant="contained" size="large" href="/login">
                   Get Started for Free
                 </Button>
               </div>
-            </Col>
-          </Row>
+            </Grid>
+          </Grid>
         </Container>
       </div>
 

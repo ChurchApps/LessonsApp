@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { useRouter } from "next/router";
-import { Container } from "react-bootstrap";
 import { Layout } from "@/components";
 import { ApiHelper, ClassroomInterface, ScheduleInterface } from "@/utils";
 import Link from "next/link";
 import { ArrayHelper, DateHelper } from "@/appBase/helpers";
+import { Container } from "@mui/material";
 
 
 export default function Venue() {
@@ -62,7 +62,7 @@ export default function Venue() {
 
   return (
     <Layout withoutNavbar={true} withoutFooter={true}>
-      <Container>
+      <Container fixed>
         <h1>{classroom?.name}</h1>
       </Container>
       {getRows()}

@@ -4,7 +4,7 @@ export function Footer() {
       <div className="text-center">
         <img src="/images/logo-dark.png" alt="Free church curriculum" className="img-fluid" />
         <p>Phone: 918-994-2638 &nbsp; | &nbsp; support@churchapps.org</p>
-        <p>2021 © Live Church Solutions. All rights reserved.</p>
+        <p>{new Date().getFullYear()} © Live Church Solutions. All rights reserved.</p>
       </div>
     </div>
   );
