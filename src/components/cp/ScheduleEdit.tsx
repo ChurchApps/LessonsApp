@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { InputBox, ErrorMessages } from "../index";
 import { ApiHelper, LessonInterface, ProgramInterface, ScheduleInterface, StudyInterface, VenueInterface } from "@/utils";
 import { ArrayHelper, DateHelper } from "@/appBase/helpers";
-import { FormControl, InputLabel, Select, SelectChangeEvent, TextField } from "@mui/material";
+import { FormControl, InputLabel, MenuItem, Select, SelectChangeEvent, TextField } from "@mui/material";
 
 type Props = {
   schedule: ScheduleInterface;
@@ -72,6 +72,7 @@ export function ScheduleEdit(props: Props) {
   };
 
   const handleProgramChange = (e: SelectChangeEvent<string>) => {
+    console.log("HANDLE PROGRAM CHANGE")
     e.preventDefault();
     setProgramId(e.target.value);
   };
@@ -127,25 +128,25 @@ export function ScheduleEdit(props: Props) {
 
   const getProgramOptions = () => {
     const result: JSX.Element[] = [];
-    programs.forEach(p => result.push(<option value={p.id}>{p.name}</option>));
+    programs.forEach(p => result.push(<MenuItem value={p.id}>{p.name}</MenuItem>));
     return result;
   }
 
   const getStudyOptions = () => {
     const result: JSX.Element[] = [];
-    studies.forEach(s => result.push(<option value={s.id}>{s.name}</option>));
+    studies.forEach(s => result.push(<MenuItem value={s.id}>{s.name}</MenuItem>));
     return result;
   }
 
   const getLessonOptions = () => {
     const result: JSX.Element[] = [];
-    lessons.forEach(l => result.push(<option value={l.id}>{l.name}</option>));
+    lessons.forEach(l => result.push(<MenuItem value={l.id}>{l.name}</MenuItem>));
     return result;
   }
 
   const getVenueOptions = () => {
     const result: JSX.Element[] = [];
-    venues.forEach(v => result.push(<option value={v.id}>{v.name}</option>));
+    venues.forEach(v => result.push(<MenuItem value={v.id}>{v.name}</MenuItem>));
     return result;
   }
 

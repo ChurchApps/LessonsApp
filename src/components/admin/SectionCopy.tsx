@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { ApiHelper, CopySectionInterface, SectionInterface, VenueInterface } from "@/utils";
 import { InputBox, ErrorMessages } from "../index";
-import { FormControl, InputLabel, Select, SelectChangeEvent } from "@mui/material";
+import { FormControl, InputLabel, MenuItem, Select, SelectChangeEvent } from "@mui/material";
 
 type Props = {
   copySection: CopySectionInterface,
@@ -73,7 +73,7 @@ export function SectionCopy(props: Props) {
   const getVenueOptions = () => {
     const result: JSX.Element[] = []
     venues.forEach(v => {
-      result.push(<option value={v.id}>{v.name}</option>)
+      result.push(<MenuItem value={v.id}>{v.name}</MenuItem>)
     });
     return result;
   }
@@ -81,7 +81,7 @@ export function SectionCopy(props: Props) {
   const getSectionOptions = () => {
     const result: JSX.Element[] = []
     sections.forEach(s => {
-      result.push(<option value={s.id}>{s.name}</option>)
+      result.push(<MenuItem value={s.id}>{s.name}</MenuItem>)
     });
     return result;
   }
