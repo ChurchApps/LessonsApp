@@ -1,63 +1,43 @@
 import { ApiHelper } from "./index";
+import { CommonEnvironmentHelper } from "../appBase/helpers/CommonEnvironmentHelper";
+
 
 export class EnvironmentHelper {
-  private static AccessApi = "";
-  private static MembershipApi = "";
   private static LessonsApi = "";
-
-  static ContentRoot = "";
-  static AccountsAppUrl = "";
-  static ChurchAppsUrl = "";
   static GoogleAnalyticsTag = "";
+  static Common = CommonEnvironmentHelper;
 
   static init = () => {
-    switch (process.env.STAGE) {
-      case "staging":
-        EnvironmentHelper.initStaging();
-        break;
-      case "prod":
-        EnvironmentHelper.initProd();
-        break;
-      default:
-        EnvironmentHelper.initDev();
-        break;
+    let stage = process.env.REACT_APP_STAGE;
+
+    switch (stage) {
+      case "staging": EnvironmentHelper.initStaging(); break;
+      case "prod": EnvironmentHelper.initProd(); break;
+      default: EnvironmentHelper.initDev(); break;
     }
+    EnvironmentHelper.Common.init(stage)
+
     ApiHelper.apiConfigs = [
-      { keyName: "AccessApi", url: EnvironmentHelper.AccessApi, jwt: "", permisssions: [] },
-      { keyName: "MembershipApi", url: EnvironmentHelper.MembershipApi, jwt: "", permisssions: [] },
+      { keyName: "AccessApi", url: EnvironmentHelper.Common.AccessApi, jwt: "", permisssions: [] },
+      { keyName: "MembershipApi", url: EnvironmentHelper.Common.MembershipApi, jwt: "", permisssions: [] },
       { keyName: "LessonsApi", url: EnvironmentHelper.LessonsApi, jwt: "", permisssions: [] },
     ];
   };
 
   static initDev = () => {
-    EnvironmentHelper.AccessApi = process.env.NEXT_PUBLIC_ACCESS_API || "";
-    EnvironmentHelper.MembershipApi = process.env.NEXT_PUBLIC_MEMBERSHIP_API || "";
     EnvironmentHelper.LessonsApi = process.env.NEXT_PUBLIC_LESSONS_API || "";
-    EnvironmentHelper.ContentRoot = process.env.NEXT_PUBLIC_CONTENT_ROOT || "";
-    EnvironmentHelper.AccountsAppUrl = process.env.NEXT_PUBLIC_ACCOUNTS_APP_URL || "";
-    EnvironmentHelper.ChurchAppsUrl = process.env.NEXT_PUBLIC_CHURCH_APPS_URL || "";
     EnvironmentHelper.GoogleAnalyticsTag = process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS || "";
   };
 
   //NOTE: None of these values are secret.
   static initStaging = () => {
-    EnvironmentHelper.AccessApi = "https://accessapi.staging.churchapps.org";
-    EnvironmentHelper.MembershipApi = "https://membershipapi.staging.churchapps.org";
     EnvironmentHelper.LessonsApi = "https://api.staging.lessons.church";
-    EnvironmentHelper.ContentRoot = "https://content.staging.churchapps.org";
-    EnvironmentHelper.AccountsAppUrl = "https://accounts.staging.churchapps.org";
-    EnvironmentHelper.ChurchAppsUrl = "https://staging.churchapps.org";
     EnvironmentHelper.GoogleAnalyticsTag = "";
   };
 
   //NOTE: None of these values are secret.
   static initProd = () => {
-    EnvironmentHelper.AccessApi = "https://accessapi.churchapps.org";
-    EnvironmentHelper.MembershipApi = "https://membershipapi.churchapps.org";
     EnvironmentHelper.LessonsApi = "https://api.lessons.church";
-    EnvironmentHelper.ContentRoot = "https://content.churchapps.org";
-    EnvironmentHelper.AccountsAppUrl = "https://accounts.churchapps.org";
-    EnvironmentHelper.ChurchAppsUrl = "https://churchapps.org";
     EnvironmentHelper.GoogleAnalyticsTag = "UA-164774603-9";
   };
 }
