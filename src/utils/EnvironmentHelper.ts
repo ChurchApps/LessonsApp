@@ -1,7 +1,6 @@
 import { ApiHelper } from "./index";
 import { CommonEnvironmentHelper } from "../appBase/helpers/CommonEnvironmentHelper";
 
-
 export class EnvironmentHelper {
   private static LessonsApi = "";
   static GoogleAnalyticsTag = "";
@@ -9,7 +8,6 @@ export class EnvironmentHelper {
 
   static init = () => {
     let stage = process.env.STAGE;
-    stage = "prod"
 
     switch (stage) {
       case "staging": EnvironmentHelper.initStaging(); break;
