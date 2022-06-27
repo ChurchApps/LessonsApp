@@ -65,7 +65,7 @@ export default function Admin() {
           <AccordionSummary expandIcon={<Icon>expand_more</Icon>} aria-controls="panel1bh-content" id="panel1bh-header" >
             <div style={{ width: "100%", paddingRight: 20 }}>
               <span style={{ float: "right" }}>
-                <SmallButton href={"/admin/stats/" + p.id} icon="show_chart" text="Stats" />
+                <SmallButton onClick={() => { router.push("/admin/stats/" + p.id) }} icon="show_chart" text="Stats" />
                 &nbsp;
                 <SmallButton icon="add" text="Study" onClick={() => { clearEdits(); setEditStudy({ programId: p.id }); }} />
                 &nbsp;
