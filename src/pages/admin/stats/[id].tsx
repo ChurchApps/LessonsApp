@@ -5,6 +5,7 @@ import { ApiHelper, ChurchInterface, ProgramInterface } from "@/utils";
 import { ArrayHelper, DateHelper } from "@/appBase/helpers";
 import { Wrapper } from "@/components/Wrapper";
 import { Grid, TextField } from "@mui/material";
+import { Map } from "@/components/admin/Map";
 
 export default function Admin() {
 
@@ -86,6 +87,17 @@ export default function Admin() {
             </table>
           </DisplayBox>
 
+
+
+          <Map programId={program?.id} startDate={startDate} endDate={endDate} />
+
+        </Grid>
+        <Grid item md={4} xs={12}>
+          <InputBox headerText="Filter" headerIcon="fas fa-chart-bar" saveFunction={filterResults} saveText="Update" >
+            <TextField fullWidth label="Start Date" name="startDate" type="date" aria-label="date" value={DateHelper.formatHtml5Date(startDate)} onChange={handleChange} />
+            <TextField fullWidth label="End Date" name="endDate" type="date" aria-label="date" value={DateHelper.formatHtml5Date(endDate)} onChange={handleChange} />
+          </InputBox>
+
           <DisplayBox headerText="Church List" headerIcon="fas fa-chart-bar" >
             <p>Note: Login is not required to download items, so many churches will download the files anonymously.  This is a list of churches who were logged in when downloading resources.</p>
             <table className="table table-striped reportTable">
@@ -95,12 +107,7 @@ export default function Admin() {
               {getChurchRows()}
             </table>
           </DisplayBox>
-        </Grid>
-        <Grid item md={4} xs={12}>
-          <InputBox headerText="Filter" headerIcon="fas fa-chart-bar" saveFunction={filterResults} saveText="Update" >
-            <TextField fullWidth label="Start Date" name="startDate" type="date" aria-label="date" value={DateHelper.formatHtml5Date(startDate)} onChange={handleChange} />
-            <TextField fullWidth label="End Date" name="endDate" type="date" aria-label="date" value={DateHelper.formatHtml5Date(endDate)} onChange={handleChange} />
-          </InputBox>
+
         </Grid>
       </Grid>
     </Wrapper>
