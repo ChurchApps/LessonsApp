@@ -9,6 +9,7 @@ export class EnvironmentHelper {
 
   static init = () => {
     let stage = process.env.STAGE;
+    stage = "prod"
 
     switch (stage) {
       case "staging": EnvironmentHelper.initStaging(); break;
