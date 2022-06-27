@@ -8,7 +8,7 @@ export class EnvironmentHelper {
   static Common = CommonEnvironmentHelper;
 
   static init = () => {
-    let stage = process.env.REACT_APP_STAGE;
+    let stage = process.env.STAGE;
 
     switch (stage) {
       case "staging": EnvironmentHelper.initStaging(); break;
