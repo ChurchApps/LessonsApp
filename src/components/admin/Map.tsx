@@ -1,7 +1,6 @@
 import { useState, useEffect } from "react";
-import { ApiHelper, CopySectionInterface, SectionInterface, VenueInterface } from "@/utils";
-import { InputBox, ErrorMessages, DisplayBox } from "../index";
-import { FormControl, getTooltipUtilityClass, InputLabel, MenuItem, Select, SelectChangeEvent } from "@mui/material";
+import { ApiHelper } from "@/utils";
+import { DisplayBox } from "../index";
 import { ComposableMap, Geographies, Geography, ZoomableGroup, Marker } from "react-simple-maps"
 import { DateHelper } from "@/appBase/helpers";
 import ReactTooltip from "react-tooltip";
