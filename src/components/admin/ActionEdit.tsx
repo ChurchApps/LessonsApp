@@ -185,7 +185,6 @@ export function ActionEdit(props: Props) {
             <MenuItem value="Download">Download</MenuItem>
             <MenuItem value="Note">Note</MenuItem>
             <MenuItem value="">None</MenuItem>
-            <MenuItem value="Stripe">Stripe</MenuItem>
           </Select>
         </FormControl>
         {getContent()}
