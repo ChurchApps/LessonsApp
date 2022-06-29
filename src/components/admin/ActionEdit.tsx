@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { InputBox, ErrorMessages } from "../index";
 import { ArrayHelper, AssetInterface, ResourceInterface, ActionInterface, ApiHelper } from "@/utils";
-import { InputLabel, MenuItem, Select, FormControl, TextField, SelectChangeEvent } from "@mui/material";
+import { InputLabel, MenuItem, Select, FormControl, TextField, SelectChangeEvent, ListSubheader } from "@mui/material";
 
 type Props = {
   action: ActionInterface;
@@ -13,10 +13,14 @@ type Props = {
 };
 
 export function ActionEdit(props: Props) {
-  const [action, setAction] = useState<ActionInterface>({} as ActionInterface);
+  const [action, setAction] = useState<ActionInterface>(null);
   const [errors, setErrors] = useState([]);
-
   const handleCancel = () => props.updatedCallback(action, false);
+
+  const getCombinedResources = () => {
+    let result: ResourceInterface[] = [...props.lessonResources, ...props.studyResources, ...props.programResources];
+    return result;
+  }
 
   const handleKeyDown = (e: React.KeyboardEvent<any>) => {
     if (e.key === "Enter") {
@@ -41,15 +45,15 @@ export function ActionEdit(props: Props) {
       case "resource":
         a.resourceId = e.target.value;
         a.assetId = null;
-        let select = e.currentTarget as HTMLSelectElement;
-        a.content = select.options[select.selectedIndex].text;
+        const resource = ArrayHelper.getOne(getCombinedResources(), "id", a.resourceId);
+        a.content = resource.name;
         break;
       case "asset":
         a.assetId = e.target.value;
         if (a.assetId === "") a.assetId = null;
-        let resourceSelect = document.getElementById("resourceSelect") as HTMLSelectElement;
-        let assetSelect = e.target as HTMLSelectElement;
-        a.content = resourceSelect.options[resourceSelect.selectedIndex].text + " - " + assetSelect.options[assetSelect.selectedIndex].text;
+        const assetResource = ArrayHelper.getOne(getCombinedResources(), "id", a.resourceId);
+        const asset = ArrayHelper.getOne(props.allAssets, "id", a.assetId);
+        a.content = assetResource.name + " - " + asset.name;
         break;
     }
     setAction(a);
@@ -143,22 +147,21 @@ export function ActionEdit(props: Props) {
   const getResourceGroup = (groupName: string, resources: ResourceInterface[]) => {
     if (resources.length > 0) {
       const items: JSX.Element[] = [];
-      items.push(<MenuItem disabled value="">{groupName}</MenuItem>);
+      items.push(<ListSubheader>{groupName}</ListSubheader>);
       resources.forEach((r) => { items.push(<MenuItem value={r.id}>{r.name}</MenuItem>); });
       return items;
     }
   };
 
   const updateResource = () => {
-    if (action.actionType === "Play" || action.actionType === "Download") {
-      const el: any = document.getElementById("resourceSelect");
-      if (el.options.length > 0 && el.selectedIndex === 0) {
-        const optVal = el.options[0].value;
-        if (optVal !== action.resourceId) {
+    if (action?.actionType === "Play" || action?.actionType === "Download") {
+      let resources: ResourceInterface[] = getCombinedResources();
+      if (resources.length > 0) {
+        if (ArrayHelper.getOne(resources, "id", action.resourceId) === null) {
           let a = { ...action };
-          a.resourceId = optVal;
+          a.resourceId = resources[0].id;
+          a.content = resources[0].name;
           a.assetId = null;
-          a.content = el.options[0].text;
           setAction(a);
         }
       }
@@ -170,7 +173,8 @@ export function ActionEdit(props: Props) {
     setTimeout(updateResource, 500);
   }, [props.action]);
 
-  return (
+  if (!action) return <></>;
+  else return (
     <>
       <InputBox id="actionDetailsBox" headerText={action?.id ? "Edit Action" : "Create Action"} headerIcon="fas fa-check" saveFunction={handleSave} cancelFunction={handleCancel} deleteFunction={handleDelete} >
         <ErrorMessages errors={errors} />
@@ -179,12 +183,11 @@ export function ActionEdit(props: Props) {
         <FormControl fullWidth>
           <InputLabel>Action Type</InputLabel>
           <Select label="Action Type" name="actionType" value={action.actionType} onChange={handleChange} >
-            <MenuItem value="Say">Say</MenuItem>
-            <MenuItem value="Do">Do</MenuItem>
-            <MenuItem value="Play">Play</MenuItem>
-            <MenuItem value="Download">Download</MenuItem>
-            <MenuItem value="Note">Note</MenuItem>
-            <MenuItem value="">None</MenuItem>
+            <MenuItem value="Say" key="Say">Say</MenuItem>
+            <MenuItem value="Do" key="Do">Do</MenuItem>
+            <MenuItem value="Play" key="Play">Play</MenuItem>
+            <MenuItem value="Download" key="Download">Download</MenuItem>
+            <MenuItem value="Note" key="Note">Note</MenuItem>
           </Select>
         </FormControl>
         {getContent()}
