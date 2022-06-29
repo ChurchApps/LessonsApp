@@ -11,7 +11,7 @@ type Props = {
 
 export function ResourceEdit(props: Props) {
   const [bundles, setBundles] = useState<BundleInterface[]>([]);
-  const [resource, setResource] = useState<ResourceInterface>({} as ResourceInterface);
+  const [resource, setResource] = useState<ResourceInterface>(null);
   const [errors, setErrors] = useState([]);
 
   const handleCancel = () => props.updatedCallback(resource);
@@ -106,7 +106,8 @@ export function ResourceEdit(props: Props) {
     return result;
   }
 
-  return (
+  if (!resource) return <></>
+  else return (
     <InputBox id="resourceDetailsBox" headerText={props.contentDisplayName} headerIcon="fas fa-file-alt" saveFunction={handleSave} cancelFunction={handleCancel} deleteFunction={getDeleteFunction()} >
       <ErrorMessages errors={errors} />
       <FormControl fullWidth>
@@ -118,7 +119,7 @@ export function ResourceEdit(props: Props) {
       <TextField fullWidth label="Resource Name" name="name" value={resource.name} onChange={handleChange} onKeyDown={handleKeyDown} placeholder="Countdown Video" />
       <FormControl fullWidth>
         <InputLabel>Looping Video</InputLabel>
-        <Select label="Looping Video" name="bundleId" value={resource.loopVideo?.toString()} onChange={handleChange}>
+        <Select label="Looping Video" name="loopVideo" value={resource.loopVideo?.toString()} onChange={handleChange}>
           <MenuItem value="false">No</MenuItem>
           <MenuItem value="true">Yes</MenuItem>
         </Select>
