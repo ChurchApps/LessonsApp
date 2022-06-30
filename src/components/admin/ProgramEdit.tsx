@@ -9,7 +9,7 @@ type Props = {
 };
 
 export function ProgramEdit(props: Props) {
-  const [program, setProgram] = useState<ProgramInterface>({} as ProgramInterface);
+  const [program, setProgram] = useState<ProgramInterface>(null);
   const [errors, setErrors] = useState([]);
   const [showImageEditor, setShowImageEditor] = useState<boolean>(false);
 
@@ -68,7 +68,8 @@ export function ProgramEdit(props: Props) {
     if (showImageEditor) return (<ImageEditor updatedFunction={handleImageUpdated} imageUrl={program.image} onCancel={() => setShowImageEditor(false)} />);
   };
 
-  return (
+  if (!program) return <></>
+  else return (
     <>
       {getImageEditor()}
       <InputBox id="programDetailsBox" headerText="Edit Program" headerIcon="fas fa-graduation-cap" saveFunction={handleSave} cancelFunction={handleCancel} deleteFunction={handleDelete} >

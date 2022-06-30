@@ -9,7 +9,7 @@ type Props = {
 };
 
 export function StudyEdit(props: Props) {
-  const [study, setStudy] = useState<StudyInterface>({});
+  const [study, setStudy] = useState<StudyInterface>(null);
   const [program, setProgram] = useState<ProgramInterface>({});
   const [errors, setErrors] = useState([]);
   const [showImageEditor, setShowImageEditor] = useState<boolean>(false);
@@ -74,7 +74,8 @@ export function StudyEdit(props: Props) {
     if (showImageEditor) return (<ImageEditor updatedFunction={handleImageUpdated} imageUrl={study.image} onCancel={() => setShowImageEditor(false)} />);
   };
 
-  return (
+  if (!study) return <></>
+  else return (
     <>
       {getImageEditor()}
       <InputBox id="studyDetailsBox" headerText="Edit Study" headerIcon="fas fa-layer-group" saveFunction={handleSave} cancelFunction={handleCancel} deleteFunction={handleDelete}>
