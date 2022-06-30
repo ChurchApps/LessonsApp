@@ -10,7 +10,7 @@ type Props = {
 };
 
 export function ScheduleEdit(props: Props) {
-  const [schedule, setSchedule] = useState<ScheduleInterface>({} as ScheduleInterface);
+  const [schedule, setSchedule] = useState<ScheduleInterface>(null);
   const [errors, setErrors] = useState([]);
   const [programId, setProgramId] = useState("");
   const [programs, setPrograms] = useState<ProgramInterface[]>([]);
@@ -171,36 +171,39 @@ export function ScheduleEdit(props: Props) {
   useEffect(init, [props.schedule]);
   useEffect(() => { if (readyToLoad) loadPrograms() }, [readyToLoad]);
 
-  return (
-    <>
-      <InputBox id="scheduleDetailsBox" headerText="Edit Schedule" headerIcon="fas fa-graduation-cap" saveFunction={handleSave} cancelFunction={handleCancel} deleteFunction={handleDelete} >
-        <ErrorMessages errors={errors} />
-        <TextField fullWidth label="Schedule Date" type="date" name="scheduledDate" value={DateHelper.formatHtml5Date(schedule?.scheduledDate)} onChange={handleChange} onKeyDown={handleKeyDown} />
-        <FormControl fullWidth>
-          <InputLabel>Program</InputLabel>
-          <Select label="Program" name="program" value={programId} onChange={handleProgramChange}>
-            {getProgramOptions()}
-          </Select>
-        </FormControl>
-        <FormControl fullWidth>
-          <InputLabel>Study</InputLabel>
-          <Select label="Study" name="study" value={studyId} onChange={handleStudyChange}>
-            {getStudyOptions()}
-          </Select>
-        </FormControl>
-        <FormControl fullWidth>
-          <InputLabel>Lesson</InputLabel>
-          <Select label="Lesson" name="lesson" value={schedule?.lessonId} onChange={handleChange}>
-            {getLessonOptions()}
-          </Select>
-        </FormControl>
-        <FormControl fullWidth>
-          <InputLabel>Venue</InputLabel>
-          <Select label="Venue" name="venue" id="venue" value={schedule?.venueId} onChange={handleChange}>
-            {getVenueOptions()}
-          </Select>
-        </FormControl>
-      </InputBox>
-    </>
-  );
+  if (!schedule) return <></>
+  else {
+    return (
+      <>
+        <InputBox id="scheduleDetailsBox" headerText="Edit Schedule" headerIcon="fas fa-graduation-cap" saveFunction={handleSave} cancelFunction={handleCancel} deleteFunction={handleDelete} >
+          <ErrorMessages errors={errors} />
+          <TextField fullWidth label="Schedule Date" type="date" name="scheduledDate" value={DateHelper.formatHtml5Date(schedule?.scheduledDate)} onChange={handleChange} onKeyDown={handleKeyDown} />
+          <FormControl fullWidth>
+            <InputLabel>Program</InputLabel>
+            <Select label="Program" name="program" value={programId} onChange={handleProgramChange}>
+              {getProgramOptions()}
+            </Select>
+          </FormControl>
+          <FormControl fullWidth>
+            <InputLabel>Study</InputLabel>
+            <Select label="Study" name="study" value={studyId} onChange={handleStudyChange}>
+              {getStudyOptions()}
+            </Select>
+          </FormControl>
+          <FormControl fullWidth>
+            <InputLabel id="lessonLabel">Lesson</InputLabel>
+            <Select labelId="lessonLabel" label="Lesson" name="lesson" value={schedule.lessonId} onChange={handleChange}>
+              {getLessonOptions()}
+            </Select>
+          </FormControl>
+          <FormControl fullWidth>
+            <InputLabel id="venueLabel">Venue</InputLabel>
+            <Select labelId="venueLabel" label="Venue" name="venue" id="venue" value={schedule.venueId} onChange={handleChange}>
+              {getVenueOptions()}
+            </Select>
+          </FormControl>
+        </InputBox>
+      </>
+    );
+  }
 }

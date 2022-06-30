@@ -55,7 +55,7 @@ export function ScheduleList(props: Props) {
   };
 
   const getEditContent = () => {
-    const newSchedule = { classroomId: props.classroomId, scheduledDate: new Date() };
+    const newSchedule = { classroomId: props.classroomId, scheduledDate: new Date(), lessonId: "", venueId: "" };
     newSchedule.scheduledDate.setHours(0, 0, 0, 0);
     return (<SmallButton icon="add" onClick={() => { setEditSchedule(newSchedule); }} />);
   };
