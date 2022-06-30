@@ -117,7 +117,7 @@ export default function Venue() {
   const createAction = (roleId: string, sort?: number) => {
     if (!sort) sort = ArrayHelper.getAll(actions, "roleId", roleId).length + 1;
     clearEdits();
-    setEditAction({ lessonId: venue.lessonId, roleId: roleId, sort: sort });
+    setEditAction({ lessonId: venue.lessonId, roleId: roleId, sort: sort, actionType: "Say" });
   };
 
   const getRows = () => {

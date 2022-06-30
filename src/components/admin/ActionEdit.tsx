@@ -53,7 +53,7 @@ export function ActionEdit(props: Props) {
         if (a.assetId === "") a.assetId = null;
         const assetResource = ArrayHelper.getOne(getCombinedResources(), "id", a.resourceId);
         const asset = ArrayHelper.getOne(props.allAssets, "id", a.assetId);
-        a.content = assetResource.name + " - " + asset.name;
+        a.content = (asset) ? assetResource.name + " - " + asset.name : assetResource?.name;
         break;
     }
     setAction(a);
@@ -113,7 +113,7 @@ export function ActionEdit(props: Props) {
 
         return (<FormControl fullWidth>
           <InputLabel>Asset</InputLabel>
-          <Select label="Asset" name="asset" value={action.assetId} onChange={handleChange} >
+          <Select label="Asset" name="asset" value={action.assetId || ""} onChange={handleChange} >
             <MenuItem value="">All</MenuItem>
             {assetItems}
           </Select>
@@ -129,7 +129,7 @@ export function ActionEdit(props: Props) {
           <>
             <FormControl fullWidth>
               <InputLabel>Resource</InputLabel>
-              <Select label="Resource" name="resource" id="resourceSelect" value={action.resourceId} onChange={handleChange} >
+              <Select label="Resource" name="resource" id="resourceSelect" value={action.resourceId || ""} onChange={handleChange} >
                 {getResourceGroup("Lesson", props.lessonResources)}
                 {getResourceGroup("Study", props.studyResources)}
                 {getResourceGroup("Program", props.programResources)}
