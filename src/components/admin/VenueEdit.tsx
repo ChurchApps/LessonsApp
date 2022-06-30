@@ -57,7 +57,7 @@ export function VenueEdit(props: Props) {
       <InputBox id="venueDetailsBox" headerText="Edit Venue" headerIcon="map_marker" saveFunction={handleSave} cancelFunction={handleCancel} deleteFunction={handleDelete} >
         <ErrorMessages errors={errors} />
         <TextField fullWidth label="Order" type="number" name="sort" value={venue.sort} onChange={handleChange} onKeyDown={handleKeyDown} placeholder="1" />
-        <TextField fullWidth label="Venue Name" value={venue.name} onChange={handleChange} onKeyDown={handleKeyDown} placeholder="Small Group" />
+        <TextField fullWidth label="Venue Name" name="name" value={venue.name} onChange={handleChange} onKeyDown={handleKeyDown} placeholder="Small Group" />
       </InputBox>
     </>
   );
