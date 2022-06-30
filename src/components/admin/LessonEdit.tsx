@@ -9,7 +9,7 @@ type Props = {
 };
 
 export function LessonEdit(props: Props) {
-  const [lesson, setLesson] = useState<LessonInterface>({} as LessonInterface);
+  const [lesson, setLesson] = useState<LessonInterface>(null);
   const [study, setStudy] = useState<StudyInterface>({});
   const [program, setProgram] = useState<ProgramInterface>({});
 
@@ -89,7 +89,8 @@ export function LessonEdit(props: Props) {
       return (<ImageEditor updatedFunction={handleImageUpdated} imageUrl={lesson.image} onCancel={() => setShowImageEditor(false)} />);
   };
 
-  return (
+  if (!lesson) return <></>
+  else return (
     <>
       {getImageEditor()}
       <InputBox id="lessonDetailsBox" headerText="Edit Lesson" headerIcon="fas fa-book" saveFunction={handleSave} cancelFunction={handleCancel} deleteFunction={handleDelete} >
