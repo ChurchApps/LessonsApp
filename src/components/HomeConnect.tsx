@@ -5,16 +5,15 @@ export function HomeConnect() {
   return (
     <div className="homeSection alt" id="connectSection">
       <Container fixed>
-        <Grid container spacing={3}>
-          <Grid item md={1} sm={0} />
-          <Grid item md={10} sm={12} className="text-center">
+        <Grid container justifyContent="center" spacing={3}>
+          <Grid item md={10} sm={12} sx={{textAlign: "center"}}>
             <div className="title">
               <span>Our Apps</span>
             </div>
-            <h2>Using in Your Classroom</h2>
+            <h2 style={{marginTop: 0}}>Using in Your Classroom</h2>
             <Grid container spacing={3}>
               <Grid item md={5} xs={12} style={{ textAlign: "left" }}>
-                <p>
+                <p style={{marginTop: 0}}>
                   Great curriculum can make your teaching far more effective, but only if you can reliably deliver it each week.
                   See the video to learn how you can easily present your lessons from a Fire stick each week, even if the Internet goes down.
                 </p>
@@ -37,14 +36,10 @@ export function HomeConnect() {
             </Grid>
             <Grid container spacing={3} style={{ marginTop: 20 }}>
               <Grid item xs={6}>
-                <div className="d-grid gap-2">
-                  <Button color="success" variant="contained" size="large" href="https://play.google.com/store/apps/details?id=church.b1.mobile" target="_blank">Get B1.church App for Volunteers</Button>
-                </div>
+                <Button color="success" fullWidth variant="contained" size="large" href="https://play.google.com/store/apps/details?id=church.b1.mobile" target="_blank">Get B1.church App for Volunteers</Button>
               </Grid>
               <Grid item xs={6}>
-                <div className="d-grid gap-2">
-                  <Button color="primary" variant="contained" size="large" href="https://www.amazon.com/dp/B09T38BNQG/" target="_blank">Get Lessons.church App for TVs</Button>
-                </div>
+                <Button color="primary" fullWidth variant="contained" size="large" href="https://www.amazon.com/dp/B09T38BNQG/" target="_blank">Get Lessons.church App for TVs</Button>
               </Grid>
             </Grid>
           </Grid>

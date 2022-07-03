@@ -7,7 +7,7 @@ export function HomeAbout() {
       <Container fixed>
         <Grid container spacing={3}>
           <Grid item md={1} sm={0} />
-          <Grid item md={10} sm={12} className="text-center">
+          <Grid item md={10} sm={12} sx={{textAlign: "center"}}>
             <div className="title">
               <span>Who we are</span>
             </div>
