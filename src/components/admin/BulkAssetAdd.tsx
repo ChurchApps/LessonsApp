@@ -38,7 +38,7 @@ export function BulkAssetAdd(props: Props) {
 
   return (
     <>
-      <InputBox id="bulkAssetDetailsBox" headerText="Bulk Add Assets" headerIcon="fas fa-copy" saveFunction={handleSave} cancelFunction={handleCancel}>
+      <InputBox id="bulkAssetDetailsBox" headerText="Bulk Add Assets" headerIcon="content_copy" saveFunction={handleSave} cancelFunction={handleCancel}>
         <BulkFileUpload resourceId={props.resourceId} pendingSave={pendingFileSave} saveCallback={handleFilesSaved} />
       </InputBox>
     </>

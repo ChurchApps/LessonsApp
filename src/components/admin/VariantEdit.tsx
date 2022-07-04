@@ -64,7 +64,7 @@ export function VariantEdit(props: Props) {
   React.useEffect(() => { setVariant(props.variant); }, [props.variant]);
 
   return (
-    <InputBox id="variantDetailsBox" headerText="Edit Variant" headerIcon="fas fa-copy" saveFunction={handleSave} cancelFunction={handleCancel} deleteFunction={getDeleteFunction()} >
+    <InputBox id="variantDetailsBox" headerText="Edit Variant" headerIcon="content_copy" saveFunction={handleSave} cancelFunction={handleCancel} deleteFunction={getDeleteFunction()} >
       <ErrorMessages errors={errors} />
       <FormControl fullWidth>
         <InputLabel>Hidden</InputLabel>

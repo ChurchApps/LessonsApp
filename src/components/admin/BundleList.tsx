@@ -71,7 +71,7 @@ export const BundleList: React.FC<Props> = (props) => {
                 {getDropDownMenu(r.id)}
               </span>
               <a href="about:blank" onClick={(e) => { e.preventDefault(); clearEdits(); setEditResource(r); }} >
-                <i className="fas fa-file-alt"></i> {r.name}
+                <Icon>insert_drive_file</Icon> {r.name}
               </a>
             </div>
           </AccordionSummary>
@@ -203,7 +203,7 @@ export const BundleList: React.FC<Props> = (props) => {
   else
     return (
       <>
-        <DisplayBox id="resourcesBox" headerText={props.contentDisplayName} headerIcon="fas fa-file-archive" editContent={getEditContent()} >
+        <DisplayBox id="resourcesBox" headerText={props.contentDisplayName} headerIcon="folder_zip" editContent={getEditContent()} >
           {getAccordion()}
         </DisplayBox>
       </>

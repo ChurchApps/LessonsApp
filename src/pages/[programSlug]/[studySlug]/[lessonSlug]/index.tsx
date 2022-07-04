@@ -2,7 +2,7 @@ import { GetStaticPaths, GetStaticProps } from "next";
 import ReactMarkdown from "react-markdown";
 import { Layout, Venues } from "@/components";
 import { ApiHelper, ProgramInterface, StudyInterface, LessonInterface, ArrayHelper, VenueInterface, ResourceInterface, BundleInterface } from "@/utils";
-import { Grid, Container } from "@mui/material";
+import { Grid, Container, Box } from "@mui/material";
 
 type Props = { program: ProgramInterface; study: StudyInterface; lesson: LessonInterface; venues: VenueInterface[]; resources: ResourceInterface[]; bundles: BundleInterface[]; };
 
@@ -16,7 +16,7 @@ export default function LessonsPage(props: Props) {
     <Grid container spacing={3}>
       <Grid item md={2} sm={0} />
       <Grid item md={8} sm={12}>
-        <img src={props.lesson.image} className="img-fluid profilePic" alt={props.lesson.name} /><br /><br />
+        <img src={props.lesson.image} className="profilePic" alt={props.lesson.name} /><br /><br />
       </Grid>
     </Grid>
   );
@@ -26,14 +26,14 @@ export default function LessonsPage(props: Props) {
     <Layout pageTitle={title} metaDescription={props.lesson.description} image={props.lesson.image} >
       <div className="pageSection">
         <Container fixed>
-          <div className="text-center">
+          <Box sx={{textAlign: "center"}}>
             <div className="title">
               {props.program?.name}: <span>{props.study?.name}</span>
             </div>
-            <h2>
+            <h2 style={{marginTop: 0}}>
               {props.lesson?.name}: <span>{props.lesson?.title}</span>
             </h2>
-          </div>
+          </Box>
           {video}
           <p>{props.lesson?.description}</p>
           <Venues venues={props.venues} resources={props.resources} bundles={props.bundles} />

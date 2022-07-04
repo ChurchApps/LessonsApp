@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
 import { Layout, DisplayBox, Loading } from "@/components";
 import { VenueInterface, LessonInterface, StudyInterface, SectionInterface, RoleInterface, ActionInterface, ApiHelper, ArrayHelper, CustomizationInterface, CustomizationHelper } from "@/utils";
-import { Container } from "@mui/material";
+import { Container, Icon, Box } from "@mui/material";
 
 export default function Venue() {
   const [venue, setVenue] = useState<VenueInterface>(null);
@@ -78,7 +78,7 @@ export default function Venue() {
 
       result.push(<tr className={"sectionRow hoverHighlight" + removedClass} key={`s-${s.id}`}>
         <td>
-          <i className="fas fa-tasks"></i> {s.name}
+          <Icon sx={{marginRight: "5px"}}>list_alt</Icon> {s.name}
         </td>
         <td>
           {links}
@@ -102,7 +102,7 @@ export default function Venue() {
         const links = getLinks("role", r.id, parentRemoved, idx, sorted);
 
         result.push(<tr className={"roleRow hoverHighlight" + removedClass} key={`r-${r.id}`}>
-          <td><i className="fas fa-user-alt"></i> {r.name}</td>
+          <td><Box sx={{display: "flex", alignItems: "center"}}><Icon sx={{marginRight: "5px"}}>person</Icon> {r.name}</Box></td>
           <td>{links}</td>
         </tr>);
         getActions(r.id, removed).forEach((i) => result.push(i));
@@ -133,7 +133,7 @@ export default function Venue() {
         result.push(
           <tr className={"actionRow hoverHighlight" + removedClass} key={`a-${a.id}`}>
             <td>
-              <span><i className="fas fa-check"></i> {a.actionType}: {a.content}</span>
+              <span><Icon sx={{marginRight: "5px"}}>check</Icon> {a.actionType}: {a.content}</span>
             </td>
             <td>{links}</td>
           </tr>
@@ -154,15 +154,15 @@ export default function Venue() {
 
 
   const getDeleteLink = (contentType: string, contentId: string) => {
-    return (<a href="about:blank" onClick={(e) => { e.preventDefault(); toggleTrash(contentType, contentId) }}><i className="fas fa-trash-alt text-danger"></i></a>)
+    return (<a href="about:blank" onClick={(e) => { e.preventDefault(); toggleTrash(contentType, contentId) }}><Icon color="error">delete</Icon></a>)
   }
 
   const getUpLink = (contentType: string, item: any, swapItem: any) => {
-    return (<a href="about:blank" onClick={(e) => { e.preventDefault(); move(contentType, item, swapItem) }}><i className="fas fa-arrow-up text-info"></i></a>)
+    return (<a href="about:blank" onClick={(e) => { e.preventDefault(); move(contentType, item, swapItem) }}><Icon>arrow_upward</Icon></a>)
   }
 
   const getDownLink = (contentType: string, item: any, swapItem: any) => {
-    return (<a href="about:blank" onClick={(e) => { e.preventDefault(); move(contentType, item, swapItem) }}><i className="fas fa-arrow-down text-info"></i></a>)
+    return (<a href="about:blank" onClick={(e) => { e.preventDefault(); move(contentType, item, swapItem) }}><Icon>arrow_downward</Icon></a>)
   }
 
   const getLinks = (contentType: string, contentId: string, parentRemoved: boolean, index: number, array: any[]) => {

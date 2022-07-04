@@ -55,7 +55,7 @@ export function ClassroomEdit(props: Props) {
   useEffect(() => { setClassroom(props.classroom); }, [props.classroom]);
 
   return (
-    <InputBox id="classroomDetailsBox" headerText="Edit Classroom" headerIcon="fas fa-graduation-cap" saveFunction={handleSave} cancelFunction={handleCancel} deleteFunction={handleDelete} >
+    <InputBox id="classroomDetailsBox" headerText="Edit Classroom" headerIcon="school" saveFunction={handleSave} cancelFunction={handleCancel} deleteFunction={handleDelete} >
       <ErrorMessages errors={errors} />
       <TextField fullWidth label="Classroom Name" name="name" value={classroom.name} onChange={handleChange} onKeyDown={handleKeyDown} placeholder="3rd-5th Grade" />
     </InputBox>

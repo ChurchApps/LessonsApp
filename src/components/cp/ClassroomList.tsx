@@ -3,6 +3,7 @@ import Link from "next/link";
 import { ClassroomInterface, ApiHelper } from "@/utils";
 import { DisplayBox, Loading, ClassroomEdit } from "../index";
 import { SmallButton } from "@/appBase/components";
+import { Icon, Stack } from "@mui/material";
 
 type Props = {
   classroomSelected: (classroomId: string) => void;
@@ -25,14 +26,18 @@ export function ClassroomList(props: Props) {
       result.push(
         <tr className="classroomRow" key={c.id}>
           <td>
-            <i className="fas fa-graduation-cap"></i>{" "}
-            <a href="about:blank" onClick={(e) => { e.preventDefault(); props.classroomSelected(c.id); }} >
-              {c.name}
-            </a>
+            <Stack direction="row" alignItems="center">
+              <Icon  sx={{marginRight: "5px"}}>school</Icon>
+              <a href="about:blank" onClick={(e) => { e.preventDefault(); props.classroomSelected(c.id); }} >
+                {c.name}
+              </a>
+            </Stack>
           </td>
-          <td style={{ textAlign: "right" }}>
-            <SmallButton icon="rss_feed" text="Subscribe" onClick={() => { props.showFeed(c.id); }} /> &nbsp;
-            <SmallButton icon="edit" text="Edit" onClick={() => { setEditClassroom(c); }} />
+          <td>
+            <Stack direction="row" alignItems="center" justifyContent="flex-end" sx={{flexWrap: "wrap", gap: "5px"}}>
+              <SmallButton icon="rss_feed" text="Subscribe" onClick={() => { props.showFeed(c.id); }} />
+              <SmallButton icon="edit" text="Edit" onClick={() => { setEditClassroom(c); }} />
+            </Stack>
           </td>
         </tr>
       );
@@ -44,7 +49,7 @@ export function ClassroomList(props: Props) {
     if (classrooms === null) return <Loading />;
     else
       return (
-        <table className="table">
+        <table className="table classroomTable">
           <tbody>{getRows()}</tbody>
         </table>
       );
@@ -60,7 +65,7 @@ export function ClassroomList(props: Props) {
   else
     return (
       <>
-        <DisplayBox headerText="Classrooms" headerIcon="fas fa-graduation-cap" editContent={getEditContent()} >
+        <DisplayBox headerText="Classrooms" headerIcon="school" editContent={getEditContent()} >
           {getTable()}
         </DisplayBox>
       </>

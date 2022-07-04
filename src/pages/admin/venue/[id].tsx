@@ -126,7 +126,7 @@ export default function Venue() {
       result.push(<tr className="sectionRow" key={`s-${s.id}`}>
         <td>
           <a href="about:blank" onClick={(e) => { e.preventDefault(); clearEdits(); setEditSection(s); }} >
-            <i className="fas fa-tasks"></i> {s.name}
+            <Icon sx={{marginRight: "5px"}}>list_alt</Icon> {s.name}
           </a>
         </td>
         <td><SmallButton icon="add" text="Role" onClick={(e) => { createRole(s.id); }} /></td>
@@ -143,7 +143,7 @@ export default function Venue() {
         result.push(<tr className="roleRow" key={`r-${r.id}`}>
           <td>
             <a href="about:blank" onClick={(e) => { e.preventDefault(); clearEdits(); setEditRole(r); }} >
-              <i className="fas fa-user-alt"></i> {r.name}
+              <Icon>person</Icon> {r.name}
             </a>
           </td>
           <td><SmallButton onClick={() => { createAction(r.id); }} icon="add" text="Action" /></td>
@@ -162,7 +162,7 @@ export default function Venue() {
           <tr className="actionRow" key={`a-${a.id}`}>
             <td colSpan={2}>
               <a href="about:blank" onClick={(e) => { e.preventDefault(); clearEdits(); setEditAction(a); }} >
-                <i className="fas fa-check"></i> {a.actionType}: {a.content}
+                <Icon>check</Icon> {a.actionType}: {a.content}
               </a>
             </td>
           </tr>
