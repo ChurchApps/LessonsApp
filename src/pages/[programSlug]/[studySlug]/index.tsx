@@ -1,7 +1,7 @@
 import { GetStaticPaths, GetStaticProps } from "next";
 import { Layout, Lessons } from "@/components";
 import { ApiHelper, ProgramInterface, StudyInterface, LessonInterface, ArrayHelper } from "@/utils";
-import { Grid, Container } from "@mui/material";
+import { Grid, Container, Box } from "@mui/material";
 
 type Props = {
   study: StudyInterface;
@@ -18,7 +18,7 @@ export default function StudyPage(props: Props) {
     <Grid container spacing={3}>
       <Grid item md={2} sm={0} />
       <Grid item md={8} sm={12}>
-        <img src={props.study.image} className="img-fluid profilePic" alt={props.study.name} /><br /><br />
+        <img src={props.study.image} className="profilePic" alt={props.study.name} /><br /><br />
       </Grid>
     </Grid>
   );
@@ -28,10 +28,10 @@ export default function StudyPage(props: Props) {
     <Layout pageTitle={title} metaDescription={props.study.description} image={props.study.image}>
       <div className="pageSection">
         <Container fixed>
-          <div className="text-center">
-            <h2>{props.program?.name || ""}: <span>{props.study?.name}</span></h2>
+          <Box sx={{textAlign: "center"}}>
+            <h2 style={{marginTop: 0}}>{props.program?.name || ""}: <span>{props.study?.name}</span></h2>
             <p><i>{props.study.shortDescription}</i></p>
-          </div>
+          </Box>
           <p>{props.study.description}</p>
           {video}
           <br />

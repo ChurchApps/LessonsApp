@@ -3,7 +3,7 @@ import { useReactToPrint } from "react-to-print";
 import { VenueInterface, ResourceInterface, BundleInterface, CustomizationInterface, CustomizationHelper } from "@/utils";
 import { Downloads } from "./Downloads";
 import { Section } from "./Section";
-import { Grid, Icon } from "@mui/material";
+import { Grid, Icon, Button, Box } from "@mui/material";
 
 type Props = {
   venue: VenueInterface;
@@ -36,9 +36,9 @@ export function Venue(props: Props) {
 
   const getPrint = () => {
     if (!props.hidePrint) {
-      return (<button type="button" className="btn btn-sm btn-light" key={"print" + props.venue.id} onClick={handlePrint} title="print" style={{ float: "right", marginRight: 10 }} >
+      return (<Button size="small" variant="outlined" key={"print" + props.venue.id} onClick={handlePrint} title="print">
         <Icon>print</Icon>
-      </button>);
+        </Button>);
     }
   }
 
@@ -46,11 +46,13 @@ export function Venue(props: Props) {
     <div>
       <Grid container spacing={3}>
         <Grid item xs={6}>
-          <h4>{props.venue.name}</h4>
+          <h4 style={{fontSize: "24px", fontWeight: 500, margin: "0 0 8px 0"}}>{props.venue.name}</h4>
         </Grid>
         <Grid item xs={6}>
-          <Downloads bundles={props.bundles} />
-          {getPrint()}
+          <Box sx={{display: "flex", justifyContent: "flex-end", gap: "8px", flexWrap: "wrap"}}>
+            {getPrint()}
+            <Downloads bundles={props.bundles} />
+          </Box>
         </Grid>
       </Grid>
       <div ref={contentRef}>

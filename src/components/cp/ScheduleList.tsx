@@ -4,6 +4,7 @@ import { DisplayBox, Loading, ScheduleEdit } from "../index";
 import { DateHelper } from "@/appBase/helpers";
 import Link from "next/link";
 import { SmallButton } from "@/appBase/components";
+import { Icon } from "@mui/material";
 
 
 type Props = {
@@ -28,15 +29,15 @@ export function ScheduleList(props: Props) {
       result.push(
         <tr className="scheduleRow" key={s.id}>
           <td>
-            <i className="fas fa-calendar-alt"></i>{" "}
+            <Icon sx={{marginRight: "5px"}}>calendar_month</Icon>
             {DateHelper.formatHtml5Date(s?.scheduledDate)}
           </td>
           <td>
-            <Link href={"/cp/venue/" + s.venueId}><a><i className="fas fa-user-cog"></i></a></Link>
+            <Link href={"/cp/venue/" + s.venueId}><a><Icon sx={{marginRight: "5px"}}>psychology</Icon></a></Link>
             {s.displayName}
           </td>
           <td style={{ textAlign: "right" }}>
-            <a href="about:blank" onClick={(e) => { e.preventDefault(); setEditSchedule(s); }} ><i className="fas fa-pencil-alt"></i></a>
+            <a href="about:blank" onClick={(e) => { e.preventDefault(); setEditSchedule(s); }} ><Icon>edit</Icon></a>
           </td>
         </tr>
       );
@@ -66,7 +67,7 @@ export function ScheduleList(props: Props) {
   else
     return (
       <>
-        <DisplayBox headerText="Schedules" headerIcon="fas fa-calendar-alt" editContent={getEditContent()} >
+        <DisplayBox headerText="Schedules" headerIcon="calendar_month" editContent={getEditContent()} >
           {getTable()}
         </DisplayBox>
       </>

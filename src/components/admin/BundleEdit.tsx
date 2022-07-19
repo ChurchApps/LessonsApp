@@ -62,7 +62,7 @@ export function BundleEdit(props: Props) {
 
   return (
     <>
-      <InputBox id="bundleDetailsBox" headerText={props.contentDisplayName} headerIcon="fas fa-file-alt" saveFunction={handleSave} cancelFunction={handleCancel} deleteFunction={getDeleteFunction()} >
+      <InputBox id="bundleDetailsBox" headerText={props.contentDisplayName} headerIcon="insert_drive_file" saveFunction={handleSave} cancelFunction={handleCancel} deleteFunction={getDeleteFunction()} >
         <ErrorMessages errors={errors} />
         <TextField fullWidth label="Bundle Name" name="name" value={bundle.name} onChange={handleChange} onKeyDown={handleKeyDown} placeholder="Countdown Video" />
       </InputBox>

@@ -30,13 +30,13 @@ export function Downloads(props: Props) {
     const result: JSX.Element[] = [];
     props.bundles?.forEach((b) => {
       const bundle = b;
-      let downloadLink = (<a href={b.file?.contentPath + "&download=1"} onClick={() => { trackDownload(bundle) }} download={true} className="btn btn-sm btn-success">Download</a>);
+      let downloadLink = (<Button href={b.file?.contentPath + "&download=1"} size="small" onClick={() => { trackDownload(bundle) }} download={true} color="success" component="a" variant="contained">Download</Button>);
       result.push(
         <div className="downloadResource" key={b.id}>
           <MenuItem>
-            <Grid container spacing={3}>
-              <Grid item xs={8}>{b?.name}</Grid>
-              <Grid item xs={4} style={{ textAlign: "right" }}>{downloadLink}</Grid>
+            <Grid container columnSpacing={2}>
+              <Grid item xs={7}>{b?.name}</Grid>
+              <Grid item xs={5} style={{ textAlign: "right" }}>{downloadLink}</Grid>
             </Grid>
           </MenuItem>
         </div>

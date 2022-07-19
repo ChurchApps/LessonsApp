@@ -42,7 +42,7 @@ export function PlaylistFeed(props: Props) {
 
   return (
     <>
-      <InputBox id="feedBox" headerText="Get Feed" headerIcon="fas fa-rss" saveFunction={handleCancel} saveText="Done" >
+      <InputBox id="feedBox" headerText="Get Feed" headerIcon="rss_feed" saveFunction={handleCancel} saveText="Done" >
         {getContents()}
       </InputBox>
     </>

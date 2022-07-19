@@ -70,7 +70,7 @@ export function AssetEdit(props: Props) {
 
   return (
     <>
-      <InputBox id="assetDetailsBox" headerText="Edit Asset" headerIcon="fas fa-copy" saveFunction={handleSave} cancelFunction={handleCancel} deleteFunction={getDeleteFunction()}>
+      <InputBox id="assetDetailsBox" headerText="Edit Asset" headerIcon="content_copy" saveFunction={handleSave} cancelFunction={handleCancel} deleteFunction={getDeleteFunction()}>
         <ErrorMessages errors={errors} />
         <TextField label="Order" fullWidth type="number" name="sort" value={asset.sort} onChange={handleChange} onKeyDown={handleKeyDown} placeholder="1" />
         <TextField label="Asset Name" fullWidth name="name" value={asset.name} onChange={handleChange} onKeyDown={handleKeyDown} placeholder="Asset 1" />

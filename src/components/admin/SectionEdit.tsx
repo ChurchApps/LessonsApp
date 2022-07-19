@@ -62,7 +62,7 @@ export function SectionEdit(props: Props) {
 
   return (
     <>
-      <InputBox id="sectionDetailsBox" headerText={section?.id ? "Edit Section" : "Create Section"} headerIcon="fas fa-tasks" saveFunction={handleSave} cancelFunction={handleCancel} deleteFunction={handleDelete} >
+      <InputBox id="sectionDetailsBox" headerText={section?.id ? "Edit Section" : "Create Section"} headerIcon="list_alt" saveFunction={handleSave} cancelFunction={handleCancel} deleteFunction={handleDelete} >
         <ErrorMessages errors={errors} />
         <TextField label="Order" fullWidth type="number" name="sort" value={section.sort} onChange={handleChange} onKeyDown={handleKeyDown} placeholder="1" />
         <TextField label="Section Name" fullWidth name="name" value={section.name} onChange={handleChange} onKeyDown={handleKeyDown} placeholder="Section 1" />

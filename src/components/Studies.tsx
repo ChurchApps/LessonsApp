@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { StudyInterface } from "@/utils";
-import { Grid } from "@mui/material";
+import { Grid, Typography } from "@mui/material";
 
 type Props = {
   studies: StudyInterface[];
@@ -13,12 +13,12 @@ export function Studies({ studies, slug }: Props) {
     return (
       <Grid container spacing={3} style={{ paddingBottom: 20, paddingTop: 20, borderBottom: "1px solid #CCC" }} key={study.id}>
         <Grid item md={3} xs={12}>
-          <Link href={studyUrl}><a><img src={study.image} className="img-fluid" alt={study.name} /></a></Link>
+          <Link href={studyUrl}><a><img src={study.image} alt={study.name} /></a></Link>
         </Grid>
         <Grid item md={9} xs={12}>
-          <h3>
+          <Typography component="h3" sx={{fontSize: "28px", fontWeight: 500, marginBottom: "8px"}}>
             <Link href={studyUrl}><a>{study.name}</a></Link>
-          </h3>
+          </Typography>
           <p>
             <i>{study.shortDescription}</i>
           </p>
@@ -30,7 +30,7 @@ export function Studies({ studies, slug }: Props) {
 
   return (
     <div>
-      <h2>Studies</h2>
+      <h2 style={{marginTop: 0}}>Studies</h2>
       {studies.map(createStudy)}
     </div>
   );

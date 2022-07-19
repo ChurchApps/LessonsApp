@@ -18,9 +18,8 @@ export default function Home({ programs, providers }: Props) {
     <Layout metaDescription={description} image={pageImage} ogDescription={ogDescription}>
       <div id="hero">
         <Container fixed>
-          <Grid container spacing={3}>
-            <Grid item md={2} sm={0} />
-            <Grid item md={8} sm={12} className="text-center">
+          <Grid container justifyContent="center">
+            <Grid item md={8} sm={12} sx={{textAlign: "center"}}>
               <h1>
                 Completely <span>Free Curriculum</span> for Churches
               </h1>

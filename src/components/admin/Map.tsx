@@ -13,7 +13,7 @@ type Props = {
 
 export const Map: React.FC<Props> = (props) => {
 
-  const geoUrl = "https://raw.githubusercontent.com/zcreativelabs/react-simple-maps/master/topojson-maps/world-10m.json"
+  const geoUrl = "/countries-10m.json"
   const [ipData, setIpData] = useState<any[]>([]);
   const [tooltipIp, setTooltipIp] = useState<any>(null);
 

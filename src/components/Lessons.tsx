@@ -17,14 +17,14 @@ export function Lessons({ lessons, slug }: Props) {
             <Grid item md={3} xs={12}>
               <img
                 src={lesson.image}
-                className="img-fluid"
+                style={{verticalAlign: "middle"}}
                 alt={lesson.name}
               />
             </Grid>
             <Grid item md={9} xs={12}>
               <div className="title">{lesson.name}</div>
-              <h3>{lesson.title}</h3>
-              <p>{lesson.description}</p>
+              <h3 style={{fontSize: "28px", fontWeight: 600, margin: "0 0 8px 0"}}>{lesson.title}</h3>
+              <p style={{margin: "0 0 16px 0"}}>{lesson.description}</p>
             </Grid>
           </Grid>
         </a>
@@ -33,7 +33,7 @@ export function Lessons({ lessons, slug }: Props) {
   }
   return (
     <div>
-      <h2>Lessons</h2>
+      <h2 style={{margin: "0 0 30px 0"}}>Lessons</h2>
       {lessons.map(createLesson)}
     </div>
   );

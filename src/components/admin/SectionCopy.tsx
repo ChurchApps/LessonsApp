@@ -95,7 +95,7 @@ export function SectionCopy(props: Props) {
 
   return (
     <>
-      <InputBox id="sectionDetailsBox" headerText="Copy Section From" headerIcon="fas fa-tasks" saveFunction={handleSave} cancelFunction={handleCancel} saveText="Copy!" >
+      <InputBox id="sectionDetailsBox" headerText="Copy Section From" headerIcon="list_alt" saveFunction={handleSave} cancelFunction={handleCancel} saveText="Copy!" >
         <ErrorMessages errors={errors} />
 
         <FormControl fullWidth>

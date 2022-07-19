@@ -56,7 +56,7 @@ export function RoleEdit(props: Props) {
   useEffect(() => { setRole(props.role); }, [props.role]);
 
   return (
-    <InputBox id="roleDetailsBox" headerText={role?.id ? "Edit Role" : "Create Role"} headerIcon="fas fa-user-alt" saveFunction={handleSave} cancelFunction={handleCancel} deleteFunction={handleDelete}>
+    <InputBox id="roleDetailsBox" headerText={role?.id ? "Edit Role" : "Create Role"} headerIcon="person" saveFunction={handleSave} cancelFunction={handleCancel} deleteFunction={handleDelete}>
       <ErrorMessages errors={errors} />
       <TextField fullWidth label="Order" type="number" name="sort" value={role.sort} onChange={handleChange} onKeyDown={handleKeyDown} placeholder="1" />
       <TextField fullWidth label="Role Name" name="name" value={role.name} onChange={handleChange} onKeyDown={handleKeyDown} placeholder="Leader" />

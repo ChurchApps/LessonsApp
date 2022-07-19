@@ -72,7 +72,7 @@ export default function Admin() {
                 <SmallButton icon="file_upload" text="Files" onClick={() => { clearEdits(); showResources("program", p.id, p.name); }} />
               </span>
               <a href="about:blank" onClick={(e) => { e.preventDefault(); clearEdits(); setEditProgram(p); }} >
-                <i className="fas fa-graduation-cap"></i> {p.name}
+                <Icon>school</Icon> {p.name}
               </a>
             </div>
           </AccordionSummary>
@@ -98,7 +98,7 @@ export default function Admin() {
                   <SmallButton icon="file_upload" text="Files" onClick={() => { clearEdits(); showResources("study", s.id, s.name); }} />
                 </span>
                 <a href="about:blank" onClick={(e) => { e.preventDefault(); clearEdits(); setEditStudy(s); }} >
-                  <i className="fas fa-layer-group"></i> {s.name}
+                  <Icon>layers</Icon> {s.name}
                 </a>
               </div>
             </AccordionSummary>
@@ -123,7 +123,7 @@ export default function Admin() {
               <SmallButton icon="file_upload" text="Files" onClick={() => { clearEdits(); showResources("lesson", l.id, l.name); }} />
             </span>
             <a href="about:blank" onClick={(e) => { e.preventDefault(); clearEdits(); setEditLesson(l); }} >
-              <i className="fas fa-book"></i> {l.name}: {l.title}
+              <Icon>book</Icon> {l.name}: {l.title}
             </a>
           </div>
         );
@@ -155,7 +155,7 @@ export default function Admin() {
 
       <Grid container spacing={3}>
         <Grid item md={8} xs={12}>
-          <DisplayBox headerText="Programs" headerIcon="none" editContent={getEditContent} >
+          <DisplayBox headerText="Programs" headerIcon="school" editContent={getEditContent} >
             {getAccordion()}
           </DisplayBox>
         </Grid>
