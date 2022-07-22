@@ -26,8 +26,8 @@ export const Wrapper: React.FC<Props> = props => {
   const selectedTab = getSelectedTab();
 
   tabs.push(<NavItem url="/" label="Home" icon="home" router={router} />);
-  if (UserHelper.checkAccess(Permissions.lessonsApi.lessons.edit)) tabs.push(<NavItem url="/admin" label="Admin" icon="admin_panel_settings" router={router} selected={selectedTab === "admin"} />);
-  if (UserHelper.checkAccess(Permissions.lessonsApi.lessons.editSchedules)) tabs.push(<NavItem url="/cp" label="Schedules" icon="calendar_month" router={router} selected={selectedTab === "cp"} />);
+  if (UserHelper.checkAccess(Permissions.lessonsApi.lessons.edit)) tabs.push(<NavItem url="/admin" label="Admin" icon="admin_panel_settings" router={router} selected={selectedTab === "admin"} key="admin" />);
+  if (UserHelper.checkAccess(Permissions.lessonsApi.lessons.editSchedules)) tabs.push(<NavItem url="/cp" label="Schedules" icon="calendar_month" router={router} selected={selectedTab === "cp"} key="cp" />);
 
   const navContent = <><List component="nav" sx={Themes.NavBarStyle}>{tabs}</List></>
 
@@ -35,7 +35,7 @@ export const Wrapper: React.FC<Props> = props => {
   return <ThemeProvider theme={Themes.BaseTheme}>
     <CssBaseline />
     <Box sx={{ display: "flex", backgroundColor: "#EEE" }}>
-      <SiteWrapper navContent={navContent} context={context} appName="Lessons.church" >{props.children}</SiteWrapper>
+      <SiteWrapper navContent={navContent} context={context} appName="Lessons.church" router={router} >{props.children}</SiteWrapper>
     </Box>
   </ThemeProvider>
 
