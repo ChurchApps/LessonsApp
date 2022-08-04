@@ -3,7 +3,7 @@ import { useRouter } from "next/router";
 import { Layout } from "@/components";
 import { ApiHelper, ClassroomInterface, ScheduleInterface } from "@/utils";
 import Link from "next/link";
-import { ArrayHelper, DateHelper } from "@/appBase/helpers";
+import { DateHelper } from "@/appBase/helpers";
 import { Container } from "@mui/material";
 
 
