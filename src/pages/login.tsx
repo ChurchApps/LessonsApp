@@ -12,7 +12,6 @@ export default function Login() {
   if (ApiHelper.isAuthenticated && UserHelper.currentChurch) { router.push("/") }
 
   const loginSuccess = () => {
-    console.log("login success callback...");
     router.push("/");
   }
 

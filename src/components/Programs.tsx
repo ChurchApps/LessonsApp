@@ -11,7 +11,6 @@ type Props = {
 export function Programs(props: Props) {
 
   function createProgram({ slug, image, name, shortDescription, description, id }: ProgramInterface) {
-    console.log(slug);
     const url = "/" + slug + "/";
     return (
       <div key={id}>
@@ -32,7 +31,6 @@ export function Programs(props: Props) {
 
   const programsView = props.providers
     .map((provider) => {
-      console.log(provider.name)
       const view = props.programs
         .filter((program) => program.providerId === provider.id)
         .map((p) => createProgram(p));

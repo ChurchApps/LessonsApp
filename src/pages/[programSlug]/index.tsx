@@ -37,7 +37,7 @@ export default function ProgramPage(props: Props) {
               <i>{props.program.shortDescription}</i>
             </p>
           </Box>
-          <p><ReactMarkdown>{props.program.description}</ReactMarkdown></p>
+          <div><ReactMarkdown>{props.program.description}</ReactMarkdown></div>
           {video}
           <br />
           <br />
