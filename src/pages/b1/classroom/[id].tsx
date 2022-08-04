@@ -44,7 +44,7 @@ export default function Venue() {
     if (schedules) {
       let notExpired: ScheduleInterface[] = [];
       const cutOff = new Date();
-      cutOff.setDate(cutOff.getDate() - 1);
+      cutOff.setDate(cutOff.getDate() - 5);
       schedules.forEach(s => { if (DateHelper.convertToDate(s.scheduledDate) >= cutOff) notExpired.push(s); });
 
       if (notExpired.length > 0) {
