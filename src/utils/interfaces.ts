@@ -114,6 +114,14 @@ export interface BundleInterface {
   file?: FileInterface;
   contentName?: string;
 }
+export interface ExternalVideoInterface {
+  id?: string;
+  contentType?: string;
+  contentId?: string;
+  name?: string;
+  videoProvider?: string;
+  videoId?: string;
+}
 export interface ResourceInterface {
   id?: string;
   bundleId?: string;
