@@ -35,6 +35,9 @@ export function ExternalVideoEdit(props: Props) {
       case "videoId":
         v.videoId = e.target.value;
         break;
+      case "loopVideo":
+        v.loopVideo = e.target.value === "true";
+        break;
     }
     setExternalVideo(v);
   };
@@ -79,8 +82,14 @@ export function ExternalVideoEdit(props: Props) {
             <MenuItem value="Vimeo">Vimeo</MenuItem>
           </Select>
         </FormControl>
-
         <TextField fullWidth label="Video Id" name="videoId" value={externalVideo.videoId} onChange={handleChange} onKeyDown={handleKeyDown} placeholder="abc123" />
+        <FormControl fullWidth>
+          <InputLabel>Looping Video</InputLabel>
+          <Select label="Looping Video" name="loopVideo" value={externalVideo.loopVideo?.toString()} onChange={handleChange}>
+            <MenuItem value="false">No</MenuItem>
+            <MenuItem value="true">Yes</MenuItem>
+          </Select>
+        </FormControl>
       </InputBox>
     </>
   );

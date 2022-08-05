@@ -215,7 +215,7 @@ export const BundleList: React.FC<Props> = (props) => {
         <SmallButton icon="add" onClick={(e) => setVideoMenuAnchor(e.currentTarget)} />
         <Menu id="addMenu" anchorEl={videoMenuAnchor} open={Boolean(videoMenuAnchor)} onClose={() => { setVideoMenuAnchor(null) }} MenuListProps={{ "aria-labelledby": "addMenuButton" }}>
           <MenuItem onClick={() => { setEditBundle({ contentType: props.contentType, contentId: props.contentId }); }} ><Icon>folder_zip</Icon> Add Bundle</MenuItem>
-          <MenuItem onClick={() => { setEditVideo({ contentType: props.contentType, contentId: props.contentId, videoProvider: "Vimeo" }); }} ><Icon>videocam</Icon> Add External Video</MenuItem>
+          <MenuItem onClick={() => { setEditVideo({ contentType: props.contentType, contentId: props.contentId, videoProvider: "Vimeo" }); }} ><Icon>videocam</Icon> Add External Video (Beta)</MenuItem>
         </Menu>
       </>
     );

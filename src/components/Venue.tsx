@@ -52,7 +52,7 @@ export function Venue(props: Props) {
         <Grid item xs={6}>
           <Box sx={{ display: "flex", justifyContent: "flex-end", gap: "8px", flexWrap: "wrap" }}>
             {getPrint()}
-            <Downloads bundles={props.bundles} />
+            <Downloads bundles={props.bundles} externalVideos={props.externalVideos} />
           </Box>
         </Grid>
       </Grid>

@@ -122,6 +122,11 @@ export interface ExternalVideoInterface {
   name?: string;
   videoProvider?: string;
   videoId?: string;
+  seconds?: string;
+  loopVideo?: boolean;
+  download720?: string;
+  download1080?: string;
+  download4k?: string;
 }
 export interface ResourceInterface {
   id?: string;
