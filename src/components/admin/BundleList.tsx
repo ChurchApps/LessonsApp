@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { ApiHelper, ResourceInterface, AssetInterface, VariantInterface, ArrayHelper, BundleInterface } from "@/utils";
+import { ApiHelper, ResourceInterface, AssetInterface, VariantInterface, ArrayHelper, BundleInterface, ExternalVideoInterface } from "@/utils";
 import { DisplayBox, Loading } from "../index";
 import { VariantEdit } from "./VariantEdit";
 import { ResourceEdit } from "./ResourceEdit";
@@ -8,6 +8,7 @@ import { BundleEdit } from "./BundleEdit";
 import { BulkAssetAdd } from "./BulkAssetAdd";
 import { Accordion, AccordionDetails, AccordionSummary, Icon, Menu, MenuItem } from "@mui/material";
 import { SmallButton } from "@/appBase/components";
+import { ExternalVideoEdit } from "./ExternalVideoEdit";
 
 interface Props {
   contentType: string;
@@ -20,12 +21,15 @@ export const BundleList: React.FC<Props> = (props) => {
   const [resources, setResources] = React.useState<ResourceInterface[]>(null);
   const [assets, setAssets] = React.useState<AssetInterface[]>(null);
   const [variants, setVariants] = React.useState<VariantInterface[]>(null);
+  const [externalVideos, setExternalVideos] = React.useState<ExternalVideoInterface[]>(null);
+  const [editVideo, setEditVideo] = React.useState<ExternalVideoInterface>(null);
   const [editBundle, setEditBundle] = React.useState<BundleInterface>(null);
   const [editResource, setEditResource] = React.useState<ResourceInterface>(null);
   const [editVariant, setEditVariant] = React.useState<VariantInterface>(null);
   const [editAsset, setEditAsset] = React.useState<AssetInterface>(null);
   const [bulkResourceId, setBulkResourceId] = React.useState<string>(null);
   const [menuAnchor, setMenuAnchor] = useState<null | any>(null);
+  const [videoMenuAnchor, setVideoMenuAnchor] = useState<null | any>(null);
   const [expandedBundleId, setExpandedBundleId] = useState<string>("");
   const [expandedResourceId, setExpandedResourceId] = useState<string>("");
 
@@ -35,6 +39,7 @@ export const BundleList: React.FC<Props> = (props) => {
 
   const loadData = async () => {
     if (props.contentType && props.contentId) {
+      ApiHelper.get("/externalVideos/content/" + props.contentType + "/" + props.contentId, "LessonsApi").then(data => setExternalVideos(data));
       const bundleData: BundleInterface[] = await ApiHelper.get("/bundles/content/" + props.contentType + "/" + props.contentId, "LessonsApi");
       setBundles(bundleData);
       if (bundleData.length === 0) {
@@ -128,7 +133,7 @@ export const BundleList: React.FC<Props> = (props) => {
               <SmallButton icon="add" onClick={() => { setEditResource({ category: bundle.name, bundleId: bundle.id }); }} text="Resource" />
             </span>
             <a href="about:blank" onClick={(e) => { e.preventDefault(); clearEdits(); setEditBundle(b); }} color="error">
-              {b.name}
+              <Icon style={{ paddingTop: 4 }}>folder_zip</Icon> {b.name}
             </a>
 
           </div>
@@ -145,12 +150,28 @@ export const BundleList: React.FC<Props> = (props) => {
     return result;
   };
 
+  const getVideos = () => {
+    const result: JSX.Element[] = [];
+    externalVideos.forEach(v => {
+      const video = v;
+      result.push(<div style={{ paddingLeft: 16 }}>
+        <a href="about:blank" onClick={(e) => { e.preventDefault(); clearEdits(); setEditVideo(video); }} >
+          <Icon style={{ paddingTop: 4 }}>videocam</Icon> {video.name}
+        </a>
+      </div>)
+    });
+    return result;
+  }
+
   const getAccordion = () => {
     if (resources === null) return <Loading />;
     else if (bundles?.length > 0) return (
-      <Accordion className="adminAccordion">
-        {getBundles()}
-      </Accordion>
+      <>
+        <div className="adminAccordion">
+          {getBundles()}
+          {getVideos()}
+        </div>
+      </>
     );
   };
 
@@ -188,9 +209,22 @@ export const BundleList: React.FC<Props> = (props) => {
     );
   };
 
+  const getBundleVideoMenu = () => {
+    return (
+      <>
+        <SmallButton icon="add" onClick={(e) => setVideoMenuAnchor(e.currentTarget)} />
+        <Menu id="addMenu" anchorEl={videoMenuAnchor} open={Boolean(videoMenuAnchor)} onClose={() => { setVideoMenuAnchor(null) }} MenuListProps={{ "aria-labelledby": "addMenuButton" }}>
+          <MenuItem onClick={() => { setEditBundle({ contentType: props.contentType, contentId: props.contentId }); }} ><Icon>folder_zip</Icon> Add Bundle</MenuItem>
+          <MenuItem onClick={() => { setEditVideo({ contentType: props.contentType, contentId: props.contentId, videoProvider: "Vimeo" }); }} ><Icon>videocam</Icon> Add External Video (Beta)</MenuItem>
+        </Menu>
+      </>
+    );
+  };
+
 
   const getEditContent = () => {
-    return (<SmallButton icon="add" onClick={() => { setEditBundle({ contentType: props.contentType, contentId: props.contentId }); }} />);
+    //return (<SmallButton icon="add" onClick={() => { setEditBundle({ contentType: props.contentType, contentId: props.contentId }); }} />);
+    return getBundleVideoMenu();
   };
 
   React.useEffect(() => { loadData() }, [props.contentType, props.contentId]);
@@ -200,6 +234,7 @@ export const BundleList: React.FC<Props> = (props) => {
   if (bulkResourceId) return (<BulkAssetAdd resourceId={bulkResourceId} updatedCallback={handleBulkAssetCallback} />);
   if (editResource) return (<ResourceEdit resource={editResource} contentDisplayName={props.contentDisplayName} updatedCallback={() => { setEditResource(null); loadData(); }} />);
   if (editBundle) return (<BundleEdit bundle={editBundle} contentDisplayName={props.contentDisplayName} updatedCallback={() => { setEditBundle(null); loadData(); }} />);
+  if (editVideo) return (<ExternalVideoEdit externalVideo={editVideo} contentDisplayName={props.contentDisplayName} updatedCallback={() => { setEditVideo(null); loadData(); }} />);
   else
     return (
       <>

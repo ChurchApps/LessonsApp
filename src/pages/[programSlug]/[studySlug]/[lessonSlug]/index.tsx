@@ -1,10 +1,10 @@
 import { GetStaticPaths, GetStaticProps } from "next";
 import ReactMarkdown from "react-markdown";
 import { Layout, Venues } from "@/components";
-import { ApiHelper, ProgramInterface, StudyInterface, LessonInterface, ArrayHelper, VenueInterface, ResourceInterface, BundleInterface } from "@/utils";
+import { ApiHelper, ProgramInterface, StudyInterface, LessonInterface, ArrayHelper, VenueInterface, ResourceInterface, BundleInterface, ExternalVideoInterface } from "@/utils";
 import { Grid, Container, Box } from "@mui/material";
 
-type Props = { program: ProgramInterface; study: StudyInterface; lesson: LessonInterface; venues: VenueInterface[]; resources: ResourceInterface[]; bundles: BundleInterface[]; };
+type Props = { program: ProgramInterface; study: StudyInterface; lesson: LessonInterface; venues: VenueInterface[]; resources: ResourceInterface[]; externalVideos: ExternalVideoInterface[]; bundles: BundleInterface[]; };
 
 export default function LessonsPage(props: Props) {
 
@@ -26,17 +26,17 @@ export default function LessonsPage(props: Props) {
     <Layout pageTitle={title} metaDescription={props.lesson.description} image={props.lesson.image} >
       <div className="pageSection">
         <Container fixed>
-          <Box sx={{textAlign: "center"}}>
+          <Box sx={{ textAlign: "center" }}>
             <div className="title">
               {props.program?.name}: <span>{props.study?.name}</span>
             </div>
-            <h2 style={{marginTop: 0}}>
+            <h2 style={{ marginTop: 0 }}>
               {props.lesson?.name}: <span>{props.lesson?.title}</span>
             </h2>
           </Box>
           {video}
           <p>{props.lesson?.description}</p>
-          <Venues venues={props.venues} resources={props.resources} bundles={props.bundles} />
+          <Venues venues={props.venues} resources={props.resources} externalVideos={props.externalVideos} bundles={props.bundles} />
           {props.program.aboutSection && (
             <>
               <h4 style={{ marginTop: 40 }}>About {props.program.name}</h4>
@@ -73,6 +73,7 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
   const lesson: LessonInterface = await ApiHelper.getAnonymous("/lessons/public/slug/" + study.id + "/" + params.lessonSlug, "LessonsApi");
   const venues: VenueInterface[] = await ApiHelper.getAnonymous("/venues/public/lesson/" + lesson.id, "LessonsApi");
   const resources: ResourceInterface[] = await ApiHelper.getAnonymous("/resources/public/lesson/" + lesson.id, "LessonsApi");
+  const externalVideos: ResourceInterface[] = await ApiHelper.getAnonymous("/externalVideos/public/lesson/" + lesson.id, "LessonsApi");
   const bundles: BundleInterface[] = await ApiHelper.getAnonymous("/bundles/public/lesson/" + lesson.id, "LessonsApi");
 
   resources?.forEach(r => {
@@ -80,7 +81,7 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
   });
 
   return {
-    props: { program, study, lesson, venues, resources, bundles },
+    props: { program, study, lesson, venues, resources, externalVideos, bundles },
     revalidate: 30,
   };
 

@@ -1,18 +1,21 @@
-import { ApiHelper, BundleInterface, GoogleAnalyticsHelper, UserHelper } from "@/utils";
+import { ApiHelper, BundleInterface, EnvironmentHelper, ExternalVideoInterface, GoogleAnalyticsHelper, UserHelper } from "@/utils";
 import { Grid, Menu, MenuItem, Icon, Button } from "@mui/material";
 import { useState } from "react";
 
 type Props = {
   bundles: BundleInterface[];
+  externalVideos: ExternalVideoInterface[];
 };
 
 export function Downloads(props: Props) {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
 
   const trackDownload = (bundle: BundleInterface) => {
-    const action = bundle.name;
-    const label = window.location.pathname;
-    GoogleAnalyticsHelper.gaEvent({ category: "Download", action: action, label: label });
+    if (EnvironmentHelper.GoogleAnalyticsTag) {
+      const action = bundle.name;
+      const label = window.location.pathname;
+      GoogleAnalyticsHelper.gaEvent({ category: "Download", action: action, label: label });
+    }
     const download = {
       lessonId: bundle.contentId,
       fileId: bundle.file.id,
@@ -25,6 +28,23 @@ export function Downloads(props: Props) {
     ApiHelper.post("/downloads", [download], "LessonsApi");
   }
 
+  const trackVideoDownload = (video: ExternalVideoInterface) => {
+    if (EnvironmentHelper.GoogleAnalyticsTag) {
+      const action = video.name;
+      const label = window.location.pathname;
+      GoogleAnalyticsHelper.gaEvent({ category: "Download", action: action, label: label });
+    }
+    const download = {
+      lessonId: video.contentId,
+      fileId: "",
+      userId: UserHelper.user?.id || "",
+      churchId: UserHelper.currentChurch?.id || "",
+      ipAddress: "",
+      downloadDate: new Date(),
+      fileName: "Video - " + video.name
+    }
+    ApiHelper.post("/downloads", [download], "LessonsApi");
+  }
 
   const getBundles = () => {
     const result: JSX.Element[] = [];
@@ -45,14 +65,32 @@ export function Downloads(props: Props) {
     return result;
   }
 
-
+  const getVideos = () => {
+    const result: JSX.Element[] = [];
+    props.externalVideos?.forEach((v) => {
+      const video = v;
+      let downloadLink = (<Button href={v.download720} size="small" onClick={() => { trackVideoDownload(video) }} download={true} color="success" component="a" variant="contained">Download</Button>);
+      result.push(
+        <div className="downloadResource" key={v.id}>
+          <MenuItem>
+            <Grid container columnSpacing={2}>
+              <Grid item xs={7}>{v?.name}</Grid>
+              <Grid item xs={5} style={{ textAlign: "right" }}>{downloadLink}</Grid>
+            </Grid>
+          </MenuItem>
+        </div>
+      );
+    });
+    return result;
+  }
 
   return (
-    props.bundles.length > 0 && (
+    (props.bundles.length > 0 || props.externalVideos.length > 0) && (
       <>
         <Button id="downloadButton" variant="contained" onClick={(e) => setAnchorEl(e.currentTarget)} endIcon={<Icon>keyboard_arrow_down</Icon>} size="small" style={{ float: "right" }}>Downloads</Button>
         <Menu id="basic-menu" anchorEl={anchorEl} open={Boolean(anchorEl)} onClose={() => { setAnchorEl(null) }} MenuListProps={{ "aria-labelledby": "downloadButton" }}>
           {getBundles()}
+          {getVideos()}
         </Menu>
       </>
     )
