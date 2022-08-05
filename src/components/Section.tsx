@@ -1,10 +1,11 @@
-import { SectionInterface, ResourceInterface, ActionInterface, ArrayHelper, CustomizationInterface, CustomizationHelper } from "@/utils";
+import { SectionInterface, ResourceInterface, ActionInterface, ArrayHelper, CustomizationInterface, CustomizationHelper, ExternalVideoInterface } from "@/utils";
 import { Action } from "./Action";
 import { Accordion, AccordionDetails, AccordionSummary, Icon } from "@mui/material";
 
 type Props = {
   section: SectionInterface;
   resources: ResourceInterface[];
+  externalVideos: ExternalVideoInterface[];
   toggleActive: (id: string) => void;
   activeSectionId: string;
   customizations?: CustomizationInterface[]
@@ -17,7 +18,7 @@ export function Section(props: Props) {
     const customActions = CustomizationHelper.applyCustomSort(props.customizations, actions, "action");
     customActions.forEach((a) => {
       if (!shouldHide(a.id)) {
-        result.push(<Action action={a} resources={props.resources} key={a.id} lessonId={props.section.lessonId} />);
+        result.push(<Action action={a} resources={props.resources} externalVideos={props.externalVideos} key={a.id} lessonId={props.section.lessonId} />);
       }
     });
     return result;
