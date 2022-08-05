@@ -9,7 +9,6 @@ export class EnvironmentHelper {
   static init = () => {
     let stage = process.env.STAGE;
     //stage = "prod"
-
     switch (stage) {
       case "staging": EnvironmentHelper.initStaging(); break;
       case "prod": EnvironmentHelper.initProd(); break;
@@ -25,12 +24,15 @@ export class EnvironmentHelper {
   };
 
   static initDev = () => {
-    EnvironmentHelper.LessonsApi = process.env.NEXT_PUBLIC_LESSONS_API || "";
-    EnvironmentHelper.GoogleAnalyticsTag = process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS || "";
+    this.initStaging();
+
+    EnvironmentHelper.LessonsApi = process.env.NEXT_PUBLIC_LESSONS_API || EnvironmentHelper.LessonsApi;
+    EnvironmentHelper.GoogleAnalyticsTag = process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS || EnvironmentHelper.GoogleAnalyticsTag;
   };
 
   //NOTE: None of these values are secret.
   static initStaging = () => {
+    console.log("INIT STAGING");
     EnvironmentHelper.LessonsApi = "https://api.staging.lessons.church";
     EnvironmentHelper.GoogleAnalyticsTag = "";
   };

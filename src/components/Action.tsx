@@ -1,9 +1,10 @@
 import ReactMarkdown from "react-markdown";
-import { ResourceInterface, ArrayHelper, ActionInterface, GoogleAnalyticsHelper, VariantInterface, AssetInterface, UserHelper, BundleInterface, ApiHelper, FileInterface } from "@/utils";
+import { ResourceInterface, ArrayHelper, ActionInterface, GoogleAnalyticsHelper, VariantInterface, AssetInterface, UserHelper, BundleInterface, ApiHelper, FileInterface, ExternalVideoInterface } from "@/utils";
 
 type Props = {
   action: ActionInterface;
   resources: ResourceInterface[];
+  externalVideos: ExternalVideoInterface[];
   lessonId: string;
 };
 
@@ -22,6 +23,22 @@ export function Action(props: Props) {
       ipAddress: "",
       downloadDate: new Date(),
       fileName: "Variant - " + variant.name
+    }
+    ApiHelper.post("/downloads", [download], "LessonsApi");
+  }
+
+  const trackView = (video: ExternalVideoInterface) => {
+    const action = video.name;
+    const label = window.location.pathname;
+    GoogleAnalyticsHelper.gaEvent({ category: "Download", action: action, label: label })
+    const download = {
+      lessonId: props.lessonId,
+      fileId: "",
+      userId: UserHelper.user?.id || "",
+      churchId: UserHelper.currentChurch?.id || "",
+      ipAddress: "",
+      downloadDate: new Date(),
+      fileName: "Video - " + video.name
     }
     ApiHelper.post("/downloads", [download], "LessonsApi");
   }
@@ -59,9 +76,13 @@ export function Action(props: Props) {
   }
 
   const getPlayLink = () => {
+    const video: ExternalVideoInterface = ArrayHelper.getOne(props.externalVideos || [], "id", props.action.externalVideoId);
     const resource: ResourceInterface = ArrayHelper.getOne(props.resources || [], "id", props.action.resourceId);
     const asset = (props.action.assetId && resource) ? ArrayHelper.getOne(resource?.assets || [], "id", props.action.assetId) : null;
 
+    console.log("RESOURCE IS: " + props.action.content)
+    console.log(resource)
+    console.log(props.action)
 
     if (asset) {
       return (<>
@@ -74,6 +95,10 @@ export function Action(props: Props) {
       return (<>
         {getPreview(resource.variants, null, resource.name)}
         <a href={resource.variants[0]?.file?.contentPath} target="_blank" rel="noopener noreferrer" onClick={() => { trackDownload(resource.variants[0]) }} > {resource.name} </a>
+      </>);
+    } else if (video) {
+      return (<>
+        <a href={"https://vimeo.com/" + video.videoId} target="_blank" rel="noopener noreferrer" onClick={() => { trackView(video) }} > {video.name} </a>
       </>);
     }
     return props.action.content;

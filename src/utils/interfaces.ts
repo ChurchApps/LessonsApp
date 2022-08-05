@@ -85,6 +85,7 @@ export interface ActionInterface {
   sort?: number;
   resourceId?: string;
   assetId?: string;
+  externalVideoId?: string;
 }
 
 export interface AssetInterface {
@@ -113,6 +114,19 @@ export interface BundleInterface {
   resources?: ResourceInterface[];
   file?: FileInterface;
   contentName?: string;
+}
+export interface ExternalVideoInterface {
+  id?: string;
+  contentType?: string;
+  contentId?: string;
+  name?: string;
+  videoProvider?: string;
+  videoId?: string;
+  seconds?: string;
+  loopVideo?: boolean;
+  download720?: string;
+  download1080?: string;
+  download4k?: string;
 }
 export interface ResourceInterface {
   id?: string;

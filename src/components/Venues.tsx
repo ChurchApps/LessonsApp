@@ -1,9 +1,10 @@
-import { VenueInterface, ResourceInterface, ArrayHelper, BundleInterface } from "@/utils";
+import { VenueInterface, ResourceInterface, ArrayHelper, BundleInterface, ExternalVideoInterface } from "@/utils";
 import { Venue } from "./Venue";
 
 type Props = {
   venues: VenueInterface[];
   resources: ResourceInterface[];
+  externalVideos: ExternalVideoInterface[];
   bundles: BundleInterface[];
 };
 
@@ -16,11 +17,7 @@ export function Venues(props: Props) {
         r.actions?.forEach((a) => {
           if (a.resourceId) {
             if (props.resources) {
-              const r: ResourceInterface = ArrayHelper.getOne(
-                props.resources,
-                "id",
-                a.resourceId
-              );
+              const r: ResourceInterface = ArrayHelper.getOne(props.resources, "id", a.resourceId);
               if (r && resources.indexOf(r) === -1) resources.push(r);
             }
           }
@@ -36,7 +33,7 @@ export function Venues(props: Props) {
       <div key={v.id}>
         <br />
         <br />
-        <Venue venue={v} resources={resources} bundles={bundles} />
+        <Venue venue={v} resources={resources} externalVideos={props.externalVideos} bundles={bundles} />
       </div>
     );
   });

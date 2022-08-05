@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
 import { DisplayBox, Loading, SectionEdit, RoleEdit, ActionEdit, SectionCopy } from "@/components";
-import { VenueInterface, LessonInterface, StudyInterface, SectionInterface, RoleInterface, ActionInterface, ResourceInterface, AssetInterface, ApiHelper, ArrayHelper, CopySectionInterface } from "@/utils";
+import { VenueInterface, LessonInterface, StudyInterface, SectionInterface, RoleInterface, ActionInterface, ResourceInterface, AssetInterface, ApiHelper, ArrayHelper, CopySectionInterface, ExternalVideoInterface } from "@/utils";
 import { Wrapper } from "@/components/Wrapper";
 import { Button, Grid, Icon, Menu, MenuItem } from "@mui/material";
 import { SmallButton } from "@/appBase/components";
@@ -22,6 +22,11 @@ export default function Venue() {
   const [lessonResources, setLessonResources] = useState<ResourceInterface[]>(null);
   const [studyResources, setStudyResources] = useState<ResourceInterface[]>(null);
   const [programResources, setProgramResources] = useState<ResourceInterface[]>(null);
+
+  const [lessonVideos, setLessonVideos] = useState<ExternalVideoInterface[]>(null);
+  const [studyVideos, setStudyVideos] = useState<ExternalVideoInterface[]>(null);
+  const [programVideos, setProgramVideos] = useState<ExternalVideoInterface[]>(null);
+
   const [allAssets, setAllAssets] = useState<AssetInterface[]>(null);
   const { isAuthenticated } = ApiHelper;
   const router = useRouter();
@@ -30,7 +35,7 @@ export default function Venue() {
   // eslint-disable-next-line react-hooks/exhaustive-deps
   useEffect(() => { if (!isAuthenticated) router.push("/login"); }, []);
   useEffect(() => { if (isAuthenticated) { loadData(); } }, [pathId, isAuthenticated]);
-  useEffect(() => { if (isAuthenticated) { loadResources(); } }, [lesson, study, isAuthenticated]);
+  useEffect(() => { if (isAuthenticated) { loadResources(); loadVideos(); } }, [lesson, study, isAuthenticated]);
   // eslint-disable-next-line react-hooks/exhaustive-deps
   useEffect(() => { if (isAuthenticated) loadAssets(); }, [lessonResources, studyResources, programResources, isAuthenticated]);
 
@@ -39,6 +44,14 @@ export default function Venue() {
       ApiHelper.get("/resources/content/lesson/" + lesson.id, "LessonsApi").then((data: any) => { setLessonResources(data); });
       ApiHelper.get("/resources/content/study/" + study.id, "LessonsApi").then((data: any) => { setStudyResources(data); });
       ApiHelper.get("/resources/content/program/" + study.programId, "LessonsApi").then((data: any) => { setProgramResources(data); });
+    }
+  }
+
+  const loadVideos = () => {
+    if (lesson && study) {
+      ApiHelper.get("/externalVideos/content/lesson/" + lesson.id, "LessonsApi").then((data: any) => { setLessonVideos(data); });
+      ApiHelper.get("/externalVideos/content/study/" + study.id, "LessonsApi").then((data: any) => { setStudyVideos(data); });
+      ApiHelper.get("/externalVideos/content/program/" + study.programId, "LessonsApi").then((data: any) => { setProgramVideos(data); });
     }
   }
 
@@ -126,7 +139,7 @@ export default function Venue() {
       result.push(<tr className="sectionRow" key={`s-${s.id}`}>
         <td>
           <a href="about:blank" onClick={(e) => { e.preventDefault(); clearEdits(); setEditSection(s); }} >
-            <Icon sx={{marginRight: "5px"}}>list_alt</Icon> {s.name}
+            <Icon sx={{ marginRight: "5px" }}>list_alt</Icon> {s.name}
           </a>
         </td>
         <td><SmallButton icon="add" text="Role" onClick={(e) => { createRole(s.id); }} /></td>
@@ -183,8 +196,13 @@ export default function Venue() {
     const result: JSX.Element[] = [];
     if (editSection) result.push(<SectionEdit section={editSection} updatedCallback={handleSectionUpdated} key="sectionEdit" />);
     else if (editRole) result.push(<RoleEdit role={editRole} updatedCallback={handleRoleUpdated} />);
-    else if (editAction) result.push(<ActionEdit action={editAction} updatedCallback={handleActionUpdated} lessonResources={lessonResources} studyResources={studyResources} programResources={programResources} allAssets={allAssets} key="actionEdit" />);
     else if (copySection) result.push(<SectionCopy copySection={copySection} venueId={venue.id} updatedCallback={handleUpdated} />);
+    else if (editAction) {
+      result.push(<ActionEdit action={editAction} updatedCallback={handleActionUpdated}
+        lessonResources={lessonResources} studyResources={studyResources} programResources={programResources}
+        lessonVideos={lessonVideos} studyVideos={studyVideos} programVideos={programVideos}
+        allAssets={allAssets} key="actionEdit" />);
+    }
     return result;
   };
 
