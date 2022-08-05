@@ -9,7 +9,6 @@ export class EnvironmentHelper {
   static init = () => {
     let stage = process.env.STAGE;
     //stage = "prod"
-    console.log("STAGE");
     switch (stage) {
       case "staging": EnvironmentHelper.initStaging(); break;
       case "prod": EnvironmentHelper.initProd(); break;
@@ -25,7 +24,6 @@ export class EnvironmentHelper {
   };
 
   static initDev = () => {
-    console.log("INIT DEV");
     this.initStaging();
 
     EnvironmentHelper.LessonsApi = process.env.NEXT_PUBLIC_LESSONS_API || EnvironmentHelper.LessonsApi;
