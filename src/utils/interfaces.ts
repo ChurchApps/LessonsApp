@@ -85,6 +85,7 @@ export interface ActionInterface {
   sort?: number;
   resourceId?: string;
   assetId?: string;
+  externalVideoId?: string;
 }
 
 export interface AssetInterface {

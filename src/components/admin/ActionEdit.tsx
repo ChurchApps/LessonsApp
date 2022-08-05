@@ -1,10 +1,13 @@
 import { useState, useEffect } from "react";
 import { InputBox, ErrorMessages } from "../index";
-import { ArrayHelper, AssetInterface, ResourceInterface, ActionInterface, ApiHelper } from "@/utils";
+import { ArrayHelper, AssetInterface, ResourceInterface, ActionInterface, ApiHelper, ExternalVideoInterface } from "@/utils";
 import { InputLabel, MenuItem, Select, FormControl, TextField, SelectChangeEvent, ListSubheader } from "@mui/material";
 
 type Props = {
   action: ActionInterface;
+  lessonVideos: ExternalVideoInterface[];
+  studyVideos: ExternalVideoInterface[];
+  programVideos: ExternalVideoInterface[];
   lessonResources: ResourceInterface[];
   studyResources: ResourceInterface[];
   programResources: ResourceInterface[];
@@ -19,6 +22,11 @@ export function ActionEdit(props: Props) {
 
   const getCombinedResources = () => {
     let result: ResourceInterface[] = [...props.lessonResources, ...props.studyResources, ...props.programResources];
+    return result;
+  }
+
+  const getCombinedVideos = () => {
+    let result: ExternalVideoInterface[] = [...props.lessonVideos, ...props.studyVideos, ...props.programVideos];
     return result;
   }
 
@@ -43,10 +51,19 @@ export function ActionEdit(props: Props) {
         a.content = e.target.value;
         break;
       case "resource":
-        a.resourceId = e.target.value;
-        a.assetId = null;
-        const resource = ArrayHelper.getOne(getCombinedResources(), "id", a.resourceId);
-        a.content = resource.name;
+        if (e.target.value.startsWith("ev/")) {
+          a.resourceId = null;
+          a.assetId = null;
+          a.externalVideoId = e.target.value.replace("ev/", "");
+          const video = ArrayHelper.getOne(getCombinedVideos(), "id", a.externalVideoId);
+          a.content = video.name;
+        } else {
+          a.resourceId = e.target.value;
+          a.assetId = null;
+          a.externalVideoId = null;
+          const resource = ArrayHelper.getOne(getCombinedResources(), "id", a.resourceId);
+          a.content = resource.name;
+        }
         break;
       case "asset":
         a.assetId = e.target.value;
@@ -74,7 +91,7 @@ export function ActionEdit(props: Props) {
         a.resourceId = null;
         a.assetId = null;
       } else {
-        if (a.resourceId === null) {
+        if (a.resourceId === null && a.externalVideoId === null) {
           if (props.lessonResources.length > 0) a.resourceId = props.lessonResources[0].id;
           else if (props.studyResources.length > 0) a.resourceId = props.studyResources[0].id;
           else if (props.programResources.length > 0) a.resourceId = props.programResources[0].id;
@@ -125,14 +142,17 @@ export function ActionEdit(props: Props) {
   const getResource = () => {
     if (action.actionType === "Play" || action.actionType === "Download") {
       if (props.lessonResources && props.studyResources && props.programResources) {
+        let currentValue = action.resourceId;
+        if (!currentValue && action.externalVideoId) currentValue = "ev/" + action.externalVideoId
+        console.log("CURRENT VALUE IS: " + currentValue)
         return (
           <>
             <FormControl fullWidth>
               <InputLabel>Resource</InputLabel>
-              <Select label="Resource" name="resource" id="resourceSelect" value={action.resourceId || ""} onChange={handleChange} >
-                {getResourceGroup("Lesson", props.lessonResources)}
-                {getResourceGroup("Study", props.studyResources)}
-                {getResourceGroup("Program", props.programResources)}
+              <Select label="Resource" name="resource" id="resourceSelect" value={currentValue} onChange={handleChange} >
+                {getResourceGroup("Lesson", props.lessonResources, props.lessonVideos)}
+                {getResourceGroup("Study", props.studyResources, props.studyVideos)}
+                {getResourceGroup("Program", props.programResources, props.programVideos)}
               </Select>
             </FormControl>
 
@@ -144,34 +164,39 @@ export function ActionEdit(props: Props) {
     }
   };
 
-  const getResourceGroup = (groupName: string, resources: ResourceInterface[]) => {
-    if (resources.length > 0) {
+  const getResourceGroup = (groupName: string, resources: ResourceInterface[], videos: ExternalVideoInterface[]) => {
+    if (resources.length > 0 || videos.length > 0) {
       const items: JSX.Element[] = [];
       items.push(<ListSubheader>{groupName}</ListSubheader>);
       resources.forEach((r) => { items.push(<MenuItem value={r.id}>{r.name}</MenuItem>); });
+      videos.forEach((v) => { items.push(<MenuItem value={"ev/" + v.id}>{v.name}</MenuItem>); });
       return items;
     }
   };
 
   const updateResource = () => {
     if (action?.actionType === "Play" || action?.actionType === "Download") {
-      let resources: ResourceInterface[] = getCombinedResources();
-      if (resources.length > 0) {
-        if (ArrayHelper.getOne(resources, "id", action.resourceId) === null) {
-          let a = { ...action };
-          a.resourceId = resources[0].id;
-          a.content = resources[0].name;
-          a.assetId = null;
-          setAction(a);
+      if (action.resourceId) {
+        let resources: ResourceInterface[] = getCombinedResources();
+        if (resources.length > 0) {
+          if (ArrayHelper.getOne(resources, "id", action.resourceId) === null) {
+            let a = { ...action };
+            a.resourceId = resources[0].id;
+            a.content = resources[0].name;
+            a.assetId = null;
+            setAction(a);
+          }
         }
       }
     }
   }
 
+
   useEffect(() => {
     setAction(props.action);
     setTimeout(updateResource, 500);
   }, [props.action]);
+
 
   if (!action) return <></>;
   else return (
