@@ -69,11 +69,12 @@ export const BundleList: React.FC<Props> = (props) => {
     const result: JSX.Element[] = [];
     if (resources) {
       ArrayHelper.getAll(resources, "bundleId", bundleId).forEach((r) => {
+        const resource = r;
         result.push(<Accordion expanded={expandedResourceId === r.id} onChange={() => { setExpandedResourceId((expandedResourceId === r.id) ? "" : r.id); }} elevation={0}>
           <AccordionSummary expandIcon={<Icon>expand_more</Icon>} aria-controls="panel1bh-content" id="panel1bh-header" >
             <div style={{ width: "100%", paddingRight: 20 }}>
               <span style={{ float: "right" }}>
-                {getDropDownMenu(r.id)}
+                {getDropDownMenu(resource.id)}
               </span>
               <a href="about:blank" onClick={(e) => { e.preventDefault(); clearEdits(); setEditResource(r); }} >
                 <Icon>insert_drive_file</Icon> {r.name}
