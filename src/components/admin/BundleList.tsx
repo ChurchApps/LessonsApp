@@ -29,6 +29,7 @@ export const BundleList: React.FC<Props> = (props) => {
   const [editAsset, setEditAsset] = React.useState<AssetInterface>(null);
   const [bulkResourceId, setBulkResourceId] = React.useState<string>(null);
   const [menuAnchor, setMenuAnchor] = useState<null | any>(null);
+  const [menuResourceId, setMenuResourceId] = React.useState<string>(null);
   const [videoMenuAnchor, setVideoMenuAnchor] = useState<null | any>(null);
   const [expandedBundleId, setExpandedBundleId] = useState<string>("");
   const [expandedResourceId, setExpandedResourceId] = useState<string>("");
@@ -70,20 +71,20 @@ export const BundleList: React.FC<Props> = (props) => {
     if (resources) {
       ArrayHelper.getAll(resources, "bundleId", bundleId).forEach((r) => {
         const resource = r;
-        result.push(<Accordion expanded={expandedResourceId === r.id} onChange={() => { setExpandedResourceId((expandedResourceId === r.id) ? "" : r.id); }} elevation={0}>
+        result.push(<Accordion expanded={expandedResourceId === r.id} onChange={() => { setExpandedResourceId((expandedResourceId === resource.id) ? "" : resource.id); }} elevation={0}>
           <AccordionSummary expandIcon={<Icon>expand_more</Icon>} aria-controls="panel1bh-content" id="panel1bh-header" >
             <div style={{ width: "100%", paddingRight: 20 }}>
               <span style={{ float: "right" }}>
                 {getDropDownMenu(resource.id)}
               </span>
-              <a href="about:blank" onClick={(e) => { e.preventDefault(); clearEdits(); setEditResource(r); }} >
+              <a href="about:blank" onClick={(e) => { e.preventDefault(); clearEdits(); setEditResource(resource); }} >
                 <Icon>insert_drive_file</Icon> {r.name}
               </a>
             </div>
           </AccordionSummary>
           <AccordionDetails>
-            {getVariants(r.id)}
-            {getAssets(r.id)}
+            {getVariants(resource.id)}
+            {getAssets(resource.id)}
           </AccordionDetails>
         </Accordion>);
       });
@@ -131,7 +132,7 @@ export const BundleList: React.FC<Props> = (props) => {
         <AccordionSummary expandIcon={<Icon>expand_more</Icon>} aria-controls="panel1bh-content" id="panel1bh-header" >
           <div style={{ width: "100%", paddingRight: 20 }}>
             <span style={{ float: "right" }}>
-              <SmallButton icon="add" onClick={() => { setEditResource({ category: bundle.name, bundleId: bundle.id }); }} text="Resource" />
+              <SmallButton icon="add" onClick={() => { setEditResource({ category: bundle.name, bundleId: bundle.id, loopVideo: false }); }} text="Resource" />
             </span>
             <a href="about:blank" onClick={(e) => { e.preventDefault(); clearEdits(); setEditBundle(b); }} color="error">
               <Icon style={{ paddingTop: 4 }}>folder_zip</Icon> {b.name}
@@ -188,24 +189,30 @@ export const BundleList: React.FC<Props> = (props) => {
 
   const handleAssetCallback = (asset: AssetInterface) => {
     if (asset && asset.id && !editAsset.id) createAsset(asset.resourceId);
-    else setEditAsset(null);
+    else {
+      setEditAsset(null);
+      setMenuAnchor(null);
+    }
     loadData();
   };
 
   const handleBulkAssetCallback = () => {
     setBulkResourceId(null);
+    setMenuAnchor(null);
     loadData();
   };
 
   const getDropDownMenu = (resourceId: string) => {
     return (
       <>
-        <SmallButton icon="add" text="Add" onClick={(e) => setMenuAnchor(e.currentTarget)} />
-        <Menu id="addMenu" anchorEl={menuAnchor} open={Boolean(menuAnchor)} onClose={() => { setMenuAnchor(null) }} MenuListProps={{ "aria-labelledby": "addMenuButton" }}>
-          <MenuItem onClick={() => { setEditVariant({ resourceId: resourceId }); }} ><Icon>file_copy</Icon> Add Variant</MenuItem>
-          <MenuItem onClick={() => { createAsset(resourceId); }} ><Icon>format_list_numbered</Icon> Add Asset</MenuItem>
-          <MenuItem onClick={() => { bulkCreateAsset(resourceId); }} ><Icon>format_list_numbered</Icon> Bulk Add Asset</MenuItem>
-        </Menu>
+        <SmallButton icon="add" text="Add" onClick={(e) => { setMenuResourceId(resourceId); setMenuAnchor(e.currentTarget); }} />
+        {(menuResourceId === resourceId) &&
+          <Menu id={"addMenu" + resourceId} anchorEl={menuAnchor} open={Boolean(menuAnchor)} onClose={() => { setMenuAnchor(null) }} MenuListProps={{ "aria-labelledby": "addMenuButton" }}>
+            <MenuItem onClick={() => { console.log("RESOURCE ID - " + resourceId); setEditVariant({ resourceId: resourceId, hidden: false }); }} ><Icon>file_copy</Icon> Add Variant</MenuItem>
+            <MenuItem onClick={() => { createAsset(resourceId); }} ><Icon>format_list_numbered</Icon> Add Asset</MenuItem>
+            <MenuItem onClick={() => { bulkCreateAsset(resourceId); }} ><Icon>format_list_numbered</Icon> Bulk Add Asset</MenuItem>
+          </Menu>
+        }
       </>
     );
   };
@@ -230,7 +237,7 @@ export const BundleList: React.FC<Props> = (props) => {
 
   React.useEffect(() => { loadData() }, [props.contentType, props.contentId]);
 
-  if (editVariant) return (<VariantEdit variant={editVariant} updatedCallback={() => { setEditVariant(null); loadData(); }} />);
+  if (editVariant) return (<VariantEdit variant={editVariant} updatedCallback={() => { setEditVariant(null); setMenuAnchor(null); loadData(); }} />);
   if (editAsset) return (<AssetEdit asset={editAsset} updatedCallback={handleAssetCallback} />);
   if (bulkResourceId) return (<BulkAssetAdd resourceId={bulkResourceId} updatedCallback={handleBulkAssetCallback} />);
   if (editResource) return (<ResourceEdit resource={editResource} contentDisplayName={props.contentDisplayName} updatedCallback={() => { setEditResource(null); loadData(); }} />);
