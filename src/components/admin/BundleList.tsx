@@ -208,8 +208,8 @@ export const BundleList: React.FC<Props> = (props) => {
         <SmallButton icon="add" text="Add" onClick={(e) => { setMenuResourceId(resourceId); setMenuAnchor(e.currentTarget); }} />
         {(menuResourceId === resourceId) &&
           <Menu id={"addMenu" + resourceId} anchorEl={menuAnchor} open={Boolean(menuAnchor)} onClose={() => { setMenuAnchor(null) }} MenuListProps={{ "aria-labelledby": "addMenuButton" }}>
-            <MenuItem onClick={() => { console.log("RESOURCE ID - " + resourceId); setEditVariant({ resourceId: resourceId, hidden: false }); }} ><Icon>file_copy</Icon> Add Variant</MenuItem>
-            <MenuItem onClick={() => { createAsset(resourceId); }} ><Icon>format_list_numbered</Icon> Add Asset</MenuItem>
+            <MenuItem onClick={() => { console.log("RESOURCE ID - " + resourceId); setEditVariant({ resourceId: resourceId, hidden: false }); }} ><Icon>file_copy</Icon> Add Variant (for download/player)</MenuItem>
+            <MenuItem onClick={() => { createAsset(resourceId); }} ><Icon>format_list_numbered</Icon> Add Asset (for player only)</MenuItem>
             <MenuItem onClick={() => { bulkCreateAsset(resourceId); }} ><Icon>format_list_numbered</Icon> Bulk Add Asset</MenuItem>
           </Menu>
         }
