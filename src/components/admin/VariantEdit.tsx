@@ -10,7 +10,7 @@ type Props = {
 };
 
 export function VariantEdit(props: Props) {
-  const [variant, setVariant] = React.useState<VariantInterface>({} as VariantInterface);
+  const [variant, setVariant] = React.useState<VariantInterface>(null);
   const [errors, setErrors] = React.useState([]);
   const [pendingFileSave, setPendingFileSave] = React.useState(false);
 
@@ -63,7 +63,8 @@ export function VariantEdit(props: Props) {
 
   React.useEffect(() => { setVariant(props.variant); }, [props.variant]);
 
-  return (
+  if (!variant) return <></>
+  else return (
     <InputBox id="variantDetailsBox" headerText="Edit Variant" headerIcon="content_copy" saveFunction={handleSave} cancelFunction={handleCancel} deleteFunction={getDeleteFunction()} >
       <ErrorMessages errors={errors} />
       <FormControl fullWidth>
@@ -77,4 +78,5 @@ export function VariantEdit(props: Props) {
       <FileUpload resourceId={props.variant?.resourceId} fileId={variant?.fileId} pendingSave={pendingFileSave} saveCallback={handleFileSaved} />
     </InputBox>
   );
+
 }
