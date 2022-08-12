@@ -167,7 +167,7 @@ export const BundleList: React.FC<Props> = (props) => {
 
   const getAccordion = () => {
     if (resources === null) return <Loading />;
-    else if (bundles?.length > 0) return (
+    else if (bundles?.length > 0 || externalVideos?.length > 0) return (
       <>
         <div className="adminAccordion">
           {getBundles()}
