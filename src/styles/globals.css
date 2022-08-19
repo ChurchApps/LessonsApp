@@ -1138,6 +1138,23 @@ a.dropdown-toggle::after {
   margin-bottom: 20px;
 }
 
+.b1 .play {
+  padding-inline-start: 10px;
+}
+
+.b1 .accordion blockquote,
+.b1 .accordion .note,
+.b1 .accordion .actions {
+  margin-inline-start: 0px;
+  padding-left: 0px;
+}
+
+
+.b1 .accordion ol,
+.b1 .accordion ul {
+  padding-inline-start: 20px;
+}
+
 .b1 .accordion .card-header.active {
   background-color: #1c75bc;
 }
