@@ -2,6 +2,7 @@ import { GetStaticProps } from "next";
 import { HomeAbout, HomeConnect, Layout, Programs } from "@/components";
 import { ApiHelper, ProgramInterface, ProviderInterface } from "@/utils";
 import { Grid, Container, Button } from "@mui/material";
+import { FloatingSupport } from "@/appBase/components";
 
 type Props = {
   programs: ProgramInterface[];
@@ -19,7 +20,7 @@ export default function Home({ programs, providers }: Props) {
       <div id="hero">
         <Container fixed>
           <Grid container justifyContent="center">
-            <Grid item md={8} sm={12} sx={{textAlign: "center"}}>
+            <Grid item md={8} sm={12} sx={{ textAlign: "center" }}>
               <h1>
                 Completely <span>Free Curriculum</span> for Churches
               </h1>
@@ -28,12 +29,6 @@ export default function Home({ programs, providers }: Props) {
                 most effective way possible. By partnering with generous creators willing to donate their work for other churches to use
                 we are able to provide this content for your church completely free of charge.
               </p>
-              <div>
-
-                <Button color="success" variant="contained" size="large" href="/login">
-                  Get Started for Free
-                </Button>
-              </div>
             </Grid>
           </Grid>
         </Container>
@@ -42,6 +37,7 @@ export default function Home({ programs, providers }: Props) {
       <HomeAbout />
       <Programs programs={programs} providers={providers} />
       <HomeConnect />
+      <FloatingSupport appName="Lessons.church" />
     </Layout>
   );
 }
