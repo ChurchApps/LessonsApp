@@ -35,10 +35,10 @@ export function HomeConnect() {
               </Grid>
             </Grid>
             <Grid container spacing={3} style={{ marginTop: 20 }}>
-              <Grid item xs={4} md={4}>
+              <Grid item xs={12} md={4}>
                 <Button color="success" fullWidth variant="contained" size="large" href="https://play.google.com/store/apps/details?id=church.b1.mobile" target="_blank">Get B1.church App for Volunteers</Button>
               </Grid>
-              <Grid item xs={4} md={4}>
+              <Grid item xs={12} md={4}>
                 <Button color="primary" fullWidth variant="contained" size="large" href="https://www.amazon.com/dp/B09T38BNQG/" target="_blank">Get Lessons.church App for TVs</Button>
               </Grid>
               <Grid item xs={12} md={4}>
