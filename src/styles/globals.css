@@ -1233,6 +1233,10 @@ a.dropdown-toggle::after {
   background-color: #EEE;
 }
 
+.modalMarkdown textarea {
+  height: 75vh !important;
+}
+
 @media (max-width: 600px) {
   .downloadAccordion {
     min-width: 90vw !important;

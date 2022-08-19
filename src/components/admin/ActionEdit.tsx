@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { InputBox, ErrorMessages } from "../index";
+import { InputBox, ErrorMessages, MarkdownEditor } from "../index";
 import { ArrayHelper, AssetInterface, ResourceInterface, ActionInterface, ApiHelper, ExternalVideoInterface } from "@/utils";
 import { InputLabel, MenuItem, Select, FormControl, TextField, SelectChangeEvent, ListSubheader } from "@mui/material";
 
@@ -36,6 +36,12 @@ export function ActionEdit(props: Props) {
       handleSave();
     }
   };
+
+  const handleMarkdownChange = (newValue: string) => {
+    let a = { ...action };
+    a.content = newValue;
+    setAction(a);
+  }
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement> | SelectChangeEvent<string>) => {
     e.preventDefault();
@@ -116,8 +122,7 @@ export function ActionEdit(props: Props) {
 
   const getContent = () => {
     if (action.actionType !== "Play" && action.actionType !== "Download") {
-      const markdownLink = <a href="https://www.markdownguide.org/cheat-sheet/" target="_blank" rel="noopener noreferrer" style={{ float: "right" }}>Markdown Guide</a>
-      return <TextField fullWidth multiline label={<>Content &nbsp; {markdownLink}</>} name="content" rows={8} value={action.content} onChange={handleChange} placeholder="" />
+      return <MarkdownEditor value={action.content} onChange={handleMarkdownChange} />
     }
   };
 

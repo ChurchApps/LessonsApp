@@ -18,6 +18,7 @@ export { SectionCopy } from "./admin/SectionCopy";
 export { SectionEdit } from "./admin/SectionEdit";
 export { RoleEdit } from "./admin/RoleEdit";
 export { ActionEdit } from "./admin/ActionEdit";
+export { MarkdownEditor } from "./admin/MarkdownEditor"
 
 export { ClassroomList } from "./cp/ClassroomList";
 export { ClassroomEdit } from "./cp/ClassroomEdit";
