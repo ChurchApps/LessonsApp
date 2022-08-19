@@ -38,7 +38,7 @@ export function MarkdownEditor(props: Props) {
           <TextField fullWidth multiline label={<>Content &nbsp; {guideLink}</>} name="modalMarkdown" className="modalMarkdown" InputProps={{ style: { height: "80vh" } }} value={props.value} onChange={handleChange} placeholder="" />
         </Grid>
         <Grid item xs={6}>
-          <div style={{ border: "1px solid #BBB", borderRadius: 5, marginTop: 15, padding: 10, height: "80vh" }}>
+          <div style={{ border: "1px solid #BBB", borderRadius: 5, marginTop: 15, padding: 10, height: "80vh", overflowY: "scroll" }}>
             <div style={{ marginTop: -20, marginBottom: -10 }}><span style={{ backgroundColor: "#FFFFFF", color: "#999", fontSize: 13 }}> &nbsp; Preview &nbsp; </span></div>
             <ReactMarkdown>
               {props.value}
