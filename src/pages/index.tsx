@@ -2,6 +2,7 @@ import { GetStaticProps } from "next";
 import { HomeAbout, HomeConnect, Layout, Programs } from "@/components";
 import { ApiHelper, ProgramInterface, ProviderInterface } from "@/utils";
 import { Grid, Container, Button } from "@mui/material";
+import { FloatingSupport } from "@/appBase/components";
 
 type Props = {
   programs: ProgramInterface[];
@@ -36,6 +37,7 @@ export default function Home({ programs, providers }: Props) {
       <HomeAbout />
       <Programs programs={programs} providers={providers} />
       <HomeConnect />
+      <FloatingSupport appName="Lessons.church" />
     </Layout>
   );
 }
