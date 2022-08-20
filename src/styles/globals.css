@@ -496,6 +496,48 @@ label .description {
   padding-bottom: 50px;
 }
 
+#statsSection {
+  background-image: url("/images/about-bg.jpg");
+  background-position: center center;
+  background-size: cover;
+  padding-top: 30px;
+  padding-bottom: 30px;
+}
+
+#statsSection .iconBox {
+  text-align: right;
+}
+
+#statsSection .iconBox svg {
+  width: auto;
+  height: 75px;
+  margin-top: 10px;
+  fill: #FFF;
+}
+
+#statsSection .iconBox span {
+  font-size: 80px;
+  margin-top: 10px;
+  fill: #FFF;
+}
+
+#statsSection .statBox {
+  align-content: left
+}
+
+#statsSection .statBox div {
+  font-size: 40px;
+  margin-left: 10px;
+}
+
+#statsSection .statBox span {
+  font-size: 22px;
+  display: block;
+  margin-top: -7px;
+  margin-left: 10px;
+}
+
+
 #aboutSection {
   background-image: url("/images/about-bg.jpg");
   background-position: center center;

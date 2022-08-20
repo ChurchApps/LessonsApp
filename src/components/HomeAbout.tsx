@@ -3,11 +3,11 @@ import { Button, Container, Grid } from "@mui/material";
 export function HomeAbout() {
 
   return (
-    <div className="homeSection alt" id="aboutSection">
+    <div className="homeSection">
       <Container fixed>
         <Grid container spacing={3}>
           <Grid item md={1} sm={0} />
-          <Grid item md={10} sm={12} sx={{textAlign: "center"}}>
+          <Grid item md={10} sm={12} sx={{ textAlign: "center" }}>
             <div className="title">
               <span>Who we are</span>
             </div>

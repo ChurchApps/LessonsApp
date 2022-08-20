@@ -1,26 +1,41 @@
 import { GetStaticProps } from "next";
-import { HomeAbout, HomeConnect, Layout, Programs } from "@/components";
+import { HomeAbout, HomeConnect, Layout, Programs, Stats } from "@/components";
 import { ApiHelper, ProgramInterface, ProviderInterface } from "@/utils";
-import { Grid, Container, Button } from "@mui/material";
+import { Grid, Container, Button, Icon } from "@mui/material";
 import { FloatingSupport } from "@/appBase/components";
 
 type Props = {
   programs: ProgramInterface[];
   providers: ProviderInterface[];
+  stats: any;
 };
 
-export default function Home({ programs, providers }: Props) {
+export default function Home({ programs, providers, stats }: Props) {
 
   let description = "Church budgets prohibit teaching the word of God in the most effective way possible. We provide high quality content to churches completely free of charge, thanks to our generous partners."
   let ogDescription = "We provide high quality content to churches completely free of charge, thanks to our generous partners."
   let pageImage = "https://lessons.church/images/og-image.png";
+
+  const video = (
+    <div className="videoWrapper">
+      <iframe
+        width="992"
+        height="558"
+        src="https://www.youtube.com/embed/pj12Yai-S_4?rel=0"
+        title="Welcome to Lessons.church"
+        frameBorder="0"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+        allowFullScreen
+      ></iframe>
+    </div>
+  );
 
   return (
     <Layout metaDescription={description} image={pageImage} ogDescription={ogDescription}>
       <div id="hero">
         <Container fixed>
           <Grid container justifyContent="center">
-            <Grid item md={8} sm={12} sx={{ textAlign: "center" }}>
+            <Grid item md={9} sm={12} sx={{ textAlign: "center" }}>
               <h1>
                 Completely <span>Free Curriculum</span> for Churches
               </h1>
@@ -31,12 +46,19 @@ export default function Home({ programs, providers }: Props) {
               </p>
             </Grid>
           </Grid>
+          <Grid container justifyContent="center">
+            <Grid item md={7} sm={12} sx={{ textAlign: "center" }}>
+              {video}
+            </Grid>
+          </Grid>
         </Container>
       </div>
 
-      <HomeAbout />
+      <Stats stats={stats} />
+
       <Programs programs={programs} providers={providers} />
       <HomeConnect />
+      <HomeAbout />
       <FloatingSupport appName="Lessons.church" />
     </Layout>
   );
@@ -45,9 +67,10 @@ export default function Home({ programs, providers }: Props) {
 export const getStaticProps: GetStaticProps = async () => {
   const programs: ProgramInterface[] = await ApiHelper.getAnonymous("/programs/public", "LessonsApi");
   const providers: ProviderInterface[] = await ApiHelper.getAnonymous("/providers/public", "LessonsApi");
+  const stats: any = await ApiHelper.getAnonymous("/providers/stats", "LessonsApi");
 
   return {
-    props: { programs, providers },
+    props: { programs, providers, stats },
     revalidate: 30,
   };
 };
