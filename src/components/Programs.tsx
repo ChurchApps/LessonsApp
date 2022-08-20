@@ -19,7 +19,7 @@ export function Programs(props: Props) {
             <Link href={url}><a><img src={image} alt={name} /></a></Link>
           </Grid>
           <Grid item md={8} xs={12}>
-            <Link href={url}><a><h3 style={{fontSize: "28px", fontWeight: 400, margin: "0 8px 0 0"}}>{name}</h3></a></Link>
+            <Link href={url}><a><h3 style={{ fontSize: "28px", fontWeight: 400, margin: "0 8px 0 0" }}>{name}</h3></a></Link>
             <p><i>{shortDescription}</i></p>
             <ReactMarkdown>{description}</ReactMarkdown>
           </Grid>
@@ -37,7 +37,7 @@ export function Programs(props: Props) {
 
       return (view.length > 0 && (
         <div key={provider.id}>
-          <h3 style={{fontSize: "28px", fontWeight: "bold", marginBottom: "24px" }}>
+          <h3 style={{ fontSize: "28px", fontWeight: "bold", marginBottom: "24px" }}>
             {provider.name}
           </h3>
           {view}
@@ -48,7 +48,7 @@ export function Programs(props: Props) {
 
   return (
     programsView.length > 0 && (
-      <div className="homeSection">
+      <div className="homeSection" style={{ paddingTop: 20 }}>
         <Container fixed>
           <h2>
             Browse <span>Available Programs</span>

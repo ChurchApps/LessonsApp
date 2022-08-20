@@ -3,6 +3,7 @@ export { HomeConnect } from "./HomeConnect";
 export { Layout } from "./Layout";
 export { Lessons } from "./Lessons";
 export { Programs } from "./Programs";
+export { Stats } from "./Stats";
 export { Studies } from "./Studies";
 export { Venues } from "./Venues";
 export { Venue } from "./Venue";
