@@ -889,6 +889,15 @@ dropdown-menu a {
   text-align: left;
 }
 
+.accordion blockquote li {
+  padding-bottom: 5px;
+}
+
+.accordion blockquote li ol,
+.accordion blockquote li ul {
+  padding-top: 5px
+}
+
 .materials {
   background-color: #03a9f4;
   color: #eee;
