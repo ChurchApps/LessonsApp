@@ -876,7 +876,7 @@ dropdown-menu a {
 }
 
 .accordion blockquote {
-  padding-left: 30px;
+  padding-left: 15px;
   margin-bottom: 15px;
   color: #555;
 }
@@ -889,8 +889,13 @@ dropdown-menu a {
   text-align: left;
 }
 
-.accordion blockquote ul ul {
-  margin-top: -15px;
+.accordion blockquote li {
+  padding-bottom: 5px;
+}
+
+.accordion blockquote li ol,
+.accordion blockquote li ul {
+  padding-top: 5px
 }
 
 .materials {
