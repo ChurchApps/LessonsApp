@@ -45,9 +45,9 @@ export function PlaylistFeed(props: Props) {
         <b>Display in Your Classroom</b>
         <p>See the bottom of this page for instructions on how to display lessons in your classroom using the Lesson.church app and get leader instructions via the B1.church app.</p>
         <b>Use with Digital Signage</b>
-        <p>For use with external digital signage software, right click and copy <a href={getFeedUrl()} target="_blank" rel="nooppener">this url</a>.  Follow <a href="https://support.signpresenter.com/topics/lessons-dot-church.html">these instructions</a> to connect to SignPresenter.</p>
+        <p>For use with external digital signage software, right click and copy <a href={getFeedUrl()} target="_blank" rel="noreferrer nooppener">this url</a>.  Follow <a href="https://support.signpresenter.com/topics/lessons-dot-church.html" target="_blank" rel="noreferrer nooppener">these instructions</a> to connect to SignPresenter.</p>
         <b>Share Your Current Lesson</b>
-        <p>Link to <a href={getClassroomUrl()} target="_blank" rel="nooppener">this page</a> to easily share with your students (or parents) what was studied each week.  You can customize the look by uploading a church logo <a href="https://accounts.churchapps.org/">here</a>.</p>
+        <p>Link to <a href={getClassroomUrl()} target="_blank" rel="noreferrer nooppener">this page</a> to easily share with your students (or parents) what was studied each week.  You can customize the look by uploading a church logo <a href="https://accounts.churchapps.org/" target="_blank" rel="noreferrer nooppener">here</a>.</p>
       </InputBox>
     </>
   );
