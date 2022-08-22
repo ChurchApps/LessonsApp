@@ -31,19 +31,23 @@ export function PlaylistFeed(props: Props) {
 
   useEffect(loadData, [props.classroomId]);
 
-
   const getFeedUrl = () => {
     return "https://api.lessons.church/classrooms/playlist/" + props.classroomId;
   }
 
-  const getContents = () => {
-    return (<TextField fullWidth multiline label="Feed Url" type="text" name="feedUrl" value={getFeedUrl()} />);
+  const getClassroomUrl = () => {
+    return "https://lessons.church/classroom/" + props.classroomId;
   }
 
   return (
     <>
-      <InputBox id="feedBox" headerText="Get Feed" headerIcon="rss_feed" saveFunction={handleCancel} saveText="Done" >
-        {getContents()}
+      <InputBox id="feedBox" headerText="Subscribe" headerIcon="rss_feed" saveFunction={handleCancel} saveText="Done" >
+        <b>Display in Your Classroom</b>
+        <p>See the bottom of this page for instructions on how to display lessons in your classroom using the Lesson.church app and get leader instructions via the B1.church app.</p>
+        <b>Use with Digital Signage</b>
+        <p>For use with external digital signage software, right click and copy <a href={getFeedUrl()} target="_blank" rel="nooppener">this url</a>.  Follow <a href="https://support.signpresenter.com/topics/lessons-dot-church.html">these instructions</a> to connect to SignPresenter.</p>
+        <b>Share Your Current Lesson</b>
+        <p>Link to <a href={getClassroomUrl()} target="_blank" rel="nooppener">this page</a> to easily share with your students (or parents) what was studied each week.  You can customize the look by uploading a church logo <a href="https://accounts.churchapps.org/">here</a>.</p>
       </InputBox>
     </>
   );

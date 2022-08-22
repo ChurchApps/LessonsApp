@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
-import { ClassroomList, ScheduleList, } from "@/components";
+import { ClassroomList, HomeConnect, ScheduleList, } from "@/components";
 import { PlaylistFeed } from "@/components/cp/PlaylistFeed";
 import { ApiHelper } from "@/utils";
 import { Wrapper } from "@/components/Wrapper";
@@ -45,6 +45,12 @@ export default function CP() {
           <ClassroomList classroomSelected={setClassroomId} showFeed={handleShowFeed} />
         </Grid>
       </Grid>
+      <div style={{ marginLeft: -25, marginRight: -25 }}>
+
+        <HomeConnect />
+      </div>
+
     </Wrapper>
+
   );
 }
