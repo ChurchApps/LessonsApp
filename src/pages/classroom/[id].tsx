@@ -35,8 +35,9 @@ export default function Venue() {
       });
 
       const s = await ApiHelper.get("/schedules/public/classroom/" + c.id, "LessonsApi")
-      setSchedules(s);
-      const lessonIds = ArrayHelper.getIds(s, "lessonId");
+      const filteredSchedules = filterSchedules(s);
+      setSchedules(filteredSchedules);
+      const lessonIds = ArrayHelper.getIds(filteredSchedules, "lessonId");
       if (lessonIds.length > 0) {
         const l = await ApiHelper.get("/lessons/public/ids?ids=" + lessonIds, "LessonsApi");
         setLessons(l);
@@ -47,6 +48,17 @@ export default function Venue() {
         }
       }
     }
+  }
+
+  const filterSchedules = (s: ScheduleInterface[]) => {
+    for (let i = s.length - 1; i >= 0; i--) {
+      if (DateHelper.toDate(s[i].scheduledDate) > new Date()) {
+        s.splice(i, 1);
+      }
+    }
+
+    if (s.length > 4) s.splice(0, s.length - 4)
+    return s.sort((a, b) => { return (DateHelper.toDate(a.scheduledDate) < DateHelper.toDate(b.scheduledDate)) ? 1 : -1 })
   }
 
   const getRows = () => {
@@ -117,7 +129,7 @@ export default function Venue() {
         <div id="navSpacer" />
       </div>
       <Container fixed>
-        <h1>{classroom?.name} Lesson Schedule</h1>
+        <h1>{classroom?.name} Lesson</h1>
         {getRows()}
       </Container>
 
