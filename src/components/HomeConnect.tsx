@@ -1,6 +1,17 @@
-import { Grid, Container, Button } from "@mui/material";
+import { Grid, Container, Button, Menu, MenuItem, Icon } from "@mui/material";
+import { useState } from "react";
 
 export function HomeConnect() {
+
+  const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
+  const open = Boolean(anchorEl);
+  const handleClick = (event: React.MouseEvent<HTMLElement>) => {
+    setAnchorEl(event.currentTarget);
+  };
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
+
 
   return (
     <div className="homeSection alt" id="connectSection">
@@ -36,7 +47,11 @@ export function HomeConnect() {
             </Grid>
             <Grid container spacing={3} style={{ marginTop: 20 }}>
               <Grid item xs={12} md={4}>
-                <Button color="success" fullWidth variant="contained" size="large" href="https://play.google.com/store/apps/details?id=church.b1.mobile" target="_blank">Get B1.church App for Volunteers</Button>
+                <Button color="success" fullWidth variant="contained" size="large" onClick={handleClick}>Get B1.church App for Volunteers</Button>
+                <Menu anchorEl={anchorEl} open={open} onClose={handleClose}>
+                  <MenuItem onClick={() => { handleClose(); window.open("https://play.google.com/store/apps/details?id=church.b1.mobile"); }} style={{ minWidth: 303 }}><Icon>android_icon</Icon> &nbsp; Android</MenuItem>
+                  <MenuItem onClick={() => { handleClose(); window.open("https://apps.apple.com/us/app/b1-church/id1610587256"); }}><Icon>apple</Icon> &nbsp; Apple</MenuItem>
+                </Menu>
               </Grid>
               <Grid item xs={12} md={4}>
                 <Button color="primary" fullWidth variant="contained" size="large" href="https://www.amazon.com/dp/B09T38BNQG/" target="_blank">Get Lessons.church App for TVs</Button>
@@ -48,6 +63,6 @@ export function HomeConnect() {
           </Grid>
         </Grid>
       </Container>
-    </div>
+    </div >
   );
 }
