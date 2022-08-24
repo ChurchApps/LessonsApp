@@ -1282,6 +1282,7 @@ a.dropdown-toggle::after {
 
 .modalMarkdown textarea {
   height: 75vh !important;
+  overflow-y: scroll !important;
 }
 
 @media (max-width: 600px) {
