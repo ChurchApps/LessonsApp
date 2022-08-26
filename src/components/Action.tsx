@@ -80,10 +80,6 @@ export function Action(props: Props) {
     const resource: ResourceInterface = ArrayHelper.getOne(props.resources || [], "id", props.action.resourceId);
     const asset = (props.action.assetId && resource) ? ArrayHelper.getOne(resource?.assets || [], "id", props.action.assetId) : null;
 
-    console.log("RESOURCE IS: " + props.action.content)
-    console.log(resource)
-    console.log(props.action)
-
     if (asset) {
       return (<>
         {getPreview(null, asset, resource.name)}

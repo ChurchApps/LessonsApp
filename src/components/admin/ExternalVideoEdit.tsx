@@ -69,7 +69,6 @@ export function ExternalVideoEdit(props: Props) {
 
   useEffect(() => { setExternalVideo(props.externalVideo); }, [props.externalVideo]);
 
-  console.log(externalVideo?.videoProvider)
   if (!externalVideo) return <></>
   else return (
     <>
