@@ -32,9 +32,7 @@ export default function CP() {
     if (feedClassroomId) return <PlaylistFeed classroomId={feedClassroomId} hideFeed={() => { setFeedClassroomId("") }} />
   }
 
-
-  if (!UserHelper.checkAccess(Permissions.lessonsApi.lessons.editSchedules)) return <></>
-  else return (
+  return (
     <Wrapper>
       <h1>Manage Classroom Schedules</h1>
       <Grid container spacing={3}>
@@ -47,11 +45,8 @@ export default function CP() {
         </Grid>
       </Grid>
       <div style={{ marginLeft: -25, marginRight: -25 }}>
-
         <HomeConnect />
       </div>
-
     </Wrapper>
-
   );
 }

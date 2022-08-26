@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import { DisplayBox, Loading, ProgramEdit, StudyEdit, LessonEdit, VenueList, BundleList } from "@/components";
-import { ApiHelper, LessonInterface, ProgramInterface, StudyInterface, ArrayHelper, UserHelper, Permissions } from "@/utils";
+import { ApiHelper, LessonInterface, ProgramInterface, StudyInterface, ArrayHelper } from "@/utils";
 import { Wrapper } from "@/components/Wrapper";
 import { Accordion, AccordionDetails, AccordionSummary, Grid, Icon } from "@mui/material";
 import { SmallButton } from "@/appBase/components";
@@ -148,8 +148,7 @@ export default function Admin() {
 
   const getEditContent = (<SmallButton icon="add" onClick={() => { clearEdits(); setEditProgram({}); }} />);
 
-  if (!UserHelper.checkAccess(Permissions.lessonsApi.lessons.edit)) return <></>
-  else return (
+  return (
     <Wrapper>
       <h1>Programs</h1>
 
