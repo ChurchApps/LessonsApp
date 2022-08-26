@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
 import { ClassroomList, HomeConnect, ScheduleList, } from "@/components";
 import { PlaylistFeed } from "@/components/cp/PlaylistFeed";
-import { ApiHelper } from "@/utils";
+import { ApiHelper, UserHelper, Permissions } from "@/utils";
 import { Wrapper } from "@/components/Wrapper";
 import { Grid } from "@mui/material";
 
@@ -33,7 +33,8 @@ export default function CP() {
   }
 
 
-  return (
+  if (!UserHelper.checkAccess(Permissions.lessonsApi.lessons.editSchedules)) return <></>
+  else return (
     <Wrapper>
       <h1>Manage Classroom Schedules</h1>
       <Grid container spacing={3}>

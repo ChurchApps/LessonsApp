@@ -78,7 +78,7 @@ export default function Venue() {
 
       result.push(<tr className={"sectionRow hoverHighlight" + removedClass} key={`s-${s.id}`}>
         <td>
-          <Icon sx={{marginRight: "5px"}}>list_alt</Icon> {s.name}
+          <Icon sx={{ marginRight: "5px" }}>list_alt</Icon> {s.name}
         </td>
         <td>
           {links}
@@ -102,7 +102,7 @@ export default function Venue() {
         const links = getLinks("role", r.id, parentRemoved, idx, sorted);
 
         result.push(<tr className={"roleRow hoverHighlight" + removedClass} key={`r-${r.id}`}>
-          <td><Box sx={{display: "flex", alignItems: "center"}}><Icon sx={{marginRight: "5px"}}>person</Icon> {r.name}</Box></td>
+          <td><Box sx={{ display: "flex", alignItems: "center" }}><Icon sx={{ marginRight: "5px" }}>person</Icon> {r.name}</Box></td>
           <td>{links}</td>
         </tr>);
         getActions(r.id, removed).forEach((i) => result.push(i));
@@ -133,7 +133,7 @@ export default function Venue() {
         result.push(
           <tr className={"actionRow hoverHighlight" + removedClass} key={`a-${a.id}`}>
             <td>
-              <span><Icon sx={{marginRight: "5px"}}>check</Icon> {a.actionType}: {a.content}</span>
+              <span><Icon sx={{ marginRight: "5px" }}>check</Icon> {a.actionType}: {a.content}</span>
             </td>
             <td>{links}</td>
           </tr>

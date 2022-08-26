@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
 import { DisplayBox, Loading, SectionEdit, RoleEdit, ActionEdit, SectionCopy } from "@/components";
-import { VenueInterface, LessonInterface, StudyInterface, SectionInterface, RoleInterface, ActionInterface, ResourceInterface, AssetInterface, ApiHelper, ArrayHelper, CopySectionInterface, ExternalVideoInterface } from "@/utils";
+import { VenueInterface, LessonInterface, StudyInterface, SectionInterface, RoleInterface, ActionInterface, ResourceInterface, AssetInterface, ApiHelper, ArrayHelper, CopySectionInterface, ExternalVideoInterface, UserHelper, Permissions } from "@/utils";
 import { Wrapper } from "@/components/Wrapper";
 import { Button, Grid, Icon, Menu, MenuItem } from "@mui/material";
 import { SmallButton } from "@/appBase/components";
@@ -219,8 +219,8 @@ export default function Venue() {
     );
   };
 
-
-  return (
+  if (!UserHelper.checkAccess(Permissions.lessonsApi.lessons.edit)) return <></>
+  else return (
     <Wrapper>
       <h1>{lesson?.name}: {venue?.name}</h1>
       <Grid container spacing={3}>
