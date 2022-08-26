@@ -3,7 +3,7 @@ import { useRouter } from "next/router";
 import { DisplayBox, Loading, SectionEdit, RoleEdit, ActionEdit, SectionCopy } from "@/components";
 import { VenueInterface, LessonInterface, StudyInterface, SectionInterface, RoleInterface, ActionInterface, ResourceInterface, AssetInterface, ApiHelper, ArrayHelper, CopySectionInterface, ExternalVideoInterface } from "@/utils";
 import { Wrapper } from "@/components/Wrapper";
-import { Button, Grid, Icon, Menu, MenuItem } from "@mui/material";
+import { Grid, Icon, Menu, MenuItem } from "@mui/material";
 import { SmallButton } from "@/appBase/components";
 
 export default function Venue() {
@@ -218,7 +218,6 @@ export default function Venue() {
       </>
     );
   };
-
 
   return (
     <Wrapper>

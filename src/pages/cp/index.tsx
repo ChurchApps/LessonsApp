@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
 import { ClassroomList, HomeConnect, ScheduleList, } from "@/components";
 import { PlaylistFeed } from "@/components/cp/PlaylistFeed";
-import { ApiHelper } from "@/utils";
+import { ApiHelper, UserHelper, Permissions } from "@/utils";
 import { Wrapper } from "@/components/Wrapper";
 import { Grid } from "@mui/material";
 
@@ -32,7 +32,6 @@ export default function CP() {
     if (feedClassroomId) return <PlaylistFeed classroomId={feedClassroomId} hideFeed={() => { setFeedClassroomId("") }} />
   }
 
-
   return (
     <Wrapper>
       <h1>Manage Classroom Schedules</h1>
@@ -46,11 +45,8 @@ export default function CP() {
         </Grid>
       </Grid>
       <div style={{ marginLeft: -25, marginRight: -25 }}>
-
         <HomeConnect />
       </div>
-
     </Wrapper>
-
   );
 }
