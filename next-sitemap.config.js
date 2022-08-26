@@ -1,5 +1,6 @@
 /** @type {import('next-sitemap').IConfig} */
 module.exports = {
   siteUrl: "https://lessons.church",
-  generateRobotsTxt: true
+  generateRobotsTxt: true,
+  exclude: ["/admin", "/admin/*", "/cp", "/cp/*"]
 }
