@@ -1,4 +1,6 @@
 import ReactMarkdown from "react-markdown";
+import remarkGfm from "remark-gfm";
+
 import { ResourceInterface, ArrayHelper, ActionInterface, GoogleAnalyticsHelper, VariantInterface, AssetInterface, UserHelper, BundleInterface, ApiHelper, FileInterface, ExternalVideoInterface } from "@/utils";
 
 type Props = {
@@ -104,13 +106,13 @@ export function Action(props: Props) {
 
   switch (props.action.actionType) {
     case "Note":
-      result = (<div className="note"><b>Note:</b> <ReactMarkdown>{props.action.content}</ReactMarkdown></div>);
+      result = (<div className="note"><b>Note:</b> <ReactMarkdown remarkPlugins={[remarkGfm]}>{props.action.content}</ReactMarkdown></div>);
       break;
     case "Do":
-      result = (<ul className="actions"><li><ReactMarkdown>{props.action.content}</ReactMarkdown></li></ul>);
+      result = (<ul className="actions"><li><ReactMarkdown remarkPlugins={[remarkGfm]}>{props.action.content}</ReactMarkdown></li></ul>);
       break;
     case "Say":
-      result = (<blockquote><ReactMarkdown>{props.action.content}</ReactMarkdown></blockquote>);
+      result = (<blockquote><ReactMarkdown remarkPlugins={[remarkGfm]}>{props.action.content}</ReactMarkdown></blockquote>);
       break;
     case "Play":
       result = (<ul className="play"><li><b>Play:</b> {getPlayLink()}</li></ul>);
