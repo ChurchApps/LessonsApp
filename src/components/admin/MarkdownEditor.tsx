@@ -1,6 +1,7 @@
 import { Button, Dialog, DialogActions, DialogContent, DialogTitle, Grid, TextField } from "@mui/material";
 import { useState } from "react";
 import ReactMarkdown from "react-markdown";
+import remarkGfm from "remark-gfm";
 
 type Props = {
   value: string;
@@ -40,7 +41,7 @@ export function MarkdownEditor(props: Props) {
         <Grid item xs={6}>
           <div style={{ border: "1px solid #BBB", borderRadius: 5, marginTop: 15, padding: 10, height: "80vh", overflowY: "scroll" }}>
             <div style={{ marginTop: -20, marginBottom: -10 }}><span style={{ backgroundColor: "#FFFFFF", color: "#999", fontSize: 13 }}> &nbsp; Preview &nbsp; </span></div>
-            <ReactMarkdown>
+            <ReactMarkdown remarkPlugins={[remarkGfm]}>
               {props.value}
             </ReactMarkdown>
           </div>

@@ -1,5 +1,6 @@
 import { GetStaticPaths, GetStaticProps } from "next";
 import ReactMarkdown from "react-markdown";
+import remarkGfm from "remark-gfm";
 import { Layout, Venues } from "@/components";
 import { ApiHelper, ProgramInterface, StudyInterface, LessonInterface, ArrayHelper, VenueInterface, ResourceInterface, BundleInterface, ExternalVideoInterface } from "@/utils";
 import { Grid, Container, Box } from "@mui/material";
@@ -40,7 +41,7 @@ export default function LessonsPage(props: Props) {
           {props.program.aboutSection && (
             <>
               <h4 style={{ marginTop: 40 }}>About {props.program.name}</h4>
-              <ReactMarkdown>{props.program.aboutSection}</ReactMarkdown>
+              <ReactMarkdown remarkPlugins={[remarkGfm]}>{props.program.aboutSection}</ReactMarkdown>
             </>
           )}
         </Container>

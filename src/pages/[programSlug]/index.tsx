@@ -1,6 +1,7 @@
 import { GetStaticPaths, GetStaticProps } from "next";
 import { Layout, Studies } from "@/components";
 import ReactMarkdown from "react-markdown";
+import remarkGfm from "remark-gfm";
 import { ProgramInterface, ApiHelper, ProviderInterface, StudyInterface, } from "@/utils";
 import { Container, Box, Typography } from "@mui/material";
 
@@ -29,15 +30,15 @@ export default function ProgramPage(props: Props) {
     <Layout pageTitle={props.program.name + " - Lessons.church"} metaDescription={props.program.description} image={props.program.image}>
       <div className="pageSection">
         <Container fixed>
-          <Box sx={{textAlign: "center"}}>
-            <Typography component="h2" sx={{fontSize: "36px", fontWeight: 700, marginBottom: "30px"}}>
+          <Box sx={{ textAlign: "center" }}>
+            <Typography component="h2" sx={{ fontSize: "36px", fontWeight: 700, marginBottom: "30px" }}>
               {props.provider?.name || ""}: <span>{props.program.name}</span>
             </Typography>
             <p>
               <i>{props.program.shortDescription}</i>
             </p>
           </Box>
-          <div><ReactMarkdown>{props.program.description}</ReactMarkdown></div>
+          <div><ReactMarkdown remarkPlugins={[remarkGfm]}>{props.program.description}</ReactMarkdown></div>
           {video}
           <br />
           <br />
