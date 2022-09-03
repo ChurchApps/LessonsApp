@@ -1285,6 +1285,29 @@ a.dropdown-toggle::after {
   overflow-y: scroll !important;
 }
 
+#markdownPreview table {
+  border-spacing: 0px;
+}
+
+#markdownPreview table td,
+#markdownPreview table th {
+  border: 1px solid #DDD;
+  margin: 0px;
+  padding: 2px
+}
+
+.part table {
+  border-spacing: 0px;
+  width: 100%
+}
+
+.part table td,
+.part table th {
+  border: 1px solid #DDD;
+  margin: 0px;
+  padding: 2px
+}
+
 @media (max-width: 600px) {
   .downloadAccordion {
     min-width: 90vw !important;
