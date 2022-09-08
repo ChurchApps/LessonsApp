@@ -21,7 +21,7 @@ export default function Home({ programs, providers, stats }: Props) {
       <iframe
         width="992"
         height="558"
-        src="https://www.youtube.com/embed/pj12Yai-S_4?rel=0"
+        src="https://www.youtube.com/embed/whruVgNhYlw?rel=0"
         title="Welcome to Lessons.church"
         frameBorder="0"
         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
