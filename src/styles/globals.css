@@ -838,8 +838,11 @@ dropdown-menu a {
   margin-bottom: 5px;
 }
 
-.accordion .actions li {
+.accordion .actions>li {
   list-style-type: none;
+}
+
+.accordion .actions li {
   padding-left: 10px;
 }
 
