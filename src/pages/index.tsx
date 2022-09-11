@@ -44,13 +44,10 @@ export default function Home({ programs, providers, stats }: Props) {
                 most effective way possible. By partnering with generous creators willing to donate their work for other churches to use
                 we are able to provide this content for your church completely free of charge.
               </p>
-            </Grid>
-          </Grid>
-          <Grid container justifyContent="center">
-            <Grid item md={7} sm={12} sx={{ textAlign: "center" }}>
               {video}
             </Grid>
           </Grid>
+
         </Container>
       </div>
 
