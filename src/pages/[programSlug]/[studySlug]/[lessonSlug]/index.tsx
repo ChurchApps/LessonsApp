@@ -74,10 +74,9 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
   const study: StudyInterface = lessonData.study;
   const program: ProgramInterface = lessonData.program;
   const venues: VenueInterface[] = lessonData.venues;
-
-  const resources: ResourceInterface[] = await ApiHelper.getAnonymous("/resources/public/lesson/" + lesson.id, "LessonsApi");
-  const externalVideos: ResourceInterface[] = await ApiHelper.getAnonymous("/externalVideos/public/lesson/" + lesson.id, "LessonsApi");
-  const bundles: BundleInterface[] = await ApiHelper.getAnonymous("/bundles/public/lesson/" + lesson.id, "LessonsApi");
+  const bundles: BundleInterface[] = lessonData.bundles;
+  const resources: ResourceInterface[] = lessonData.resources;
+  const externalVideos: ExternalVideoInterface[] = lessonData.externalVideos;
 
   resources?.forEach(r => {
     if (r.variants) r.variants = ArrayHelper.getAll(r.variants, "hidden", false);
