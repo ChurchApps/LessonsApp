@@ -127,6 +127,10 @@ export interface ExternalVideoInterface {
   download720?: string;
   download1080?: string;
   download4k?: string;
+  play720?: string;
+  play1080?: string;
+  play4k?: string;
+  thumbnail?: string;
 }
 export interface ResourceInterface {
   id?: string;

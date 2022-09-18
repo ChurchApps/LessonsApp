@@ -7,6 +7,7 @@ export { Stats } from "./Stats";
 export { Studies } from "./Studies";
 export { Venues } from "./Venues";
 export { Venue } from "./Venue";
+export { VimeoModal } from "./VimeoModal";
 
 export { ProgramEdit } from "./admin/ProgramEdit";
 export { StudyEdit } from "./admin/StudyEdit";
