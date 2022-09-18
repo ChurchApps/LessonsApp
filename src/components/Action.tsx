@@ -1,7 +1,9 @@
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 
-import { ResourceInterface, ArrayHelper, ActionInterface, GoogleAnalyticsHelper, VariantInterface, AssetInterface, UserHelper, BundleInterface, ApiHelper, FileInterface, ExternalVideoInterface } from "@/utils";
+import { ResourceInterface, ArrayHelper, ActionInterface, GoogleAnalyticsHelper, VariantInterface, AssetInterface, UserHelper, ApiHelper, FileInterface, ExternalVideoInterface } from "@/utils";
+import React from "react";
+import { VimeoModal } from "./VimeoModal";
 
 type Props = {
   action: ActionInterface;
@@ -11,6 +13,7 @@ type Props = {
 };
 
 export function Action(props: Props) {
+  const [showPreview, setShowPreview] = React.useState(false);
 
   const trackDownload = (variant: VariantInterface) => {
     const resource: ResourceInterface = ArrayHelper.getOne(props.resources, "id", variant.resourceId);
@@ -96,7 +99,13 @@ export function Action(props: Props) {
       </>);
     } else if (video) {
       return (<>
-        <a href={"https://vimeo.com/" + video.videoId} target="_blank" rel="noopener noreferrer" onClick={() => { trackView(video) }} > {video.name} </a>
+        {showPreview && <VimeoModal onClose={() => setShowPreview(false)} vimeoId={video.videoId} />}
+        <div className="playPreview">
+          <a href={"https://vimeo.com/" + video.videoId} rel="noopener noreferrer" onClick={(e) => { e.preventDefault(); trackView(video); setShowPreview(true); }} >
+            <img src={video.thumbnail} alt={video.name} />
+          </a>
+        </div>
+        <a href={"https://vimeo.com/" + video.videoId} rel="noopener noreferrer" onClick={(e) => { e.preventDefault(); trackView(video); setShowPreview(true); }} >{video.name}</a>
       </>);
     }
     return props.action.content;
