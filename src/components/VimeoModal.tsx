@@ -18,7 +18,7 @@ export const VimeoModal: React.FC<Props> = (props: Props) => {
               style={{ position: "absolute", top: 0, left: 0, width: "100%", height: "100%" }}
               frameBorder="0" allow="autoplay; fullscreen; picture-in-picture" allowFullScreen={true}></iframe>
           </div>
-          <script src="https://player.vimeo.com/api/player.js"></script>
+          <script async src="https://player.vimeo.com/api/player.js"></script>
         </div>
       </DialogContent>
       <DialogActions sx={{ paddingX: "16px", paddingBottom: "12px" }}>
