@@ -1,4 +1,5 @@
 import { ApiHelper, BundleInterface, EnvironmentHelper, ExternalVideoInterface, GoogleAnalyticsHelper, UserHelper } from "@/utils";
+import { WindowSharp } from "@mui/icons-material";
 import { Grid, Menu, MenuItem, Icon, Button } from "@mui/material";
 import { useState } from "react";
 
@@ -46,6 +47,16 @@ export function Downloads(props: Props) {
     ApiHelper.post("/downloads", [download], "LessonsApi");
   }
 
+  const checkExpire = (video: ExternalVideoInterface, e: React.MouseEvent) => {
+    if (video.downloadsExpire < new Date()) {
+      e.preventDefault();
+      ApiHelper.get("/externalVideos/public/" + video.id, "LessonsApi").then(v => {
+        window.location.href = v.download1080;
+      });
+    }
+  }
+
+
   const getBundles = () => {
     const result: JSX.Element[] = [];
     props.bundles?.forEach((b) => {
@@ -69,7 +80,7 @@ export function Downloads(props: Props) {
     const result: JSX.Element[] = [];
     props.externalVideos?.forEach((v) => {
       const video = v;
-      let downloadLink = (<Button href={v.download720} size="small" onClick={() => { trackVideoDownload(video) }} download={true} color="success" component="a" variant="contained">Download</Button>);
+      let downloadLink = (<Button href={video.download1080} size="small" onClick={(e) => { trackVideoDownload(video); checkExpire(video, e); }} download={true} color="success" component="a" variant="contained">Download</Button>);
       result.push(
         <div className="downloadResource" key={v.id}>
           <MenuItem>

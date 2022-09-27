@@ -131,6 +131,7 @@ export interface ExternalVideoInterface {
   play1080?: string;
   play4k?: string;
   thumbnail?: string;
+  downloadsExpire?: Date;
 }
 export interface ResourceInterface {
   id?: string;
