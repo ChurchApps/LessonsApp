@@ -48,7 +48,7 @@ export function Downloads(props: Props) {
   }
 
   const checkExpire = (video: ExternalVideoInterface, e: React.MouseEvent) => {
-    if (video.downloadsExpire < new Date()) {
+    if (new Date(video.downloadsExpire) < new Date()) {
       e.preventDefault();
       ApiHelper.get("/externalVideos/public/" + video.id, "LessonsApi").then(v => {
         window.location.href = v.download1080;
