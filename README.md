@@ -13,3 +13,6 @@ Pull requests are welcome. For major changes, please open an issue first to disc
 
 ### Dev Setup Instructions
 For the APIs, you may either set them up on your local machine first, or point to the staging server copies during development.
+
+#### ChumsApp 
+run `npm run-script dev` to launch the project.
