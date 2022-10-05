@@ -37,7 +37,18 @@ export default function Admin() {
   }
 
   function clearEdits() {
-    setEditProgram(null);
+    setEditProgram({
+      id: '',
+      providerId: '',
+      name: '',
+      slug: '',
+      image: '',
+      shortDescription: '',
+      description: '',
+      videoEmbedUrl: '',
+      live: false,
+      aboutSection: ''
+    });
     setEditStudy(null);
     setEditLesson(null);
     setVenuesLessonId(null);
@@ -59,6 +70,16 @@ export default function Admin() {
   function getPrograms() {
     const result: JSX.Element[] = [];
     programs.forEach((p) => {
+      if (typeof p.id !== 'string') p.id = '';
+      if (typeof p.providerId !== 'string') p.providerId = '';
+      if (typeof p.name !== 'string') p.name = '';
+      if (typeof p.slug !== 'string') p.slug = '';
+      if (typeof p.image !== 'string') p.image = '';
+      if (typeof p.shortDescription !== 'string') p.shortDescription = '';
+      if (typeof p.description !== 'string') p.description = '';
+      if (typeof p.videoEmbedUrl !== 'string') p.videoEmbedUrl = '';
+      if (typeof p.live !== 'boolean') p.live = false;
+      if (typeof p.aboutSection !== 'string') p.aboutSection = '';
       result.push(
         <Accordion expanded={expandedProgramId === p.id} onChange={() => { setExpandedProgramId((expandedProgramId === p.id) ? "" : p.id); }} className="adminAccordion programAccordion">
           <AccordionSummary expandIcon={<Icon>expand_more</Icon>} aria-controls="panel1bh-content" id="panel1bh-header" >
@@ -146,7 +167,7 @@ export default function Admin() {
     return result;
   }
 
-  const getEditContent = (<SmallButton icon="add" onClick={() => { clearEdits(); setEditProgram({}); }} />);
+  const getEditContent = (<SmallButton icon="add" onClick={() => { clearEdits(); }} />);
 
   return (
     <Wrapper>
