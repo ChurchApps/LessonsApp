@@ -107,7 +107,7 @@ export function Downloads(props: Props) {
             <MenuItem>
               <Grid container columnSpacing={2}>
                 <Grid item xs={9} style={{ fontStyle: "italic" }}>
-                  <b>Don't want to download lessons each week?</b><br />
+                  <b>Don&apos;t want to download lessons each week?</b><br />
                   Get the Lessons.church app for AndroidTV or FireSticks<br />and have your videos download automatically each week.
                 </Grid>
                 <Grid item xs={3} style={{ textAlign: "right" }}>
