@@ -20,8 +20,6 @@ export { SectionCopy } from "./admin/SectionCopy";
 export { SectionEdit } from "./admin/SectionEdit";
 export { RoleEdit } from "./admin/RoleEdit";
 export { ActionEdit } from "./admin/ActionEdit";
-export { MarkdownEditor } from "./admin/MarkdownEditor"
-
 export { ClassroomList } from "./cp/ClassroomList";
 export { ClassroomEdit } from "./cp/ClassroomEdit";
 export { ScheduleList } from "./cp/ScheduleList";
@@ -31,4 +29,5 @@ export { ErrorMessages } from "@/appBase/components/ErrorMessages";
 export { DisplayBox } from "@/appBase/components/DisplayBox";
 export { Loading } from "@/appBase/components/Loading";
 export { InputBox } from "@/appBase/components/InputBox";
-export { LogoutPage } from "@/appBase/pageComponents/LogoutPage"
+export { LogoutPage } from "@/appBase/pageComponents/LogoutPage";
+export { MarkdownEditor } from "@/appBase/components/MarkdownEditor";
