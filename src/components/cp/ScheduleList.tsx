@@ -29,11 +29,11 @@ export function ScheduleList(props: Props) {
       result.push(
         <tr className="scheduleRow" key={s.id}>
           <td>
-            <Icon sx={{marginRight: "5px"}}>calendar_month</Icon>
+            <Icon sx={{ marginRight: "5px" }}>calendar_month</Icon>
             {DateHelper.formatHtml5Date(s?.scheduledDate)}
           </td>
           <td>
-            <Link href={"/cp/venue/" + s.venueId}><a><Icon sx={{marginRight: "5px"}}>psychology</Icon></a></Link>
+            <Link href={"/cp/venue/" + s.venueId}><Icon sx={{ marginRight: "5px" }}>psychology</Icon></Link>
             {s.displayName}
           </td>
           <td style={{ textAlign: "right" }}>

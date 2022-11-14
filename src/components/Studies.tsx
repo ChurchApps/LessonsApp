@@ -14,7 +14,7 @@ export function Studies({ studies, slug }: Props) {
     const studyUrl = slug + `/${study.slug}`;
     return (
       <Grid item md={4} xs={12}>
-        <Link href={studyUrl}><a>
+        <Link href={studyUrl}>
           <Flippy flipOnHover={true}>
             <FrontSide>
 
@@ -32,34 +32,10 @@ export function Studies({ studies, slug }: Props) {
               <div style={{ textAlign: "right" }}>See more...</div>
             </BackSide>
           </Flippy>
-        </a></Link>
-
-      </Grid>
-
-    );
-  };
-
-  /*
-  const createStudy = (study: StudyInterface) => {
-    const studyUrl = slug + `/${study.slug}`;
-    return (
-      <Grid container spacing={3} style={{ paddingBottom: 20, paddingTop: 20, borderBottom: "1px solid #CCC" }} key={study.id}>
-        <Grid item md={3} xs={12}>
-          <Link href={studyUrl}><a><img src={study.image} alt={study.name} /></a></Link>
-        </Grid>
-        <Grid item md={9} xs={12}>
-          <Typography component="h3" sx={{fontSize: "28px", fontWeight: 500, marginBottom: "8px"}}>
-            <Link href={studyUrl}><a>{study.name}</a></Link>
-          </Typography>
-          <p>
-            <i>{study.shortDescription}</i>
-          </p>
-          <p>{study.description}</p>
-        </Grid>
+        </Link>
       </Grid>
     );
   };
-  */
 
   return (
     <div>

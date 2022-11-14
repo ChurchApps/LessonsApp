@@ -67,32 +67,23 @@ export default function Venue() {
       const { lesson, study, program } = getRowData(s);
       if (program) {
         const url = "/" + program.slug + "/" + study.slug + "/" + lesson.slug;
-        result.push(<Link href={url} key={lesson.id}>
-          <a style={{ textDecoration: "none", color: "inherit" }}>
-            <h3>{DateHelper.prettyDate(DateHelper.toDate(s.scheduledDate))}</h3>
-            <Grid container spacing={3} style={{ paddingBottom: 20, borderBottom: "1px solid #CCC" }} >
-              <Grid item md={3} xs={12}>
-                <img
-                  src={lesson.image}
-                  style={{ verticalAlign: "middle" }}
-                  alt={lesson.name}
-                />
-              </Grid>
-              <Grid item md={9} xs={12}>
-                <div className="title">{lesson.name}</div>
-                <h3 style={{ fontSize: "28px", fontWeight: 600, margin: "0 0 8px 0" }}>{lesson.title}</h3>
-                <p style={{ margin: "0 0 16px 0" }}>{lesson.description}</p>
-              </Grid>
+        result.push(<Link href={url} key={lesson.id} style={{ textDecoration: "none", color: "inherit" }}>
+          <h3>{DateHelper.prettyDate(DateHelper.toDate(s.scheduledDate))}</h3>
+          <Grid container spacing={3} style={{ paddingBottom: 20, borderBottom: "1px solid #CCC" }} >
+            <Grid item md={3} xs={12}>
+              <img
+                src={lesson.image}
+                style={{ verticalAlign: "middle" }}
+                alt={lesson.name}
+              />
             </Grid>
-          </a>
+            <Grid item md={9} xs={12}>
+              <div className="title">{lesson.name}</div>
+              <h3 style={{ fontSize: "28px", fontWeight: 600, margin: "0 0 8px 0" }}>{lesson.title}</h3>
+              <p style={{ margin: "0 0 16px 0" }}>{lesson.description}</p>
+            </Grid>
+          </Grid>
         </Link>);
-        /*
-        result.push(<Link href={"todo"}><a>
-          <div>
-            {DateHelper.getShortDate(DateHelper.convertToDate(s.scheduledDate))}
-            <span>{lesson.title}</span>
-          </div>
-        </a></Link>);*/
       }
     });
 
@@ -120,7 +111,7 @@ export default function Venue() {
         <AppBar id="navbar" position="fixed">
           <Container>
             <Stack direction="row" justifyContent="left" alignItems="center">
-              <Link href="/"><a className="logo"><img src={logoUrl} alt="Lessons.church - Free Curriculum for Churches" /></a></Link>
+              <Link href="/" className="logo"><img src={logoUrl} alt="Lessons.church - Free Curriculum for Churches" /></Link>
               <b style={{ color: "#000", fontSize: 24 }}>{church?.name}</b>
             </Stack>
 

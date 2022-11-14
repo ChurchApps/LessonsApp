@@ -31,10 +31,10 @@ export default function Venue() {
   const getRows = () => {
     const result: JSX.Element[] = [];
     schedules?.forEach(s => {
-      result.push(<Link href={"/b1/venue/" + s.venueId + "?classroomId=" + classroom?.id} ><a className="bigLink">
+      result.push(<Link href={"/b1/venue/" + s.venueId + "?classroomId=" + classroom?.id} className="bigLink">
         {DateHelper.getShortDate(DateHelper.convertToDate(s.scheduledDate))}
         <span>{s.displayName}</span>
-      </a></Link>);
+      </Link>);
     });
 
     return result;
