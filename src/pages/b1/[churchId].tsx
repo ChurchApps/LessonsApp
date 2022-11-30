@@ -18,7 +18,6 @@ export default function Venue() {
 
   const loadData = () => {
     if (churchId) {
-      //ApiHelper.get("/churches/" + churchId, "AccessApi").then((c: ChurchInterface) => { setChurch(c); });
       ApiHelper.get("/classrooms/public/church/" + churchId, "LessonsApi").then((v: ClassroomInterface[]) => { setClassrooms(v); });
     }
   }

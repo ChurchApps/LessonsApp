@@ -5,16 +5,8 @@ type Payload = UserInterface | { jwt: string } | { authGuid: string };
 export function login(data: Payload): Promise<LoginResponseInterface> {
   return new Promise(async (resolve, reject) => {
     try {
-      const response: LoginResponseInterface = await ApiHelper.postAnonymous(
-        "/users/login",
-        data,
-        "AccessApi"
-      );
-
-      if (response.errors) {
-        reject(handleErrorType(response.errors));
-      }
-
+      const response: LoginResponseInterface = await ApiHelper.postAnonymous("/users/login", data, "MembershipApi");
+      if (response.errors) reject(handleErrorType(response.errors));
       resolve(response);
     } catch (err) {
       reject(err.toString());

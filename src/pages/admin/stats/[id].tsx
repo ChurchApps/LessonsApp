@@ -37,7 +37,7 @@ export default function Admin() {
     ApiHelper.get("/downloads/" + programId + "/studies" + dateString, "LessonsApi").then(d => setStudies(d));
     ApiHelper.get("/downloads/" + programId + "/churches" + dateString, "LessonsApi").then((churchList: any[]) => {
       const ids = ArrayHelper.getIds(churchList, "churchId");
-      ApiHelper.post("/churches/byIds", ids, "AccessApi").then(d => setChurches(d));
+      ApiHelper.post("/churches/byIds", ids, "MembershipApi").then(d => setChurches(d));
     });
 
   }
@@ -78,7 +78,7 @@ export default function Admin() {
       <Grid container spacing={3}>
         <Grid item md={8} xs={12}>
           <DisplayBox headerText="Unique Downloads by Study" headerIcon="bar_chart" >
-            <p style={{marginTop: 0}}>Note: These are <u>unique</u> counts.  A person may download multiple files within a lesson, download a lesson multiple times, or download multiple lessons within a series.  All of these scenarios counts as a single record on this report.</p>
+            <p style={{ marginTop: 0 }}>Note: These are <u>unique</u> counts.  A person may download multiple files within a lesson, download a lesson multiple times, or download multiple lessons within a series.  All of these scenarios counts as a single record on this report.</p>
             <table className="table reportTable">
               <thead>
                 <tr><th>Study</th><th>Unique Downloads</th></tr>

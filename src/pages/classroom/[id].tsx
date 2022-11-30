@@ -29,9 +29,9 @@ export default function Venue() {
       const c = await ApiHelper.get("/classrooms/" + id, "LessonsApi");
       setClassroom(c);
 
-      ApiHelper.get("/churches/" + c.churchId, "AccessApi").then(ch => {
+      ApiHelper.get("/churches/" + c.churchId, "MembershipApi").then(ch => {
         setChurch(ch);
-        ApiHelper.get("/settings/public/" + ch.id, "AccessApi").then(set => setChurchSettings(set));
+        ApiHelper.get("/settings/public/" + ch.id, "MembershipApi").then(set => setChurchSettings(set));
       });
 
       const s = await ApiHelper.get("/schedules/public/classroom/" + c.id, "LessonsApi")
