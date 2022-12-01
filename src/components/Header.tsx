@@ -9,11 +9,11 @@ export function Header() {
   const [menuAnchor, setMenuAnchor] = useState<any>(null);
 
   const adminItems = UserHelper.checkAccess(Permissions.lessonsApi.lessons.edit) && (
-    <MenuItem onClick={() => { router.push("/admin") }} ><Icon sx={{marginRight: "5px"}}>admin_panel_settings</Icon> Admin</MenuItem>
+    <MenuItem onClick={() => { router.push("/admin") }} ><Icon sx={{ marginRight: "5px" }}>admin_panel_settings</Icon> Admin</MenuItem>
   );
 
   const cpItems = UserHelper.checkAccess(Permissions.lessonsApi.lessons.editSchedules) && (
-    <MenuItem onClick={() => { router.push("/cp") }} ><Icon sx={{marginRight: "5px"}}>calendar_month</Icon> Schedules</MenuItem>
+    <MenuItem onClick={() => { router.push("/cp") }} ><Icon sx={{ marginRight: "5px" }}>calendar_month</Icon> Schedules</MenuItem>
   );
 
   function logout() {
@@ -28,13 +28,11 @@ export function Header() {
       <Menu id="userMenu" anchorEl={menuAnchor} open={Boolean(menuAnchor)} onClose={() => { setMenuAnchor(null) }} MenuListProps={{ "aria-labelledby": "userMenuLink" }} style={{ top: "0", width: "min-content" }} >
         {adminItems}
         {cpItems}
-        <MenuItem onClick={() => { logout(); }} ><Icon sx={{marginRight: "5px"}}>logout</Icon> Logout</MenuItem>
+        <MenuItem onClick={() => { logout(); }} ><Icon sx={{ marginRight: "5px" }}>logout</Icon> Logout</MenuItem>
       </Menu>
     </>
   ) : (
-    <Link href="/login">
-      <a>Login</a>
-    </Link>
+    <Link href="/login">Login</Link>
   );
 
   return (
@@ -42,10 +40,8 @@ export function Header() {
       <AppBar id="navbar" position="fixed">
         <Container>
           <Stack direction="row" justifyContent="space-between" alignItems="center">
-            <Link href="/">
-              <a className="logo"><img src="/images/logo.png" alt="Lessons.church - Free Curriculum for Churches" /></a>
-            </Link>
-            <Box sx={{display: "flex", alignItems: "center", whiteSpace: "nowrap"}}>{userAction}</Box>
+            <Link href="/" className="logo"><img src="/images/logo.png" alt="Lessons.church - Free Curriculum for Churches" /></Link>
+            <Box sx={{ display: "flex", alignItems: "center", whiteSpace: "nowrap" }}>{userAction}</Box>
           </Stack>
         </Container>
       </AppBar>

@@ -29,9 +29,7 @@ export function VenueList(props: Props) {
         <tr className="venueRow" key={v.id}>
           <td>
             <Icon>map_marker</Icon>{" "}
-            <Link href={"/admin/venue/" + v.id}>
-              <a>{v.name}</a>
-            </Link>
+            <Link href={"/admin/venue/" + v.id}>{v.name}</Link>
           </td>
           <td><SmallButton icon="edit" text="Edit" onClick={() => { setEditVenue(v); }} /></td>
         </tr>

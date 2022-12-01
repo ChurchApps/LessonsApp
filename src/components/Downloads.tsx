@@ -102,6 +102,20 @@ export function Downloads(props: Props) {
         <Menu id="basic-menu" anchorEl={anchorEl} open={Boolean(anchorEl)} onClose={() => { setAnchorEl(null) }} MenuListProps={{ "aria-labelledby": "downloadButton" }}>
           {getBundles()}
           {getVideos()}
+          <hr />
+          <div className="downloadResource">
+            <MenuItem>
+              <Grid container columnSpacing={2}>
+                <Grid item xs={9} style={{ fontStyle: "italic" }}>
+                  <b>Don&apos;t want to download lessons each week?</b><br />
+                  Get the Lessons.church app for AndroidTV or FireSticks<br />and have your videos download automatically each week.
+                </Grid>
+                <Grid item xs={3} style={{ textAlign: "right" }}>
+                  <Button href="https://lessons.church/#connectSection" target="_new" size="small" color="info" component="a" variant="contained">Learn How</Button>
+                </Grid>
+              </Grid>
+            </MenuItem>
+          </div>
         </Menu>
       </>
     )

@@ -18,7 +18,6 @@ export default function Venue() {
 
   const loadData = () => {
     if (churchId) {
-      //ApiHelper.get("/churches/" + churchId, "AccessApi").then((c: ChurchInterface) => { setChurch(c); });
       ApiHelper.get("/classrooms/public/church/" + churchId, "LessonsApi").then((v: ClassroomInterface[]) => { setClassrooms(v); });
     }
   }
@@ -26,7 +25,7 @@ export default function Venue() {
   const getRows = () => {
     const result: JSX.Element[] = [];
     classrooms?.forEach(c => {
-      result.push(<Link href={"/b1/classroom/" + c.id} ><a className="bigLink">{c.name}</a></Link>)
+      result.push(<Link href={"/b1/classroom/" + c.id} className="bigLink">{c.name}</Link>)
     })
     return result;
   }
