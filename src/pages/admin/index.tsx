@@ -37,6 +37,8 @@ export default function Admin() {
   }
 
   function clearEdits() {
+    setEditProgram(null);
+    /*
     setEditProgram({
       id: '',
       providerId: '',
@@ -48,7 +50,7 @@ export default function Admin() {
       videoEmbedUrl: '',
       live: false,
       aboutSection: ''
-    });
+    });*/
     setEditStudy(null);
     setEditLesson(null);
     setVenuesLessonId(null);
