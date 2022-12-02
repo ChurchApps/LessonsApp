@@ -21,7 +21,7 @@ export function Downloads(props: Props) {
       lessonId: bundle.contentId,
       fileId: bundle.file.id,
       userId: UserHelper.user?.id || "",
-      churchId: UserHelper.currentChurch?.id || "",
+      churchId: UserHelper.currentUserChurch?.church?.id || "",
       ipAddress: "",
       downloadDate: new Date(),
       fileName: "Bundle - " + bundle.name
@@ -39,7 +39,7 @@ export function Downloads(props: Props) {
       lessonId: video.contentId,
       fileId: "",
       userId: UserHelper.user?.id || "",
-      churchId: UserHelper.currentChurch?.id || "",
+      churchId: UserHelper.currentUserChurch?.church?.id || "",
       ipAddress: "",
       downloadDate: new Date(),
       fileName: "Video - " + video.name
