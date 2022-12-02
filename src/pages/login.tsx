@@ -9,7 +9,7 @@ export default function Login() {
   const router = useRouter()
   const [cookies] = useCookies()
 
-  if (ApiHelper.isAuthenticated && UserHelper.currentChurch) { router.push("/") }
+  if (ApiHelper.isAuthenticated && UserHelper.currentUserChurch) { router.push("/") }
 
   const loginSuccess = () => {
     router.push("/");

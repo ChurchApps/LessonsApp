@@ -10,7 +10,7 @@ export default function RegisterPage() {
   const router = useRouter()
   const [errors, setErrors] = React.useState([]);
 
-  if (ApiHelper.isAuthenticated && UserHelper.currentChurch) { router.push("/") }
+  if (ApiHelper.isAuthenticated && UserHelper.currentUserChurch) { router.push("/") }
   const trackUserRegister = async (user: UserInterface) => {
     if (EnvironmentHelper.GoogleAnalyticsTag !== "") {
       GoogleAnalyticsHelper.gaEvent({ category: "User", action: "Register" });
