@@ -37,6 +37,8 @@
     "react-simple-maps": "^2.3.0",
     "react-to-print": "^2.14.3",
     "react-tooltip": "^4.2.21",
+    "rehype-attr": "^2.1.2",
+    "rehype-raw": "^6.1.1",
     "remark-gfm": "^3.0.1",
     "stripe": "^8.195.0",
     "yup": "^0.32.11"
