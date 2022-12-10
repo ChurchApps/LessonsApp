@@ -31,3 +31,4 @@ export { Loading } from "@/appBase/components/Loading";
 export { InputBox } from "@/appBase/components/InputBox";
 export { LogoutPage } from "@/appBase/pageComponents/LogoutPage";
 export { MarkdownEditor } from "@/appBase/components/MarkdownEditor";
+export { Markdown } from "@/appBase/components/markdown";
