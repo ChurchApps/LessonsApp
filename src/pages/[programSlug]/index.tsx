@@ -1,8 +1,11 @@
 import { GetStaticPaths, GetStaticProps } from "next";
+import dynamic from "next/dynamic";
 import { Container, Box, Typography } from "@mui/material";
 import { Layout, Studies } from "@/components";
 import { ProgramInterface, ApiHelper, ProviderInterface, StudyInterface, } from "@/utils";
-import { Markdown } from "@/components"
+import { MarkdownPreview } from "@/components"
+
+const Preview = dynamic(() => import("@uiw/react-markdown-preview"), { ssr: false });
 
 type Props = {
   program: ProgramInterface;
@@ -37,7 +40,7 @@ export default function ProgramPage(props: Props) {
               <i>{props.program.shortDescription}</i>
             </p>
           </Box>
-          <div><Markdown value={props.program.description} /></div>
+          <div><MarkdownPreview editor={Preview} value={props.program.description} /></div>
           {video}
           <br />
           <br />
