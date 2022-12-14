@@ -1,7 +1,10 @@
 import React from "react";
+import dynamic from "next/dynamic";
 import { ResourceInterface, ArrayHelper, ActionInterface, GoogleAnalyticsHelper, VariantInterface, AssetInterface, UserHelper, ApiHelper, FileInterface, ExternalVideoInterface } from "@/utils";
 import { VimeoModal } from "./VimeoModal";
-import { Markdown } from "./index";
+import { MarkdownPreview } from "./index"
+
+const Preview = dynamic(() => import("@uiw/react-markdown-preview"), { ssr: false });
 
 type Props = {
   action: ActionInterface;
@@ -113,13 +116,13 @@ export function Action(props: Props) {
 
   switch (props.action.actionType) {
     case "Note":
-      result = (<div className="note"><b>Note:</b> <Markdown value={props.action.content} /></div>);
+      result = (<div className="note"><b>Note:</b> <MarkdownPreview editor={Preview} value={props.action.content} /></div>);
       break;
     case "Do":
-      result = (<ul className="actions"><li><Markdown value={props.action.content} /></li></ul>);
+      result = (<ul className="actions"><li><MarkdownPreview editor={Preview} value={props.action.content} /></li></ul>);
       break;
     case "Say":
-      result = (<blockquote><Markdown value={props.action.content} /></blockquote>);
+      result = (<blockquote><MarkdownPreview editor={Preview} value={props.action.content} /></blockquote>);
       break;
     case "Play":
       result = (<ul className="play"><li><b>Play:</b> {getPlayLink()}</li></ul>);

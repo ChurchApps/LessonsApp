@@ -1,7 +1,10 @@
 import { useState, useEffect } from "react";
+import dynamic from "next/dynamic";
 import { InputBox, ErrorMessages, MarkdownEditor } from "../index";
 import { ArrayHelper, AssetInterface, ResourceInterface, ActionInterface, ApiHelper, ExternalVideoInterface } from "@/utils";
 import { InputLabel, MenuItem, Select, FormControl, TextField, SelectChangeEvent, ListSubheader } from "@mui/material";
+
+const MDEditor = dynamic(() => import("@uiw/react-md-editor"), { ssr: false });
 
 type Props = {
   action: ActionInterface;
@@ -122,7 +125,7 @@ export function ActionEdit(props: Props) {
 
   const getContent = () => {
     if (action.actionType !== "Play" && action.actionType !== "Download") {
-      return <MarkdownEditor value={action.content} onChange={handleMarkdownChange} />
+      return <MarkdownEditor editor={MDEditor} value={action.content} onChange={handleMarkdownChange} />
     }
   };
 

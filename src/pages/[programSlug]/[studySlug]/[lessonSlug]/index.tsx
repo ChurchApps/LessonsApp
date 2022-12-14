@@ -1,8 +1,11 @@
 import { GetStaticPaths, GetStaticProps } from "next";
+import dynamic from "next/dynamic";
 import { Grid, Container, Box } from "@mui/material";
 import { Layout, Venues } from "@/components";
 import { ApiHelper, ProgramInterface, StudyInterface, LessonInterface, ArrayHelper, VenueInterface, ResourceInterface, BundleInterface, ExternalVideoInterface } from "@/utils";
-import { Markdown } from "@/components";
+import { MarkdownPreview } from "@/components";
+
+const Preview = dynamic(() => import("@uiw/react-markdown-preview"), { ssr: false });
 
 type Props = { program: ProgramInterface; study: StudyInterface; lesson: LessonInterface; venues: VenueInterface[]; resources: ResourceInterface[]; externalVideos: ExternalVideoInterface[]; bundles: BundleInterface[]; };
 
@@ -40,7 +43,7 @@ export default function LessonsPage(props: Props) {
           {props.program.aboutSection && (
             <>
               <h4 style={{ marginTop: 40 }}>About {props.program.name}</h4>
-              <Markdown value={props.program.aboutSection} />
+              <MarkdownPreview editor={Preview} value={props.program.aboutSection} />
             </>
           )}
         </Container>
