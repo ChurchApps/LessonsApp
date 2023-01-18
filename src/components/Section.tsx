@@ -7,7 +7,7 @@ type Props = {
   resources: ResourceInterface[];
   externalVideos: ExternalVideoInterface[];
   toggleActive: (id: string) => void;
-  activeSectionId: string;
+  activeSectionId: string | string[];
   customizations?: CustomizationInterface[]
 };
 
@@ -39,12 +39,12 @@ export function Section(props: Props) {
       const customRoles = CustomizationHelper.applyCustomSort(props.customizations, props.section.roles, "role");
       customRoles.forEach((r) => {
         if (!shouldHide(r.id)) result.push(
-          <div className="part" key={r.id}>
-            <div className="role">
-              <span>{r.name}</span>
+            <div className="part" key={r.id}>
+              <div className="role">
+                <span>{r.name}</span>
+              </div>
+              {getActions(r.actions)}
             </div>
-            {getActions(r.actions)}
-          </div>
         );
       });
     }
@@ -68,15 +68,28 @@ export function Section(props: Props) {
 
 
   if (shouldHide(props.section?.id)) return <></>
+
+  else if (typeof props.activeSectionId === 'object' && props.activeSectionId) return (
+      <Accordion expanded={true}>
+        <AccordionSummary expandIcon={<Icon>expand_more</Icon>} aria-controls="panel1bh-content" id="panel1bh-header" >
+          {props.section.name}
+        </AccordionSummary>
+        <AccordionDetails>
+          {getMaterials()}
+          {getParts()}
+        </AccordionDetails>
+      </Accordion>
+  )
+
   else return (
-    <Accordion expanded={props.activeSectionId === props.section?.id} onChange={() => { props.toggleActive((props.activeSectionId === props.section.id) ? null : props.section.id); }}>
-      <AccordionSummary expandIcon={<Icon>expand_more</Icon>} aria-controls="panel1bh-content" id="panel1bh-header" >
-        {props.section.name}
-      </AccordionSummary>
-      <AccordionDetails>
-        {getMaterials()}
-        {getParts()}
-      </AccordionDetails>
-    </Accordion>
-  );
+        <Accordion expanded={props.activeSectionId === props.section?.id} onChange={() => { props.toggleActive((props.activeSectionId === props.section.id) ? null : props.section.id); }}>
+          <AccordionSummary expandIcon={<Icon>expand_more</Icon>} aria-controls="panel1bh-content" id="panel1bh-header" >
+            {props.section.name}
+          </AccordionSummary>
+          <AccordionDetails>
+            {getMaterials()}
+            {getParts()}
+          </AccordionDetails>
+        </Accordion>
+    );
 }
