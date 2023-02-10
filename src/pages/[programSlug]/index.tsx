@@ -3,14 +3,24 @@ import { Container, Box, Typography } from "@mui/material";
 import { Layout, Studies } from "@/components";
 import { ProgramInterface, ApiHelper, ProviderInterface, StudyInterface, } from "@/utils";
 import { MarkdownPreview } from "@/components"
+import Error from "../_error";
 
 type Props = {
   program: ProgramInterface;
   provider: ProviderInterface;
   studies: StudyInterface[];
+  hasError: Boolean;
+  error: {
+    message: string;
+  };
 };
 
 export default function ProgramPage(props: Props) {
+
+  if (props.hasError) {
+    return <Error message={props.error.message} />
+  }
+
   const video = props.program.videoEmbedUrl && (
     <div className="videoWrapper">
       <iframe
@@ -61,12 +71,22 @@ export const getStaticPaths: GetStaticPaths = async () => {
 };
 
 export const getStaticProps: GetStaticProps = async ({ params }) => {
-  const program: ProgramInterface = await ApiHelper.getAnonymous("/programs/public/slug/" + params.programSlug, "LessonsApi");
-  const provider: ProviderInterface = await ApiHelper.getAnonymous("/providers/public/" + program.providerId, "LessonsApi");
-  const studies: StudyInterface[] = await ApiHelper.getAnonymous("/studies/public/program/" + program.id, "LessonsApi");
+  try {
+    const program: ProgramInterface = await ApiHelper.getAnonymous("/programs/public/slug/" + params?.programSlug, "LessonsApi");
+    const provider: ProviderInterface = await ApiHelper.getAnonymous("/providers/public/" + program?.providerId, "LessonsApi");
+    const studies: StudyInterface[] = await ApiHelper.getAnonymous("/studies/public/program/" + program?.id, "LessonsApi");
 
-  return {
-    props: { program, provider, studies, },
-    revalidate: 30,
-  };
+    return {
+      props: { program, provider, studies, hasError: false},
+      revalidate: 30,
+    };
+  } catch (error) {
+    return {
+      props: {
+        hasError: true, error: {
+          message: error.message
+        }
+      }
+    }
+  }
 };
