@@ -106,7 +106,7 @@ export function ActionEdit(props: Props) {
       }
 
       ApiHelper.post("/actions", [a], "LessonsApi").then((data) => {
-        setAction(data);
+        setAction(data[0]);
         props.updatedCallback(data[0], !props.action.id);
       });
     }
