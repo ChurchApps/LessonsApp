@@ -1,8 +1,7 @@
 import Link from "next/link";
-import { ProgramInterface, ProviderInterface } from "@/utils";
-import ReactMarkdown from "react-markdown";
 import { Container, Grid } from "@mui/material";
-import remarkGfm from "remark-gfm";
+import { ProgramInterface, ProviderInterface } from "@/utils";
+import { MarkdownPreview } from "./index";
 
 type Props = {
   programs: ProgramInterface[];
@@ -22,7 +21,7 @@ export function Programs(props: Props) {
           <Grid item md={8} xs={12}>
             <Link href={url}><h3 style={{ fontSize: "28px", fontWeight: 400, margin: "0 8px 0 0" }}>{name}</h3></Link>
             <p><i>{shortDescription}</i></p>
-            <ReactMarkdown remarkPlugins={[remarkGfm]}>{description}</ReactMarkdown>
+            <MarkdownPreview value={description} />
           </Grid>
         </Grid>
         <hr />

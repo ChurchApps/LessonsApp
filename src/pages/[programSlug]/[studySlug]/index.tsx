@@ -2,14 +2,24 @@ import { GetStaticPaths, GetStaticProps } from "next";
 import { Layout, Lessons } from "@/components";
 import { ApiHelper, ProgramInterface, StudyInterface, LessonInterface, ArrayHelper } from "@/utils";
 import { Grid, Container, Box } from "@mui/material";
+import Error from "@/pages/_error";
 
 type Props = {
   study: StudyInterface;
   program: ProgramInterface;
   lessons: LessonInterface[];
+  hasError: Boolean;
+  error: {
+    message: string;
+  };
 };
 
 export default function StudyPage(props: Props) {
+
+  if (props.hasError) {
+    return <Error message={props.error.message}/>
+  }
+
   const video = props.study.videoEmbedUrl ? (
     <div className="videoWrapper">
       <iframe width="992" height="558" src={props.study.videoEmbedUrl} title="YouTube video player" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowFullScreen ></iframe>
@@ -61,12 +71,22 @@ export const getStaticPaths: GetStaticPaths = async () => {
 };
 
 export const getStaticProps: GetStaticProps = async ({ params }) => {
-  const program: ProgramInterface = await ApiHelper.getAnonymous("/programs/public/slug/" + params.programSlug, "LessonsApi");
-  const study: StudyInterface = await ApiHelper.getAnonymous("/studies/public/slug/" + program.id + "/" + params.studySlug, "LessonsApi");
-  const lessons: LessonInterface[] = await ApiHelper.getAnonymous("/lessons/public/study/" + study.id, "LessonsApi");
+  try {
+    const program: ProgramInterface = await ApiHelper.getAnonymous("/programs/public/slug/" + params.programSlug, "LessonsApi");
+    const study: StudyInterface = await ApiHelper.getAnonymous("/studies/public/slug/" + program?.id + "/" + params.studySlug, "LessonsApi");
+    const lessons: LessonInterface[] = await ApiHelper.getAnonymous("/lessons/public/study/" + study?.id, "LessonsApi");
 
-  return {
-    props: { study, program, lessons, },
-    revalidate: 30,
-  };
+    return {
+      props: { study, program, lessons, hasError: false },
+      revalidate: 30,
+    };
+  } catch (error) {
+    return {
+      props: {
+        hasError: true, error: {
+          message: error.message
+        }
+      }
+    }
+  }
 };

@@ -1,5 +1,5 @@
 import React from "react";
-import UserContext from "../utils/UserContext";
+import UserContext from "../UserContext";
 import { Box, CssBaseline, List, ThemeProvider } from "@mui/material";
 import { SiteWrapper, NavItem } from "../appBase/components";
 import { UserHelper, Permissions } from "@/utils";

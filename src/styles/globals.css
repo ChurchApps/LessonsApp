@@ -1310,6 +1310,20 @@ a.dropdown-toggle::after {
   padding: 2px
 }
 
+#smallPeopleTable img {
+  width: 48px;
+  height: 36px;
+  border-radius: 3px;
+}
+
+#smallPeopleTable td {
+  vertical-align: middle;
+}
+
+#smallPeopleTable td:nth-child(2) {
+  width: 80%;
+}
+
 @media (max-width: 600px) {
   .downloadAccordion {
     min-width: 90vw !important;

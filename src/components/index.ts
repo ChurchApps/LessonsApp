@@ -30,4 +30,5 @@ export { DisplayBox } from "@/appBase/components/DisplayBox";
 export { Loading } from "@/appBase/components/Loading";
 export { InputBox } from "@/appBase/components/InputBox";
 export { LogoutPage } from "@/appBase/pageComponents/LogoutPage";
-export { MarkdownEditor } from "@/appBase/components/MarkdownEditor";
+export { MarkdownEditor } from "@/appBase/components/markdownEditor/MarkdownEditor";
+export { MarkdownPreview } from "@/appBase/components/markdownEditor/MarkdownPreview";

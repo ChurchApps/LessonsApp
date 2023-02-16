@@ -1,13 +1,17 @@
 import { GetStaticPaths, GetStaticProps } from "next";
-import ReactMarkdown from "react-markdown";
-import remarkGfm from "remark-gfm";
+import { Grid, Container, Box } from "@mui/material";
 import { Layout, Venues } from "@/components";
 import { ApiHelper, ProgramInterface, StudyInterface, LessonInterface, ArrayHelper, VenueInterface, ResourceInterface, BundleInterface, ExternalVideoInterface } from "@/utils";
-import { Grid, Container, Box } from "@mui/material";
+import { MarkdownPreview } from "@/components";
+import Error from "@/pages/_error";
 
-type Props = { program: ProgramInterface; study: StudyInterface; lesson: LessonInterface; venues: VenueInterface[]; resources: ResourceInterface[]; externalVideos: ExternalVideoInterface[]; bundles: BundleInterface[]; };
+type Props = { program: ProgramInterface; study: StudyInterface; lesson: LessonInterface; venues: VenueInterface[]; resources: ResourceInterface[]; externalVideos: ExternalVideoInterface[]; bundles: BundleInterface[]; hasError: boolean; error: { message: string }; };
 
 export default function LessonsPage(props: Props) {
+
+  if (props.hasError) {
+    return <Error message={props.error.message} />
+  }
 
   const video = props.lesson.videoEmbedUrl ? (
     <div className="videoWrapper">
@@ -41,7 +45,7 @@ export default function LessonsPage(props: Props) {
           {props.program.aboutSection && (
             <>
               <h4 style={{ marginTop: 40 }}>About {props.program.name}</h4>
-              <ReactMarkdown remarkPlugins={[remarkGfm]}>{props.program.aboutSection}</ReactMarkdown>
+              <MarkdownPreview value={props.program.aboutSection} />
             </>
           )}
         </Container>
@@ -69,22 +73,32 @@ export const getStaticPaths: GetStaticPaths = async () => {
 };
 
 export const getStaticProps: GetStaticProps = async ({ params }) => {
-  const lessonData = await ApiHelper.getAnonymous("/lessons/public/slug/" + params.programSlug + "/" + params.studySlug + "/" + params.lessonSlug, "LessonsApi");
-  const lesson: LessonInterface = lessonData.lesson;
-  const study: StudyInterface = lessonData.study;
-  const program: ProgramInterface = lessonData.program;
-  const venues: VenueInterface[] = lessonData.venues;
-  const bundles: BundleInterface[] = lessonData.bundles;
-  const resources: ResourceInterface[] = lessonData.resources;
-  const externalVideos: ExternalVideoInterface[] = lessonData.externalVideos;
+  try {
+    const lessonData = await ApiHelper.getAnonymous("/lessons/public/slug/" + params.programSlug + "/" + params.studySlug + "/" + params.lessonSlug, "LessonsApi");
+    const lesson: LessonInterface = lessonData.lesson;
+    const study: StudyInterface = lessonData.study;
+    const program: ProgramInterface = lessonData.program;
+    const venues: VenueInterface[] = lessonData.venues;
+    const bundles: BundleInterface[] = lessonData.bundles;
+    const resources: ResourceInterface[] = lessonData.resources;
+    const externalVideos: ExternalVideoInterface[] = lessonData.externalVideos;
 
-  resources?.forEach(r => {
-    if (r.variants) r.variants = ArrayHelper.getAll(r.variants, "hidden", false);
-  });
+    resources?.forEach(r => {
+      if (r.variants) r.variants = ArrayHelper.getAll(r.variants, "hidden", false);
+    });
 
-  return {
-    props: { program, study, lesson, venues, resources, externalVideos, bundles },
-    revalidate: 30,
-  };
+    return {
+      props: { program, study, lesson, venues, resources, externalVideos, bundles, hasError: false },
+      revalidate: 30,
+    };
+  } catch (error) {
+    return {
+      props: {
+        hasError: true, error: {
+          message: error.message
+        }
+      }
+    }
+  }
 
 };

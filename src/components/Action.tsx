@@ -1,9 +1,7 @@
-import ReactMarkdown from "react-markdown";
-import remarkGfm from "remark-gfm";
-
-import { ResourceInterface, ArrayHelper, ActionInterface, GoogleAnalyticsHelper, VariantInterface, AssetInterface, UserHelper, ApiHelper, FileInterface, ExternalVideoInterface } from "@/utils";
 import React from "react";
+import { ResourceInterface, ArrayHelper, ActionInterface, GoogleAnalyticsHelper, VariantInterface, AssetInterface, UserHelper, ApiHelper, FileInterface, ExternalVideoInterface } from "@/utils";
 import { VimeoModal } from "./VimeoModal";
+import { MarkdownPreview } from "./index"
 
 type Props = {
   action: ActionInterface;
@@ -115,13 +113,13 @@ export function Action(props: Props) {
 
   switch (props.action.actionType) {
     case "Note":
-      result = (<div className="note"><b>Note:</b> <ReactMarkdown remarkPlugins={[remarkGfm]}>{props.action.content}</ReactMarkdown></div>);
+      result = (<div className="note"><b>Note:</b> <MarkdownPreview value={props.action.content} /></div>);
       break;
     case "Do":
-      result = (<ul className="actions"><li><ReactMarkdown remarkPlugins={[remarkGfm]}>{props.action.content}</ReactMarkdown></li></ul>);
+      result = (<ul className="actions"><li><MarkdownPreview value={props.action.content} /></li></ul>);
       break;
     case "Say":
-      result = (<blockquote><ReactMarkdown remarkPlugins={[remarkGfm]}>{props.action.content}</ReactMarkdown></blockquote>);
+      result = (<blockquote><MarkdownPreview value={props.action.content} /></blockquote>);
       break;
     case "Play":
       result = (<ul className="play"><li><b>Play:</b> {getPlayLink()}</li></ul>);
