@@ -834,7 +834,7 @@ dropdown-menu a {
 
 .accordion .actions {
   color: #333;
-  font-weight: bold;
+  font-weight: bold !important;
   margin-bottom: 5px;
 }
 
@@ -858,9 +858,9 @@ dropdown-menu a {
 }
 
 .accordion .play li:before {
-  content: "\f144";
+  content: "\e037";
   color: #00c213;
-  font-family: "Font Awesome 5 Free";
+  font-family: "Material Icons";
   margin-left: -15px;
   margin-right: 10px;
   font-weight: bold;
