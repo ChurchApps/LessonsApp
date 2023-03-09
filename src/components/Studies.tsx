@@ -18,8 +18,7 @@ export function Studies({ studies, slug }: Props) {
         <Link href={studyUrl}>
           <Flippy flipOnHover={true}>
             <FrontSide>
-
-              <Image src={study.image} alt={study.name} width={635} height={360} style={{height:"auto"}} />
+              <Image src={study.image || ""} alt={study.name} width={635} height={360} style={{height:"auto"}} />
               <Typography component="h3" sx={{ fontSize: "24px", fontWeight: 500, marginBottom: "8px", color: "#333", overflowY: "hidden", maxHeight: 30 }}>
                 {study.name}
               </Typography>

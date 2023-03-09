@@ -17,7 +17,7 @@ export function Programs(props: Props) {
       <div key={id}>
         <Grid container spacing={3}>
           <Grid item md={4} xs={12}>
-            <Link href={url}><Image src={image} alt={name} width={635} height={360} style={{height:"auto"}} /></Link>
+            <Link href={url}><Image src={image || ""} alt={name} width={635} height={360} style={{height:"auto"}} placeholder="empty" /></Link>
           </Grid>
           <Grid item md={8} xs={12}>
             <Link href={url}><h3 style={{ fontSize: "28px", fontWeight: 400, margin: "0 8px 0 0" }}>{name}</h3></Link>
