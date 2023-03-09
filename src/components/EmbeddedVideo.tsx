@@ -14,7 +14,7 @@ export function EmbeddedVideo(props: Props) {
 
   if (youTubeId) return <LiteYouTubeEmbed  id={youTubeId} title={props.title} poster="maxresdefault"  />;
   else if (vimeoId) {
-    let html = "<lite-vimeo videoid=\"364402896\"></lite-vimeo>";
+    let html = "<lite-vimeo videoid=\"" + vimeoId + "\"></lite-vimeo>";
     return (<span dangerouslySetInnerHTML={{ __html: html }} ></span>);
   }
   else return (
