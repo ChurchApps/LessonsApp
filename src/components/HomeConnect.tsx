@@ -1,5 +1,6 @@
 import { Grid, Container, Button, Menu, MenuItem, Icon } from "@mui/material";
 import { useState } from "react";
+import { EmbeddedVideo } from "./EmbeddedVideo";
 
 export function HomeConnect() {
 
@@ -32,17 +33,7 @@ export function HomeConnect() {
                 <p>View <a href="https://support.churchapps.org/lessons/setup.html" target="_blank" rel="noreferrer">our guide</a> on setting up schedules to configure your church.</p>
               </Grid>
               <Grid item md={7} xs={12}>
-                <div className="videoWrapper">
-                  <iframe
-                    width="992"
-                    height="558"
-                    src={"https://www.youtube.com/embed/DmDcQr0IfJg"}
-                    title="Lessons.church App"
-                    frameBorder="0"
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                    allowFullScreen
-                  ></iframe>
-                </div>
+                <EmbeddedVideo videoEmbedUrl="https://www.youtube.com/embed/DmDcQr0IfJg" title="Lessons.church App" />
               </Grid>
             </Grid>
             <Grid container spacing={3} style={{ marginTop: 20 }}>
