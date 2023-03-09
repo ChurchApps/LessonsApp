@@ -4,6 +4,7 @@ import { ApiHelper, ProgramInterface, ProviderInterface } from "@/utils";
 import { Grid, Container, Button, Icon } from "@mui/material";
 import { FloatingSupport } from "@/appBase/components";
 import Error from "./_error";
+import { EmbeddedVideo } from "@/components/EmbeddedVideo";
 
 type Props = {
   programs: ProgramInterface[];
@@ -25,19 +26,7 @@ export default function Home({ programs, providers, stats, hasError, error }: Pr
   let ogDescription = "We provide high quality content to churches completely free of charge, thanks to our generous partners."
   let pageImage = "https://lessons.church/images/og-image.png";
 
-  const video = (
-    <div className="videoWrapper">
-      <iframe
-        width="992"
-        height="558"
-        src="https://www.youtube.com/embed/MHcvK1IfOvE?rel=0"
-        title="Welcome to Lessons.church"
-        frameBorder="0"
-        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-        allowFullScreen
-      ></iframe>
-    </div>
-  );
+  const video = <EmbeddedVideo videoEmbedUrl="https://www.youtube.com/embed/MHcvK1IfOvE" title="Welcome to Lessons.church" />
 
   return (
     <Layout metaDescription={description} image={pageImage} ogDescription={ogDescription}>

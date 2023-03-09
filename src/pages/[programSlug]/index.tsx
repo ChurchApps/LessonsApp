@@ -4,6 +4,7 @@ import { Layout, Studies } from "@/components";
 import { ProgramInterface, ApiHelper, ProviderInterface, StudyInterface, } from "@/utils";
 import { MarkdownPreview } from "@/components"
 import Error from "../_error";
+import { EmbeddedVideo } from "@/components/EmbeddedVideo";
 
 type Props = {
   program: ProgramInterface;
@@ -21,19 +22,7 @@ export default function ProgramPage(props: Props) {
     return <Error message={props.error.message} />
   }
 
-  const video = props.program.videoEmbedUrl && (
-    <div className="videoWrapper">
-      <iframe
-        width="992"
-        height="558"
-        src={props.program.videoEmbedUrl}
-        title="YouTube video player"
-        frameBorder="0"
-        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-        allowFullScreen
-      ></iframe>
-    </div>
-  );
+  const video = props.program.videoEmbedUrl && (<EmbeddedVideo videoEmbedUrl={props.program.videoEmbedUrl} title={props.program.name} />);
 
   return (
     <Layout pageTitle={props.program.name + " - Lessons.church"} metaDescription={props.program.description} image={props.program.image}>

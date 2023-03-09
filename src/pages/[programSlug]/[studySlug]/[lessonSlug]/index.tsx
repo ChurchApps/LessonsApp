@@ -4,6 +4,7 @@ import { Layout, Venues } from "@/components";
 import { ApiHelper, ProgramInterface, StudyInterface, LessonInterface, ArrayHelper, VenueInterface, ResourceInterface, BundleInterface, ExternalVideoInterface } from "@/utils";
 import { MarkdownPreview } from "@/components";
 import Error from "@/pages/_error";
+import { EmbeddedVideo } from "@/components/EmbeddedVideo";
 
 type Props = { program: ProgramInterface; study: StudyInterface; lesson: LessonInterface; venues: VenueInterface[]; resources: ResourceInterface[]; externalVideos: ExternalVideoInterface[]; bundles: BundleInterface[]; hasError: boolean; error: { message: string }; };
 
@@ -13,11 +14,7 @@ export default function LessonsPage(props: Props) {
     return <Error message={props.error.message} />
   }
 
-  const video = props.lesson.videoEmbedUrl ? (
-    <div className="videoWrapper">
-      <iframe width="992" height="558" src={props.lesson?.videoEmbedUrl} title="YouTube video player" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowFullScreen ></iframe>
-    </div>
-  ) : (
+  const video = props.lesson.videoEmbedUrl ? (<EmbeddedVideo videoEmbedUrl={props.lesson.videoEmbedUrl} title={props.lesson.title} />) : (
     <Grid container spacing={3}>
       <Grid item md={2} sm={0} />
       <Grid item md={8} sm={12}>

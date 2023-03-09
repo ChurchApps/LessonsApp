@@ -3,6 +3,7 @@ import { Layout, Lessons } from "@/components";
 import { ApiHelper, ProgramInterface, StudyInterface, LessonInterface, ArrayHelper } from "@/utils";
 import { Grid, Container, Box } from "@mui/material";
 import Error from "@/pages/_error";
+import { EmbeddedVideo } from "@/components/EmbeddedVideo";
 
 type Props = {
   study: StudyInterface;
@@ -21,9 +22,7 @@ export default function StudyPage(props: Props) {
   }
 
   const video = props.study.videoEmbedUrl ? (
-    <div className="videoWrapper">
-      <iframe width="992" height="558" src={props.study.videoEmbedUrl} title="YouTube video player" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowFullScreen ></iframe>
-    </div>
+    <EmbeddedVideo videoEmbedUrl={props.study.videoEmbedUrl} title={props.study.name} />
   ) : (
     <Grid container spacing={3}>
       <Grid item md={2} sm={0} />
@@ -32,6 +31,7 @@ export default function StudyPage(props: Props) {
       </Grid>
     </Grid>
   );
+  
 
   let title = props.program.name + ": " + props.study?.name + " - Lessons.church";
   return (
@@ -47,8 +47,7 @@ export default function StudyPage(props: Props) {
           <br />
           <br />
           {props.lessons?.length > 0 && (
-            <Lessons lessons={props.lessons} slug={`/${props.program.slug}/${props.study.slug}`}
-            />
+            <Lessons lessons={props.lessons} slug={`/${props.program.slug}/${props.study.slug}`} />
           )}
         </Container>
       </div>

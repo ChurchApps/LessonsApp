@@ -2,6 +2,7 @@ import React from "react";
 import { ResourceInterface, ArrayHelper, ActionInterface, GoogleAnalyticsHelper, VariantInterface, AssetInterface, UserHelper, ApiHelper, FileInterface, ExternalVideoInterface } from "@/utils";
 import { VimeoModal } from "./VimeoModal";
 import { MarkdownPreview } from "./index"
+import Image from "next/image";
 
 type Props = {
   action: ActionInterface;
@@ -72,7 +73,7 @@ export function Action(props: Props) {
 
     files.forEach(f => {
       if (f?.thumbPath) result = <div className="playPreview"><img src={f.thumbPath} alt={name} /></div>
-      else if (f?.fileType === "image/jpeg" || f?.fileType === "image/png") result = <div className="playPreview"><img src={f.contentPath} alt={name} /></div>
+      else if (f?.fileType === "image/jpeg" || f?.fileType === "image/png") result = <div className="playPreview"><Image src={f.contentPath || ""} alt={name} width={635} height={360} style={{height:"auto"}} /></div>
     })
 
     return result;
