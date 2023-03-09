@@ -31,6 +31,7 @@ export default function StudyPage(props: Props) {
       </Grid>
     </Grid>
   );
+  
 
   let title = props.program.name + ": " + props.study?.name + " - Lessons.church";
   return (
@@ -46,8 +47,7 @@ export default function StudyPage(props: Props) {
           <br />
           <br />
           {props.lessons?.length > 0 && (
-            <Lessons lessons={props.lessons} slug={`/${props.program.slug}/${props.study.slug}`}
-            />
+            <Lessons lessons={props.lessons} slug={`/${props.program.slug}/${props.study.slug}`} />
           )}
         </Container>
       </div>
