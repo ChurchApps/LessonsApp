@@ -2,6 +2,7 @@ import Link from "next/link";
 import { StudyInterface } from "@/utils";
 import { Grid, Typography } from "@mui/material";
 import Flippy, { FrontSide, BackSide } from "react-flippy";
+import Image from "next/image";
 
 type Props = {
   studies: StudyInterface[];
@@ -18,7 +19,7 @@ export function Studies({ studies, slug }: Props) {
           <Flippy flipOnHover={true}>
             <FrontSide>
 
-              <img src={study.image} alt={study.name} />
+              <Image src={study.image} alt={study.name} width={635} height={360} style={{height:"auto"}} />
               <Typography component="h3" sx={{ fontSize: "24px", fontWeight: 500, marginBottom: "8px", color: "#333", overflowY: "hidden", maxHeight: 30 }}>
                 {study.name}
               </Typography>
