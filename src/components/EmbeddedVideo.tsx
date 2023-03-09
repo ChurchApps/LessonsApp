@@ -10,7 +10,7 @@ export function EmbeddedVideo(props: Props) {
 
   const youTubeBase = "https://www.youtube.com/embed/";
   let youTubeId = (props.videoEmbedUrl?.indexOf(youTubeBase)>-1) ? props.videoEmbedUrl?.replace(youTubeBase, "") : "";
-  if (youTubeId) return <LiteYouTubeEmbed  id={youTubeId} title={props.title} />;
+  if (youTubeId) return <LiteYouTubeEmbed  id={youTubeId} title={props.title} poster="maxresdefault"  />;
   else return (
     <div className="videoWrapper">
       <iframe
