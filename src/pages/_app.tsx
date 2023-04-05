@@ -12,12 +12,10 @@ import { AnalyticsHelper } from "@/appBase/helpers";
 EnvironmentHelper.init();
 
 function MyApp({ Component, pageProps }: AppProps) {
-  const router = useRouter();
-  const [cookies] = useCookies();
 
   const location = (typeof(window) === "undefined") ? null : window.location;
   AnalyticsHelper.init();
-  useEffect(() => { AnalyticsHelper.logPageView }, [location]);
+  useEffect(() => { AnalyticsHelper.logPageView() }, [location]);
 
   /*
   useEffect(() => {
