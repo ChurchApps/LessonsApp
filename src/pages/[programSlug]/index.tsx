@@ -69,7 +69,7 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
       props: { program, provider, studies, hasError: false},
       revalidate: 30,
     };
-  } catch (error) {
+  } catch (error:any) {
     return {
       props: {
         hasError: true, error: {

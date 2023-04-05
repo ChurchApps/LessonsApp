@@ -93,7 +93,7 @@ export function LessonEdit(props: Props) {
   else return (
     <>
       {getImageEditor()}
-      <InputBox id="lessonDetailsBox" headerText="Edit Lesson" headerIcon="book" saveFunction={handleSave} cancelFunction={handleCancel} deleteFunction={handleDelete} >
+      <InputBox id="lessonDetailsBox" headerText="Edit Lesson" headerIcon="book" saveFunction={handleSave} cancelFunction={handleCancel} deleteFunction={handleDelete}>
         <ErrorMessages errors={errors} />
         <a href="about:blank" className="d-block" onClick={handleImageClick}>
           <img src={lesson.image || "/images/blank.png"} className="profilePic d-block mx-auto" id="imgPreview" alt="lesson" />

@@ -2,6 +2,7 @@ import React from "react";
 import { Box, Button, Container, Dialog, DialogActions, DialogContent, DialogTitle, Grid, Icon, Stack, Typography } from "@mui/material";
 import { Layout } from "@/components";
 import { useRouter } from "next/router";
+import { NextPageContext } from "next";
 
 type Props = {
   statusCode?: number,
@@ -35,7 +36,7 @@ function Error({ message, statusCode }: Props) {
         <Container fixed>
           <Grid container justifyContent="center">
             <Grid item md={9} sm={12} sx={{ textAlign: "center" }}>
-            <Typography component="h1" sx={{ fontSize: "42px", fontWeight: 600, margin: "0 0 8px 0", border: 'none' }}>
+              <Typography component="h1" sx={{ fontSize: "42px", fontWeight: 600, margin: "0 0 8px 0", border: 'none' }}>
                 An error has occurred
               </Typography>
               <img src="/images/maintenance.png" alt="maintenance.png" style={{ width: 200 }} />
@@ -61,11 +62,11 @@ function Error({ message, statusCode }: Props) {
   )
 }
 
-Error.getInitialProps = ({ res, err }) => {
+Error.getInitialProps = ({ res, err }: NextPageContext) => {
   const statusCode = res ? res.statusCode : err ? err.statusCode : 404;
-  const message = statusCode === 404 ?
-    "This page does't exist" :
-    "The server encountered an internal error. Please try again"
+  const message = statusCode === 404
+    ? "This page does't exist"
+    : "The server encountered an internal error. Please try again"
   return { statusCode, message }
 }
 

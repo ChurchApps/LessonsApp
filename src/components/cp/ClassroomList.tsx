@@ -28,7 +28,7 @@ export function ClassroomList(props: Props) {
           <td>
             <Stack direction="row" alignItems="center">
               <Icon  sx={{marginRight: "5px"}}>school</Icon>
-              <a href="about:blank" onClick={(e) => { e.preventDefault(); props.classroomSelected(c.id); }} >
+              <a href="about:blank" onClick={(e) => { e.preventDefault(); props.classroomSelected(c.id); }}>
                 {c.name}
               </a>
             </Stack>
@@ -55,9 +55,7 @@ export function ClassroomList(props: Props) {
       );
   };
 
-  const getEditContent = () => {
-    return (<SmallButton icon="add" onClick={() => { setEditClassroom({}) }} />);
-  };
+  const getEditContent = () => (<SmallButton icon="add" onClick={() => { setEditClassroom({}) }} />);
 
   useEffect(loadData, []);
 
@@ -65,7 +63,7 @@ export function ClassroomList(props: Props) {
   else
     return (
       <>
-        <DisplayBox headerText="Classrooms" headerIcon="school" editContent={getEditContent()} >
+        <DisplayBox headerText="Classrooms" headerIcon="school" editContent={getEditContent()}>
           {getTable()}
         </DisplayBox>
       </>

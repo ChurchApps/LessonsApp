@@ -65,7 +65,7 @@ export function VariantEdit(props: Props) {
 
   if (!variant) return <></>
   else return (
-    <InputBox id="variantDetailsBox" headerText="Edit Variant" headerIcon="content_copy" saveFunction={handleSave} cancelFunction={handleCancel} deleteFunction={getDeleteFunction()} >
+    <InputBox id="variantDetailsBox" headerText="Edit Variant" headerIcon="content_copy" saveFunction={handleSave} cancelFunction={handleCancel} deleteFunction={getDeleteFunction()}>
       <ErrorMessages errors={errors} />
       <FormControl fullWidth>
         <InputLabel>Hidden</InputLabel>

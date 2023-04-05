@@ -37,7 +37,7 @@ export function ScheduleList(props: Props) {
             {s.displayName}
           </td>
           <td style={{ textAlign: "right" }}>
-            <a href="about:blank" onClick={(e) => { e.preventDefault(); setEditSchedule(s); }} ><Icon>edit</Icon></a>
+            <a href="about:blank" onClick={(e) => { e.preventDefault(); setEditSchedule(s); }}><Icon>edit</Icon></a>
           </td>
         </tr>
       );
@@ -67,7 +67,7 @@ export function ScheduleList(props: Props) {
   else
     return (
       <>
-        <DisplayBox headerText="Schedules" headerIcon="calendar_month" editContent={getEditContent()} >
+        <DisplayBox headerText="Schedules" headerIcon="calendar_month" editContent={getEditContent()}>
           {getTable()}
         </DisplayBox>
       </>

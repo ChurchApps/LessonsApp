@@ -19,7 +19,7 @@ type Props = {
 export default function Home({ programs, providers, stats, hasError, error }: Props) {
 
   if (hasError) {
-    return <Error message={error.message}/>
+    return <Error message={error.message} />
   }
 
   let description = "Church budgets prohibit teaching the word of God in the most effective way possible. We provide high quality content to churches completely free of charge, thanks to our generous partners."
@@ -64,16 +64,16 @@ export const getStaticProps: GetStaticProps = async () => {
     const programs: ProgramInterface[] = await ApiHelper.getAnonymous("/programs/public", "LessonsApi");
     const providers: ProviderInterface[] = await ApiHelper.getAnonymous("/providers/public", "LessonsApi");
     const stats: any = await ApiHelper.getAnonymous("/providers/stats", "LessonsApi");
-  return {
-    props: { programs, providers, stats, hasError: false },
-    revalidate: 30,
-  };
-  } catch (error) {
+    return {
+      props: { programs, providers, stats, hasError: false },
+      revalidate: 30,
+    };
+  } catch (error:any) {
     return {
       props: {
-          hasError: true, error: {
-            message: error.message
-          }
+        hasError: true, error: {
+          message: error.message
+        }
       }
     }
   }

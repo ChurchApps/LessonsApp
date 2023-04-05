@@ -72,7 +72,7 @@ export function ExternalVideoEdit(props: Props) {
   if (!externalVideo) return <></>
   else return (
     <>
-      <InputBox id="externalVideoDetailsBox" headerText={props.contentDisplayName} headerIcon="insert_drive_file" saveFunction={handleSave} cancelFunction={handleCancel} deleteFunction={getDeleteFunction()} >
+      <InputBox id="externalVideoDetailsBox" headerText={props.contentDisplayName} headerIcon="insert_drive_file" saveFunction={handleSave} cancelFunction={handleCancel} deleteFunction={getDeleteFunction()}>
         <ErrorMessages errors={errors} />
         <TextField fullWidth label="Video Name" name="name" value={externalVideo.name} onChange={handleChange} onKeyDown={handleKeyDown} placeholder="Lesson 1" />
         <FormControl fullWidth>

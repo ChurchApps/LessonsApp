@@ -54,6 +54,6 @@ export function HomeConnect() {
           </Grid>
         </Grid>
       </Container>
-    </div >
+    </div>
   );
 }

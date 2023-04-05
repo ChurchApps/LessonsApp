@@ -84,7 +84,7 @@ export default function Admin() {
       if (typeof p.aboutSection !== 'string') p.aboutSection = '';
       result.push(
         <Accordion expanded={expandedProgramId === p.id} onChange={() => { setExpandedProgramId((expandedProgramId === p.id) ? "" : p.id); }} className="adminAccordion programAccordion">
-          <AccordionSummary expandIcon={<Icon>expand_more</Icon>} aria-controls="panel1bh-content" id="panel1bh-header" >
+          <AccordionSummary expandIcon={<Icon>expand_more</Icon>} aria-controls="panel1bh-content" id="panel1bh-header">
             <div style={{ width: "100%", paddingRight: 20 }}>
               <span style={{ float: "right" }}>
                 <SmallButton onClick={() => { router.push("/admin/stats/" + p.id) }} icon="show_chart" text="Stats" />
@@ -93,7 +93,7 @@ export default function Admin() {
                 &nbsp;
                 <SmallButton icon="file_upload" text="Files" onClick={() => { clearEdits(); showResources("program", p.id, p.name); }} />
               </span>
-              <a href="about:blank" onClick={(e) => { e.preventDefault(); clearEdits(); setEditProgram(p); }} >
+              <a href="about:blank" onClick={(e) => { e.preventDefault(); clearEdits(); setEditProgram(p); }}>
                 <Icon>school</Icon> {p.name}
               </a>
             </div>
@@ -112,14 +112,14 @@ export default function Admin() {
       ArrayHelper.getAll(studies, "programId", programId).forEach((s) => {
         result.push(
           <Accordion expanded={expandedStudyId === s.id} onChange={() => { setExpandedStudyId((expandedStudyId === s.id) ? "" : s.id); }} className="adminAccordion studyAccordion" elevation={0}>
-            <AccordionSummary expandIcon={<Icon>expand_more</Icon>} aria-controls="panel1bh-content" id="panel1bh-header" >
+            <AccordionSummary expandIcon={<Icon>expand_more</Icon>} aria-controls="panel1bh-content" id="panel1bh-header">
               <div style={{ width: "100%", paddingRight: 20 }}>
                 <span style={{ float: "right" }}>
                   <SmallButton icon="add" text="Lesson" onClick={() => { clearEdits(); setEditLesson({ studyId: s.id }); }} />
                   &nbsp;
                   <SmallButton icon="file_upload" text="Files" onClick={() => { clearEdits(); showResources("study", s.id, s.name); }} />
                 </span>
-                <a href="about:blank" onClick={(e) => { e.preventDefault(); clearEdits(); setEditStudy(s); }} >
+                <a href="about:blank" onClick={(e) => { e.preventDefault(); clearEdits(); setEditStudy(s); }}>
                   <Icon>layers</Icon> {s.name}
                 </a>
               </div>
@@ -144,7 +144,7 @@ export default function Admin() {
               &nbsp;
               <SmallButton icon="file_upload" text="Files" onClick={() => { clearEdits(); showResources("lesson", l.id, l.name); }} />
             </span>
-            <a href="about:blank" onClick={(e) => { e.preventDefault(); clearEdits(); setEditLesson(l); }} >
+            <a href="about:blank" onClick={(e) => { e.preventDefault(); clearEdits(); setEditLesson(l); }}>
               <Icon>book</Icon> {l.name}: {l.title}
             </a>
           </div>
@@ -177,7 +177,7 @@ export default function Admin() {
 
       <Grid container spacing={3}>
         <Grid item md={8} xs={12}>
-          <DisplayBox headerText="Programs" headerIcon="school" editContent={getEditContent} >
+          <DisplayBox headerText="Programs" headerIcon="school" editContent={getEditContent}>
             {getAccordion()}
           </DisplayBox>
         </Grid>

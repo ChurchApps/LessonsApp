@@ -87,24 +87,24 @@ export function Action(props: Props) {
     if (asset) {
       return (<>
         {getPreview(null, asset, resource.name)}
-        <a href={resource.variants[0]?.file?.contentPath} target="_blank" rel="noopener noreferrer" onClick={() => { trackDownload(resource.variants[0]) }} >{resource.name}</a>
+        <a href={resource.variants[0]?.file?.contentPath} target="_blank" rel="noopener noreferrer" onClick={() => { trackDownload(resource.variants[0]) }}>{resource.name}</a>
         :{" "}
-        <a href={asset?.file?.contentPath} target="_blank" rel="noopener noreferrer" onClick={() => { trackAssetDownload(asset) }} >{asset.name}</a>
+        <a href={asset?.file?.contentPath} target="_blank" rel="noopener noreferrer" onClick={() => { trackAssetDownload(asset) }}>{asset.name}</a>
       </>);
     } else if (resource) {
       return (<>
         {getPreview(resource.variants, null, resource.name)}
-        <a href={resource.variants[0]?.file?.contentPath} target="_blank" rel="noopener noreferrer" onClick={() => { trackDownload(resource.variants[0]) }} > {resource.name} </a>
+        <a href={resource.variants[0]?.file?.contentPath} target="_blank" rel="noopener noreferrer" onClick={() => { trackDownload(resource.variants[0]) }}> {resource.name} </a>
       </>);
     } else if (video) {
       return (<>
         {showPreview && <VimeoModal onClose={() => setShowPreview(false)} vimeoId={video.videoId} />}
         <div className="playPreview">
-          <a href={"https://vimeo.com/" + video.videoId} rel="noopener noreferrer" onClick={(e) => { e.preventDefault(); trackView(video); setShowPreview(true); }} >
+          <a href={"https://vimeo.com/" + video.videoId} rel="noopener noreferrer" onClick={(e) => { e.preventDefault(); trackView(video); setShowPreview(true); }}>
             <img src={video.thumbnail} alt={video.name} />
           </a>
         </div>
-        <a href={"https://vimeo.com/" + video.videoId} rel="noopener noreferrer" onClick={(e) => { e.preventDefault(); trackView(video); setShowPreview(true); }} >{video.name}</a>
+        <a href={"https://vimeo.com/" + video.videoId} rel="noopener noreferrer" onClick={(e) => { e.preventDefault(); trackView(video); setShowPreview(true); }}>{video.name}</a>
       </>);
     }
     return props.action.content;

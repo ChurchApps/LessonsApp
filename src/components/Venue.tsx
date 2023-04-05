@@ -38,7 +38,7 @@ export function Venue(props: Props) {
       });
     }
 
-    return <div className="accordion" > {sections}</div >;
+    return <div className="accordion"> {sections}</div>;
   }
 
   function getPrintSections() {
@@ -52,7 +52,7 @@ export function Venue(props: Props) {
       });
     }
 
-    return <div className="accordion" > {sections}</div >;
+    return <div className="accordion"> {sections}</div>;
   }
 
   const getPrint = () => {
@@ -60,33 +60,33 @@ export function Venue(props: Props) {
       return (<Button size="small" variant="outlined" key={"print" + props.venue.id} onClick={() => {
         setDisplaySection(true)
       }}
-                      title="print">
+      title="print">
         <Icon>print</Icon>
       </Button>);
     }
   }
 
   return (
-      <div>
-        <Grid container spacing={3}>
-          <Grid item xs={6}>
-            <h4 style={{ fontSize: "24px", fontWeight: 500, margin: "0 0 8px 0" }}>{props.venue.name}</h4>
-          </Grid>
-          <Grid item xs={6}>
-            <Box sx={{ display: "flex", justifyContent: "flex-end", gap: "8px", flexWrap: "wrap" }}>
-              {getPrint()}
-              <Downloads bundles={props.bundles} externalVideos={props.externalVideos} />
-            </Box>
-          </Grid>
+    <div>
+      <Grid container spacing={3}>
+        <Grid item xs={6}>
+          <h4 style={{ fontSize: "24px", fontWeight: 500, margin: "0 0 8px 0" }}>{props.venue.name}</h4>
         </Grid>
-        <div>
-          <h2 className="printOnly">{props.venue.name} Instructions</h2>
-          {getSections()}
-        </div>
-        <div ref={contentRef} style={displaySection ? {display: 'block'} : {display: 'none'}}>
-          <h2 className="printOnly">{props.venue.name} Instructions</h2>
-          {getPrintSections()}
-        </div>
+        <Grid item xs={6}>
+          <Box sx={{ display: "flex", justifyContent: "flex-end", gap: "8px", flexWrap: "wrap" }}>
+            {getPrint()}
+            <Downloads bundles={props.bundles} externalVideos={props.externalVideos} />
+          </Box>
+        </Grid>
+      </Grid>
+      <div>
+        <h2 className="printOnly">{props.venue.name} Instructions</h2>
+        {getSections()}
       </div>
+      <div ref={contentRef} style={displaySection ? {display: 'block'} : {display: 'none'}}>
+        <h2 className="printOnly">{props.venue.name} Instructions</h2>
+        {getPrintSections()}
+      </div>
+    </div>
   );
 }

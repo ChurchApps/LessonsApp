@@ -138,7 +138,7 @@ export default function Venue() {
     sections.forEach((s) => {
       result.push(<tr className="sectionRow" key={`s-${s.id}`}>
         <td>
-          <a href="about:blank" onClick={(e) => { e.preventDefault(); clearEdits(); setEditSection(s); }} >
+          <a href="about:blank" onClick={(e) => { e.preventDefault(); clearEdits(); setEditSection(s); }}>
             <Icon sx={{ marginRight: "5px" }}>list_alt</Icon> {s.name}
           </a>
         </td>
@@ -155,7 +155,7 @@ export default function Venue() {
       ArrayHelper.getAll(roles, "sectionId", sectionId).forEach((r) => {
         result.push(<tr className="roleRow" key={`r-${r.id}`}>
           <td>
-            <a href="about:blank" onClick={(e) => { e.preventDefault(); clearEdits(); setEditRole(r); }} >
+            <a href="about:blank" onClick={(e) => { e.preventDefault(); clearEdits(); setEditRole(r); }}>
               <Icon>person</Icon> {r.name}
             </a>
           </td>
@@ -174,7 +174,7 @@ export default function Venue() {
         result.push(
           <tr className="actionRow" key={`a-${a.id}`}>
             <td colSpan={2}>
-              <a href="about:blank" onClick={(e) => { e.preventDefault(); clearEdits(); setEditAction(a); }} >
+              <a href="about:blank" onClick={(e) => { e.preventDefault(); clearEdits(); setEditAction(a); }}>
                 <Icon>check</Icon> {a.actionType}: {a.content}
               </a>
             </td>
@@ -206,18 +206,16 @@ export default function Venue() {
     return result;
   };
 
-  const getEditContent = () => {
-    return (
-      <>
-        <span style={{ float: "right" }}><SmallButton icon="add" onClick={(e) => { setMenuAnchor(e.currentTarget) }} />
-        </span>
-        <Menu id="addVenueMenu" anchorEl={menuAnchor} open={Boolean(menuAnchor)} onClose={() => { setMenuAnchor(null) }} MenuListProps={{ "aria-labelledby": "downloadButton" }}>
-          <MenuItem onClick={() => { createSection(); }} ><Icon>add</Icon> Create New</MenuItem>
-          <MenuItem onClick={() => { duplicateSection(); }} ><Icon>content_copy</Icon> Copy Existing</MenuItem>
-        </Menu>
-      </>
-    );
-  };
+  const getEditContent = () => (
+    <>
+      <span style={{ float: "right" }}><SmallButton icon="add" onClick={(e) => { setMenuAnchor(e.currentTarget) }} />
+      </span>
+      <Menu id="addVenueMenu" anchorEl={menuAnchor} open={Boolean(menuAnchor)} onClose={() => { setMenuAnchor(null) }} MenuListProps={{ "aria-labelledby": "downloadButton" }}>
+        <MenuItem onClick={() => { createSection(); }}><Icon>add</Icon> Create New</MenuItem>
+        <MenuItem onClick={() => { duplicateSection(); }}><Icon>content_copy</Icon> Copy Existing</MenuItem>
+      </Menu>
+    </>
+  );
 
   return (
     <Wrapper>

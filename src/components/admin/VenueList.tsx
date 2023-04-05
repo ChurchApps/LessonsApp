@@ -49,9 +49,7 @@ export function VenueList(props: Props) {
       );
   };
 
-  const getEditContent = () => {
-    return (<SmallButton icon="add" onClick={() => { setEditVenue({ lessonId: props.lessonId }); }} />);
-  };
+  const getEditContent = () => (<SmallButton icon="add" onClick={() => { setEditVenue({ lessonId: props.lessonId }); }} />);
 
   useEffect(loadData, [props.lessonId]);
 

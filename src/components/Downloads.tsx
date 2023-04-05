@@ -80,7 +80,7 @@ export function Downloads(props: Props) {
     const result: JSX.Element[] = [];
     props.externalVideos?.forEach((v) => {
       const video = v;
-      let downloadLink = (<Button href={video.download1080} size="small" onClick={(e) => { trackVideoDownload(video); checkExpire(video, e); }} download={true} color="success" component="a" variant="contained">Download</Button>);
+      let downloadLink = (<Button href={video.download1080} size="small" onClick={(e:any) => { trackVideoDownload(video); checkExpire(video, e); }} download={true} color="success" component="a" variant="contained">Download</Button>);
       result.push(
         <div className="downloadResource" key={v.id}>
           <MenuItem>

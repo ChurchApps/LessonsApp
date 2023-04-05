@@ -108,7 +108,7 @@ export function ResourceEdit(props: Props) {
 
   if (!resource) return <></>
   else return (
-    <InputBox id="resourceDetailsBox" headerText={props.contentDisplayName} headerIcon="insert_drive_file" saveFunction={handleSave} cancelFunction={handleCancel} deleteFunction={getDeleteFunction()} >
+    <InputBox id="resourceDetailsBox" headerText={props.contentDisplayName} headerIcon="insert_drive_file" saveFunction={handleSave} cancelFunction={handleCancel} deleteFunction={getDeleteFunction()}>
       <ErrorMessages errors={errors} />
       <FormControl fullWidth>
         <InputLabel>Bundle</InputLabel>
