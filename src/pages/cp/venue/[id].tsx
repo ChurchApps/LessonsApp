@@ -153,17 +153,11 @@ export default function Venue() {
 
 
 
-  const getDeleteLink = (contentType: string, contentId: string) => {
-    return (<a href="about:blank" onClick={(e) => { e.preventDefault(); toggleTrash(contentType, contentId) }}><Icon color="error">delete</Icon></a>)
-  }
+  const getDeleteLink = (contentType: string, contentId: string) => (<a href="about:blank" onClick={(e) => { e.preventDefault(); toggleTrash(contentType, contentId) }}><Icon color="error">delete</Icon></a>)
 
-  const getUpLink = (contentType: string, item: any, swapItem: any) => {
-    return (<a href="about:blank" onClick={(e) => { e.preventDefault(); move(contentType, item, swapItem) }}><Icon>arrow_upward</Icon></a>)
-  }
+  const getUpLink = (contentType: string, item: any, swapItem: any) => (<a href="about:blank" onClick={(e) => { e.preventDefault(); move(contentType, item, swapItem) }}><Icon>arrow_upward</Icon></a>)
 
-  const getDownLink = (contentType: string, item: any, swapItem: any) => {
-    return (<a href="about:blank" onClick={(e) => { e.preventDefault(); move(contentType, item, swapItem) }}><Icon>arrow_downward</Icon></a>)
-  }
+  const getDownLink = (contentType: string, item: any, swapItem: any) => (<a href="about:blank" onClick={(e) => { e.preventDefault(); move(contentType, item, swapItem) }}><Icon>arrow_downward</Icon></a>)
 
   const getLinks = (contentType: string, contentId: string, parentRemoved: boolean, index: number, array: any[]) => {
     const result: JSX.Element[] = [];

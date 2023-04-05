@@ -77,7 +77,7 @@ export default function Admin() {
       <h1>Stats for {program?.name}</h1>
       <Grid container spacing={3}>
         <Grid item md={8} xs={12}>
-          <DisplayBox headerText="Unique Downloads by Study" headerIcon="bar_chart" >
+          <DisplayBox headerText="Unique Downloads by Study" headerIcon="bar_chart">
             <p style={{ marginTop: 0 }}>Note: These are <u>unique</u> counts.  A person may download multiple files within a lesson, download a lesson multiple times, or download multiple lessons within a series.  All of these scenarios counts as a single record on this report.</p>
             <table className="table reportTable">
               <thead>
@@ -93,12 +93,12 @@ export default function Admin() {
 
         </Grid>
         <Grid item md={4} xs={12}>
-          <InputBox headerText="Filter" headerIcon="bar_chart" saveFunction={filterResults} saveText="Update" >
+          <InputBox headerText="Filter" headerIcon="bar_chart" saveFunction={filterResults} saveText="Update">
             <TextField fullWidth label="Start Date" name="startDate" type="date" aria-label="date" value={DateHelper.formatHtml5Date(startDate)} onChange={handleChange} />
             <TextField fullWidth label="End Date" name="endDate" type="date" aria-label="date" value={DateHelper.formatHtml5Date(endDate)} onChange={handleChange} />
           </InputBox>
 
-          <DisplayBox headerText="Church List" headerIcon="bar_chart" >
+          <DisplayBox headerText="Church List" headerIcon="bar_chart">
             <p>Note: Login is not required to download items, so many churches will download the files anonymously.  This is a list of churches who were logged in when downloading resources.</p>
             <table className="table table-striped reportTable">
               <thead>

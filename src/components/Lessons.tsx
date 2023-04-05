@@ -13,13 +13,13 @@ export function Lessons({ lessons, slug }: Props) {
     const url = slug + `/${lesson.slug}`;
     return (
       <Link href={url} key={lesson.id} style={{ textDecoration: "none", color: "inherit" }}>
-        <Grid container spacing={3} style={{ paddingBottom: 20, paddingTop: 20, borderBottom: "1px solid #CCC" }} >
+        <Grid container spacing={3} style={{ paddingBottom: 20, paddingTop: 20, borderBottom: "1px solid #CCC" }}>
           <Grid item md={3} xs={12}>
             <Image
               src={lesson.image || ""}
               style={{ verticalAlign: "middle", height:"auto" }}
               alt={lesson.name}
-              width={635} 
+              width={635}
               height={360}
             />
           </Grid>

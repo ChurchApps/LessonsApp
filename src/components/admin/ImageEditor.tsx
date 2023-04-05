@@ -60,7 +60,7 @@ export function ImageEditor(props: Props) {
   useEffect(() => { setCurrentUrl(props.imageUrl || "/images/blank.png"); }, [props.imageUrl]);
 
   return (
-    <InputBox id="cropperBox" headerIcon="" headerText="Crop" saveFunction={handleSave} saveText={"Update"} cancelFunction={props.onCancel} deleteFunction={handleDelete} headerActionContent={getHeaderButton()} >
+    <InputBox id="cropperBox" headerIcon="" headerText="Crop" saveFunction={handleSave} saveText={"Update"} cancelFunction={props.onCancel} deleteFunction={handleDelete} headerActionContent={getHeaderButton()}>
       <Cropper ref={cropper} src={currentUrl} style={{ height: 240, width: "100%" }} aspectRatio={16 / 9} guides={false} crop={handleCrop} />
     </InputBox>
   );

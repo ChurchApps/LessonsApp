@@ -135,7 +135,7 @@ export function ActionEdit(props: Props) {
 
         return (<FormControl fullWidth>
           <InputLabel>Asset</InputLabel>
-          <Select label="Asset" name="asset" value={action.assetId || ""} onChange={handleChange} >
+          <Select label="Asset" name="asset" value={action.assetId || ""} onChange={handleChange}>
             <MenuItem value="">All</MenuItem>
             {assetItems}
           </Select>
@@ -154,7 +154,7 @@ export function ActionEdit(props: Props) {
           <>
             <FormControl fullWidth>
               <InputLabel>Resource</InputLabel>
-              <Select label="Resource" name="resource" id="resourceSelect" value={currentValue} onChange={handleChange} >
+              <Select label="Resource" name="resource" id="resourceSelect" value={currentValue} onChange={handleChange}>
                 {getResourceGroup("Lesson", props.lessonResources, props.lessonVideos)}
                 {getResourceGroup("Study", props.studyResources, props.studyVideos)}
                 {getResourceGroup("Program", props.programResources, props.programVideos)}
@@ -206,13 +206,13 @@ export function ActionEdit(props: Props) {
   if (!action) return <></>;
   else return (
     <>
-      <InputBox id="actionDetailsBox" headerText={action?.id ? "Edit Action" : "Create Action"} headerIcon="check" saveFunction={handleSave} cancelFunction={handleCancel} deleteFunction={handleDelete} >
+      <InputBox id="actionDetailsBox" headerText={action?.id ? "Edit Action" : "Create Action"} headerIcon="check" saveFunction={handleSave} cancelFunction={handleCancel} deleteFunction={handleDelete}>
         <ErrorMessages errors={errors} />
         <TextField fullWidth label="Order" type="number" name="sort" value={action.sort} onChange={handleChange} onKeyDown={handleKeyDown} placeholder="1" />
 
         <FormControl fullWidth>
           <InputLabel>Action Type</InputLabel>
-          <Select label="Action Type" name="actionType" value={action.actionType} onChange={handleChange} >
+          <Select label="Action Type" name="actionType" value={action.actionType} onChange={handleChange}>
             <MenuItem value="Say" key="Say">Say</MenuItem>
             <MenuItem value="Do" key="Do">Do</MenuItem>
             <MenuItem value="Play" key="Play">Play</MenuItem>

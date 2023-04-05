@@ -18,20 +18,22 @@ type Props = {
 export default function StudyPage(props: Props) {
 
   if (props.hasError) {
-    return <Error message={props.error.message}/>
+    return <Error message={props.error.message} />
   }
 
-  const video = props.study.videoEmbedUrl ? (
-    <EmbeddedVideo videoEmbedUrl={props.study.videoEmbedUrl} title={props.study.name} />
-  ) : (
-    <Grid container spacing={3}>
-      <Grid item md={2} sm={0} />
-      <Grid item md={8} sm={12}>
-        <img src={props.study.image} className="profilePic" alt={props.study.name} /><br /><br />
+  const video = props.study.videoEmbedUrl
+    ? (
+      <EmbeddedVideo videoEmbedUrl={props.study.videoEmbedUrl} title={props.study.name} />
+    )
+    : (
+      <Grid container spacing={3}>
+        <Grid item md={2} sm={0} />
+        <Grid item md={8} sm={12}>
+          <img src={props.study.image} className="profilePic" alt={props.study.name} /><br /><br />
+        </Grid>
       </Grid>
-    </Grid>
-  );
-  
+    );
+
 
   let title = props.program.name + ": " + props.study?.name + " - Lessons.church";
   return (
@@ -79,7 +81,7 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
       props: { study, program, lessons, hasError: false },
       revalidate: 30,
     };
-  } catch (error) {
+  } catch (error:any) {
     return {
       props: {
         hasError: true, error: {

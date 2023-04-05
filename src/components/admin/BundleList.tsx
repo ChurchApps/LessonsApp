@@ -72,12 +72,12 @@ export const BundleList: React.FC<Props> = (props) => {
       ArrayHelper.getAll(resources, "bundleId", bundleId).forEach((r) => {
         const resource = r;
         result.push(<Accordion expanded={expandedResourceId === r.id} onChange={() => { setExpandedResourceId((expandedResourceId === resource.id) ? "" : resource.id); }} elevation={0}>
-          <AccordionSummary expandIcon={<Icon>expand_more</Icon>} aria-controls="panel1bh-content" id="panel1bh-header" >
+          <AccordionSummary expandIcon={<Icon>expand_more</Icon>} aria-controls="panel1bh-content" id="panel1bh-header">
             <div style={{ width: "100%", paddingRight: 20 }}>
               <span style={{ float: "right" }}>
                 {getDropDownMenu(resource.id)}
               </span>
-              <a href="about:blank" onClick={(e) => { e.preventDefault(); clearEdits(); setEditResource(resource); }} >
+              <a href="about:blank" onClick={(e) => { e.preventDefault(); clearEdits(); setEditResource(resource); }}>
                 <Icon>insert_drive_file</Icon> {r.name}
               </a>
             </div>
@@ -98,7 +98,7 @@ export const BundleList: React.FC<Props> = (props) => {
       ArrayHelper.getAll(variants, "resourceId", resourceId).forEach((v) => {
         result.push(
           <div className="variantDiv" key={`v-${v.id}`}>
-            <a href="about:blank" onClick={(e) => { e.preventDefault(); clearEdits(); setEditVariant(v); }} >
+            <a href="about:blank" onClick={(e) => { e.preventDefault(); clearEdits(); setEditVariant(v); }}>
               <Icon>file_copy</Icon> {v.name}
             </a>
           </div>
@@ -114,7 +114,7 @@ export const BundleList: React.FC<Props> = (props) => {
       ArrayHelper.getAll(assets, "resourceId", resourceId).forEach((a) => {
         result.push(
           <div className="assetDiv" key={`a-${a.id}`}>
-            <a href="about:blank" onClick={(e) => { e.preventDefault(); clearEdits(); setEditAsset(a); }} >
+            <a href="about:blank" onClick={(e) => { e.preventDefault(); clearEdits(); setEditAsset(a); }}>
               <Icon>format_list_numbered</Icon> {a.name}
             </a>
           </div>
@@ -129,7 +129,7 @@ export const BundleList: React.FC<Props> = (props) => {
     bundles.forEach(b => {
       const bundle = b;
       result.push(<Accordion expanded={expandedBundleId === b.id} onChange={() => { setExpandedBundleId((expandedBundleId === b.id) ? "" : b.id); }} elevation={0}>
-        <AccordionSummary expandIcon={<Icon>expand_more</Icon>} aria-controls="panel1bh-content" id="panel1bh-header" >
+        <AccordionSummary expandIcon={<Icon>expand_more</Icon>} aria-controls="panel1bh-content" id="panel1bh-header">
           <div style={{ width: "100%", paddingRight: 20 }}>
             <span style={{ float: "right" }}>
               <SmallButton icon="add" onClick={() => { setEditResource({ category: bundle.name, bundleId: bundle.id, loopVideo: false }); }} text="Resource" />
@@ -157,7 +157,7 @@ export const BundleList: React.FC<Props> = (props) => {
     externalVideos.forEach(v => {
       const video = v;
       result.push(<div style={{ paddingLeft: 16 }}>
-        <a href="about:blank" onClick={(e) => { e.preventDefault(); clearEdits(); setEditVideo(video); }} >
+        <a href="about:blank" onClick={(e) => { e.preventDefault(); clearEdits(); setEditVideo(video); }}>
           <Icon style={{ paddingTop: 4 }}>videocam</Icon> {video.name}
         </a>
       </div>)
@@ -202,38 +202,34 @@ export const BundleList: React.FC<Props> = (props) => {
     loadData();
   };
 
-  const getDropDownMenu = (resourceId: string) => {
-    return (
-      <>
-        <SmallButton icon="add" text="Add" onClick={(e) => { setMenuResourceId(resourceId); setMenuAnchor(e.currentTarget); }} />
-        {(menuResourceId === resourceId) &&
-          <Menu id={"addMenu" + resourceId} anchorEl={menuAnchor} open={Boolean(menuAnchor)} onClose={() => { setMenuAnchor(null) }} MenuListProps={{ "aria-labelledby": "addMenuButton" }}>
-            <MenuItem onClick={() => { console.log("RESOURCE ID - " + resourceId); setEditVariant({ resourceId: resourceId, hidden: false }); }} ><Icon>file_copy</Icon> Add Variant (for download/player)</MenuItem>
-            <MenuItem onClick={() => { createAsset(resourceId); }} ><Icon>format_list_numbered</Icon> Add Asset (for player only)</MenuItem>
-            <MenuItem onClick={() => { bulkCreateAsset(resourceId); }} ><Icon>format_list_numbered</Icon> Bulk Add Asset</MenuItem>
+  const getDropDownMenu = (resourceId: string) => (
+    <>
+      <SmallButton icon="add" text="Add" onClick={(e) => { setMenuResourceId(resourceId); setMenuAnchor(e.currentTarget); }} />
+      {(menuResourceId === resourceId)
+          && <Menu id={"addMenu" + resourceId} anchorEl={menuAnchor} open={Boolean(menuAnchor)} onClose={() => { setMenuAnchor(null) }} MenuListProps={{ "aria-labelledby": "addMenuButton" }}>
+            <MenuItem onClick={() => { console.log("RESOURCE ID - " + resourceId); setEditVariant({ resourceId: resourceId, hidden: false }); }}><Icon>file_copy</Icon> Add Variant (for download/player)</MenuItem>
+            <MenuItem onClick={() => { createAsset(resourceId); }}><Icon>format_list_numbered</Icon> Add Asset (for player only)</MenuItem>
+            <MenuItem onClick={() => { bulkCreateAsset(resourceId); }}><Icon>format_list_numbered</Icon> Bulk Add Asset</MenuItem>
           </Menu>
-        }
-      </>
-    );
-  };
+      }
+    </>
+  );
 
-  const getBundleVideoMenu = () => {
-    return (
-      <>
-        <SmallButton icon="add" onClick={(e) => setVideoMenuAnchor(e.currentTarget)} />
-        <Menu id="addMenu" anchorEl={videoMenuAnchor} open={Boolean(videoMenuAnchor)} onClose={() => { setVideoMenuAnchor(null) }} MenuListProps={{ "aria-labelledby": "addMenuButton" }}>
-          <MenuItem onClick={() => { setEditBundle({ contentType: props.contentType, contentId: props.contentId }); }} ><Icon>folder_zip</Icon> Add Bundle</MenuItem>
-          <MenuItem onClick={() => { setEditVideo({ contentType: props.contentType, contentId: props.contentId, videoProvider: "Vimeo" }); }} ><Icon>videocam</Icon> Add External Video (Beta)</MenuItem>
-        </Menu>
-      </>
-    );
-  };
+  const getBundleVideoMenu = () => (
+    <>
+      <SmallButton icon="add" onClick={(e) => setVideoMenuAnchor(e.currentTarget)} />
+      <Menu id="addMenu" anchorEl={videoMenuAnchor} open={Boolean(videoMenuAnchor)} onClose={() => { setVideoMenuAnchor(null) }} MenuListProps={{ "aria-labelledby": "addMenuButton" }}>
+        <MenuItem onClick={() => { setEditBundle({ contentType: props.contentType, contentId: props.contentId }); }}><Icon>folder_zip</Icon> Add Bundle</MenuItem>
+        <MenuItem onClick={() => { setEditVideo({ contentType: props.contentType, contentId: props.contentId, videoProvider: "Vimeo" }); }}><Icon>videocam</Icon> Add External Video (Beta)</MenuItem>
+      </Menu>
+    </>
+  );
 
 
-  const getEditContent = () => {
+  const getEditContent = () =>
     //return (<SmallButton icon="add" onClick={() => { setEditBundle({ contentType: props.contentType, contentId: props.contentId }); }} />);
-    return getBundleVideoMenu();
-  };
+    getBundleVideoMenu()
+  ;
 
   React.useEffect(() => { loadData() }, [props.contentType, props.contentId]);
 
@@ -246,7 +242,7 @@ export const BundleList: React.FC<Props> = (props) => {
   else
     return (
       <>
-        <DisplayBox id="resourcesBox" headerText={props.contentDisplayName} headerIcon="folder_zip" editContent={getEditContent()} >
+        <DisplayBox id="resourcesBox" headerText={props.contentDisplayName} headerIcon="folder_zip" editContent={getEditContent()}>
           {getAccordion()}
         </DisplayBox>
       </>

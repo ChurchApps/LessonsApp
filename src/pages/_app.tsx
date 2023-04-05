@@ -6,14 +6,18 @@ import type { AppProps } from "next/app";
 import Head from "next/head";
 import { useRouter } from "next/router";
 import { useCookies } from "react-cookie"
-import { EnvironmentHelper, GoogleAnalyticsHelper } from "@/utils";
+import { EnvironmentHelper } from "@/utils";
+import { AnalyticsHelper } from "@/appBase/helpers";
 
 EnvironmentHelper.init();
 
 function MyApp({ Component, pageProps }: AppProps) {
-  const router = useRouter();
-  const [cookies] = useCookies();
 
+  const location = (typeof(window) === "undefined") ? null : window.location;
+  AnalyticsHelper.init();
+  useEffect(() => { AnalyticsHelper.logPageView() }, [location]);
+
+  /*
   useEffect(() => {
     if (EnvironmentHelper.GoogleAnalyticsTag) {
       const handleRouteChange = (url: string) => {
@@ -25,6 +29,7 @@ function MyApp({ Component, pageProps }: AppProps) {
       };
     }
   }, [router.events]);
+  */
 
   // auto login when jwt found in cookies
   /*

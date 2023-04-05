@@ -31,17 +31,13 @@ export function PlaylistFeed(props: Props) {
 
   useEffect(loadData, [props.classroomId]);
 
-  const getFeedUrl = () => {
-    return "https://api.lessons.church/classrooms/playlist/" + props.classroomId;
-  }
+  const getFeedUrl = () => "https://api.lessons.church/classrooms/playlist/" + props.classroomId
 
-  const getClassroomUrl = () => {
-    return "https://lessons.church/classroom/" + props.classroomId;
-  }
+  const getClassroomUrl = () => "https://lessons.church/classroom/" + props.classroomId
 
   return (
     <>
-      <InputBox id="feedBox" headerText="Subscribe" headerIcon="rss_feed" saveFunction={handleCancel} saveText="Done" >
+      <InputBox id="feedBox" headerText="Subscribe" headerIcon="rss_feed" saveFunction={handleCancel} saveText="Done">
         <b>Display in Your Classroom</b>
         <p>See the bottom of this page for instructions on how to display lessons in your classroom using the Lesson.church app and get leader instructions via the B1.church app.</p>
         <b>Use with Digital Signage</b>

@@ -14,18 +14,20 @@ export default function LessonsPage(props: Props) {
     return <Error message={props.error.message} />
   }
 
-  const video = props.lesson.videoEmbedUrl ? (<EmbeddedVideo videoEmbedUrl={props.lesson.videoEmbedUrl} title={props.lesson.title} />) : (
-    <Grid container spacing={3}>
-      <Grid item md={2} sm={0} />
-      <Grid item md={8} sm={12}>
-        <img src={props.lesson.image} className="profilePic" alt={props.lesson.name} /><br /><br />
+  const video = props.lesson.videoEmbedUrl
+    ? (<EmbeddedVideo videoEmbedUrl={props.lesson.videoEmbedUrl} title={props.lesson.title} />)
+    : (
+      <Grid container spacing={3}>
+        <Grid item md={2} sm={0} />
+        <Grid item md={8} sm={12}>
+          <img src={props.lesson.image} className="profilePic" alt={props.lesson.name} /><br /><br />
+        </Grid>
       </Grid>
-    </Grid>
-  );
+    );
 
   const title = props.program.name + ": " + props.lesson?.title + " - Lessons.church";
   return (
-    <Layout pageTitle={title} metaDescription={props.lesson.description} image={props.lesson.image} >
+    <Layout pageTitle={title} metaDescription={props.lesson.description} image={props.lesson.image}>
       <div className="pageSection">
         <Container fixed>
           <Box sx={{ textAlign: "center" }}>
@@ -88,7 +90,7 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
       props: { program, study, lesson, venues, resources, externalVideos, bundles, hasError: false },
       revalidate: 30,
     };
-  } catch (error) {
+  } catch (error: any) {
     return {
       props: {
         hasError: true, error: {

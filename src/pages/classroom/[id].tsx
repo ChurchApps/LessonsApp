@@ -58,7 +58,7 @@ export default function Venue() {
     }
 
     if (s.length > 4) s.splice(0, s.length - 4)
-    return s.sort((a, b) => { return (DateHelper.toDate(a.scheduledDate) < DateHelper.toDate(b.scheduledDate)) ? 1 : -1 })
+    return s.sort((a, b) => (DateHelper.toDate(a.scheduledDate) < DateHelper.toDate(b.scheduledDate)) ? 1 : -1)
   }
 
   const getRows = () => {
@@ -69,7 +69,7 @@ export default function Venue() {
         const url = "/" + program.slug + "/" + study.slug + "/" + lesson.slug;
         result.push(<Link href={url} key={lesson.id} style={{ textDecoration: "none", color: "inherit" }}>
           <h3>{DateHelper.prettyDate(DateHelper.toDate(s.scheduledDate))}</h3>
-          <Grid container spacing={3} style={{ paddingBottom: 20, borderBottom: "1px solid #CCC" }} >
+          <Grid container spacing={3} style={{ paddingBottom: 20, borderBottom: "1px solid #CCC" }}>
             <Grid item md={3} xs={12}>
               <img
                 src={lesson.image}
@@ -125,6 +125,6 @@ export default function Venue() {
       </Container>
 
       <br />
-    </Layout >
+    </Layout>
   );
 }
