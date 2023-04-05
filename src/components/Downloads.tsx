@@ -1,5 +1,5 @@
-import { ApiHelper, BundleInterface, EnvironmentHelper, ExternalVideoInterface, GoogleAnalyticsHelper, UserHelper } from "@/utils";
-import { WindowSharp } from "@mui/icons-material";
+import { AnalyticsHelper } from "@/appBase/helpers";
+import { ApiHelper, BundleInterface, EnvironmentHelper, ExternalVideoInterface, UserHelper } from "@/utils";
 import { Grid, Menu, MenuItem, Icon, Button } from "@mui/material";
 import { useState } from "react";
 
@@ -15,7 +15,7 @@ export function Downloads(props: Props) {
     if (EnvironmentHelper.GoogleAnalyticsTag) {
       const action = bundle.name;
       const label = window.location.pathname;
-      GoogleAnalyticsHelper.gaEvent({ category: "Download", action: action, label: label });
+      AnalyticsHelper.logEvent("Download", action, label);
     }
     const download = {
       lessonId: bundle.contentId,
@@ -33,7 +33,7 @@ export function Downloads(props: Props) {
     if (EnvironmentHelper.GoogleAnalyticsTag) {
       const action = video.name;
       const label = window.location.pathname;
-      GoogleAnalyticsHelper.gaEvent({ category: "Download", action: action, label: label });
+      AnalyticsHelper.logEvent("Download", action, label);
     }
     const download = {
       lessonId: video.contentId,

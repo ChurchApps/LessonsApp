@@ -1,8 +1,9 @@
 import React from "react";
-import { ResourceInterface, ArrayHelper, ActionInterface, GoogleAnalyticsHelper, VariantInterface, AssetInterface, UserHelper, ApiHelper, FileInterface, ExternalVideoInterface } from "@/utils";
+import { ResourceInterface, ArrayHelper, ActionInterface, VariantInterface, AssetInterface, UserHelper, ApiHelper, FileInterface, ExternalVideoInterface } from "@/utils";
 import { VimeoModal } from "./VimeoModal";
 import { MarkdownPreview } from "./index"
 import Image from "next/image";
+import { AnalyticsHelper } from "@/appBase/helpers";
 
 type Props = {
   action: ActionInterface;
@@ -18,7 +19,7 @@ export function Action(props: Props) {
     const resource: ResourceInterface = ArrayHelper.getOne(props.resources, "id", variant.resourceId);
     const action = resource.name + " - " + variant.name;
     const label = window.location.pathname;
-    GoogleAnalyticsHelper.gaEvent({ category: "Download", action: action, label: label })
+    AnalyticsHelper.logEvent("Download", action, label);
     const download = {
       lessonId: props.lessonId,
       fileId: variant.fileId,
@@ -34,7 +35,7 @@ export function Action(props: Props) {
   const trackView = (video: ExternalVideoInterface) => {
     const action = video.name;
     const label = window.location.pathname;
-    GoogleAnalyticsHelper.gaEvent({ category: "Download", action: action, label: label })
+    AnalyticsHelper.logEvent("Download", action, label);
     const download = {
       lessonId: props.lessonId,
       fileId: "",
@@ -51,7 +52,7 @@ export function Action(props: Props) {
     const resource: ResourceInterface = ArrayHelper.getOne(props.resources || [], "id", props.action.resourceId);
     const action = resource.name + " - " + asset.name;
     const label = window.location.pathname;
-    GoogleAnalyticsHelper.gaEvent({ category: "Download Asset", action: action, label: label })
+    AnalyticsHelper.logEvent("Download Asset", action, label);
     const download = {
       lessonId: props.lessonId,
       fileId: asset.fileId,
