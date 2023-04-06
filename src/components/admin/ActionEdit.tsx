@@ -149,7 +149,6 @@ export function ActionEdit(props: Props) {
       if (props.lessonResources && props.studyResources && props.programResources) {
         let currentValue = action.resourceId;
         if (!currentValue && action.externalVideoId) currentValue = "ev/" + action.externalVideoId
-        console.log("CURRENT VALUE IS: " + currentValue)
         return (
           <>
             <FormControl fullWidth>

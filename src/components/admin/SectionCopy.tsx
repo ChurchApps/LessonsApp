@@ -53,7 +53,6 @@ export function SectionCopy(props: Props) {
       if (data.length > 0) {
         const cs = { ...copySection };
         cs.sourceVenueId = data[0].id;
-        console.log("Setting source venue id to: " + cs.sourceVenueId);
         setCopySection(cs);
       }
     });
