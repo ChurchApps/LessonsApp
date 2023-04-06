@@ -23,10 +23,7 @@ export function Venue(props: Props) {
 
   const handlePrint = useReactToPrint({ content: () => contentRef.current });
 
-  React.useEffect(() => {
-    displaySection && handlePrint();
-    setDisplaySection(false);
-  }, [displaySection])
+  React.useEffect(() => { displaySection && handlePrint(); setDisplaySection(false); }, [displaySection])
 
   function getSections() {
     const sections: JSX.Element[] = [];
@@ -56,10 +53,8 @@ export function Venue(props: Props) {
 
   const getPrint = () => {
     if (!props.hidePrint) {
-      return (<Button size="small" variant="outlined" key={"print" + props.venue.id} onClick={() => {
-        setDisplaySection(true)
-      }}
-      title="print">
+      return (<Button size="small" variant="outlined" key={"print" + props.venue.id}
+        onClick={() => { setDisplaySection(true) }} title="print">
         <Icon>print</Icon>
       </Button>);
     }

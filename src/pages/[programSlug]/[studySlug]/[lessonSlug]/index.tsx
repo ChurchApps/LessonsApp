@@ -15,15 +15,18 @@ export default function LessonsPage(props: Props) {
   }
 
   const video = props.lesson.videoEmbedUrl
-    ? (<EmbeddedVideo videoEmbedUrl={props.lesson.videoEmbedUrl} title={props.lesson.title} />)
-    : (
-      <Grid container spacing={3}>
-        <Grid item md={2} sm={0} />
-        <Grid item md={8} sm={12}>
-          <img src={props.lesson.image} className="profilePic" alt={props.lesson.name} /><br /><br />
-        </Grid>
+    ? (<Grid container spacing={3}>
+      <Grid item md={2} sm={0} />
+      <Grid item md={8} sm={12}>
+        <EmbeddedVideo videoEmbedUrl={props.lesson.videoEmbedUrl} title={props.lesson.title} />
       </Grid>
-    );
+    </Grid>)
+    : (<Grid container spacing={3}>
+      <Grid item md={2} sm={0} />
+      <Grid item md={8} sm={12}>
+        <img src={props.lesson.image} className="profilePic" alt={props.lesson.name} /><br /><br />
+      </Grid>
+    </Grid>);
 
   const title = props.program.name + ": " + props.lesson?.title + " - Lessons.church";
   return (
@@ -37,9 +40,10 @@ export default function LessonsPage(props: Props) {
             <h2 style={{ marginTop: 0 }}>
               {props.lesson?.name}: <span>{props.lesson?.title}</span>
             </h2>
+            <p>{props.lesson?.description}</p>
           </Box>
           {video}
-          <p>{props.lesson?.description}</p>
+          <br />
           <Venues venues={props.venues} resources={props.resources} externalVideos={props.externalVideos} bundles={props.bundles} />
           {props.program.aboutSection && (
             <>

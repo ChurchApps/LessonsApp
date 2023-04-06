@@ -1,5 +1,8 @@
 import { VenueInterface, ResourceInterface, ArrayHelper, BundleInterface, ExternalVideoInterface } from "@/utils";
 import { Venue } from "./Venue";
+import { Box, Tab } from "@mui/material";
+import { useState } from "react";
+import { TabContext, TabList, TabPanel } from "@mui/lab";
 
 type Props = {
   venues: VenueInterface[];
@@ -9,7 +12,9 @@ type Props = {
 };
 
 export function Venues(props: Props) {
-  const venueViews = props.venues.map((v) => {
+  const [selectedTab, setSelectedTab] = useState(props.venues[0].id);
+
+  const venueViews = props.venues.map((v, idx) => {
     const resources: ResourceInterface[] = [];
 
     v.sections?.forEach((s) => {
@@ -29,14 +34,30 @@ export function Venues(props: Props) {
     const bundles = ArrayHelper.getAllArray(props.bundles, "id", bundleIds)
     resources.sort((a, b) => (a.name > b.name ? 1 : -1));
 
-    return (
-      <div key={v.id}>
-        <br />
-        <br />
+    if (props.venues.length === 1) return (<Venue venue={v} resources={resources} externalVideos={props.externalVideos} bundles={bundles} />);
+    else return (
+      <TabPanel value={v.id} style={{paddingLeft:0, paddingRight:0}}>
         <Venue venue={v} resources={resources} externalVideos={props.externalVideos} bundles={bundles} />
-      </div>
+      </TabPanel>
     );
   });
 
-  return <div>{venueViews}</div>;
+  const getVenueTabs = () => {
+    if (props.venues.length === 1) return (<></>);
+    const tabs:JSX.Element[] = [];
+    props.venues.forEach((v) => { tabs.push(<Tab label={v.name} value={v.id} />) });
+    return (<Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
+      <TabList onChange={(e, newValue) => {setSelectedTab(newValue);}}>
+        {tabs}
+      </TabList>
+    </Box>);
+  }
+
+
+
+  return <><TabContext value={selectedTab}>
+    {getVenueTabs()}
+    <div>{venueViews}</div>
+  </TabContext>
+  </>;
 }

@@ -447,7 +447,7 @@ label .description {
 }
 
 .pageSection {
-  padding-top: 70px;
+  padding-top: 40px;
   padding-bottom: 70px;
 }
 
@@ -472,7 +472,7 @@ label .description {
 }
 
 .pageSection h2 {
-  margin-bottom: 30px;
+  margin-bottom: 15px;
   font-size: 36px;
   font-weight: bold;
 }
@@ -880,7 +880,8 @@ dropdown-menu a {
 
 .accordion blockquote {
   padding-left: 15px;
-  margin-bottom: 15px;
+  margin-bottom: 5px;
+  margin-top: 5px;
   color: #555;
 }
 
@@ -902,10 +903,8 @@ dropdown-menu a {
 }
 
 .materials {
-  background-color: #03a9f4;
+  background-color: #444;
   color: #eee;
-  margin-left: -16px;
-  margin-right: -16px;
   margin-top: -8px;
   padding-left: 16px;
   margin-bottom: 16px;
@@ -1185,7 +1184,6 @@ a.dropdown-toggle::after {
 
 .playPreview img {
   aspect-ratio: 16/9;
-  max-height: 153px;
   margin-bottom: 20px;
 }
 
@@ -1338,7 +1336,13 @@ a.dropdown-toggle::after {
 }
 
 @media (min-width: 601px) {
+  .playPreview img {
+    max-height: 99px;
+  }
   .downloadsDropDown .dropdown-menu.show {
     width: 400px !important;
   }
 }
+
+.accordion .editor-listitem { padding-bottom: 0px; }
+.accordion .editor-list-ul { margin-top: 0px; padding-top:0px; }

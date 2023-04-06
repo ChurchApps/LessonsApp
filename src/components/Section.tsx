@@ -58,7 +58,7 @@ export function Section(props: Props) {
         if (a.actionType === "Download") downloads.push(a.content);
       })
     })
-    if (props.section.materials || downloads) {
+    if (props.section.materials) {
       return (<div className="materials">
         <b>Materials:</b> {props.section.materials} {downloads}
       </div>)
@@ -68,7 +68,15 @@ export function Section(props: Props) {
 
 
   if (shouldHide(props.section?.id)) return <></>
-
+  else if (props.section?.roles?.length === 0) return <></>
+  else {
+    return (<div style={{clear:"both"}}>
+      <h3 style={{marginLeft:0, borderBottom: "1px solid #333", marginTop:40, backgroundColor:"#03a9f4", color: "#FFFFFF", padding:10}}>{props.section.name}</h3>
+      {getMaterials()}
+      {getParts()}
+    </div>);
+  }
+  /*
   else if (typeof props.activeSectionId === 'object' && props.activeSectionId) return (
     <Accordion expanded={true}>
       <AccordionSummary expandIcon={<Icon>expand_more</Icon>} aria-controls={props.section.id + "-content"} id={props.section.id + "-header"}>
@@ -91,5 +99,6 @@ export function Section(props: Props) {
         {getParts()}
       </AccordionDetails>
     </Accordion>
-  );
+  );*/
+
 }
