@@ -1178,13 +1178,14 @@ a.dropdown-toggle::after {
 }
 
 .playPreview {
+  margin-left: 10px;
   clear: both;
   float: right;
 }
 
 .playPreview img {
-  max-height: 150px;
-  max-width: 100%;
+  aspect-ratio: 16/9;
+  max-height: 153px;
   margin-bottom: 20px;
 }
 

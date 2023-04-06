@@ -71,7 +71,7 @@ export function Section(props: Props) {
 
   else if (typeof props.activeSectionId === 'object' && props.activeSectionId) return (
     <Accordion expanded={true}>
-      <AccordionSummary expandIcon={<Icon>expand_more</Icon>} aria-controls="panel1bh-content" id="panel1bh-header">
+      <AccordionSummary expandIcon={<Icon>expand_more</Icon>} aria-controls={props.section.id + "-content"} id={props.section.id + "-header"}>
         {props.section.name}
       </AccordionSummary>
       <AccordionDetails>
@@ -83,7 +83,7 @@ export function Section(props: Props) {
 
   else return (
     <Accordion expanded={props.activeSectionId === props.section?.id} onChange={() => { props.toggleActive((props.activeSectionId === props.section.id) ? null : props.section.id); }}>
-      <AccordionSummary expandIcon={<Icon>expand_more</Icon>} aria-controls="panel1bh-content" id="panel1bh-header">
+      <AccordionSummary expandIcon={<Icon>expand_more</Icon>} aria-controls={props.section.id + "-content"} id={props.section.id + "-header"}>
         {props.section.name}
       </AccordionSummary>
       <AccordionDetails>

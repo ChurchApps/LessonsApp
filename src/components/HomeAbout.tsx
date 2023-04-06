@@ -34,7 +34,7 @@ export function HomeAbout() {
               small churches with their technical needs.
             </p>
             <Button color="info" variant="contained" size="large" href="https://livecs.org/">
-              Learn More
+              Learn More About Live Church Solutions
             </Button>
           </Grid>
         </Grid>

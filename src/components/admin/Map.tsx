@@ -42,7 +42,6 @@ export const Map: React.FC<Props> = (props) => {
 
   useEffect(() => { if (props.programId) { loadData(); } }, [props.startDate, props.endDate, props.programId]);
 
-  if (tooltipIp) console.log(tooltipIp);
   return (
     <DisplayBox headerText="Map of Downloads" headerIcon="map">
 

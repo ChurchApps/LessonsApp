@@ -19,7 +19,7 @@ export function Lessons({ lessons, slug }: Props) {
               src={lesson.image || ""}
               style={{ verticalAlign: "middle", height:"auto" }}
               alt={lesson.name}
-              width={635}
+              width={640}
               height={360}
             />
           </Grid>

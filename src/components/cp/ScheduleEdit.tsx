@@ -72,7 +72,6 @@ export function ScheduleEdit(props: Props) {
   };
 
   const handleProgramChange = (e: SelectChangeEvent<string>) => {
-    console.log("HANDLE PROGRAM CHANGE")
     e.preventDefault();
     setProgramId(e.target.value);
   };

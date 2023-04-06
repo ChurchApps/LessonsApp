@@ -46,7 +46,6 @@ export function Venue(props: Props) {
 
     if (props.venue.sections) {
       const customSections = CustomizationHelper.applyCustomSort(props.customizations, props.venue.sections, "section");
-      console.log("customSections ",customSections, props.customizations)
       customSections.forEach((s) => {
         sections.push(<Section section={s} resources={props.resources} externalVideos={props.externalVideos} toggleActive={handleToggle} activeSectionId={[activeSectionId]} key={s.id} customizations={props.customizations} />);
       });
