@@ -5,6 +5,7 @@ import { useState } from "react";
 import { TabContext, TabList, TabPanel } from "@mui/lab";
 
 type Props = {
+  useAccordion: boolean;
   venues: VenueInterface[];
   resources: ResourceInterface[];
   externalVideos: ExternalVideoInterface[];
@@ -34,16 +35,16 @@ export function Venues(props: Props) {
     const bundles = ArrayHelper.getAllArray(props.bundles, "id", bundleIds)
     resources.sort((a, b) => (a.name > b.name ? 1 : -1));
 
-    if (props.venues.length === 1) return (<Venue venue={v} resources={resources} externalVideos={props.externalVideos} bundles={bundles} />);
+    if (props.venues.length === 1 || props.useAccordion) return (<Venue useAccordion={props.useAccordion} venue={v} resources={resources} externalVideos={props.externalVideos} bundles={bundles} />);
     else return (
       <TabPanel value={v.id} style={{paddingLeft:0, paddingRight:0}}>
-        <Venue venue={v} resources={resources} externalVideos={props.externalVideos} bundles={bundles} />
+        <Venue useAccordion={props.useAccordion} venue={v} resources={resources} externalVideos={props.externalVideos} bundles={bundles} />
       </TabPanel>
     );
   });
 
   const getVenueTabs = () => {
-    if (props.venues.length === 1) return (<></>);
+    if (props.venues.length === 1 && props.useAccordion) return (<></>);
     const tabs:JSX.Element[] = [];
     props.venues.forEach((v) => { tabs.push(<Tab label={v.name} value={v.id} />) });
     return (<Box sx={{ borderBottom: 1, borderColor: 'divider' }}>

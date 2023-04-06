@@ -1212,6 +1212,8 @@ a.dropdown-toggle::after {
   border: 1px solid #1c75bc;
 }
 
+.b1 .part {padding-left: 10px;padding-right:10px;}
+
 .adminAccordion .card {
   border: none;
   margin-bottom: 0px;
@@ -1337,7 +1339,7 @@ a.dropdown-toggle::after {
 
 @media (min-width: 601px) {
   .playPreview img {
-    max-height: 99px;
+    max-height: 72px;
   }
   .downloadsDropDown .dropdown-menu.show {
     width: 400px !important;

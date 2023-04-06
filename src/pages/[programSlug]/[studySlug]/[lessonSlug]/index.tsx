@@ -44,10 +44,10 @@ export default function LessonsPage(props: Props) {
           </Box>
           {video}
           <br />
-          <Venues venues={props.venues} resources={props.resources} externalVideos={props.externalVideos} bundles={props.bundles} />
+          <Venues useAccordion={false} venues={props.venues} resources={props.resources} externalVideos={props.externalVideos} bundles={props.bundles} />
           {props.program.aboutSection && (
             <>
-              <h4 style={{ marginTop: 40 }}>About {props.program.name}</h4>
+              <h4>About {props.program.name}</h4>
               <MarkdownPreview value={props.program.aboutSection} />
             </>
           )}
