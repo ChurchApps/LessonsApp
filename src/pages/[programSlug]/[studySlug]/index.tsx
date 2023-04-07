@@ -4,6 +4,7 @@ import { ApiHelper, ProgramInterface, StudyInterface, LessonInterface, ArrayHelp
 import { Grid, Container, Box } from "@mui/material";
 import Error from "@/pages/_error";
 import { EmbeddedVideo } from "@/components/EmbeddedVideo";
+import Image from "next/image";
 
 type Props = {
   study: StudyInterface;
@@ -29,7 +30,7 @@ export default function StudyPage(props: Props) {
       <Grid container spacing={3}>
         <Grid item md={2} sm={0} />
         <Grid item md={8} sm={12}>
-          <img src={props.study.image} className="profilePic" alt={props.study.name} /><br /><br />
+          <Image src={props.study.image} className="profilePic" alt={props.study.name} width={960} height={540} /><br /><br />
         </Grid>
       </Grid>
     );
