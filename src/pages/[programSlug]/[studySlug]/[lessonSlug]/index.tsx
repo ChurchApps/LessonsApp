@@ -28,7 +28,7 @@ export default function LessonsPage(props: Props) {
       </Grid>
     </Grid>);
 
-  const title = props.program.name + ": " + props.lesson?.title + " - Lessons.church";
+  const title = props.program.name + ": " + props.lesson?.title + " - Free Church Curriculum";
   return (
     <Layout pageTitle={title} metaDescription={props.lesson.description} image={props.lesson.image}>
       <div className="pageSection">

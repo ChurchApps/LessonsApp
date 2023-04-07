@@ -35,7 +35,7 @@ export default function StudyPage(props: Props) {
     );
 
 
-  let title = props.program.name + ": " + props.study?.name + " - Lessons.church";
+  let title = props.program.name + ": " + props.study?.name + " - Free Church Curriculum";
   return (
     <Layout pageTitle={title} metaDescription={props.study.description} image={props.study.image}>
       <div className="pageSection">

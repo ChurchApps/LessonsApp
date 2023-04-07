@@ -25,7 +25,7 @@ export default function ProgramPage(props: Props) {
   const video = props.program.videoEmbedUrl && (<EmbeddedVideo videoEmbedUrl={props.program.videoEmbedUrl} title={props.program.name} />);
 
   return (
-    <Layout pageTitle={props.program.name + " - Lessons.church"} metaDescription={props.program.description} image={props.program.image}>
+    <Layout pageTitle={props.program.name + " - Free Church Curriculum"} metaDescription={props.program.description} image={props.program.image}>
       <div className="pageSection">
         <Container fixed>
           <Box sx={{ textAlign: "center" }}>
