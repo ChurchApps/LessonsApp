@@ -25,7 +25,7 @@ export default function LessonsPage(props: Props) {
     : (<Grid container spacing={3}>
       <Grid item md={2} sm={0} />
       <Grid item md={8} sm={12}>
-        <Image src={props.lesson.image} className="profilePic" alt={props.study.name} width={960} height={540} /><br /><br />
+        <Image src={props.lesson.image || ""} className="profilePic" alt={props.study.name} width={960} height={540} /><br /><br />
       </Grid>
     </Grid>);
 
