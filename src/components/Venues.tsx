@@ -44,7 +44,7 @@ export function Venues(props: Props) {
   });
 
   const getVenueTabs = () => {
-    if (props.venues.length === 1 && props.useAccordion) return (<></>);
+    if (props.venues.length === 1 || props.useAccordion) return (<></>);
     const tabs:JSX.Element[] = [];
     props.venues.forEach((v) => { tabs.push(<Tab label={v.name} value={v.id} />) });
     return (<Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
