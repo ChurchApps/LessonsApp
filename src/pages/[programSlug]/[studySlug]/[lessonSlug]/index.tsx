@@ -5,6 +5,7 @@ import { ApiHelper, ProgramInterface, StudyInterface, LessonInterface, ArrayHelp
 import { MarkdownPreview } from "@/components";
 import Error from "@/pages/_error";
 import { EmbeddedVideo } from "@/components/EmbeddedVideo";
+import Image from "next/image";
 
 type Props = { program: ProgramInterface; study: StudyInterface; lesson: LessonInterface; venues: VenueInterface[]; resources: ResourceInterface[]; externalVideos: ExternalVideoInterface[]; bundles: BundleInterface[]; hasError: boolean; error: { message: string }; };
 
@@ -24,7 +25,7 @@ export default function LessonsPage(props: Props) {
     : (<Grid container spacing={3}>
       <Grid item md={2} sm={0} />
       <Grid item md={8} sm={12}>
-        <img src={props.lesson.image} className="profilePic" alt={props.lesson.name} /><br /><br />
+        <Image src={props.lesson.image || ""} className="profilePic" alt={props.study.name} width={960} height={540} /><br /><br />
       </Grid>
     </Grid>);
 
