@@ -1348,3 +1348,47 @@ a.dropdown-toggle::after {
 
 .accordion .editor-listitem { padding-bottom: 0px; }
 .accordion .editor-list-ul { margin-top: 0px; padding-top:0px; }
+
+.arkHero {
+  background-image: url("/images/landing/ark-hero.png");
+  background-size: cover;
+  margin-top: -24px;
+  color:#FFFFFF;
+}
+
+.arkHero H1 {
+  border-bottom: none;
+  padding-bottom: 0px;
+  margin-bottom: 0px;
+  margin-top: 70px;
+}
+
+.arkHero H2 {
+  margin-top: 0px;
+  font-size: 35px;
+  margin-bottom: 150px;
+}
+
+.arkHero H3 {
+  font-size: 1.5em;
+  line-height: 1.0em;
+}
+
+.arkUsp {
+  background-color:"#DDDDDD";
+  padding:30px;
+  margin-top:50px;
+  min-height:265px;
+}
+
+@media (min-width: 601px) {
+  .arkUspRight {
+    margin-left:-80px;
+  }
+
+  .arkUspLeftImg {
+    margin-left:-80px;
+    z-index:-1px;
+  }
+
+}
