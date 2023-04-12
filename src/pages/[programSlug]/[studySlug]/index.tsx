@@ -1,5 +1,5 @@
 import { GetStaticPaths, GetStaticProps } from "next";
-import { Layout, Lessons } from "@/components";
+import { Layout, Lessons, MarkdownPreview } from "@/components";
 import { ApiHelper, ProgramInterface, StudyInterface, LessonInterface, ArrayHelper } from "@/utils";
 import { Grid, Container, Box } from "@mui/material";
 import Error from "@/pages/_error";
@@ -27,12 +27,7 @@ export default function StudyPage(props: Props) {
       <EmbeddedVideo videoEmbedUrl={props.study.videoEmbedUrl} title={props.study.name} />
     )
     : (
-      <Grid container spacing={3}>
-        <Grid item md={2} sm={0} />
-        <Grid item md={8} sm={12}>
-          <Image src={props.study.image || ""} className="profilePic" alt={props.study.name} width={960} height={540} /><br /><br />
-        </Grid>
-      </Grid>
+      <Image src={props.study.image || ""} className="img-fluid" alt={props.study.name} width={960} height={540} style={{height:"auto"}} />
     );
 
 
@@ -41,13 +36,17 @@ export default function StudyPage(props: Props) {
     <Layout pageTitle={title} metaDescription={props.study.description} image={props.study.image}>
       <div className="pageSection">
         <Container fixed>
-          <Box sx={{textAlign: "center"}}>
-            <h2 style={{marginTop: 0}}>{props.program?.name || ""}: <span>{props.study?.name}</span></h2>
-            <p><i>{props.study.shortDescription}</i></p>
-          </Box>
-          <p>{props.study.description}</p>
-          {video}
-          <br />
+          <h2 style={{marginTop: 0}}>{props.program?.name || ""}: <span>{props.study?.name}</span></h2>
+          <Grid container spacing={2}>
+            <Grid item md={(video)? 7 : 12} xs={12}>
+              {props.study.shortDescription && <p style={{marginTop:0}} className="lead">{props.study.shortDescription}</p>}
+              <MarkdownPreview value={props.study.description} />
+            </Grid>
+            {video && <Grid item md={5} xs={12}>
+              {video}
+            </Grid> }
+          </Grid>
+
           <br />
           {props.lessons?.length > 0 && (
             <Lessons lessons={props.lessons} slug={`/${props.program.slug}/${props.study.slug}`} />

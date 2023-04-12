@@ -1,7 +1,6 @@
 import Link from "next/link";
 import { StudyInterface } from "@/utils";
-import { Grid, Typography } from "@mui/material";
-import Flippy, { FrontSide, BackSide } from "react-flippy";
+import { Card, Grid, Typography } from "@mui/material";
 import Image from "next/image";
 
 type Props = {
@@ -16,22 +15,17 @@ export function Studies({ studies, slug }: Props) {
     return (
       <Grid item md={4} xs={12} key={study.id}>
         <Link href={studyUrl}>
-          <Flippy flipOnHover={true}>
-            <FrontSide>
-              <Image src={study.image || ""} alt={study.name} width={640} height={360} style={{height:"auto"}} />
-              <Typography component="h3" sx={{ fontSize: "24px", fontWeight: 500, marginBottom: "8px", color: "#333", overflowY: "hidden", maxHeight: 30 }}>
-                {study.name}
-              </Typography>
-
-            </FrontSide>
-            <BackSide style={{ backgroundColor: '#333' }}>
-              <div style={{ overflowY: "hidden", color: "#FFF", height: "90%" }}>
-                {study.shortDescription && <div><i>{study.shortDescription}</i></div>}
-                <p>{study.description}</p>
-              </div>
-              <div style={{ textAlign: "right" }}>See more...</div>
-            </BackSide>
-          </Flippy>
+          <Card style={{padding:10}}>
+            <Image src={study.image || ""} alt={study.name} width={640} height={360} style={{height:"auto"}} />
+            <Typography component="h3" sx={{ fontSize: "24px", fontWeight: 500, marginBottom: "8px", color: "#333", overflowY: "hidden", maxHeight: 30 }}>
+              {study.name}
+            </Typography>
+            <div style={{ overflowY: "hidden", color: "#555", fontSize:15, height: "140px" }} className="fadeOut">
+              {study.shortDescription && <p><i>{study.shortDescription}</i></p>}
+              <p>{study.description}</p>
+            </div>
+            <div style={{ textAlign: "right", color:"#24b8ff", marginTop:5 }}>See more...</div>
+          </Card>
         </Link>
       </Grid>
     );

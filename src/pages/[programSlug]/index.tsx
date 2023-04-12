@@ -1,5 +1,5 @@
 import { GetStaticPaths, GetStaticProps } from "next";
-import { Container, Box, Typography } from "@mui/material";
+import { Container, Box, Typography, Grid } from "@mui/material";
 import { Layout, Studies } from "@/components";
 import { ProgramInterface, ApiHelper, ProviderInterface, StudyInterface, } from "@/utils";
 import { MarkdownPreview } from "@/components"
@@ -28,18 +28,19 @@ export default function ProgramPage(props: Props) {
     <Layout pageTitle={props.program.name + " - Free Church Curriculum"} metaDescription={props.program.description} image={props.program.image}>
       <div className="pageSection">
         <Container fixed>
-          <Box sx={{ textAlign: "center" }}>
-            <Typography component="h2" sx={{ fontSize: "36px", fontWeight: 700, marginBottom: "30px" }}>
-              {props.provider?.name || ""}: <span>{props.program.name}</span>
-            </Typography>
-            <p>
-              <i>{props.program.shortDescription}</i>
-            </p>
-          </Box>
-          <div><MarkdownPreview value={props.program.description} /></div>
-          {video}
-          <br />
-          <br />
+          <Grid container spacing={2}>
+            <Grid item md={(video)? 7 : 12} xs={12}>
+              <Typography component="h2" sx={{ fontSize: "36px", lineHeight:"36px", fontWeight: 700, marginBottom: "30px" }}>
+                {props.program.name}
+              </Typography>
+              <p className="lead">{props.program.shortDescription}</p>
+              <div><MarkdownPreview value={props.program.description} /></div>
+            </Grid>
+            {video && <Grid item md={5} xs={12}>
+              {video}
+            </Grid> }
+          </Grid>
+
           {props.studies?.length > 0 && (
             <Studies studies={props.studies} slug={`/${props.program.slug}`} />
           )}

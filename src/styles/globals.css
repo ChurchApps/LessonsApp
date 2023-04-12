@@ -1349,6 +1349,15 @@ a.dropdown-toggle::after {
 .accordion .editor-listitem { padding-bottom: 0px; }
 .accordion .editor-list-ul { margin-top: 0px; padding-top:0px; }
 
+.fadeOut {
+  --mask: linear-gradient(to bottom, 
+      rgba(0,0,0, 1) 0,   rgba(0,0,0, 1) 70%, 
+      rgba(0,0,0, 0) 95%, rgba(0,0,0, 0) 0
+  ) 100% 50% / 100% 100% repeat-x;
+  -webkit-mask: var(--mask); 
+  mask: var(--mask);
+}
+
 .arkHero {
   background-image: url("/images/landing/ark-hero.png");
   background-size: cover;
