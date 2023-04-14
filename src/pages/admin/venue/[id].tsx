@@ -130,7 +130,11 @@ export default function Venue() {
   const createAction = (roleId: string, sort?: number) => {
     if (!sort) sort = ArrayHelper.getAll(actions, "roleId", roleId).length + 1;
     clearEdits();
-    setEditAction({ lessonId: venue.lessonId, roleId: roleId, sort: sort, actionType: "Say" });
+    // The markdown editor won't refresh if you simple send it new content.  This delay is to force a full re-render.
+    setTimeout(() => {
+      setEditAction({ lessonId: venue.lessonId, roleId: roleId, sort: sort, actionType: "Say", content: "" });
+    }, 50);
+
   };
 
   const getRows = () => {
