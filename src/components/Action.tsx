@@ -4,6 +4,7 @@ import { VimeoModal } from "./VimeoModal";
 import { MarkdownPreview } from "./index"
 import Image from "next/image";
 import { AnalyticsHelper } from "@/appBase/helpers";
+import { CommonEnvironmentHelper } from "@/appBase/helpers/CommonEnvironmentHelper";
 
 type Props = {
   action: ActionInterface;
@@ -20,6 +21,7 @@ export function Action(props: Props) {
     const action = resource.name + " - " + variant.name;
     const label = window.location.pathname;
     AnalyticsHelper.logEvent("Download", action, label);
+    if (CommonEnvironmentHelper.GoogleAnalyticsTag !== "" && typeof(window)!=="undefined") gtag("event", "conversion", { send_to: "AW-427967381/iTZUCK6U7ZkYEJWHicwB" });
     const download = {
       lessonId: props.lessonId,
       fileId: variant.fileId,
@@ -36,6 +38,7 @@ export function Action(props: Props) {
     const action = video.name;
     const label = window.location.pathname;
     AnalyticsHelper.logEvent("Download", action, label);
+    if (CommonEnvironmentHelper.GoogleAnalyticsTag !== "" && typeof(window)!=="undefined") gtag("event", "conversion", { send_to: "AW-427967381/iTZUCK6U7ZkYEJWHicwB" });
     const download = {
       lessonId: props.lessonId,
       fileId: "",
@@ -53,6 +56,7 @@ export function Action(props: Props) {
     const action = resource.name + " - " + asset.name;
     const label = window.location.pathname;
     AnalyticsHelper.logEvent("Download Asset", action, label);
+    if (CommonEnvironmentHelper.GoogleAnalyticsTag !== "" && typeof(window)!=="undefined") gtag("event", "conversion", { send_to: "AW-427967381/iTZUCK6U7ZkYEJWHicwB" });
     const download = {
       lessonId: props.lessonId,
       fileId: asset.fileId,
