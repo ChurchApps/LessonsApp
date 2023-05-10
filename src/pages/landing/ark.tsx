@@ -69,17 +69,18 @@ export default function Home({ programs, providers, stats, hasError, error }: Pr
       <div className="homeSection" style={{backgroundColor:"#CCC"}}>
         <Container fixed>
           <Grid container spacing={4}>
+
             <Grid item md={4} xs={12} style={{textAlign:"center"}}>
-              <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris a fringilla purus, et facilisis orci. Nulla sed ligula scelerisque, congue nisi sit amet, dignissim enim.</p>
-              <b>John Doe</b>
+              <p style={{minHeight:100, fontStyle:"italic"}}>Lessons.church provides fun, biblical lessons with materials designed for different age groups, which allows families to discuss the same lesson all together.</p>
+              <b>Sarah DeLitta</b><br />Bedford Outpost Church, VA
             </Grid>
             <Grid item md={4} xs={12} style={{textAlign:"center"}}>
-              <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris a fringilla purus, et facilisis orci. Nulla sed ligula scelerisque, congue nisi sit amet, dignissim enim.</p>
-              <b>John Doe</b>
+              <p style={{minHeight:100, fontStyle:"italic"}}>We love how Lessons.Church has provided a multitude of resources at our fingertips. It makes scheduling super easy!</p>
+              <b>Chelsea Boldt</b><br />Venture Christian Church, TX
             </Grid>
             <Grid item md={4} xs={12} style={{textAlign:"center"}}>
-              <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris a fringilla purus, et facilisis orci. Nulla sed ligula scelerisque, congue nisi sit amet, dignissim enim.</p>
-              <b>John Doe</b>
+              <p style={{minHeight:100, fontStyle:"italic"}}>Lessons.church is a valuable resource of engaging, biblical and practical curriculum that is easy to incorporate into our children’s ministry!</p>
+              <b>Erin B.</b><br />Lake City Christian Church, FL
             </Grid>
           </Grid>
         </Container>

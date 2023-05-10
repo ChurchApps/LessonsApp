@@ -1401,3 +1401,48 @@ a.dropdown-toggle::after {
   }
 
 }
+
+.limitedText {
+  height: 200px;
+  overflow: hidden;
+}
+
+.anchor {
+  display: block;
+  position: relative;
+  top: -70px;
+  visibility: hidden;
+}
+
+
+.img-container {
+  width: 100%;
+  position: relative;
+  overflow: hidden;
+  margin-bottom: 2rem;
+}
+
+
+.img-container::after {
+  content: "";
+  display: block;
+  padding-bottom: 337px;
+}
+
+
+.img-container > * {
+  position: absolute;
+  top: var(--offset, 0);
+  left: var(--offset, 0);
+  width: calc(100% - 2 * var(--offset, 0px));
+  height: calc(100% - 2 * var(--offset, 0px));
+  object-fit: contain;
+}
+
+.img-blur {
+  --blur: 20px;
+  --offset: calc(-1 * var(--blur));
+  object-fit: cover;
+  filter: blur(var(--blur));
+  opacity: 0.9;
+}

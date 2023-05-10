@@ -36,10 +36,12 @@
     "react-ga4": "^2.1.0",
     "react-google-charts": "^3.0.15",
     "react-lite-youtube-embed": "^2.3.52",
+    "react-material-ui-carousel": "^3.4.2",
     "react-router-dom": "^6.2.1",
     "react-simple-maps": "^2.3.0",
     "react-to-print": "^2.14.3",
     "react-tooltip": "^4.2.21",
+    "rrule": "^2.7.2",
     "stripe": "^8.195.0",
     "yup": "^0.32.11"
   },
