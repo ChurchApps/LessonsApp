@@ -13,7 +13,7 @@ type Props = {
 };
 
 export function Venues(props: Props) {
-  const [selectedTab, setSelectedTab] = useState(props.venues[0]?.id || "");
+  const [selectedTab, setSelectedTab] = useState((props.venues?.length > 0) ? props.venues[0]?.id  || "" : "");
 
   const venueViews = props.venues.map((v, idx) => {
     const resources: ResourceInterface[] = [];
