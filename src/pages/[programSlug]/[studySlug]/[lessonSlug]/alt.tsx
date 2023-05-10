@@ -86,14 +86,14 @@ export default function LessonsPage(props: Props) {
               <Card style={sidebarStyle} id="sidebar" data-spy="affix" data-offset-top="100">
                 <div>
                   <h4 style={{marginTop:0}}>Venue</h4>
-                  <Select fullWidth size="small" label={"Venue"} style={{backgroundColor:"#FFF"}} value={selectedVenue.id} onChange={handleVenueChange}>{getVenueOptions()}</Select>
+                  <Select fullWidth size="small" label={"Venue"} style={{backgroundColor:"#FFF"}} value={selectedVenue?.id} onChange={handleVenueChange}>{getVenueOptions()}</Select>
                   <h4>Sections</h4>
-                  {selectedVenue.sections.map((s) => (s.roles.length>0) ? <div><a href={"#anchor-" + s.id}>{s.name}</a></div> : null )}
+                  {selectedVenue?.sections?.map((s) => (s.roles.length>0) ? <div><a href={"#anchor-" + s?.id}>{s.name}</a></div> : null )}
                 </div>
               </Card>
             </Grid>
             <Grid item md={9} sm={12}>
-              {selectedVenue.sections.map((s) =>
+              {selectedVenue?.sections?.map((s) =>
                 <Card style={{marginBottom:20 }}>
                   <SectionAlt section={s} resources={props.resources} externalVideos={props.externalVideos} activeSectionId={""} toggleActive={function (id: string): void {
                   } } />

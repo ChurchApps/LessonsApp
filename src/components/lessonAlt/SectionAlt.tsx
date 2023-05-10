@@ -117,7 +117,6 @@ export function SectionAlt(props: Props) {
 
     } else {
       files.forEach(f => {
-        console.log("FILE", resource.name, f.thumbPath, f.fileType);
         if (f?.thumbPath) {
           result = (<div className="img-container">
             <img src={f.thumbPath || ""} alt={resource.name} className="img-blur" aria-hidden="true" />

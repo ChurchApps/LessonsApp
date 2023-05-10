@@ -121,7 +121,6 @@ export function ActionEdit(props: Props) {
   };
 
   const getContent = () => {
-    console.log("Content Is", action.content);
     if (action.actionType !== "Play" && action.actionType !== "Download") {
       return <MarkdownEditor value={action.content} onChange={handleMarkdownChange} />
     }
