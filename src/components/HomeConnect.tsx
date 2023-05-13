@@ -33,7 +33,7 @@ export function HomeConnect() {
                 <p>View <a href="https://support.churchapps.org/lessons/setup.html" target="_blank" rel="noreferrer">our guide</a> on setting up schedules to configure your church.</p>
               </Grid>
               <Grid item md={7} xs={12}>
-                <EmbeddedVideo videoEmbedUrl="https://www.youtube.com/embed/DmDcQr0IfJg" title="Lessons.church App" />
+                <EmbeddedVideo videoEmbedUrl="https://www.youtube.com/embed/_RnvM1TzVC4" title="Lessons.church App" />
               </Grid>
             </Grid>
             <Grid container spacing={3} style={{ marginTop: 20 }}>
