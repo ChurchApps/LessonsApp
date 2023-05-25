@@ -44,6 +44,7 @@ export function PlaylistFeed(props: Props) {
         <p>For use with external digital signage software, right click and copy <a href={getFeedUrl()} target="_blank" rel="noreferrer nooppener">this url</a>.  Follow <a href="https://support.signpresenter.com/topics/lessons-dot-church.html" target="_blank" rel="noreferrer nooppener">these instructions</a> to connect to SignPresenter.</p>
         <b>Share Your Current Lesson</b>
         <p>Link to <a href={getClassroomUrl()} target="_blank" rel="noreferrer nooppener">this page</a> to easily share with your students (or parents) what was studied each week.  You can customize the look by uploading a church logo <a href="https://app.chums.org/settings" target="_blank" rel="noreferrer nooppener">here</a>.</p>
+        <p>Share <a href={getClassroomUrl() + "?upcoming=1"} target="_blank" rel="noreferrer nooppener">this page</a> with teachers for upcoming lessons.</p>
       </InputBox>
     </>
   );
