@@ -19,6 +19,7 @@ export default function Venue() {
 
   const router = useRouter();
   const id = router.query.id;
+  const upcoming = router.query.upcoming === "1";
 
   useEffect(() => { loadData(); }, [id]);
 
@@ -51,14 +52,23 @@ export default function Venue() {
   }
 
   const filterSchedules = (s: ScheduleInterface[]) => {
-    for (let i = s.length - 1; i >= 0; i--) {
-      if (DateHelper.toDate(s[i].scheduledDate) > new Date()) {
-        s.splice(i, 1);
-      }
-    }
+    let result:ScheduleInterface[] = []
 
-    if (s.length > 4) s.splice(0, s.length - 4)
-    return s.sort((a, b) => (DateHelper.toDate(a.scheduledDate) < DateHelper.toDate(b.scheduledDate)) ? 1 : -1)
+    if (upcoming)
+    {
+      for (let i = s.length - 1; i >= 0; i--) {
+        if (DateHelper.toDate(s[i].scheduledDate) < new Date()) s.splice(i, 1);
+      }
+      result = s.sort((a, b) => (DateHelper.toDate(a.scheduledDate) > DateHelper.toDate(b.scheduledDate)) ? 1 : -1)
+      if (result.length > 4) result.splice(0, 4)
+    } else {
+      for (let i = s.length - 1; i >= 0; i--) {
+        if (DateHelper.toDate(s[i].scheduledDate) > new Date()) s.splice(i, 1);
+      }
+      if (s.length > 4) s.splice(0, s.length - 4)
+      result = s.sort((a, b) => (DateHelper.toDate(a.scheduledDate) < DateHelper.toDate(b.scheduledDate)) ? 1 : -1)
+    }
+    return result;
   }
 
   const getRows = () => {
