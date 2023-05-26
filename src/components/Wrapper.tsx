@@ -18,7 +18,7 @@ export const Wrapper: React.FC<Props> = props => {
     if (typeof window !== "undefined") {
       const path = window.location.pathname;
       if (path.startsWith("/admin")) result = "admin";
-      else if (path.startsWith("/cp")) result = "cp";
+      else if (path.startsWith("/portal")) result = "cp";
     }
     return result;
   }
@@ -27,7 +27,7 @@ export const Wrapper: React.FC<Props> = props => {
 
   tabs.push(<NavItem url="/" label="Home" icon="home" router={router} />);
   if (UserHelper.checkAccess(Permissions.lessonsApi.lessons.edit)) tabs.push(<NavItem url="/admin" label="Admin" icon="admin_panel_settings" router={router} selected={selectedTab === "admin"} key="admin" />);
-  if (UserHelper.checkAccess(Permissions.lessonsApi.lessons.editSchedules)) tabs.push(<NavItem url="/cp" label="Schedules" icon="calendar_month" router={router} selected={selectedTab === "cp"} key="cp" />);
+  if (UserHelper.checkAccess(Permissions.lessonsApi.lessons.editSchedules)) tabs.push(<NavItem url="/portal" label="Schedules" icon="calendar_month" router={router} selected={selectedTab === "cp"} key="cp" />);
 
   const navContent = <><List component="nav" sx={Themes.NavBarStyle}>{tabs}</List></>
 
