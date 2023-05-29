@@ -53,14 +53,13 @@ export default function Venue() {
 
   const filterSchedules = (s: ScheduleInterface[]) => {
     let result:ScheduleInterface[] = []
-
     if (upcoming)
     {
       for (let i = s.length - 1; i >= 0; i--) {
         if (DateHelper.toDate(s[i].scheduledDate) < new Date()) s.splice(i, 1);
       }
       result = s.sort((a, b) => (DateHelper.toDate(a.scheduledDate) > DateHelper.toDate(b.scheduledDate)) ? 1 : -1)
-      if (result.length > 4) result.splice(0, 4)
+      if (result.length > 4) result.splice(4, result.length - 4)
     } else {
       for (let i = s.length - 1; i >= 0; i--) {
         if (DateHelper.toDate(s[i].scheduledDate) > new Date()) s.splice(i, 1);
