@@ -28,6 +28,13 @@ export interface StudyInterface {
   live?: boolean;
   sort?: number;
 }
+export interface StudyCategoryInterface {
+  id?: string;
+  programId?: string;
+  studyId?: string;
+  categoryName?: string;
+  sort?: number;
+}
 export interface LessonInterface {
   id?: string;
   studyId?: string;

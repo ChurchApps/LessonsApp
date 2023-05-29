@@ -20,10 +20,10 @@ export { SectionCopy } from "./admin/SectionCopy";
 export { SectionEdit } from "./admin/SectionEdit";
 export { RoleEdit } from "./admin/RoleEdit";
 export { ActionEdit } from "./admin/ActionEdit";
-export { ClassroomList } from "./cp/ClassroomList";
-export { ClassroomEdit } from "./cp/ClassroomEdit";
-export { ScheduleList } from "./cp/ScheduleList";
-export { ScheduleEdit } from "./cp/ScheduleEdit";
+export { ClassroomList } from "./portal/ClassroomList";
+export { ClassroomEdit } from "./portal/ClassroomEdit";
+export { ScheduleList } from "./portal/ScheduleList";
+export { ScheduleEdit } from "./portal/ScheduleEdit";
 
 export { ErrorMessages } from "@/appBase/components/ErrorMessages";
 export { DisplayBox } from "@/appBase/components/DisplayBox";

@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
 import { ClassroomList, HomeConnect, ScheduleList, } from "@/components";
-import { PlaylistFeed } from "@/components/cp/PlaylistFeed";
+import { PlaylistFeed } from "@/components/portal/PlaylistFeed";
 import { ApiHelper, UserHelper, Permissions } from "@/utils";
 import { Wrapper } from "@/components/Wrapper";
 import { Grid } from "@mui/material";

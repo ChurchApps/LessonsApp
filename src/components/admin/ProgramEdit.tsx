@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { ErrorMessages, InputBox, ImageEditor } from "../index";
 import { ApiHelper, ProgramInterface } from "@/utils";
 import { FormControl, InputLabel, MenuItem, Select, SelectChangeEvent, TextField } from "@mui/material";
+import Link from "next/link";
 
 type Props = {
   program: ProgramInterface;
@@ -96,6 +97,7 @@ export function ProgramEdit(props: Props) {
         <TextField fullWidth multiline label="Description" name="description" value={program.description} onChange={handleChange} onKeyDown={handleKeyDown} />
         <TextField fullWidth multiline label="About Section" name="aboutSection" value={program.aboutSection} onChange={handleChange} onKeyDown={handleKeyDown} />
         <TextField fullWidth label="Video Embed Url" name="videoEmbedUrl" value={program.videoEmbedUrl} onChange={handleChange} onKeyDown={handleKeyDown} />
+        <Link href={"/admin/categories/" + program.id.toString()}>Edit Categories</Link>
       </InputBox>
     </>
   );

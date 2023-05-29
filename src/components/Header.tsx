@@ -15,7 +15,7 @@ export function Header() {
   );
 
   const cpItems = UserHelper.checkAccess(Permissions.lessonsApi.lessons.editSchedules) && (
-    <MenuItem onClick={() => { router.push("/cp") }}><Icon sx={{ marginRight: "5px" }}>calendar_month</Icon> Schedules</MenuItem>
+    <MenuItem onClick={() => { router.push("/portal") }}><Icon sx={{ marginRight: "5px" }}>calendar_month</Icon> Schedules</MenuItem>
   );
 
   function logout() {

@@ -33,7 +33,7 @@ export function ScheduleList(props: Props) {
             {DateHelper.formatHtml5Date(s?.scheduledDate)}
           </td>
           <td>
-            <Link href={"/cp/venue/" + s.venueId}><Icon sx={{ marginRight: "5px" }}>psychology</Icon></Link>
+            <Link href={"/portal/venue/" + s.venueId}><Icon sx={{ marginRight: "5px" }}>psychology</Icon></Link>
             {s.displayName}
           </td>
           <td style={{ textAlign: "right" }}>
