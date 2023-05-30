@@ -4,6 +4,7 @@ import { VenueInterface, ResourceInterface, BundleInterface, CustomizationInterf
 import { Downloads } from "./Downloads";
 import { Section } from "./Section";
 import { Grid, Icon, Button, Box, FormControl, InputLabel, Select, MenuItem } from "@mui/material";
+import { Presenter } from "./Presenter";
 
 type Props = {
   useAccordion: boolean;
@@ -20,6 +21,7 @@ export function Venue(props: Props) {
   const [activeSectionId, setActiveSectionId] = React.useState<string>(props.venue.sections[0]?.id || "");
   const [displaySection, setDisplaySection] = React.useState<boolean>(false);
   const [jumpSection, setJumpSection] = React.useState<string>(props.venue.sections[0]?.id || "");[0]
+  const [showPresenter, setShowPresenter] = React.useState<boolean>(false);
 
   const handleToggle = (sectionId: string) => { setActiveSectionId(sectionId); };
 
@@ -92,6 +94,7 @@ export function Venue(props: Props) {
         <Grid item xs={6} md={8}>
           <Box sx={{ display: "flex", justifyContent: "flex-end", gap: "8px", flexWrap: "wrap" }} style={{paddingTop:10}}>
             {getPrint()}
+            <a href="about:blank" onClick={(e) => { e.preventDefault(); setShowPresenter(true); }}>Present</a>
             <Downloads bundles={props.bundles} externalVideos={props.externalVideos} />
           </Box>
         </Grid>
@@ -105,6 +108,7 @@ export function Venue(props: Props) {
         <h2 className="printOnly">{props.venue.name} Instructions</h2>
         {getPrintSections()}
       </div>
+      {showPresenter && <Presenter venue={props.venue} />}
     </div>
   );
 }
