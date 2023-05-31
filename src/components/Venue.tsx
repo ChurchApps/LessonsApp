@@ -108,7 +108,7 @@ export function Venue(props: Props) {
         <h2 className="printOnly">{props.venue.name} Instructions</h2>
         {getPrintSections()}
       </div>
-      {showPresenter && <Presenter venue={props.venue} />}
+      {showPresenter && <Presenter venue={props.venue} onClose={() => { setShowPresenter(false); }} />}
     </div>
   );
 }

@@ -1,14 +1,17 @@
 import { ApiHelper, PlaylistFileInterface, VenueInterface } from "@/utils";
 import { useEffect, useState } from "react";
 import Carousel from "react-material-ui-carousel";
+import { PresenterSlide } from "./PresenterSlide";
 
 type Props = {
   venue: VenueInterface;
+  onClose: () => void;
 };
 
 export function Presenter(props: Props) {
 
   const [files, setFiles] = useState<PlaylistFileInterface[]>([]);
+  const [index, setIndex] = useState<number>(0);
 
   const loadData = () => {
     ApiHelper.get("/venues/playlist/" + props.venue.id + "?mode=web", "LessonsApi").then(data => {
@@ -20,17 +23,22 @@ export function Presenter(props: Props) {
     });
   }
 
+
   useEffect(() => {
     loadData();
     const element = document.getElementById("presenter");
-    if (element) element.requestFullscreen();
+    if (element && window) {
+      try { element.requestFullscreen(); }
+      catch (ex) { props.onClose(); }
+    }
   }, []);
 
   return (
     <div id="presenter">
-      <p>Hello World {props.venue.id}</p>
-      <Carousel height={"100vh"} autoPlay={false} fullHeightHover={true} navButtonsAlwaysVisible={true}>
-        {files.map((f, i) => <div key={i}><img src={f.url || ""} alt={f.name + " - " + f.url} style={{ height: "auto" }} /></div>)}
+      <Carousel height={"100vh"} autoPlay={false} fullHeightHover={true} navButtonsAlwaysVisible={true} next={(next, active)  => { setIndex(next) } }>
+        {files.map((f, i) => <div key={i}>
+          {(i===index) ? <PresenterSlide file={f} /> : <div></div>}
+        </div>)}
       </Carousel>
     </div>
   )
