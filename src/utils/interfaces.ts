@@ -190,3 +190,4 @@ export interface DownloadInterface {
   downloadDate?: Date,
   fileName?: string
 }
+export interface PlaylistFileInterface { name: string, url: string, seconds: number, loopVideo: boolean }
