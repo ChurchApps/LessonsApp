@@ -23,6 +23,9 @@ export function Presenter(props: Props) {
     });
   }
 
+  const handleFullScreenChanged = () => {
+    if (!document.fullscreenElement) props.onClose();
+  }
 
   useEffect(() => {
     loadData();
@@ -30,7 +33,9 @@ export function Presenter(props: Props) {
     if (element && window) {
       try { element.requestFullscreen(); }
       catch (ex) { props.onClose(); }
+      element.addEventListener("fullscreenchange", handleFullScreenChanged);
     }
+
   }, []);
 
   return (
