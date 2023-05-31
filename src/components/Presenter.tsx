@@ -12,6 +12,8 @@ export function Presenter(props: Props) {
 
   const [files, setFiles] = useState<PlaylistFileInterface[]>([]);
   const [index, setIndex] = useState<number>(0);
+  const [pendingGoBack, setPendingGoBack] = useState<number>(0);
+  const [pendingGoForward, setPendingGoForward] = useState<number>(0);
 
   const loadData = () => {
     ApiHelper.get("/venues/playlist/" + props.venue.id + "?mode=web", "LessonsApi").then(data => {
@@ -27,6 +29,11 @@ export function Presenter(props: Props) {
     if (!document.fullscreenElement) props.onClose();
   }
 
+  const upHandler = (data:any) => {
+    if (data.key.toString() === "ArrowLeft") { setPendingGoBack(Math.random()); }
+    if (data.key.toString() === "ArrowRight") { setPendingGoForward(Math.random()); }
+  }
+
   useEffect(() => {
     loadData();
     const element = document.getElementById("presenter");
@@ -35,12 +42,20 @@ export function Presenter(props: Props) {
       catch (ex) { props.onClose(); }
       element.addEventListener("fullscreenchange", handleFullScreenChanged);
     }
-
+    window.addEventListener("keyup", upHandler);
+    return () => {
+      window.removeEventListener("keyup", upHandler);
+      element?.removeEventListener("fullscreenchange", handleFullScreenChanged);
+    };
   }, []);
+
+  useEffect(() => { if (pendingGoBack !== 0 && index>0) setIndex(index-1); }, [pendingGoBack]);
+  useEffect(() => { if (pendingGoForward !== 0 && index<files?.length-1) setIndex(index+1); }, [pendingGoForward]);
+
 
   return (
     <div id="presenter">
-      <Carousel height={"100vh"} autoPlay={false} fullHeightHover={true} navButtonsAlwaysVisible={true} next={(next, active)  => { setIndex(next) } }>
+      <Carousel height={"100vh"} autoPlay={false} fullHeightHover={true} navButtonsAlwaysVisible={false} next={(next)  => { setIndex(next) } } index={index}>
         {files.map((f, i) => <div key={i}>
           {(i===index) ? <PresenterSlide file={f} /> : <div></div>}
         </div>)}
