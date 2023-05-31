@@ -1,13 +1,21 @@
-import { Box } from "@mui/material";
+import { Box, Container, Grid } from "@mui/material";
 
 export function Footer() {
   return (
     <div id="footer">
-      <Box sx={{ textAlign: "center", padding: "0 16px" }}>
-        <img src="/images/logo-dark.png" alt="Free church curriculum" />
-        <p>Phone: <a href="tex:9189942638">918-994-2638</a> &nbsp; | &nbsp; <a href="mailto:support@churchapps.org">support@churchapps.org</a></p>
-        <p>{new Date().getFullYear()} © Live Church Solutions. All rights reserved.</p>
-      </Box>
+      <Container fixed>
+        <Grid container spacing={3}>
+          <Grid item xs={3}>
+            <img src="/images/logo-dark.png" alt="Free church curriculum" className="img-fluid" />
+          </Grid>
+          <Grid item xs={9} style={{textAlign:"center"}}>
+            <p style={{paddingTop:8}}>
+              Phone: <a href="tex:9189942638" style={{color:"#FFF"}}>918-994-2638</a> &nbsp; | &nbsp; Email: <a href="mailto:support@churchapps.org">support@churchapps.org</a>
+            </p>
+          </Grid>
+        </Grid>
+        <p className="copyright">{new Date().getFullYear()} © <span style={{color:"#FFF"}}>Live Church Solutions</span>. All rights reserved.</p>
+      </Container>
     </div>
   );
 }

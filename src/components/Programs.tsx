@@ -18,7 +18,7 @@ export function Programs(props: Props) {
     {
       const link = studies.length > i
         ? (<Link href={"/" + program.slug + "/" + studies[i].slug}>
-          <Image src={studies[i].image} alt={studies[i].name} width={256} height={144} style={{height:"auto"}} placeholder="empty" />
+          <Image src={studies[i].image} alt={studies[i].name} width={256} height={144} style={{height:"auto"}} placeholder="empty" className="img-fluid" />
         </Link>)
         : null;
       result.push(<td>{link}</td>);

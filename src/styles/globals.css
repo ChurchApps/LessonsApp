@@ -35,9 +35,6 @@ a {
   text-decoration: none;
 }
 
-img {
-  width: 100%;
-}
 
 h1 {
   font-size: 35px;
@@ -360,15 +357,20 @@ h1 {
 }
 
 #footer {
-  background-color: #333;
+  background-color: #28235d;
   padding-top: 40px;
   padding-bottom: 40px;
-  color: #eee;
+  color: #bab8d0;
+}
+
+#footer .copyright {
+  border-top: 1px solid #3e3a6d;
+  padding-top:10px;
+  text-align: center;
 }
 
 #footer img {
   max-width: 450px;
-  margin-bottom: 20px;
 }
 
 .form-control::placeholder {
@@ -1539,6 +1541,15 @@ a.dropdown-toggle::after {
   width:20%;
   padding:10px;
 }
+
+.apps {
+  background-color: #28235d;
+  color: #FFF;
+  padding: 50px 40px 20px 40px;
+  border-radius: 10px;
+}
+
+.img-fluid { width:100% }
 
 @media (max-width: 600px) {
   .programHero {
