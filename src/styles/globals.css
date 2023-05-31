@@ -1,3 +1,7 @@
+/*
+#28235d - dark blue
+*/
+
 :root {
   scroll-behavior: auto;
 }
@@ -433,7 +437,9 @@ label .description {
   margin-bottom: 30px;
   font-size: 36px;
   font-weight: bold;
-  text-align: center;
+  margin-top:0px;
+  line-height:36px;
+  color:#28235d;
 }
 
 .homeSection ul {
@@ -1447,6 +1453,38 @@ a.dropdown-toggle::after {
   opacity: 0.9;
 }
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 #presenter {
   /*
   width: 100%;
@@ -1457,4 +1495,74 @@ a.dropdown-toggle::after {
   */
   color:#FFF;
   background-color: #000;
+}
+
+.programHero {
+  background-size: cover;
+  background-position-x: right;
+  background-position-y: top;
+  background-color:#28235e;
+  color:#FFF;
+}
+
+.programHero .age {
+  margin-top:100px;
+  color: #34a8de;
+  font-weight: bold;
+}
+
+.programHero H2 {
+  font-size: 50px;
+  margin-top: 0px;
+  margin-bottom: 0px;
+}
+
+.programHero p {
+  margin-top:0px;
+}
+
+.cta{
+  display: inline-block;
+  background-color: #34a8de;
+  color: #FFF;
+  border-radius: 20px;
+  padding:10px 20px;
+}
+
+.programHero table {
+  width:100%;
+  margin-top:100px;
+  padding-bottom: 60px;
+}
+
+.programHero table td {
+  width:20%;
+  padding:10px;
+}
+
+@media (max-width: 600px) {
+  .programHero {
+    background-position-x: 80%;
+  }
+
+  .programHero H2 {
+    font-size: 30px;
+  }
+
+  .programHero p, .programHero .age, .programHero H2 {
+    text-shadow: #000 3px 3px 6px;
+  }
+
+  .programHero table td {
+    width:33%;
+  }
+
+  .programHero table td:nth-child(4), .programHero table td:nth-child(3) {
+    display: none;
+  }
+
+  .programHero table {
+    padding-bottom: 20px;
+  }
+  
 }

@@ -15,6 +15,8 @@ export interface ProgramInterface {
   videoEmbedUrl?: string;
   live?: boolean;
   aboutSection?: string;
+  age?: string;
+  sort?: number;
 }
 export interface StudyInterface {
   id?: string;

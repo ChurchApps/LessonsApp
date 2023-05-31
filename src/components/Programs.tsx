@@ -1,16 +1,76 @@
-import Link from "next/link";
-import { Container, Grid } from "@mui/material";
-import { ProgramInterface, ProviderInterface } from "@/utils";
-import { MarkdownPreview } from "./index";
+import { Container, Grid, Link } from "@mui/material";
+import { ArrayHelper, ProgramInterface, ProviderInterface, StudyInterface } from "@/utils";
 import Image from "next/image";
 
 type Props = {
   programs: ProgramInterface[];
   providers: ProviderInterface[];
+  studies: StudyInterface[];
 };
 
 export function Programs(props: Props) {
 
+  const getStudies = (program: ProgramInterface) => {
+
+    const studies = ArrayHelper.getAll(props.studies, "programId", program.id);
+    const result:JSX.Element[] = [];
+    for (let i=0;i<=5;i++)
+    {
+      const link = studies.length > i
+        ? (<Link href={"/" + program.slug + "/" + studies[i].slug}>
+          <Image src={studies[i].image} alt={studies[i].name} width={256} height={144} style={{height:"auto"}} placeholder="empty" />
+        </Link>)
+        : null;
+      result.push(<td>{link}</td>);
+    }
+    return result;
+  }
+
+  const getProgramDiv = (program: ProgramInterface) => {
+    const url = "/" + program.slug + "/";
+    return (<div className="programHero" style={{ backgroundImage:"url('/images/programs/" + program.slug + ".jpg')" }}>
+      <div className="programHeroContent">
+        <Container fixed>
+          <Grid container spacing={3}>
+            <Grid item md={6} xs={12}>
+              <div className="age">{program.age.toUpperCase()}</div>
+              <h2>{program.name}</h2>
+              <p>{program.shortDescription}</p>
+              <a href={url} className="cta">Learn More</a>
+            </Grid>
+          </Grid>
+          <table>
+            <tbody>
+              <tr>
+                {getStudies(program)}
+              </tr>
+            </tbody>
+          </table>
+
+        </Container>
+      </div>
+    </div> )
+  }
+
+
+  const programDivs:JSX.Element[] = [];
+  props.programs.forEach((program) => {
+    programDivs.push(getProgramDiv(program));
+  });
+
+  return (<>
+    <div className="homeSection" style={{paddingTop:20, paddingBottom:20}}>
+      <Container fixed style={{textAlign:"center" }}>
+        <div className="title">
+          <span>LESSONS.CHURCH</span>
+        </div>
+        <h2>Available Programs</h2>
+      </Container>
+    </div>
+    {programDivs}
+  </>);
+
+  /*
   function createProgram({ slug, image, name, shortDescription, description, id }: ProgramInterface) {
     const url = "/" + slug + "/";
     return (
@@ -46,7 +106,12 @@ export function Programs(props: Props) {
       ));
     })
     .filter((p) => p);
+*/
 
+
+
+
+/*
   return (
     programsView.length > 0 && (
       <div className="homeSection" style={{ paddingTop: 20 }}>
@@ -59,4 +124,5 @@ export function Programs(props: Props) {
       </div>
     )
   );
+  */
 }

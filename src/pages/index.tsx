@@ -1,6 +1,6 @@
 import { GetStaticProps } from "next";
 import { HomeAbout, HomeConnect, Layout, Programs, Stats } from "@/components";
-import { ApiHelper, ProgramInterface, ProviderInterface } from "@/utils";
+import { ApiHelper, ProgramInterface, ProviderInterface, StudyInterface } from "@/utils";
 import { Grid, Container, Button, Icon } from "@mui/material";
 import { FloatingSupport } from "@/appBase/components";
 import Error from "./_error";
@@ -9,6 +9,7 @@ import { EmbeddedVideo } from "@/components/EmbeddedVideo";
 type Props = {
   programs: ProgramInterface[];
   providers: ProviderInterface[];
+  studies: StudyInterface[];
   stats: any;
   hasError: Boolean;
   error: {
@@ -16,7 +17,7 @@ type Props = {
   };
 };
 
-export default function Home({ programs, providers, stats, hasError, error }: Props) {
+export default function Home({ programs, providers, studies, stats, hasError, error }: Props) {
 
   if (hasError) {
     return <Error message={error.message} />
@@ -50,10 +51,10 @@ export default function Home({ programs, providers, stats, hasError, error }: Pr
       </div>
 
       <Stats stats={stats} />
-
-      <Programs programs={programs} providers={providers} />
-      <HomeConnect />
       <HomeAbout />
+      <Programs programs={programs} providers={providers} studies={studies} />
+      <HomeConnect />
+
       <FloatingSupport appName="Lessons.church" />
     </Layout>
   );
@@ -63,9 +64,10 @@ export const getStaticProps: GetStaticProps = async () => {
   try {
     const programs: ProgramInterface[] = await ApiHelper.getAnonymous("/programs/public", "LessonsApi");
     const providers: ProviderInterface[] = await ApiHelper.getAnonymous("/providers/public", "LessonsApi");
+    const studies: ProviderInterface[] = await ApiHelper.getAnonymous("/studies/public", "LessonsApi");
     const stats: any = await ApiHelper.getAnonymous("/providers/stats", "LessonsApi");
     return {
-      props: { programs, providers, stats, hasError: false },
+      props: { programs, providers, studies, stats, hasError: false },
       revalidate: 30,
     };
   } catch (error:any) {
