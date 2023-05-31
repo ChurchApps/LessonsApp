@@ -94,7 +94,6 @@ export function Venue(props: Props) {
         <Grid item xs={6} md={8}>
           <Box sx={{ display: "flex", justifyContent: "flex-end", gap: "8px", flexWrap: "wrap" }} style={{paddingTop:10}}>
             {getPrint()}
-            <a href="about:blank" onClick={(e) => { e.preventDefault(); setShowPresenter(true); }}>Present</a>
             <Downloads bundles={props.bundles} externalVideos={props.externalVideos} />
           </Box>
         </Grid>
