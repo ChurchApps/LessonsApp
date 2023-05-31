@@ -1,7 +1,5 @@
-import { Grid, Container, Button, Menu, MenuItem, Icon, Stack } from "@mui/material";
+import { Grid, Container, Stack } from "@mui/material";
 import { useState } from "react";
-import { EmbeddedVideo } from "./EmbeddedVideo";
-import Image from "next/image";
 
 export function HomeConnect() {
 

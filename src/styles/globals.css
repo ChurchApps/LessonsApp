@@ -45,7 +45,6 @@ h2 span {
 }
 
 body {
-  background-color: #f3f3f6;
   margin: 0px;
 }
 
@@ -1550,6 +1549,49 @@ a.dropdown-toggle::after {
 }
 
 .img-fluid { width:100% }
+
+#testimonials {
+  padding-bottom: 20px;
+
+}
+
+.testimonial { 
+  background-color: #f9f9f9;
+  color: #000;
+  padding: 50px 40px 20px 40px;
+  border-radius: 10px;
+  min-height: 230px;
+}
+
+.testimonial .stars { 
+  background-image:url("/images/stars.png");
+  width: 124px;
+  height: 19px;
+  float:right;
+}
+
+.testimonial .icon { 
+  background-image:url("/images/quote.png");
+  width: 73px;
+  height: 52px;
+  float:left;
+  margin-right: 20px;
+}
+
+.testimonial .name {
+  color: #28235d;
+  font-weight: bold;
+  font-size:20px;
+}
+
+.testimonial .church {
+  color: #7a7a7a;
+  font-size:14px;
+}
+
+.testimonial p {
+  clear:both;
+}
 
 @media (max-width: 600px) {
   .programHero {

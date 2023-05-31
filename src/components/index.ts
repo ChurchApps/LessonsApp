@@ -1,8 +1,8 @@
-export { HomeAbout } from "./HomeAbout";
-export { HomeConnect } from "./HomeConnect";
+export { HomeAbout } from "./home/HomeAbout";
+export { HomeConnect } from "./home/HomeConnect";
 export { Layout } from "./Layout";
 export { Lessons } from "./Lessons";
-export { Programs } from "./Programs";
+export { Programs } from "./home/Programs";
 export { Stats } from "./Stats";
 export { Studies } from "./Studies";
 export { Venues } from "./Venues";

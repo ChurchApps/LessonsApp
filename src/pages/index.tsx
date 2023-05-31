@@ -5,6 +5,7 @@ import { Grid, Container, Button, Icon } from "@mui/material";
 import { FloatingSupport } from "@/appBase/components";
 import Error from "./_error";
 import { EmbeddedVideo } from "@/components/EmbeddedVideo";
+import { HomeTestimonials } from "@/components/home/HomeTestimonials";
 
 type Props = {
   programs: ProgramInterface[];
@@ -53,6 +54,7 @@ export default function Home({ programs, providers, studies, stats, hasError, er
       <Stats stats={stats} />
       <HomeAbout />
       <Programs programs={programs} providers={providers} studies={studies} />
+      <HomeTestimonials />
       <HomeConnect />
 
       <FloatingSupport appName="Lessons.church" />
