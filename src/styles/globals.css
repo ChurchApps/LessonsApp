@@ -1595,6 +1595,10 @@ a.dropdown-toggle::after {
   opacity:0.8;
 }
 
+.programStudies a:hover {
+  opacity: 0.8;
+}
+
 @media (max-width: 600px) {
   .programHero {
     background-position-x: 80%;

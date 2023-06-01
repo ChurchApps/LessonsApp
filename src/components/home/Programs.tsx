@@ -41,7 +41,7 @@ export function Programs(props: Props) {
           </Grid>
           <table>
             <tbody>
-              <tr>
+              <tr className="programStudies">
                 {getStudies(program)}
               </tr>
             </tbody>
