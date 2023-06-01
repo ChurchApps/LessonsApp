@@ -28,7 +28,7 @@ export function Programs(props: Props) {
 
   const getProgramDiv = (program: ProgramInterface) => {
     const url = "/" + program.slug + "/";
-    return (<div className="programHero" style={{ backgroundImage:"url('/images/programs/" + program.slug + ".jpg')" }}>
+    return (<div id={program.slug} className="programHero" style={{ backgroundImage:"url('/images/programs/" + program.slug + ".jpg')" }}>
       <div className="programHeroContent">
         <Container fixed>
           <Grid container spacing={3}>
@@ -46,7 +46,6 @@ export function Programs(props: Props) {
               </tr>
             </tbody>
           </table>
-
         </Container>
       </div>
     </div> )

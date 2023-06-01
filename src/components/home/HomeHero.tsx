@@ -1,14 +1,17 @@
 import { AppBar, Box, Container, Grid, Link, Stack } from "@mui/material";
 import { Stats } from "./Stats";
+import { Header } from "../Header";
 
 type Props = {
   stats: any;
 };
 
-
 export function HomeHero(props: Props) {
 
   const getAppBar = () => (
+    <Header position="static" />
+  );
+  /*
     <AppBar id="navbar" position="static">
       <Container>
         <Stack direction="row" justifyContent="space-between" alignItems="center">
@@ -17,10 +20,10 @@ export function HomeHero(props: Props) {
         </Stack>
       </Container>
     </AppBar>
-  );
+    */
 
   const getLeftContent = () => (<>
-    {getAppBar()}
+
     <Grid container spacing={3}>
       <Grid item md={7} xs={12}>
         <div className="title">Free Church Lessons</div>
@@ -32,15 +35,32 @@ export function HomeHero(props: Props) {
     </Grid>
   </>);
 
+  const getAge = (name:string, anchor:string) => (
+    <a href={"#" + anchor} className="ageBox">
+      <div className="ageIcon"><img src={"/images/home/hero-" + name.toLowerCase() + ".png"} alt={name} className="img-fluid" /></div>
+    </a>
+  )
+
+  const getAges = () => {
+    let result = [
+      getAge("Preschool", "ark-preschool"),
+      getAge("Elementary", "ark"),
+      getAge("Teen", "forministryresources"),
+      getAge("Adult", "next-level")
+    ]
+    return <Stack spacing={1} direction={{xs:"row", md:"column"}}>{result}</Stack>;
+  }
+
   return (
     <div id="hero">
       <Container fixed>
+        {getAppBar()}
         <Grid container spacing={3}>
-          <Grid item xs={10}>
+          <Grid item md={10} xs={12}>
             {getLeftContent()}
           </Grid>
-          <Grid item xs={2} style={{backgroundColor:"#FF0000", marginTop:0}}>
-            Right
+          <Grid item md={2} xs={12}>
+            {getAges()}
           </Grid>
         </Grid>
       </Container>

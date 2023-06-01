@@ -4,8 +4,13 @@ import { UserHelper, Permissions, ApiHelper } from "@/utils";
 import { ClickAwayListener, Container, Icon, Menu, MenuItem, AppBar, Stack, Box, Button } from "@mui/material";
 import { useState } from "react";
 import { SupportModal } from "@/appBase/components/SupportModal";
+import { PropaneSharp } from "@mui/icons-material";
 
-export function Header() {
+type Props = {
+  position?: "fixed" | "sticky" | "static" | "relative" | "absolute";
+};
+
+export function Header(props: Props) {
   const router = useRouter()
   const [menuAnchor, setMenuAnchor] = useState<any>(null);
   const [showSupport, setShowSupport] = useState(false);
@@ -36,22 +41,19 @@ export function Header() {
       </>
     )
     : (<>
-      <a href="about:blank"  onClick={(e) => { e.preventDefault(); setShowSupport(!showSupport) }} style={{paddingRight:15}}>Support</a>
-      <Link href="/register" style={{paddingRight:15}}>Register</Link>
-      <Link href="/login">Login</Link>
+      <Link href="/login" className="cta alt">Login</Link>
+      <Link href="/register" style={{paddingRight:15}} className="cta">Register</Link>
     </>);
+    // <a href="about:blank"  onClick={(e) => { e.preventDefault(); setShowSupport(!showSupport) }} style={{paddingRight:15}}>Support</a>
 
   return (
     <div>
-      <AppBar id="navbar" position="fixed">
-        <Container>
-          <Stack direction="row" justifyContent="space-between" alignItems="center">
-            <Link href="/" className="logo"><img src="/images/logo.png" alt="Lessons.church - Free Curriculum for Churches" /></Link>
-            <Box sx={{ display: "flex", alignItems: "center", whiteSpace: "nowrap" }}>{userAction}</Box>
-          </Stack>
-        </Container>
+      <AppBar id="navbar" position={props.position || "fixed"}>
+        <Stack direction="row" justifyContent="space-between" alignItems="center">
+          <Link href="/" className="logo"><img src="/images/logo-dark.png" alt="Lessons.church - Free Curriculum for Churches" className="img-fluid" /></Link>
+          <Box sx={{ display: "flex", alignItems: "center", whiteSpace: "nowrap" }}>{userAction}</Box>
+        </Stack>
       </AppBar>
-      <div id="navSpacer" />
       {showSupport && <SupportModal onClose={() => setShowSupport(false)} appName={"Lessons.church"} />}
     </div>
   );

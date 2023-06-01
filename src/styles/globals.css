@@ -5,7 +5,7 @@
 */
 
 :root {
-  scroll-behavior: auto;
+  scroll-behavior: smooth;
 }
 
 body {
@@ -524,6 +524,10 @@ label .description {
   color: #03a9f4;
   font-style: italic;
   font-weight: normal;
+}
+
+#hero .cta.alt {
+  margin-right:10px;
 }
 
 
@@ -1512,10 +1516,16 @@ a.dropdown-toggle::after {
 
 .cta{
   display: inline-block;
+  border-width: 2px;
   background-color: #34a8de;
   color: #FFF;
   border-radius: 20px;
-  padding:10px 20px;
+  padding:6px 20px;
+}
+
+.cta.alt {
+  background-color: transparent;
+  border:2px solid #34a8de;
 }
 
 .programHero table {
@@ -1579,6 +1589,10 @@ a.dropdown-toggle::after {
 
 .testimonial p {
   clear:both;
+}
+
+.ageBox:hover {
+  opacity:0.8;
 }
 
 @media (max-width: 600px) {
