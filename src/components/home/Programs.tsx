@@ -21,14 +21,14 @@ export function Programs(props: Props) {
           <Image src={studies[i].image} alt={studies[i].name} width={256} height={144} style={{height:"auto"}} placeholder="empty" className="img-fluid" />
         </Link>)
         : null;
-      result.push(<td>{link}</td>);
+      result.push(<td key={i}>{link}</td>);
     }
     return result;
   }
 
   const getProgramDiv = (program: ProgramInterface) => {
     const url = "/" + program.slug + "/";
-    return (<div id={program.slug} className="programHero" style={{ backgroundImage:"url('/images/programs/" + program.slug + ".jpg')" }}>
+    return (<div key={program.slug} id={program.slug} className="programHero" style={{ backgroundImage:"url('/images/programs/" + program.slug + ".jpg')" }}>
       <div className="programHeroContent">
         <Container fixed>
           <Grid container spacing={3}>
