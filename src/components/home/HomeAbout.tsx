@@ -1,13 +1,18 @@
 import { Button, Container, Grid } from "@mui/material";
+import { EmbeddedVideo } from "../EmbeddedVideo";
 
 export function HomeAbout() {
 
+  const video = <EmbeddedVideo videoEmbedUrl="https://www.youtube.com/embed/4qG8-hPnS3g" title="Welcome to Lessons.church" />
+
   return (
-    <div className="homeSection">
+    <div className="homeSection" id="aboutSection">
       <Container fixed>
         <Grid container spacing={3}>
           <Grid item md={6} sm={12}>
-            Video placeholder
+            <div style={{backgroundColor:"#FFF", padding:"15px", borderRadius:"10px", boxShadow:"0px 0px 10px 0px #0000001a"}}>
+              {video}
+            </div>
           </Grid>
           <Grid item md={6} sm={12}>
             <div className="title">
