@@ -92,7 +92,7 @@ export function Action(props: Props) {
     if (asset) {
       result.type = "asset";
       result.url = asset?.file?.contentPath;
-      result.name = asset.name;
+      result.name = resource?.name + ": " +  asset?.name;
       result.action = () => { trackAssetDownload(asset) };
       result.thumbnail = asset?.file?.thumbPath || asset?.file?.contentPath || "";
     } else if (resource) {
