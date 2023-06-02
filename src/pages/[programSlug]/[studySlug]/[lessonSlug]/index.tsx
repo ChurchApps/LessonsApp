@@ -44,20 +44,6 @@ export default function LessonsPage(props: Props) {
     return <Error message={props.error.message} />
   }
 
-  const video = props.lesson.videoEmbedUrl
-    ? (<Grid container spacing={3}>
-      <Grid item md={2} sm={0} />
-      <Grid item md={8} sm={12}>
-        <EmbeddedVideo videoEmbedUrl={props.lesson.videoEmbedUrl} title={props.lesson.title} />
-      </Grid>
-    </Grid>)
-    : (<Grid container spacing={3}>
-      <Grid item md={2} sm={0} />
-      <Grid item md={8} sm={12}>
-        <Image src={props.lesson.image || ""} className="profilePic" alt={props.study.name} width={960} height={540} /><br /><br />
-      </Grid>
-    </Grid>);
-
   const title = props.program.name + ": " + props.lesson?.title + " - Free Church Curriculum";
   return (
     <Layout pageTitle={title} metaDescription={props.lesson.description} image={props.lesson.image} withoutNavbar>
@@ -75,10 +61,11 @@ export default function LessonsPage(props: Props) {
             </Grid>
 
             <div style={{height:70}}></div>
-            <Image src={props.lesson.image} alt={props.lesson.name} width={320} height={180} style={{borderRadius:10, float:"right", marginTop:-120 }} />
+            <Image src={props.lesson.image} alt={props.lesson.name} width={320} height={180} style={{borderRadius:10, float:"right", marginTop:-120, marginBottom:-120, position:"relative", zIndex:1000 }} />
           </Container>
         </div>
       </div>
+
 
       <Grid container spacing={2}>
         <Grid item md={3} sm={12} style={{backgroundColor:"#FFF"}}>
@@ -86,10 +73,13 @@ export default function LessonsPage(props: Props) {
         </Grid>
         <Grid item md={9} sm={12}>
           <Container>
-            <Venue useAccordion={false} venue={selectedVenue} resources={resources} externalVideos={props.externalVideos} bundles={bundles} />
+            <div style={{marginTop:60}}>
+              <Venue useAccordion={false} venue={selectedVenue} resources={resources} externalVideos={props.externalVideos} bundles={bundles} />
+            </div>
           </Container>
         </Grid>
       </Grid>
+
       {showPresenter && <Presenter venue={selectedVenue} onClose={() => { setShowPresenter(false); }} />}
 
     </Layout>

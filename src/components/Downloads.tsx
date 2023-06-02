@@ -68,6 +68,7 @@ export function Downloads(props: Props) {
       result.push(
         <li>
           <a href={b.file?.contentPath + "&download=1"} onClick={() => { trackDownload(bundle) }} download={true}>
+            <Icon>download</Icon>
             {b?.name}
           </a>
         </li>
@@ -83,6 +84,7 @@ export function Downloads(props: Props) {
       result.push(
         <li key={v.id}>
           <a href={video.download1080} onClick={(e:any) => { trackVideoDownload(video); checkExpire(video, e); }} download={true}>
+            <Icon>download</Icon>
             {v?.name}
           </a>
         </li>
@@ -94,9 +96,10 @@ export function Downloads(props: Props) {
   return (
     (props.bundles.length > 0 || props.externalVideos.length > 0) && (
       <>
-
-        {getBundles()}
-        {getVideos()}
+        <ul>
+          {getBundles()}
+          {getVideos()}
+        </ul>
         <div className="downloadResource">
 
           <b>No Need to Download</b><br />

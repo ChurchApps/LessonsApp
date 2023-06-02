@@ -1740,6 +1740,58 @@ a.dropdown-toggle::after {
   margin-bottom: 10px;
 }
 
+#lessonSidebarInner.affix {
+  position: fixed;
+  top: 0px;
+  left: 0px;
+}
+
+#lessonSidebar h3 {
+  color:#28235d;
+  margin-bottom: 5px;
+  margin-top:10px;
+}
+
+#lessonSidebar ul {
+  margin-top: 0px;
+  margin-bottom:0px;
+  padding-left:0px;
+}
+
+#lessonSidebar li {
+  list-style: none;
+}
+
+#lessonSidebar li a {
+  display:block;
+  color:#555;
+  border-radius: 5px;
+  padding:5px 10px 5px 5px;
+  font-size: 14px;
+  font-weight: bold;
+}
+
+#lessonSidebar li a::before {
+  content: "\203A";
+  font-weight: bold;
+  font-size:20px;
+  line-height: 15px;
+  padding-right:10px;
+}
+
+#lessonSidebar li a:hover {
+  text-decoration: none;
+  background-color:#cfefff;
+  color:#1d70b7;
+}
+
+#lessonSidebar li a .material-icons {
+  float:right;
+  font-size:16px;
+  color:#28235d;
+  margin-top:5px;
+}
+
 
 @media (max-width: 600px) {
   .programPromo {
