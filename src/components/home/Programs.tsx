@@ -28,7 +28,7 @@ export function Programs(props: Props) {
 
   const getProgramDiv = (program: ProgramInterface) => {
     const url = "/" + program.slug + "/";
-    return (<div key={program.slug} id={program.slug} className="programHero" style={{ backgroundImage:"url('/images/programs/" + program.slug + ".jpg')" }}>
+    return (<div key={program.slug} id={program.slug} className="programPromo" style={{ backgroundImage:"url('/images/programs/" + program.slug + ".jpg')" }}>
       <div className="programHeroContent">
         <Container fixed>
           <Grid container spacing={3}>

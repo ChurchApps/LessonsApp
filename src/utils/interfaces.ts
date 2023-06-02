@@ -29,6 +29,7 @@ export interface StudyInterface {
   videoEmbedUrl?: string;
   live?: boolean;
   sort?: number;
+  lessonCount?: number;
 }
 export interface StudyCategoryInterface {
   id?: string;

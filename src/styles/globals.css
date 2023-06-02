@@ -12,6 +12,7 @@ body {
   font-family: "Roboto", sans-serif;
   color: #333;
   font-display: swap;
+  background-color: #f0f1f3;
 }
 
 .table {
@@ -37,6 +38,7 @@ a {
   text-decoration: none;
 }
 
+h2 { color: #28235d; }
 h2 span {
   color: #24b8ff;
 }
@@ -526,7 +528,7 @@ label .description {
   font-weight: normal;
 }
 
-#hero .cta.alt {
+#navbar .cta.alt {
   margin-right:10px;
 }
 
@@ -1355,6 +1357,10 @@ a.dropdown-toggle::after {
   ) 100% 50% / 100% 100% repeat-x;
   -webkit-mask: var(--mask); 
   mask: var(--mask);
+  overflow-y: hidden;
+  color: #555;
+  font-size:13px;
+  height: 70px;
 }
 
 .arkHero {
@@ -1490,7 +1496,7 @@ a.dropdown-toggle::after {
   background-color: #000;
 }
 
-.programHero {
+.programPromo {
   background-size: cover;
   background-position-x: right;
   background-position-y: top;
@@ -1498,20 +1504,32 @@ a.dropdown-toggle::after {
   color:#FFF;
 }
 
-.programHero .age {
+.programPromo .age {
   margin-top:100px;
   color: #34a8de;
   font-weight: bold;
 }
 
-.programHero H2 {
+.programPromo H2 {
   font-size: 50px;
   margin-top: 0px;
   margin-bottom: 0px;
+  color:#FFF;
 }
 
-.programHero p {
+.programPromo p {
   margin-top:0px;
+}
+
+.programPromo table {
+  width:100%;
+  margin-top:100px;
+  padding-bottom: 60px;
+}
+
+.programPromo table td {
+  width:20%;
+  padding:10px;
 }
 
 .cta{
@@ -1526,17 +1544,6 @@ a.dropdown-toggle::after {
 .cta.alt {
   background-color: transparent;
   border:2px solid #34a8de;
-}
-
-.programHero table {
-  width:100%;
-  margin-top:100px;
-  padding-bottom: 60px;
-}
-
-.programHero table td {
-  width:20%;
-  padding:10px;
 }
 
 .apps {
@@ -1599,28 +1606,121 @@ a.dropdown-toggle::after {
   opacity: 0.8;
 }
 
+#programHero {
+  
+  background-size: cover;
+  background-position-x: right;
+  background-position-y: top;
+  
+  min-height:200px;
+  color:#FFFFFF;
+}
+
+#programHero .content {
+  background:linear-gradient( rgba(0, 0, 0, .8), rgba(0, 0, 0, 0.0), rgba(0, 0, 0, 0.0) );
+  width:100%;
+  height:100%;
+}
+
+#programHero H1 {
+  margin-top:60px;
+  padding-bottom:0px;
+  margin-bottom: 0px;;
+}
+
+#programIntro {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+#programIntro .editor-container {
+  text-align: center;
+}
+
+#programIntro .editor-container span {
+  display:block;
+  margin-bottom: -5px;
+}
+
+.studyCard img {
+  border-radius: 10px;;
+}
+
+.studyCard H3 {
+  margin-top: 0px;
+  margin-bottom: 10px;;
+  height:24px;
+  overflow: hidden;
+  color:#28235d;
+}
+
+.studyCard .duration {
+  float:right;
+  text-align: right;
+  font-size:12px;
+  font-weight:bold;
+}
+
+.studyCard .downloads {
+  float:right;
+  color:#999;
+  font-size:12px;
+}
+
+.studyCard .downloads span {
+  font-size: 14px;
+  float:left;
+  margin-top:3px;
+}
+
+.studyCard .seeMore {
+  color:#24b8ff;
+  font-size:12px;
+}
+
+#studyCategoryTabs {
+  margin-top: 30px;
+
+}
+#studyCategoryTabs button {
+  background-color: #FFF;
+}
+
+#studyCategoryTabs button:first-of-type {
+  border-radius: 20px 0px 0px 20px;
+}
+
+#studyCategoryTabs button:last-of-type {
+  border-radius: 0px 20px 20px 0px;
+}
+
+#studyCategoryTabs .Mui-selected {
+  background-color: #34a8de;
+  color:#FFF;
+}
+
 @media (max-width: 600px) {
-  .programHero {
+  .programPromo {
     background-position-x: 80%;
   }
 
-  .programHero H2 {
+  .programPromo H2 {
     font-size: 30px;
   }
 
-  .programHero p, .programHero .age, .programHero H2 {
+  .programPromo p, .programPromo .age, .programPromo H2 {
     text-shadow: #000 3px 3px 6px;
   }
 
-  .programHero table td {
+  .programPromo table td {
     width:33%;
   }
 
-  .programHero table td:nth-child(4), .programHero table td:nth-child(3) {
+  .programPromo table td:nth-child(4), .programPromo table td:nth-child(3) {
     display: none;
   }
 
-  .programHero table {
+  .programPromo table {
     padding-bottom: 20px;
   }
   
