@@ -42,13 +42,16 @@ export default function ProgramPage(props: Props) {
   }
 
   useEffect(() => {
-    const filteredCategories = props.studyCategories.filter((sc) => sc.categoryName === category).sort((a, b) => a.sort - b.sort);
-    let result:StudyInterface[] = [];
-    filteredCategories.forEach((sc) => {
-      const study = ArrayHelper.getOne(props.studies, "id", sc.studyId);
-      if (study) result.push(study);
-      setFilteredStudies(result)
-    });
+    if (category==="") setFilteredStudies(props.studies);
+    else {
+      const filteredCategories = props.studyCategories.filter((sc) => sc.categoryName === category).sort((a, b) => a.sort - b.sort);
+      let result:StudyInterface[] = [];
+      filteredCategories.forEach((sc) => {
+        const study = ArrayHelper.getOne(props.studies, "id", sc.studyId);
+        if (study) result.push(study);
+        setFilteredStudies(result)
+      });
+    }
   }, [category]);
 
   if (props.hasError) {
@@ -67,7 +70,7 @@ export default function ProgramPage(props: Props) {
             <div style={{marginBottom:20}}>{props.program.shortDescription}</div>
             {video && <a href="about:blank" onClick={(e) => { e.preventDefault(); setShowVideo(true); }} className="cta"><Icon style={{float:"left", marginRight:10}}>play_circle</Icon>Watch Trailer</a>}
             <div style={{height:90}}></div>
-            <Image src={props.program.image} alt={props.program.name} width={240} height={135} style={{borderRadius:10, float:"right", marginTop:-90 }} />
+            <Image src={props.program.image} alt={props.program.name} width={320} height={180} style={{borderRadius:10, float:"right", marginTop:-120 }} />
           </Container>
         </div>
       </div>
