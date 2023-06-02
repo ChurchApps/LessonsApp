@@ -10,6 +10,6 @@ module.exports = {
     NEXT_PUBLIC_GOOGLE_ANALYTICS: process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS,
   },
   images: {
-    domains: ["content.lessons.church", "content.staging.lessons.church"]
+    domains: ["content.lessons.church", "content.staging.lessons.church", "i.vimeocdn.com"]
   }
 };

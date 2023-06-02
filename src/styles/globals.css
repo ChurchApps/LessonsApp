@@ -2,6 +2,7 @@
 #28235d - dark blue
 #35a8e0 - light blue
 #d6f2ff - faint blue
+#eff8fd - very faint blue
 */
 
 :root {
@@ -1767,6 +1768,47 @@ a.dropdown-toggle::after {
 .lessonCard .fadeOut {
   height:60px;
 }
+
+.sectionCard {
+  margin-bottom: 20px;
+}
+
+.sectionCard .MuiCardHeader-root {
+  background-color: #eff8fd;
+  padding-top: 8px;
+  padding-bottom: 8px;;
+}
+
+.sectionCard .MuiCardHeader-content span {
+  font-weight: bold;
+  font-size: 20px;
+  color: #1d6fb8;
+}
+
+.playAction {
+  height:90px;
+  border:1px solid #CCC;
+  border-radius: 10px;
+  vertical-align: middle;
+  background-color: #FFF;
+  margin-bottom: 20px;
+}
+
+.playAction img {
+  border-top-left-radius: 10px;
+  border-bottom-left-radius: 10px;
+  float:left;
+}
+
+.playAction .text {
+  display:inline-block;
+  padding-top:30px;
+  padding-left:20px;
+  font-weight: bold;
+  font-size: 20px;
+}
+
+
 
 @media (max-width: 600px) {
   .programPromo {

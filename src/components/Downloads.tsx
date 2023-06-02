@@ -66,14 +66,11 @@ export function Downloads(props: Props) {
       const bundle = b;
       let downloadLink = (<Button href={b.file?.contentPath + "&download=1"} size="small" onClick={() => { trackDownload(bundle) }} download={true} color="success" component="a" variant="contained">Download</Button>);
       result.push(
-        <div className="downloadResource" key={b.id}>
-          <MenuItem>
-            <Grid container columnSpacing={2}>
-              <Grid item xs={7}>{b?.name}</Grid>
-              <Grid item xs={5} style={{ textAlign: "right" }}>{downloadLink}</Grid>
-            </Grid>
-          </MenuItem>
-        </div>
+        <li>
+          <a href={b.file?.contentPath + "&download=1"} onClick={() => { trackDownload(bundle) }} download={true}>
+            {b?.name}
+          </a>
+        </li>
       );
     });
     return result;
@@ -83,16 +80,12 @@ export function Downloads(props: Props) {
     const result: JSX.Element[] = [];
     props.externalVideos?.forEach((v) => {
       const video = v;
-      let downloadLink = (<Button href={video.download1080} size="small" onClick={(e:any) => { trackVideoDownload(video); checkExpire(video, e); }} download={true} color="success" component="a" variant="contained">Download</Button>);
       result.push(
-        <div className="downloadResource" key={v.id}>
-          <MenuItem>
-            <Grid container columnSpacing={2}>
-              <Grid item xs={7}>{v?.name}</Grid>
-              <Grid item xs={5} style={{ textAlign: "right" }}>{downloadLink}</Grid>
-            </Grid>
-          </MenuItem>
-        </div>
+        <li key={v.id}>
+          <a href={video.download1080} onClick={(e:any) => { trackVideoDownload(video); checkExpire(video, e); }} download={true}>
+            {v?.name}
+          </a>
+        </li>
       );
     });
     return result;
@@ -101,25 +94,18 @@ export function Downloads(props: Props) {
   return (
     (props.bundles.length > 0 || props.externalVideos.length > 0) && (
       <>
-        <Button id="downloadButton" variant="contained" onClick={(e) => setAnchorEl(e.currentTarget)} endIcon={<Icon>keyboard_arrow_down</Icon>} size="small" style={{ float: "right" }}>Downloads</Button>
-        <Menu id="basic-menu" anchorEl={anchorEl} open={Boolean(anchorEl)} onClose={() => { setAnchorEl(null) }} MenuListProps={{ "aria-labelledby": "downloadButton" }}>
-          {getBundles()}
-          {getVideos()}
-          <hr />
-          <div className="downloadResource">
-            <MenuItem>
-              <Grid container columnSpacing={2}>
-                <Grid item xs={9} style={{ fontStyle: "italic" }}>
-                  <b>Don&apos;t want to download lessons each week?</b><br />
-                  Get the Lessons.church app for AndroidTV or FireSticks<br />and have your videos download automatically each week.
-                </Grid>
-                <Grid item xs={3} style={{ textAlign: "right" }}>
-                  <Button href="https://lessons.church/#connectSection" target="_new" size="small" color="info" component="a" variant="contained">Learn How</Button>
-                </Grid>
-              </Grid>
-            </MenuItem>
-          </div>
-        </Menu>
+
+        {getBundles()}
+        {getVideos()}
+        <div className="downloadResource">
+
+          <b>No Need to Download</b><br />
+          <p>Get the Lessons.church app for AndroidTV or FireSticks<br />and have your videos download automatically each week.</p>
+
+          <Button href="https://lessons.church/#connectSection" target="_new" size="small" color="info" component="a" variant="contained">Learn How</Button>
+
+        </div>
+
       </>
     )
   );

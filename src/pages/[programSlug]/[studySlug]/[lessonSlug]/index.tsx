@@ -1,15 +1,44 @@
 import { GetStaticPaths, GetStaticProps } from "next";
-import { Grid, Container, Box } from "@mui/material";
-import { Layout, Venues } from "@/components";
+import { Grid, Container, Box, Icon } from "@mui/material";
+import { Layout, Venue, Venues } from "@/components";
 import { ApiHelper, ProgramInterface, StudyInterface, LessonInterface, ArrayHelper, VenueInterface, ResourceInterface, BundleInterface, ExternalVideoInterface } from "@/utils";
 import { MarkdownPreview } from "@/components";
 import Error from "@/pages/_error";
 import { EmbeddedVideo } from "@/components/EmbeddedVideo";
 import Image from "next/image";
+import { Header } from "@/components/Header";
+import Link from "next/link";
+import { LessonSidebar } from "@/components/lesson/LessonSidebar";
+import React from "react";
+import { Presenter } from "@/components/Presenter";
+
 
 type Props = { program: ProgramInterface; study: StudyInterface; lesson: LessonInterface; venues: VenueInterface[]; resources: ResourceInterface[]; externalVideos: ExternalVideoInterface[]; bundles: BundleInterface[]; hasError: boolean; error: { message: string }; };
 
 export default function LessonsPage(props: Props) {
+
+  const [selectedVenue, setSelectedVenue] = React.useState<VenueInterface>(props.venues[0]);
+  const [showPresenter, setShowPresenter] = React.useState<boolean>(false);
+
+  const resources: ResourceInterface[] = [];
+
+  selectedVenue.sections?.forEach((s) => {
+    s.roles?.forEach((r) => {
+      r.actions?.forEach((a) => {
+        if (a.resourceId) {
+          if (props.resources) {
+            const r: ResourceInterface = ArrayHelper.getOne(props.resources, "id", a.resourceId);
+            if (r && resources.indexOf(r) === -1) resources.push(r);
+          }
+        }
+      });
+    });
+  });
+
+  const bundleIds = ArrayHelper.getUniqueValues(resources, "bundleId");
+  const bundles = ArrayHelper.getAllArray(props.bundles, "id", bundleIds)
+  resources.sort((a, b) => (a.name > b.name ? 1 : -1));
+
 
   if (props.hasError) {
     return <Error message={props.error.message} />
@@ -31,27 +60,41 @@ export default function LessonsPage(props: Props) {
 
   const title = props.program.name + ": " + props.lesson?.title + " - Free Church Curriculum";
   return (
-    <Layout pageTitle={title} metaDescription={props.lesson.description} image={props.lesson.image}>
+    <Layout pageTitle={title} metaDescription={props.lesson.description} image={props.lesson.image} withoutNavbar>
+      <div id="studyHero">
+        <div className="content">
+          <Container fixed>
+            <Header position="static" />
+            <Grid container spacing={2}>
+              <Grid item md={7} xs={12}>
+                <div className="breadcrumb"><Link href={"/" + props.program.slug}>{props.program.name}</Link>: <Link href={"/" + props.program.slug + "/" + props.study.slug }>{props.study.name}</Link></div>
+                <h1>{props.lesson.title}</h1>
+                {props.lesson.description && <div style={{marginBottom:20}}>{props.lesson.description}</div>}
+                <a href="about:blank" onClick={(e) => { e.preventDefault(); setShowPresenter(true); }} className="cta"><Icon style={{float:"left", marginRight:10}}>play_circle</Icon>Start Lesson</a>
+              </Grid>
+            </Grid>
+
+            <div style={{height:70}}></div>
+            <Image src={props.lesson.image} alt={props.lesson.name} width={320} height={180} style={{borderRadius:10, float:"right", marginTop:-120 }} />
+          </Container>
+        </div>
+      </div>
+
+      <Grid container spacing={2}>
+        <Grid item md={3} sm={12} style={{backgroundColor:"#FFF"}}>
+          <LessonSidebar program={props.program} venues={props.venues} selectedVenue={selectedVenue} onVenueChange={(v) => { setSelectedVenue(v); }} bundles={bundles} externalVideos={props.externalVideos} />
+        </Grid>
+        <Grid item md={9} sm={12}>
+          <Container>
+            <Venue useAccordion={false} venue={selectedVenue} resources={resources} externalVideos={props.externalVideos} bundles={bundles} />
+          </Container>
+        </Grid>
+      </Grid>
+      {showPresenter && <Presenter venue={selectedVenue} onClose={() => { setShowPresenter(false); }} />}
+
       <div className="pageSection">
         <Container fixed>
-          <Box sx={{ textAlign: "center" }}>
-            <div className="title">
-              {props.program?.name}: <span>{props.study?.name}</span>
-            </div>
-            <h2 style={{ marginTop: 0 }}>
-              {props.lesson?.name}: <span>{props.lesson?.title}</span>
-            </h2>
-            <p>{props.lesson?.description}</p>
-          </Box>
-          {video}
-          <br />
-          <Venues useAccordion={false} venues={props.venues} resources={props.resources} externalVideos={props.externalVideos} bundles={props.bundles} />
-          {props.program.aboutSection && (
-            <>
-              <h4>About {props.program.name}</h4>
-              <MarkdownPreview value={props.program.aboutSection} />
-            </>
-          )}
+
         </Container>
       </div>
     </Layout>

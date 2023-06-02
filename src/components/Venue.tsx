@@ -4,7 +4,7 @@ import { VenueInterface, ResourceInterface, BundleInterface, CustomizationInterf
 import { Downloads } from "./Downloads";
 import { Section } from "./Section";
 import { Grid, Icon, Button, Box, FormControl, InputLabel, Select, MenuItem } from "@mui/material";
-import { Presenter } from "./Presenter";
+
 
 type Props = {
   useAccordion: boolean;
@@ -20,8 +20,6 @@ export function Venue(props: Props) {
   const contentRef = React.useRef<HTMLDivElement>(null);
   const [activeSectionId, setActiveSectionId] = React.useState<string>(props.venue.sections[0]?.id || "");
   const [displaySection, setDisplaySection] = React.useState<boolean>(false);
-  const [jumpSection, setJumpSection] = React.useState<string>(props.venue.sections[0]?.id || "");[0]
-  const [showPresenter, setShowPresenter] = React.useState<boolean>(false);
 
   const handleToggle = (sectionId: string) => { setActiveSectionId(sectionId); };
 
@@ -35,11 +33,11 @@ export function Venue(props: Props) {
     if (props.venue.sections) {
       const customSections = CustomizationHelper.applyCustomSort(props.customizations, props.venue.sections, "section");
       customSections.forEach((s) => {
-        sections.push(<Section useAccordion={props.useAccordion} section={s} resources={props.resources} externalVideos={props.externalVideos} toggleActive={handleToggle} activeSectionId={activeSectionId} key={s.id} customizations={props.customizations} />);
+        sections.push(<Section section={s} resources={props.resources} externalVideos={props.externalVideos} toggleActive={handleToggle} activeSectionId={activeSectionId} key={s.id} customizations={props.customizations} />);
       });
     }
 
-    return <div className="accordion"> {sections}</div>;
+    return <div>{sections}</div>;
   }
 
   function getPrintSections() {
@@ -48,7 +46,7 @@ export function Venue(props: Props) {
     if (props.venue.sections) {
       const customSections = CustomizationHelper.applyCustomSort(props.customizations, props.venue.sections, "section");
       customSections.forEach((s) => {
-        sections.push(<Section useAccordion={props.useAccordion} section={s} resources={props.resources} externalVideos={props.externalVideos} toggleActive={handleToggle} activeSectionId={[activeSectionId]} key={s.id} customizations={props.customizations} />);
+        sections.push(<Section section={s} resources={props.resources} externalVideos={props.externalVideos} toggleActive={handleToggle} activeSectionId={[activeSectionId]} key={s.id} customizations={props.customizations} />);
       });
     }
 
@@ -64,41 +62,10 @@ export function Venue(props: Props) {
     }
   }
 
-  const getSectionMenuItems = () => {
-    let result:JSX.Element[] = [];
-    props.venue.sections?.forEach((s) => {
-      if (s.roles?.length > 0) result.push(<MenuItem value={s.id}>{s.name}</MenuItem>);
-    });
-    return result;
-  }
-
-  const handleJumpSection = (sectionName:string) => {
-    setJumpSection(sectionName);
-    const scrollTop = document.getElementById("section-" + sectionName).offsetTop - 60;
-    window.scrollTo({top: scrollTop, behavior: "smooth"});
-  }
+  /*{getPrint()}*/
 
   return (
     <div>
-      <h4 style={{ fontSize: "24px", fontWeight: 500, margin: "0 0 8px 0" }}>{props.venue.name}</h4>
-      {!props.useAccordion
-      && <Grid container spacing={3}>
-        <Grid item xs={6} md={4}>
-          <FormControl fullWidth>
-            <InputLabel>Jump to Section</InputLabel>
-            <Select size="small" fullWidth label="Jump to Section" value={jumpSection} onChange={(e) => { handleJumpSection(e.target.value); }}>
-              {getSectionMenuItems()}
-            </Select>
-          </FormControl>
-        </Grid>
-        <Grid item xs={6} md={8}>
-          <Box sx={{ display: "flex", justifyContent: "flex-end", gap: "8px", flexWrap: "wrap" }} style={{paddingTop:10}}>
-            {getPrint()}
-            <Downloads bundles={props.bundles} externalVideos={props.externalVideos} />
-          </Box>
-        </Grid>
-      </Grid>
-      }
       <div>
         <h2 className="printOnly">{props.venue.name} Instructions</h2>
         {getSections()}
@@ -107,7 +74,7 @@ export function Venue(props: Props) {
         <h2 className="printOnly">{props.venue.name} Instructions</h2>
         {getPrintSections()}
       </div>
-      {showPresenter && <Presenter venue={props.venue} onClose={() => { setShowPresenter(false); }} />}
+
     </div>
   );
 }

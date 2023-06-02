@@ -84,36 +84,33 @@ export function Action(props: Props) {
     return result;
   }
 
-  const getPlayLink = () => {
+  const getPreviewData = () => {
+    const result:{type:string, thumbnail:string, name:string, url:string, videoId:string, action:(e:React.MouseEvent) => void} = { type:"", thumbnail:"", name:"", url:"", videoId: "", action:() => {}};
     const video: ExternalVideoInterface = ArrayHelper.getOne(props.externalVideos || [], "id", props.action.externalVideoId);
     const resource: ResourceInterface = ArrayHelper.getOne(props.resources || [], "id", props.action.resourceId);
     const asset = (props.action.assetId && resource) ? ArrayHelper.getOne(resource?.assets || [], "id", props.action.assetId) : null;
-
     if (asset) {
-      return (<>
-        {getPreview(null, asset, resource.name)}
-        <a href={resource.variants[0]?.file?.contentPath} target="_blank" rel="noopener noreferrer" onClick={() => { trackDownload(resource.variants[0]) }}>{resource.name}</a>
-        :{" "}
-        <a href={asset?.file?.contentPath} target="_blank" rel="noopener noreferrer" onClick={() => { trackAssetDownload(asset) }}>{asset.name}</a>
-      </>);
+      result.type = "asset";
+      result.url = asset?.file?.contentPath;
+      result.name = asset.name;
+      result.action = () => { trackAssetDownload(asset) };
+      result.thumbnail = asset?.file?.thumbPath || asset?.file?.contentPath || "";
     } else if (resource) {
-      return (<>
-        {getPreview(resource.variants, null, resource.name)}
-        <a href={resource.variants[0]?.file?.contentPath} target="_blank" rel="noopener noreferrer" onClick={() => { trackDownload(resource.variants[0]) }}> {resource.name} </a>
-      </>);
+      result.type = "resource";
+      result.url = resource.variants[0].file?.contentPath;
+      result.name = resource.name;
+      result.action = () => { trackDownload(resource.variants[0]) };
+      result.thumbnail = resource?.variants[0].file?.thumbPath || resource?.variants[0].file?.contentPath || "";
     } else if (video) {
-      return (<>
-        {showPreview && <VimeoModal onClose={() => setShowPreview(false)} vimeoId={video.videoId} />}
-        <div className="playPreview">
-          <a href={"https://vimeo.com/" + video.videoId} rel="noopener noreferrer" onClick={(e) => { e.preventDefault(); trackView(video); setShowPreview(true); }}>
-            <img src={video.thumbnail} alt={video.name} />
-          </a>
-        </div>
-        <a href={"https://vimeo.com/" + video.videoId} rel="noopener noreferrer" onClick={(e) => { e.preventDefault(); trackView(video); setShowPreview(true); }}>{video.name}</a>
-      </>);
+      result.type = "video";
+      result.url = "https://vimeo.com/" + video.videoId;
+      result.name = video.name;
+      result.action = (e) => { e.preventDefault(); trackView(video); setShowPreview(true); };
+      result.thumbnail = video.thumbnail;
+      result.videoId = video.videoId;
     }
-    return props.action.content;
-  };
+    return result;
+  }
 
   let result = <></>;
 
@@ -128,7 +125,12 @@ export function Action(props: Props) {
       result = (<blockquote><MarkdownPreview value={props.action.content} /></blockquote>);
       break;
     case "Play":
-      result = (<ul className="play"><li><b>Play:</b> {getPlayLink()}</li></ul>);
+      const data = getPreviewData();;
+      result = (<div className="playAction">
+        <Image src={data.thumbnail} alt={data.name} width={160} height={90} style={{height:90}} />
+        <a href={data.url} rel="noopener noreferrer" onClick={data.action} className="text">{data.name}</a>
+        {data.type==="video" && showPreview && <VimeoModal onClose={() => setShowPreview(false)} vimeoId={data.videoId} />}
+      </div>);
       break;
   }
 

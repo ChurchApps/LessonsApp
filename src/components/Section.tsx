@@ -1,9 +1,8 @@
 import { SectionInterface, ResourceInterface, ActionInterface, ArrayHelper, CustomizationInterface, CustomizationHelper, ExternalVideoInterface } from "@/utils";
 import { Action } from "./Action";
-import { Accordion, AccordionDetails, AccordionSummary, Icon } from "@mui/material";
+import { Accordion, AccordionDetails, AccordionSummary, Card, CardContent, CardHeader, Icon } from "@mui/material";
 
 type Props = {
-  useAccordion: boolean;
   section: SectionInterface;
   resources: ResourceInterface[];
   externalVideos: ExternalVideoInterface[];
@@ -41,9 +40,6 @@ export function Section(props: Props) {
       customRoles.forEach((r) => {
         if (!shouldHide(r.id)) result.push(
           <div className="part" key={r.id}>
-            <div className="role">
-              <span>{r.name}</span>
-            </div>
             {getActions(r.actions)}
           </div>
         );
@@ -70,34 +66,22 @@ export function Section(props: Props) {
 
   if (shouldHide(props.section?.id)) return <></>
   else if (props.section?.roles?.length === 0) return <></>
-  else if (!props.useAccordion) {
+  else {
+    return (<Card id={"section-" + props.section.id} className="sectionCard">
+      <CardHeader title={props.section.name} />
+
+      <CardContent>
+        {getMaterials()}
+        {getParts()}
+      </CardContent>
+    </Card>)
+    /*
     return (<div id={"section-" + props.section.id} style={{clear:"both", marginBottom:40}}>
       <h3 style={{marginLeft:0, marginBottom:8, borderBottom: "1px solid #333", backgroundColor:"#03a9f4", color: "#FFFFFF", padding:10}}>{props.section.name}</h3>
       {getMaterials()}
       {getParts()}
-    </div>);
+    </div>);*/
   }
-  else if (typeof props.activeSectionId === 'object' && props.activeSectionId) return (
-    <Accordion expanded={true}>
-      <AccordionSummary expandIcon={<Icon>expand_more</Icon>} aria-controls={props.section.id + "-content"} id={props.section.id + "-header"}>
-        {props.section.name}
-      </AccordionSummary>
-      <AccordionDetails>
-        {getMaterials()}
-        {getParts()}
-      </AccordionDetails>
-    </Accordion>
-  )
-  else return (
-    <Accordion expanded={props.activeSectionId === props.section?.id} onChange={() => { props.toggleActive((props.activeSectionId === props.section.id) ? null : props.section.id); }}>
-      <AccordionSummary expandIcon={<Icon>expand_more</Icon>} aria-controls={props.section.id + "-content"} id={props.section.id + "-header"}>
-        {props.section.name}
-      </AccordionSummary>
-      <AccordionDetails>
-        {getMaterials()}
-        {getParts()}
-      </AccordionDetails>
-    </Accordion>
-  );
+
 
 }
