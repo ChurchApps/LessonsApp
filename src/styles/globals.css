@@ -553,6 +553,8 @@ label .description {
   padding-left:10px;
 }
 
+
+
 #aboutSection h2 {
   margin-bottom: 10px;
 }
@@ -1789,6 +1791,10 @@ a.dropdown-toggle::after {
 
   .programPromo table {
     padding-bottom: 20px;
+  }
+
+  #aboutSection .MuiGrid-grid-sm-12 {
+    min-width: 95vw;
   }
   
 }

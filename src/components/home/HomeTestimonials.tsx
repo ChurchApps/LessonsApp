@@ -17,7 +17,7 @@ export function HomeTestimonials() {
             </Grid>*/
 
   const getTestimonial = (name:string, church:string, text:string) => (
-    <Grid item xs={6}>
+    <Grid item xs={12} md={6}>
       <div className="testimonial">
         <div className="stars"></div>
         <div className="icon"></div>
