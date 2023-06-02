@@ -6,6 +6,7 @@ import Error from "@/pages/_error";
 import { EmbeddedVideo } from "@/components/EmbeddedVideo";
 import Image from "next/image";
 import { Header } from "@/components/Header";
+import Link from "next/link";
 
 type Props = {
   study: StudyInterface;
@@ -32,7 +33,7 @@ export default function StudyPage(props: Props) {
             <Header position="static" />
             <Grid container spacing={2}>
               <Grid item md={7} xs={12}>
-                <div className="breadcrumb">{props.program.name}</div>
+                <div className="breadcrumb"><Link href={"/" + props.program.slug}>{props.program.name}</Link></div>
                 <h1>{props.study.name}</h1>
                 {props.study.shortDescription && <div style={{marginBottom:20}}>{props.study.shortDescription}</div>}
               </Grid>
