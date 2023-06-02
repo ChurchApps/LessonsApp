@@ -48,30 +48,14 @@ export function Section(props: Props) {
     return result;
   };
 
-  const getMaterials = () => {
-    const downloads:any = [];
-    props.section.roles?.forEach(r => {
-      r.actions.forEach(a => {
-        if (a.actionType === "Download") downloads.push(a.content);
-      })
-    })
-    if (props.section.materials) {
-      return (<div className="materials">
-        <b>Materials:</b> {props.section.materials} {downloads}
-      </div>)
-    }
-  }
-
-
-
   if (shouldHide(props.section?.id)) return <></>
   else if (props.section?.roles?.length === 0) return <></>
   else {
     return (<Card id={"section-" + props.section.id} className="sectionCard">
-      <CardHeader title={props.section.name} />
+      <CardHeader title={props.section.name} subheader={(props.section.materials) && <><b>Materials:</b> {props.section.materials}</>}  />
+
 
       <CardContent>
-        {getMaterials()}
         {getParts()}
       </CardContent>
     </Card>)

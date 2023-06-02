@@ -783,129 +783,6 @@ dropdown-menu a {
 }
 
 
-
-.accordion .card {
-  background-color: #f3f3f6;
-  border-right: none;
-  border-left: none;
-  margin-bottom: 10px;
-}
-
-.accordion .card-header {
-  padding-top: 5px;
-  padding-bottom: 5px;
-}
-
-.accordion .MuiAccordionSummary-root.Mui-expanded {
-  background-color: #03a9f4;
-  color: #FFF;
-}
-
-.accordion .card-header.active {
-  background-color: #03a9f4;
-}
-
-.accordion .card-header.active .btn {
-  color: #fff;
-}
-
-.accordion .card-body {
-  background-color: #f1f1f1;
-}
-
-.accordion .collapse,
-.accordion .collapsing {
-  border: 1px solid #03a9f4;
-  margin-top: 10px;
-  margin-bottom: 10px;
-}
-
-.accordion .part {
-  clear: both;
-}
-
-.accordion.part .part {
-  padding: 10px;
-}
-
-.accordion .role {
-  text-align: center;
-  font-weight: bold;
-  color: #00c213;
-  background: #fff;
-  padding: 5px;
-  margin-bottom: 10px;
-}
-
-.accordion .actions {
-  color: #333;
-  font-weight: bold !important;
-  margin-bottom: 5px;
-}
-
-.accordion .actions>li {
-  list-style-type: none;
-}
-
-.accordion .actions li {
-  padding-left: 10px;
-}
-
-.accordion .play {
-  clear: both;
-  color: #333;
-  margin-bottom: 5px;
-}
-
-.accordion .play li {
-  list-style-type: none;
-  margin-bottom: 10px;
-}
-
-.accordion .play li:before {
-  content: "\e037";
-  color: #00c213;
-  font-family: "Material Icons";
-  margin-left: -15px;
-  margin-right: 10px;
-  font-weight: bold;
-}
-
-.accordion .note {
-  color: #777;
-  font-style: italic;
-  margin-bottom: 5px;
-  padding-left: 30px;
-}
-
-.accordion .note b {
-  color: #000;
-}
-
-.accordion blockquote {
-  padding-left: 15px;
-  margin-bottom: 5px;
-  margin-top: 5px;
-  color: #555;
-}
-
-.accordion blockquote p:last-child {
-  margin-bottom: 0px;
-}
-
-.accordion blockquote ol {
-  text-align: left;
-}
-
-.accordion blockquote li {
-  padding-bottom: 5px;
-}
-
-.accordion blockquote li ol,
-.accordion blockquote li ul {
-  padding-top: 5px
-}
-
 .materials {
   background-color: #444;
   color: #eee;
@@ -917,6 +794,19 @@ dropdown-menu a {
 .materials a {
   color: #fff;
 }
+
+.actions {
+  clear:both;
+  padding-left: 0px;
+}
+
+.actions li {
+  font-weight: bold;
+  font-size:18px;
+  list-style: none;
+}
+
+
 
 .btn-light {
   border: 1px solid #333;
@@ -946,13 +836,6 @@ dropdown-menu a {
 
   .collapse:not(.show) {
     display: block;
-  }
-
-  blockquote {
-    border-top: none;
-    border-bottom: none;
-    border-right: none;
-    margin-left: 20px;
   }
 
   .card {
@@ -1774,24 +1657,36 @@ a.dropdown-toggle::after {
 }
 
 .sectionCard .MuiCardHeader-root {
+
   background-color: #eff8fd;
   padding-top: 8px;
   padding-bottom: 8px;;
 }
 
-.sectionCard .MuiCardHeader-content span {
+
+.sectionCard .MuiCardHeader-title {
+  display: inline-block;
   font-weight: bold;
   font-size: 20px;
   color: #1d6fb8;
 }
 
+.sectionCard .MuiCardHeader-subheader {
+  color:#333;
+  display: inline-block;
+  padding-left: 20px;
+  font-size: 13px;
+}
+
 .playAction {
+  clear:both;
   height:90px;
   border:1px solid #CCC;
   border-radius: 10px;
   vertical-align: middle;
   background-color: #FFF;
   margin-bottom: 20px;
+  margin-top: 20px;
 }
 
 .playAction img {
@@ -1808,6 +1703,42 @@ a.dropdown-toggle::after {
   font-size: 20px;
 }
 
+.note { 
+  background-image: url('/images/lesson/note.png');
+  background-position: 0px 0px;
+  background-repeat: no-repeat;
+  min-height: 50px;
+  padding-left: 85px;
+  padding-top: 4px;
+}
+
+.note ul {
+  padding-left: 20px;
+}
+
+.say {
+  clear:both;
+  margin-bottom: 20px;
+}
+
+.say::after { clear:both;}
+
+.say p {
+  background-color: #ebf7ff;
+  border-top: none;
+  border-bottom: none;
+  border-right: none;
+  width:55%;
+  clear:both;
+  border-radius: 10px;
+  padding: 5px 20px 5px 20px;
+}
+
+.say p:nth-of-type(even) {
+  background-color: #edfeff;
+  float:right;
+  margin-bottom: 10px;
+}
 
 
 @media (max-width: 600px) {

@@ -69,21 +69,6 @@ export function Action(props: Props) {
     ApiHelper.post("/downloads", [download], "LessonsApi");
   }
 
-  const getPreview = (variants: VariantInterface[], asset: AssetInterface, name: string) => {
-    let files: FileInterface[] = [];
-
-    variants?.forEach(v => { if (v.file) files.push(v.file) });
-    if (asset?.file) files.push(asset.file);
-    let result = <></>
-
-    files.forEach(f => {
-      if (f?.thumbPath) result = <div className="playPreview"><Image src={f.thumbPath || ""} alt={name} width={480} height={270} style={{height:"auto"}} /></div>
-      else if (f?.fileType === "image/jpeg" || f?.fileType === "image/png") result = <div className="playPreview"><Image src={f.contentPath || ""} alt={name} width={480} height={270} style={{height:"auto"}} /></div>
-    })
-
-    return result;
-  }
-
   const getPreviewData = () => {
     const result:{type:string, thumbnail:string, name:string, url:string, videoId:string, action:(e:React.MouseEvent) => void} = { type:"", thumbnail:"", name:"", url:"", videoId: "", action:() => {}};
     const video: ExternalVideoInterface = ArrayHelper.getOne(props.externalVideos || [], "id", props.action.externalVideoId);
@@ -116,13 +101,13 @@ export function Action(props: Props) {
 
   switch (props.action.actionType) {
     case "Note":
-      result = (<div className="note"><b>Note:</b> <MarkdownPreview value={props.action.content} /></div>);
+      result = (<div className="note"><MarkdownPreview value={props.action.content} /></div>);
       break;
     case "Do":
       result = (<ul className="actions"><li><MarkdownPreview value={props.action.content} /></li></ul>);
       break;
     case "Say":
-      result = (<blockquote><MarkdownPreview value={props.action.content} /></blockquote>);
+      result = (<div className="say"><MarkdownPreview value={props.action.content} /></div>);
       break;
     case "Play":
       const data = getPreviewData();;

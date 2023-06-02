@@ -92,11 +92,6 @@ export default function LessonsPage(props: Props) {
       </Grid>
       {showPresenter && <Presenter venue={selectedVenue} onClose={() => { setShowPresenter(false); }} />}
 
-      <div className="pageSection">
-        <Container fixed>
-
-        </Container>
-      </div>
     </Layout>
   );
 }
