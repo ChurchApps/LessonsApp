@@ -82,10 +82,10 @@ export function Action(props: Props) {
       result.thumbnail = asset?.file?.thumbPath || asset?.file?.contentPath || "";
     } else if (resource) {
       result.type = "resource";
-      result.url = resource.variants[0].file?.contentPath;
+      result.url = resource.variants[0]?.file?.contentPath;
       result.name = resource.name;
       result.action = () => { trackDownload(resource.variants[0]) };
-      result.thumbnail = resource?.variants[0].file?.thumbPath || resource?.variants[0].file?.contentPath || "";
+      result.thumbnail = resource?.variants[0]?.file?.thumbPath || resource?.variants[0]?.file?.contentPath || "";
     } else if (video) {
       result.type = "video";
       result.url = "https://vimeo.com/" + video.videoId;
