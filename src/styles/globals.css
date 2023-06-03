@@ -494,10 +494,9 @@ label .description {
   padding-bottom: 50px;
   background-image: url("/images/home-hero.png");
   background-size: cover;
-  min-height: 100vh;
+  min-height: 95vh;
   color:#FFF;
 }
-
 
 #hero .title {
   margin-top:13vh;

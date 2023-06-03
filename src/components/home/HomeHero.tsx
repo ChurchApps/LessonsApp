@@ -48,7 +48,7 @@ export function HomeHero(props: Props) {
       getAge("Teen", "forministryresources"),
       getAge("Adult", "next-level")
     ]
-    return <Stack spacing={1} direction={{xs:"row", md:"column"}}>{result}</Stack>;
+    return <Stack spacing={1} style={{padding:"50px 5px 0px 5px"}} direction={{xs:"row", md:"column"}}>{result}</Stack>;
   }
 
   return (
