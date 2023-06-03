@@ -1406,16 +1406,12 @@ a.dropdown-toggle::after {
   margin-top:0px;
 }
 
-.programPromo table {
+.programPromo .programStudies {
   width:100%;
   margin-top:100px;
   padding-bottom: 60px;
 }
 
-.programPromo table td {
-  width:20%;
-  padding:10px;
-}
 
 .cta{
   display: inline-block;

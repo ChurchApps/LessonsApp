@@ -14,14 +14,14 @@ export function Programs(props: Props) {
 
     const studies = ArrayHelper.getAll(props.studies, "programId", program.id);
     const result:JSX.Element[] = [];
-    for (let i=0;i<=5;i++)
+    for (let i=0;i<6;i++)
     {
       const link = studies.length > i
         ? (<Link href={"/" + program.slug + "/" + studies[i].slug}>
           <Image src={studies[i].image} alt={studies[i].name} width={256} height={144} style={{height:"auto"}} placeholder="empty" className="img-fluid" />
         </Link>)
         : null;
-      result.push(<td key={i}>{link}</td>);
+      result.push(<Grid item md={2} sm={4} key={i}>{link}</Grid>);
     }
     return result;
   }
@@ -39,13 +39,9 @@ export function Programs(props: Props) {
               <a href={url} className="cta">Learn More</a>
             </Grid>
           </Grid>
-          <table>
-            <tbody>
-              <tr className="programStudies">
-                {getStudies(program)}
-              </tr>
-            </tbody>
-          </table>
+          <Grid container spacing={2} className="programStudies">
+            {getStudies(program)}
+          </Grid>
         </Container>
       </div>
     </div> )
