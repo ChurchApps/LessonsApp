@@ -1605,6 +1605,15 @@ a.dropdown-toggle::after {
   font-weight: bold;
 }
 
+#studyHero .badge {
+  border-radius: 10px;
+  float: right;
+  margin-top: -120px;
+  margin-bottom: -120px;
+  position: relative;
+  z-index: 1000;
+  
+}
 
 #studyIntro {
   margin-bottom: 20px;
@@ -1824,4 +1833,24 @@ a.dropdown-toggle::after {
     min-width: 95vw;
   }
   
+  
+  #studyHero .badge {
+    float: left;
+    margin-top: 15px;
+    width:100%;
+    height:auto;
+    margin-bottom: 15px;
+  }
+
+  #lessonSidebarInner.affix {
+    position: relative;
+  }
+
+  .playAction .text {
+    font-size:16px;
+    max-width: 240px;
+    max-height:45px;
+    overflow: hidden;
+  }
+
 }
