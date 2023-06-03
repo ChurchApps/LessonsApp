@@ -3,7 +3,7 @@ import { ResourceInterface, ArrayHelper, ActionInterface, VariantInterface, Asse
 import { VimeoModal } from "./VimeoModal";
 import { MarkdownPreview } from "./index"
 import Image from "next/image";
-import { AnalyticsHelper } from "@/appBase/helpers";
+import { AnalyticsHelper, DateHelper } from "@/appBase/helpers";
 import { CommonEnvironmentHelper } from "@/appBase/helpers/CommonEnvironmentHelper";
 
 type Props = {
@@ -70,7 +70,7 @@ export function Action(props: Props) {
   }
 
   const getPreviewData = () => {
-    const result:{type:string, thumbnail:string, name:string, url:string, videoId:string, action:(e:React.MouseEvent) => void} = { type:"", thumbnail:"", name:"", url:"", videoId: "", action:() => {}};
+    const result:{type:string, thumbnail:string, name:string, url:string, videoId:string, seconds:number, action:(e:React.MouseEvent) => void} = { type:"", thumbnail:"", name:"", url:"", videoId: "", seconds:0, action:() => {}};
     const video: ExternalVideoInterface = ArrayHelper.getOne(props.externalVideos || [], "id", props.action.externalVideoId);
     const resource: ResourceInterface = ArrayHelper.getOne(props.resources || [], "id", props.action.resourceId);
     const asset = (props.action.assetId && resource) ? ArrayHelper.getOne(resource?.assets || [], "id", props.action.assetId) : null;
@@ -93,6 +93,7 @@ export function Action(props: Props) {
       result.action = (e) => { e.preventDefault(); trackView(video); setShowPreview(true); };
       result.thumbnail = video.thumbnail;
       result.videoId = video.videoId;
+      result.seconds = parseInt(video.seconds);
     }
     return result;
   }
@@ -110,9 +111,16 @@ export function Action(props: Props) {
       result = (<div className="say"><MarkdownPreview value={props.action.content} /></div>);
       break;
     case "Play":
-      const data = getPreviewData();;
+      const data = getPreviewData();
+      let duration = null;
+      if (data.seconds>0) {
+        const min = Math.floor(data.seconds / 60);
+        const sec = data.seconds % 60;
+        duration = <span className="duration">{min.toString() + ":" + sec.toString().padStart(2, "0") }</span>;
+      }
       result = (<div className="playAction">
-        <Image src={data.thumbnail} alt={data.name} width={160} height={90} style={{height:90}} />
+        {duration}
+        <Image src={data.thumbnail} alt={data.name} width={128} height={72} style={{height:72}} />
         <a href={data.url} rel="noopener noreferrer" onClick={data.action} className="text">{data.name}</a>
         {data.type==="video" && showPreview && <VimeoModal onClose={() => setShowPreview(false)} vimeoId={data.videoId} />}
       </div>);

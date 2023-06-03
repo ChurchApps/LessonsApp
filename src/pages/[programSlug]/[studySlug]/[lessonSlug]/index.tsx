@@ -19,6 +19,7 @@ export default function LessonsPage(props: Props) {
 
   const [selectedVenue, setSelectedVenue] = React.useState<VenueInterface>(props.venues[0]);
   const [showPresenter, setShowPresenter] = React.useState<boolean>(false);
+  const [print, setPrint] = React.useState<number>(0);
 
   const resources: ResourceInterface[] = [];
 
@@ -69,12 +70,12 @@ export default function LessonsPage(props: Props) {
 
       <Grid container spacing={2}>
         <Grid item md={3} sm={12} style={{backgroundColor:"#FFF"}}>
-          <LessonSidebar program={props.program} venues={props.venues} selectedVenue={selectedVenue} onVenueChange={(v) => { setSelectedVenue(v); }} bundles={bundles} externalVideos={props.externalVideos} />
+          <LessonSidebar program={props.program} venues={props.venues} selectedVenue={selectedVenue} onVenueChange={(v) => { setSelectedVenue(v); }} bundles={bundles} externalVideos={props.externalVideos} onPrint={() => { setPrint(Math.random()) } } />
         </Grid>
         <Grid item md={9} sm={12}>
           <Container>
             <div style={{marginTop:60}}>
-              <Venue useAccordion={false} venue={selectedVenue} resources={resources} externalVideos={props.externalVideos} bundles={bundles} />
+              <Venue useAccordion={false} venue={selectedVenue} resources={resources} externalVideos={props.externalVideos} bundles={bundles} print={print} />
             </div>
           </Container>
         </Grid>

@@ -14,6 +14,7 @@ type Props = {
   bundles: BundleInterface[];
   hidePrint?: boolean;
   customizations?: CustomizationInterface[]
+  print: number;
 };
 
 export function Venue(props: Props) {
@@ -63,6 +64,8 @@ export function Venue(props: Props) {
   }
 
   /*{getPrint()}*/
+
+  React.useEffect(() => { if (props.print>0) setDisplaySection(true); }, [props.print]);
 
   return (
     <div>

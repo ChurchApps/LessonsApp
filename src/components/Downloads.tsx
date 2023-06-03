@@ -93,14 +93,8 @@ export function Downloads(props: Props) {
     return result;
   }
 
-  return (
-    (props.bundles.length > 0 || props.externalVideos.length > 0) && (
-      <>
-        <ul>
-          {getBundles()}
-          {getVideos()}
-        </ul>
-        <div className="downloadResource">
+  /*
+  <div className="downloadResource">
 
           <b>No Need to Download</b><br />
           <p>Get the Lessons.church app for AndroidTV or FireSticks<br />and have your videos download automatically each week.</p>
@@ -108,6 +102,17 @@ export function Downloads(props: Props) {
           <Button href="https://lessons.church/#connectSection" target="_new" size="small" color="info" component="a" variant="contained">Learn How</Button>
 
         </div>
+        */
+
+  return (
+    (props.bundles.length > 0 || props.externalVideos.length > 0) && (
+      <>
+        <ul>
+          {getBundles()}
+          {getVideos()}
+        </ul>
+
+
 
       </>
     )

@@ -1680,7 +1680,7 @@ a.dropdown-toggle::after {
 
 .playAction {
   clear:both;
-  height:90px;
+  height:72px;
   border:1px solid #CCC;
   border-radius: 10px;
   vertical-align: middle;
@@ -1697,10 +1697,17 @@ a.dropdown-toggle::after {
 
 .playAction .text {
   display:inline-block;
-  padding-top:30px;
+  padding-top:20px;
   padding-left:20px;
   font-weight: bold;
   font-size: 20px;
+}
+
+.playAction .duration {
+  float:right;
+  padding-right: 20px;
+  padding-top:23px;
+  font-size:14px;
 }
 
 .note { 
@@ -1742,7 +1749,7 @@ a.dropdown-toggle::after {
 
 #lessonSidebarInner.affix {
   position: fixed;
-  top: 0px;
+  top: -100px;
   left: 0px;
 }
 
@@ -1779,7 +1786,7 @@ a.dropdown-toggle::after {
   padding-right:10px;
 }
 
-#lessonSidebar li a:hover {
+#lessonSidebar li a:hover, #lessonSidebar li a.active {
   text-decoration: none;
   background-color:#cfefff;
   color:#1d70b7;
