@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useRouter } from "next/router";
 import { Layout, Venue } from "@/components";
-import { ApiHelper, ClassroomInterface, CustomizationInterface, LessonInterface, ScheduleInterface, VenueInterface } from "@/utils";
+import { ApiHelper, ClassroomInterface, CustomizationInterface, ExternalVideoInterface, LessonInterface, ResourceInterface, ScheduleInterface, VenueInterface } from "@/utils";
 import Link from "next/link";
 import { Container, Grid } from "@mui/material";
 import { DateHelper } from "@/appBase/helpers";
@@ -9,6 +9,8 @@ import { DateHelper } from "@/appBase/helpers";
 export default function B1Venue() {
   const [venue, setVenue] = useState<VenueInterface>(null);
   const [lesson, setLesson] = useState<LessonInterface>(null);
+  const [externalVideos, setExternalVideos] = useState<ExternalVideoInterface[]>([]);
+  const [resources, setResources] = useState<ResourceInterface[]>([]);
   const [classroom, setClassroom] = useState<ClassroomInterface>(null);
   const [customizations, setCustomizations] = useState<CustomizationInterface[]>([]);
   const [currentSchedule, setCurrentSchedule] = useState<ScheduleInterface>(null);
@@ -24,8 +26,23 @@ export default function B1Venue() {
     if (id) {
       const v: VenueInterface = await ApiHelper.get("/venues/public/" + id, "LessonsApi");
       setVenue(v);
-      const l: LessonInterface = await ApiHelper.get("/lessons/public/" + v.lessonId, "LessonsApi")
-      setLesson(l);
+
+      const lessonData = await ApiHelper.get("/lessons/public/" + v.lessonId, "LessonsApi")
+      const lesson: LessonInterface = lessonData.lesson;
+      /*
+      const study: StudyInterface = lessonData.study;
+      const program: ProgramInterface = lessonData.program;
+      const venues: VenueInterface[] = lessonData.venues;
+      const bundles: BundleInterface[] = lessonData.bundles;
+      const resources: ResourceInterface[] = lessonData.resources;
+
+      */
+      setResources(lessonData.resources);
+
+      setExternalVideos(lessonData.externalVideos);
+      setLesson(lessonData.lesson);
+
+      //const lessonData = await ApiHelper.getAnonymous("/lessons/public/slug/" + params.programSlug + "/" + params.studySlug + "/" + params.lessonSlug, "LessonsApi");
 
       let search = new URLSearchParams(process.browser ? window.location.search : "");
       const classroomId = search.get("classroomId");
@@ -49,7 +66,7 @@ export default function B1Venue() {
 
   const getVenue = () => {
     if (venue) {
-      return <Venue useAccordion={true} venue={venue} resources={[]} bundles={[]} externalVideos={[]} hidePrint={true} customizations={customizations} print={0} />
+      return <Venue useAccordion={true} venue={venue} resources={resources} externalVideos={externalVideos} bundles={null} hidePrint={true} customizations={customizations} print={0} />
     }
   }
 
