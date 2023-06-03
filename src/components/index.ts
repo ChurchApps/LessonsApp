@@ -5,8 +5,8 @@ export { Lessons } from "./Lessons";
 export { Programs } from "./home/Programs";
 export { Stats } from "./home/Stats";
 export { Studies } from "./Studies";
-export { Venues } from "./Venues";
-export { Venue } from "./Venue";
+export { Venues } from "./lesson/Venues";
+export { Venue } from "./lesson/Venue";
 export { VimeoModal } from "./VimeoModal";
 
 export { ProgramEdit } from "./admin/ProgramEdit";

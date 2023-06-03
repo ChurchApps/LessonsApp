@@ -24,6 +24,9 @@ export default function StudyPage(props: Props) {
     return <Error message={props.error.message} />
   }
 
+  /*
+    {props.study.shortDescription && <div style={{marginBottom:20}}>{props.study.shortDescription}</div>}
+  */
   let title = props.program.name + ": " + props.study?.name + " - Free Church Curriculum";
   return (
     <Layout pageTitle={title} metaDescription={props.study.description} image={props.study.image} withoutNavbar>
@@ -35,7 +38,6 @@ export default function StudyPage(props: Props) {
               <Grid item md={7} xs={12}>
                 <div className="breadcrumb"><Link href={"/" + props.program.slug}>{props.program.name}</Link></div>
                 <h1>{props.study.name}</h1>
-                {props.study.shortDescription && <div style={{marginBottom:20}}>{props.study.shortDescription}</div>}
               </Grid>
             </Grid>
 

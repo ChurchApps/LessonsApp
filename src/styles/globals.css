@@ -1611,11 +1611,10 @@ a.dropdown-toggle::after {
 
 
 #studyIntro {
-  text-align: center;
   margin-bottom: 20px;
 }
 
-#studyIntro .editor-container {
+#studyIntro H2 {
   text-align: center;
 }
 

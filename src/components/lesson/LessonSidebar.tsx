@@ -2,7 +2,7 @@ import { AppBar, Box, Container, FormControl, Grid, Icon, InputLabel, Link, Menu
 import { ArrayHelper, BundleInterface, ExternalVideoInterface, ProgramInterface, SectionInterface, VenueInterface } from "@/utils";
 import { MarkdownPreview } from "..";
 import React, { useEffect } from "react";
-import { Downloads } from "../Downloads";
+import { Downloads } from "./Downloads";
 import { max } from "date-fns";
 
 type Props = {

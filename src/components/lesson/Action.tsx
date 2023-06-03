@@ -1,7 +1,7 @@
 import React from "react";
 import { ResourceInterface, ArrayHelper, ActionInterface, VariantInterface, AssetInterface, UserHelper, ApiHelper, FileInterface, ExternalVideoInterface } from "@/utils";
-import { VimeoModal } from "./VimeoModal";
-import { MarkdownPreview } from "./index"
+import { VimeoModal } from "../VimeoModal";
+import { MarkdownPreview } from "../index"
 import Image from "next/image";
 import { AnalyticsHelper, DateHelper } from "@/appBase/helpers";
 import { CommonEnvironmentHelper } from "@/appBase/helpers/CommonEnvironmentHelper";
