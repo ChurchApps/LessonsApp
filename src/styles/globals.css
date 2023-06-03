@@ -1518,9 +1518,6 @@ a.dropdown-toggle::after {
   margin-bottom: 20px;
 }
 
-#programIntro .editor-container {
-  text-align: center;
-}
 
 #programIntro .editor-container span {
   display:block;
