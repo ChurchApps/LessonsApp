@@ -41,7 +41,7 @@ export default function StudyPage(props: Props) {
               </Grid>
             </Grid>
 
-            <div style={{height:70}}></div>
+            <div style={{height:50}}></div>
             <Image className="badge" src={props.study.image} alt={props.study.name} width={320} height={180} />
           </Container>
         </div>

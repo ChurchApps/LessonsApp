@@ -61,7 +61,7 @@ export default function LessonsPage(props: Props) {
               </Grid>
             </Grid>
 
-            <div style={{height:70}}></div>
+            <div style={{height:50}}></div>
             <Image src={props.lesson.image} alt={props.lesson.name} width={320} height={180} className="badge" />
           </Container>
         </div>

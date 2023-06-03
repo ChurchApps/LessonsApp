@@ -1596,16 +1596,18 @@ a.dropdown-toggle::after {
 #studyHero H1 {
   margin-top:0px;
   padding-bottom:0px;
-  margin-bottom: 0px;;
+  margin-bottom: 0px;
+  font-size:40px;
 }
 
 #studyHero .breadcrumb {
   margin-top:30px;
   color: #34a8de;
   font-weight: bold;
+  font-size:20px;
 }
 
-#studyHero .badge {
+#studyHero .badge, #programHero .badge {
   border-radius: 10px;
   float: right;
   margin-top: -120px;
@@ -1834,7 +1836,7 @@ a.dropdown-toggle::after {
   }
   
   
-  #studyHero .badge {
+  #studyHero .badge, #programHero .badge {
     float: left;
     margin-top: 15px;
     width:100%;

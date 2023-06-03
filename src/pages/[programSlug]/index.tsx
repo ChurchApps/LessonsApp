@@ -70,7 +70,7 @@ export default function ProgramPage(props: Props) {
             <div style={{marginBottom:20}}>{props.program.shortDescription}</div>
             {video && <a href="about:blank" onClick={(e) => { e.preventDefault(); setShowVideo(true); }} className="cta"><Icon style={{float:"left", marginRight:10}}>play_circle</Icon>Watch Trailer</a>}
             <div style={{height:90}}></div>
-            <Image src={props.program.image} alt={props.program.name} width={320} height={180} style={{borderRadius:10, float:"right", marginTop:-120 }} />
+            <Image src={props.program.image} alt={props.program.name} width={320} height={180} className="badge" />
           </Container>
         </div>
       </div>
