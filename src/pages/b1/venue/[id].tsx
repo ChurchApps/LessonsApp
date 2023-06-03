@@ -24,8 +24,8 @@ export default function B1Venue() {
     if (id) {
       const v: VenueInterface = await ApiHelper.get("/venues/public/" + id, "LessonsApi");
       setVenue(v);
-      const l: LessonInterface = await ApiHelper.get("/lessons/public/" + v.lessonId, "LessonsApi")
-      setLesson(l);
+      const lessonData = await ApiHelper.get("/lessons/public/" + v.lessonId, "LessonsApi")
+      setLesson(lessonData.lesson);
 
       let search = new URLSearchParams(process.browser ? window.location.search : "");
       const classroomId = search.get("classroomId");
