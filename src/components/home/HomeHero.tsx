@@ -53,13 +53,14 @@ export function HomeHero(props: Props) {
       getAge("Teen", "forministryresources"),
       getAge("Adult", "next-level")
     ]
-    return (<Slide direction="left" in={true} timeout={2000}>
+
+    return (
       <Fade in={true} timeout={2000}>
         <div>
           <Stack spacing={1} style={{padding:"50px 5px 0px 5px"}} direction={{xs:"row", md:"column"}}>{result}</Stack>
         </div>
       </Fade>
-    </Slide>)
+    )
   }
 
   return (

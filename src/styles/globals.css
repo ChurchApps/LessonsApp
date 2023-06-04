@@ -14,6 +14,7 @@ body {
   color: #333;
   font-display: swap;
   background-color: #f0f1f3;
+  width:100vw;
 }
 
 .table {
