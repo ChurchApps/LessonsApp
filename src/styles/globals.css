@@ -1826,6 +1826,12 @@ a.dropdown-toggle::after {
   margin-top:5px;
 }
 
+@media (max-width: 900px) {
+  #lessonSidebarInner.affix {
+    position: relative;
+    height: auto;
+  }
+}
 
 @media (max-width: 600px) {
   .programPromo {
@@ -1863,10 +1869,6 @@ a.dropdown-toggle::after {
     width:100%;
     height:auto;
     margin-bottom: 15px;
-  }
-
-  #lessonSidebarInner.affix {
-    position: relative;
   }
 
   .playAction .text {
