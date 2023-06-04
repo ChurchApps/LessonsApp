@@ -1871,9 +1871,13 @@ a.dropdown-toggle::after {
 
   .playAction .text {
     font-size:16px;
-    max-width: 240px;
+    max-width: 45vw;
     max-height:45px;
     overflow: hidden;
+  }
+
+  .playAction .duration {
+    display:none;
   }
 
 }
