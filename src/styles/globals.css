@@ -14,7 +14,6 @@ body {
   color: #333;
   font-display: swap;
   background-color: #f0f1f3;
-  width:100vw;
 }
 
 .table {
@@ -1773,6 +1772,12 @@ a.dropdown-toggle::after {
   position: fixed;
   top: -100px;
   left: 0px;
+  height:calc(100vh + 80px);
+  overflow-y:scroll;
+}
+
+#lessonSidebarInner.affix::-webkit-scrollbar {
+  width: 0px;
 }
 
 #lessonSidebar h3 {
