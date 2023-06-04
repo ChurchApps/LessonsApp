@@ -1,23 +1,12 @@
 import { Grid, Container, Stack } from "@mui/material";
-import { useState } from "react";
-
 export function HomeConnect() {
-
-  const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
-  const open = Boolean(anchorEl);
-  const handleClick = (event: React.MouseEvent<HTMLElement>) => {
-    setAnchorEl(event.currentTarget);
-  };
-  const handleClose = () => {
-    setAnchorEl(null);
-  };
 
   return (<div className="homeSection">
     <Container fixed>
       <div className="apps">
         <Grid container justifyContent="center" spacing={3}>
           <Grid item md={6} xs={12}>
-            <img src="/images/apps.png" alt="Church Apps" className="img-fluid" />
+            <img src="/images/home/apps.png" alt="Church Apps" className="img-fluid" />
           </Grid>
           <Grid item md={6} xs={12}>
             <div className="title">
