@@ -84,6 +84,7 @@ export default function Venue() {
                 src={lesson.image}
                 style={{ verticalAlign: "middle" }}
                 alt={lesson.name}
+                className="img-fluid"
               />
             </Grid>
             <Grid item md={9} xs={12}>
@@ -111,22 +112,28 @@ export default function Venue() {
     return result;
   }
 
-  let logoUrl = "/images/logo.png";
-  if (churchSettings?.logoLight) logoUrl = churchSettings.logoLight;
+  let logoUrl = "/images/logo-dark.png";
+  if (churchSettings?.logoDark) logoUrl = churchSettings.logoDark;
 
   return (
     <Layout withoutNavbar={true} withoutFooter={true}>
       <div>
-        <AppBar id="navbar" position="fixed">
-          <Container>
-            <Stack direction="row" justifyContent="left" alignItems="center">
-              <Link href="/" className="logo"><img src={logoUrl} alt="Lessons.church - Free Curriculum for Churches" /></Link>
-              <b style={{ color: "#000", fontSize: 24 }}>{church?.name}</b>
-            </Stack>
+        <div id="studyHero" style={{minHeight:70}}>
+          <div className="content">
+            <Container fixed>
+              <AppBar id="navbar" position="fixed">
+                <Container>
+                  <Stack direction="row" justifyContent="left" alignItems="center">
+                    <Link href="/" className="logo"><img src={logoUrl} alt="Lessons.church - Free Curriculum for Churches" className="img-fluid" /></Link>
+                    <b style={{ color: "#FFF", fontSize: 24, paddingLeft:30 }}>{church?.name}</b>
+                  </Stack>
 
-          </Container>
-        </AppBar>
-        <div id="navSpacer" />
+                </Container>
+              </AppBar>
+              <div id="navSpacer" />
+            </Container>
+          </div>
+        </div>
       </div>
       <Container fixed>
         <h1>{classroom?.name} Lesson</h1>

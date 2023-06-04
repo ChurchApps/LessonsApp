@@ -28,9 +28,9 @@ export default function B1Venue() {
     if (id) {
       const v: VenueInterface = await ApiHelper.get("/venues/public/" + id, "LessonsApi");
       setVenue(v);
+      setSelectedTab(v.sections[0].id)
 
       const lessonData = await ApiHelper.get("/lessons/public/" + v.lessonId, "LessonsApi")
-      const lesson: LessonInterface = lessonData.lesson;
       /*
       const study: StudyInterface = lessonData.study;
       const program: ProgramInterface = lessonData.program;
@@ -43,6 +43,7 @@ export default function B1Venue() {
 
       setExternalVideos(lessonData.externalVideos);
       setLesson(lessonData.lesson);
+
 
       let search = new URLSearchParams(process.browser ? window.location.search : "");
       const classroomId = search.get("classroomId");
@@ -73,7 +74,7 @@ export default function B1Venue() {
   const getTabs = () => {
     const result: JSX.Element[] = [];
     venue?.sections?.forEach(s => {
-      result.push(<Tab label={s.name} value={s.id} />)
+      if (s.roles.length>0) result.push(<Tab label={s.name} value={s.id} />)
 
     })
     return result;
@@ -81,7 +82,34 @@ export default function B1Venue() {
 
   const handleChange = (newValue: string) => {
     setSelectedTab(newValue);
+    const scrollTop = document.getElementById("section-" + newValue).offsetTop - 50;
+    window.scrollTo({top: scrollTop, behavior: "smooth"});
   };
+
+  const handleHighlight = () => {
+    const elements = document.getElementsByClassName("sectionCard");
+    let maxTop=0;
+    let result = "";
+    for (let i=0;i<elements.length;i++) {
+      const el:any = elements[i];
+      if (window.scrollY>=el.offsetTop - 60 && el.offsetTop>0) {
+        if (el.offsetTop > maxTop) {
+          maxTop = el.offsetTop;
+          result=el.id.replace("section-", "");
+        }
+      }
+    }
+
+    if (result !== selectedTab) setSelectedTab(result);
+  }
+
+  useEffect(() => {
+    window.addEventListener('scroll', handleHighlight);
+
+    return () => {
+      window.removeEventListener('scroll', handleHighlight);
+    };
+  }, []);
 
   return (
     <Layout withoutNavbar={true} withoutFooter={true}>
@@ -90,6 +118,7 @@ export default function B1Venue() {
           {getTabs()}
         </Tabs>
       </div>
+      <div style={{height:50}}></div>
       <Link href={"/b1/" + classroom?.churchId}>Go back</Link>
       <Grid container columnSpacing={2}>
         <Grid item xs={4}>
