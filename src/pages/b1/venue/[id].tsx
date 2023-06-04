@@ -3,7 +3,7 @@ import { useRouter } from "next/router";
 import { Layout, Venue } from "@/components";
 import { ApiHelper, ClassroomInterface, CustomizationInterface, ExternalVideoInterface, LessonInterface, ResourceInterface, ScheduleInterface, VenueInterface } from "@/utils";
 import Link from "next/link";
-import { Container, Grid } from "@mui/material";
+import { Container, Grid, Tab, Tabs } from "@mui/material";
 import { DateHelper } from "@/appBase/helpers";
 
 export default function B1Venue() {
@@ -16,6 +16,8 @@ export default function B1Venue() {
   const [currentSchedule, setCurrentSchedule] = useState<ScheduleInterface>(null);
   const [prevSchedule, setPrevSchedule] = useState<ScheduleInterface>(null);
   const [nextSchedule, setNextSchedule] = useState<ScheduleInterface>(null);
+
+  const [selectedTab, setSelectedTab] = useState<string>("");
   const router = useRouter();
   const id = router.query.id;
 
@@ -41,8 +43,6 @@ export default function B1Venue() {
 
       setExternalVideos(lessonData.externalVideos);
       setLesson(lessonData.lesson);
-
-      //const lessonData = await ApiHelper.getAnonymous("/lessons/public/slug/" + params.programSlug + "/" + params.studySlug + "/" + params.lessonSlug, "LessonsApi");
 
       let search = new URLSearchParams(process.browser ? window.location.search : "");
       const classroomId = search.get("classroomId");
@@ -70,8 +70,26 @@ export default function B1Venue() {
     }
   }
 
+  const getTabs = () => {
+    const result: JSX.Element[] = [];
+    venue?.sections?.forEach(s => {
+      result.push(<Tab label={s.name} value={s.id} />)
+
+    })
+    return result;
+  }
+
+  const handleChange = (newValue: string) => {
+    setSelectedTab(newValue);
+  };
+
   return (
     <Layout withoutNavbar={true} withoutFooter={true}>
+      <div id="b1Tabs">
+        <Tabs value={selectedTab} onChange={(e, newVal) => { handleChange(newVal) } } variant="scrollable" scrollButtons="auto" aria-label="scrollable auto tabs example">
+          {getTabs()}
+        </Tabs>
+      </div>
       <Link href={"/b1/" + classroom?.churchId}>Go back</Link>
       <Grid container columnSpacing={2}>
         <Grid item xs={4}>

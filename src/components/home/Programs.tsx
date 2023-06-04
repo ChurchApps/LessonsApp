@@ -21,7 +21,7 @@ export function Programs(props: Props) {
           <Image src={studies[i].image} alt={studies[i].name} width={256} height={144} style={{height:"auto"}} placeholder="empty" className="img-fluid" />
         </Link>)
         : null;
-      result.push(<Grid item md={2} sm={4} key={i}>{link}</Grid>);
+      result.push(<Grid item md={2} sm={4} xs={4} key={i}>{link}</Grid>);
     }
     return result;
   }

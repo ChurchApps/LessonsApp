@@ -1073,6 +1073,24 @@ a.dropdown-toggle::after {
   margin-bottom: 20px;
 }
 
+#b1Tabs {
+  background-color:#28235d;
+  position:fixed;
+  width:100%;
+  z-index:9999;
+}
+
+#b1Tabs .MuiTab-root
+{
+  color:#FFF;
+}
+
+#b1Tabs .Mui-selected
+{
+  background-color:#FFF;
+  color:#28235d;
+}
+
 .b1 .play {
   padding-inline-start: 10px;
 }
