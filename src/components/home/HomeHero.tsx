@@ -1,4 +1,4 @@
-import { AppBar, Box, Container, Grid, Link, Stack } from "@mui/material";
+import { AppBar, Box, Container, Fade, Grid, Link, Slide, Stack } from "@mui/material";
 import { Stats } from "./Stats";
 import { Header } from "../Header";
 
@@ -23,11 +23,16 @@ export function HomeHero(props: Props) {
     */
 
   const getLeftContent = () => (<>
-
     <Grid container spacing={3}>
       <Grid item md={7} xs={12}>
-        <div className="title">Free Church Lessons</div>
-        <h1>Completely Free Curriculum for Churches</h1>
+        <Slide direction="up" in={true} timeout={800}>
+          <Fade in={true} timeout={800}>
+            <div>
+              <div className="title">Free Church Lessons</div>
+              <h1>Completely Free Curriculum for Churches</h1>
+            </div>
+          </Fade>
+        </Slide>
         <p>We believe that limited church budgets should never stand in the way of teaching both children and adults the word of God in the most effective way possible.</p>
         <a href="#" className="cta">Join for <b>FREE</b> Curriculum</a>
         <Stats stats={props.stats} />
@@ -48,7 +53,13 @@ export function HomeHero(props: Props) {
       getAge("Teen", "forministryresources"),
       getAge("Adult", "next-level")
     ]
-    return <Stack spacing={1} style={{padding:"50px 5px 0px 5px"}} direction={{xs:"row", md:"column"}}>{result}</Stack>;
+    return (<Slide direction="left" in={true} timeout={2000}>
+      <Fade in={true} timeout={2000}>
+        <div>
+          <Stack spacing={1} style={{padding:"50px 5px 0px 5px"}} direction={{xs:"row", md:"column"}}>{result}</Stack>
+        </div>
+      </Fade>
+    </Slide>)
   }
 
   return (
