@@ -1,9 +1,9 @@
 import React from "react";
 import { ResourceInterface, ArrayHelper, ActionInterface, VariantInterface, AssetInterface, UserHelper, ApiHelper, FileInterface, ExternalVideoInterface } from "@/utils";
-import { VimeoModal } from "./VimeoModal";
-import { MarkdownPreview } from "./index"
+import { VideoModal } from "../VideoModal";
+import { MarkdownPreview } from "../index"
 import Image from "next/image";
-import { AnalyticsHelper } from "@/appBase/helpers";
+import { AnalyticsHelper, DateHelper } from "@/appBase/helpers";
 import { CommonEnvironmentHelper } from "@/appBase/helpers/CommonEnvironmentHelper";
 
 type Props = {
@@ -69,66 +69,61 @@ export function Action(props: Props) {
     ApiHelper.post("/downloads", [download], "LessonsApi");
   }
 
-  const getPreview = (variants: VariantInterface[], asset: AssetInterface, name: string) => {
-    let files: FileInterface[] = [];
-
-    variants?.forEach(v => { if (v.file) files.push(v.file) });
-    if (asset?.file) files.push(asset.file);
-    let result = <></>
-
-    files.forEach(f => {
-      if (f?.thumbPath) result = <div className="playPreview"><Image src={f.thumbPath || ""} alt={name} width={480} height={270} style={{height:"auto"}} /></div>
-      else if (f?.fileType === "image/jpeg" || f?.fileType === "image/png") result = <div className="playPreview"><Image src={f.contentPath || ""} alt={name} width={480} height={270} style={{height:"auto"}} /></div>
-    })
-
-    return result;
-  }
-
-  const getPlayLink = () => {
+  const getPreviewData = () => {
+    const result:{type:string, thumbnail:string, name:string, url:string, videoId:string, seconds:number, action:(e:React.MouseEvent) => void} = { type:"", thumbnail:"", name:"", url:"", videoId: "", seconds:0, action:() => {}};
     const video: ExternalVideoInterface = ArrayHelper.getOne(props.externalVideos || [], "id", props.action.externalVideoId);
     const resource: ResourceInterface = ArrayHelper.getOne(props.resources || [], "id", props.action.resourceId);
     const asset = (props.action.assetId && resource) ? ArrayHelper.getOne(resource?.assets || [], "id", props.action.assetId) : null;
-
     if (asset) {
-      return (<>
-        {getPreview(null, asset, resource.name)}
-        <a href={resource.variants[0]?.file?.contentPath} target="_blank" rel="noopener noreferrer" onClick={() => { trackDownload(resource.variants[0]) }}>{resource.name}</a>
-        :{" "}
-        <a href={asset?.file?.contentPath} target="_blank" rel="noopener noreferrer" onClick={() => { trackAssetDownload(asset) }}>{asset.name}</a>
-      </>);
+      result.type = "asset";
+      result.url = asset?.file?.contentPath;
+      result.name = resource?.name + ": " +  asset?.name;
+      result.action = () => { trackAssetDownload(asset) };
+      result.thumbnail = asset?.file?.thumbPath || asset?.file?.contentPath || "";
     } else if (resource) {
-      return (<>
-        {getPreview(resource.variants, null, resource.name)}
-        <a href={resource.variants[0]?.file?.contentPath} target="_blank" rel="noopener noreferrer" onClick={() => { trackDownload(resource.variants[0]) }}> {resource.name} </a>
-      </>);
+      result.type = "resource";
+      result.url = resource.variants[0]?.file?.contentPath;
+      result.name = resource.name;
+      result.action = () => { trackDownload(resource.variants[0]) };
+      result.thumbnail = resource?.variants[0]?.file?.thumbPath || resource?.variants[0]?.file?.contentPath || "";
     } else if (video) {
-      return (<>
-        {showPreview && <VimeoModal onClose={() => setShowPreview(false)} vimeoId={video.videoId} />}
-        <div className="playPreview">
-          <a href={"https://vimeo.com/" + video.videoId} rel="noopener noreferrer" onClick={(e) => { e.preventDefault(); trackView(video); setShowPreview(true); }}>
-            <img src={video.thumbnail} alt={video.name} />
-          </a>
-        </div>
-        <a href={"https://vimeo.com/" + video.videoId} rel="noopener noreferrer" onClick={(e) => { e.preventDefault(); trackView(video); setShowPreview(true); }}>{video.name}</a>
-      </>);
+      result.type = "video";
+      result.url = "https://vimeo.com/" + video.videoId;
+      result.name = video.name;
+      result.action = (e) => { e.preventDefault(); trackView(video); setShowPreview(true); };
+      result.thumbnail = video.thumbnail;
+      result.videoId = video.videoId;
+      result.seconds = parseInt(video.seconds);
     }
-    return props.action.content;
-  };
+    return result;
+  }
 
   let result = <></>;
 
   switch (props.action.actionType) {
     case "Note":
-      result = (<div className="note"><b>Note:</b> <MarkdownPreview value={props.action.content} /></div>);
+      result = (<div className="note"><MarkdownPreview value={props.action.content} /></div>);
       break;
     case "Do":
       result = (<ul className="actions"><li><MarkdownPreview value={props.action.content} /></li></ul>);
       break;
     case "Say":
-      result = (<blockquote><MarkdownPreview value={props.action.content} /></blockquote>);
+      result = (<div className="say"><MarkdownPreview value={props.action.content} /></div>);
       break;
     case "Play":
-      result = (<ul className="play"><li><b>Play:</b> {getPlayLink()}</li></ul>);
+      const data = getPreviewData();
+      let duration = null;
+      if (data.seconds>0) {
+        const min = Math.floor(data.seconds / 60);
+        const sec = data.seconds % 60;
+        duration = <span className="duration">{min.toString() + ":" + sec.toString().padStart(2, "0") }</span>;
+      }
+      result = (<div className="playAction">
+        {duration}
+        <Image src={data.thumbnail} alt={data.name} width={128} height={72} style={{height:72}} />
+        <a href={data.url} rel="noopener noreferrer" onClick={data.action} className="text">{data.name}</a>
+        {data.type==="video" && showPreview && <VideoModal onClose={() => setShowPreview(false)} vimeoId={data.videoId} />}
+      </div>);
       break;
   }
 

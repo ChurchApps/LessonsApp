@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { LessonInterface } from "@/utils";
-import { Grid } from "@mui/material";
+import { Card, Grid } from "@mui/material";
 import Image from "next/image";
 
 type Props = {
@@ -9,33 +9,37 @@ type Props = {
 };
 
 export function Lessons({ lessons, slug }: Props) {
+
   function createLesson(lesson: LessonInterface) {
     const url = slug + `/${lesson.slug}`;
     return (
-      <Link href={url} key={lesson.id} style={{ textDecoration: "none", color: "inherit" }}>
-        <Grid container spacing={3} style={{ paddingBottom: 20, paddingTop: 20, borderBottom: "1px solid #CCC" }}>
-          <Grid item md={3} xs={12}>
-            <Image
-              src={lesson.image || ""}
-              style={{ verticalAlign: "middle", height:"auto" }}
-              alt={lesson.name}
-              width={640}
-              height={360}
-            />
-          </Grid>
-          <Grid item md={9} xs={12}>
-            <div className="title">{lesson.name}</div>
-            <h3 style={{ fontSize: "28px", fontWeight: 600, margin: "0 0 8px 0" }}>{lesson.title}</h3>
-            <p style={{ margin: "0 0 16px 0" }}>{lesson.description}</p>
-          </Grid>
-        </Grid>
-      </Link>
+      <Grid item md={6} xs={12} key={lesson.id}>
+        <Link href={url} key={lesson.id} style={{ textDecoration: "none", color: "inherit" }}>
+          <Card style={{padding:10}} className="lessonCard">
+            <Grid container spacing={1}>
+              <Grid item xs={5}>
+                <Image src={lesson.image || ""} alt={lesson.name} width={640} height={360} style={{height:"auto"}} className="img-fluid" />
+              </Grid>
+              <Grid item xs={7}>
+                <div className="name">{lesson.name}</div>
+                <h3>{lesson.title}</h3>
+                <div className="fadeOut">
+                  {lesson.description}
+                </div>
+                <div className="seeMore">SEE MORE</div>
+              </Grid>
+            </Grid>
+          </Card>
+        </Link>
+      </Grid>
     );
   }
+
   return (
     <div>
-      <h2 style={{ margin: "0 0 30px 0" }}>Lessons</h2>
-      {lessons.map(createLesson)}
+      <Grid container spacing={3} style={{ paddingBottom: 20, paddingTop: 20, borderBottom: "1px solid #CCC" }}>
+        {lessons.map(createLesson)}
+      </Grid>
     </div>
   );
 }

@@ -15,6 +15,8 @@ export interface ProgramInterface {
   videoEmbedUrl?: string;
   live?: boolean;
   aboutSection?: string;
+  age?: string;
+  sort?: number;
 }
 export interface StudyInterface {
   id?: string;
@@ -27,6 +29,7 @@ export interface StudyInterface {
   videoEmbedUrl?: string;
   live?: boolean;
   sort?: number;
+  lessonCount?: number;
 }
 export interface StudyCategoryInterface {
   id?: string;

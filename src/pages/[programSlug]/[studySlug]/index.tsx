@@ -5,6 +5,8 @@ import { Grid, Container, Box } from "@mui/material";
 import Error from "@/pages/_error";
 import { EmbeddedVideo } from "@/components/EmbeddedVideo";
 import Image from "next/image";
+import { Header } from "@/components/Header";
+import Link from "next/link";
 
 type Props = {
   study: StudyInterface;
@@ -22,32 +24,34 @@ export default function StudyPage(props: Props) {
     return <Error message={props.error.message} />
   }
 
-  const video = props.study.videoEmbedUrl
-    ? (
-      <EmbeddedVideo videoEmbedUrl={props.study.videoEmbedUrl} title={props.study.name} />
-    )
-    : (
-      <Image src={props.study.image || ""} className="img-fluid" alt={props.study.name} width={960} height={540} style={{height:"auto"}} />
-    );
-
-
+  /*
+    {props.study.shortDescription && <div style={{marginBottom:20}}>{props.study.shortDescription}</div>}
+  */
   let title = props.program.name + ": " + props.study?.name + " - Free Church Curriculum";
   return (
-    <Layout pageTitle={title} metaDescription={props.study.description} image={props.study.image}>
+    <Layout pageTitle={title} metaDescription={props.study.description} image={props.study.image} withoutNavbar>
+      <div id="studyHero">
+        <div className="content">
+          <Container fixed>
+            <Header position="static" />
+            <Grid container spacing={2}>
+              <Grid item md={7} xs={12}>
+                <div className="breadcrumb"><Link href={"/" + props.program.slug}>{props.program.name}</Link></div>
+                <h1>{props.study.name}</h1>
+              </Grid>
+            </Grid>
+
+            <div style={{height:50}}></div>
+            <Image className="badge" src={props.study.image} alt={props.study.name} width={320} height={180} />
+          </Container>
+        </div>
+      </div>
       <div className="pageSection">
         <Container fixed>
-          <h2 style={{marginTop: 0}}>{props.program?.name || ""}: <span>{props.study?.name}</span></h2>
-          <Grid container spacing={2}>
-            <Grid item md={(video)? 7 : 12} xs={12}>
-              {props.study.shortDescription && <p style={{marginTop:0}} className="lead">{props.study.shortDescription}</p>}
-              <MarkdownPreview value={props.study.description} />
-            </Grid>
-            {video && <Grid item md={5} xs={12}>
-              {video}
-            </Grid> }
-          </Grid>
-
-          <br />
+          <div id="studyIntro">
+            <h2>Lessons</h2>
+            <div><MarkdownPreview value={props.study.description} /></div>
+          </div>
           {props.lessons?.length > 0 && (
             <Lessons lessons={props.lessons} slug={`/${props.program.slug}/${props.study.slug}`} />
           )}

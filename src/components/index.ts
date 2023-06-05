@@ -1,13 +1,13 @@
-export { HomeAbout } from "./HomeAbout";
-export { HomeConnect } from "./HomeConnect";
+export { HomeAbout } from "./home/HomeAbout";
+export { HomeConnect } from "./home/HomeConnect";
 export { Layout } from "./Layout";
 export { Lessons } from "./Lessons";
-export { Programs } from "./Programs";
-export { Stats } from "./Stats";
+export { Programs } from "./home/Programs";
+export { Stats } from "./home/Stats";
 export { Studies } from "./Studies";
-export { Venues } from "./Venues";
-export { Venue } from "./Venue";
-export { VimeoModal } from "./VimeoModal";
+export { Venues } from "./lesson/Venues";
+export { Venue } from "./lesson/Venue";
+export { VideoModal } from "./VideoModal";
 
 export { ProgramEdit } from "./admin/ProgramEdit";
 export { StudyEdit } from "./admin/StudyEdit";

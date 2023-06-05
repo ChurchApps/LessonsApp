@@ -1,11 +1,11 @@
 import { SectionInterface, ResourceInterface, ActionInterface, ArrayHelper, CustomizationInterface, CustomizationHelper, ExternalVideoInterface, RoleInterface, AssetInterface, FileInterface, VariantInterface, ApiHelper, UserHelper } from "@/utils";
-import { Action } from "../Action";
+import { Action } from "../lesson/Action";
 import { Accordion, AccordionDetails, AccordionSummary, CardContent, Icon } from "@mui/material";
 import Carousel from "react-material-ui-carousel";
 import { AnalyticsHelper } from "@/appBase/helpers";
 import { CommonEnvironmentHelper } from "@/appBase/helpers/CommonEnvironmentHelper";
 import { useState } from "react";
-import { VimeoModal } from "../VimeoModal";
+import { VideoModal } from "../VideoModal";
 import { ActionAlt } from "./ActionAlt";
 import { ActionsAlt } from "./ActionsAlt";
 
@@ -101,7 +101,7 @@ export function SectionAlt(props: Props) {
 
     if (video)
     {
-      //{showPreview && <VimeoModal onClose={() => setShowPreview(false)} vimeoId={video.videoId} />}
+      //{showPreview && <VideoModal onClose={() => setShowPreview(false)} vimeoId={video.videoId} />}
       result = (<>
         <div className="playPreview2">
           <a href={"https://vimeo.com/" + video.videoId} rel="noopener noreferrer" onClick={(e) => { e.preventDefault(); trackView(video); setPreviewVideo(video); }}>
@@ -179,7 +179,7 @@ export function SectionAlt(props: Props) {
     return (<>
       <a className="anchor"  id={"anchor-" + props.section.id}></a>
       <div id={"section-" + props.section.id}>
-        {previewVideo && <VimeoModal onClose={() => setPreviewVideo(null)} vimeoId={previewVideo.videoId} />}
+        {previewVideo && <VideoModal onClose={() => setPreviewVideo(null)} vimeoId={previewVideo.videoId} />}
         <h3 style={{marginLeft:0, marginBottom:0, borderBottom: "1px solid #333", backgroundColor:"#03a9f4", color: "#FFFFFF", padding:10, marginTop:0}}>{props.section.name}</h3>
         {getMaterials()}
         {getCarousel()}
