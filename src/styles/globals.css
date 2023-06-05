@@ -802,7 +802,6 @@ dropdown-menu a {
 
 .actions li {
   font-weight: bold;
-  font-size:18px;
   list-style: none;
 }
 
@@ -1205,6 +1204,7 @@ a.dropdown-toggle::after {
   padding: 2px
 }
 
+.part { font-size: 15px; }
 .part table {
   border-spacing: 0px;
   width: 100%

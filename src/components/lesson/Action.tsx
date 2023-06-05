@@ -1,7 +1,6 @@
 import React from "react";
 import { ResourceInterface, ArrayHelper, ActionInterface, VariantInterface, AssetInterface, UserHelper, ApiHelper, FileInterface, ExternalVideoInterface } from "@/utils";
 import { VimeoModal } from "../VimeoModal";
-import { MarkdownPreview } from "../index"
 import Image from "next/image";
 import { AnalyticsHelper, DateHelper } from "@/appBase/helpers";
 import { CommonEnvironmentHelper } from "@/appBase/helpers/CommonEnvironmentHelper";
@@ -102,13 +101,13 @@ export function Action(props: Props) {
 
   switch (props.action.actionType) {
     case "Note":
-      result = (<div className="note"><MarkdownPreview value={props.action.content} /></div>);
+      result = (<div className="note" dangerouslySetInnerHTML={{ __html:props.action.content }}></div>);
       break;
     case "Do":
-      result = (<ul className="actions"><li><MarkdownPreview value={props.action.content} /></li></ul>);
+      result = (<ul className="actions"><li dangerouslySetInnerHTML={{ __html:props.action.content }}></li></ul>);
       break;
     case "Say":
-      result = (<div className="say"><MarkdownPreview value={props.action.content} /></div>);
+      result = (<div className="say" dangerouslySetInnerHTML={{ __html:props.action.content }}></div>);
       break;
     case "Play":
       const data = getPreviewData();

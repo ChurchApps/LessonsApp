@@ -7,6 +7,7 @@ import Error from "./_error";
 import { EmbeddedVideo } from "@/components/EmbeddedVideo";
 import { HomeTestimonials } from "@/components/home/HomeTestimonials";
 import { HomeHero } from "@/components/home/HomeHero";
+import { LexicalHelper } from "@/utils/LexicalHelper";
 
 type Props = {
   programs: ProgramInterface[];
@@ -32,6 +33,7 @@ export default function Home({ programs, providers, studies, stats, hasError, er
 
   return (
     <Layout metaDescription={description} image={pageImage} ogDescription={ogDescription} withoutNavbar>
+
       <HomeHero stats={stats} />
       <HomeAbout />
       <Programs programs={programs} providers={providers} studies={studies} />
@@ -49,6 +51,7 @@ export const getStaticProps: GetStaticProps = async () => {
     const providers: ProviderInterface[] = await ApiHelper.getAnonymous("/providers/public", "LessonsApi");
     const studies: ProviderInterface[] = await ApiHelper.getAnonymous("/studies/public", "LessonsApi");
     const stats: any = await ApiHelper.getAnonymous("/providers/stats", "LessonsApi");
+
     return {
       props: { programs, providers, studies, stats, hasError: false },
       revalidate: 30,
