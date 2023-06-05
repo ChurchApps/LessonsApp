@@ -35,10 +35,10 @@ export function Venues(props: Props) {
     const bundles = ArrayHelper.getAllArray(props.bundles, "id", bundleIds)
     resources.sort((a, b) => (a.name > b.name ? 1 : -1));
 
-    if (props.venues.length === 1 || props.useAccordion) return (<Venue useAccordion={props.useAccordion} venue={v} resources={resources} externalVideos={props.externalVideos} bundles={bundles} />);
+    if (props.venues.length === 1 || props.useAccordion) return (<Venue useAccordion={props.useAccordion} venue={v} resources={resources} externalVideos={props.externalVideos} bundles={bundles} print={0} />);
     else return (
       <TabPanel value={v.id} style={{paddingLeft:0, paddingRight:0}}>
-        <Venue useAccordion={props.useAccordion} venue={v} resources={resources} externalVideos={props.externalVideos} bundles={bundles} />
+        <Venue useAccordion={props.useAccordion} venue={v} resources={resources} externalVideos={props.externalVideos} bundles={bundles} print={0} />
       </TabPanel>
     );
   });

@@ -1,5 +1,5 @@
 import { GetStaticProps } from "next";
-import { HomeAbout, HomeConnect, Layout, Programs, Stats, VimeoModal } from "@/components";
+import { HomeAbout, HomeConnect, Layout, Programs, Stats, VideoModal } from "@/components";
 import { ApiHelper, ProgramInterface, ProviderInterface } from "@/utils";
 import { Grid, Container, Button, Icon } from "@mui/material";
 import { FloatingSupport } from "@/appBase/components";
@@ -65,7 +65,7 @@ export default function Home({ programs, providers, stats, hasError, error }: Pr
           </Grid>
         </Grid>
       </Container>
-      {vimeoPreviewId && <VimeoModal onClose={() => setVimeoPreviewId(null)} vimeoId={vimeoPreviewId} />}
+      {vimeoPreviewId && <VideoModal onClose={() => setVimeoPreviewId(null)} vimeoId={vimeoPreviewId} />}
       <div className="homeSection" style={{backgroundColor:"#CCC"}}>
         <Container fixed>
           <Grid container spacing={4}>

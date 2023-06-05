@@ -1,19 +1,23 @@
 import React, { useState, useEffect } from "react";
 import { useRouter } from "next/router";
 import { Layout, Venue } from "@/components";
-import { ApiHelper, ClassroomInterface, CustomizationInterface, LessonInterface, ScheduleInterface, VenueInterface } from "@/utils";
+import { ApiHelper, ClassroomInterface, CustomizationInterface, ExternalVideoInterface, LessonInterface, ResourceInterface, ScheduleInterface, VenueInterface } from "@/utils";
 import Link from "next/link";
-import { Container, Grid } from "@mui/material";
+import { Container, Grid, Tab, Tabs } from "@mui/material";
 import { DateHelper } from "@/appBase/helpers";
 
 export default function B1Venue() {
   const [venue, setVenue] = useState<VenueInterface>(null);
   const [lesson, setLesson] = useState<LessonInterface>(null);
+  const [externalVideos, setExternalVideos] = useState<ExternalVideoInterface[]>([]);
+  const [resources, setResources] = useState<ResourceInterface[]>([]);
   const [classroom, setClassroom] = useState<ClassroomInterface>(null);
   const [customizations, setCustomizations] = useState<CustomizationInterface[]>([]);
   const [currentSchedule, setCurrentSchedule] = useState<ScheduleInterface>(null);
   const [prevSchedule, setPrevSchedule] = useState<ScheduleInterface>(null);
   const [nextSchedule, setNextSchedule] = useState<ScheduleInterface>(null);
+
+  const [selectedTab, setSelectedTab] = useState<string>("");
   const router = useRouter();
   const id = router.query.id;
 
@@ -24,8 +28,22 @@ export default function B1Venue() {
     if (id) {
       const v: VenueInterface = await ApiHelper.get("/venues/public/" + id, "LessonsApi");
       setVenue(v);
-      const l: LessonInterface = await ApiHelper.get("/lessons/public/" + v.lessonId, "LessonsApi")
-      setLesson(l);
+      setSelectedTab(v.sections[0].id)
+
+      const lessonData = await ApiHelper.get("/lessons/public/" + v.lessonId, "LessonsApi")
+      /*
+      const study: StudyInterface = lessonData.study;
+      const program: ProgramInterface = lessonData.program;
+      const venues: VenueInterface[] = lessonData.venues;
+      const bundles: BundleInterface[] = lessonData.bundles;
+      const resources: ResourceInterface[] = lessonData.resources;
+
+      */
+      setResources(lessonData.resources);
+
+      setExternalVideos(lessonData.externalVideos);
+      setLesson(lessonData.lesson);
+
 
       let search = new URLSearchParams(process.browser ? window.location.search : "");
       const classroomId = search.get("classroomId");
@@ -49,12 +67,58 @@ export default function B1Venue() {
 
   const getVenue = () => {
     if (venue) {
-      return <Venue useAccordion={true} venue={venue} resources={[]} bundles={[]} externalVideos={[]} hidePrint={true} customizations={customizations} />
+      return <Venue useAccordion={true} venue={venue} resources={resources} externalVideos={externalVideos} bundles={null} hidePrint={true} customizations={customizations} print={0} />
     }
   }
 
+  const getTabs = () => {
+    const result: JSX.Element[] = [];
+    venue?.sections?.forEach(s => {
+      if (s.roles.length>0) result.push(<Tab label={s.name} value={s.id} />)
+
+    })
+    return result;
+  }
+
+  const handleChange = (newValue: string) => {
+    setSelectedTab(newValue);
+    const scrollTop = document.getElementById("section-" + newValue).offsetTop - 50;
+    window.scrollTo({top: scrollTop, behavior: "smooth"});
+  };
+
+  const handleHighlight = () => {
+    const elements = document.getElementsByClassName("sectionCard");
+    let maxTop=0;
+    let result = "";
+    for (let i=0;i<elements.length;i++) {
+      const el:any = elements[i];
+      if (window.scrollY>=el.offsetTop - 60 && el.offsetTop>0) {
+        if (el.offsetTop > maxTop) {
+          maxTop = el.offsetTop;
+          result=el.id.replace("section-", "");
+        }
+      }
+    }
+
+    if (result !== selectedTab) setSelectedTab(result);
+  }
+
+  useEffect(() => {
+    window.addEventListener('scroll', handleHighlight);
+
+    return () => {
+      window.removeEventListener('scroll', handleHighlight);
+    };
+  }, []);
+
   return (
     <Layout withoutNavbar={true} withoutFooter={true}>
+      <div id="b1Tabs">
+        <Tabs value={selectedTab} onChange={(e, newVal) => { handleChange(newVal) } } variant="scrollable" scrollButtons="auto" aria-label="scrollable auto tabs example">
+          {getTabs()}
+        </Tabs>
+      </div>
+      <div style={{height:50}}></div>
       <Link href={"/b1/" + classroom?.churchId}>Go back</Link>
       <Grid container columnSpacing={2}>
         <Grid item xs={4}>

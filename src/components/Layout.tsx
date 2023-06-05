@@ -1,7 +1,7 @@
 import Head from "next/head";
 import { Header } from "./Header";
 import { Footer } from "./Footer";
-import { createTheme, CssBaseline, ThemeProvider } from "@mui/material";
+import { Container, createTheme, CssBaseline, ThemeProvider } from "@mui/material";
 
 type Props = {
   children: React.ReactNode;
@@ -49,7 +49,7 @@ export function Layout(props: Props) {
           {getDescription()}
           {getImage()}
         </Head>
-        {!props.withoutNavbar && <Header />}
+        {!props.withoutNavbar && <div id="studyHero" style={{minHeight:80}}><div className="content"><Container fixed><Header position="static" /></Container></div></div>}
         <main>{props.children}</main>
         {!props.withoutFooter && <Footer />}
       </div>

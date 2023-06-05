@@ -1,11 +1,19 @@
+/*
+#28235d - dark blue
+#35a8e0 - light blue
+#d6f2ff - faint blue
+#eff8fd - very faint blue
+*/
+
 :root {
-  scroll-behavior: auto;
+  scroll-behavior: smooth;
 }
 
 body {
   font-family: "Roboto", sans-serif;
   color: #333;
   font-display: swap;
+  background-color: #f0f1f3;
 }
 
 .table {
@@ -31,25 +39,16 @@ a {
   text-decoration: none;
 }
 
-img {
-  width: 100%;
-}
-
-h1 {
-  font-size: 35px;
-}
-
+h2 { color: #28235d; }
 h2 span {
   color: #24b8ff;
 }
 
 body {
-  background-color: #f3f3f6;
   margin: 0px;
 }
 
 h1 {
-  border-bottom: 1px solid #ccc;
   padding-bottom: 10px;
   margin-bottom: 25px;
 }
@@ -74,11 +73,12 @@ h1 {
   padding: 10px 0;
 }
 
+
 #navbar {
-  background-color: #fff !important;
+  background-color: transparent;
   padding: 11px 0;
   margin-bottom: 20px;
-  box-shadow: 0px 3px 3px 0px #999;
+  box-shadow: none;;
 }
 
 #navbar .nav-item {
@@ -356,15 +356,20 @@ h1 {
 }
 
 #footer {
-  background-color: #333;
+  background-color: #28235d;
   padding-top: 40px;
   padding-bottom: 40px;
-  color: #eee;
+  color: #bab8d0;
+}
+
+#footer .copyright {
+  border-top: 1px solid #3e3a6d;
+  padding-top:10px;
+  text-align: center;
 }
 
 #footer img {
   max-width: 450px;
-  margin-bottom: 20px;
 }
 
 .form-control::placeholder {
@@ -433,7 +438,9 @@ label .description {
   margin-bottom: 30px;
   font-size: 36px;
   font-weight: bold;
-  text-align: center;
+  margin-top:0px;
+  line-height:36px;
+  color:#28235d;
 }
 
 .homeSection ul {
@@ -482,8 +489,38 @@ label .description {
   margin-bottom: 0px;
 }
 
+#hero {
+  padding-top: 10px;
+  padding-bottom: 50px;
+  background-color: #28235d;
+  background-image: url("/images/home-hero.png");
+  background-size: cover;
+  min-height: 95vh;
+  color:#FFF;
+}
+
+#hero .title {
+  margin-top:13vh;
+  font-size: 16px;
+  text-transform: uppercase;
+  color: #03a9f4;
+  font-weight: bold;
+  text-shadow: #000 3px 3px 10px;
+}
+
 #hero h1 {
   font-weight: bold;
+  text-decoration: none;
+  font-size: 50px;
+  line-height: 60px;;
+  text-transform: uppercase;
+  margin-top:10px;
+  margin-bottom: 10px;;
+  text-shadow: #000 3px 3px 10px;
+}
+
+#hero p {
+  text-shadow: #000 3px 3px 10px;
 }
 
 #hero h1 span {
@@ -492,73 +529,40 @@ label .description {
   font-weight: normal;
 }
 
-#hero {
-  padding-top: 10px;
-  padding-bottom: 50px;
+#navbar .cta.alt {
+  margin-right:10px;
 }
 
-#statsSection {
-  background-image: url("/images/about-bg.jpg");
-  background-position: center center;
-  background-size: cover;
-  padding-top: 30px;
-  padding-bottom: 30px;
+
+.statBox {
+  align-content: left;
+  text-align: left;
 }
 
-#statsSection .iconBox {
-  text-align: right;
-}
-
-#statsSection .iconBox svg {
-  width: auto;
-  height: 75px;
-  margin-top: 10px;
-  fill: #FFF;
-}
-
-#statsSection .iconBox span {
-  font-size: 80px;
-  margin-top: 10px;
-  fill: #FFF;
-}
-
-#statsSection .statBox {
-  align-content: left
-}
-
-#statsSection .statBox div {
-  font-size: 40px;
+.statBox div {
+  font-size: 30px;
   margin-left: 10px;
+  color: #35a8e0;
+  padding-left:10px;
 }
 
-#statsSection .statBox span {
-  font-size: 22px;
+.statBox span {
+  font-size: 18px;
   display: block;
   margin-top: -7px;
   margin-left: 10px;
+  padding-left:10px;
 }
 
 
-#aboutSection {
-  background-image: url("/images/about-bg.jpg");
-  background-position: center center;
-  background-size: cover;
+
+#aboutSection h2 {
+  margin-bottom: 10px;
 }
 
 #aboutSection p {
-  color: #b4c5ce;
-  line-height: 30px;
+  font-size: 14px;
 }
-
-#aboutSection b {
-  color: #fff;
-}
-
-#aboutSection .btn {
-  padding-left: 20px;
-  padding-right: 20px;
-}
-
 
 #connectSection {
   background-image: url('/images/connect-bg.png');
@@ -779,129 +783,6 @@ dropdown-menu a {
 }
 
 
-
-.accordion .card {
-  background-color: #f3f3f6;
-  border-right: none;
-  border-left: none;
-  margin-bottom: 10px;
-}
-
-.accordion .card-header {
-  padding-top: 5px;
-  padding-bottom: 5px;
-}
-
-.accordion .MuiAccordionSummary-root.Mui-expanded {
-  background-color: #03a9f4;
-  color: #FFF;
-}
-
-.accordion .card-header.active {
-  background-color: #03a9f4;
-}
-
-.accordion .card-header.active .btn {
-  color: #fff;
-}
-
-.accordion .card-body {
-  background-color: #f1f1f1;
-}
-
-.accordion .collapse,
-.accordion .collapsing {
-  border: 1px solid #03a9f4;
-  margin-top: 10px;
-  margin-bottom: 10px;
-}
-
-.accordion .part {
-  clear: both;
-}
-
-.accordion.part .part {
-  padding: 10px;
-}
-
-.accordion .role {
-  text-align: center;
-  font-weight: bold;
-  color: #00c213;
-  background: #fff;
-  padding: 5px;
-  margin-bottom: 10px;
-}
-
-.accordion .actions {
-  color: #333;
-  font-weight: bold !important;
-  margin-bottom: 5px;
-}
-
-.accordion .actions>li {
-  list-style-type: none;
-}
-
-.accordion .actions li {
-  padding-left: 10px;
-}
-
-.accordion .play {
-  clear: both;
-  color: #333;
-  margin-bottom: 5px;
-}
-
-.accordion .play li {
-  list-style-type: none;
-  margin-bottom: 10px;
-}
-
-.accordion .play li:before {
-  content: "\e037";
-  color: #00c213;
-  font-family: "Material Icons";
-  margin-left: -15px;
-  margin-right: 10px;
-  font-weight: bold;
-}
-
-.accordion .note {
-  color: #777;
-  font-style: italic;
-  margin-bottom: 5px;
-  padding-left: 30px;
-}
-
-.accordion .note b {
-  color: #000;
-}
-
-.accordion blockquote {
-  padding-left: 15px;
-  margin-bottom: 5px;
-  margin-top: 5px;
-  color: #555;
-}
-
-.accordion blockquote p:last-child {
-  margin-bottom: 0px;
-}
-
-.accordion blockquote ol {
-  text-align: left;
-}
-
-.accordion blockquote li {
-  padding-bottom: 5px;
-}
-
-.accordion blockquote li ol,
-.accordion blockquote li ul {
-  padding-top: 5px
-}
-
 .materials {
   background-color: #444;
   color: #eee;
@@ -913,6 +794,19 @@ dropdown-menu a {
 .materials a {
   color: #fff;
 }
+
+.actions {
+  clear:both;
+  padding-left: 0px;
+}
+
+.actions li {
+  font-weight: bold;
+  font-size:18px;
+  list-style: none;
+}
+
+
 
 .btn-light {
   border: 1px solid #333;
@@ -942,13 +836,6 @@ dropdown-menu a {
 
   .collapse:not(.show) {
     display: block;
-  }
-
-  blockquote {
-    border-top: none;
-    border-bottom: none;
-    border-right: none;
-    margin-left: 20px;
   }
 
   .card {
@@ -1187,6 +1074,24 @@ a.dropdown-toggle::after {
   margin-bottom: 20px;
 }
 
+#b1Tabs {
+  background-color:#28235d;
+  position:fixed;
+  width:100%;
+  z-index:9999;
+}
+
+#b1Tabs .MuiTab-root
+{
+  color:#FFF;
+}
+
+#b1Tabs .Mui-selected
+{
+  background-color:#FFF;
+  color:#28235d;
+}
+
 .b1 .play {
   padding-inline-start: 10px;
 }
@@ -1356,6 +1261,10 @@ a.dropdown-toggle::after {
   ) 100% 50% / 100% 100% repeat-x;
   -webkit-mask: var(--mask); 
   mask: var(--mask);
+  overflow-y: hidden;
+  color: #555;
+  font-size:13px;
+  height: 70px;
 }
 
 .arkHero {
@@ -1445,4 +1354,532 @@ a.dropdown-toggle::after {
   object-fit: cover;
   filter: blur(var(--blur));
   opacity: 0.9;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#presenter {
+  /*
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  */
+  color:#FFF;
+  background-color: #000;
+}
+
+.programPromo {
+  background-size: cover;
+  background-position-x: right;
+  background-position-y: top;
+  background-color:#28235e;
+  color:#FFF;
+}
+
+.programPromo .age {
+  margin-top:100px;
+  color: #34a8de;
+  font-weight: bold;
+}
+
+.programPromo H2 {
+  font-size: 50px;
+  margin-top: 0px;
+  margin-bottom: 0px;
+  color:#FFF;
+}
+
+.programPromo p {
+  margin-top:0px;
+}
+
+.programPromo .programStudies {
+  width:100%;
+  margin-top:100px;
+  padding-bottom: 60px;
+}
+
+
+.cta{
+  display: inline-block;
+  border-width: 2px;
+  background-color: #34a8de;
+  color: #FFF;
+  border-radius: 20px;
+  padding:6px 20px;
+}
+
+.cta.alt {
+  background-color: transparent;
+  border:2px solid #34a8de;
+}
+
+.apps {
+  background-color: #28235d;
+  color: #FFF;
+  padding: 50px 40px 20px 40px;
+  border-radius: 10px;
+}
+
+.img-fluid { width:100% }
+
+#testimonials {
+  padding-bottom: 20px;
+
+}
+
+.testimonial { 
+  background-color: #f9f9f9;
+  color: #000;
+  padding: 50px 40px 20px 40px;
+  border-radius: 10px;
+  min-height: 230px;
+}
+
+.testimonial .stars { 
+  background-image:url("/images/stars.png");
+  width: 124px;
+  height: 19px;
+  float:right;
+}
+
+.testimonial .icon { 
+  background-image:url("/images/quote.png");
+  width: 73px;
+  height: 52px;
+  float:left;
+  margin-right: 20px;
+}
+
+.testimonial .name {
+  color: #28235d;
+  font-weight: bold;
+  font-size:20px;
+}
+
+.testimonial .church {
+  color: #7a7a7a;
+  font-size:14px;
+}
+
+.testimonial p {
+  clear:both;
+}
+
+.ageBox:hover {
+  opacity:0.8;
+}
+
+.programStudies a:hover {
+  opacity: 0.8;
+}
+
+#programHero {
+
+  background-size: cover;
+  background-position-x: right;
+  background-position-y: top;
+  
+  min-height:200px;
+  color:#FFFFFF;
+}
+
+#programHero .content {
+  background:linear-gradient( rgba(0, 0, 0, .8), rgba(0, 0, 0, 0.0), rgba(0, 0, 0, 0.0) );
+  width:100%;
+  height:100%;
+}
+
+#programHero H1 {
+  margin-top:60px;
+  padding-bottom:0px;
+  margin-bottom: 0px;;
+}
+
+#programIntro {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+
+#programIntro .editor-container span {
+  display:block;
+  margin-bottom: -5px;
+}
+
+.studyCard img {
+  border-radius: 10px;;
+}
+
+.studyCard H3 {
+  margin-top: 0px;
+  margin-bottom: 10px;;
+  height:24px;
+  overflow: hidden;
+  color:#28235d;
+}
+
+.studyCard .duration {
+  float:right;
+  text-align: right;
+  font-size:12px;
+  font-weight:bold;
+}
+
+.studyCard .downloads {
+  float:right;
+  color:#999;
+  font-size:12px;
+}
+
+.studyCard .downloads span {
+  font-size: 14px;
+  float:left;
+  margin-top:3px;
+}
+
+.studyCard .seeMore {
+  color:#24b8ff;
+  font-size:12px;
+}
+
+#studyCategoryTabs {
+  margin-top: 30px;
+
+}
+#studyCategoryTabs button {
+  background-color: #FFF;
+}
+
+#studyCategoryTabs button:first-of-type {
+  border-radius: 20px 0px 0px 20px;
+}
+
+#studyCategoryTabs button:last-of-type {
+  border-radius: 0px 20px 20px 0px;
+}
+
+#studyCategoryTabs .Mui-selected {
+  background-color: #34a8de;
+  color:#FFF;
+}
+
+#studyHero {
+  min-height:200px;
+  background-color: #28235d;
+  color:#FFFFFF;
+}
+
+#studyHero .content {
+  background:linear-gradient( rgba(0, 0, 0, .8), rgba(0, 0, 0, 0.0), rgba(0, 0, 0, 0.0) );
+  width:100%;
+  height:100%;
+}
+
+#studyHero H1 {
+  margin-top:0px;
+  padding-bottom:0px;
+  margin-bottom: 0px;
+  font-size:40px;
+}
+
+#studyHero .breadcrumb {
+  margin-top:30px;
+  color: #34a8de;
+  font-weight: bold;
+  font-size:20px;
+}
+
+#studyHero .badge, #programHero .badge {
+  border-radius: 10px;
+  float: right;
+  margin-top: -120px;
+  margin-bottom: -120px;
+  position: relative;
+  z-index: 1000;
+  
+}
+
+#studyIntro {
+  margin-bottom: 20px;
+}
+
+#studyIntro H2 {
+  text-align: center;
+}
+
+#studyIntro .editor-container span {
+  display:block;
+}
+
+
+.lessonCard img {
+  border-radius: 10px;;
+}
+
+.lessonCard H3 {
+  margin-top: 0px;
+  margin-bottom: 5px;;
+  height:24px;
+  overflow: hidden;
+  color:#28235d;
+}
+
+.lessonCard .name {
+  color:#24b8ff;
+  font-weight:bold;
+  text-transform: uppercase;
+  font-size: 12px;
+}
+
+.lessonCard .seeMore {
+  color:#24b8ff;
+  font-size:12px;
+}
+
+.lessonCard .fadeOut {
+  height:60px;
+}
+
+.sectionCard {
+  margin-bottom: 20px;
+}
+
+.sectionCard .MuiCardHeader-root {
+
+  background-color: #eff8fd;
+  padding-top: 8px;
+  padding-bottom: 8px;;
+}
+
+
+.sectionCard .MuiCardHeader-title {
+  display: inline-block;
+  font-weight: bold;
+  font-size: 20px;
+  color: #1d6fb8;
+}
+
+.sectionCard .MuiCardHeader-subheader {
+  color:#333;
+  display: inline-block;
+  padding-left: 20px;
+  font-size: 13px;
+}
+
+.playAction {
+  clear:both;
+  height:72px;
+  border:1px solid #CCC;
+  border-radius: 10px;
+  vertical-align: middle;
+  background-color: #FFF;
+  margin-bottom: 20px;
+  margin-top: 20px;
+}
+
+.playAction img {
+  border-top-left-radius: 10px;
+  border-bottom-left-radius: 10px;
+  float:left;
+}
+
+.playAction .text {
+  display:inline-block;
+  padding-top:20px;
+  padding-left:20px;
+  font-weight: bold;
+  font-size: 20px;
+}
+
+.playAction .duration {
+  float:right;
+  padding-right: 20px;
+  padding-top:23px;
+  font-size:14px;
+}
+
+.note { 
+  background-image: url('/images/lesson/note.png');
+  background-position: 0px 0px;
+  background-repeat: no-repeat;
+  min-height: 50px;
+  padding-left: 85px;
+  padding-top: 4px;
+}
+
+.note ul {
+  padding-left: 20px;
+}
+
+.say {
+  clear:both;
+  margin-bottom: 20px;
+}
+
+.say::after { clear:both;}
+
+.say p {
+  background-color: #ebf7ff;
+  border-top: none;
+  border-bottom: none;
+  border-right: none;
+  width:55%;
+  clear:both;
+  border-radius: 10px;
+  padding: 5px 20px 5px 20px;
+}
+
+.say p:nth-of-type(even) {
+  background-color: #edfeff;
+  float:right;
+  margin-bottom: 10px;
+}
+
+#lessonSidebarInner.affix {
+  position: fixed;
+  top: -100px;
+  left: 0px;
+  height:calc(100vh + 80px);
+  overflow-y:scroll;
+}
+
+#lessonSidebarInner.affix::-webkit-scrollbar {
+  width: 0px;
+}
+
+#lessonSidebar h3 {
+  color:#28235d;
+  margin-bottom: 5px;
+  margin-top:10px;
+}
+
+#lessonSidebar ul {
+  margin-top: 0px;
+  margin-bottom:0px;
+  padding-left:0px;
+}
+
+#lessonSidebar li {
+  list-style: none;
+}
+
+#lessonSidebar li a {
+  display:block;
+  color:#555;
+  border-radius: 5px;
+  padding:5px 10px 5px 5px;
+  font-size: 14px;
+  font-weight: bold;
+}
+
+#lessonSidebar li a::before {
+  content: "\203A";
+  font-weight: bold;
+  font-size:20px;
+  line-height: 15px;
+  padding-right:10px;
+}
+
+#lessonSidebar li a:hover, #lessonSidebar li a.active {
+  text-decoration: none;
+  background-color:#cfefff;
+  color:#1d70b7;
+}
+
+#lessonSidebar li a .material-icons {
+  float:right;
+  font-size:16px;
+  color:#28235d;
+  margin-top:5px;
+}
+
+@media (max-width: 900px) {
+  #lessonSidebarInner.affix {
+    position: relative;
+    height: auto;
+  }
+}
+
+@media (max-width: 600px) {
+  .programPromo {
+    background-position-x: 80%;
+  }
+
+  .programPromo H2 {
+    font-size: 30px;
+  }
+
+  .programPromo p, .programPromo .age, .programPromo H2 {
+    text-shadow: #000 3px 3px 6px;
+  }
+
+  .programPromo table td {
+    width:33%;
+  }
+
+  .programPromo table td:nth-child(4), .programPromo table td:nth-child(3) {
+    display: none;
+  }
+
+  .programPromo table {
+    padding-bottom: 20px;
+  }
+
+  #aboutSection .MuiGrid-grid-sm-12 {
+    min-width: 95vw;
+  }
+  
+  
+  #studyHero .badge, #programHero .badge {
+    float: left;
+    margin-top: 15px;
+    width:100%;
+    height:auto;
+    margin-bottom: 15px;
+  }
+
+  .playAction .text {
+    font-size:16px;
+    max-width: 45vw;
+    max-height:45px;
+    overflow: hidden;
+  }
+
+  .playAction .duration {
+    display:none;
+  }
+
 }
