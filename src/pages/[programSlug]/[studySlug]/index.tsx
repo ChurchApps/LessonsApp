@@ -1,5 +1,5 @@
 import { GetStaticPaths, GetStaticProps } from "next";
-import { Layout, Lessons, MarkdownPreview } from "@/components";
+import { Layout, Lessons } from "@/components";
 import { ApiHelper, ProgramInterface, StudyInterface, LessonInterface, ArrayHelper } from "@/utils";
 import { Grid, Container, Box } from "@mui/material";
 import Error from "@/pages/_error";
@@ -7,6 +7,7 @@ import { EmbeddedVideo } from "@/components/EmbeddedVideo";
 import Image from "next/image";
 import { Header } from "@/components/Header";
 import Link from "next/link";
+import { LexicalHelper } from "@/utils/LexicalHelper";
 
 type Props = {
   study: StudyInterface;
@@ -50,7 +51,7 @@ export default function StudyPage(props: Props) {
         <Container fixed>
           <div id="studyIntro">
             <h2>Lessons</h2>
-            <div><MarkdownPreview value={props.study.description} /></div>
+            <div  dangerouslySetInnerHTML={{ __html:props.study.description }}></div>
           </div>
           {props.lessons?.length > 0 && (
             <Lessons lessons={props.lessons} slug={`/${props.program.slug}/${props.study.slug}`} />
@@ -80,6 +81,7 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
     const program: ProgramInterface = await ApiHelper.getAnonymous("/programs/public/slug/" + params.programSlug, "LessonsApi");
     const study: StudyInterface = await ApiHelper.getAnonymous("/studies/public/slug/" + program?.id + "/" + params.studySlug, "LessonsApi");
     const lessons: LessonInterface[] = await ApiHelper.getAnonymous("/lessons/public/study/" + study?.id, "LessonsApi");
+    study.description = LexicalHelper.markdownToHtml(study.description);
 
     return {
       props: { study, program, lessons, hasError: false },

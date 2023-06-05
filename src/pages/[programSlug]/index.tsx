@@ -2,12 +2,12 @@ import { GetStaticPaths, GetStaticProps } from "next";
 import { Container, Box, Typography, Grid, Icon, Button, ButtonGroup, Tabs, Tab, styled } from "@mui/material";
 import { Layout, Studies, VimeoModal } from "@/components";
 import { ProgramInterface, ApiHelper, ProviderInterface, StudyInterface, StudyCategoryInterface, ArrayHelper, } from "@/utils";
-import { MarkdownPreview } from "@/components"
 import Error from "../_error";
 import { EmbeddedVideo } from "@/components/EmbeddedVideo";
 import { Header } from "@/components/Header";
 import Image from "next/image";
 import { useEffect, useState } from "react";
+import { LexicalHelper } from "@/utils/LexicalHelper";
 
 type Props = {
   program: ProgramInterface;
@@ -78,7 +78,7 @@ export default function ProgramPage(props: Props) {
         <Container fixed>
           <div id="programIntro">
             <h2>Studies</h2>
-            <div><MarkdownPreview value={props.program.description} /></div>
+            <div dangerouslySetInnerHTML={{ __html:props.program.description }}></div>
           </div>
 
           {getCategoryList()}
@@ -108,6 +108,8 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
     const provider: ProviderInterface = await ApiHelper.getAnonymous("/providers/public/" + program?.providerId, "LessonsApi");
     const studies: StudyInterface[] = await ApiHelper.getAnonymous("/studies/public/program/" + program?.id, "LessonsApi");
     const studyCategories: StudyCategoryInterface[] = await ApiHelper.getAnonymous("/studyCategories/public/program/" + program?.id, "LessonsApi");
+
+    program.description = LexicalHelper.markdownToHtml(program.description);
 
     return {
       props: { program, provider, studies, studyCategories, hasError: false},

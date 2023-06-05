@@ -2,15 +2,14 @@ import { GetStaticPaths, GetStaticProps } from "next";
 import { Grid, Container, Box, Icon } from "@mui/material";
 import { Layout, Venue, Venues } from "@/components";
 import { ApiHelper, ProgramInterface, StudyInterface, LessonInterface, ArrayHelper, VenueInterface, ResourceInterface, BundleInterface, ExternalVideoInterface } from "@/utils";
-import { MarkdownPreview } from "@/components";
 import Error from "@/pages/_error";
-import { EmbeddedVideo } from "@/components/EmbeddedVideo";
 import Image from "next/image";
 import { Header } from "@/components/Header";
 import Link from "next/link";
 import { LessonSidebar } from "@/components/lesson/LessonSidebar";
 import React from "react";
 import { Presenter } from "@/components/Presenter";
+import { LexicalHelper } from "@/utils/LexicalHelper";
 
 
 type Props = { program: ProgramInterface; study: StudyInterface; lesson: LessonInterface; venues: VenueInterface[]; resources: ResourceInterface[]; externalVideos: ExternalVideoInterface[]; bundles: BundleInterface[]; hasError: boolean; error: { message: string }; };
@@ -115,6 +114,19 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
     const bundles: BundleInterface[] = lessonData.bundles;
     const resources: ResourceInterface[] = lessonData.resources;
     const externalVideos: ExternalVideoInterface[] = lessonData.externalVideos;
+
+    venues?.forEach(v => {
+      v.sections.forEach(s => {
+        s.roles.forEach(r => {
+          r.actions.forEach(a => {
+            a.content = LexicalHelper.markdownToHtml(a.content);
+          })
+        });
+      })
+    });
+
+    program.aboutSection = LexicalHelper.markdownToHtml(program.aboutSection);
+    lesson.description = LexicalHelper.markdownToHtml(lesson.description);
 
     resources?.forEach(r => {
       if (r.variants) r.variants = ArrayHelper.getAll(r.variants, "hidden", false);
