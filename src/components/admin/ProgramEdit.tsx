@@ -76,7 +76,7 @@ export function ProgramEdit(props: Props) {
       <InputBox id="programDetailsBox" headerText="Edit Program" headerIcon="school" saveFunction={handleSave} cancelFunction={handleCancel} deleteFunction={handleDelete}>
         <ErrorMessages errors={errors} />
         <a href="about:blank" className="d-block" onClick={handleImageClick}>
-          <img src={program.image || "/images/blank.png"} className="profilePic d-block mx-auto" id="imgPreview" alt="program" />
+          <img src={program.image || "/images/blank.png"} className="profilePic d-block mx-auto img-fluid" id="imgPreview" alt="program" />
         </a>
         <br />
         <FormControl fullWidth>

@@ -96,7 +96,7 @@ export function LessonEdit(props: Props) {
       <InputBox id="lessonDetailsBox" headerText="Edit Lesson" headerIcon="book" saveFunction={handleSave} cancelFunction={handleCancel} deleteFunction={handleDelete}>
         <ErrorMessages errors={errors} />
         <a href="about:blank" className="d-block" onClick={handleImageClick}>
-          <img src={lesson.image || "/images/blank.png"} className="profilePic d-block mx-auto" id="imgPreview" alt="lesson" />
+          <img src={lesson.image || "/images/blank.png"} className="profilePic d-block mx-auto img-fluid" id="imgPreview" alt="lesson" />
         </a>
         <br />
         <Grid container spacing={3}>
