@@ -1,6 +1,6 @@
 import { GetStaticPaths, GetStaticProps } from "next";
 import { Container, Box, Typography, Grid, Icon, Button, ButtonGroup, Tabs, Tab, styled } from "@mui/material";
-import { Layout, Studies, VimeoModal } from "@/components";
+import { Layout, Studies, VideoModal } from "@/components";
 import { ProgramInterface, ApiHelper, ProviderInterface, StudyInterface, StudyCategoryInterface, ArrayHelper, } from "@/utils";
 import { MarkdownPreview } from "@/components"
 import Error from "../_error";
@@ -87,7 +87,7 @@ export default function ProgramPage(props: Props) {
           )}
         </Container>
       </div>
-      {showVideo && <VimeoModal onClose={() => setShowVideo(false)} vimeoId={props.program.videoEmbedUrl} />}
+      {showVideo && <VideoModal onClose={() => setShowVideo(false)} url={props.program.videoEmbedUrl} />}
     </Layout>
   );
 }

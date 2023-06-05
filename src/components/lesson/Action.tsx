@@ -1,6 +1,6 @@
 import React from "react";
 import { ResourceInterface, ArrayHelper, ActionInterface, VariantInterface, AssetInterface, UserHelper, ApiHelper, FileInterface, ExternalVideoInterface } from "@/utils";
-import { VimeoModal } from "../VimeoModal";
+import { VideoModal } from "../VideoModal";
 import { MarkdownPreview } from "../index"
 import Image from "next/image";
 import { AnalyticsHelper, DateHelper } from "@/appBase/helpers";
@@ -122,7 +122,7 @@ export function Action(props: Props) {
         {duration}
         <Image src={data.thumbnail} alt={data.name} width={128} height={72} style={{height:72}} />
         <a href={data.url} rel="noopener noreferrer" onClick={data.action} className="text">{data.name}</a>
-        {data.type==="video" && showPreview && <VimeoModal onClose={() => setShowPreview(false)} vimeoId={data.videoId} />}
+        {data.type==="video" && showPreview && <VideoModal onClose={() => setShowPreview(false)} vimeoId={data.videoId} />}
       </div>);
       break;
   }
