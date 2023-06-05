@@ -81,7 +81,7 @@ export function StudyEdit(props: Props) {
       <InputBox id="studyDetailsBox" headerText="Edit Study" headerIcon="layers" saveFunction={handleSave} cancelFunction={handleCancel} deleteFunction={handleDelete}>
         <ErrorMessages errors={errors} />
         <a href="about:blank" className="d-block" onClick={handleImageClick}>
-          <img src={study.image || "/images/blank.png"} className="profilePic d-block mx-auto" id="imgPreview" alt="study" />
+          <img src={study.image || "/images/blank.png"} className="profilePic d-block mx-auto img-fluid" id="imgPreview" alt="study" />
         </a>
         <br />
         <Grid container spacing={3}>
