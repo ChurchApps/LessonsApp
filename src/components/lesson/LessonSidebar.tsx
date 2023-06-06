@@ -77,7 +77,7 @@ export function LessonSidebar(props: Props) {
         <Container>
           <h3>Venue</h3>
           <Select fullWidth size="small" value={props.selectedVenue.id} onChange={(e) => { props.onVenueChange(ArrayHelper.getOne(props.venues, "id", e.target.value)); }}>
-            {props.venues.map((v) => (<MenuItem value={v.id}>{v.name}</MenuItem>))}
+            {props.venues.map((v) => (<MenuItem key={v.id} value={v.id}>{v.name}</MenuItem>))}
           </Select>
         </Container>
         <hr />
@@ -85,7 +85,7 @@ export function LessonSidebar(props: Props) {
           <a href="about:blank" style={{float:"right", color:"#28235d"}} onClick={(e) => { e.preventDefault(); props.onPrint() }}><Icon style={{fontSize:20}}>print</Icon></a>
           <h3>Sections</h3>
           <ul>
-            {props.selectedVenue.sections?.map((s) => (s.roles?.length > 0) && (<li><a className="sectionLink" id={"sectionLink-" + s.id} href={"#section-" + s.id}>{s.name}</a></li>))}
+            {props.selectedVenue.sections?.map((s) => (s.roles?.length > 0) && (<li key={s.id}><a className="sectionLink" id={"sectionLink-" + s.id} href={"#section-" + s.id}>{s.name}</a></li>))}
           </ul>
         </Container>
         <hr />

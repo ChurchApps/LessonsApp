@@ -10,7 +10,6 @@ type Props = {
 };
 
 export function Downloads(props: Props) {
-  const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
 
   const trackDownload = (bundle: BundleInterface) => {
     if (EnvironmentHelper.GoogleAnalyticsTag) {
@@ -66,7 +65,7 @@ export function Downloads(props: Props) {
       const bundle = b;
       let downloadLink = (<Button href={b.file?.contentPath + "&download=1"} size="small" onClick={() => { trackDownload(bundle) }} download={true} color="success" component="a" variant="contained">Download</Button>);
       result.push(
-        <li>
+        <li key={b.id}>
           <a href={b.file?.contentPath + "&download=1"} onClick={() => { trackDownload(bundle) }} download={true}>
             <Icon>download</Icon>
             {b?.name}

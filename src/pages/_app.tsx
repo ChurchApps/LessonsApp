@@ -11,7 +11,7 @@ import { AnalyticsHelper } from "@/appBase/helpers";
 
 EnvironmentHelper.init();
 
-function MyApp({ Component, pageProps }: AppProps) {
+function LessonsApp({ Component, pageProps }: AppProps) {
 
   const location = (typeof(window) === "undefined") ? null : window.location;
   AnalyticsHelper.init();
@@ -64,4 +64,4 @@ function MyApp({ Component, pageProps }: AppProps) {
     </>
   );
 }
-export default MyApp;
+export default LessonsApp;
