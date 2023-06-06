@@ -1,3 +1,5 @@
+"use client";
+
 import { Grid } from "@mui/material";
 import { useEffect } from "react";
 
@@ -77,7 +79,5 @@ export function Stats(props: Props) {
 
     </div>
   )
-
-
 
 }

@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { useRouter } from "next/router"
+import { useRouter } from "next/navigation"
 import { UserHelper, Permissions, ApiHelper } from "@/utils";
 import { ClickAwayListener, Container, Icon, Menu, MenuItem, AppBar, Stack, Box, Button } from "@mui/material";
 import { useState } from "react";

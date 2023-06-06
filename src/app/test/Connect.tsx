@@ -1,5 +1,7 @@
+"use client";
+
 import { Grid, Container, Stack } from "@mui/material";
-export function HomeConnect() {
+export function Connect() {
 
   return (<div className="homeSection">
     <Container fixed>

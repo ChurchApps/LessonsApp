@@ -1,7 +1,9 @@
-import { Button, Container, Grid } from "@mui/material";
-import { EmbeddedVideo } from "../EmbeddedVideo";
+"use client";
 
-export function HomeAbout() {
+import { EmbeddedVideo } from "@/components/EmbeddedVideo";
+import { Button, Container, Grid } from "@mui/material";
+
+export function About() {
 
   const video = <EmbeddedVideo videoEmbedUrl="https://www.youtube.com/embed/4qG8-hPnS3g" title="Welcome to Lessons.church" />
 
@@ -42,4 +44,5 @@ export function HomeAbout() {
       </Container>
     </div>
   );
+
 }

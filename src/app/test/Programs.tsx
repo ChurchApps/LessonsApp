@@ -1,3 +1,4 @@
+"use client";
 import { Container, Grid, Link } from "@mui/material";
 import { ArrayHelper, ProgramInterface, ProviderInterface, StudyInterface } from "@/utils";
 import Image from "next/image";
