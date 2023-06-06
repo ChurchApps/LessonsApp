@@ -1,4 +1,4 @@
-import { ApiHelper } from "./index";
+import { ApiHelper } from "../appBase/helpers/ApiHelper";
 import { CommonEnvironmentHelper } from "../appBase/helpers/CommonEnvironmentHelper";
 
 export class EnvironmentHelper {
