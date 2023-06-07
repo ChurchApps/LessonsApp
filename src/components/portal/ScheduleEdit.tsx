@@ -153,7 +153,8 @@ export function ScheduleEdit(props: Props) {
     setSchedule(props.schedule);
     if (s.id) {
       const l = await ApiHelper.getAnonymous("/lessons/public/" + s.lessonId, "LessonsApi");
-      const st = await ApiHelper.getAnonymous("/studies/public/" + l.studyId, "LessonsApi");
+      //const st = await ApiHelper.getAnonymous("/studies/public/" + l.studyId, "LessonsApi");
+      const st = l.study;
       setProgramId(st.programId);
       setStudyId(st.id);
     }
