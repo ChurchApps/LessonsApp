@@ -493,7 +493,7 @@ label .description {
   padding-top: 10px;
   padding-bottom: 50px;
   background-color: #28235d;
-  background-image: url("/images/home-hero.png");
+  background-image: url("/images/home/home-hero.jpg");
   background-size: cover;
   min-height: 95vh;
   color:#FFF;

@@ -4,14 +4,12 @@ import "@/appBase/components/markdownEditor/editor.css";
 import { useEffect } from "react";
 import type { AppProps } from "next/app";
 import Head from "next/head";
-import { useRouter } from "next/router";
-import { useCookies } from "react-cookie"
 import { EnvironmentHelper } from "@/utils";
 import { AnalyticsHelper } from "@/appBase/helpers";
 
 EnvironmentHelper.init();
 
-function MyApp({ Component, pageProps }: AppProps) {
+function LessonsApp({ Component, pageProps }: AppProps) {
 
   const location = (typeof(window) === "undefined") ? null : window.location;
   AnalyticsHelper.init();
@@ -64,4 +62,4 @@ function MyApp({ Component, pageProps }: AppProps) {
     </>
   );
 }
-export default MyApp;
+export default LessonsApp;
