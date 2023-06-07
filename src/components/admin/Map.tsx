@@ -3,7 +3,7 @@ import { ApiHelper } from "@/utils";
 import { DisplayBox } from "../index";
 import { ComposableMap, Geographies, Geography, ZoomableGroup, Marker } from "react-simple-maps"
 import { DateHelper } from "@/appBase/helpers";
-import ReactTooltip from "react-tooltip";
+import {Tooltip} from "react-tooltip";
 
 type Props = {
   programId: string;
@@ -56,7 +56,7 @@ export const Map: React.FC<Props> = (props) => {
             {getMarkers()}
           </ZoomableGroup>
         </ComposableMap>
-        <ReactTooltip>{getTooltip()}</ReactTooltip>
+        <Tooltip>{getTooltip()}</Tooltip>
       </div>
     </DisplayBox>
   );

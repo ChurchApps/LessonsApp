@@ -47,6 +47,7 @@
     "yup": "^1.2.0"
   },
   "devDependencies": {
+    "@next/bundle-analyzer": "^13.4.4",
     "@types/flexsearch": "^0.7.3",
     "@types/gtag.js": "0.0.12",
     "@types/react": "^18.2.8",
