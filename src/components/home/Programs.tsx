@@ -33,7 +33,7 @@ export function Programs(props: Props) {
         <Container fixed>
           <Grid container spacing={3}>
             <Grid item md={6} xs={12}>
-              <div className="age">{program.age.toUpperCase()}</div>
+              <div className="age">{program.age?.toUpperCase()}</div>
               <h2>{program.name}</h2>
               <p>{program.shortDescription}</p>
               <a href={url} className="cta">Learn More</a>
