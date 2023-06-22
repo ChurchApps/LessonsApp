@@ -17,13 +17,13 @@ type Props = { program: ProgramInterface; study: StudyInterface; lesson: LessonI
 
 export default function LessonsPage(props: Props) {
 
-  const [selectedVenue, setSelectedVenue] = React.useState<VenueInterface>(props.venues[0]);
+  const [selectedVenue, setSelectedVenue] = React.useState<VenueInterface>(props.venues?.[0]);
   const [showPresenter, setShowPresenter] = React.useState<boolean>(false);
   const [print, setPrint] = React.useState<number>(0);
 
   const resources: ResourceInterface[] = [];
 
-  selectedVenue.sections?.forEach((s) => {
+  selectedVenue?.sections?.forEach((s) => {
     s.roles?.forEach((r) => {
       r.actions?.forEach((a) => {
         if (a.resourceId) {
@@ -62,7 +62,7 @@ export default function LessonsPage(props: Props) {
             </Grid>
 
             <div style={{height:50}}></div>
-            <Image src={props.lesson.image} alt={props.lesson.name} width={320} height={180} className="badge" />
+            <Image src={props.lesson.image || "/not-found"} alt={props.lesson.name} width={320} height={180} className="badge" />
           </Container>
         </div>
       </div>

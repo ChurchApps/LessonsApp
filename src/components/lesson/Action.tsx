@@ -120,7 +120,7 @@ export function Action(props: Props) {
       }
       result = (<div className="playAction">
         {duration}
-        <Image src={data.thumbnail} alt={data.name} width={128} height={72} style={{height:72}} />
+        <Image src={data.thumbnail || "/not-found"} alt={data.name} width={128} height={72} style={{height:72}} />
         <a href={data.url} rel="noopener noreferrer" onClick={data.action} className="text">{data.name}</a>
         {data.type==="video" && showPreview && <VideoModal onClose={() => setShowPreview(false)} vimeoId={data.videoId} />}
       </div>);
