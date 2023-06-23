@@ -4,14 +4,15 @@ import React from "react";
 interface Props {
   onClose: () => void,
   vimeoId?: string,
-  url?: string
+  url?: string,
+  loopVideo?: boolean
 }
 
 export const VideoModal: React.FC<Props> = (props: Props) => {
 
   const getVimeo = (vimeoId:string) => (<>
     <div style={{ padding: "56.25% 0 0 0", position: "relative" }}>
-      <iframe src={"https://player.vimeo.com/video/" + vimeoId + "?h=ceb1d1ff2b&autoplay=1&title=0&byline=0&portrait=0"}
+      <iframe src={"https://player.vimeo.com/video/" + vimeoId + "?h=ceb1d1ff2b&autoplay=1&title=0&byline=0&portrait=0" + (props.loopVideo === true ? "&loop=1" : "&loop=0")}
         style={{ position: "absolute", top: 0, left: 0, width: "100%", height: "100%" }}
         frameBorder="0" allow="autoplay; fullscreen; picture-in-picture" allowFullScreen={true}></iframe>
     </div>
