@@ -70,7 +70,7 @@ export function Action(props: Props) {
   }
 
   const getPreviewData = () => {
-    const result:{type:string, thumbnail:string, name:string, url:string, videoId:string, seconds:number, action:(e:React.MouseEvent) => void} = { type:"", thumbnail:"", name:"", url:"", videoId: "", seconds:0, action:() => {}};
+    const result:{type:string, thumbnail:string, name:string, url:string, videoId:string, seconds:number, loopVideo?: boolean, action:(e:React.MouseEvent) => void} = { type:"", thumbnail:"", name:"", url:"", videoId: "", seconds:0, action:() => {}};
     const video: ExternalVideoInterface = ArrayHelper.getOne(props.externalVideos || [], "id", props.action.externalVideoId);
     const resource: ResourceInterface = ArrayHelper.getOne(props.resources || [], "id", props.action.resourceId);
     const asset = (props.action.assetId && resource) ? ArrayHelper.getOne(resource?.assets || [], "id", props.action.assetId) : null;
@@ -94,6 +94,7 @@ export function Action(props: Props) {
       result.thumbnail = video.thumbnail;
       result.videoId = video.videoId;
       result.seconds = parseInt(video.seconds);
+      result.loopVideo = video.loopVideo;
     }
     return result;
   }
@@ -120,9 +121,9 @@ export function Action(props: Props) {
       }
       result = (<div className="playAction">
         {duration}
-        <Image src={data.thumbnail} alt={data.name} width={128} height={72} style={{height:72}} />
+        <Image src={data.thumbnail || "/not-found"} alt={data.name} width={128} height={72} style={{height:72}} />
         <a href={data.url} rel="noopener noreferrer" onClick={data.action} className="text">{data.name}</a>
-        {data.type==="video" && showPreview && <VideoModal onClose={() => setShowPreview(false)} vimeoId={data.videoId} />}
+        {data.type==="video" && showPreview && <VideoModal onClose={() => setShowPreview(false)} vimeoId={data.videoId} loopVideo={data.loopVideo} />}
       </div>);
       break;
   }

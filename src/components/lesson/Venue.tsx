@@ -19,7 +19,7 @@ type Props = {
 
 export function Venue(props: Props) {
   const contentRef = React.useRef<HTMLDivElement>(null);
-  const [activeSectionId, setActiveSectionId] = React.useState<string>(props.venue.sections[0]?.id || "");
+  const [activeSectionId, setActiveSectionId] = React.useState<string>(props.venue?.sections[0]?.id || "");
   const [displaySection, setDisplaySection] = React.useState<boolean>(false);
 
   const handleToggle = (sectionId: string) => { setActiveSectionId(sectionId); };
@@ -31,8 +31,8 @@ export function Venue(props: Props) {
   function getSections() {
     const sections: JSX.Element[] = [];
 
-    if (props.venue.sections) {
-      const customSections = CustomizationHelper.applyCustomSort(props.customizations, props.venue.sections, "section");
+    if (props.venue?.sections) {
+      const customSections = CustomizationHelper.applyCustomSort(props.customizations, props.venue?.sections, "section");
       customSections.forEach((s) => {
         sections.push(<Section section={s} resources={props.resources} externalVideos={props.externalVideos} toggleActive={handleToggle} activeSectionId={activeSectionId} key={s.id} customizations={props.customizations} />);
       });
@@ -44,8 +44,8 @@ export function Venue(props: Props) {
   function getPrintSections() {
     const sections: JSX.Element[] = [];
 
-    if (props.venue.sections) {
-      const customSections = CustomizationHelper.applyCustomSort(props.customizations, props.venue.sections, "section");
+    if (props.venue?.sections) {
+      const customSections = CustomizationHelper.applyCustomSort(props.customizations, props.venue?.sections, "section");
       customSections.forEach((s) => {
         sections.push(<Section section={s} resources={props.resources} externalVideos={props.externalVideos} toggleActive={handleToggle} activeSectionId={[activeSectionId]} key={s.id} customizations={props.customizations} />);
       });
@@ -70,11 +70,11 @@ export function Venue(props: Props) {
   return (
     <div>
       <div>
-        <h2 className="printOnly">{props.venue.name} Instructions</h2>
+        <h2 className="printOnly">{props.venue?.name} Instructions</h2>
         {getSections()}
       </div>
       <div ref={contentRef} style={displaySection ? {display: 'block'} : {display: 'none'}}>
-        <h2 className="printOnly">{props.venue.name} Instructions</h2>
+        <h2 className="printOnly">{props.venue?.name} Instructions</h2>
         {getPrintSections()}
       </div>
 

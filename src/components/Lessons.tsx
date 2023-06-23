@@ -18,7 +18,7 @@ export function Lessons({ lessons, slug }: Props) {
           <Card style={{padding:10}} className="lessonCard">
             <Grid container spacing={1}>
               <Grid item xs={5}>
-                <Image src={lesson.image || ""} alt={lesson.name} width={640} height={360} style={{height:"auto"}} className="img-fluid" />
+                <Image src={lesson.image || "/not-found"} alt={lesson.name} width={640} height={360} style={{height:"auto"}} className="img-fluid" />
               </Grid>
               <Grid item xs={7}>
                 <div className="name">{lesson.name}</div>
