@@ -3,7 +3,7 @@ import { EmbeddedVideo } from "../EmbeddedVideo";
 
 export function HomeAbout() {
 
-  const video = <EmbeddedVideo videoEmbedUrl="https://www.youtube.com/embed/4qG8-hPnS3g" title="Welcome to Lessons.church" />
+  const video = <EmbeddedVideo videoEmbedUrl="https://player.vimeo.com/video/839888034" title="Welcome to Lessons.church" />
 
   return (
     <div className="homeSection" id="aboutSection">
