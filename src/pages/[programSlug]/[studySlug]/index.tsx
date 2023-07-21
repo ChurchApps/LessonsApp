@@ -2,7 +2,7 @@ import { GetStaticPaths, GetStaticProps } from "next";
 import { Layout, Lessons, MarkdownPreview } from "@/components";
 import { ApiHelper, ProgramInterface, StudyInterface, LessonInterface, ArrayHelper } from "@/utils";
 import { Grid, Container, Box } from "@mui/material";
-import Error from "@/pages/_error";
+import ErrorComponent from "@/pages/_error";
 import { EmbeddedVideo } from "@/components/EmbeddedVideo";
 import Image from "next/image";
 import { Header } from "@/components/Header";
@@ -21,7 +21,7 @@ type Props = {
 export default function StudyPage(props: Props) {
 
   if (props.hasError) {
-    return <Error message={props.error.message} />
+    return <ErrorComponent message={props.error.message} />
   }
 
   /*
@@ -77,14 +77,16 @@ export const getStaticPaths: GetStaticPaths = async () => {
 
 export const getStaticProps: GetStaticProps = async ({ params }) => {
   try {
-    const program: ProgramInterface = await ApiHelper.getAnonymous("/programs/public/slug/" + params.programSlug, "LessonsApi");
-    const study: StudyInterface = await ApiHelper.getAnonymous("/studies/public/slug/" + program?.id + "/" + params.studySlug, "LessonsApi");
-    const lessons: LessonInterface[] = await ApiHelper.getAnonymous("/lessons/public/study/" + study?.id, "LessonsApi");
+    // const program: ProgramInterface = await ApiHelper.getAnonymous("/programs/public/slug/" + params.programSlug, "LessonsApi");
+    // const study: StudyInterface = await ApiHelper.getAnonymous("/studies/public/slug/" + program?.id + "/" + params.studySlug, "LessonsApi");
+    // const lessons: LessonInterface[] = await ApiHelper.getAnonymous("/lessons/public/study/" + study?.id, "LessonsApi");
 
-    return {
-      props: { study, program, lessons, hasError: false },
-      revalidate: 30,
-    };
+    throw new Error("TEST. Error in rendering the Study Page.")
+
+    // return {
+    //   props: { study, program, lessons, hasError: false },
+    //   revalidate: 30,
+    // };
   } catch (error:any) {
     return {
       props: {
