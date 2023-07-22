@@ -63,6 +63,7 @@ function Error({ message, statusCode }: Props) {
 }
 
 Error.getInitialProps = ({ res, err }: NextPageContext) => {
+  res.setHeader('Cache-Control', 'no-store, must-revalidate');
   const statusCode = res ? res.statusCode : err ? err.statusCode : 404;
   const message = statusCode === 404
     ? "This page does't exist"
