@@ -14,10 +14,10 @@ function Error({ message, statusCode }: Props) {
   const onClose = () => setShowError(!showError);
 
   const Footer = () => (
-    <div id="footer" style={{ width: "100vw" }}>
+    <div id="footer">
       <Box sx={{ textAlign: "center", padding: "0 16px" }}>
-        <img src="/images/logo-dark.png" alt="Free church curriculum" />
-        <Grid container justifyContent="center">
+        <img src="/images/logo-dark.png" alt="Free church curriculum" style={{ maxWidth: '100%' }} />
+        <Grid container justifyContent="center" sx={{ marginTop: 4 }}>
           <Grid item>
             <Stack direction="row" alignItems="center" sx={{ flexWrap: "wrap" }} mb={2}><b><Stack direction="row" alignItems="center" mr="5px"><Icon sx={{ marginRight: "5px" }}>mail</Icon> Email:</Stack></b> <a href={"mailto:support@livecs.org"}>support@livecs.org</a></Stack>
             <Stack direction="row" alignItems="center" sx={{ flexWrap: "wrap" }} mb={2}><b><Stack direction="row" alignItems="center" mr="5px"><Icon sx={{ marginRight: "5px" }}>phone_iphone</Icon> Phone:</Stack></b> <a href="tel:+19189942638">+1 (918) 994-2638</a></Stack>
@@ -63,6 +63,7 @@ function Error({ message, statusCode }: Props) {
 }
 
 Error.getInitialProps = ({ res, err }: NextPageContext) => {
+  res.setHeader('Cache-Control', 'no-store, must-revalidate');
   const statusCode = res ? res.statusCode : err ? err.statusCode : 404;
   const message = statusCode === 404
     ? "This page does't exist"
