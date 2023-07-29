@@ -12,7 +12,7 @@ type Props = {
 export function Downloads(props: Props) {
 
   const trackDownload = (bundle: BundleInterface) => {
-    if (EnvironmentHelper.GoogleAnalyticsTag) {
+    if (CommonEnvironmentHelper.GoogleAnalyticsTag) {
       const action = bundle.name;
       const label = window.location.pathname;
       AnalyticsHelper.logEvent("Download", action, label);
@@ -31,7 +31,7 @@ export function Downloads(props: Props) {
   }
 
   const trackVideoDownload = (video: ExternalVideoInterface) => {
-    if (EnvironmentHelper.GoogleAnalyticsTag) {
+    if (CommonEnvironmentHelper.GoogleAnalyticsTag) {
       const action = video.name;
       const label = window.location.pathname;
       AnalyticsHelper.logEvent("Download", action, label);

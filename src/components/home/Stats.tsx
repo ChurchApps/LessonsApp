@@ -10,7 +10,6 @@ export function Stats(props: Props) {
   const countDuration = 5000;
 
   const increaseCount = (elapsed: number) => {
-    console.log(elapsed);
     if (elapsed<=countDuration) {
       let percent = elapsed / countDuration;
       if (percent > 1) percent = 1;

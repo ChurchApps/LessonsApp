@@ -31,7 +31,6 @@ export const VideoModal: React.FC<Props> = (props: Props) => {
     let result = <></>;
     if (props.vimeoId) result = getVimeo(props.vimeoId);
     else {
-      console.log("url", props.url);
       if (props.url.startsWith("https://www.youtube.com/embed/"))
       {
         const youtubeId = props.url.split("?")[0].replace("https://www.youtube.com/embed/", "");
