@@ -20,6 +20,10 @@ class MyDocument extends Document {
         <body>
           <Main />
           <NextScript />
+          <script id="_informizely_script_tag" type="text/javascript">
+            var IzWidget = IzWidget || {};
+          </script>
+          <script async type="module" src="https://insitez.blob.core.windows.net/site/23701300-f85e-4dee-b5bd-be9ed699982e.js"></script>
         </body>
       </Html>
     );
