@@ -37,10 +37,9 @@ function LessonsApp({ Component, pageProps }: AppProps) {
     }
   }, [])
 */
-  return (
-    <>
-      <Head>
-        {EnvironmentHelper.GoogleAnalyticsTag && (
+  /*
+<Head>
+{EnvironmentHelper.GoogleAnalyticsTag && (
           <>
             <script async src={`https://www.googletagmanager.com/gtag/js?id=${EnvironmentHelper.GoogleAnalyticsTag}`} />
             <script
@@ -57,7 +56,10 @@ function LessonsApp({ Component, pageProps }: AppProps) {
             />
           </>
         )}
-      </Head>
+        </Head>
+        */
+  return (
+    <>
       <Component {...pageProps} />
     </>
   );
