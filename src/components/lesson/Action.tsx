@@ -37,7 +37,7 @@ export function Action(props: Props) {
   const trackView = (video: ExternalVideoInterface) => {
     const action = video.name;
     const label = window.location.pathname;
-    AnalyticsHelper.logEvent("Download", action, label);
+    AnalyticsHelper.logEvent("Preview", action, label);
     if (CommonEnvironmentHelper.GoogleAnalyticsTag !== "" && typeof(window)!=="undefined") gtag("event", "conversion", { send_to: "AW-427967381/iTZUCK6U7ZkYEJWHicwB" });
     const download = {
       lessonId: props.lessonId,
