@@ -10,7 +10,7 @@ interface Props {
 export const ImageModal: React.FC<Props> = (props: Props) => {
 
 
-  const getImageElement = () => <Image src={props.url} alt="lesson slide" width={1280} height={720} style={{ maxWidth:"100%", maxHeight:"80%" }} />
+  const getImageElement = () => <Image src={props.url} alt="lesson slide" width={1280} height={720} className="img-fluid" />
 
   return (<>
     <Dialog open={true} onClose={props.onClose} fullScreen={true}>
