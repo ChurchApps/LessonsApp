@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { ScheduleInterface, ApiHelper } from "@/utils";
 import { DisplayBox, Loading, ScheduleEdit } from "../index";
-import { DateHelper } from "@/appBase/helpers";
+import { ArrayHelper, DateHelper } from "@/appBase/helpers";
 import Link from "next/link";
 import { SmallButton } from "@/appBase/components";
 import { Icon } from "@mui/material";
@@ -19,6 +19,7 @@ export function ScheduleList(props: Props) {
 
   const loadData = () => {
     ApiHelper.get("/schedules/classroom/" + props.classroomId, "LessonsApi").then((data: any) => {
+      ArrayHelper.sortBy(data, "scheduledDate", true);
       setSchedules(data);
     });
   };
@@ -56,14 +57,21 @@ export function ScheduleList(props: Props) {
   };
 
   const getEditContent = () => {
-    const newSchedule = { classroomId: props.classroomId, scheduledDate: new Date(), lessonId: "", venueId: "" };
+    const newSchedule:ScheduleInterface = { classroomId: props.classroomId, scheduledDate: new Date(), lessonId: "", venueId: "" };
+    if (schedules?.length > 0) {
+      const lastSchedule = schedules[0];
+      newSchedule.lessonId = lastSchedule.lessonId;
+      newSchedule.venueId = lastSchedule.venueId;
+      newSchedule.scheduledDate = DateHelper.addDays(new Date(lastSchedule.scheduledDate), 7);
+    }
+
     newSchedule.scheduledDate.setHours(0, 0, 0, 0);
     return (<SmallButton icon="add" onClick={() => { setEditSchedule(newSchedule); }} />);
   };
 
   useEffect(loadData, [props.classroomId]);
 
-  if (editSchedule) return (<ScheduleEdit schedule={editSchedule} updatedCallback={() => { setEditSchedule(null); loadData(); }} />);
+  if (editSchedule) return (<ScheduleEdit schedule={editSchedule} schedules={schedules} updatedCallback={() => { setEditSchedule(null); loadData(); }} />);
   else
     return (
       <>

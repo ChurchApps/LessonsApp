@@ -6,6 +6,7 @@ import { FormControl, InputLabel, MenuItem, Select, SelectChangeEvent, TextField
 
 type Props = {
   schedule: ScheduleInterface;
+  schedules: ScheduleInterface[];
   updatedCallback: (schedule: ScheduleInterface) => void;
 };
 
@@ -31,6 +32,7 @@ export function ScheduleEdit(props: Props) {
 
   const loadStudies = () => {
     if (programId) ApiHelper.getAnonymous("/studies/public/program/" + programId, "LessonsApi").then((data: any) => {
+      ArrayHelper.sortBy(data, "name");
       setStudies(data);
       if (!studyId || !ArrayHelper.getOne(data, "id", studyId)) setStudyId(data[0].id)
     });
@@ -139,7 +141,12 @@ export function ScheduleEdit(props: Props) {
 
   const getLessonOptions = () => {
     const result: JSX.Element[] = [];
-    lessons.forEach(l => result.push(<MenuItem value={l.id}>{l.name}</MenuItem>));
+    lessons.forEach(l => {
+      let sx: any = {};
+      const existing:ScheduleInterface = ArrayHelper.getOne(props.schedules, "lessonId", l.id)
+      if (existing && existing?.scheduledDate !== schedule.scheduledDate) sx.color = "#999";
+      result.push(<MenuItem value={l.id} sx={sx}>{l.name}</MenuItem>)
+    });
     return result;
   }
 
@@ -151,7 +158,7 @@ export function ScheduleEdit(props: Props) {
 
   const populateSchedule = async (s: ScheduleInterface) => {
     setSchedule(props.schedule);
-    if (s.id) {
+    if (s.lessonId) {
       const l = await ApiHelper.getAnonymous("/lessons/public/" + s.lessonId, "LessonsApi");
       //const st = await ApiHelper.getAnonymous("/studies/public/" + l.studyId, "LessonsApi");
       const st = l.study;
