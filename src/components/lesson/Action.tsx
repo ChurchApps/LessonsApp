@@ -5,6 +5,7 @@ import { MarkdownPreview } from "../index"
 import Image from "next/image";
 import { AnalyticsHelper, DateHelper } from "@/appBase/helpers";
 import { CommonEnvironmentHelper } from "@/appBase/helpers/CommonEnvironmentHelper";
+import { ImageModal } from "../ImageModal";
 
 type Props = {
   action: ActionInterface;
@@ -78,13 +79,13 @@ export function Action(props: Props) {
       result.type = "asset";
       result.url = asset?.file?.contentPath;
       result.name = resource?.name + ": " +  asset?.name;
-      result.action = () => { trackAssetDownload(asset) };
+      result.action = (e) => { e.preventDefault(); trackDownload(asset); setShowPreview(true); };
       result.thumbnail = asset?.file?.thumbPath || asset?.file?.contentPath || "";
     } else if (resource) {
       result.type = "resource";
       result.url = resource.variants[0]?.file?.contentPath;
       result.name = resource.name;
-      result.action = () => { trackDownload(resource.variants[0]) };
+      result.action = (e) => { e.preventDefault(); trackDownload(resource.variants[0]); setShowPreview(true); };
       result.thumbnail = resource?.assets[0]?.file?.contentPath || resource?.variants[0]?.file?.thumbPath || resource?.variants[0]?.file?.contentPath || "";
     } else if (video) {
       result.type = "video";
@@ -124,6 +125,7 @@ export function Action(props: Props) {
         <Image src={data.thumbnail || "/not-found"} alt={data.name} width={128} height={72} style={{height:72}} />
         <a href={data.url} rel="noopener noreferrer" onClick={data.action} className="text">{data.name}</a>
         {data.type==="video" && showPreview && <VideoModal onClose={() => setShowPreview(false)} vimeoId={data.videoId} loopVideo={data.loopVideo} />}
+        {(data.type==="asset" || data.type==="resource") && showPreview && <ImageModal onClose={() => setShowPreview(false)} url={data.url} />}
       </div>);
       break;
   }
