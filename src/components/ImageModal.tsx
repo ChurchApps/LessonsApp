@@ -10,7 +10,15 @@ interface Props {
 export const ImageModal: React.FC<Props> = (props: Props) => {
 
 
-  const getImageElement = () => <Image src={props.url} alt="lesson slide" width={1280} height={720} className="img-fluid" />
+  const getImageElement = () => {
+    let result = <Image src={props.url} alt="lesson slide" width={1280} height={720} className="img-fluid" />
+    if (props.url.indexOf(".mp4")>-1 || props.url.indexOf(".webm")>-1) {
+
+      result = <div style={{textAlign:"center"}}><video src={props.url || ""} style={{ width:"75vw", height: "75vh" }} autoPlay={true} /></div>
+    }
+    return result;
+  }
+
 
   return (<>
     <Dialog open={true} onClose={props.onClose} fullScreen={true}>
