@@ -34,7 +34,7 @@ export function HomeHero(props: Props) {
           </Fade>
         </Slide>
         <p>We believe that limited church budgets should never stand in the way of teaching both children and adults the word of God in the most effective way possible.</p>
-        <a href="#" className="cta">Join for <b>FREE</b> Curriculum</a>
+        <Link href="/register" className="cta" underline="none">Join for <b>FREE</b> Curriculum</Link>
         <Stats stats={props.stats} />
       </Grid>
     </Grid>
