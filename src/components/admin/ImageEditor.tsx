@@ -1,8 +1,7 @@
 import React, { useEffect } from "react";
 import Cropper from "react-cropper";
 import "cropperjs/dist/cropper.css";
-import { InputBox } from "../index";
-import { SmallButton } from "@/appBase/components";
+import { InputBox, SmallButton } from "@churchapps/apphelper";
 
 type Props = {
   imageUrl: string;

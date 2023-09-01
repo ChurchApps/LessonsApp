@@ -1,8 +1,7 @@
 import { useState, useEffect } from "react";
-import Link from "next/link";
 import { ClassroomInterface, ApiHelper } from "@/utils";
-import { DisplayBox, Loading, ClassroomEdit } from "../index";
-import { SmallButton } from "@/appBase/components";
+import { ClassroomEdit } from "../index";
+import { DisplayBox, Loading, SmallButton } from "@churchapps/apphelper";
 import { Icon, Stack } from "@mui/material";
 
 type Props = {

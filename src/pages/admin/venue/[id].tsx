@@ -1,10 +1,10 @@
 import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
-import { DisplayBox, Loading, SectionEdit, RoleEdit, ActionEdit, SectionCopy } from "@/components";
+import { SectionEdit, RoleEdit, ActionEdit, SectionCopy } from "@/components";
 import { VenueInterface, LessonInterface, StudyInterface, SectionInterface, RoleInterface, ActionInterface, ResourceInterface, AssetInterface, ApiHelper, ArrayHelper, CopySectionInterface, ExternalVideoInterface } from "@/utils";
 import { Wrapper } from "@/components/Wrapper";
 import { Grid, Icon, Menu, MenuItem } from "@mui/material";
-import { SmallButton } from "@/appBase/components";
+import { SmallButton, DisplayBox, Loading } from "@churchapps/apphelper";
 
 export default function Venue() {
   const [venue, setVenue] = useState<VenueInterface>(null);

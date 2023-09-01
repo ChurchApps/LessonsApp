@@ -1,11 +1,10 @@
 import "react-activity/dist/Dots.css";
 import "@/styles/globals.css";
-import "@/appBase/components/markdownEditor/editor.css";
+import "@churchapps/apphelper/dist/components/markdownEditor/editor.css";
 import { useEffect } from "react";
 import type { AppProps } from "next/app";
-import Head from "next/head";
 import { EnvironmentHelper } from "@/utils";
-import { AnalyticsHelper } from "@/appBase/helpers";
+import { AnalyticsHelper } from "@churchapps/apphelper";
 
 EnvironmentHelper.init();
 

@@ -1,8 +1,7 @@
 import { useRouter } from "next/router"
 import { useCookies } from "react-cookie"
 import { Layout } from "@/components";
-import { LoginPage } from "@/appBase/pageComponents/LoginPage";
-import { ApiHelper, UserHelper } from "@/appBase/helpers"
+import { LoginPage, ApiHelper, UserHelper } from "@churchapps/apphelper";
 
 export default function Login() {
   const router = useRouter()

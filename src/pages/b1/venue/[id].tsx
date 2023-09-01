@@ -4,7 +4,7 @@ import { Layout, Venue } from "@/components";
 import { ApiHelper, ClassroomInterface, CustomizationInterface, ExternalVideoInterface, LessonInterface, ResourceInterface, ScheduleInterface, VenueInterface } from "@/utils";
 import Link from "next/link";
 import { Container, Grid, Tab, Tabs } from "@mui/material";
-import { DateHelper } from "@/appBase/helpers";
+import { DateHelper } from "@churchapps/apphelper";
 
 export default function B1Venue() {
   const [venue, setVenue] = useState<VenueInterface>(null);

@@ -1,9 +1,7 @@
 import { SectionInterface, ResourceInterface, ActionInterface, ArrayHelper, CustomizationInterface, CustomizationHelper, ExternalVideoInterface, RoleInterface, AssetInterface, FileInterface, VariantInterface, ApiHelper, UserHelper } from "@/utils";
-import { Action } from "../lesson/Action";
-import { Accordion, AccordionDetails, AccordionSummary, CardContent, Icon } from "@mui/material";
+import { CardContent } from "@mui/material";
 import Carousel from "react-material-ui-carousel";
-import { AnalyticsHelper } from "@/appBase/helpers";
-import { CommonEnvironmentHelper } from "@/appBase/helpers/CommonEnvironmentHelper";
+import { AnalyticsHelper, CommonEnvironmentHelper } from "@churchapps/apphelper";
 import { useState } from "react";
 import { VideoModal } from "../VideoModal";
 import { ActionAlt } from "./ActionAlt";
