@@ -12,7 +12,8 @@ const config = {
   },
   images: {
     domains: ["content.lessons.church", "content.staging.lessons.church", "i.vimeocdn.com"]
-  }
+  },
+  transpilePackages: ["@churchapps/apphelper"]
 }
 
 
