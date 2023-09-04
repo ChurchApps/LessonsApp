@@ -1,10 +1,8 @@
 import { GetStaticPaths, GetStaticProps } from "next";
-import { Grid, Container, Box, Icon } from "@mui/material";
-import { Layout, Venue, Venues } from "@/components";
+import { Grid, Container, Icon } from "@mui/material";
+import { Layout, Venue } from "@/components";
 import { ApiHelper, ProgramInterface, StudyInterface, LessonInterface, ArrayHelper, VenueInterface, ResourceInterface, BundleInterface, ExternalVideoInterface } from "@/utils";
-import { MarkdownPreview } from "@/components";
 import Error from "@/pages/_error";
-import { EmbeddedVideo } from "@/components/EmbeddedVideo";
 import Image from "next/image";
 import { Header } from "@/components/Header";
 import Link from "next/link";

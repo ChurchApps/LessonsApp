@@ -1,11 +1,11 @@
 import "react-activity/dist/Dots.css";
 import "@/styles/globals.css";
-import "@/appBase/components/markdownEditor/editor.css";
+import "@churchapps/apphelper/dist/components/markdownEditor/editor.css";
 import { useEffect } from "react";
 import type { AppProps } from "next/app";
-import Head from "next/head";
 import { EnvironmentHelper } from "@/utils";
-import { AnalyticsHelper } from "@/appBase/helpers";
+import { AnalyticsHelper } from "@churchapps/apphelper";
+import { UserProvider } from "@/UserContext";
 
 EnvironmentHelper.init();
 
@@ -59,9 +59,9 @@ function LessonsApp({ Component, pageProps }: AppProps) {
         </Head>
         */
   return (
-    <>
+    <UserProvider>
       <Component {...pageProps} />
-    </>
+    </UserProvider>
   );
 }
 export default LessonsApp;

@@ -1,5 +1,4 @@
 import { PlaylistFileInterface } from "@/utils";
-import Vimeo from "react-vimeo";
 
 
 type Props = {

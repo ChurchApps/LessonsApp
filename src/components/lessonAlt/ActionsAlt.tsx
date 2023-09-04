@@ -1,10 +1,5 @@
 import React, { useState } from "react";
-import { ResourceInterface, ArrayHelper, ActionInterface, VariantInterface, AssetInterface, UserHelper, ApiHelper, FileInterface, ExternalVideoInterface, CustomizationHelper } from "@/utils";
-import { VideoModal } from "../VideoModal";
-import { MarkdownPreview } from "../index"
-import Image from "next/image";
-import { AnalyticsHelper } from "@/appBase/helpers";
-import { CommonEnvironmentHelper } from "@/appBase/helpers/CommonEnvironmentHelper";
+import { ResourceInterface, ActionInterface, ExternalVideoInterface } from "@/utils";
 import { TabList, TabContext } from "@mui/lab";
 import { Tab, Box } from "@mui/material";
 import { ActionAlt } from "./ActionAlt";

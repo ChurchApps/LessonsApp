@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
-import { InputBox, ErrorMessages, ImageEditor } from "../index";
+import { ImageEditor } from "../index";
+import { InputBox, ErrorMessages } from "@churchapps/apphelper";
 import { ApiHelper, LessonInterface, StudyInterface, ProgramInterface } from "@/utils";
 import { FormControl, Grid, InputLabel, MenuItem, Select, SelectChangeEvent, TextField } from "@mui/material";
 

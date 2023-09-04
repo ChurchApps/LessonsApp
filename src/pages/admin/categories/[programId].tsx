@@ -1,12 +1,9 @@
 import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
-import { DisplayBox, InputBox } from "@/components";
-import { ApiHelper, ChurchInterface, ProgramInterface, StudyCategoryInterface, StudyInterface } from "@/utils";
-import { ArrayHelper, DateHelper } from "@/appBase/helpers";
+import { ApiHelper, ProgramInterface, StudyCategoryInterface, StudyInterface } from "@/utils";
 import { Wrapper } from "@/components/Wrapper";
-import { Grid, TextField } from "@mui/material";
-import { Map } from "@/components/admin/Map";
-import { SmallButton } from "@/appBase/components";
+import { Grid } from "@mui/material";
+import { SmallButton, DisplayBox, ArrayHelper } from "@churchapps/apphelper";
 
 export default function Admin() {
 

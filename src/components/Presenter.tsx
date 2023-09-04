@@ -2,7 +2,7 @@ import { ApiHelper, PlaylistFileInterface, VenueInterface } from "@/utils";
 import { useEffect, useState } from "react";
 import Carousel from "react-material-ui-carousel";
 import { PresenterSlide } from "./PresenterSlide";
-import { AnalyticsHelper } from "@/appBase/helpers";
+import { AnalyticsHelper } from "@churchapps/apphelper";
 
 type Props = {
   venue: VenueInterface;

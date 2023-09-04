@@ -1,6 +1,6 @@
 import { SectionInterface, ResourceInterface, ActionInterface, ArrayHelper, CustomizationInterface, CustomizationHelper, ExternalVideoInterface } from "@/utils";
 import { Action } from "./Action";
-import { Accordion, AccordionDetails, AccordionSummary, Card, CardContent, CardHeader, Icon } from "@mui/material";
+import { Card, CardContent, CardHeader } from "@mui/material";
 
 type Props = {
   section: SectionInterface;

@@ -1,9 +1,8 @@
 import * as React from "react";
 import { useReactToPrint } from "react-to-print";
 import { VenueInterface, ResourceInterface, BundleInterface, CustomizationInterface, CustomizationHelper, ExternalVideoInterface } from "@/utils";
-import { Downloads } from "./Downloads";
 import { Section } from "./Section";
-import { Grid, Icon, Button, Box, FormControl, InputLabel, Select, MenuItem } from "@mui/material";
+import { Icon, Button } from "@mui/material";
 
 
 type Props = {

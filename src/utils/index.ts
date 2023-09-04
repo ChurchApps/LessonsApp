@@ -1,4 +1,4 @@
-export { ApiHelper, ArrayHelper, UserHelper } from "@/appBase/helpers";
+export { ApiHelper, ArrayHelper, UserHelper } from "@churchapps/apphelper";
 export { EnvironmentHelper } from "./EnvironmentHelper";
 export { Permissions } from "./Permissions";
 

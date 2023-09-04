@@ -1,10 +1,9 @@
 import React from "react";
 import UserContext from "../UserContext";
 import { Box, CssBaseline, List, ThemeProvider } from "@mui/material";
-import { SiteWrapper, NavItem } from "../appBase/components";
+import { SiteWrapper, NavItem, Themes } from "@churchapps/apphelper";
 import { UserHelper, Permissions } from "@/utils";
 import { useRouter } from "next/router"
-import { Themes } from "@/appBase/helpers";
 
 interface Props { pageTitle?: string, children: React.ReactNode }
 

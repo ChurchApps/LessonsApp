@@ -1,4 +1,4 @@
-import { Permissions as BasePermissions } from "@/appBase/interfaces/Permissions"
+import { Permissions as BasePermissions } from "@churchapps/apphelper"
 
 export class Permissions extends BasePermissions {
   static lessonsApi = {

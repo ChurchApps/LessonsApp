@@ -24,11 +24,3 @@ export { ClassroomList } from "./portal/ClassroomList";
 export { ClassroomEdit } from "./portal/ClassroomEdit";
 export { ScheduleList } from "./portal/ScheduleList";
 export { ScheduleEdit } from "./portal/ScheduleEdit";
-
-export { ErrorMessages } from "@/appBase/components/ErrorMessages";
-export { DisplayBox } from "@/appBase/components/DisplayBox";
-export { Loading } from "@/appBase/components/Loading";
-export { InputBox } from "@/appBase/components/InputBox";
-export { LogoutPage } from "@/appBase/pageComponents/LogoutPage";
-export { MarkdownEditor } from "@/appBase/components/markdownEditor/MarkdownEditor";
-export { MarkdownPreview } from "@/appBase/components/markdownEditor/MarkdownPreview";
