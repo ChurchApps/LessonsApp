@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { ApiHelper, AssetInterface, FileInterface } from "@/utils";
-import { InputBox } from "../index";
+import { InputBox } from "@churchapps/apphelper";
 import { BulkFileUpload } from "./BulkFileUpload";
 
 type Props = {

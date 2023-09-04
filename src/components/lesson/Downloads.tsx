@@ -14,7 +14,7 @@ export function Downloads(props: Props) {
       const action = bundle.name;
       const label = window.location.pathname;
       AnalyticsHelper.logEvent("Download", action, label);
-      if (CommonEnvironmentHelper.GoogleAnalyticsTag !== "" && typeof(window)!=="undefined") gtag("event", "conversion", { send_to: "AW-427967381/iTZUCK6U7ZkYEJWHicwB" });
+      //if (CommonEnvironmentHelper.GoogleAnalyticsTag !== "" && typeof(window)!=="undefined") gtag("event", "conversion", { send_to: "AW-427967381/iTZUCK6U7ZkYEJWHicwB" });
     }
     const download = {
       lessonId: bundle.contentId,
@@ -33,7 +33,7 @@ export function Downloads(props: Props) {
       const action = video.name;
       const label = window.location.pathname;
       AnalyticsHelper.logEvent("Download", action, label);
-      if (CommonEnvironmentHelper.GoogleAnalyticsTag !== "" && typeof(window)!=="undefined") gtag("event", "conversion", { send_to: "AW-427967381/iTZUCK6U7ZkYEJWHicwB" });
+      //if (CommonEnvironmentHelper.GoogleAnalyticsTag !== "" && typeof(window)!=="undefined") gtag("event", "conversion", { send_to: "AW-427967381/iTZUCK6U7ZkYEJWHicwB" });
     }
     const download = {
       lessonId: video.contentId,

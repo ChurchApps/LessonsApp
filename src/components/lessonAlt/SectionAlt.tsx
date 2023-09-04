@@ -1,7 +1,7 @@
 import { SectionInterface, ResourceInterface, ActionInterface, ArrayHelper, CustomizationInterface, CustomizationHelper, ExternalVideoInterface, RoleInterface, FileInterface, ApiHelper, UserHelper } from "@/utils";
 import { CardContent } from "@mui/material";
 import Carousel from "react-material-ui-carousel";
-import { AnalyticsHelper, CommonEnvironmentHelper } from "@churchapps/apphelper";
+import { AnalyticsHelper } from "@churchapps/apphelper";
 import { useState } from "react";
 import { VideoModal } from "../VideoModal";
 import { ActionAlt } from "./ActionAlt";
@@ -24,7 +24,7 @@ export function SectionAlt(props: Props) {
     const action = video.name;
     const label = window.location.pathname;
     AnalyticsHelper.logEvent("Preview", action, label);
-    if (CommonEnvironmentHelper.GoogleAnalyticsTag !== "" && typeof(window)!=="undefined") gtag("event", "conversion", { send_to: "AW-427967381/iTZUCK6U7ZkYEJWHicwB" });
+    //if (CommonEnvironmentHelper.GoogleAnalyticsTag !== "" && typeof(window)!=="undefined") gtag("event", "conversion", { send_to: "AW-427967381/iTZUCK6U7ZkYEJWHicwB" });
     const download = {
       lessonId: props.section.lessonId,
       fileId: "",

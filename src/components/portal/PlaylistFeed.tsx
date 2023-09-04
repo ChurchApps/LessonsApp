@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { InputBox } from "../index";
+import { InputBox } from "@churchapps/apphelper";
 import { ApiHelper } from "@/utils";
 import { VenueInterface } from "@/utils/interfaces";
 
