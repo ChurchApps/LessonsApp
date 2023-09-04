@@ -31,7 +31,7 @@
     "react-vimeo": "^2.0.0"
   },
   "devDependencies": {
-    "@types/node": "^20.5.7",
+    "@types/node": "^20.5.9",
     "@types/react": "^18.2.21",
     "@types/react-simple-maps": "^3.0.0",
     "eslint": "8.48.0",

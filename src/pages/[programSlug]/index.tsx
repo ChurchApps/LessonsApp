@@ -2,7 +2,7 @@ import { GetStaticPaths, GetStaticProps } from "next";
 import { Container, Box, Typography, Grid, Icon, Button, ButtonGroup, Tabs, Tab, styled } from "@mui/material";
 import { Layout, Studies, VideoModal } from "@/components";
 import { ProgramInterface, ApiHelper, ProviderInterface, StudyInterface, StudyCategoryInterface, ArrayHelper, } from "@/utils";
-import { MarkdownPreview } from "@/components"
+import { MarkdownPreview } from "@churchapps/apphelper"
 import Error from "../_error";
 import { EmbeddedVideo } from "@/components/EmbeddedVideo";
 import { Header } from "@/components/Header";

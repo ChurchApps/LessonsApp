@@ -1,6 +1,6 @@
 import { AppBar, Box, Container, FormControl, Grid, Icon, InputLabel, Link, MenuItem, Select, Stack } from "@mui/material";
 import { ArrayHelper, BundleInterface, ExternalVideoInterface, ProgramInterface, SectionInterface, VenueInterface } from "@/utils";
-import { MarkdownPreview } from "..";
+import { MarkdownPreview } from "@churchapps/apphelper";
 import React, { useEffect } from "react";
 import { Downloads } from "./Downloads";
 import { max } from "date-fns";

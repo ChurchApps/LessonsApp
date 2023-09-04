@@ -1,5 +1,6 @@
 import { GetStaticPaths, GetStaticProps } from "next";
-import { Layout, Lessons, MarkdownPreview } from "@/components";
+import { Layout, Lessons } from "@/components";
+import { MarkdownPreview } from "@churchapps/apphelper";
 import { ApiHelper, ProgramInterface, StudyInterface, LessonInterface, ArrayHelper } from "@/utils";
 import { Grid, Container, Box } from "@mui/material";
 import Error from "@/pages/_error";
