@@ -1,5 +1,5 @@
 import React from "react";
-import { ResourceInterface, ArrayHelper, ActionInterface, VariantInterface, AssetInterface, UserHelper, ApiHelper, FileInterface, ExternalVideoInterface } from "@/utils";
+import { ResourceInterface, ArrayHelper, ActionInterface, VariantInterface, AssetInterface, UserHelper, ApiHelper, ExternalVideoInterface } from "@/utils";
 import { MarkdownPreview, AnalyticsHelper, CommonEnvironmentHelper } from "@churchapps/apphelper"
 
 type Props = {

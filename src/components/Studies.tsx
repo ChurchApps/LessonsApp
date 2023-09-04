@@ -1,6 +1,6 @@
 import Link from "next/link";
-import { StudyCategoryInterface, StudyInterface } from "@/utils";
-import { Card, Grid, Icon, Typography } from "@mui/material";
+import { StudyInterface } from "@/utils";
+import { Card, Grid } from "@mui/material";
 import Image from "next/image";
 
 type Props = {

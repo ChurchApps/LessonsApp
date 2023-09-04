@@ -1,5 +1,5 @@
 import { GetStaticPaths, GetStaticProps } from "next";
-import { Container, Box, Typography, Grid, Icon, Button, ButtonGroup, Tabs, Tab, styled } from "@mui/material";
+import { Container, Icon, Tabs, Tab } from "@mui/material";
 import { Layout, Studies, VideoModal } from "@/components";
 import { ProgramInterface, ApiHelper, ProviderInterface, StudyInterface, StudyCategoryInterface, ArrayHelper, } from "@/utils";
 import { MarkdownPreview } from "@churchapps/apphelper"

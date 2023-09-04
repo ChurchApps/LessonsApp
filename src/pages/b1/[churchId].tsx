@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useRouter } from "next/router";
 import { Layout } from "@/components";
-import { ApiHelper, ChurchInterface, ClassroomInterface } from "@/utils";
+import { ApiHelper, ClassroomInterface } from "@/utils";
 import Link from "next/link";
 import { Container } from "@mui/material";
 

@@ -1,5 +1,5 @@
 import { GetStaticProps } from "next";
-import { HomeAbout, HomeConnect, Layout, Programs, Stats } from "@/components";
+import { HomeAbout, HomeConnect, Layout, Programs } from "@/components";
 import { ApiHelper, ProgramInterface, ProviderInterface, StudyInterface } from "@/utils";
 import { FloatingSupport } from "@churchapps/apphelper";
 import Error from "./_error";

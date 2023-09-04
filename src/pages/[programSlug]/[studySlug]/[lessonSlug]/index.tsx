@@ -1,6 +1,6 @@
 import { GetStaticPaths, GetStaticProps } from "next";
-import { Grid, Container, Box, Icon } from "@mui/material";
-import { Layout, Venue, Venues } from "@/components";
+import { Grid, Container, Icon } from "@mui/material";
+import { Layout, Venue } from "@/components";
 import { ApiHelper, ProgramInterface, StudyInterface, LessonInterface, ArrayHelper, VenueInterface, ResourceInterface, BundleInterface, ExternalVideoInterface } from "@/utils";
 import Error from "@/pages/_error";
 import Image from "next/image";

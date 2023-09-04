@@ -1,4 +1,4 @@
-import { SectionInterface, ResourceInterface, ActionInterface, ArrayHelper, CustomizationInterface, CustomizationHelper, ExternalVideoInterface, RoleInterface, AssetInterface, FileInterface, VariantInterface, ApiHelper, UserHelper } from "@/utils";
+import { SectionInterface, ResourceInterface, ActionInterface, ArrayHelper, CustomizationInterface, CustomizationHelper, ExternalVideoInterface, RoleInterface, FileInterface, ApiHelper, UserHelper } from "@/utils";
 import { CardContent } from "@mui/material";
 import Carousel from "react-material-ui-carousel";
 import { AnalyticsHelper, CommonEnvironmentHelper } from "@churchapps/apphelper";
