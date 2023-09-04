@@ -5,6 +5,7 @@ import { useEffect } from "react";
 import type { AppProps } from "next/app";
 import { EnvironmentHelper } from "@/utils";
 import { AnalyticsHelper } from "@churchapps/apphelper";
+import { UserProvider } from "@/UserContext";
 
 EnvironmentHelper.init();
 
@@ -58,9 +59,9 @@ function LessonsApp({ Component, pageProps }: AppProps) {
         </Head>
         */
   return (
-    <>
+    <UserProvider>
       <Component {...pageProps} />
-    </>
+    </UserProvider>
   );
 }
 export default LessonsApp;

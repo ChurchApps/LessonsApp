@@ -10,7 +10,7 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@churchapps/apphelper": "0.0.3",
+    "@churchapps/apphelper": "^0.0.3",
     "@mui/icons-material": "^5.14.7",
     "@mui/lab": "^5.0.0-alpha.142",
     "@mui/material": "^5.14.7",
@@ -23,7 +23,6 @@
     "react-activity": "^2.1.3",
     "react-cookie": "^6.1.0",
     "react-cropper": "^2.3.3",
-    "react-dom": "^18.2.0",
     "react-lite-youtube-embed": "^2.3.52",
     "react-material-ui-carousel": "^3.4.2",
     "react-router-dom": "^6.15.0",
