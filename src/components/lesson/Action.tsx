@@ -1,10 +1,8 @@
 import React from "react";
-import { ResourceInterface, ArrayHelper, ActionInterface, VariantInterface, AssetInterface, UserHelper, ApiHelper, FileInterface, ExternalVideoInterface } from "@/utils";
+import { ResourceInterface, ArrayHelper, ActionInterface, VariantInterface, AssetInterface, UserHelper, ApiHelper, ExternalVideoInterface } from "@/utils";
 import { VideoModal } from "../VideoModal";
-import { MarkdownPreview } from "../index"
 import Image from "next/image";
-import { AnalyticsHelper, DateHelper } from "@/appBase/helpers";
-import { CommonEnvironmentHelper } from "@/appBase/helpers/CommonEnvironmentHelper";
+import { AnalyticsHelper, MarkdownPreview } from "@churchapps/apphelper";
 import { ImageModal } from "../ImageModal";
 
 type Props = {
@@ -22,7 +20,7 @@ export function Action(props: Props) {
     const action = resource.name + " - " + variant.name;
     const label = window.location.pathname;
     AnalyticsHelper.logEvent("Download", action, label);
-    if (CommonEnvironmentHelper.GoogleAnalyticsTag !== "" && typeof(window)!=="undefined") gtag("event", "conversion", { send_to: "AW-427967381/iTZUCK6U7ZkYEJWHicwB" });
+    //if (CommonEnvironmentHelper.GoogleAnalyticsTag !== "" && typeof(window)!=="undefined") gtag("event", "conversion", { send_to: "AW-427967381/iTZUCK6U7ZkYEJWHicwB" });
     const download = {
       lessonId: props.lessonId,
       fileId: variant.fileId,
@@ -39,7 +37,7 @@ export function Action(props: Props) {
     const action = video.name;
     const label = window.location.pathname;
     AnalyticsHelper.logEvent("Preview", action, label);
-    if (CommonEnvironmentHelper.GoogleAnalyticsTag !== "" && typeof(window)!=="undefined") gtag("event", "conversion", { send_to: "AW-427967381/iTZUCK6U7ZkYEJWHicwB" });
+    //if (CommonEnvironmentHelper.GoogleAnalyticsTag !== "" && typeof(window)!=="undefined") gtag("event", "conversion", { send_to: "AW-427967381/iTZUCK6U7ZkYEJWHicwB" });
     const download = {
       lessonId: props.lessonId,
       fileId: "",
@@ -57,7 +55,7 @@ export function Action(props: Props) {
     const action = resource.name + " - " + asset.name;
     const label = window.location.pathname;
     AnalyticsHelper.logEvent("Download Asset", action, label);
-    if (CommonEnvironmentHelper.GoogleAnalyticsTag !== "" && typeof(window)!=="undefined") gtag("event", "conversion", { send_to: "AW-427967381/iTZUCK6U7ZkYEJWHicwB" });
+    //if (CommonEnvironmentHelper.GoogleAnalyticsTag !== "" && typeof(window)!=="undefined") gtag("event", "conversion", { send_to: "AW-427967381/iTZUCK6U7ZkYEJWHicwB" });
     const download = {
       lessonId: props.lessonId,
       fileId: asset.fileId,

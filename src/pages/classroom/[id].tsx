@@ -1,12 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { useRouter } from "next/router";
 import { Layout } from "@/components";
-import { ApiHelper, ChurchInterface, ClassroomInterface, LessonInterface, ProgramInterface, ScheduleInterface, SettingInterface, StudyInterface } from "@/utils";
+import { ApiHelper, ClassroomInterface, LessonInterface, ProgramInterface, ScheduleInterface, StudyInterface } from "@/utils";
 import Link from "next/link";
-import { ArrayHelper, DateHelper } from "@/appBase/helpers";
-import { AppBar, Container, Grid, Stack, Typography } from "@mui/material";
-import { Header } from "@/components/Header";
-
+import { ArrayHelper, DateHelper, ChurchInterface } from "@churchapps/apphelper";
+import { AppBar, Container, Grid, Stack } from "@mui/material";
 
 export default function Venue() {
   const [classroom, setClassroom] = useState<ClassroomInterface>(null);

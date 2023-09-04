@@ -1,13 +1,12 @@
 import React, { useState } from "react";
 import { ApiHelper, ResourceInterface, AssetInterface, VariantInterface, ArrayHelper, BundleInterface, ExternalVideoInterface } from "@/utils";
-import { DisplayBox, Loading } from "../index";
+import { DisplayBox, Loading, SmallButton } from "@churchapps/apphelper";
 import { VariantEdit } from "./VariantEdit";
 import { ResourceEdit } from "./ResourceEdit";
 import { AssetEdit } from "./AssetEdit";
 import { BundleEdit } from "./BundleEdit";
 import { BulkAssetAdd } from "./BulkAssetAdd";
 import { Accordion, AccordionDetails, AccordionSummary, Icon, Menu, MenuItem } from "@mui/material";
-import { SmallButton } from "@/appBase/components";
 import { ExternalVideoEdit } from "./ExternalVideoEdit";
 
 interface Props {

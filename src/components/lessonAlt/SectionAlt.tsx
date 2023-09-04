@@ -1,9 +1,7 @@
-import { SectionInterface, ResourceInterface, ActionInterface, ArrayHelper, CustomizationInterface, CustomizationHelper, ExternalVideoInterface, RoleInterface, AssetInterface, FileInterface, VariantInterface, ApiHelper, UserHelper } from "@/utils";
-import { Action } from "../lesson/Action";
-import { Accordion, AccordionDetails, AccordionSummary, CardContent, Icon } from "@mui/material";
+import { SectionInterface, ResourceInterface, ActionInterface, ArrayHelper, CustomizationInterface, CustomizationHelper, ExternalVideoInterface, RoleInterface, FileInterface, ApiHelper, UserHelper } from "@/utils";
+import { CardContent } from "@mui/material";
 import Carousel from "react-material-ui-carousel";
-import { AnalyticsHelper } from "@/appBase/helpers";
-import { CommonEnvironmentHelper } from "@/appBase/helpers/CommonEnvironmentHelper";
+import { AnalyticsHelper } from "@churchapps/apphelper";
 import { useState } from "react";
 import { VideoModal } from "../VideoModal";
 import { ActionAlt } from "./ActionAlt";
@@ -26,7 +24,7 @@ export function SectionAlt(props: Props) {
     const action = video.name;
     const label = window.location.pathname;
     AnalyticsHelper.logEvent("Preview", action, label);
-    if (CommonEnvironmentHelper.GoogleAnalyticsTag !== "" && typeof(window)!=="undefined") gtag("event", "conversion", { send_to: "AW-427967381/iTZUCK6U7ZkYEJWHicwB" });
+    //if (CommonEnvironmentHelper.GoogleAnalyticsTag !== "" && typeof(window)!=="undefined") gtag("event", "conversion", { send_to: "AW-427967381/iTZUCK6U7ZkYEJWHicwB" });
     const download = {
       lessonId: props.section.lessonId,
       fileId: "",

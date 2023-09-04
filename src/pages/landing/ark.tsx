@@ -1,8 +1,8 @@
 import { GetStaticProps } from "next";
-import { HomeAbout, HomeConnect, Layout, Programs, Stats, VideoModal } from "@/components";
+import { HomeConnect, Layout, VideoModal } from "@/components";
 import { ApiHelper, ProgramInterface, ProviderInterface } from "@/utils";
-import { Grid, Container, Button, Icon } from "@mui/material";
-import { FloatingSupport } from "@/appBase/components";
+import { Grid, Container, Button } from "@mui/material";
+import { FloatingSupport } from "@churchapps/apphelper";
 import Error from "../_error";
 import { EmbeddedVideo } from "@/components/EmbeddedVideo";
 import { useState } from "react";

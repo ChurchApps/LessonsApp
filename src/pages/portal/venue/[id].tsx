@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
-import { Layout, DisplayBox, Loading } from "@/components";
+import { Layout } from "@/components";
+import { DisplayBox, Loading } from "@churchapps/apphelper";
 import { VenueInterface, LessonInterface, StudyInterface, SectionInterface, RoleInterface, ActionInterface, ApiHelper, ArrayHelper, CustomizationInterface, CustomizationHelper } from "@/utils";
 import { Container, Icon, Box } from "@mui/material";
 

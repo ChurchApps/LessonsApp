@@ -1,4 +1,4 @@
-import { Box, Container, Grid } from "@mui/material";
+import { Container, Grid } from "@mui/material";
 
 export function Footer() {
   return (

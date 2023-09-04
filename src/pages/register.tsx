@@ -1,9 +1,7 @@
 import React from "react"
 import { useRouter } from "next/router"
 import { Layout } from "@/components";
-import { Register } from "@/appBase/pageComponents/components/Register";
-import { ApiHelper, UserHelper } from "@/appBase/helpers"
-import { ErrorMessages } from "@/components";
+import { Register, ApiHelper, UserHelper, ErrorMessages } from "@churchapps/apphelper";
 
 export default function RegisterPage() {
   const router = useRouter()

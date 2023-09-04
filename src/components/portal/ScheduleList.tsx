@@ -1,17 +1,13 @@
 import { useState, useEffect } from "react";
 import { ScheduleInterface, ApiHelper } from "@/utils";
-import { DisplayBox, Loading, ScheduleEdit } from "../index";
-import { ArrayHelper, DateHelper } from "@/appBase/helpers";
+import { ScheduleEdit } from "../index";
+import { DisplayBox, Loading, ArrayHelper, DateHelper, SmallButton } from "@churchapps/apphelper";
 import Link from "next/link";
-import { SmallButton } from "@/appBase/components";
 import { Icon } from "@mui/material";
-
 
 type Props = {
   classroomId: string;
 };
-
-
 
 export function ScheduleList(props: Props) {
   const [schedules, setSchedules] = useState<ScheduleInterface[]>(null);

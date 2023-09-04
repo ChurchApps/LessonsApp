@@ -1,10 +1,9 @@
 import Link from "next/link";
 import { useRouter } from "next/router"
 import { UserHelper, Permissions, ApiHelper } from "@/utils";
-import { ClickAwayListener, Container, Icon, Menu, MenuItem, AppBar, Stack, Box, Button } from "@mui/material";
+import { ClickAwayListener, Icon, Menu, MenuItem, AppBar, Stack, Box } from "@mui/material";
 import { useState } from "react";
-import { SupportModal } from "@/appBase/components/SupportModal";
-import { PropaneSharp } from "@mui/icons-material";
+import { SupportModal } from "@churchapps/apphelper";
 
 type Props = {
   position?: "fixed" | "sticky" | "static" | "relative" | "absolute";

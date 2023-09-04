@@ -1,4 +1,4 @@
-import { Button, Container, Grid } from "@mui/material";
+import { Container, Grid } from "@mui/material";
 import { EmbeddedVideo } from "../EmbeddedVideo";
 
 export function HomeAbout() {

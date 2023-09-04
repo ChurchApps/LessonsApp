@@ -1,4 +1,4 @@
-export * from "@/appBase/interfaces";
+export * from "@churchapps/apphelper";
 
 export interface ProviderInterface {
   id?: string;

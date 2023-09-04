@@ -1,8 +1,8 @@
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import { VenueInterface, ApiHelper } from "@/utils";
-import { DisplayBox, Loading, VenueEdit } from "../index";
-import { SmallButton } from "@/appBase/components";
+import { VenueEdit } from "../index";
+import { DisplayBox, Loading, SmallButton } from "@churchapps/apphelper";
 import { Icon } from "@mui/material";
 
 type Props = {
