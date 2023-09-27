@@ -1,5 +1,11 @@
 export * from "@churchapps/apphelper";
 
+export interface ExternalProviderInterface {
+  id?: string;
+  name?: string;
+  apiUrl?: string;
+}
+
 export interface ProviderInterface {
   id?: string;
   name?: string;
