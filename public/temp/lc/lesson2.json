@@ -1,8 +1,8 @@
 {
   "name": "Classroom",
-  "lessonName": "The First Sin!",
-  "lessonImage": "https://d347bo4ltvvnaz.cloudfront.net/images/BA_Unit1.jpg",
-  "lessonDescription": "The story of God's grace begins in the Garden of Eden. This five-part lesson walks your preschoolers through the first sin of Adam and Eve. The First Sin teaches your kids age 2 through kindergarten how to weigh if something is a sin or not and how to obey God because He cares for us",
+  "lessonName": "Through the Roof",
+  "lessonDescription": "This five-part lesson walks your preschoolers through the story of the sick man who was lowered through the ceiling by his friends so that Jesus could heal him. Through the Roof teaches your kids age 2 through kindergarten about the love and healing power of Jesus, and the faith we can have in Him.",
+  "lessonImage": "https://d347bo4ltvvnaz.cloudfront.net/images/BA_Unit2.jpg",
   "studyName": "Bible Adventure",
   "programName": "Life Church",
   "sections": [
@@ -15,7 +15,7 @@
           "files": [
             {
               "name": "The Message Video",
-              "url": "https://d347bo4ltvvnaz.cloudfront.net/BA_Unit1_TheFirstSin_MessageVideo.mp4",
+              "url": "https://d347bo4ltvvnaz.cloudfront.net/BA_Unit2_ThroughTheRoof_MessageVideo.mp4",
               "seconds": 1672
             }
           ]
@@ -26,7 +26,7 @@
           "files": [
             {
               "name": "Memory Verse JPG",
-              "url": "https://d347bo4ltvvnaz.cloudfront.net/images/preview/BA_Unit1_TheFirstSin_SocialMedia-Verse.jpeg"
+              "url": "https://d347bo4ltvvnaz.cloudfront.net/images/preview/BA_Unit2_ThroughTheRoof_SocialMedia-ThePoint.jpg"
             }
           ]
         },
@@ -36,7 +36,7 @@
           "files": [
             {
               "name": "Teaching Segment Video",
-              "url": "https://d347bo4ltvvnaz.cloudfront.net/BA_Unit1_TheFirstSin_TeachingSegment.mp4",
+              "url": "https://d347bo4ltvvnaz.cloudfront.net/BA_Unit2_ThroughTheRoof_TeachingSegment.mp4",
               "seconds": 1572
             }
           ]
