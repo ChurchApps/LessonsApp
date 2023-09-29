@@ -1,32 +1,38 @@
 {
   "programs": [
     {
+      "id": "p1",
       "name": "Life Church",
       "description": "",
       "image": "",
       "studies": [
         {
+          "id": "s1",
           "name": "Bible Adventure",
           "description": "Pre-K",
           "image": "",
           "lessons": [
             {
+              "id": "1",
               "name": "The First Sin",
               "description": "",
               "image": "",
               "venues": [
                 {
+                  "id": "v1",
                   "name": "Classroom",
                   "apiUrl": "https://localhost:3501/temp/vc/lesson1.json"
                 }
               ]
             },
             {
+              "id": "2",
               "name": "Through the Roof",
               "description": "",
               "image": "",
               "venues": [
                 {
+                  "id": "v2",
                   "name": "Classroom",
                   "apiUrl": "https://localhost:3501/temp/vc/lesson2.json"
                 }

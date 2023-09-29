@@ -65,19 +65,32 @@ export function ScheduleEdit(props: Props) {
     }
   };
 
+
+  const handleProviderChange = (e: SelectChangeEvent<string>) => {
+    e.preventDefault();
+    let s = { ...schedule };
+    s.externalProviderId = e.target.value.replace("lessons.church", "");
+    if (s.externalProviderId === "") loadInternal();
+    else {
+      const ep:ExternalProviderInterface = ArrayHelper.getOne(externalProviders, "id", e.target.value);
+      ApiHelper.fetchWithErrorHandling(ep.apiUrl, { method: "GET" }).then((data: any) => {
+        setLessonTree(data);
+      });
+    }
+
+    setSchedule(s);
+  };
+
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement> | SelectChangeEvent<string>) => {
-    console.log("HANDLE CHANGE?")
     e.preventDefault();
     let s = { ...schedule };
     switch (e.target.name) {
       case "scheduledDate": s.scheduledDate = new Date(e.target.value); break;
-      case "externalProvider": s.externalProviderId = e.target.value; break;
       case "program": s.programId = e.target.value; break;
       case "study": s.studyId = e.target.value; break;
       case "lesson": s.lessonId = e.target.value; break;
       case "venue": s.venueId = e.target.value; break;
     }
-    console.log("handleChange", e.target.name, e.target.value, s)
     setSchedule(s);
   };
 
@@ -170,32 +183,32 @@ export function ScheduleEdit(props: Props) {
 
           <FormControl fullWidth>
             <InputLabel>Provider</InputLabel>
-            <Select label="Provider" name="externalProvider" value={schedule.externalProviderId || "lessons.church"} onChange={handleChange}>
+            <Select label="Provider" name="externalProvider" value={schedule.externalProviderId || "lessons.church"} onChange={handleProviderChange}>
               {getProviderOptions()}
             </Select>
           </FormControl>
 
           <FormControl fullWidth>
             <InputLabel>Program</InputLabel>
-            <Select label="Program" name="program" value={schedule.programId} onChange={handleChange}>
+            <Select label="Program" name="program" value={schedule.programId || ""} onChange={handleChange}>
               {getProgramOptions()}
             </Select>
           </FormControl>
           <FormControl fullWidth>
             <InputLabel>Study</InputLabel>
-            <Select label="Study" name="study" value={schedule.studyId} onChange={handleChange}>
+            <Select label="Study" name="study" value={schedule.studyId || ""} onChange={handleChange}>
               {getStudyOptions()}
             </Select>
           </FormControl>
           <FormControl fullWidth>
             <InputLabel id="lessonLabel">Lesson</InputLabel>
-            <Select labelId="lessonLabel" label="Lesson" name="lesson" value={schedule.lessonId} onChange={handleChange}>
+            <Select labelId="lessonLabel" label="Lesson" name="lesson" value={schedule.lessonId || ""} onChange={handleChange}>
               {getLessonOptions()}
             </Select>
           </FormControl>
           <FormControl fullWidth>
             <InputLabel id="venueLabel">Venue</InputLabel>
-            <Select labelId="venueLabel" label="Venue" name="venue" id="venue" value={schedule.venueId} onChange={handleChange}>
+            <Select labelId="venueLabel" label="Venue" name="venue" id="venue" value={schedule.venueId || ""} onChange={handleChange}>
               {getVenueOptions()}
             </Select>
           </FormControl>
