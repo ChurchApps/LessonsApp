@@ -179,6 +179,9 @@ export interface ScheduleInterface {
   churchId?: string;
   classroomId?: string;
   scheduledDate?: Date;
+  externalProviderId?: string;
+  programId?: string;
+  studyId?: string;
   lessonId?: string;
   venueId?: string;
   displayName?: string;

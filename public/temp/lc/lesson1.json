@@ -1,0 +1,46 @@
+{
+  "name": "Classroom",
+  "lessonName": "The First Sin!",
+  "lessonDescription": "Adam and Even",
+  "studyName": "Bible Adventure",
+  "programName": "Life Church",
+  "sections": [
+    {
+      "name": "Lesson Content",
+      "actions": [
+        {
+          "actionType": "Play",
+          "content": "The Message",
+          "files": [
+            {
+              "name": "The Message Video",
+              "url": "https://d347bo4ltvvnaz.cloudfront.net/BA_Unit1_TheFirstSin_MessageVideo.mp4",
+              "seconds": 1672
+            }
+          ]
+        },
+        {
+          "actionType": "Play",
+          "content": "Memory Verse",
+          "files": [
+            {
+              "name": "Memory Verse JPG",
+              "url": "https://d347bo4ltvvnaz.cloudfront.net/images/preview/BA_Unit1_TheFirstSin_SocialMedia-Verse.jpeg"
+            }
+          ]
+        },
+        {
+          "actionType": "Play",
+          "content": "Teaching Segment",
+          "files": [
+            {
+              "name": "Teaching Segment Video",
+              "url": "https://d347bo4ltvvnaz.cloudfront.net/BA_Unit1_TheFirstSin_TeachingSegment.mp4",
+              "seconds": 1572
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

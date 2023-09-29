@@ -1,0 +1,40 @@
+{
+  "programs": [
+    {
+      "name": "Life Church",
+      "description": "",
+      "image": "",
+      "studies": [
+        {
+          "name": "Bible Adventure",
+          "description": "Pre-K",
+          "image": "",
+          "lessons": [
+            {
+              "name": "The First Sin",
+              "description": "",
+              "image": "",
+              "venues": [
+                {
+                  "name": "Classroom",
+                  "apiUrl": "https://localhost:3501/temp/vc/lesson1.json"
+                }
+              ]
+            },
+            {
+              "name": "Through the Roof",
+              "description": "",
+              "image": "",
+              "venues": [
+                {
+                  "name": "Classroom",
+                  "apiUrl": "https://localhost:3501/temp/vc/lesson2.json"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
