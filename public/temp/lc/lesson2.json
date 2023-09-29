@@ -1,0 +1,47 @@
+{
+  "name": "Classroom",
+  "lessonName": "Through the Roof",
+  "lessonDescription": "This five-part lesson walks your preschoolers through the story of the sick man who was lowered through the ceiling by his friends so that Jesus could heal him. Through the Roof teaches your kids age 2 through kindergarten about the love and healing power of Jesus, and the faith we can have in Him.",
+  "lessonImage": "https://d347bo4ltvvnaz.cloudfront.net/images/BA_Unit2.jpg",
+  "studyName": "Bible Adventure",
+  "programName": "Life Church",
+  "sections": [
+    {
+      "name": "Lesson Content",
+      "actions": [
+        {
+          "actionType": "Play",
+          "content": "The Message",
+          "files": [
+            {
+              "name": "The Message Video",
+              "url": "https://d347bo4ltvvnaz.cloudfront.net/BA_Unit2_ThroughTheRoof_MessageVideo.mp4",
+              "seconds": 1672
+            }
+          ]
+        },
+        {
+          "actionType": "Play",
+          "content": "Memory Verse",
+          "files": [
+            {
+              "name": "Memory Verse JPG",
+              "url": "https://d347bo4ltvvnaz.cloudfront.net/images/preview/BA_Unit2_ThroughTheRoof_SocialMedia-ThePoint.jpg"
+            }
+          ]
+        },
+        {
+          "actionType": "Play",
+          "content": "Teaching Segment",
+          "files": [
+            {
+              "name": "Teaching Segment Video",
+              "url": "https://d347bo4ltvvnaz.cloudfront.net/BA_Unit2_ThroughTheRoof_TeachingSegment.mp4",
+              "seconds": 1572
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

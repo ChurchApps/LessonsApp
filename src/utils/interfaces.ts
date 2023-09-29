@@ -1,5 +1,11 @@
 export * from "@churchapps/apphelper";
 
+export interface ExternalProviderInterface {
+  id?: string;
+  name?: string;
+  apiUrl?: string;
+}
+
 export interface ProviderInterface {
   id?: string;
   name?: string;
@@ -173,6 +179,9 @@ export interface ScheduleInterface {
   churchId?: string;
   classroomId?: string;
   scheduledDate?: Date;
+  externalProviderId?: string;
+  programId?: string;
+  studyId?: string;
   lessonId?: string;
   venueId?: string;
   displayName?: string;
