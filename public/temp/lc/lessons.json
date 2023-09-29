@@ -21,7 +21,7 @@
                 {
                   "id": "v1",
                   "name": "Classroom",
-                  "apiUrl": "http://localhost:3501/temp/lc/lesson1.json"
+                  "apiUrl": "https://api.staging.churchapps.org/temp/lc/lesson1.json"
                 }
               ]
             },
@@ -34,7 +34,7 @@
                 {
                   "id": "v2",
                   "name": "Classroom",
-                  "apiUrl": "http://localhost:3501/temp/lc/lesson2.json"
+                  "apiUrl": "https://api.staging.churchapps.org/temp/lc/lesson2.json"
                 }
               ]
             }
