@@ -53,7 +53,9 @@ export default function Venue() {
           const dateB = DateHelper.convertToDate(b.scheduledDate);
           return (dateA < dateB) ? -1 : 1;
         });
-        window.location.href = "/b1/venue/" + notExpired[0].venueId + "?classroomId=" + classroom?.id;
+        let redirectUrl = "/b1/venue/" + notExpired[0].venueId + "?classroomId=" + classroom?.id;
+        if (notExpired[0].externalProviderId) redirectUrl += "&externalProviderId=" + notExpired[0].externalProviderId;
+        window.location.href = redirectUrl;
       }
     }
   }

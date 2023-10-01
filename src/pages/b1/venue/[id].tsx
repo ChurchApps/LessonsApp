@@ -23,38 +23,50 @@ export default function B1Venue() {
 
   useEffect(() => { loadData(); }, [id]);
 
+  const loadInternal = async () => {
+    const v: VenueInterface = await ApiHelper.get("/venues/public/" + id, "LessonsApi");
+    setVenue(v);
+    setSelectedTab(v.sections[0].id)
+    const lessonData = await ApiHelper.get("/lessons/public/" + v.lessonId, "LessonsApi")
+    return lessonData;
+  }
+
+  const loadExternal = async (externalProviderId:string, venueId:string) => {
+    //const ep = await ApiHelper.get("/externalProviders/" + externalProviderId + "/venue/" + venueId, "LessonsApi");
+    //const v: VenueInterface = await ApiHelper.get("/venues/public/" + id, "LessonsApi");
+    //setVenue(v);
+    //setSelectedTab(v.sections[0].id)
+    setVenue({name:"External Venue", sections:[]});
+    const venueData = await ApiHelper.get("/externalProviders/" + externalProviderId + "/venue/" + venueId, "LessonsApi")
+    setVenue(venueData);
+    return [] as string[];
+  }
 
   const loadData = async () => {
     if (id) {
-      const v: VenueInterface = await ApiHelper.get("/venues/public/" + id, "LessonsApi");
-      setVenue(v);
-      setSelectedTab(v.sections[0].id)
+      let search = new URLSearchParams(process.browser ? window.location.search : "");
 
-      const lessonData = await ApiHelper.get("/lessons/public/" + v.lessonId, "LessonsApi")
-      /*
-      const study: StudyInterface = lessonData.study;
-      const program: ProgramInterface = lessonData.program;
-      const venues: VenueInterface[] = lessonData.venues;
-      const bundles: BundleInterface[] = lessonData.bundles;
-      const resources: ResourceInterface[] = lessonData.resources;
+      const externalProviderId = search.get("externalProviderId");
+      console.log("EXTERNAL PROVIDER ID", externalProviderId);
+      const lessonData = (externalProviderId)
+        ? await loadExternal(externalProviderId, id.toString())
+        : await loadInternal();
 
-      */
       setResources(lessonData.resources);
 
       setExternalVideos(lessonData.externalVideos);
       setLesson(lessonData.lesson);
 
 
-      let search = new URLSearchParams(process.browser ? window.location.search : "");
       const classroomId = search.get("classroomId");
       ApiHelper.get("/classrooms/" + classroomId, "LessonsApi").then((c: ClassroomInterface) => {
         setClassroom(c);
-        ApiHelper.get("/customizations/public/venue/" + v.id + "/" + c.churchId, "LessonsApi").then(cust => setCustomizations(cust));
+        ApiHelper.get("/customizations/public/venue/" + id + "/" + c.churchId, "LessonsApi").then(cust => setCustomizations(cust));
       });
       ApiHelper.get("/schedules/public/classroom/" + classroomId, "LessonsApi").then((data: ScheduleInterface[]) => {
         let currentIndex = -1;
         for (let i = 0; i < data.length; i++) {
-          if (data[i].venueId === v.id) currentIndex = i;
+          if (data[i].venueId === id) currentIndex = i;
         }
         if (currentIndex > -1) {
           setCurrentSchedule(data[currentIndex])
@@ -67,6 +79,7 @@ export default function B1Venue() {
 
   const getVenue = () => {
     if (venue) {
+      console.log("RENDERING VENUE")
       return <Venue useAccordion={true} venue={venue} resources={resources} externalVideos={externalVideos} bundles={null} hidePrint={true} customizations={customizations} print={0} />
     }
   }
@@ -74,7 +87,7 @@ export default function B1Venue() {
   const getTabs = () => {
     const result: JSX.Element[] = [];
     venue?.sections?.forEach(s => {
-      if (s.roles.length>0) result.push(<Tab label={s.name} value={s.id} />)
+      if (s.roles?.length>0) result.push(<Tab label={s.name} value={s.id} />)
 
     })
     return result;

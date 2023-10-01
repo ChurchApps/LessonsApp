@@ -8,36 +8,41 @@
   "sections": [
     {
       "name": "Lesson Content",
-      "actions": [
+      "roles": [
         {
-          "actionType": "Play",
-          "content": "The Message",
-          "files": [
+          "name": "Leader",
+          "actions": [
             {
-              "name": "The Message Video",
-              "url": "https://d347bo4ltvvnaz.cloudfront.net/BA_Unit2_ThroughTheRoof_MessageVideo.mp4",
-              "seconds": 1672
-            }
-          ]
-        },
-        {
-          "actionType": "Play",
-          "content": "Memory Verse",
-          "files": [
+              "actionType": "Play",
+              "content": "The Message",
+              "files": [
+                {
+                  "name": "The Message Video",
+                  "url": "https://d347bo4ltvvnaz.cloudfront.net/BA_Unit2_ThroughTheRoof_MessageVideo.mp4",
+                  "seconds": 1672
+                }
+              ]
+            },
             {
-              "name": "Memory Verse JPG",
-              "url": "https://d347bo4ltvvnaz.cloudfront.net/images/preview/BA_Unit2_ThroughTheRoof_SocialMedia-ThePoint.jpg"
-            }
-          ]
-        },
-        {
-          "actionType": "Play",
-          "content": "Teaching Segment",
-          "files": [
+              "actionType": "Play",
+              "content": "Memory Verse",
+              "files": [
+                {
+                  "name": "Memory Verse JPG",
+                  "url": "https://d347bo4ltvvnaz.cloudfront.net/images/preview/BA_Unit2_ThroughTheRoof_SocialMedia-ThePoint.jpg"
+                }
+              ]
+            },
             {
-              "name": "Teaching Segment Video",
-              "url": "https://d347bo4ltvvnaz.cloudfront.net/BA_Unit2_ThroughTheRoof_TeachingSegment.mp4",
-              "seconds": 1572
+              "actionType": "Play",
+              "content": "Teaching Segment",
+              "files": [
+                {
+                  "name": "Teaching Segment Video",
+                  "url": "https://d347bo4ltvvnaz.cloudfront.net/BA_Unit2_ThroughTheRoof_TeachingSegment.mp4",
+                  "seconds": 1572
+                }
+              ]
             }
           ]
         }
