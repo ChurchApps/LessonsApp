@@ -25,7 +25,7 @@
       "name": "Lesson Content",
       "actions": [
         {
-          "actionType": "Play",
+          "actionType": "play",
           "content": "The Message",
           "files": [
             {
@@ -37,7 +37,7 @@
           ]
         },
         {
-          "actionType": "Play",
+          "actionType": "play",
           "content": "Memory Verse",
           "files": [
             {
@@ -47,7 +47,7 @@
           ]
         },
         {
-          "actionType": "Play",
+          "actionType": "play",
           "content": "Teaching Segment",
           "files": [
             {

@@ -50,11 +50,10 @@ export default function B1Venue() {
 
       const externalProviderId = search.get("externalProviderId");
 
-      /*
-      const lessonData = (externalProviderId)
-        ? await loadExternal(externalProviderId, id.toString())
-        : await loadInternal();
-      */
+
+      if (externalProviderId) await loadExternal(externalProviderId, id.toString())
+      else await loadInternal();
+
 
 
       const classroomId = search.get("classroomId");
