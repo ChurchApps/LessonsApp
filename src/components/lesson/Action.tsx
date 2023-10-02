@@ -95,20 +95,22 @@ export function Action(props: Props) {
       break;
     case "play":
       const f = props.action.files[0];
-      //const data = getPreviewData();
-      let duration = null;
-      if (props.action.files[0].seconds>0) {
-        const min = Math.floor(props.action.files[0].seconds / 60);
-        const sec = props.action.files[0].seconds % 60;
-        duration = <span className="duration">{min.toString() + ":" + sec.toString().padStart(2, "0") }</span>;
+      if (!f) result = <div className="playAction"><a href="#" className="text">{props.action.content}</a></div>
+      else {
+        let duration = null;
+        if (f?.seconds>0) {
+          const min = Math.floor(f.seconds / 60);
+          const sec = f.seconds % 60;
+          duration = <span className="duration">{min.toString() + ":" + sec.toString().padStart(2, "0") }</span>;
+        }
+        result = (<div className="playAction">
+          {duration}
+          <Image src={f.thumbnail || f.url || "/not-found"} alt={props.action.content} width={128} height={72} style={{height:72}} />
+          <a href={f.url} rel="noopener noreferrer" onClick={(e) => { e.preventDefault(); handlePreviewClick(f); }} className="text">{f.name}</a>
+          {f.streamUrl && showPreview && <VideoModal onClose={() => setShowPreview(false)} url={f.streamUrl} loopVideo={f.loop} />}
+          {(!f.streamUrl) && showPreview && <ImageModal onClose={() => setShowPreview(false)} url={f.url} />}
+        </div>);
       }
-      result = (<div className="playAction">
-        {duration}
-        <Image src={f.thumbnail || f.url || "/not-found"} alt={props.action.content} width={128} height={72} style={{height:72}} />
-        <a href={f.url} rel="noopener noreferrer" onClick={(e) => { e.preventDefault(); handlePreviewClick(f); }} className="text">{f.name}</a>
-        {f.streamUrl && showPreview && <VideoModal onClose={() => setShowPreview(false)} url={f.streamUrl} loopVideo={f.loop} />}
-        {(!f.streamUrl) && showPreview && <ImageModal onClose={() => setShowPreview(false)} url={f.url} />}
-      </div>);
       break;
   }
 
