@@ -105,8 +105,8 @@ export function Action(props: Props) {
       result = (<div className="playAction">
         {duration}
         <Image src={f.thumbnail || f.url || "/not-found"} alt={props.action.content} width={128} height={72} style={{height:72}} />
-        <a href={f.url} rel="noopener noreferrer" onClick={(e) => {handlePreviewClick(f)}} className="text">{f.name}</a>
-        {f.streamUrl && showPreview && <VideoModal onClose={() => setShowPreview(false)} vimeoId={f.streamUrl} loopVideo={f.loop} />}
+        <a href={f.url} rel="noopener noreferrer" onClick={(e) => { e.preventDefault(); handlePreviewClick(f); }} className="text">{f.name}</a>
+        {f.streamUrl && showPreview && <VideoModal onClose={() => setShowPreview(false)} url={f.streamUrl} loopVideo={f.loop} />}
         {(!f.streamUrl) && showPreview && <ImageModal onClose={() => setShowPreview(false)} url={f.url} />}
       </div>);
       break;
@@ -126,6 +126,7 @@ export function Action(props: Props) {
       fileName: file.name
     }
     ApiHelper.post("/downloads", [download], "LessonsApi");
+    setShowPreview(true);
   }
 
   return result;
