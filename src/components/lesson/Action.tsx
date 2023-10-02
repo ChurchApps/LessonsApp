@@ -1,20 +1,19 @@
 import React from "react";
-import { ResourceInterface, ArrayHelper, ActionInterface, VariantInterface, AssetInterface, UserHelper, ApiHelper, ExternalVideoInterface } from "@/utils";
+import { UserHelper, ApiHelper, FeedActionInterface, FeedFileInterface } from "@/utils";
 import { VideoModal } from "../VideoModal";
 import Image from "next/image";
 import { AnalyticsHelper, MarkdownPreview } from "@churchapps/apphelper";
 import { ImageModal } from "../ImageModal";
 
 type Props = {
-  action: ActionInterface;
-  resources: ResourceInterface[];
-  externalVideos: ExternalVideoInterface[];
+  action: FeedActionInterface;
   lessonId: string;
 };
 
 export function Action(props: Props) {
   const [showPreview, setShowPreview] = React.useState(false);
 
+  /*
   const trackDownload = (variant: VariantInterface) => {
     const resource: ResourceInterface = ArrayHelper.getOne(props.resources, "id", variant.resourceId);
     const action = resource.name + " - " + variant.name;
@@ -49,25 +48,8 @@ export function Action(props: Props) {
     }
     ApiHelper.post("/downloads", [download], "LessonsApi");
   }
-
-  const trackAssetDownload = (asset: AssetInterface) => {
-    const resource: ResourceInterface = ArrayHelper.getOne(props.resources || [], "id", props.action.resourceId);
-    const action = resource.name + " - " + asset.name;
-    const label = window.location.pathname;
-    AnalyticsHelper.logEvent("Download Asset", action, label);
-    //if (CommonEnvironmentHelper.GoogleAnalyticsTag !== "" && typeof(window)!=="undefined") gtag("event", "conversion", { send_to: "AW-427967381/iTZUCK6U7ZkYEJWHicwB" });
-    const download = {
-      lessonId: props.lessonId,
-      fileId: asset.fileId,
-      userId: UserHelper.user?.id || "",
-      churchId: UserHelper.currentUserChurch?.church?.id || "",
-      ipAddress: "",
-      downloadDate: new Date(),
-      fileName: "Asset - " + asset.name
-    }
-    ApiHelper.post("/downloads", [download], "LessonsApi");
-  }
-
+  */
+  /*
   const getPreviewData = () => {
     const result:{type:string, thumbnail:string, name:string, url:string, videoId:string, seconds:number, loopVideo?: boolean, action:(e:React.MouseEvent) => void} = { type:"", thumbnail:"", name:"", url:"", videoId: "", seconds:0, action:() => {}};
     const video: ExternalVideoInterface = ArrayHelper.getOne(props.externalVideos || [], "id", props.action.externalVideoId);
@@ -97,35 +79,56 @@ export function Action(props: Props) {
     }
     return result;
   }
+  */
 
   let result = <></>;
 
   switch (props.action.actionType) {
-    case "Note":
+    case "note":
       result = (<div className="note"><MarkdownPreview value={props.action.content} /></div>);
       break;
-    case "Do":
+    case "do":
       result = (<ul className="actions"><li><MarkdownPreview value={props.action.content} /></li></ul>);
       break;
-    case "Say":
+    case "say":
       result = (<div className="say"><MarkdownPreview value={props.action.content} /></div>);
       break;
-    case "Play":
-      const data = getPreviewData();
-      let duration = null;
-      if (data.seconds>0) {
-        const min = Math.floor(data.seconds / 60);
-        const sec = data.seconds % 60;
-        duration = <span className="duration">{min.toString() + ":" + sec.toString().padStart(2, "0") }</span>;
+    case "play":
+      const f = props.action.files[0];
+      if (!f) result = <div className="playAction"><a href="#" className="text">{props.action.content}</a></div>
+      else {
+        let duration = null;
+        if (f?.seconds>0) {
+          const min = Math.floor(f.seconds / 60);
+          const sec = f.seconds % 60;
+          duration = <span className="duration">{min.toString() + ":" + sec.toString().padStart(2, "0") }</span>;
+        }
+        result = (<div className="playAction">
+          {duration}
+          <Image src={f.thumbnail || f.url || "/not-found"} alt={props.action.content} width={128} height={72} style={{height:72}} />
+          <a href={f.url} rel="noopener noreferrer" onClick={(e) => { e.preventDefault(); handlePreviewClick(f); }} className="text">{f.name}</a>
+          {f.streamUrl && showPreview && <VideoModal onClose={() => setShowPreview(false)} url={f.streamUrl} loopVideo={f.loop} />}
+          {(!f.streamUrl) && showPreview && <ImageModal onClose={() => setShowPreview(false)} url={f.url} />}
+        </div>);
       }
-      result = (<div className="playAction">
-        {duration}
-        <Image src={data.thumbnail || "/not-found"} alt={data.name} width={128} height={72} style={{height:72}} />
-        <a href={data.url} rel="noopener noreferrer" onClick={data.action} className="text">{data.name}</a>
-        {data.type==="video" && showPreview && <VideoModal onClose={() => setShowPreview(false)} vimeoId={data.videoId} loopVideo={data.loopVideo} />}
-        {(data.type==="asset" || data.type==="resource") && showPreview && <ImageModal onClose={() => setShowPreview(false)} url={data.url} />}
-      </div>);
       break;
+  }
+
+  const handlePreviewClick = (file:FeedFileInterface) => {
+    const action = file.name;
+    const label = window.location.pathname;
+    AnalyticsHelper.logEvent("Preview", action, label);
+    const download = {
+      lessonId: props.lessonId,
+      fileId: file.id,
+      userId: UserHelper.user?.id || "",
+      churchId: UserHelper.currentUserChurch?.church?.id || "",
+      ipAddress: "",
+      downloadDate: new Date(),
+      fileName: file.name
+    }
+    ApiHelper.post("/downloads", [download], "LessonsApi");
+    setShowPreview(true);
   }
 
   return result;

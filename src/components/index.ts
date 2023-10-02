@@ -5,7 +5,6 @@ export { Lessons } from "./Lessons";
 export { Programs } from "./home/Programs";
 export { Stats } from "./home/Stats";
 export { Studies } from "./Studies";
-export { Venues } from "./lesson/Venues";
 export { Venue } from "./lesson/Venue";
 export { VideoModal } from "./VideoModal";
 

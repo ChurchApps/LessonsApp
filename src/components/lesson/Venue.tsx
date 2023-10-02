@@ -1,16 +1,13 @@
 import * as React from "react";
 import { useReactToPrint } from "react-to-print";
-import { VenueInterface, ResourceInterface, BundleInterface, CustomizationInterface, CustomizationHelper, ExternalVideoInterface } from "@/utils";
+import { CustomizationInterface, CustomizationHelper, FeedVenueInterface } from "@/utils";
 import { Section } from "./Section";
 import { Icon, Button } from "@mui/material";
 
 
 type Props = {
   useAccordion: boolean;
-  venue: VenueInterface;
-  resources: ResourceInterface[];
-  externalVideos: ExternalVideoInterface[];
-  bundles: BundleInterface[];
+  venue: FeedVenueInterface;
   hidePrint?: boolean;
   customizations?: CustomizationInterface[]
   print: number;
@@ -18,7 +15,7 @@ type Props = {
 
 export function Venue(props: Props) {
   const contentRef = React.useRef<HTMLDivElement>(null);
-  const [activeSectionId, setActiveSectionId] = React.useState<string>(props.venue?.sections[0]?.id || "");
+  const [activeSectionId, setActiveSectionId] = React.useState<string>(props.venue?.sections[0]?.name || "");
   const [displaySection, setDisplaySection] = React.useState<boolean>(false);
 
   const handleToggle = (sectionId: string) => { setActiveSectionId(sectionId); };
@@ -33,7 +30,7 @@ export function Venue(props: Props) {
     if (props.venue?.sections) {
       const customSections = CustomizationHelper.applyCustomSort(props.customizations, props.venue?.sections, "section");
       customSections.forEach((s) => {
-        sections.push(<Section section={s} resources={props.resources} externalVideos={props.externalVideos} toggleActive={handleToggle} activeSectionId={activeSectionId} key={s.id} customizations={props.customizations} />);
+        sections.push(<Section section={s} toggleActive={handleToggle} activeSectionId={activeSectionId} key={s.id} customizations={props.customizations} />);
       });
     }
 
@@ -46,7 +43,7 @@ export function Venue(props: Props) {
     if (props.venue?.sections) {
       const customSections = CustomizationHelper.applyCustomSort(props.customizations, props.venue?.sections, "section");
       customSections.forEach((s) => {
-        sections.push(<Section section={s} resources={props.resources} externalVideos={props.externalVideos} toggleActive={handleToggle} activeSectionId={[activeSectionId]} key={s.id} customizations={props.customizations} />);
+        sections.push(<Section section={s} toggleActive={handleToggle} activeSectionId={[activeSectionId]} key={s.id} customizations={props.customizations} />);
       });
     }
 
@@ -55,7 +52,7 @@ export function Venue(props: Props) {
 
   const getPrint = () => {
     if (!props.hidePrint) {
-      return (<Button size="small" variant="outlined" key={"print" + props.venue.id}
+      return (<Button size="small" variant="outlined" key={"print" + props.venue.name}
         onClick={() => { setDisplaySection(true) }} title="print">
         <Icon>print</Icon>
       </Button>);
