@@ -103,9 +103,12 @@ export function Action(props: Props) {
           const sec = f.seconds % 60;
           duration = <span className="duration">{min.toString() + ":" + sec.toString().padStart(2, "0") }</span>;
         }
+        let thumbnail = f.thumbnail || f.url || "";
+        if (thumbnail.indexOf(".mp4")>-1 || thumbnail.indexOf(".webm") >-1) thumbnail = "";
+
         result = (<div className="playAction">
           {duration}
-          <Image src={f.thumbnail || f.url || "/not-found"} alt={props.action.content} width={128} height={72} style={{height:72}} />
+          {thumbnail && <Image src={thumbnail} alt={props.action.content} width={128} height={72} style={{height:72}} /> }
           <a href={f.url} rel="noopener noreferrer" onClick={(e) => { e.preventDefault(); handlePreviewClick(f); }} className="text">{f.name}</a>
           {f.streamUrl && showPreview && <VideoModal onClose={() => setShowPreview(false)} url={f.streamUrl} loopVideo={f.loop} />}
           {(!f.streamUrl) && showPreview && <ImageModal onClose={() => setShowPreview(false)} url={f.url} />}

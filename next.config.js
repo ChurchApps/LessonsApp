@@ -11,7 +11,7 @@ const config = {
     NEXT_PUBLIC_GOOGLE_ANALYTICS: process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS,
   },
   images: {
-    domains: ["content.lessons.church", "content.staging.lessons.church", "i.vimeocdn.com"]
+    domains: ["content.lessons.church", "content.staging.lessons.church", "i.vimeocdn.com", "d347bo4ltvvnaz.cloudfront.net"]
   },
   transpilePackages: ["@churchapps/apphelper"]
 }
