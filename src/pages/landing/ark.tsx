@@ -65,7 +65,7 @@ export default function Home({ programs, providers, stats, hasError, error }: Pr
           </Grid>
         </Grid>
       </Container>
-      {vimeoPreviewId && <VideoModal onClose={() => setVimeoPreviewId(null)} vimeoId={vimeoPreviewId} />}
+      {vimeoPreviewId && <VideoModal onClose={() => setVimeoPreviewId(null)} url={"https://vimeo.com/" + vimeoPreviewId} />}
       <div className="homeSection" style={{backgroundColor:"#CCC"}}>
         <Container fixed>
           <Grid container spacing={4}>
