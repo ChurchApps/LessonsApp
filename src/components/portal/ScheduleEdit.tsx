@@ -38,11 +38,9 @@ export function ScheduleEdit(props: Props) {
   const currentLesson = ArrayHelper.getOne(currentStudy?.lessons || [], "id", s.lessonId);
 
   if (currentLesson) s.venueId = getDefault(currentLesson.venues, s.venueId);
-  const currentVenue = ArrayHelper.getOne(currentLesson?.venues || [], "id", s.venueId);
+  //const currentVenue = ArrayHelper.getOne(currentLesson?.venues || [], "id", s.venueId);
 
   if (JSON.stringify(s)!==JSON.stringify(schedule)) setSchedule(s);
-
-  console.log("currentProgram", currentProgram?.name, "currentStudy", currentStudy?.name, "currentLesson", currentLesson?.name, "currentVenue", currentVenue?.name);
 
   const loadExternalProviders = () => {
     ApiHelper.get("/externalProviders", "LessonsApi").then((data: any) => {

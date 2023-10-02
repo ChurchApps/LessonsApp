@@ -49,11 +49,12 @@ export default function B1Venue() {
       let search = new URLSearchParams(process.browser ? window.location.search : "");
 
       const externalProviderId = search.get("externalProviderId");
-      console.log("EXTERNAL PROVIDER ID", externalProviderId);
+
+      /*
       const lessonData = (externalProviderId)
         ? await loadExternal(externalProviderId, id.toString())
         : await loadInternal();
-
+      */
 
 
       const classroomId = search.get("classroomId");
@@ -77,7 +78,6 @@ export default function B1Venue() {
 
   const getVenue = () => {
     if (venue) {
-      console.log("RENDERING VENUE")
       return <Venue useAccordion={true} venue={venue} hidePrint={true} print={0} />
     }
   }
