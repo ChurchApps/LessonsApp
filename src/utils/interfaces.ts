@@ -209,4 +209,4 @@ export interface FeedActionInterface { actionType?: string, content?: string, fi
 export interface FeedDownloadInterface { name?: string, files?: FeedFileInterface[] }
 export interface FeedFileInterface { name?: string, url?: string, streamUrl?: string, bytes?: number, fileType?: string, seconds?: number, thumbnail?: string, loop?: boolean, id?: string; }
 export interface FeedSectionInterface { name?: string, actions?: FeedActionInterface[], materials?: string }
-export interface FeedVenueInterface { name?: string, lessonName?: string, lessonImage?: string, lessonDescription?: string, studyName?: string, studySlug?: string, programName?: string, programSlug?: string, downloads?: FeedDownloadInterface[], sections?: FeedSectionInterface[] }
+export interface FeedVenueInterface { name?: string, lessonId:string, lessonName?: string, lessonImage?: string, lessonDescription?: string, studyName?: string, studySlug?: string, programName?: string, programSlug?: string, programAbout?:string, downloads?: FeedDownloadInterface[], sections?: FeedSectionInterface[] }

@@ -26,8 +26,8 @@ export default function B1Venue() {
   useEffect(() => { loadData(); }, [id]);
 
   const loadInternal = async () => {
-    const v:FeedVenueInterface = await ApiHelper.get("/lessons/public/slugAlt/ark/superbowlsunday/partofgodsteam", "LessonsApi");
-
+    //const v:FeedVenueInterface = await ApiHelper.get("/lessons/public/slugAlt/ark/superbowlsunday/partofgodsteam", "LessonsApi");
+    const v: FeedVenueInterface = await ApiHelper.get("/venues/public/feed/" + id, "LessonsApi");
     setVenue(v);
 
     //const v: VenueInterface = await ApiHelper.get("/venues/public/" + id, "LessonsApi");
