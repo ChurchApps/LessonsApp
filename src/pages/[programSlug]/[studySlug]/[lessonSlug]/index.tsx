@@ -105,7 +105,8 @@ export const getStaticPaths: GetStaticPaths = async () => {
 
 export const getStaticProps: GetStaticProps = async ({ params }) => {
   try {
-    const lessonData = await ApiHelper.getAnonymous("/lessons/public/slug/" + params.programSlug + "/" + params.studySlug + "/" + params.lessonSlug, "LessonsApi");
+    console.log("/lessons/public/slug/" + params.programSlug + "/" + params.studySlug + "/" + params.lessonSlug);
+    const lessonData = await ApiHelper.getAnonymous("/lessons/public/slugAlt/" + params.programSlug + "/" + params.studySlug + "/" + params.lessonSlug, "LessonsApi");
     const lesson: LessonInterface = lessonData.lesson;
     const study: StudyInterface = lessonData.study;
     const program: ProgramInterface = lessonData.program;

@@ -1,18 +1,20 @@
 import React, { useState, useEffect } from "react";
 import { useRouter } from "next/router";
 import { Layout, Venue } from "@/components";
-import { ApiHelper, ClassroomInterface, CustomizationInterface, ExternalVideoInterface, LessonInterface, ResourceInterface, ScheduleInterface, VenueInterface } from "@/utils";
+import { ApiHelper, ClassroomInterface, FeedVenueInterface, ScheduleInterface } from "@/utils";
 import Link from "next/link";
 import { Container, Grid, Tab, Tabs } from "@mui/material";
 import { DateHelper } from "@churchapps/apphelper";
 
 export default function B1Venue() {
-  const [venue, setVenue] = useState<VenueInterface>(null);
+  const [venue, setVenue] = useState<FeedVenueInterface>(null);
+  /*
   const [lesson, setLesson] = useState<LessonInterface>(null);
   const [externalVideos, setExternalVideos] = useState<ExternalVideoInterface[]>([]);
   const [resources, setResources] = useState<ResourceInterface[]>([]);
+  */
   const [classroom, setClassroom] = useState<ClassroomInterface>(null);
-  const [customizations, setCustomizations] = useState<CustomizationInterface[]>([]);
+  //const [customizations, setCustomizations] = useState<CustomizationInterface[]>([]);
   const [currentSchedule, setCurrentSchedule] = useState<ScheduleInterface>(null);
   const [prevSchedule, setPrevSchedule] = useState<ScheduleInterface>(null);
   const [nextSchedule, setNextSchedule] = useState<ScheduleInterface>(null);
@@ -24,19 +26,19 @@ export default function B1Venue() {
   useEffect(() => { loadData(); }, [id]);
 
   const loadInternal = async () => {
-    const v: VenueInterface = await ApiHelper.get("/venues/public/" + id, "LessonsApi");
-    setVenue(v);
-    setSelectedTab(v.sections[0].id)
-    const lessonData = await ApiHelper.get("/lessons/public/" + v.lessonId, "LessonsApi")
-    return lessonData;
-  }
+    const v:FeedVenueInterface = await ApiHelper.get("/lessons/public/slugAlt/ark/superbowlsunday/partofgodsteam", "LessonsApi");
 
-  const loadExternal = async (externalProviderId:string, venueId:string) => {
-    //const ep = await ApiHelper.get("/externalProviders/" + externalProviderId + "/venue/" + venueId, "LessonsApi");
+    setVenue(v);
+
     //const v: VenueInterface = await ApiHelper.get("/venues/public/" + id, "LessonsApi");
     //setVenue(v);
     //setSelectedTab(v.sections[0].id)
-    setVenue({name:"External Venue", sections:[]});
+    //const lessonData = await ApiHelper.get("/lessons/public/" + v.lessonId, "LessonsApi")
+    //return lessonData;
+  }
+
+  const loadExternal = async (externalProviderId:string, venueId:string) => {
+    //setVenue({name:"External Venue", sections:[]});
     const venueData = await ApiHelper.get("/externalProviders/" + externalProviderId + "/venue/" + venueId, "LessonsApi")
     setVenue(venueData);
     return [] as string[];
@@ -52,16 +54,12 @@ export default function B1Venue() {
         ? await loadExternal(externalProviderId, id.toString())
         : await loadInternal();
 
-      setResources(lessonData.resources);
-
-      setExternalVideos(lessonData.externalVideos);
-      setLesson(lessonData.lesson);
 
 
       const classroomId = search.get("classroomId");
       ApiHelper.get("/classrooms/" + classroomId, "LessonsApi").then((c: ClassroomInterface) => {
         setClassroom(c);
-        ApiHelper.get("/customizations/public/venue/" + id + "/" + c.churchId, "LessonsApi").then(cust => setCustomizations(cust));
+        //ApiHelper.get("/customizations/public/venue/" + id + "/" + c.churchId, "LessonsApi").then(cust => setCustomizations(cust));
       });
       ApiHelper.get("/schedules/public/classroom/" + classroomId, "LessonsApi").then((data: ScheduleInterface[]) => {
         let currentIndex = -1;
@@ -80,14 +78,14 @@ export default function B1Venue() {
   const getVenue = () => {
     if (venue) {
       console.log("RENDERING VENUE")
-      return <Venue useAccordion={true} venue={venue} resources={resources} externalVideos={externalVideos} bundles={null} hidePrint={true} customizations={customizations} print={0} />
+      return <Venue useAccordion={true} venue={venue} hidePrint={true} print={0} />
     }
   }
 
   const getTabs = () => {
     const result: JSX.Element[] = [];
     venue?.sections?.forEach(s => {
-      if (s.roles?.length>0) result.push(<Tab label={s.name} value={s.id} />)
+      if (s.actions?.length>0) result.push(<Tab label={s.name} value={s.name} />)
 
     })
     return result;
@@ -152,7 +150,7 @@ export default function B1Venue() {
       </Grid>
 
       <Container fixed>
-        <h1>{lesson?.title}</h1>
+        <h1>{venue?.lessonName}</h1>
       </Container>
       <div className="b1">
         {getVenue()}
