@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { InputBox, ErrorMessages, ArrayHelper, DateHelper } from "@churchapps/apphelper";
-import { ApiHelper, LessonInterface, ProgramInterface, ScheduleInterface, StudyInterface, VenueInterface } from "@/utils";
+import { ApiHelper, ExternalProviderInterface, ScheduleInterface } from "@/utils";
 import { FormControl, InputLabel, MenuItem, Select, SelectChangeEvent, TextField } from "@mui/material";
 
 type Props = {
@@ -10,58 +10,49 @@ type Props = {
 };
 
 export function ScheduleEdit(props: Props) {
-  const [schedule, setSchedule] = useState<ScheduleInterface>(null);
+  const [schedule, setSchedule] = useState<ScheduleInterface>(props.schedule);
   const [errors, setErrors] = useState([]);
-  const [programId, setProgramId] = useState("");
-  const [programs, setPrograms] = useState<ProgramInterface[]>([]);
-  const [studyId, setStudyId] = useState("");
-  const [studies, setStudies] = useState<StudyInterface[]>([]);
-  const [lessons, setLessons] = useState<LessonInterface[]>([]);
-  const [venues, setVenues] = useState<VenueInterface[]>([]);
-  const [readyToLoad, setReadyToLoad] = useState(false);
 
 
-  //TODO: load existing data on edit
-  const loadPrograms = () => {
-    ApiHelper.getAnonymous("/programs/public/", "LessonsApi").then((data: any) => {
-      setPrograms(data);
-      if (!programId || !ArrayHelper.getOne(data, "id", programId)) setProgramId(data[0].id);
+  const [externalProviders, setExternalProviders] = useState<ExternalProviderInterface[]>([]);
+
+  const [lessonTree, setLessonTree] = useState<any>({})
+
+
+
+  const getDefault = (array:any[], id:string) => {
+    let result = id;
+    if (array && (!id || !ArrayHelper.getOne(array, "id", id))) result = array[0].id;
+    return result;
+  }
+
+  const s = {...schedule};
+
+  if (lessonTree) s.programId = getDefault(lessonTree.programs, s.programId);
+  const currentProgram = ArrayHelper.getOne(lessonTree?.programs || [], "id", s.programId);
+
+  if (currentProgram) s.studyId = getDefault(currentProgram.studies, s.studyId);
+  const currentStudy = ArrayHelper.getOne(currentProgram?.studies || [], "id", s.studyId);
+
+  if (currentStudy) s.lessonId = getDefault(currentStudy.lessons, s.lessonId);
+  const currentLesson = ArrayHelper.getOne(currentStudy?.lessons || [], "id", s.lessonId);
+
+  if (currentLesson) s.venueId = getDefault(currentLesson.venues, s.venueId);
+  //const currentVenue = ArrayHelper.getOne(currentLesson?.venues || [], "id", s.venueId);
+
+  if (JSON.stringify(s)!==JSON.stringify(schedule)) setSchedule(s);
+
+  const loadExternalProviders = () => {
+    ApiHelper.get("/externalProviders", "LessonsApi").then((data: any) => {
+      setExternalProviders(data);
     });
   };
 
-  const loadStudies = () => {
-    if (programId) ApiHelper.getAnonymous("/studies/public/program/" + programId, "LessonsApi").then((data: any) => {
-      ArrayHelper.sortBy(data, "name");
-      setStudies(data);
-      if (!studyId || !ArrayHelper.getOne(data, "id", studyId)) setStudyId(data[0].id)
+  const loadInternal = () => {
+    ApiHelper.getAnonymous("/lessons/public/tree", "LessonsApi").then((data: any) => {
+      setLessonTree(data);
     });
-  }
-
-  const loadLessons = () => {
-    if (programId) ApiHelper.getAnonymous("/lessons/public/study/" + studyId, "LessonsApi").then((data: any) => {
-      setLessons(data);
-      if (schedule) {
-        if (!schedule.lessonId || !ArrayHelper.getOne(data, "id", schedule.lessonId)) {
-          let s = { ...schedule };
-          s.lessonId = data[0].id;
-          setSchedule(s);
-        }
-      }
-    });
-  }
-
-  const loadVenues = () => {
-    if (schedule?.lessonId) ApiHelper.getAnonymous("/venues/public/lesson/" + schedule.lessonId, "LessonsApi").then((data: any) => {
-      setVenues(data);
-      if (schedule) {
-        if (!schedule.venueId || !ArrayHelper.getOne(data, "id", schedule.venueId)) {
-          let s = { ...schedule };
-          s.venueId = data[0].id;
-          setSchedule(s);
-        }
-      }
-    });
-  }
+  };
 
   const handleCancel = () => props.updatedCallback(schedule);
 
@@ -72,14 +63,20 @@ export function ScheduleEdit(props: Props) {
     }
   };
 
-  const handleProgramChange = (e: SelectChangeEvent<string>) => {
-    e.preventDefault();
-    setProgramId(e.target.value);
-  };
 
-  const handleStudyChange = (e: SelectChangeEvent<string>) => {
+  const handleProviderChange = (e: SelectChangeEvent<string>) => {
     e.preventDefault();
-    setStudyId(e.target.value);
+    let s = { ...schedule };
+    s.externalProviderId = e.target.value.replace("lessons.church", "");
+    if (s.externalProviderId === "") loadInternal();
+    else {
+      const ep:ExternalProviderInterface = ArrayHelper.getOne(externalProviders, "id", e.target.value);
+      ApiHelper.fetchWithErrorHandling(ep.apiUrl, { method: "GET" }).then((data: any) => {
+        setLessonTree(data);
+      });
+    }
+
+    setSchedule(s);
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement> | SelectChangeEvent<string>) => {
@@ -87,6 +84,8 @@ export function ScheduleEdit(props: Props) {
     let s = { ...schedule };
     switch (e.target.name) {
       case "scheduledDate": s.scheduledDate = new Date(e.target.value); break;
+      case "program": s.programId = e.target.value; break;
+      case "study": s.studyId = e.target.value; break;
       case "lesson": s.lessonId = e.target.value; break;
       case "venue": s.venueId = e.target.value; break;
     }
@@ -101,8 +100,8 @@ export function ScheduleEdit(props: Props) {
   };
 
   const getDisplayName = () => {
-    const studyName = ArrayHelper.getOne(studies, "id", studyId).name;
-    const lessonName = ArrayHelper.getOne(lessons, "id", schedule.lessonId).name;
+    const studyName = currentStudy?.name;
+    const lessonName = currentLesson.name;
     return studyName + " - " + lessonName;
   }
 
@@ -126,21 +125,28 @@ export function ScheduleEdit(props: Props) {
     }
   };
 
+  const getProviderOptions = () => {
+    const result: JSX.Element[] = [];
+    result.push(<MenuItem value="lessons.church">Lessons.church</MenuItem>);
+    externalProviders.forEach(p => result.push(<MenuItem value={p.id}>{p.name}</MenuItem>));
+    return result;
+  }
+
   const getProgramOptions = () => {
     const result: JSX.Element[] = [];
-    programs.forEach(p => result.push(<MenuItem value={p.id}>{p.name}</MenuItem>));
+    lessonTree?.programs?.forEach((p:any) => result.push(<MenuItem value={p.id}>{p.name}</MenuItem>));
     return result;
   }
 
   const getStudyOptions = () => {
     const result: JSX.Element[] = [];
-    studies.forEach(s => result.push(<MenuItem value={s.id}>{s.name}</MenuItem>));
+    currentProgram?.studies?.forEach((s:any) => result.push(<MenuItem value={s.id}>{s.name}</MenuItem>));
     return result;
   }
 
   const getLessonOptions = () => {
     const result: JSX.Element[] = [];
-    lessons.forEach(l => {
+    currentStudy?.lessons?.forEach((l:any) => {
       let sx: any = {};
       const existing:ScheduleInterface = ArrayHelper.getOne(props.schedules, "lessonId", l.id)
       if (existing && existing?.scheduledDate !== schedule.scheduledDate) sx.color = "#999";
@@ -151,31 +157,19 @@ export function ScheduleEdit(props: Props) {
 
   const getVenueOptions = () => {
     const result: JSX.Element[] = [];
-    venues.forEach(v => result.push(<MenuItem value={v.id}>{v.name}</MenuItem>));
+    currentLesson?.venues.forEach((v:any) => result.push(<MenuItem value={v.id}>{v.name}</MenuItem>));
     return result;
   }
 
-  const populateSchedule = async (s: ScheduleInterface) => {
-    setSchedule(props.schedule);
-    if (s.lessonId) {
-      const l = await ApiHelper.getAnonymous("/lessons/public/" + s.lessonId, "LessonsApi");
-      //const st = await ApiHelper.getAnonymous("/studies/public/" + l.studyId, "LessonsApi");
-      const st = l.study;
-      setProgramId(st.programId);
-      setStudyId(st.id);
-    }
-    setReadyToLoad(true);
-  }
 
-  const init = () => {
-    populateSchedule(props.schedule);
-  }
+  //useEffect(() => { if (readyToLoad) loadStudies(); }, [programId, readyToLoad]);
+  //useEffect(() => { if (readyToLoad) loadLessons(); }, [studyId, readyToLoad]);
+  //useEffect(() => { if (readyToLoad) loadVenues(); }, [schedule?.lessonId, readyToLoad]);
+  useEffect(() => {
+    loadInternal();
+    loadExternalProviders();
+  }, [props.schedule]);
 
-  useEffect(() => { if (readyToLoad) loadStudies(); }, [programId, readyToLoad]);
-  useEffect(() => { if (readyToLoad) loadLessons(); }, [studyId, readyToLoad]);
-  useEffect(() => { if (readyToLoad) loadVenues(); }, [schedule?.lessonId, readyToLoad]);
-  useEffect(init, [props.schedule]);
-  useEffect(() => { if (readyToLoad) loadPrograms() }, [readyToLoad]);
 
   if (!schedule) return <></>
   else {
@@ -184,27 +178,35 @@ export function ScheduleEdit(props: Props) {
         <InputBox id="scheduleDetailsBox" headerText="Edit Schedule" headerIcon="school" saveFunction={handleSave} cancelFunction={handleCancel} deleteFunction={handleDelete}>
           <ErrorMessages errors={errors} />
           <TextField fullWidth label="Schedule Date" type="date" name="scheduledDate" value={DateHelper.formatHtml5Date(schedule?.scheduledDate)} onChange={handleChange} onKeyDown={handleKeyDown} />
+
+          <FormControl fullWidth>
+            <InputLabel>Provider</InputLabel>
+            <Select label="Provider" name="externalProvider" value={schedule.externalProviderId || "lessons.church"} onChange={handleProviderChange}>
+              {getProviderOptions()}
+            </Select>
+          </FormControl>
+
           <FormControl fullWidth>
             <InputLabel>Program</InputLabel>
-            <Select label="Program" name="program" value={programId} onChange={handleProgramChange}>
+            <Select label="Program" name="program" value={schedule.programId || ""} onChange={handleChange}>
               {getProgramOptions()}
             </Select>
           </FormControl>
           <FormControl fullWidth>
             <InputLabel>Study</InputLabel>
-            <Select label="Study" name="study" value={studyId} onChange={handleStudyChange}>
+            <Select label="Study" name="study" value={schedule.studyId || ""} onChange={handleChange}>
               {getStudyOptions()}
             </Select>
           </FormControl>
           <FormControl fullWidth>
             <InputLabel id="lessonLabel">Lesson</InputLabel>
-            <Select labelId="lessonLabel" label="Lesson" name="lesson" value={schedule.lessonId} onChange={handleChange}>
+            <Select labelId="lessonLabel" label="Lesson" name="lesson" value={schedule.lessonId || ""} onChange={handleChange}>
               {getLessonOptions()}
             </Select>
           </FormControl>
           <FormControl fullWidth>
             <InputLabel id="venueLabel">Venue</InputLabel>
-            <Select labelId="venueLabel" label="Venue" name="venue" id="venue" value={schedule.venueId} onChange={handleChange}>
+            <Select labelId="venueLabel" label="Venue" name="venue" id="venue" value={schedule.venueId || ""} onChange={handleChange}>
               {getVenueOptions()}
             </Select>
           </FormControl>

@@ -1,0 +1,46 @@
+{
+  "programs": [
+    {
+      "id": "p1",
+      "name": "Life Church",
+      "description": "",
+      "image": "",
+      "studies": [
+        {
+          "id": "s1",
+          "name": "Bible Adventure",
+          "description": "Pre-K",
+          "image": "",
+          "lessons": [
+            {
+              "id": "1",
+              "name": "The First Sin",
+              "description": "Adam and Eve!",
+              "image": "https://d347bo4ltvvnaz.cloudfront.net/images/BA_Unit1.jpg",
+              "venues": [
+                {
+                  "id": "v1",
+                  "name": "Classroom",
+                  "apiUrl": "https://staging.lessons.church/temp/lc/lesson1.json"
+                }
+              ]
+            },
+            {
+              "id": "2",
+              "name": "Through the Roof",
+              "description": "This five-part lesson walks your preschoolers through the story of the sick man who was lowered through the ceiling by his friends so that Jesus could heal him. Through the Roof teaches your kids age 2 through kindergarten about the love and healing power of Jesus, and the faith we can have in Him.",
+              "image": "https://d347bo4ltvvnaz.cloudfront.net/images/BA_Unit2.jpg",
+              "venues": [
+                {
+                  "id": "v2",
+                  "name": "Classroom",
+                  "apiUrl": "https://staging.lessons.church/temp/lc/lesson2.json"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

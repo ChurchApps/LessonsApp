@@ -1,0 +1,66 @@
+{
+  "name": "Classroom",
+  "lessonName": "The First Sin!",
+  "lessonImage": "https://d347bo4ltvvnaz.cloudfront.net/images/BA_Unit1.jpg",
+  "lessonDescription": "The story of God's grace begins in the Garden of Eden. This five-part lesson walks your preschoolers through the first sin of Adam and Eve. The First Sin teaches your kids age 2 through kindergarten how to weigh if something is a sin or not and how to obey God because He cares for us",
+  "studyName": "Bible Adventure",
+  "studySlug": "bible-adventure",
+  "programName": "Life Church",
+  "programSlug": "life-church",
+  "downloads": [
+    {
+      "name": "Slides and Printables",
+      "files": [
+        {
+          "name": "Slides and Printables.zip",
+          "url": "https://content.lessons.church/files/bundles/KWXy9Tu4w1r/Slides%20and%20Printables.zip?dt=1645620642263",
+          "bytes": 67464072,
+          "fileType": "application/zip"
+        }
+      ]
+    }
+  ],
+  "sections": [
+    {
+      "name": "Lesson Content",
+      "actions": [
+        {
+          "actionType": "play",
+          "content": "The Message",
+          "files": [
+            {
+              "name": "The Message Video",
+              "url": "https://d347bo4ltvvnaz.cloudfront.net/BA_Unit1_TheFirstSin_MessageVideo.mp4",
+              "streamUrl": "",
+              "seconds": 1672
+            }
+          ]
+        },
+        {
+          "actionType": "play",
+          "content": "Memory Verse",
+          "files": [
+            {
+              "name": "Memory Verse JPG",
+              "url": "https://d347bo4ltvvnaz.cloudfront.net/images/preview/BA_Unit1_TheFirstSin_SocialMedia-Verse.jpeg"
+            }
+          ]
+        },
+        {
+          "actionType": "play",
+          "content": "Teaching Segment",
+          "files": [
+            {
+              "name": "Teaching Segment Video",
+              "url": "https://d347bo4ltvvnaz.cloudfront.net/BA_Unit1_TheFirstSin_TeachingSegment.mp4",
+              "streamUrl": "",
+              "seconds": 1572
+            }
+          ]
+        }
+      ]
+    }
+  ]
+      
+  
+}

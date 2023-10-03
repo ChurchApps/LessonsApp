@@ -1,5 +1,11 @@
 export * from "@churchapps/apphelper";
 
+export interface ExternalProviderInterface {
+  id?: string;
+  name?: string;
+  apiUrl?: string;
+}
+
 export interface ProviderInterface {
   id?: string;
   name?: string;
@@ -173,6 +179,9 @@ export interface ScheduleInterface {
   churchId?: string;
   classroomId?: string;
   scheduledDate?: Date;
+  externalProviderId?: string;
+  programId?: string;
+  studyId?: string;
   lessonId?: string;
   venueId?: string;
   displayName?: string;
@@ -194,3 +203,10 @@ export interface DownloadInterface {
   fileName?: string
 }
 export interface PlaylistFileInterface { name: string, url: string, seconds: number, loopVideo: boolean }
+
+
+export interface FeedActionInterface { actionType?: string, content?: string, files?: FeedFileInterface[] }
+export interface FeedDownloadInterface { name?: string, files?: FeedFileInterface[] }
+export interface FeedFileInterface { name?: string, url?: string, streamUrl?: string, bytes?: number, fileType?: string, seconds?: number, thumbnail?: string, loop?: boolean, id?: string; expires: Date }
+export interface FeedSectionInterface { name?: string, actions?: FeedActionInterface[], materials?: string }
+export interface FeedVenueInterface { name?: string, lessonId:string, lessonName?: string, lessonImage?: string, lessonDescription?: string, studyName?: string, studySlug?: string, programName?: string, programSlug?: string, programAbout?:string, downloads?: FeedDownloadInterface[], sections?: FeedSectionInterface[] }
