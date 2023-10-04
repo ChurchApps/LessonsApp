@@ -88,7 +88,7 @@ export function Action(props: Props) {
       result = (<div className="note"><MarkdownPreview value={props.action.content} /></div>);
       break;
     case "do":
-      result = (<ul className="actions"><li><MarkdownPreview value={props.action.content} /></li></ul>);
+      result = (<div className="actions"><MarkdownPreview value={props.action.content} /></div>);
       break;
     case "say":
       result = (<div className="say"><MarkdownPreview value={props.action.content} /></div>);
