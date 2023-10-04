@@ -1,16 +1,13 @@
 import { Container, Icon, MenuItem, Select } from "@mui/material";
-import { ArrayHelper, BundleInterface, ExternalVideoInterface, ProgramInterface, VenueInterface } from "@/utils";
+import { ArrayHelper, FeedVenueInterface } from "@/utils";
 import { MarkdownPreview } from "@churchapps/apphelper";
 import React, { useEffect } from "react";
 import { Downloads } from "./Downloads";
 
 type Props = {
-  program: ProgramInterface,
-  venues: VenueInterface[],
-  selectedVenue: VenueInterface,
-  bundles: BundleInterface[],
-  externalVideos: ExternalVideoInterface[],
-  onVenueChange: (venue: VenueInterface) => void,
+  venues: FeedVenueInterface[],
+  selectedVenue: FeedVenueInterface,
+  onVenueChange: (venue: FeedVenueInterface) => void,
   onPrint: () => void
 };
 
@@ -75,8 +72,8 @@ export function LessonSidebar(props: Props) {
       <div id="lessonSidebarInner">
         <Container>
           <h3>Venue</h3>
-          <Select fullWidth size="small" value={props.selectedVenue?.id} onChange={(e) => { props.onVenueChange(ArrayHelper.getOne(props.venues, "id", e.target.value)); }}>
-            {props.venues.map((v) => (<MenuItem key={v.id} value={v.id}>{v.name}</MenuItem>))}
+          <Select fullWidth size="small" value={props.selectedVenue?.name} onChange={(e) => { props.onVenueChange(ArrayHelper.getOne(props.venues, "name", e.target.value)); }}>
+            {props.venues.map((v) => (<MenuItem key={v.name} value={v.name}>{v.name}</MenuItem>))}
           </Select>
         </Container>
         <hr />
@@ -84,18 +81,18 @@ export function LessonSidebar(props: Props) {
           <a href="about:blank" style={{float:"right", color:"#28235d"}} onClick={(e) => { e.preventDefault(); props.onPrint() }}><Icon style={{fontSize:20}}>print</Icon></a>
           <h3>Sections</h3>
           <ul>
-            {props.selectedVenue?.sections?.map((s) => (s.roles?.length > 0) && (<li key={s.id}><a className="sectionLink" id={"sectionLink-" + s.id} href={"#section-" + s.id}>{s.name}</a></li>))}
+            {props.selectedVenue?.sections?.map((s, idx) => (s.actions?.length > 0) && (<li key={"section-" + idx}><a className="sectionLink" id={"sectionLink-" + idx} href={"#section-" + idx}>{s.name}</a></li>))}
           </ul>
         </Container>
         <hr />
         <Container>
           <h3>Downloads</h3>
-          <Downloads bundles={props.bundles} externalVideos={props.externalVideos} />
+          <Downloads lessonId={props.selectedVenue.lessonId} downloads={props.selectedVenue.downloads} />
         </Container>
         <hr />
         <Container>
           <h3>About</h3>
-          {props.program.aboutSection && ( <><MarkdownPreview value={props.program.aboutSection} /></> )}
+          {props.selectedVenue.programAbout && ( <><MarkdownPreview value={props.selectedVenue.programAbout} /></> )}
         </Container>
       </div>
     </div>

@@ -1,72 +1,50 @@
 import { AnalyticsHelper, CommonEnvironmentHelper } from "@churchapps/apphelper";
-import { ApiHelper, BundleInterface, ExternalVideoInterface, UserHelper } from "@/utils";
-import { Icon, Button } from "@mui/material";
+import { ApiHelper, FeedDownloadInterface, FeedFileInterface, UserHelper } from "@/utils";
+import { Icon } from "@mui/material";
 
 type Props = {
-  bundles: BundleInterface[];
-  externalVideos: ExternalVideoInterface[];
+  downloads: FeedDownloadInterface[];
+  lessonId: string;
 };
 
 export function Downloads(props: Props) {
 
-  const trackDownload = (bundle: BundleInterface) => {
+  const trackDownload = (download: FeedDownloadInterface) => {
     if (CommonEnvironmentHelper.GoogleAnalyticsTag) {
-      const action = bundle.name;
+      const action = download.name;
       const label = window.location.pathname;
       AnalyticsHelper.logEvent("Download", action, label);
-      //if (CommonEnvironmentHelper.GoogleAnalyticsTag !== "" && typeof(window)!=="undefined") gtag("event", "conversion", { send_to: "AW-427967381/iTZUCK6U7ZkYEJWHicwB" });
     }
-    const download = {
-      lessonId: bundle.contentId,
-      fileId: bundle.file.id,
+    const d = {
+      lessonId: props.lessonId,
+      fileId: download.files[0].id,
       userId: UserHelper.user?.id || "",
       churchId: UserHelper.currentUserChurch?.church?.id || "",
       ipAddress: "",
       downloadDate: new Date(),
-      fileName: "Bundle - " + bundle.name
+      fileName: download.name
     }
-    ApiHelper.post("/downloads", [download], "LessonsApi");
+    ApiHelper.post("/downloads", [d], "LessonsApi");
   }
 
-  const trackVideoDownload = (video: ExternalVideoInterface) => {
-    if (CommonEnvironmentHelper.GoogleAnalyticsTag) {
-      const action = video.name;
-      const label = window.location.pathname;
-      AnalyticsHelper.logEvent("Download", action, label);
-      //if (CommonEnvironmentHelper.GoogleAnalyticsTag !== "" && typeof(window)!=="undefined") gtag("event", "conversion", { send_to: "AW-427967381/iTZUCK6U7ZkYEJWHicwB" });
-    }
-    const download = {
-      lessonId: video.contentId,
-      fileId: "",
-      userId: UserHelper.user?.id || "",
-      churchId: UserHelper.currentUserChurch?.church?.id || "",
-      ipAddress: "",
-      downloadDate: new Date(),
-      fileName: "Video - " + video.name
-    }
-    ApiHelper.post("/downloads", [download], "LessonsApi");
-  }
-
-  const checkExpire = (video: ExternalVideoInterface, e: React.MouseEvent) => {
-    if (new Date(video.downloadsExpire) < new Date()) {
+  const checkExpire = (file: FeedFileInterface, e: React.MouseEvent) => {
+    if (!file.expires) return;
+    if (new Date(file.expires) < new Date()) {
       e.preventDefault();
-      ApiHelper.get("/externalVideos/public/" + video.id, "LessonsApi").then(v => {
+      ApiHelper.getAnonymous("/externalVideos/public/" + file.id, "LessonsApi").then(v => {
         window.location.href = v.download1080;
       });
     }
   }
 
-
-  const getBundles = () => {
+  const getDownloads = () => {
     const result: JSX.Element[] = [];
-    props.bundles?.forEach((b) => {
-      const bundle = b;
-      let downloadLink = (<Button href={b.file?.contentPath + "&download=1"} size="small" onClick={() => { trackDownload(bundle) }} download={true} color="success" component="a" variant="contained">Download</Button>);
+    props.downloads?.forEach((d, idx) => {
       result.push(
-        <li key={b.id}>
-          <a href={b.file?.contentPath + "&download=1"} onClick={() => { trackDownload(bundle) }} download={true}>
+        <li key={"download-" + idx}>
+          <a href={d.files[0].url + "&download=1"} onClick={(e) => { trackDownload(d); checkExpire(d.files[0], e) }} download={true}>
             <Icon>download</Icon>
-            {b?.name}
+            {d?.name}
           </a>
         </li>
       );
@@ -74,43 +52,13 @@ export function Downloads(props: Props) {
     return result;
   }
 
-  const getVideos = () => {
-    const result: JSX.Element[] = [];
-    props.externalVideos?.forEach((v) => {
-      const video = v;
-      result.push(
-        <li key={v.id}>
-          <a href={video.download1080} onClick={(e:any) => { trackVideoDownload(video); checkExpire(video, e); }} download={true}>
-            <Icon>download</Icon>
-            {v?.name}
-          </a>
-        </li>
-      );
-    });
-    return result;
-  }
-
-  /*
-  <div className="downloadResource">
-
-          <b>No Need to Download</b><br />
-          <p>Get the Lessons.church app for AndroidTV or FireSticks<br />and have your videos download automatically each week.</p>
-
-          <Button href="https://lessons.church/#connectSection" target="_new" size="small" color="info" component="a" variant="contained">Learn How</Button>
-
-        </div>
-        */
 
   return (
-    (props.bundles.length > 0 || props.externalVideos.length > 0) && (
+    (props.downloads.length > 0) && (
       <>
         <ul>
-          {getBundles()}
-          {getVideos()}
+          {getDownloads()}
         </ul>
-
-
-
       </>
     )
   );

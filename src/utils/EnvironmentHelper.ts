@@ -29,7 +29,6 @@ export class EnvironmentHelper {
 
   //NOTE: None of these values are secret.
   static initStaging = () => {
-    //console.log("INIT STAGING");
     EnvironmentHelper.LessonsApi = "https://api.staging.lessons.church";
   };
 

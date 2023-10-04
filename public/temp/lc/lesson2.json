@@ -10,7 +10,7 @@
       "name": "Lesson Content",
       "actions": [
         {
-          "actionType": "Play",
+          "actionType": "play",
           "content": "The Message",
           "files": [
             {
@@ -21,7 +21,31 @@
           ]
         },
         {
-          "actionType": "Play",
+          "actionType": "say",
+          "content": "The good friends carried him!"
+        },
+        {
+          "actionType": "do",
+          "content": "Pretend to carry something heavy."
+        },
+        {
+          "actionType": "say",
+          "content": "They made a hole in the roof!"
+        },
+        {
+          "actionType": "do",
+          "content": "Pretend to make a hole together."
+        },
+        {
+          "actionType": "say",
+          "content": "Jesus healed his legs."
+        },
+        {
+          "actionType": "do",
+          "content": "Kick your legs and celebrate."
+        },
+        {
+          "actionType": "play",
           "content": "Memory Verse",
           "files": [
             {
@@ -31,7 +55,7 @@
           ]
         },
         {
-          "actionType": "Play",
+          "actionType": "play",
           "content": "Teaching Segment",
           "files": [
             {
@@ -40,6 +64,36 @@
               "seconds": 1572
             }
           ]
+        }
+      ]
+    },
+    {
+      "name": "Wrap Up",
+      "actions": [
+        {
+          "actionType": "say",
+          "content": "The man had some good friends. Who are your good friends?"
+        },
+        {
+          "actionType": "do",
+          "content": "Pray: Ask kids what they want to talk to God about, and pray with them."
+        }
+      ]
+    },
+    {
+      "name": "Check Out",
+      "actions": [
+        {
+          "actionType": "do",
+          "content": "Set kids who are staying with an Adventure book, six stickers and some crayons."
+        },
+        {
+          "actionType": "do",
+          "content": "Send stickers home with the kids who leave early"
+        },
+        {
+          "actionType": "do",
+          "content": "When a kid leaves, tell the parents something positive about their kid."
         }
       ]
     }

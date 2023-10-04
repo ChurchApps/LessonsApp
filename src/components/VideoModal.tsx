@@ -3,7 +3,8 @@ import React from "react";
 
 interface Props {
   onClose: () => void,
-  vimeoId?: string,
+  //vimeoId?: string,
+  streamUrl?: string,
   url?: string,
   loopVideo?: boolean
 }
@@ -29,7 +30,11 @@ export const VideoModal: React.FC<Props> = (props: Props) => {
 
   const getVideoElement = () => {
     let result = <></>;
-    if (props.vimeoId) result = getVimeo(props.vimeoId);
+    if (props.url.indexOf("vimeo.com") > -1) {
+      const idx = props.url.lastIndexOf("/");
+      const vimeoId = props.url.substring(idx + 1);
+      result = getVimeo(vimeoId);
+    }
     else {
       if (props.url.startsWith("https://www.youtube.com/embed/"))
       {
