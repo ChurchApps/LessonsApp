@@ -798,12 +798,11 @@ dropdown-menu a {
 .actions {
   clear:both;
   padding-left: 0px;
+  font-weight: bold;
 }
 
 .actions li {
-  font-weight: bold;
   font-size:18px;
-  list-style: none;
 }
 
 
