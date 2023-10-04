@@ -61,7 +61,6 @@ export function ScheduleList(props: Props) {
       newSchedule.scheduledDate = DateHelper.addDays(new Date(lastSchedule.scheduledDate), 7);
     }
 
-    newSchedule.scheduledDate.setHours(newSchedule.scheduledDate.getUTCHours(), newSchedule.scheduledDate.getUTCMinutes(), 0, 0);
     return (<SmallButton icon="add" onClick={() => { setEditSchedule(newSchedule); }} />);
   };
 
