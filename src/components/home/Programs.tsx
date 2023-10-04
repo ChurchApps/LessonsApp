@@ -49,7 +49,8 @@ export function Programs(props: Props) {
 
   const programDivs:JSX.Element[] = [];
   props.programs.forEach((program) => {
-    programDivs.push(getProgramDiv(program));
+    //temp hack to exclude west ridge kids for now.
+    if (program.id!=="CjDN3VrEm3s") programDivs.push(getProgramDiv(program));
   });
 
   return (<>
