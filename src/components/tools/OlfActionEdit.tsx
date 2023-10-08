@@ -1,7 +1,8 @@
 import { useState, useEffect } from "react";
-import { InputBox, ErrorMessages, MarkdownEditor } from "@churchapps/apphelper";
-import { FeedActionInterface } from "@/utils";
-import { InputLabel, MenuItem, Select, FormControl, SelectChangeEvent } from "@mui/material";
+import { InputBox, ErrorMessages, MarkdownEditor, SmallButton } from "@churchapps/apphelper";
+import { FeedActionInterface, FeedFileInterface } from "@/utils";
+import { InputLabel, MenuItem, Select, FormControl, SelectChangeEvent, Table, TableBody, TableCell, TableHead, TableRow } from "@mui/material";
+import { OlfFileEdit } from "./OlfFileEdit";
 
 type Props = {
   action: FeedActionInterface;
@@ -12,6 +13,7 @@ export function OlfActionEdit(props: Props) {
   const [action, setAction] = useState<FeedActionInterface>(null);
   const [errors, setErrors] = useState([]);
   const handleCancel = () => props.updatedCallback(null, true);
+  const [editFileIndex, setEditFileIndex] = useState(null);
 
 
   const handleMarkdownChange = (newValue: string) => {
@@ -61,6 +63,47 @@ export function OlfActionEdit(props: Props) {
     }
   };
 
+  const getFiles = () => {
+    if (action.actionType !== "play") return;
+
+    const rows:JSX.Element[] = [];
+    action.files?.forEach((f, i) => {
+      rows.push(<TableRow key={i}>
+        <TableCell colSpan={2}><a href="about:blank" onClick={(e) => { e.preventDefault(); setEditFileIndex(i); }}>{f.name}</a></TableCell>
+      </TableRow>);
+    });
+
+
+    return (
+      <Table>
+        <TableHead>
+          <TableRow>
+            <TableCell>Files</TableCell>
+            <TableCell style={{textAlign:"right"}}><SmallButton icon="add" text="File" onClick={() => { setEditFileIndex(-1) }} /></TableCell>
+          </TableRow>
+        </TableHead>
+        <TableBody>
+          {rows}
+        </TableBody>
+      </Table>
+    )
+
+  }
+
+  const handleFileSave = (file:FeedFileInterface, cancelled:boolean) => {
+    if (!cancelled)
+    {
+      const a = {...action};
+      if (!file && editFileIndex>-1) a.files.splice(editFileIndex, 1);
+      else {
+        if (editFileIndex>-1) a.files[editFileIndex] = file;
+        else a.files.push(file);
+      }
+      setAction(a);
+    }
+    setEditFileIndex(null);
+  }
+
 
   useEffect(() => {
     setAction(null);
@@ -68,7 +111,15 @@ export function OlfActionEdit(props: Props) {
   }, [props.action]);
 
 
+
+  let editFile: FeedFileInterface = null;
+  if (editFileIndex !== null) {
+    if (editFileIndex === -1) editFile = { name: "", url: "" };
+    else if (action.files) editFile = action.files[editFileIndex];
+  }
+
   if (!action) return <></>;
+  else if (editFile) return <OlfFileEdit file={editFile} updatedCallback={handleFileSave} />;
   else return (
     <>
       <InputBox id="actionDetailsBox" headerText={props.action ? "Edit Action" : "Create Action"} headerIcon="check" saveFunction={handleSave} cancelFunction={handleCancel} deleteFunction={handleDelete}>
@@ -84,6 +135,7 @@ export function OlfActionEdit(props: Props) {
           </Select>
         </FormControl>
         {getContent()}
+        {getFiles()}
       </InputBox>
     </>
   );

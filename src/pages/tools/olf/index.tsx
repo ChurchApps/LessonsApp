@@ -1,7 +1,8 @@
 import { Wrapper } from "@/components/Wrapper";
 import { OlfActionEdit } from "@/components/tools/OlfActionEdit";
+import { OlfSectionEdit } from "@/components/tools/OlfSectionEdit";
 import { FeedActionInterface, FeedSectionInterface, FeedVenueInterface } from "@/utils";
-import { DisplayBox, SmallButton } from "@churchapps/apphelper";
+import { DisplayBox, MarkdownPreview, SmallButton } from "@churchapps/apphelper";
 import { Button, Grid, Table, TableBody, TableCell, TableHead, TableRow, TextField } from "@mui/material";
 import { useState } from "react";
 
@@ -23,6 +24,16 @@ export default function CP() {
     }
     setData(d);
   };
+
+  const handleDownload = () => {
+    const content = JSON.stringify(data, null, 2);
+    const link = document.createElement("a");
+    const file = new Blob([content], { type: 'application/json' });
+    link.href = URL.createObjectURL(file);
+    link.download = "olf.json";
+    link.click();
+    URL.revokeObjectURL(link.href);
+  }
 
   const handleUpload = () => {
     const f: any = document.getElementById("fileUpload");
@@ -55,7 +66,7 @@ export default function CP() {
         </TableCell>
 
         <TableCell><a href="about:blank" onClick={(e) => { e.preventDefault(); handleEditAction(sectionIndex, j); }}>{a.actionType}</a></TableCell>
-        <TableCell>{a.content}</TableCell>
+        <TableCell><MarkdownPreview value={a.content} /></TableCell>
         <TableCell style={{whiteSpace:"nowrap"}}>{getFiles(a)}</TableCell>
       </TableRow>);
     });
@@ -70,7 +81,7 @@ export default function CP() {
           {(i!==0) && <SmallButton icon="arrow_upward" onClick={() => { moveSection(i, "up") }} />}
           {(i<data.sections.length-1) && <SmallButton icon="arrow_downward" onClick={() => { moveSection(i, "down") }} />}
         </TableCell>
-        <TableCell colSpan={2}><a href="about:blank" onClick={(e) => { e.preventDefault(); handleEditSection(i); }}>{s.name}</a></TableCell>
+        <TableCell colSpan={2}><a href="about:blank" onClick={(e) => { e.preventDefault(); setEditSectionIndex(i); }}>{s.name}</a></TableCell>
         <TableCell colSpan={2} style={{ textAlign:"right" }}><SmallButton icon="add" text="Action" onClick={() => { setEditSectionIndex(i); setEditActionIndex(-1); }} /></TableCell>
       </TableRow>);
       result = result.concat(getActions(s, i));
@@ -105,30 +116,40 @@ export default function CP() {
     setData(d);
   }
 
-  const handleAddSection = () => {
-    let d = {...data};
-    if (!d.sections) d.sections = [];
-    d.sections.push({name:"New Section"});
-    setData(d);
-  }
-
-  const handleEditSection = (index:number) => {
-    prompt("Section Name", data.sections[index].name)
-  }
-
   const handleEditAction = (sectionIndex:number, index:number) => {
     setEditSectionIndex(sectionIndex);
     setEditActionIndex(index);
   }
 
   let editAction = null;
-  if (editSectionIndex!==null && editActionIndex!==null && editSectionIndex>-1)
+  let editSection = null;
+  if (editSectionIndex!==null)
   {
-    if (editActionIndex>-1) editAction=data.sections[editSectionIndex].actions[editActionIndex];
-    else editAction = {actionType:"say", content:""};
+    if (editSectionIndex>-1 && editActionIndex!==null) {
+      if (editActionIndex>-1) editAction=data.sections[editSectionIndex].actions[editActionIndex];
+      else editAction = {actionType:"say", content:""};
+    } else {
+      if (editSectionIndex>-1) editSection = data.sections[editSectionIndex];
+      else editSection = {name:""};
+    }
   }
 
-  console.log("INDEXES", editSectionIndex, editActionIndex, editAction)
+  const handleSectionSave = (section:FeedSectionInterface, cancelled:boolean) => {
+    if (!cancelled)
+    {
+      const d = {...data};
+      if (!section && editSectionIndex>-1) d.sections.splice(editSectionIndex, 1);
+      else {
+        if (editSectionIndex>-1) d.sections[editSectionIndex] = section;
+        else {
+          if (!d.sections) d.sections = [];
+          d.sections.push(section);
+        }
+      }
+      setData(d);
+    }
+    setEditSectionIndex(null);
+  }
 
   const handleActionSave = (action:FeedActionInterface, cancelled:boolean) => {
     if (!cancelled)
@@ -137,7 +158,11 @@ export default function CP() {
       if (!action && editActionIndex>-1) d.sections[editSectionIndex].actions.splice(editActionIndex, 1);
       else {
         if (editActionIndex>-1) d.sections[editSectionIndex].actions[editActionIndex] = action;
-        else d.sections[editSectionIndex].actions.push(action);
+        else {
+          const sect = d.sections[editSectionIndex];
+          if (!sect.actions) sect.actions = [];
+          sect.actions.push(action);
+        }
       }
       setData(d);
     }
@@ -179,7 +204,7 @@ export default function CP() {
                   <TableCell>Section</TableCell>
                   <TableCell>Action</TableCell>
                   <TableCell colSpan={2}>
-                    <span style={{float:"right"}}><SmallButton icon="add" text="Section" onClick={handleAddSection} /></span>
+                    <span style={{float:"right"}}><SmallButton icon="add" text="Section" onClick={() => { setEditSectionIndex(-1); }} /></span>
                     Content
                   </TableCell>
                 </TableRow>
@@ -195,11 +220,14 @@ export default function CP() {
         </Grid>
         <Grid item md={4} xs={12}>
           <DisplayBox headerText="OLF File" headerIcon="map_marker">
-            <Button variant="outlined" onClick={handleUpload}>Upload</Button>
+            <Button variant="outlined" onClick={handleUpload}>Upload</Button> &nbsp;
+            <Button variant="outlined" onClick={handleDownload}>Download</Button>
             <input id="fileUpload" type="file" onChange={handleFileChange} style={{display:"none"}}  />
             <div style={{ fontSize: 12, overflow: "scroll", maxHeight: 500, whiteSpace:"pre", border:"1px solid #CCC", padding:15, marginTop:20 }}>{JSON.stringify(data, null, 2)}</div>
           </DisplayBox>
           {editAction && <OlfActionEdit action={editAction} updatedCallback={handleActionSave} /> }
+          {editSection && <OlfSectionEdit section={editSection} updatedCallback={handleSectionSave} /> }
+
 
         </Grid>
       </Grid>
