@@ -1825,6 +1825,14 @@ a.dropdown-toggle::after {
   margin-top:5px;
 }
 
+#olfTable tr td:first-child {
+  white-space: nowrap;
+}
+
+#olfTable thead th {
+  font-weight: bold;
+}
+
 @media (max-width: 900px) {
   #lessonSidebarInner.affix {
     position: relative;
