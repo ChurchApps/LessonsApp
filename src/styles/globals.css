@@ -1833,6 +1833,29 @@ a.dropdown-toggle::after {
   font-weight: bold;
 }
 
+
+#olfPrint { background-color: #FFF; color:#000; padding:40px; }
+.olfSection H2 { text-align: center; color:#FFF; }
+
+.olfSection:nth-child(5n-4) H2 { background-color: #f7c411; }
+.olfSection:nth-child(5n-3) H2 { background-color: #f17094; }
+.olfSection:nth-child(5n-2) H2 { background-color: #f68b1f; }
+.olfSection:nth-child(5n-1) H2 { background-color: #538ec5; }
+.olfSection:nth-child(5n) H2 { background-color: #92c94f; }
+
+.olfSection:nth-child(5n-4) .olfActionBlock { border-color: #f7c411; }
+.olfSection:nth-child(5n-3) .olfActionBlock { border-color: #f17094; }
+.olfSection:nth-child(5n-2) .olfActionBlock { border-color: #f68b1f; }
+.olfSection:nth-child(5n-1) .olfActionBlock { border-color: #538ec5; }
+.olfSection:nth-child(5n) .olfActionBlock { border-color: #92c94f; }
+
+.olfActionBlock { border-width: 3px; border-radius: 10px; padding:15px; border-style: solid; margin-bottom: 10px; }
+.olfActionBlock td:first-child { width: 100px; font-weight: bold; text-transform: uppercase; vertical-align: top; }
+.olfActionBlock ul {margin-top:0px; margin-bottom:0px; padding-left:0px; }
+.olfHeader { border-bottom: 5px solid #000; padding-bottom: 10px; }
+.olfHeader H1 { margin-bottom: 0px; padding-bottom: 0px; }
+.olfHeader H2 { margin-top: 0px; margin-bottom: 0px; }
+
 @media (max-width: 900px) {
   #lessonSidebarInner.affix {
     position: relative;

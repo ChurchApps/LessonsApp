@@ -1,16 +1,22 @@
 import { Wrapper } from "@/components/Wrapper";
 import { OlfActionEdit } from "@/components/tools/OlfActionEdit";
+import { OlfPrint } from "@/components/tools/OlfPrint";
 import { OlfSectionEdit } from "@/components/tools/OlfSectionEdit";
 import { FeedActionInterface, FeedSectionInterface, FeedVenueInterface } from "@/utils";
 import { DisplayBox, MarkdownEditor, MarkdownPreview, SmallButton } from "@churchapps/apphelper";
-import { Button, Grid, Table, TableBody, TableCell, TableHead, TableRow, TextField } from "@mui/material";
-import { useState } from "react";
+import { Button, Grid, Icon, Table, TableBody, TableCell, TableHead, TableRow, TextField } from "@mui/material";
+import { useRef, useState } from "react";
+import { useReactToPrint } from "react-to-print";
 
 export default function CP() {
 
   const [data, setData] = useState<FeedVenueInterface>({} as FeedVenueInterface);
   const [editSectionIndex, setEditSectionIndex] = useState<number>(null);
   const [editActionIndex, setEditActionIndex] = useState<number>(null);
+
+
+  const contentRef = useRef<HTMLDivElement>(null);
+  const handlePrint = useReactToPrint({ content: () => contentRef.current });
 
   const handleMarkdownChange = (newValue: string) => {
     let d = { ...data };
@@ -86,7 +92,7 @@ export default function CP() {
 
   const getSections = () => {
     let result:JSX.Element[] = [];
-    data.sections?.forEach((s, i) => {
+    data?.sections?.forEach((s, i) => {
       result.push(<TableRow key={"section" + i}>
         <TableCell>
           {(i!==0) && <SmallButton icon="arrow_upward" onClick={() => { moveSection(i, "up") }} />}
@@ -134,7 +140,7 @@ export default function CP() {
 
   let editAction = null;
   let editSection = null;
-  if (editSectionIndex!==null)
+  if (editSectionIndex!==null && data)
   {
     if (editSectionIndex>-1 && editActionIndex!==null) {
       if (editActionIndex>-1) editAction=data.sections[editSectionIndex].actions[editActionIndex];
@@ -230,6 +236,7 @@ export default function CP() {
 
           </DisplayBox>
 
+
         </Grid>
         <Grid item md={4} xs={12}>
           <DisplayBox headerText="OLF File" headerIcon="map_marker">
@@ -245,6 +252,14 @@ export default function CP() {
         </Grid>
       </Grid>
 
+
+      <h2>
+        <a href="about:blank" style={{float:"right", color:"#28235d"}} onClick={(e) => { e.preventDefault(); handlePrint(); }}><Icon style={{fontSize:20}}>print</Icon></a>
+        Print Preview</h2>
+
+      <div ref={contentRef}>
+        <OlfPrint feed={data} />
+      </div>
 
     </Wrapper>
   );
