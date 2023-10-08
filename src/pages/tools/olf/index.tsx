@@ -2,7 +2,7 @@ import { Wrapper } from "@/components/Wrapper";
 import { OlfActionEdit } from "@/components/tools/OlfActionEdit";
 import { OlfSectionEdit } from "@/components/tools/OlfSectionEdit";
 import { FeedActionInterface, FeedSectionInterface, FeedVenueInterface } from "@/utils";
-import { DisplayBox, MarkdownPreview, SmallButton } from "@churchapps/apphelper";
+import { DisplayBox, MarkdownEditor, MarkdownPreview, SmallButton } from "@churchapps/apphelper";
 import { Button, Grid, Table, TableBody, TableCell, TableHead, TableRow, TextField } from "@mui/material";
 import { useState } from "react";
 
@@ -12,13 +12,18 @@ export default function CP() {
   const [editSectionIndex, setEditSectionIndex] = useState<number>(null);
   const [editActionIndex, setEditActionIndex] = useState<number>(null);
 
+  const handleMarkdownChange = (newValue: string) => {
+    let d = { ...data };
+    d.lessonDescription = newValue;
+    setData(d);
+  }
+
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     e.preventDefault();
     let d = { ...data };
     switch (e.currentTarget.name) {
       case "name": d.name = e.currentTarget.value; break;
       case "lessonName": d.lessonName = e.currentTarget.value; break;
-      case "lessonDescription": d.lessonDescription = e.currentTarget.value; break;
       case "studyName": d.studyName = e.currentTarget.value; break;
       case "programName": d.programName = e.currentTarget.value; break;
     }
@@ -43,7 +48,13 @@ export default function CP() {
   const handleFileChange = () => {
     const f: any = document.getElementById("fileUpload");
     const reader = new FileReader();
-    reader.onload = (e: any) => { setData(JSON.parse(e.target.result)); };
+    reader.onload = (e: any) => {
+      setData(null);
+      setTimeout(() => {
+        setData(JSON.parse(e.target.result));
+      }, 50);
+
+    };
     reader.readAsText(f.files[0]);
   }
 
@@ -170,7 +181,8 @@ export default function CP() {
     setEditActionIndex(null);
   }
 
-  return (
+  if (!data) return <Wrapper><></></Wrapper>;
+  else return (
     <Wrapper>
 
       <h1>Manually Create Open Lesson Format</h1>
@@ -188,7 +200,8 @@ export default function CP() {
             <Grid container spacing={3}>
               <Grid item xs={6}>
                 <TextField label="Lesson Name" fullWidth name="lessonName" value={data.lessonName} onChange={handleChange} placeholder="I Can Have Peace When I'm Angry" />
-                <TextField label="Lesson Description" fullWidth name="lessonDescription" value={data.lessonDescription} onChange={handleChange} placeholder="There are many things in life that could be considered overrated… wealth, fame, power, titles, and the list goes on.  But there may be one thing that we could all agree is never overrated, maybe it is even priceless. Peace. Peace of mind. Peace with others. We all know what it’s like to not have peace, and kids are no exception." multiline />
+                <label style={{ fontSize:13, paddingLeft:10 }}>Lesson Description</label>
+                <MarkdownEditor value={data.lessonDescription} onChange={handleMarkdownChange} />
               </Grid>
               <Grid item xs={6}>
                 <TextField label="Venue Name" fullWidth name="name" value={data.name} onChange={handleChange} placeholder="Classroom" />
