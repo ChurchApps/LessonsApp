@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { InputBox, ErrorMessages, MarkdownEditor, SmallButton } from "@churchapps/apphelper";
 import { FeedActionInterface, FeedFileInterface } from "@/utils";
-import { InputLabel, MenuItem, Select, FormControl, SelectChangeEvent, Table, TableBody, TableCell, TableHead, TableRow } from "@mui/material";
+import { InputLabel, MenuItem, Select, FormControl, SelectChangeEvent, Table, TableBody, TableCell, TableHead, TableRow, TextField } from "@mui/material";
 import { OlfFileEdit } from "./OlfFileEdit";
 
 type Props = {
@@ -28,6 +28,7 @@ export function OlfActionEdit(props: Props) {
     switch (e.target.name) {
       case "actionType":
         a.actionType = e.target.value;
+        if (a.actionType === "play" && !a.files) a.files = [];
         break;
       case "content":
         a.content = e.target.value;
@@ -58,8 +59,10 @@ export function OlfActionEdit(props: Props) {
   };
 
   const getContent = () => {
-    if (action.actionType !== "Play" && action.actionType !== "Download") {
+    if (action.actionType !== "play" && action.actionType !== "download") {
       return <MarkdownEditor value={action.content} onChange={handleMarkdownChange} />
+    } else {
+      return <TextField fullWidth label="Display Name" name="content" value={action.content} onChange={handleChange} />
     }
   };
 
@@ -94,6 +97,7 @@ export function OlfActionEdit(props: Props) {
     if (!cancelled)
     {
       const a = {...action};
+      if (!a.files) a.files = [];
       if (!file && editFileIndex>-1) a.files.splice(editFileIndex, 1);
       else {
         if (editFileIndex>-1) a.files[editFileIndex] = file;

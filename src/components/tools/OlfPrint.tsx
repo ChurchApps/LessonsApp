@@ -7,7 +7,7 @@ type Props = {
 export function OlfPrint(props: Props) {
 
   const getActionGroups = (section:FeedSectionInterface) => {
-    const blocks = groupActions(section.actions);
+    const blocks = groupActions(section.actions || []);
     const result:JSX.Element[] = [];
     blocks.forEach(b => {
       result.push(
@@ -34,8 +34,8 @@ export function OlfPrint(props: Props) {
   const groupActions = (actions: FeedActionInterface[]) => {
     let lastActionType = "";
     const result:any[] = [];
-    actions.forEach((a) => {
-      if (lastActionType !== a.actionType) {
+    actions?.forEach((a) => {
+      if (lastActionType !== a.actionType || result.length === 0) {
         result.push({ actions: [a]});
         lastActionType = a.actionType
       }
