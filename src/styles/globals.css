@@ -871,6 +871,11 @@ dropdown-menu a {
     margin-top: 0px;
     margin-bottom: 0px;
   }
+
+  #olfPrint {
+    padding:40px;
+  }
+
 }
 
 @media (min-width: 1400px) {
@@ -1834,7 +1839,7 @@ a.dropdown-toggle::after {
 }
 
 
-#olfPrint { background-color: #FFF; color:#000; padding:40px; }
+#olfPrint { background-color: #FFF; color:#000; }
 .olfSection H2 { text-align: center; color:#FFF; }
 
 .olfSection:nth-child(5n-4) H2 { background-color: #f7c411; }

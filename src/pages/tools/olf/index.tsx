@@ -1,22 +1,18 @@
 import { Wrapper } from "@/components/Wrapper";
 import { OlfActionEdit } from "@/components/tools/OlfActionEdit";
-import { OlfPrint } from "@/components/tools/OlfPrint";
+import { OlfPrintPreview } from "@/components/tools/OlfPrintPreview";
 import { OlfSectionEdit } from "@/components/tools/OlfSectionEdit";
 import { FeedActionInterface, FeedSectionInterface, FeedVenueInterface } from "@/utils";
 import { DisplayBox, MarkdownEditor, MarkdownPreview, SmallButton } from "@churchapps/apphelper";
-import { Button, Grid, Icon, Table, TableBody, TableCell, TableHead, TableRow, TextField } from "@mui/material";
-import { useRef, useState } from "react";
-import { useReactToPrint } from "react-to-print";
+import { Grid, Table, TableBody, TableCell, TableHead, TableRow, TextField } from "@mui/material";
+import { useState } from "react";
 
 export default function CP() {
 
   const [data, setData] = useState<FeedVenueInterface>({} as FeedVenueInterface);
   const [editSectionIndex, setEditSectionIndex] = useState<number>(null);
   const [editActionIndex, setEditActionIndex] = useState<number>(null);
-
-
-  const contentRef = useRef<HTMLDivElement>(null);
-  const handlePrint = useReactToPrint({ content: () => contentRef.current });
+  const [showPrintPreview, setShowPrintPreview] = useState(false);
 
   const handleMarkdownChange = (newValue: string) => {
     let d = { ...data };
@@ -215,51 +211,51 @@ export default function CP() {
             </Grid>
           </DisplayBox>
 
-          <DisplayBox headerText="Sections" headerIcon="list_alt">
-            <Table id="olfTable" size="small">
-              <TableHead>
-                <TableRow>
-                  <TableCell />
-                  <TableCell>Section</TableCell>
-                  <TableCell>Action</TableCell>
-                  <TableCell colSpan={2}>
-                    <span style={{float:"right"}}><SmallButton icon="add" text="Section" onClick={() => { setEditSectionIndex(-1); }} /></span>
-                    Content
-                  </TableCell>
-                </TableRow>
-              </TableHead>
-              <TableBody>
-                {getSections()}
-              </TableBody>
 
-            </Table>
-
-          </DisplayBox>
 
 
         </Grid>
         <Grid item md={4} xs={12}>
           <DisplayBox headerText="OLF File" headerIcon="map_marker">
-            <Button variant="outlined" onClick={handleUpload}>Upload</Button> &nbsp;
-            <Button variant="outlined" onClick={handleDownload}>Download</Button>
+            <SmallButton text="Upload" icon="upload" onClick={handleUpload} /> &nbsp;
+            <SmallButton text="Download" icon="download" onClick={handleDownload} /> &nbsp;
+            <SmallButton icon="print" text="Print Preview" onClick={() => { setShowPrintPreview(true) }} />
             <input id="fileUpload" type="file" onChange={handleFileChange} style={{display:"none"}}  />
-            <div style={{ fontSize: 12, overflow: "scroll", maxHeight: 500, whiteSpace:"pre", border:"1px solid #CCC", padding:15, marginTop:20 }}>{JSON.stringify(data, null, 2)}</div>
+            <div style={{ fontSize: 12, overflow: "scroll", maxHeight: 333, whiteSpace:"pre", border:"1px solid #CCC", padding:15, marginTop:20 }}>{JSON.stringify(data, null, 2)}</div>
           </DisplayBox>
-          {editAction && <OlfActionEdit action={editAction} updatedCallback={handleActionSave} /> }
-          {editSection && <OlfSectionEdit section={editSection} updatedCallback={handleSectionSave} /> }
-
-
         </Grid>
       </Grid>
 
+      <Grid container spacing={3}>
+        <Grid item md={8} xs={12}>
+          <DisplayBox headerText="Sections" headerIcon="list_alt" editContent={<SmallButton icon="add" text="Section" onClick={() => { setEditSectionIndex(-1); }} />}>
+            <div style={{maxHeight:"85vh", overflowY:"scroll", paddingRight:15 }}>
+              <Table id="olfTable" size="small">
+                <TableHead>
+                  <TableRow>
+                    <TableCell />
+                    <TableCell>Section</TableCell>
+                    <TableCell>Action</TableCell>
+                    <TableCell colSpan={2}>
 
-      <h2>
-        <a href="about:blank" style={{float:"right", color:"#28235d"}} onClick={(e) => { e.preventDefault(); handlePrint(); }}><Icon style={{fontSize:20}}>print</Icon></a>
-        Print Preview</h2>
+                    Content
+                    </TableCell>
+                  </TableRow>
+                </TableHead>
+                <TableBody>
+                  {getSections()}
+                </TableBody>
+              </Table>
+            </div>
+          </DisplayBox>
+        </Grid>
+        <Grid item md={4} xs={12}>
+          {editAction && <OlfActionEdit action={editAction} updatedCallback={handleActionSave} /> }
+          {editSection && <OlfSectionEdit section={editSection} updatedCallback={handleSectionSave} /> }
+        </Grid>
+      </Grid>
 
-      <div ref={contentRef}>
-        <OlfPrint feed={data} />
-      </div>
+      {showPrintPreview && <OlfPrintPreview feed={data} onClose={() => { setShowPrintPreview(false) }} /> }
 
     </Wrapper>
   );
