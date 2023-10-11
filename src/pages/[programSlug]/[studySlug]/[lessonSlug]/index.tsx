@@ -1,7 +1,7 @@
 import { GetStaticPaths, GetStaticProps } from "next";
 import { Grid, Container, Icon } from "@mui/material";
 import { Layout, Venue } from "@/components";
-import { ApiHelper, ProgramInterface, StudyInterface, LessonInterface, ArrayHelper, FeedVenueInterface } from "@/utils";
+import { ApiHelper, ProgramInterface, StudyInterface, LessonInterface, ArrayHelper, FeedVenueInterface, PlaylistFileInterface, AnalyticsHelper } from "@/utils";
 import Error from "@/pages/_error";
 import Image from "next/image";
 import { Header } from "@/components/Header";
@@ -16,9 +16,19 @@ type Props = { lessonData: { venues: FeedVenueInterface[] }; hasError: boolean; 
 export default function LessonsPage(props: Props) {
 
   const [selectedVenue, setSelectedVenue] = React.useState<FeedVenueInterface>(props.lessonData.venues?.[0]);
-  const [showPresenter, setShowPresenter] = React.useState<boolean>(false);
   const [print, setPrint] = React.useState<number>(0);
+  const [presenterFiles, setPresenterFiles] = React.useState<PlaylistFileInterface[]>(null);
 
+  const loadPresenterData = () => {
+    AnalyticsHelper.logEvent("Presenter", "Start", selectedVenue.name);
+    ApiHelper.get("/venues/playlist/" + selectedVenue.id + "?mode=web", "LessonsApi").then(data => {
+      const result: PlaylistFileInterface[] = [];
+      data?.messages?.forEach((m:any) => {
+        m.files?.forEach((f:PlaylistFileInterface) => { result.push(f) })
+      });
+      setPresenterFiles(result);
+    });
+  }
 
   if (props.hasError) {
     return <Error message={props.error.message} />
@@ -36,7 +46,7 @@ export default function LessonsPage(props: Props) {
                 <div className="breadcrumb"><Link href={"/" + selectedVenue.programSlug}>{selectedVenue.programName}</Link>: <Link href={"/" + selectedVenue.programSlug + "/" + selectedVenue.studySlug }>{selectedVenue.studyName}</Link></div>
                 <h1>{selectedVenue.lessonName}</h1>
                 {selectedVenue.lessonDescription && <div style={{marginBottom:20}}>{selectedVenue.lessonDescription}</div>}
-                <a href="about:blank" onClick={(e) => { e.preventDefault(); setShowPresenter(true); }} className="cta"><Icon style={{float:"left", marginRight:10}}>play_circle</Icon>Start Lesson</a>
+                <a href="about:blank" onClick={(e) => { e.preventDefault(); loadPresenterData(); }} className="cta"><Icon style={{float:"left", marginRight:10}}>play_circle</Icon>Start Lesson</a>
               </Grid>
             </Grid>
 
@@ -60,7 +70,7 @@ export default function LessonsPage(props: Props) {
         </Grid>
       </Grid>
 
-      {showPresenter && <Presenter venue={selectedVenue} onClose={() => { setShowPresenter(false); }} />}
+      {presenterFiles && <Presenter files={presenterFiles} onClose={() => { setPresenterFiles(null); }} />}
 
     </Layout>
   );

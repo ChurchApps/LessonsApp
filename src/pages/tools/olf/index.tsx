@@ -2,11 +2,12 @@ import { Wrapper } from "@/components/Wrapper";
 import { OlfActionEdit } from "@/components/olf/OlfActionEdit";
 import { OlfPrintPreview } from "@/components/olf/OlfPrintPreview";
 import { OlfSectionEdit } from "@/components/olf/OlfSectionEdit";
-import { FeedActionInterface, FeedSectionInterface, FeedVenueInterface } from "@/utils";
+import { FeedActionInterface, FeedSectionInterface, FeedVenueInterface, PlaylistFileInterface } from "@/utils";
 import { DisplayBox, MarkdownEditor, MarkdownPreview, SmallButton } from "@churchapps/apphelper";
 import { Grid, Table, TableBody, TableCell, TableHead, TableRow, TextField } from "@mui/material";
 import { useEffect, useState } from "react";
 import { useSearchParams } from "next/navigation";
+import { Presenter } from "@/components/Presenter";
 
 export default function CP() {
 
@@ -14,8 +15,28 @@ export default function CP() {
   const [editSectionIndex, setEditSectionIndex] = useState<number>(null);
   const [editActionIndex, setEditActionIndex] = useState<number>(null);
   const [showPrintPreview, setShowPrintPreview] = useState(false);
+  const [presenterFiles, setPresenterFiles] = useState<PlaylistFileInterface[]>(null);
 
   const searchParams = useSearchParams();
+
+  const loadPresenterData = () => {
+    const result: PlaylistFileInterface[] = [];
+    data?.sections.forEach(s => {
+      s.actions?.forEach(a => {
+        a.files?.forEach(f => {
+          let file: PlaylistFileInterface = {
+            name: f.name,
+            url: f.url,
+            seconds: f.seconds || 3600,
+            loopVideo: f.loop || false
+          };
+          result.push(file)
+        })
+      });
+    });
+
+    setPresenterFiles(result);
+  }
 
   const handleMarkdownChange = (newValue: string) => {
     let d = { ...data };
@@ -190,14 +211,11 @@ export default function CP() {
   const feedUrl = searchParams.get("feedUrl")
 
   useEffect(() => {
-
-    console.log("feedUrl", feedUrl);
     if (feedUrl) {
       fetch(feedUrl, { method: "GET", headers: { "Content-Type": "application/json" } }).then((res) => {
         if (res.ok) return res.json();
         else throw new Error(res.statusText);
       }).then((data) => {
-        console.log("data", data)
         setData(data);
       }).catch((err) => {
         console.log(err);
@@ -247,8 +265,10 @@ export default function CP() {
         <Grid item md={4} xs={12}>
           <DisplayBox headerText="OLF File" headerIcon="map_marker">
             <SmallButton text="Upload" icon="upload" onClick={handleUpload} /> &nbsp;
-            <SmallButton text="Download" icon="download" onClick={handleDownload} /> &nbsp;
-            <SmallButton icon="print" text="Print Preview" onClick={() => { setShowPrintPreview(true) }} />
+            <SmallButton text="Download" icon="download" onClick={handleDownload} /><br /><br />
+            <SmallButton icon="print" text="Print Preview" onClick={() => { setShowPrintPreview(true) }} />  &nbsp;
+            <SmallButton icon="play_arrow" text="Play Media" onClick={loadPresenterData} />
+
             <input id="fileUpload" type="file" onChange={handleFileChange} style={{display:"none"}}  />
             <div style={{ fontSize: 12, overflow: "scroll", maxHeight: 333, whiteSpace:"pre", border:"1px solid #CCC", padding:15, marginTop:20 }}>{JSON.stringify(data, null, 2)}</div>
           </DisplayBox>
@@ -285,7 +305,7 @@ export default function CP() {
       </Grid>
 
       {showPrintPreview && <OlfPrintPreview feed={data} onClose={() => { setShowPrintPreview(false) }} /> }
-
+      {presenterFiles && <Presenter files={presenterFiles} onClose={() => { setPresenterFiles(null); }} />}
     </Wrapper>
   );
 }

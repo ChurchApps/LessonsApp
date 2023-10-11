@@ -17,7 +17,6 @@ export function Section(props: Props) {
     const result: JSX.Element[] = [];
     //const customActions = CustomizationHelper.applyCustomSort(props.customizations, actions, "action");
     const customActions = actions; //TODO: Fix
-    console.log("ACTIONS", customActions)
     customActions.forEach((a) => {
       if (!shouldHide(a.id)) {
         result.push(<Action action={a} lessonId={props.lessonId} key={a.id} />);
