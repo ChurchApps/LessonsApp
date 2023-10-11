@@ -1,9 +1,10 @@
-import { Dialog, DialogActions, DialogContent, DialogTitle, FormControl, Grid, InputLabel, MenuItem, Select } from "@mui/material";
+import { Box, Dialog, DialogActions, DialogContent, DialogTitle, Grid, Tab, Tabs } from "@mui/material";
 import React, { useRef, useState } from "react";
 import { FeedVenueInterface, SmallButton } from "@/utils";
 import { useReactToPrint } from "react-to-print";
 import { Section } from "../lesson/Section";
 import { OlfPrint } from "./OlfPrint";
+import { OlfScriptPrint } from "./OlfScriptPrint";
 
 interface Props {
   onClose: () => void,
@@ -14,7 +15,7 @@ export const OlfPrintPreview: React.FC<Props> = (props: Props) => {
 
   const contentRef = useRef<HTMLDivElement>(null);
   const handlePrint = useReactToPrint({ content: () => contentRef.current });
-  const [format, setFormat] = useState("format1");
+  const [format, setFormat] = useState("colorCoded");
 
 
   const getPrintSections = () => {
@@ -31,9 +32,22 @@ export const OlfPrintPreview: React.FC<Props> = (props: Props) => {
   }
 
   const getContent = () => {
-    if (format==="format1") return <OlfPrint feed={props.feed} />;
+    if (format==="colorCoded") return <OlfPrint feed={props.feed} />;
+    else if (format==="script") return <OlfScriptPrint feed={props.feed} />;
     else return getPrintSections();
   }
+
+  const getTabs = () => (<>
+  Format:
+    <Box sx={{ borderBottom: 1, borderColor: 'divider' }} style={{marginRight:30}}>
+      <Tabs value={format} onChange={(e, newValue) => { setFormat(newValue) }} aria-label="basic tabs example">
+
+        <Tab label="Lessons.church" value="lessons.church" />
+        <Tab label="Color Coded" value="colorCoded"  />
+        <Tab label="Script"  value="script" />
+      </Tabs>
+    </Box>
+  </>)
 
 
   return (<>
@@ -44,13 +58,8 @@ export const OlfPrintPreview: React.FC<Props> = (props: Props) => {
         </Grid>
         <Grid item sm={6}>
           <DialogActions sx={{ paddingX: "16px", paddingBottom: "12px" }}>
-            <FormControl size="small">
-              <InputLabel>Print Format</InputLabel>
-              <Select  size="small" label="Print Format" name="format" value={format} onChange={(e) => { setFormat(e.target.value); }}>
-                <MenuItem value="format1" key="format1">Format 1</MenuItem>
-                <MenuItem value="format2" key="format2">Format 2</MenuItem>
-              </Select>
-            </FormControl> &nbsp;
+            {getTabs()}
+            &nbsp;
             <SmallButton icon="print" text="Print" onClick={() => { handlePrint(); }} /> &nbsp;
             <SmallButton icon="close" text="Close" onClick={props.onClose} />
 

@@ -1,7 +1,7 @@
 import { Wrapper } from "@/components/Wrapper";
-import { OlfActionEdit } from "@/components/tools/OlfActionEdit";
-import { OlfPrintPreview } from "@/components/tools/OlfPrintPreview";
-import { OlfSectionEdit } from "@/components/tools/OlfSectionEdit";
+import { OlfActionEdit } from "@/components/olf/OlfActionEdit";
+import { OlfPrintPreview } from "@/components/olf/OlfPrintPreview";
+import { OlfSectionEdit } from "@/components/olf/OlfSectionEdit";
 import { FeedActionInterface, FeedSectionInterface, FeedVenueInterface } from "@/utils";
 import { DisplayBox, MarkdownEditor, MarkdownPreview, SmallButton } from "@churchapps/apphelper";
 import { Grid, Table, TableBody, TableCell, TableHead, TableRow, TextField } from "@mui/material";
@@ -29,6 +29,7 @@ export default function CP() {
     switch (e.currentTarget.name) {
       case "name": d.name = e.currentTarget.value; break;
       case "lessonName": d.lessonName = e.currentTarget.value; break;
+      case "lessonImage": d.lessonImage = e.currentTarget.value; break;
       case "studyName": d.studyName = e.currentTarget.value; break;
       case "programName": d.programName = e.currentTarget.value; break;
     }
@@ -223,6 +224,13 @@ export default function CP() {
             <Grid container spacing={3}>
               <Grid item xs={6}>
                 <TextField label="Lesson Name" fullWidth name="lessonName" value={data.lessonName} onChange={handleChange} placeholder="I Can Have Peace When I'm Angry" />
+              </Grid>
+              <Grid item xs={6}>
+                <TextField label="Lesson Image" fullWidth name="lessonImage" value={data.lessonImage} onChange={handleChange} placeholder="https://content.lessons.church/lessons/LokAPfneEmp.png" />
+              </Grid>
+            </Grid>
+            <Grid container spacing={3}>
+              <Grid item xs={6}>
                 <label style={{ fontSize:13, paddingLeft:10 }}>Lesson Description</label>
                 <MarkdownEditor value={data.lessonDescription} onChange={handleMarkdownChange} />
               </Grid>

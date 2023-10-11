@@ -1,4 +1,5 @@
 import { FeedActionInterface, FeedSectionInterface, FeedVenueInterface, MarkdownPreview } from "@/utils";
+import Image from "next/image";
 
 type Props = {
   feed: FeedVenueInterface;
@@ -58,11 +59,15 @@ export function OlfPrint(props: Props) {
 
   return <div id="olfPrint">
     <div className="olfHeader">
+      {props.feed.lessonImage && <div>
+        <Image src={props.feed.lessonImage} alt="lesson image" width={256} height={144} style={{float:"right"}} />
+      </div>}
       <h1>{props.feed.studyName}</h1>
       <h2>{props.feed.lessonName} | {props.feed.name}</h2>
       <div>
         <MarkdownPreview value={props.feed.lessonDescription} />
       </div>
+      <div style={{clear:"both"}}></div>
     </div>
     <div className="olfBody">
       {getSections()}

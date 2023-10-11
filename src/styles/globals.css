@@ -872,9 +872,10 @@ dropdown-menu a {
     margin-bottom: 0px;
   }
 
-  #olfPrint {
+  #olfPrint, #olfScriptPrint {
     padding:40px;
   }
+
 
 }
 
@@ -1860,6 +1861,19 @@ a.dropdown-toggle::after {
 .olfHeader { border-bottom: 5px solid #000; padding-bottom: 10px; }
 .olfHeader H1 { margin-bottom: 0px; padding-bottom: 0px; }
 .olfHeader H2 { margin-top: 0px; margin-bottom: 0px; }
+
+.olfScriptHeader { text-align: center; width:80%;padding-left: 10%; page-break-after: always; margin-bottom: 40px;}
+.olfScriptSection H2 { text-transform: uppercase; color:#000; text-decoration: underline; }
+
+.olfScriptSection .olfAction { list-style: none; }
+.olfScriptSection .olfAction.play span { background-color: #000; color:#FFF; text-transform: uppercase; list-style: none; }
+
+.olfScriptSection .olfAction.note {background-image: none; padding-left: 0px; font-style:italic;}
+.olfScriptSection .olfAction.do {font-weight:bold;}
+.olfScriptSection .olfAction.say {width:80%; margin-left:10%;}
+.olfScriptSection .olfAction.say p { float:none; background-color: #FFF;width:auto; border-radius: 0px; padding:0px;}
+.olfScriptSection .olfAction.say p strong:first-child { display:block; text-transform: uppercase; text-align: center; }
+
 
 @media (max-width: 900px) {
   #lessonSidebarInner.affix {
