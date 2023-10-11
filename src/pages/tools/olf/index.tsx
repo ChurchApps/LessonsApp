@@ -5,7 +5,8 @@ import { OlfSectionEdit } from "@/components/tools/OlfSectionEdit";
 import { FeedActionInterface, FeedSectionInterface, FeedVenueInterface } from "@/utils";
 import { DisplayBox, MarkdownEditor, MarkdownPreview, SmallButton } from "@churchapps/apphelper";
 import { Grid, Table, TableBody, TableCell, TableHead, TableRow, TextField } from "@mui/material";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useSearchParams } from "next/navigation";
 
 export default function CP() {
 
@@ -13,6 +14,8 @@ export default function CP() {
   const [editSectionIndex, setEditSectionIndex] = useState<number>(null);
   const [editActionIndex, setEditActionIndex] = useState<number>(null);
   const [showPrintPreview, setShowPrintPreview] = useState(false);
+
+  const searchParams = useSearchParams();
 
   const handleMarkdownChange = (newValue: string) => {
     let d = { ...data };
@@ -64,7 +67,7 @@ export default function CP() {
     if (a.actionType==="play")
     {
       const fileCount = a.files.length;
-      return <a href="about:blank">{fileCount} file{(fileCount!==1) && "s"}</a>
+      return <i>{fileCount} file{(fileCount!==1) && "s"}</i>
     } else return null;
   }
 
@@ -182,6 +185,24 @@ export default function CP() {
     setEditSectionIndex(null);
     setEditActionIndex(null);
   }
+
+  const feedUrl = searchParams.get("feedUrl")
+
+  useEffect(() => {
+
+    console.log("feedUrl", feedUrl);
+    if (feedUrl) {
+      fetch(feedUrl, { method: "GET", headers: { "Content-Type": "application/json" } }).then((res) => {
+        if (res.ok) return res.json();
+        else throw new Error(res.statusText);
+      }).then((data) => {
+        console.log("data", data)
+        setData(data);
+      }).catch((err) => {
+        console.log(err);
+      });
+    }
+  }, [feedUrl]);
 
   if (!data) return <Wrapper><></></Wrapper>;
   else return (

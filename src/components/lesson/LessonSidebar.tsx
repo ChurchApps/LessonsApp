@@ -67,6 +67,12 @@ export function LessonSidebar(props: Props) {
     };
   }, []);
 
+  const handleExport = (e:React.MouseEvent) => {
+    e.preventDefault();
+    const feedUrl = "https://api.lessons.church/venues/public/feed/" + props.selectedVenue.id;
+    window.location.href = "/tools/olf?feedUrl=" + encodeURIComponent(feedUrl);
+  }
+
   return (
     <div id="lessonSidebar">
       <div id="lessonSidebarInner">
@@ -78,7 +84,11 @@ export function LessonSidebar(props: Props) {
         </Container>
         <hr />
         <Container>
-          <a href="about:blank" style={{float:"right", color:"#28235d"}} onClick={(e) => { e.preventDefault(); props.onPrint() }}><Icon style={{fontSize:20}}>print</Icon></a>
+          <span style={{float:"right"}}>
+            <a href="about:blank" style={{color:"#28235d"}} title="Export to OLF" onClick={handleExport}><Icon style={{fontSize:20}}>download</Icon></a> &nbsp;
+            <a href="about:blank" style={{color:"#28235d"}} title="print" onClick={(e) => { e.preventDefault(); props.onPrint() }}><Icon style={{fontSize:20}}>print</Icon></a>
+          </span>
+
           <h3>Sections</h3>
           <ul>
             {props.selectedVenue?.sections?.map((s, idx) => (s.actions?.length > 0) && (<li key={"section-" + idx}><a className="sectionLink" id={"sectionLink-" + idx} href={"#section-" + idx}>{s.name}</a></li>))}

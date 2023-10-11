@@ -30,6 +30,9 @@ export function OlfActionEdit(props: Props) {
         a.actionType = e.target.value;
         if (a.actionType === "play" && !a.files) a.files = [];
         break;
+      case "role":
+        a.role = e.target.value;
+        break;
       case "content":
         a.content = e.target.value;
         break;
@@ -138,6 +141,7 @@ export function OlfActionEdit(props: Props) {
             <MenuItem value="note" key="note">Note</MenuItem>
           </Select>
         </FormControl>
+        <TextField fullWidth label="Role (Optional)" name="role" value={action.role} onChange={handleChange} />
         {getContent()}
         {getFiles()}
       </InputBox>
