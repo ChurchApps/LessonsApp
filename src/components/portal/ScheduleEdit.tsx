@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { InputBox, ErrorMessages, ArrayHelper, DateHelper } from "@churchapps/apphelper";
+import { InputBox, ErrorMessages, ArrayHelper, DateHelper, SmallButton } from "@churchapps/apphelper";
 import { ApiHelper, ExternalProviderInterface, ScheduleInterface } from "@/utils";
 import { FormControl, InputLabel, MenuItem, Select, SelectChangeEvent, TextField } from "@mui/material";
 
@@ -161,10 +161,11 @@ export function ScheduleEdit(props: Props) {
     return result;
   }
 
+  const getHeaderContent = () => {
+    const currentVenue = ArrayHelper.getOne(currentLesson?.venues || [], "id", schedule.venueId);
+    if (currentVenue) return <SmallButton icon="open_in_new" text="Preview" onClick={() => { window.open("/tools/olf?feedUrl=" + encodeURIComponent(currentVenue.apiUrl), "_blank"); }} />
+  }
 
-  //useEffect(() => { if (readyToLoad) loadStudies(); }, [programId, readyToLoad]);
-  //useEffect(() => { if (readyToLoad) loadLessons(); }, [studyId, readyToLoad]);
-  //useEffect(() => { if (readyToLoad) loadVenues(); }, [schedule?.lessonId, readyToLoad]);
   useEffect(() => {
     loadInternal();
     loadExternalProviders();
@@ -175,10 +176,9 @@ export function ScheduleEdit(props: Props) {
   else {
     return (
       <>
-        <InputBox id="scheduleDetailsBox" headerText="Edit Schedule" headerIcon="school" saveFunction={handleSave} cancelFunction={handleCancel} deleteFunction={handleDelete}>
+        <InputBox id="scheduleDetailsBox" headerText="Edit Schedule" headerIcon="school" saveFunction={handleSave} cancelFunction={handleCancel} deleteFunction={handleDelete} headerActionContent={getHeaderContent()}>
           <ErrorMessages errors={errors} />
           <TextField fullWidth label="Schedule Date" type="date" name="scheduledDate" value={DateHelper.formatHtml5Date(schedule?.scheduledDate)} onChange={handleChange} onKeyDown={handleKeyDown} />
-
           <FormControl fullWidth>
             <InputLabel>Provider</InputLabel>
             <Select label="Provider" name="externalProvider" value={schedule.externalProviderId || "lessons.church"} onChange={handleProviderChange}>
@@ -186,12 +186,12 @@ export function ScheduleEdit(props: Props) {
             </Select>
           </FormControl>
 
-          <FormControl fullWidth>
+          {(externalProviders?.length > 0) && (<FormControl fullWidth>
             <InputLabel>Program</InputLabel>
             <Select label="Program" name="program" value={schedule.programId || ""} onChange={handleChange}>
               {getProgramOptions()}
             </Select>
-          </FormControl>
+          </FormControl>)}
           <FormControl fullWidth>
             <InputLabel>Study</InputLabel>
             <Select label="Study" name="study" value={schedule.studyId || ""} onChange={handleChange}>

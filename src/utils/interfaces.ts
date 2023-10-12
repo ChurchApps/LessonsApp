@@ -205,8 +205,8 @@ export interface DownloadInterface {
 export interface PlaylistFileInterface { name: string, url: string, seconds: number, loopVideo: boolean }
 
 
-export interface FeedActionInterface { actionType?: string, content?: string, files?: FeedFileInterface[] }
+export interface FeedActionInterface { actionType?: string, content?: string, role?: string,  files?: FeedFileInterface[] }
 export interface FeedDownloadInterface { name?: string, files?: FeedFileInterface[] }
-export interface FeedFileInterface { name?: string, url?: string, streamUrl?: string, bytes?: number, fileType?: string, seconds?: number, thumbnail?: string, loop?: boolean, id?: string; expires: Date }
+export interface FeedFileInterface { name?: string, url?: string, streamUrl?: string, bytes?: number, fileType?: string, seconds?: number, thumbnail?: string, loop?: boolean, id?: string; expires?: Date }
 export interface FeedSectionInterface { name?: string, actions?: FeedActionInterface[], materials?: string }
-export interface FeedVenueInterface { name?: string, lessonId:string, lessonName?: string, lessonImage?: string, lessonDescription?: string, studyName?: string, studySlug?: string, programName?: string, programSlug?: string, programAbout?:string, downloads?: FeedDownloadInterface[], sections?: FeedSectionInterface[] }
+export interface FeedVenueInterface { id?: string, name?: string, lessonId:string, lessonName?: string, lessonImage?: string, lessonDescription?: string, studyName?: string, studySlug?: string, programName?: string, programSlug?: string, programAbout?:string, downloads?: FeedDownloadInterface[], sections?: FeedSectionInterface[] }

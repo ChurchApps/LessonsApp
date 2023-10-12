@@ -1,8 +1,9 @@
 import { Container, Icon, MenuItem, Select } from "@mui/material";
 import { ArrayHelper, FeedVenueInterface } from "@/utils";
 import { MarkdownPreview } from "@churchapps/apphelper";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Downloads } from "./Downloads";
+import { OlfPrintPreview } from "../olf/OlfPrintPreview";
 
 type Props = {
   venues: FeedVenueInterface[],
@@ -12,11 +13,13 @@ type Props = {
 };
 
 export function LessonSidebar(props: Props) {
+  const [showPrintPreview, setShowPrintPreview] = useState(false);
 
   const handleAffix = () => {
     const sidebar = document.getElementById("lessonSidebar");
     const inner = document.getElementById("lessonSidebarInner");
     const footer = document.getElementById("footer");
+
 
     const shouldAffix = window.scrollY > (sidebar.offsetTop + 100)
     && window.scrollY < (document.documentElement.offsetHeight - footer.offsetHeight - window.innerHeight)
@@ -67,6 +70,12 @@ export function LessonSidebar(props: Props) {
     };
   }, []);
 
+  const handleExport = (e:React.MouseEvent) => {
+    e.preventDefault();
+    const feedUrl = "https://api.lessons.church/venues/public/feed/" + props.selectedVenue.id;
+    window.location.href = "/tools/olf?feedUrl=" + encodeURIComponent(feedUrl);
+  }
+
   return (
     <div id="lessonSidebar">
       <div id="lessonSidebarInner">
@@ -78,7 +87,11 @@ export function LessonSidebar(props: Props) {
         </Container>
         <hr />
         <Container>
-          <a href="about:blank" style={{float:"right", color:"#28235d"}} onClick={(e) => { e.preventDefault(); props.onPrint() }}><Icon style={{fontSize:20}}>print</Icon></a>
+          <span style={{float:"right"}}>
+            <a href="about:blank" style={{color:"#28235d"}} title="Export to OLF" onClick={handleExport}><Icon style={{fontSize:20}}>download</Icon></a> &nbsp;
+            <a href="about:blank" style={{color:"#28235d"}} title="print" onClick={(e) => { e.preventDefault(); setShowPrintPreview(true); }}><Icon style={{fontSize:20}}>print</Icon></a>
+          </span>
+
           <h3>Sections</h3>
           <ul>
             {props.selectedVenue?.sections?.map((s, idx) => (s.actions?.length > 0) && (<li key={"section-" + idx}><a className="sectionLink" id={"sectionLink-" + idx} href={"#section-" + idx}>{s.name}</a></li>))}
@@ -95,6 +108,9 @@ export function LessonSidebar(props: Props) {
           {props.selectedVenue.programAbout && ( <><MarkdownPreview value={props.selectedVenue.programAbout} /></> )}
         </Container>
       </div>
+
+      {showPrintPreview && <OlfPrintPreview feed={props.selectedVenue} onClose={() => { setShowPrintPreview(false) }} /> }
+
     </div>
 
   );

@@ -7,7 +7,7 @@ type Props = {
 
 export function PresenterSlide(props: Props) {
 
-  let result = <img src={props.file.url || ""} alt={props.file.name} style={{ maxWidth:"100%", maxHeight: "100%" }} />
+  let result = <img src={props.file.url || ""} alt={props.file.name} className="img-fluid" style={{ maxWidth:"100%", maxHeight: "100%" }} />
   const url = props.file.url;
   if (url.startsWith("vimeo:")) {
     const vimeoId = url.replace("vimeo:", "");
