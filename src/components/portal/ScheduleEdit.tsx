@@ -179,19 +179,19 @@ export function ScheduleEdit(props: Props) {
         <InputBox id="scheduleDetailsBox" headerText="Edit Schedule" headerIcon="school" saveFunction={handleSave} cancelFunction={handleCancel} deleteFunction={handleDelete} headerActionContent={getHeaderContent()}>
           <ErrorMessages errors={errors} />
           <TextField fullWidth label="Schedule Date" type="date" name="scheduledDate" value={DateHelper.formatHtml5Date(schedule?.scheduledDate)} onChange={handleChange} onKeyDown={handleKeyDown} />
-          <FormControl fullWidth>
+          {(externalProviders?.length > 0) && (<FormControl fullWidth>
             <InputLabel>Provider</InputLabel>
             <Select label="Provider" name="externalProvider" value={schedule.externalProviderId || "lessons.church"} onChange={handleProviderChange}>
               {getProviderOptions()}
             </Select>
-          </FormControl>
+          </FormControl>)}
 
-          {(externalProviders?.length > 0) && (<FormControl fullWidth>
+          <FormControl fullWidth>
             <InputLabel>Program</InputLabel>
             <Select label="Program" name="program" value={schedule.programId || ""} onChange={handleChange}>
               {getProgramOptions()}
             </Select>
-          </FormControl>)}
+          </FormControl>
           <FormControl fullWidth>
             <InputLabel>Study</InputLabel>
             <Select label="Study" name="study" value={schedule.studyId || ""} onChange={handleChange}>
