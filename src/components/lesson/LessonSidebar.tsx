@@ -3,7 +3,7 @@ import { ArrayHelper, FeedVenueInterface } from "@/utils";
 import { MarkdownPreview } from "@churchapps/apphelper";
 import React, { useEffect, useState } from "react";
 import { Downloads } from "./Downloads";
-import { OlfPrintPreview } from "../olf/OlfPrintPreview";
+import { OlfPrintPreview } from "../open-lesson/OlfPrintPreview";
 
 type Props = {
   venues: FeedVenueInterface[],
