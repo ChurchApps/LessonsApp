@@ -1,7 +1,7 @@
 import { Wrapper } from "@/components/Wrapper";
-import { OlfActionEdit } from "@/components/olf/OlfActionEdit";
-import { OlfPrintPreview } from "@/components/olf/OlfPrintPreview";
-import { OlfSectionEdit } from "@/components/olf/OlfSectionEdit";
+import { OlfActionEdit } from "@/components/open-lesson/OlfActionEdit";
+import { OlfPrintPreview } from "@/components/open-lesson/OlfPrintPreview";
+import { OlfSectionEdit } from "@/components/open-lesson/OlfSectionEdit";
 import { FeedActionInterface, FeedSectionInterface, FeedVenueInterface, PlaylistFileInterface } from "@/utils";
 import { DisplayBox, MarkdownEditor, MarkdownPreview, SmallButton } from "@churchapps/apphelper";
 import { Grid, Table, TableBody, TableCell, TableHead, TableRow, TextField } from "@mui/material";
