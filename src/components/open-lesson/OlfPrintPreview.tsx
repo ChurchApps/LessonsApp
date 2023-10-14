@@ -53,10 +53,10 @@ export const OlfPrintPreview: React.FC<Props> = (props: Props) => {
   return (<>
     <Dialog open={true} onClose={props.onClose} fullScreen={true}>
       <Grid container>
-        <Grid item sm={6}>
+        <Grid item sm={4}>
           <DialogTitle>Print Preview</DialogTitle>
         </Grid>
-        <Grid item sm={6}>
+        <Grid item sm={8}>
           <DialogActions sx={{ paddingX: "16px", paddingBottom: "12px" }}>
             {getTabs()}
             &nbsp;
