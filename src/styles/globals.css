@@ -1079,19 +1079,19 @@ a.dropdown-toggle::after {
   margin-bottom: 20px;
 }
 
-#b1Tabs {
+#b1Tabs, #embedTabs {
   background-color:#28235d;
   position:fixed;
   width:100%;
   z-index:9999;
 }
 
-#b1Tabs .MuiTab-root
+#b1Tabs .MuiTab-root, #embedTabs .MuiTab-root
 {
   color:#FFF;
 }
 
-#b1Tabs .Mui-selected
+#b1Tabs .Mui-selected, #embedTabs .Mui-selected
 {
   background-color:#FFF;
   color:#28235d;
