@@ -109,7 +109,7 @@ export function Action(props: Props) {
         result = (<div className="playAction">
           {duration}
           {thumbnail && <Image src={thumbnail} alt={props.action.content} width={128} height={72} style={{height:72}} /> }
-          <a href={f.url} rel="noopener noreferrer" onClick={(e) => { e.preventDefault(); handlePreviewClick(f); }} className="text">{f.name}</a>
+          <a href={f.url} rel="noopener noreferrer" onClick={(e) => { e.preventDefault(); handlePreviewClick(f); }} className="text">{props.action.content}</a>
           {f.streamUrl && showPreview && <VideoModal onClose={() => setShowPreview(false)} url={f.streamUrl} loopVideo={f.loop} />}
           {(!f.streamUrl) && showPreview && <ImageModal onClose={() => setShowPreview(false)} url={f.url} />}
         </div>);
