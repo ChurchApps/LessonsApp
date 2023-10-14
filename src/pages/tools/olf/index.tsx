@@ -96,7 +96,7 @@ export default function CP() {
   const getActions = (s: FeedSectionInterface, sectionIndex:number) => {
     let result:JSX.Element[] = [];
     s.actions?.forEach((a, j) => {
-      result.push(<TableRow key={j}>
+      result.push(<TableRow key={"action-" + sectionIndex + "-" + j}>
         <TableCell></TableCell>
         <TableCell>
           {(j!==0) && <SmallButton icon="arrow_upward" onClick={() => { moveAction(sectionIndex, j, "up") }} />}
@@ -114,7 +114,7 @@ export default function CP() {
   const getSections = () => {
     let result:JSX.Element[] = [];
     data?.sections?.forEach((s, i) => {
-      result.push(<TableRow key={"section" + i}>
+      result.push(<TableRow key={"section-" + s.name}>
         <TableCell>
           {(i!==0) && <SmallButton icon="arrow_upward" onClick={() => { moveSection(i, "up") }} />}
           {(i<data.sections.length-1) && <SmallButton icon="arrow_downward" onClick={() => { moveSection(i, "down") }} />}
