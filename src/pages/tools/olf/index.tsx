@@ -233,27 +233,27 @@ export default function CP() {
           <DisplayBox headerText="Venue Details" headerIcon="map_marker">
             <Grid container spacing={3}>
               <Grid item xs={6}>
-                <TextField label="Program Name" fullWidth name="programName" value={data.programName} onChange={handleChange} placeholder="The Ark Kids" />
+                <TextField label="Program Name" fullWidth name="programName" value={data.programName || ""} onChange={handleChange} placeholder="The Ark Kids" />
               </Grid>
               <Grid item xs={6}>
-                <TextField label="Study Name" fullWidth name="studyName" value={data.studyName} onChange={handleChange} placeholder="Peace" />
+                <TextField label="Study Name" fullWidth name="studyName" value={data.studyName || ""} onChange={handleChange} placeholder="Peace" />
               </Grid>
             </Grid>
             <Grid container spacing={3}>
               <Grid item xs={6}>
-                <TextField label="Lesson Name" fullWidth name="lessonName" value={data.lessonName} onChange={handleChange} placeholder="I Can Have Peace When I'm Angry" />
+                <TextField label="Lesson Name" fullWidth name="lessonName" value={data.lessonName || ""} onChange={handleChange} placeholder="I Can Have Peace When I'm Angry" />
               </Grid>
               <Grid item xs={6}>
-                <TextField label="Lesson Image" fullWidth name="lessonImage" value={data.lessonImage} onChange={handleChange} placeholder="https://content.lessons.church/lessons/LokAPfneEmp.png" />
+                <TextField label="Lesson Image" fullWidth name="lessonImage" value={data.lessonImage || ""} onChange={handleChange} placeholder="https://content.lessons.church/lessons/LokAPfneEmp.png" />
               </Grid>
             </Grid>
             <Grid container spacing={3}>
               <Grid item xs={6}>
                 <label style={{ fontSize:13, paddingLeft:10 }}>Lesson Description</label>
-                <MarkdownEditor value={data.lessonDescription} onChange={handleMarkdownChange} />
+                <MarkdownEditor value={data.lessonDescription || ""} onChange={handleMarkdownChange} />
               </Grid>
               <Grid item xs={6}>
-                <TextField label="Venue Name" fullWidth name="name" value={data.name} onChange={handleChange} placeholder="Classroom" />
+                <TextField label="Venue Name" fullWidth name="name" value={data.name || ""} onChange={handleChange} placeholder="Classroom" />
               </Grid>
             </Grid>
           </DisplayBox>
