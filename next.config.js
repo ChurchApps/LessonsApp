@@ -13,7 +13,7 @@ const config = {
   images: {
     domains: ["content.lessons.church", "content.staging.lessons.church", "i.vimeocdn.com", "d347bo4ltvvnaz.cloudfront.net", "files.churchpdf.com"]
   },
-  transpilePackages: ["@churchapps/apphelper"]
+  transpilePackages: ["@churchapps/apphelper", "mui-tel-input"]
 }
 
 

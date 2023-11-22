@@ -15,7 +15,7 @@ type Props = { lessonData: { venues: FeedVenueInterface[] }; hasError: boolean; 
 
 export default function LessonsPage(props: Props) {
 
-  const [selectedVenue, setSelectedVenue] = React.useState<FeedVenueInterface>(props.lessonData.venues?.[0]);
+  const [selectedVenue, setSelectedVenue] = React.useState<FeedVenueInterface>(props.lessonData?.venues?.[0]);
   const [print, setPrint] = React.useState<number>(0);
   const [presenterFiles, setPresenterFiles] = React.useState<PlaylistFileInterface[]>(null);
 
@@ -59,7 +59,7 @@ export default function LessonsPage(props: Props) {
 
       <Grid container spacing={2}>
         <Grid item md={3} sm={12} style={{backgroundColor:"#FFF"}}>
-          <LessonSidebar venues={props.lessonData.venues} selectedVenue={selectedVenue} onVenueChange={(v) => { setSelectedVenue(v); }} onPrint={() => { setPrint(Math.random()) } } />
+          <LessonSidebar venues={props.lessonData?.venues} selectedVenue={selectedVenue} onVenueChange={(v) => { setSelectedVenue(v); }} onPrint={() => { setPrint(Math.random()) } } />
         </Grid>
         <Grid item md={9} sm={12}>
           <Container>
@@ -98,12 +98,13 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
   try {
 
     const lessonData = await ApiHelper.getAnonymous("/lessons/public/slugAlt/" + params.programSlug + "/" + params.studySlug + "/" + params.lessonSlug, "LessonsApi");
-
+    console.log("just below lessonData: ", lessonData)
     return {
       props: { lessonData, hasError: false },
       revalidate: 30,
     };
   } catch (error: any) {
+    console.log("inside catch: ", error)
     return {
       props: {
         hasError: true, error: {
