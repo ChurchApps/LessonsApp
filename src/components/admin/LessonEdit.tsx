@@ -87,7 +87,7 @@ export function LessonEdit(props: Props) {
     setShowImageEditor(true);
   };
 
-  const handleSlug = () => {
+  const handleSlugValidation = () => {
     const l = { ...lesson };
     const removeCharacters = ["for", "and", "nor", "but", "or", "yet", "so", "the", "a", "an"];
     const characStr = removeCharacters.join("|");
@@ -147,7 +147,7 @@ export function LessonEdit(props: Props) {
           </div>
         ): (
           <TextField fullWidth label="Url Slug" name="slug" value={lesson.slug} onChange={handleChange} helperText="Make sure to check before saving"
-            InputProps={{ endAdornment: <Button variant="contained" color="primary" onClick={handleSlug}>Check</Button> }}
+            InputProps={{ endAdornment: <Button variant="contained" color="primary" onClick={handleSlugValidation}>Check</Button> }}
           />
         )}
         <TextField fullWidth multiline label="Description" name="description" value={lesson.description} onChange={handleChange} onKeyDown={handleKeyDown} />

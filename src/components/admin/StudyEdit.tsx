@@ -73,7 +73,7 @@ export function StudyEdit(props: Props) {
 
   const handleImageClick = (e: React.MouseEvent) => { e.preventDefault(); setShowImageEditor(true); };
   
-  const handleSlug = () => {
+  const handleSlugValidation = () => {
     const s = { ...study };
     const removeCharacters = ["for", "and", "nor", "but", "or", "yet", "so", "the", "a", "an"];
     const characStr = removeCharacters.join("|");
@@ -130,7 +130,7 @@ export function StudyEdit(props: Props) {
           </div>
         ) : (
           <TextField fullWidth label="Url Slug" name="slug" value={study.slug} onChange={handleChange} helperText="Make sure to check before saving"
-            InputProps={{ endAdornment: <Button variant="contained" color="primary" onClick={handleSlug}>Check</Button> }}
+            InputProps={{ endAdornment: <Button variant="contained" color="primary" onClick={handleSlugValidation}>Check</Button> }}
           />
         )}
         <TextField fullWidth label="One-Line Description" name="shortDescription" value={study.shortDescription} onChange={handleChange} onKeyDown={handleKeyDown} />
