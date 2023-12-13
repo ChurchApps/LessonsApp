@@ -1,8 +1,10 @@
 import { useState, useEffect } from "react";
+import slug from "slug";
 import { ImageEditor } from "../index";
 import { InputBox, ErrorMessages } from "@churchapps/apphelper";
 import { ApiHelper, LessonInterface, StudyInterface, ProgramInterface } from "@/utils";
-import { FormControl, Grid, InputLabel, MenuItem, Select, SelectChangeEvent, TextField } from "@mui/material";
+import { Button, FormControl, Grid, IconButton, InputLabel, MenuItem, Paper, Select, SelectChangeEvent, Stack, TextField, Typography } from "@mui/material";
+import EditIcon from '@mui/icons-material/Edit';
 
 type Props = {
   lesson: LessonInterface;
@@ -16,6 +18,7 @@ export function LessonEdit(props: Props) {
 
   const [errors, setErrors] = useState([]);
   const [showImageEditor, setShowImageEditor] = useState<boolean>(false);
+  const [checked, setChecked] = useState<boolean>();
 
   const handleCancel = () => props.updatedCallback(lesson);
 
@@ -58,7 +61,8 @@ export function LessonEdit(props: Props) {
 
   const validate = () => {
     let errors = [];
-    if (lesson.name === "") errors.push("Please enter a lesson name.");
+    if (!lesson.name || (lesson.name === "" || null)) errors.push("Please enter a lesson name.");
+    if (!checked) errors.push("Please check Url Slug")
     setErrors(errors);
     return errors.length === 0;
   };
@@ -83,7 +87,17 @@ export function LessonEdit(props: Props) {
     setShowImageEditor(true);
   };
 
-  useEffect(() => { setLesson(props.lesson); loadStudy(props.lesson.studyId); }, [props.lesson]);
+  const handleSlugValidation = () => {
+    const l = { ...lesson };
+    const removeCharacters = ["for", "and", "nor", "but", "or", "yet", "so", "the", "a", "an"];
+    const characStr = removeCharacters.join("|");
+    const verfiedSlug = slug(l.slug, { remove: new RegExp('\\b(' + characStr + ')\\b', 'gi') });
+    l.slug = verfiedSlug;
+    setLesson(l);
+    setChecked(true);
+  }
+
+  useEffect(() => { setLesson(props.lesson); loadStudy(props.lesson.studyId); if (props.lesson.slug) setChecked(true) }, [props.lesson]);
 
   const getImageEditor = () => {
     if (showImageEditor)
@@ -117,12 +131,25 @@ export function LessonEdit(props: Props) {
         </Grid>
         <TextField fullWidth label="Lesson Name" name="name" value={lesson.name} onChange={handleChange} onKeyDown={handleKeyDown} placeholder="Lesson 1" />
         <TextField fullWidth label="Title" name="title" value={lesson.title} onChange={handleChange} onKeyDown={handleKeyDown} placeholder="Jesus Feeds 5,000" />
-        <TextField fullWidth label="Url Slug" name="slug" value={lesson.slug} onChange={handleChange} onKeyDown={handleKeyDown} />
-        <div>
-          <a href={"https://lessons.church/" + program?.slug + "/" + study?.slug + "/" + lesson.slug + "/"} target="_blank" rel="noopener noreferrer">
-            {"https://lessons.church/" + program?.slug + "/" + study?.slug + "/" + lesson.slug + "/"}
-          </a>
-        </div>
+        {checked ? (
+          <div style={{ paddingTop: "5px", paddingLeft: "4px" }}>
+            <Paper elevation={0}>
+              <Stack direction="row" alignItems="center" justifyContent="space-between">
+                <Typography>{lesson.slug}</Typography>
+                <IconButton onClick={() => setChecked(false)} color="primary"><EditIcon /></IconButton>
+              </Stack>
+            </Paper>
+            <div>
+              <a href={"https://lessons.church/" + program?.slug + "/" + study?.slug + "/" + lesson.slug + "/"} target="_blank" rel="noopener noreferrer">
+                {"https://lessons.church/" + program?.slug + "/" + study?.slug + "/" + lesson.slug + "/"}
+              </a>
+            </div>
+          </div>
+        ): (
+          <TextField fullWidth label="Url Slug" name="slug" value={lesson.slug} onChange={handleChange} helperText="Make sure to check before saving"
+            InputProps={{ endAdornment: <Button variant="contained" color="primary" onClick={handleSlugValidation}>Check</Button> }}
+          />
+        )}
         <TextField fullWidth multiline label="Description" name="description" value={lesson.description} onChange={handleChange} onKeyDown={handleKeyDown} />
         <TextField fullWidth label="Video Embed Url" name="videoEmbedUrl" value={lesson.videoEmbedUrl} onChange={handleChange} onKeyDown={handleKeyDown} />
       </InputBox>
