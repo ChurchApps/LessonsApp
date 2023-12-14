@@ -88,10 +88,31 @@ export function LessonEdit(props: Props) {
   };
 
   const handleSlugValidation = () => {
+
+    const numerifySlug = (slug: string) => {
+      let initialString = slug;
+      const regex = /\d+(?:-\d+)+|\d+/g;
+      const matchedArray = initialString.match(regex);
+      if (matchedArray) {
+        matchedArray.forEach((data) => {
+          const length = data.length;
+          let splitResult = data;
+          if (length > 1) {
+            const array = data.split("");
+            splitResult = array[0];
+          }
+          const replacedString = initialString.replace(data, splitResult);
+          initialString = replacedString;
+        });
+      }
+      return initialString;
+    }
+
     const l = { ...lesson };
     const removeCharacters = ["for", "and", "nor", "but", "or", "yet", "so", "the", "a", "an"];
     const characStr = removeCharacters.join("|");
-    const verfiedSlug = slug(l.slug, { remove: new RegExp('\\b(' + characStr + ')\\b', 'gi') });
+    const initialSlug = slug(l.slug, { remove: new RegExp('\\b(' + characStr + ')\\b', 'gi') });
+    const verfiedSlug = numerifySlug(initialSlug); //remove multiple numbers in sequence
     l.slug = verfiedSlug;
     setLesson(l);
     setChecked(true);

@@ -74,10 +74,31 @@ export function StudyEdit(props: Props) {
   const handleImageClick = (e: React.MouseEvent) => { e.preventDefault(); setShowImageEditor(true); };
   
   const handleSlugValidation = () => {
+
+    const numerifySlug = (slug: string) => {
+      let initialString = slug;
+      const regex = /\d+(?:-\d+)+|\d+/g;
+      const matchedArray = initialString.match(regex);
+      if (matchedArray) {
+        matchedArray.forEach((data) => {
+          const length = data.length;
+          let splitResult = data;
+          if (length > 1) {
+            const array = data.split("");
+            splitResult = array[0];
+          }
+          const replacedString = initialString.replace(data, splitResult);
+          initialString = replacedString;
+        });
+      }
+      return initialString;
+    }
+
     const s = { ...study };
     const removeCharacters = ["for", "and", "nor", "but", "or", "yet", "so", "the", "a", "an"];
     const characStr = removeCharacters.join("|");
-    const verfiedSlug = slug(s.slug, { remove: new RegExp('\\b(' + characStr + ')\\b', 'gi') });
+    const initialSlug = slug(s.slug, { remove: new RegExp('\\b(' + characStr + ')\\b', 'gi') });
+    const verfiedSlug = numerifySlug(initialSlug); //remove multiple numbers in sequence
     s.slug = verfiedSlug;
     setStudy(s);
     setChecked(true);
