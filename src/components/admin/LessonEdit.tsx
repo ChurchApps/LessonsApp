@@ -1,7 +1,6 @@
 import { useState, useEffect } from "react";
-import slug from "slug";
 import { ImageEditor } from "../index";
-import { InputBox, ErrorMessages } from "@churchapps/apphelper";
+import { InputBox, ErrorMessages, SlugHelper } from "@churchapps/apphelper";
 import { ApiHelper, LessonInterface, StudyInterface, ProgramInterface } from "@/utils";
 import { Button, FormControl, Grid, IconButton, InputLabel, MenuItem, Paper, Select, SelectChangeEvent, Stack, TextField, Typography } from "@mui/material";
 import EditIcon from '@mui/icons-material/Edit';
@@ -88,32 +87,8 @@ export function LessonEdit(props: Props) {
   };
 
   const handleSlugValidation = () => {
-
-    const numerifySlug = (slug: string) => {
-      let initialString = slug;
-      const regex = /\d+(?:-\d+)+|\d+/g;
-      const matchedArray = initialString.match(regex);
-      if (matchedArray) {
-        matchedArray.forEach((data) => {
-          const length = data.length;
-          let splitResult = data;
-          if (length > 1) {
-            const array = data.split("");
-            splitResult = array[0];
-          }
-          const replacedString = initialString.replace(data, splitResult);
-          initialString = replacedString;
-        });
-      }
-      return initialString;
-    }
-
     const l = { ...lesson };
-    const removeCharacters = ["for", "and", "nor", "but", "or", "yet", "so", "the", "a", "an"];
-    const characStr = removeCharacters.join("|");
-    const initialSlug = slug(l.slug, { remove: new RegExp('\\b(' + characStr + ')\\b', 'gi') });
-    const verfiedSlug = numerifySlug(initialSlug); //remove multiple numbers in sequence
-    l.slug = verfiedSlug;
+    l.slug = SlugHelper.slugifyString(l.slug, "urlSlug");
     setLesson(l);
     setChecked(true);
   }

@@ -10,7 +10,7 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@churchapps/apphelper": "^0.1.6",
+    "@churchapps/apphelper": "^0.1.10",
     "@mui/icons-material": "^5.14.7",
     "@mui/lab": "^5.0.0-alpha.142",
     "@mui/material": "^5.14.7",
@@ -30,14 +30,12 @@
     "react-simple-maps": "^3.0.0",
     "react-to-print": "^2.14.13",
     "react-tooltip": "^5.21.1",
-    "react-vimeo": "^2.0.0",
-    "slug": "^8.2.3"
+    "react-vimeo": "^2.0.0"
   },
   "devDependencies": {
     "@types/node": "^20.5.9",
     "@types/react": "^18.2.21",
     "@types/react-simple-maps": "^3.0.0",
-    "@types/slug": "^5.0.7",
     "eslint": "8.48.0",
     "eslint-config-next": "^13.4.19",
     "eslint-plugin-unused-imports": "^3.0.0",
