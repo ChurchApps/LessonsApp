@@ -1,7 +1,6 @@
 import { useState, useEffect } from "react";
-import slug from "slug";
 import { ImageEditor } from "../index";
-import { InputBox, ErrorMessages } from "@churchapps/apphelper";
+import { InputBox, ErrorMessages, SlugHelper } from "@churchapps/apphelper";
 import { ApiHelper, LessonInterface, StudyInterface, ProgramInterface } from "@/utils";
 import { Button, FormControl, Grid, IconButton, InputLabel, MenuItem, Paper, Select, SelectChangeEvent, Stack, TextField, Typography } from "@mui/material";
 import EditIcon from '@mui/icons-material/Edit';
@@ -89,10 +88,7 @@ export function LessonEdit(props: Props) {
 
   const handleSlugValidation = () => {
     const l = { ...lesson };
-    const removeCharacters = ["for", "and", "nor", "but", "or", "yet", "so", "the", "a", "an"];
-    const characStr = removeCharacters.join("|");
-    const verfiedSlug = slug(l.slug, { remove: new RegExp('\\b(' + characStr + ')\\b', 'gi') });
-    l.slug = verfiedSlug;
+    l.slug = SlugHelper.slugifyString(l.slug, "urlSlug");
     setLesson(l);
     setChecked(true);
   }
