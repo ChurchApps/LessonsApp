@@ -1,7 +1,9 @@
 import { useState, useEffect } from "react";
-import { InputBox, ErrorMessages, ArrayHelper, DateHelper, SmallButton } from "@churchapps/apphelper";
+import { InputBox, ErrorMessages, ArrayHelper, DateHelper } from "@churchapps/apphelper";
 import { ApiHelper, ExternalProviderInterface, ScheduleInterface } from "@/utils";
-import { FormControl, InputLabel, MenuItem, Select, SelectChangeEvent, TextField } from "@mui/material";
+import { Button, FormControl, InputLabel, MenuItem, Select, SelectChangeEvent, TextField } from "@mui/material";
+import OpenInNewIcon from '@mui/icons-material/OpenInNew';
+import PrintIcon from '@mui/icons-material/Print';
 
 type Props = {
   schedule: ScheduleInterface;
@@ -163,7 +165,7 @@ export function ScheduleEdit(props: Props) {
 
   const getHeaderContent = () => {
     const currentVenue = ArrayHelper.getOne(currentLesson?.venues || [], "id", schedule.venueId);
-    if (currentVenue) return <SmallButton icon="open_in_new" text="Preview" onClick={() => { window.open("/tools/olf?feedUrl=" + encodeURIComponent(currentVenue.apiUrl), "_blank"); }} />
+    if (currentVenue) return <Button variant="contained" size="small" startIcon={<OpenInNewIcon />} endIcon={<PrintIcon />} onClick={(e) => { e.preventDefault(); window.open("/tools/olf?feedUrl=" + encodeURIComponent(currentVenue.apiUrl), "_blank"); }}>Preview / Print</Button>
   }
 
   useEffect(() => {
