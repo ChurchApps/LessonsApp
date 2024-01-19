@@ -44,16 +44,22 @@ export function ScheduleEdit(props: Props) {
 
   if (JSON.stringify(s)!==JSON.stringify(schedule)) setSchedule(s);
 
-  const loadExternalProviders = () => {
-    ApiHelper.get("/externalProviders", "LessonsApi").then((data: any) => {
-      setExternalProviders(data);
-    });
+  const loadExternalProviderData = async (externalProviders:ExternalProviderInterface[], externalProviderId:string) => {
+    const ep:ExternalProviderInterface = ArrayHelper.getOne(externalProviders, "id", externalProviderId);
+    const data = await ApiHelper.fetchWithErrorHandling(ep.apiUrl, { method: "GET" });
+    setLessonTree(data);
+  }
+
+  const loadExternalProviders = async () => {
+    const data = await ApiHelper.get("/externalProviders", "LessonsApi");
+    setExternalProviders(data)
+    return data;
   };
 
-  const loadInternal = () => {
-    ApiHelper.getAnonymous("/lessons/public/tree", "LessonsApi").then((data: any) => {
-      setLessonTree(data);
-    });
+  const loadInternal = async () => {
+    const data = await ApiHelper.getAnonymous("/lessons/public/tree", "LessonsApi");
+    setLessonTree(data);
+    return data;
   };
 
   const handleCancel = () => props.updatedCallback(schedule);
@@ -71,13 +77,7 @@ export function ScheduleEdit(props: Props) {
     let s = { ...schedule };
     s.externalProviderId = e.target.value.replace("lessons.church", "");
     if (s.externalProviderId === "") loadInternal();
-    else {
-      const ep:ExternalProviderInterface = ArrayHelper.getOne(externalProviders, "id", e.target.value);
-      ApiHelper.fetchWithErrorHandling(ep.apiUrl, { method: "GET" }).then((data: any) => {
-        setLessonTree(data);
-      });
-    }
-
+    else loadExternalProviderData(externalProviders, e.target.value);
     setSchedule(s);
   };
 
@@ -168,10 +168,17 @@ export function ScheduleEdit(props: Props) {
     if (currentVenue) return <Button variant="contained" size="small" startIcon={<OpenInNewIcon />} endIcon={<PrintIcon />} onClick={(e) => { e.preventDefault(); window.open("/tools/olf?feedUrl=" + encodeURIComponent(currentVenue.apiUrl), "_blank"); }}>Preview / Print</Button>
   }
 
-  useEffect(() => {
-    loadInternal();
-    loadExternalProviders();
-  }, [props.schedule]);
+  const loadData = async () => {
+    await loadInternal();
+    const external = await loadExternalProviders();
+    if (schedule.externalProviderId) {
+      await loadExternalProviderData(external, schedule.externalProviderId);
+      const s = { ...props.schedule };
+      setSchedule(s);
+    }
+  }
+
+  useEffect(() => { loadData() }, [props.schedule]);
 
 
   if (!schedule) return <></>
