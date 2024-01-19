@@ -32,6 +32,7 @@ export const Wrapper: React.FC<Props> = props => {
 
   const navContent = <><List component="nav" sx={Themes.NavBarStyle}>{tabs}</List></>
 
+  console.log("CONTEXT IS", context)
 
   return <ThemeProvider theme={Themes.BaseTheme}>
     <CssBaseline />
