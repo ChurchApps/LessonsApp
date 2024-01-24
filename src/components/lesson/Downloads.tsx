@@ -42,7 +42,7 @@ export function Downloads(props: Props) {
     props.downloads?.forEach((d, idx) => {
       result.push(
         <li key={"download-" + idx}>
-          <a href={d.files[0].url + "&download=1"} onClick={(e) => { trackDownload(d); checkExpire(d.files[0], e) }} download={true}>
+          <a href={d.files[0].url} onClick={(e) => { trackDownload(d); checkExpire(d.files[0], e) }} download={true}>
             <Icon>download</Icon>
             {d?.name}
           </a>
