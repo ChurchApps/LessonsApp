@@ -38,14 +38,49 @@ export default function Venue() {
       setSchedules(filteredSchedules);
       const lessonIds = ArrayHelper.getIds(filteredSchedules, "lessonId");
       if (lessonIds.length > 0) {
-        const l = await ApiHelper.get("/lessons/public/ids?ids=" + lessonIds, "LessonsApi");
-        setLessons(l);
-        const studyIds = ArrayHelper.getIds(l, "studyId");
-        if (studyIds.length > 0) {
-          const st = await ApiHelper.get("/studies/public/ids?ids=" + studyIds, "LessonsApi");
-          setStudies(st);
-        }
+        await loadLessons(lessonIds);
       }
+    }
+  }
+
+  const loadExternalLessons = async (externalProviderId:string, schedules:ScheduleInterface[]) => {
+    const data = await ApiHelper.get("/externalProvides/" + externalProviderId + "/lessons", "LessonsApi");
+    const lessonArray:LessonInterface[] = [];
+    const studyArray:StudyInterface[] = [];
+
+    schedules.forEach(s => {
+      const program = ArrayHelper.getOne(data.programs, "id", s.programId);
+      const study = ArrayHelper.getOne(program?.studies, "id", s.studyId);
+      const lesson = ArrayHelper.getOne(study?.lessons, "id", s.lessonId);
+      if (lesson)
+      {
+        lessonArray.push(lesson);
+        if (!ArrayHelper.getOne(studyArray, "id", lesson.studyId)) studyArray.push(study);
+      }
+    });
+    setLessons(lessonArray);
+    setStudies(studyArray);
+    //const program = ArrayHelper.getOne(data.programs, "id", programId);
+
+
+
+
+    /*
+    setLessons(l);
+    const studyIds = ArrayHelper.getIds(l, "studyId");
+    if (studyIds.length > 0) {
+      const st = await ApiHelper.get("/studies/public/ids?ids=" + studyIds, "LessonsApi");
+      setStudies(st);
+    }*/
+  }
+
+  const loadLessons = async (lessonIds:string[]) => {
+    const l = await ApiHelper.get("/lessons/public/ids?ids=" + lessonIds, "LessonsApi");
+    setLessons(l);
+    const studyIds = ArrayHelper.getIds(l, "studyId");
+    if (studyIds.length > 0) {
+      const st = await ApiHelper.get("/studies/public/ids?ids=" + studyIds, "LessonsApi");
+      setStudies(st);
     }
   }
 
