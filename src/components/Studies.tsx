@@ -11,7 +11,9 @@ type Props = {
 export function Studies({ studies, slug }: Props) {
 
   const createStudyCard = (study: StudyInterface) => {
-    const studyUrl = slug + `/${study.slug}`;
+    const studyUrl = (slug.startsWith("/external/"))
+      ? slug + `/${study.id}`
+      : slug + `/${study.slug}`
     return (
       <Grid item md={6} xs={12} key={study.id}>
         <Link href={studyUrl}>

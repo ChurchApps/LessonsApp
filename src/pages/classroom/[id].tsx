@@ -3,8 +3,9 @@ import { useRouter } from "next/router";
 import { Layout } from "@/components";
 import { ApiHelper, ClassroomInterface, LessonInterface, ProgramInterface, ScheduleInterface, StudyInterface } from "@/utils";
 import Link from "next/link";
-import { ArrayHelper, DateHelper, ChurchInterface } from "@churchapps/apphelper";
+import { ArrayHelper, DateHelper, ChurchInterface, MarkdownPreview } from "@churchapps/apphelper";
 import { AppBar, Container, Grid, Stack } from "@mui/material";
+import { ExternalProviderHelper } from "@/utils/ExternalProviderHelper";
 
 export default function Venue() {
   const [classroom, setClassroom] = useState<ClassroomInterface>(null);
@@ -38,14 +39,53 @@ export default function Venue() {
       setSchedules(filteredSchedules);
       const lessonIds = ArrayHelper.getIds(filteredSchedules, "lessonId");
       if (lessonIds.length > 0) {
-        const l = await ApiHelper.get("/lessons/public/ids?ids=" + lessonIds, "LessonsApi");
-        setLessons(l);
-        const studyIds = ArrayHelper.getIds(l, "studyId");
-        if (studyIds.length > 0) {
-          const st = await ApiHelper.get("/studies/public/ids?ids=" + studyIds, "LessonsApi");
-          setStudies(st);
-        }
+        if (filteredSchedules[0].externalProviderId) await loadExternalLessons(filteredSchedules[0].externalProviderId, filteredSchedules);
+        else await loadLessons(lessonIds);
       }
+    }
+  }
+
+  const loadExternalLessons = async (externalProviderId:string, schedules:ScheduleInterface[]) => {
+    const data = await ApiHelper.get("/externalProviders/" + externalProviderId + "/lessons", "LessonsApi");
+    const lessonArray:LessonInterface[] = [];
+    const studyArray:StudyInterface[] = [];
+    console.log("Data is: ", data);
+
+    schedules.forEach(s => {
+      const {lesson, study, program} = ExternalProviderHelper.getLesson(data, s.programId, s.studyId, s.lessonId);
+      if (lesson)
+      {
+        lessonArray.push(lesson);
+        if (!ArrayHelper.getOne(studyArray, "id", lesson.studyId)) studyArray.push(study);
+      }
+    });
+    console.log("Lessons are: ", lessonArray);
+    console.log("Studies are: ", studyArray);
+
+    setLessons(lessonArray);
+    setStudies(studyArray);
+    setPrograms(data.programs);
+    //const program = ArrayHelper.getOne(data.programs, "id", programId);
+
+
+
+
+    /*
+    setLessons(l);
+    const studyIds = ArrayHelper.getIds(l, "studyId");
+    if (studyIds.length > 0) {
+      const st = await ApiHelper.get("/studies/public/ids?ids=" + studyIds, "LessonsApi");
+      setStudies(st);
+    }*/
+  }
+
+  const loadLessons = async (lessonIds:string[]) => {
+    const l = await ApiHelper.get("/lessons/public/ids?ids=" + lessonIds, "LessonsApi");
+    setLessons(l);
+    const studyIds = ArrayHelper.getIds(l, "studyId");
+    if (studyIds.length > 0) {
+      const st = await ApiHelper.get("/studies/public/ids?ids=" + studyIds, "LessonsApi");
+      setStudies(st);
     }
   }
 
@@ -73,7 +113,10 @@ export default function Venue() {
     schedules?.forEach(s => {
       const { lesson, study, program } = getRowData(s);
       if (program) {
-        const url = "/" + program.slug + "/" + study.slug + "/" + lesson.slug;
+        const url = (s.externalProviderId)
+          ? "/external/" + s.externalProviderId + "/" + s.programId + "/" + s.studyId + "/" + s.lessonId
+          : "/" + program.slug + "/" + study.slug + "/" + lesson.slug;
+
         result.push(<Link href={url} key={lesson.id} style={{ textDecoration: "none", color: "inherit" }}>
           <h3>{DateHelper.prettyDate(DateHelper.toDate(s.scheduledDate))}</h3>
           <Grid container spacing={3} style={{ paddingBottom: 20, borderBottom: "1px solid #CCC" }}>
@@ -88,7 +131,9 @@ export default function Venue() {
             <Grid item md={9} xs={12}>
               <div className="title">{lesson.name}</div>
               <h3 style={{ fontSize: "28px", fontWeight: 600, margin: "0 0 8px 0" }}>{lesson.title}</h3>
-              <p style={{ margin: "0 0 16px 0" }}>{lesson.description}</p>
+              <p style={{ margin: "0 0 16px 0" }}>
+                <MarkdownPreview value={lesson.description} />
+              </p>
             </Grid>
           </Grid>
         </Link>);
@@ -102,11 +147,12 @@ export default function Venue() {
     let result: { lesson: LessonInterface, study: StudyInterface, program: ProgramInterface } = { lesson: null, study: null, program: null };
     result.lesson = ArrayHelper.getOne(lessons, "id", schedule.lessonId);
     if (result.lesson) {
-      result.study = ArrayHelper.getOne(studies, "id", result.lesson.studyId);
+      result.study = ArrayHelper.getOne(studies, "id", schedule.studyId);
       if (result.study) {
-        result.program = ArrayHelper.getOne(programs, "id", result.study.programId);
+        result.program = ArrayHelper.getOne(programs, "id", schedule.programId);
       }
     }
+    console.log("ROW DATA is: ", result)
     return result;
   }
 

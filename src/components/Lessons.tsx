@@ -11,7 +11,10 @@ type Props = {
 export function Lessons({ lessons, slug }: Props) {
 
   function createLesson(lesson: LessonInterface) {
-    const url = slug + `/${lesson.slug}`;
+    const url = (slug.startsWith("/external/"))
+      ? slug + `/${lesson.id}`
+      : slug + `/${lesson.slug}`;
+
     return (
       <Grid item md={6} xs={12} key={lesson.id}>
         <Link href={url} key={lesson.id} style={{ textDecoration: "none", color: "inherit" }}>
