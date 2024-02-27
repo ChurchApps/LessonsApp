@@ -54,7 +54,7 @@ export function Downloads(props: Props) {
 
 
   return (
-    (props.downloads.length > 0) && (
+    (props.downloads?.length > 0) && (
       <>
         <ul>
           {getDownloads()}

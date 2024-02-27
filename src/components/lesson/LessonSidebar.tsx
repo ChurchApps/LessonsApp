@@ -97,16 +97,22 @@ export function LessonSidebar(props: Props) {
             {props.selectedVenue?.sections?.map((s, idx) => (s.actions?.length > 0) && (<li key={"section-" + idx}><a className="sectionLink" id={"sectionLink-" + idx} href={"#section-" + idx}>{s.name}</a></li>))}
           </ul>
         </Container>
-        <hr />
-        <Container>
-          <h3>Downloads</h3>
-          <Downloads lessonId={props.selectedVenue.lessonId} downloads={props.selectedVenue.downloads} />
-        </Container>
-        <hr />
-        <Container>
-          <h3>About</h3>
-          {props.selectedVenue.programAbout && ( <><MarkdownPreview value={props.selectedVenue.programAbout} /></> )}
-        </Container>
+
+        {props.selectedVenue.downloads && (<>
+          <hr />
+          <Container>
+            <h3>Downloads</h3>
+            <Downloads lessonId={props.selectedVenue.lessonId} downloads={props.selectedVenue.downloads} />
+          </Container>
+        </>)}
+
+        {props.selectedVenue.programAbout && (<>
+          <hr />
+          <Container>
+            <h3>About</h3>
+            <MarkdownPreview value={props.selectedVenue.programAbout} />
+          </Container>
+        </>)}
       </div>
 
       {showPrintPreview && <OlfPrintPreview feed={props.selectedVenue} onClose={() => { setShowPrintPreview(false) }} /> }
