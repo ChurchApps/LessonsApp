@@ -4,6 +4,7 @@ import { UserHelper, Permissions, ApiHelper } from "@/utils";
 import { ClickAwayListener, Icon, Menu, MenuItem, AppBar, Stack, Box } from "@mui/material";
 import { useState } from "react";
 import { SupportModal } from "@churchapps/apphelper";
+import { usePathname } from "next/navigation";
 
 type Props = {
   position?: "fixed" | "sticky" | "static" | "relative" | "absolute";
@@ -26,6 +27,9 @@ export function Header(props: Props) {
     router.push("/logout")
   }
 
+  const pathName = usePathname();
+  const returnUrl = (router.pathname === "/") ? "" : `?returnUrl=${encodeURIComponent(pathName)}`;
+
   const userAction = ApiHelper.isAuthenticated
     ? (
       <>
@@ -40,7 +44,7 @@ export function Header(props: Props) {
       </>
     )
     : (<>
-      <Link href="/login" className="cta alt">Login</Link>
+      <Link href={"/login" + returnUrl} className="cta alt">Login</Link>
       <Link href="/register" style={{paddingRight:15}} className="cta">Register</Link>
     </>);
     // <a href="about:blank"  onClick={(e) => { e.preventDefault(); setShowSupport(!showSupport) }} style={{paddingRight:15}}>Support</a>

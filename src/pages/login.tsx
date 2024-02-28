@@ -9,7 +9,9 @@ export default function Login() {
   const router = useRouter()
   const [cookies] = useCookies()
 
-  if (ApiHelper.isAuthenticated && UserHelper.currentUserChurch) { router.push("/portal") }
+  const returnUrl= (router.query.returnUrl) ? router.query.returnUrl.toString() : "/portal";
+
+  if (ApiHelper.isAuthenticated && UserHelper.currentUserChurch) { router.push(returnUrl) }
 
   /*
   const loginSuccess = () => {
@@ -28,7 +30,7 @@ export default function Login() {
 
   return (
     <Layout withoutNavbar withoutFooter>
-      <LoginPage auth={auth} context={context} jwt={jwt} appName="Lessons.church" appUrl={appUrl} returnUrl="/portal" />
+      <LoginPage auth={auth} context={context} jwt={jwt} appName="Lessons.church" appUrl={appUrl} returnUrl={returnUrl} />
     </Layout>
   );
 
