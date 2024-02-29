@@ -1,6 +1,7 @@
-import { Container, Grid, Link } from "@mui/material";
+import { Container, Grid } from "@mui/material";
 import { ArrayHelper, ProgramInterface, ProviderInterface, StudyInterface } from "@/utils";
 import Image from "next/image";
+import Link from "next/link";
 
 type Props = {
   programs: ProgramInterface[];
@@ -35,7 +36,7 @@ export function Programs(props: Props) {
               <div className="age">{program.age?.toUpperCase()}</div>
               <h2>{program.name}</h2>
               <p>{program.shortDescription}</p>
-              <a href={url} className="cta">Learn More</a>
+              <Link href={url} className="cta">Learn More</Link>
             </Grid>
           </Grid>
           <Grid container spacing={2} className="programStudies">

@@ -1,6 +1,6 @@
-import { Container, Icon, MenuItem, Select } from "@mui/material";
+import { Container, Icon, Menu, MenuItem, Select } from "@mui/material";
 import { ArrayHelper, FeedVenueInterface } from "@/utils";
-import { MarkdownPreview } from "@churchapps/apphelper";
+import { B1ShareModal, MarkdownPreview } from "@churchapps/apphelper";
 import React, { useEffect, useState } from "react";
 import { Downloads } from "./Downloads";
 import { OlfPrintPreview } from "../open-lesson/OlfPrintPreview";
@@ -14,6 +14,8 @@ type Props = {
 
 export function LessonSidebar(props: Props) {
   const [showPrintPreview, setShowPrintPreview] = useState(false);
+  const [shareAnchor, setShareAnchor] = React.useState<null | HTMLElement>(null);
+  const [showB1Share, setShowB1Share] = React.useState(false);
 
   const handleAffix = () => {
     const sidebar = document.getElementById("lessonSidebar");
@@ -70,8 +72,14 @@ export function LessonSidebar(props: Props) {
     };
   }, []);
 
+  const handleB1Share = (e:React.MouseEvent) => {
+    setShareAnchor(null);
+    setShowB1Share(true);
+  }
+
   const handleExport = (e:React.MouseEvent) => {
     e.preventDefault();
+    setShareAnchor(null);
     const feedUrl = "https://api.lessons.church/venues/public/feed/" + props.selectedVenue.id;
     window.location.href = "/tools/olf?feedUrl=" + encodeURIComponent(feedUrl);
   }
@@ -88,9 +96,14 @@ export function LessonSidebar(props: Props) {
         <hr />
         <Container>
           <span style={{float:"right"}}>
-            <a href="about:blank" style={{color:"#28235d"}} title="Export to OLF" onClick={handleExport}><Icon style={{fontSize:20}}>download</Icon></a> &nbsp;
-            <a href="about:blank" style={{color:"#28235d"}} title="print" onClick={(e) => { e.preventDefault(); setShowPrintPreview(true); }}><Icon style={{fontSize:20}}>print</Icon></a>
+            <a href="about:blank" style={{color:"#28235d"}} title="Share" onClick={(e) => { e.preventDefault(); setShareAnchor(e.currentTarget); }}><Icon style={{fontSize:20}}>share</Icon></a> &nbsp;
+            <a href="about:blank" style={{color:"#28235d"}} title="Print" onClick={(e) => { e.preventDefault(); setShowPrintPreview(true); }}><Icon style={{fontSize:20}}>print</Icon></a>
           </span>
+          <Menu id="shareMenu" anchorEl={shareAnchor} open={Boolean(shareAnchor)} onClose={() => setShareAnchor(null)}>
+            <MenuItem onClick={handleB1Share}>Share to B1 Group</MenuItem>
+            <MenuItem onClick={handleExport}>Export to OLF</MenuItem>
+          </Menu>
+          {showB1Share && <B1ShareModal contentDisplayName={props.selectedVenue.name} contentType="venue" contentId={props.selectedVenue.id} onClose={() => { setShowB1Share(false); }} /> }
 
           <h3>Sections</h3>
           <ul>
