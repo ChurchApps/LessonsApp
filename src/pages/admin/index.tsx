@@ -169,7 +169,7 @@ export default function Admin() {
     return result;
   }
 
-  const getEditContent = (<SmallButton icon="add" onClick={() => { clearEdits(); }} />);
+  const getEditContent = (<SmallButton icon="add" onClick={() => { clearEdits(); setEditProgram({ providerId: (programs.length>0) ? programs[0].providerId : "", live:false }); }} />);
 
   return (
     <Wrapper>
