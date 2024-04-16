@@ -32,10 +32,10 @@ export function Programs(props: Props) {
       <div className="programHeroContent">
         <Container fixed>
           <Grid container spacing={3}>
-            <Grid item md={6} xs={12}>
+            <Grid item md={9} xs={12}>
               <div className="age">{program.age?.toUpperCase()}</div>
               <h2>{program.name}</h2>
-              <p>{program.shortDescription}</p>
+              <p style={{width:"67%"}}>{program.shortDescription}</p>
               <Link href={url} className="cta">Learn More</Link>
             </Grid>
           </Grid>
