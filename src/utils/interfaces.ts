@@ -162,6 +162,8 @@ export interface ClassroomInterface {
   id?: string;
   churchId?: string;
   name?: string;
+  recentGroupId?: string;
+  upcomingGroupId?: string;
 }
 
 export interface CustomizationInterface {
