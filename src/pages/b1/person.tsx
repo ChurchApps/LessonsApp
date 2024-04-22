@@ -45,7 +45,6 @@ export default function Venue() {
       <Layout withoutNavbar={true} withoutFooter={true}>
         <Container fixed>
           <h1>Select a Room</h1>
-          {context.person?.name?.display}
         </Container>
         {getRows()}
         <br />
