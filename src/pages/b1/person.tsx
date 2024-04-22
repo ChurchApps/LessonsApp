@@ -11,15 +11,19 @@ export default function Venue() {
   //const [church, setChurch] = useState<ChurchInterface>(null);
   const [classrooms, setClassrooms] = useState<ClassroomInterface[]>([]);
   const router = useRouter();
-  const churchId = router.query.churchId;
+  const upcoming = router.query.upcoming==="1";
   const context = React.useContext(UserContext);
 
-  useEffect(() => { loadData(); }, [churchId]);
+
+  useEffect(() => { loadData(); }, [context.person, upcoming]);
 
 
   const loadData = () => {
-    if (churchId) {
-      ApiHelper.get("/classrooms/public/church/" + churchId, "LessonsApi").then((v: ClassroomInterface[]) => { setClassrooms(v); });
+    if (context.person) {
+      console.log("made it", context.person)
+      let url = "/classrooms/person";
+      if (upcoming) url += "&upcoming=1";
+      ApiHelper.get(url, "LessonsApi").then((v: ClassroomInterface[]) => { setClassrooms(v); });
     }
   }
 
@@ -27,6 +31,7 @@ export default function Venue() {
     const result: JSX.Element[] = [];
     classrooms?.forEach(c => {
       let url = "/b1/classroom/" + c.id;
+      if (upcoming) url += "?upcoming=1";
       result.push(<Link href={url} className="bigLink">{c.name}</Link>)
     })
     return result;
