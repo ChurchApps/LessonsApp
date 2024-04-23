@@ -14,7 +14,6 @@ export default function Venue() {
 
   const loadData = () => {
     if (context.person) {
-      console.log("made it", context.person)
       let url = "/classrooms/person";
       ApiHelper.get(url, "LessonsApi").then((v: ClassroomInterface[]) => { setClassrooms(v); });
     }
