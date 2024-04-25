@@ -23,6 +23,7 @@ export function ImageEditor(props: Props) {
       let url = reader.result.toString();
       setCurrentUrl(url);
       setDataUrl(url);
+      setTimeout(selectDefaultCropZone, 500);
     };
     reader.readAsDataURL(files[0]);
   };
@@ -34,11 +35,34 @@ export function ImageEditor(props: Props) {
     </div>
   );
 
-  const cropper = React.useRef(null);
+  const cropperRef = React.useRef(null);
+
+  const selectDefaultCropZone = () => {
+    const imageElement: any = cropperRef?.current;
+    let cropper: any = imageElement?.cropper;
+    const aspectRatio = 16 / 9;
+
+    let desiredAspect = aspectRatio;
+    let containerData = cropper.getContainerData();
+    let imgAspect = cropper.getImageData().aspectRatio;
+    let scale = imgAspect / desiredAspect;
+    if (scale < 1) {
+      const imgWidth = cropper.getImageData().width;
+      let l = (containerData.width - imgWidth) / 2.0;
+      let t = (containerData.height - (containerData.height * scale)) / 2.0;
+      cropper.setCropBoxData({ width: imgWidth, height: imgWidth / desiredAspect, left: l, top: t });
+    } else {
+      const imgHeight = cropper.getImageData().height;
+      let l = (containerData.width - (imgHeight * desiredAspect)) / 2.0;
+      let t = cropper.canvasData.top;
+      cropper.setCropBoxData({ width: imgHeight * desiredAspect, height: imgHeight, left: l, top: t });
+    }
+
+  }
 
   const cropCallback = () => {
-    if (cropper.current !== null) {
-      let url = cropper.current
+    if (cropperRef.current !== null) {
+      let url = cropperRef.current.cropper
         .getCroppedCanvas({ width: 1280, height: 720 })
         .toDataURL();
       setDataUrl(url);
@@ -60,7 +84,7 @@ export function ImageEditor(props: Props) {
 
   return (
     <InputBox id="cropperBox" headerIcon="" headerText="Crop" saveFunction={handleSave} saveText={"Update"} cancelFunction={props.onCancel} deleteFunction={handleDelete} headerActionContent={getHeaderButton()}>
-      <Cropper ref={cropper} src={currentUrl} style={{ height: 240, width: "100%" }} aspectRatio={16 / 9} guides={false} crop={handleCrop} />
+      <Cropper ref={cropperRef} src={currentUrl} style={{ height: 240, width: "100%" }} aspectRatio={16 / 9} guides={false} crop={handleCrop} />
     </InputBox>
   );
 }
