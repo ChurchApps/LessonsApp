@@ -43,6 +43,7 @@ export default function Home({ programs, providers, studies, stats, hasError, er
 
 export const getStaticProps: GetStaticProps = async () => {
   try {
+    console.log("Fetching data for home page");
     const programs: ProgramInterface[] = await ApiHelper.getAnonymous("/programs/public", "LessonsApi");
     const providers: ProviderInterface[] = await ApiHelper.getAnonymous("/providers/public", "LessonsApi");
     const studies: ProviderInterface[] = await ApiHelper.getAnonymous("/studies/public", "LessonsApi");
@@ -57,7 +58,8 @@ export const getStaticProps: GetStaticProps = async () => {
         hasError: true, error: {
           message: error.message
         }
-      }
+      },
+      revalidate: 1
     }
   }
 };

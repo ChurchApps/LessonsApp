@@ -180,7 +180,8 @@ export const getStaticProps: GetStaticProps = async () => {
         hasError: true, error: {
           message: error.message
         }
-      }
+      },
+      revalidate: 1
     }
   }
 };
