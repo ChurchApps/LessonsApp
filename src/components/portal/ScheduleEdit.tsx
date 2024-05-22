@@ -28,6 +28,23 @@ export function ScheduleEdit(props: Props) {
     return result;
   }
 
+  const getLessonId = (array: any[], id: string) => {
+    let result = id;
+    if (id === "") result = getDefault(array, id);
+    else {
+      const existing: ScheduleInterface = ArrayHelper.getOne(props.schedules, "lessonId", id);
+      if (existing && existing?.scheduledDate === schedule.scheduledDate) {
+        result = id;
+      } else if (existing && existing?.scheduledDate !== schedule.scheduledDate) {
+        const index = ArrayHelper.getIndex(array, "id", id);
+        const newIndex = index + 1
+        if (newIndex < array.length) result = array[newIndex].id
+        else result = getDefault(array, id);
+      }
+    }
+    return result;
+  }
+
   const s = {...schedule};
 
   if (lessonTree) s.programId = getDefault(lessonTree.programs, s.programId);
@@ -36,7 +53,7 @@ export function ScheduleEdit(props: Props) {
   if (currentProgram) s.studyId = getDefault(currentProgram.studies, s.studyId);
   const currentStudy = ArrayHelper.getOne(currentProgram?.studies || [], "id", s.studyId);
 
-  if (currentStudy) s.lessonId = getDefault(currentStudy.lessons, s.lessonId);
+  if (currentStudy) s.lessonId = getLessonId(currentStudy.lessons, s.lessonId);
   const currentLesson = ArrayHelper.getOne(currentStudy?.lessons || [], "id", s.lessonId);
 
   if (currentLesson) s.venueId = getDefault(currentLesson.venues, s.venueId);
