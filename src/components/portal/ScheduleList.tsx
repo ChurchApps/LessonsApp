@@ -57,6 +57,8 @@ export function ScheduleList(props: Props) {
     if (schedules?.length > 0) {
       const lastSchedule = schedules[0];
       newSchedule.lessonId = lastSchedule.lessonId;
+      newSchedule.programId = lastSchedule.programId;
+      newSchedule.studyId = lastSchedule.studyId;
       newSchedule.venueId = lastSchedule.venueId;
       newSchedule.scheduledDate = DateHelper.addDays(new Date(lastSchedule.scheduledDate), 7);
     }
