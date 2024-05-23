@@ -98,7 +98,7 @@ export function ProgramEdit(props: Props) {
         <TextField fullWidth multiline label="Description" name="description" value={program.description} onChange={handleChange} onKeyDown={handleKeyDown} />
         <TextField fullWidth multiline label="About Section" name="aboutSection" value={program.aboutSection} onChange={handleChange} onKeyDown={handleKeyDown} />
         <TextField fullWidth label="Video Embed Url" name="videoEmbedUrl" value={program.videoEmbedUrl} onChange={handleChange} onKeyDown={handleKeyDown} />
-        <Link href={"/admin/categories/" + program.id.toString()}>Edit Categories</Link>
+        {program.id && <Link href={"/admin/categories/" + program.id.toString()}>Edit Categories</Link>}
       </InputBox>
     </>
   );
