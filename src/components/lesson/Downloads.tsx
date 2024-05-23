@@ -1,5 +1,5 @@
 import { AnalyticsHelper, CommonEnvironmentHelper } from "@churchapps/apphelper";
-import { ApiHelper, FeedDownloadInterface, FeedFileInterface, UserHelper } from "@/utils";
+import { ApiHelper, FeedDownloadInterface, UserHelper } from "@/utils";
 import { Icon } from "@mui/material";
 
 type Props = {
@@ -27,22 +27,12 @@ export function Downloads(props: Props) {
     ApiHelper.post("/downloads", [d], "LessonsApi");
   }
 
-  const checkExpire = (file: FeedFileInterface, e: React.MouseEvent) => {
-    if (!file.expires) return;
-    if (new Date(file.expires) < new Date()) {
-      e.preventDefault();
-      ApiHelper.getAnonymous("/externalVideos/public/" + file.id, "LessonsApi").then(v => {
-        window.location.href = v.download1080;
-      });
-    }
-  }
-
   const getDownloads = () => {
     const result: JSX.Element[] = [];
     props.downloads?.forEach((d, idx) => {
       result.push(
         <li key={"download-" + idx}>
-          <a href={d.files[0].url} onClick={(e) => { trackDownload(d); checkExpire(d.files[0], e) }} download={true}>
+          <a href={d.files[0].url} onClick={(e) => { trackDownload(d); }} download={true}>
             <Icon>download</Icon>
             {d?.name}
           </a>

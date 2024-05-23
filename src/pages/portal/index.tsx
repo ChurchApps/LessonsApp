@@ -44,9 +44,7 @@ export default function CP() {
           <ClassroomList classroomSelected={setClassroomId} showFeed={handleShowFeed} />
         </Grid>
       </Grid>
-      <div style={{ marginLeft: -25, marginRight: -25 }}>
-        <HomeConnect />
-      </div>
+      <HomeConnect />
     </Wrapper>
   );
 }
