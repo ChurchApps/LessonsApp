@@ -4,18 +4,23 @@ import { ApiHelper, ArrayHelper, ClassroomInterface } from "@/utils";
 import Link from "next/link";
 import { Container } from "@mui/material";
 import UserContext from "@/UserContext";
+import { redirect, useSearchParams } from "next/navigation";
 
 
 export default function Venue() {
   //const [church, setChurch] = useState<ChurchInterface>(null);
   const [classrooms, setClassrooms] = useState<ClassroomInterface[]>([]);
   const context = React.useContext(UserContext);
+  const params = useSearchParams()
   useEffect(() => { loadData(); }, [context.person]);
 
   const loadData = () => {
     if (context.person) {
       let url = "/classrooms/person";
-      ApiHelper.get(url, "LessonsApi").then((v: ClassroomInterface[]) => { setClassrooms(v); });
+      ApiHelper.get(url, "LessonsApi").then((c: ClassroomInterface[]) => {
+        if (c.length === 0) redirect("/b1/" + (params.get("churchId") || context.userChurch.church.id));
+        else setClassrooms(c);
+      });
     }
   }
 
