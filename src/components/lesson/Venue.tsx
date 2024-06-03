@@ -1,6 +1,6 @@
 import * as React from "react";
 import { useReactToPrint } from "react-to-print";
-import { CustomizationInterface, CustomizationHelper, FeedVenueInterface } from "@/utils";
+import { CustomizationInterface, CustomizationHelper, FeedVenueInterface, ArrayHelper } from "@/utils";
 import { Section } from "./Section";
 import { Icon, Button } from "@mui/material";
 
@@ -30,11 +30,22 @@ export function Venue(props: Props) {
     if (props.venue?.sections) {
       const customSections = CustomizationHelper.applyCustomSort(props.customizations, props.venue?.sections, "section");
       customSections.forEach((s) => {
-        sections.push(<Section section={s} toggleActive={handleToggle} activeSectionId={activeSectionId} key={s.id} customizations={props.customizations} />);
+        if (!shouldHide(s.id)) {
+          sections.push(<Section section={s} toggleActive={handleToggle} activeSectionId={activeSectionId} key={s.id} customizations={props.customizations} />);
+        }
       });
     }
 
     return <div>{sections}</div>;
+  }
+
+  const shouldHide = (id: string) => {
+    let result = false;
+    if (props.customizations?.length > 0) {
+      const removeItems = ArrayHelper.getAll(props.customizations, "action", "remove");
+      if (removeItems.length > 0) result = ArrayHelper.getOne(removeItems, "contentId", id) !== null;
+    }
+    return result;
   }
 
   function getPrintSections() {

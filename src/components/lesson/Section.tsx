@@ -1,4 +1,4 @@
-import { ActionInterface, ArrayHelper, CustomizationInterface, FeedSectionInterface } from "@/utils";
+import { ActionInterface, ArrayHelper, CustomizationHelper, CustomizationInterface, FeedSectionInterface } from "@/utils";
 import { Action } from "./Action";
 import { Card, CardContent, CardHeader } from "@mui/material";
 
@@ -12,24 +12,24 @@ type Props = {
 
 export function Section(props: Props) {
 
-  const getActions = (actions: ActionInterface[]) => {
+  const getActions = (action: ActionInterface) => {
+    let result: JSX.Element = <></>;
 
-    const result: JSX.Element[] = [];
-    //const customActions = CustomizationHelper.applyCustomSort(props.customizations, actions, "action");
-    const customActions = actions; //TODO: Fix
-    customActions.forEach((a) => {
-      if (!shouldHide(a.id)) {
-        result.push(<Action action={a} lessonId={props.lessonId} key={a.id} />);
-      }
-    });
+    if (!shouldHide(action.id)) {
+      result = <Action action={action} lessonId={props.lessonId} key={action.id} />
+    }
+    
     return result;
   };
 
-  const shouldHide = (id: string) => {
+  const shouldHide = (id: string, customRoles?: boolean, roleId?: string) => {
     let result = false;
     if (props.customizations?.length > 0) {
       const removeItems = ArrayHelper.getAll(props.customizations, "action", "remove");
       result = ArrayHelper.getAll(removeItems, "contentId", id).length > 0;
+      if (customRoles) {
+        result = ArrayHelper.getAll(removeItems, "contentId", roleId).length > 0;
+      }
     }
     return result;
   }
@@ -37,19 +37,14 @@ export function Section(props: Props) {
   const getParts = () => {
     const result: JSX.Element[] = [];
     if (props.section?.actions) {
-      result.push(<div className="part" key={props.section.name}>
-        {getActions(props.section.actions)}
-      </div>);
-      /*
-      const customRoles = CustomizationHelper.applyCustomSort(props.customizations, props.section.actions, "role");  //todo fix
+      const customRoles = CustomizationHelper.applyCustomSort(props.customizations, props.section.actions, "role");
       customRoles.forEach((r) => {
-        if (!shouldHide(r.id)) result.push(
+        if (!shouldHide(r.id, true, r.roleId)) result.push(
           <div className="part" key={r.id}>
-            {getActions(r.actions)}
+            {getActions(r)}
           </div>
         );
       });
-      */
     }
     return result;
   };

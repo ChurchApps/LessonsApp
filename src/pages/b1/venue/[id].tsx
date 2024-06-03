@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useRouter } from "next/router";
 import { Layout, Venue } from "@/components";
-import { ApiHelper, ClassroomInterface, FeedVenueInterface, ScheduleInterface } from "@/utils";
+import { ApiHelper, ClassroomInterface, CustomizationInterface, FeedVenueInterface, ScheduleInterface } from "@/utils";
 import Link from "next/link";
 import { Container, Grid, Tab, Tabs } from "@mui/material";
 import { DateHelper } from "@churchapps/apphelper";
@@ -14,7 +14,7 @@ export default function B1Venue() {
   const [resources, setResources] = useState<ResourceInterface[]>([]);
   */
   const [classroom, setClassroom] = useState<ClassroomInterface>(null);
-  //const [customizations, setCustomizations] = useState<CustomizationInterface[]>([]);
+  const [customizations, setCustomizations] = useState<CustomizationInterface[]>([]);
   const [currentSchedule, setCurrentSchedule] = useState<ScheduleInterface>(null);
   const [prevSchedule, setPrevSchedule] = useState<ScheduleInterface>(null);
   const [nextSchedule, setNextSchedule] = useState<ScheduleInterface>(null);
@@ -59,7 +59,7 @@ export default function B1Venue() {
       const classroomId = search.get("classroomId");
       ApiHelper.get("/classrooms/" + classroomId, "LessonsApi").then((c: ClassroomInterface) => {
         setClassroom(c);
-        //ApiHelper.get("/customizations/public/venue/" + id + "/" + c.churchId, "LessonsApi").then(cust => setCustomizations(cust));
+        ApiHelper.get("/customizations/public/venue/" + id + "/" + c.churchId, "LessonsApi").then(cust => setCustomizations(cust));
       });
       ApiHelper.get("/schedules/public/classroom/" + classroomId, "LessonsApi").then((data: ScheduleInterface[]) => {
         let currentIndex = -1;
@@ -77,7 +77,7 @@ export default function B1Venue() {
 
   const getVenue = () => {
     if (venue) {
-      return <Venue useAccordion={true} venue={venue} hidePrint={true} print={0} />
+      return <Venue useAccordion={true} venue={venue} hidePrint={true} print={0} customizations={customizations} />
     }
   }
 
