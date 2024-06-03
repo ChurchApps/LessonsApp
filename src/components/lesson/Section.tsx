@@ -22,14 +22,11 @@ export function Section(props: Props) {
     return result;
   };
 
-  const shouldHide = (id: string, customRoles?: boolean, roleId?: string) => {
+  const shouldHide = (id: string) => {
     let result = false;
     if (props.customizations?.length > 0) {
       const removeItems = ArrayHelper.getAll(props.customizations, "action", "remove");
       result = ArrayHelper.getAll(removeItems, "contentId", id).length > 0;
-      if (customRoles) {
-        result = ArrayHelper.getAll(removeItems, "contentId", roleId).length > 0;
-      }
     }
     return result;
   }
@@ -39,7 +36,7 @@ export function Section(props: Props) {
     if (props.section?.actions) {
       const customRoles = CustomizationHelper.applyCustomSort(props.customizations, props.section.actions, "role");
       customRoles.forEach((r) => {
-        if (!shouldHide(r.id, true, r.roleId)) result.push(
+        if (!shouldHide(r.roleId)) result.push(
           <div className="part" key={r.id}>
             {getActions(r)}
           </div>
