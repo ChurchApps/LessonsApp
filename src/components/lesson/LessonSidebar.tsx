@@ -107,7 +107,7 @@ export function LessonSidebar(props: Props) {
 
           <h3>Sections</h3>
           <ul>
-            {props.selectedVenue?.sections?.map((s, idx) => (s.actions?.length > 0) && (<li key={"section-" + idx}><a className="sectionLink" id={"sectionLink-" + idx} href={"#section-" + idx}>{s.name}</a></li>))}
+            {props.selectedVenue?.sections?.map((s, idx) => (s.actions?.length > 0) && (<li key={"section-" + idx}><a className="sectionLink" id={"sectionLink-" + idx} href={"#section-" + s.name}>{s.name}</a></li>))}
           </ul>
         </Container>
 
