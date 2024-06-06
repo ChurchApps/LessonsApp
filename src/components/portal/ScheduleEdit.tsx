@@ -30,17 +30,15 @@ export function ScheduleEdit(props: Props) {
 
   const getLessonId = (array: any[], id: string) => {
     let result = id;
-    if (id === "") result = getDefault(array, id);
-    else {
-      const existing: ScheduleInterface = ArrayHelper.getOne(props.schedules, "lessonId", id);
-      if (existing && existing?.scheduledDate === schedule.scheduledDate) {
-        result = id;
-      } else if (existing && existing?.scheduledDate !== schedule.scheduledDate) {
-        const index = ArrayHelper.getIndex(array, "id", id);
-        const newIndex = index + 1
-        if (newIndex < array.length) result = array[newIndex].id
-        else result = getDefault(array, id);
-      }
+    if (id === "default") {
+      result = getDefault(array, id);
+    }
+    else if (id === "next") {
+      const index = ArrayHelper.getIndex(array, "id", props.schedules[0].lessonId);
+      const newIndex = index + 1;
+      if (newIndex < array.length) result = array[newIndex].id
+    } else {
+      result = id;
     }
     return result;
   }
