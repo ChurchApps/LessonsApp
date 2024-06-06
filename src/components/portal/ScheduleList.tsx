@@ -53,10 +53,10 @@ export function ScheduleList(props: Props) {
   };
 
   const getEditContent = () => {
-    const newSchedule:ScheduleInterface = { classroomId: props.classroomId, scheduledDate: new Date(), lessonId: "", venueId: "" };
+    const newSchedule:ScheduleInterface = { classroomId: props.classroomId, scheduledDate: new Date(), lessonId: "default", venueId: "" };
     if (schedules?.length > 0) {
       const lastSchedule = schedules[0];
-      newSchedule.lessonId = lastSchedule.lessonId;
+      newSchedule.lessonId = "next";
       newSchedule.programId = lastSchedule.programId;
       newSchedule.studyId = lastSchedule.studyId;
       newSchedule.venueId = lastSchedule.venueId;
