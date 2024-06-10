@@ -204,6 +204,15 @@ export interface DownloadInterface {
   downloadDate?: Date,
   fileName?: string
 }
+
+export interface AddOnInterface {
+  id?: string;
+  providerId?: string;
+  category?: string;
+  name?: string;
+  image?: string;
+}
+
 export interface PlaylistFileInterface { name: string, url: string, seconds: number, loopVideo: boolean }
 
 
