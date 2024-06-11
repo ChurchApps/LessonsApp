@@ -211,6 +211,8 @@ export interface AddOnInterface {
   category?: string;
   name?: string;
   image?: string;
+  addOnType?: string;
+  fileId?: string;
 }
 
 export interface PlaylistFileInterface { name: string, url: string, seconds: number, loopVideo: boolean }

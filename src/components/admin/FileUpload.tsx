@@ -4,7 +4,9 @@ import { ApiHelper, FileInterface } from "@/utils";
 import { LinearProgress } from "@mui/material";
 
 type Props = {
-  resourceId: string;
+  resourceId?: string;
+  contentType?: string;
+  contentId?: string;
   fileId: string;
   pendingSave: boolean;
   saveCallback: (file: FileInterface) => void;
@@ -58,9 +60,20 @@ export function FileUpload(props: Props) {
     }
   };
 
-  const preUpload = async () => {
+  const getResourcePresigned = async () => {
     const params = { resourceId: props.resourceId, fileName: uploadedFile.name };
-    const presigned = await ApiHelper.post("/files/postUrl", params, "LessonsApi");
+    const presigned =  await ApiHelper.post("/files/postUrl", params, "LessonsApi");
+    return presigned;
+  }
+
+  const getOtherPresigned = async () => {
+    const params = { fileName: uploadedFile.name };
+    const presigned =  await ApiHelper.post("/files/postUrl/content/" + props.contentType + "/" + props.contentId, params, "LessonsApi");
+    return presigned;
+  }
+
+  const preUpload = async () => {
+    const presigned = props.resourceId ? await getResourcePresigned() : await getOtherPresigned();
     const doUpload = presigned.key !== undefined;
     if (doUpload) await postPresignedFile(presigned);
     return doUpload;

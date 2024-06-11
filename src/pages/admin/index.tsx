@@ -176,11 +176,8 @@ export default function Admin() {
     addOns.forEach((a) => {
       result.push(
         <div className="lessonDiv" key={"addOn" + a.id}>
-          <span style={{ float: "right" }}>
-            <SmallButton icon="file_upload" text="Files" onClick={() => { clearEdits(); showResources("addOn", a.id, a.name); }} />
-          </span>
           <a href="about:blank" onClick={(e) => { e.preventDefault(); clearEdits(); setEditAddOn(a); }}>
-            <Icon>book</Icon> {a.category}: {a.name}
+            <Icon>movie</Icon> {a.category}: {a.name}
           </a>
         </div>
       );
@@ -200,7 +197,7 @@ export default function Admin() {
   }
 
   const getEditContent = (<SmallButton icon="add" onClick={() => { clearEdits(); setEditProgram({ providerId: (programs.length>0) ? programs[0].providerId : "", live:false }); }} />);
-  const getAddOnEditContent = (<SmallButton icon="add" onClick={() => { clearEdits(); setEditAddOn({ providerId: (programs.length>0) ? programs[0].providerId : "" }); }} />);
+  const getAddOnEditContent = (<SmallButton icon="add" onClick={() => { clearEdits(); setEditAddOn({ providerId: (programs.length>0) ? programs[0].providerId : "", addOnType: "externalVideo" }); }} />);
 
   return (
     <Wrapper>

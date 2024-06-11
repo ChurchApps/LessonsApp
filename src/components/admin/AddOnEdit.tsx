@@ -1,8 +1,9 @@
 import { useState, useEffect } from "react";
-import { ErrorMessages, InputBox } from "@churchapps/apphelper";
+import { ErrorMessages, InputBox, Loading } from "@churchapps/apphelper";
 import { ImageEditor } from "../index";
-import { AddOnInterface, ApiHelper } from "@/utils";
+import { AddOnInterface, ApiHelper, ExternalVideoInterface, FileInterface } from "@/utils";
 import { FormControl, InputLabel, MenuItem, Select, SelectChangeEvent, TextField } from "@mui/material";
+import { FileUpload } from "./FileUpload";
 
 type Props = {
   addOn: AddOnInterface;
@@ -13,6 +14,9 @@ export function AddOnEdit(props: Props) {
   const [addOn, setAddOn] = useState<AddOnInterface>(null);
   const [errors, setErrors] = useState([]);
   const [showImageEditor, setShowImageEditor] = useState<boolean>(false);
+  const [externalVideo, setExternalVideo] = useState<ExternalVideoInterface>(null);
+  const [file, setFile] = useState<FileInterface>(null);
+  const [pendingFileSave, setPendingFileSave] = useState(false);
 
   const handleCancel = () => props.updatedCallback(addOn);
   const handleKeyDown = (e: React.KeyboardEvent<any>) => { if (e.key === "Enter") { e.preventDefault(); handleSave(); } };
@@ -24,8 +28,10 @@ export function AddOnEdit(props: Props) {
       case "category": a.category = val; break;
       case "name": a.name = val; break;
       case "image": a.image = val; break;
+      case "addOnType": a.addOnType = val; break;
     }
     setAddOn(a);
+    loadContent(a);
   };
 
   const handleImageUpdated = (dataUrl: string) => {
@@ -38,6 +44,9 @@ export function AddOnEdit(props: Props) {
   const validate = () => {
     let errors = [];
     if (addOn.name === "") errors.push("Please enter a name.");
+    if (addOn.addOnType === "externalVideo") {
+      if (!externalVideo.videoId) errors.push("Please enter a video id.");
+    }
     setErrors(errors);
     return errors.length === 0;
   };
@@ -46,10 +55,21 @@ export function AddOnEdit(props: Props) {
     if (validate()) {
       ApiHelper.post("/addOns", [addOn], "LessonsApi").then((data) => {
         setAddOn(data);
-        props.updatedCallback(data);
+        if (addOn.addOnType === "file") {
+          setTimeout(() => {
+            setPendingFileSave(true);
+          }, 100);
+        }
+        else {
+          ApiHelper.post("/externalVideos", [externalVideo], "LessonsApi").then(() => {
+            props.updatedCallback(data);
+          });
+        }
       });
     }
   };
+
+  const getFileFields = () => <FileUpload key="fileUpload" contentType="addOn" contentId={props.addOn.id} fileId={addOn?.fileId} pendingSave={pendingFileSave} saveCallback={handleFileSaved} resourceId={""} />
 
   const handleDelete = () => {
     if (window.confirm("Are you sure you wish to permanently delete this add-on?")) {
@@ -63,6 +83,54 @@ export function AddOnEdit(props: Props) {
 
   const getImageEditor = () => {
     if (showImageEditor) return (<ImageEditor updatedFunction={handleImageUpdated} imageUrl={addOn.image} onCancel={() => setShowImageEditor(false)} />);
+  };
+
+  const getExternalVideoFields = () => {
+    if (!externalVideo) return <Loading />;
+    else return (<>
+      <FormControl fullWidth>
+        <InputLabel>Provider</InputLabel>
+        <Select fullWidth label="Provider" name="provider" aria-label="provider" value={externalVideo.videoProvider} onChange={handleChange}>
+          <MenuItem value="Vimeo">Vimeo</MenuItem>
+        </Select>
+      </FormControl>
+      <TextField fullWidth label="Video Id" name="videoId" value={externalVideo.videoId} onChange={handleChange} onKeyDown={handleKeyDown} placeholder="abc123" />
+      <FormControl fullWidth>
+        <InputLabel>Looping Video</InputLabel>
+        <Select label="Looping Video" name="loopVideo" value={externalVideo.loopVideo?.toString()} onChange={handleChange}>
+          <MenuItem value="false">No</MenuItem>
+          <MenuItem value="true">Yes</MenuItem>
+        </Select>
+      </FormControl>
+    </>);
+  }
+
+  const getTypeFields = () => {
+    switch (addOn.addOnType) {
+      case "file": return getFileFields();
+      default: return getExternalVideoFields();
+    }
+  }
+
+  const loadContent = async (a: AddOnInterface) => {
+    if (a.addOnType === "file") {
+      if (a.fileId) await ApiHelper.get("/file/" + a.fileId, "LessonsApi").then((data) => setFile(data));
+      else setFile({ id: "" });
+    } else {
+      const data = await ApiHelper.get("/externalVideos/content/addOn/" + a.id, "LessonsApi");
+      if (data.length > 0) setExternalVideo(data[0]);
+      else setExternalVideo({ id: "", videoProvider: "Vimeo", videoId: "", loopVideo: false });
+    }
+  }
+
+  const handleFileSaved = (file: FileInterface) => {
+    const a = { ...addOn };
+    a.fileId = file.id;
+    ApiHelper.post("/addOns", [a], "LessonsApi").then((data) => {
+      setAddOn(data);
+      setPendingFileSave(false);
+      props.updatedCallback(data);
+    });
   };
 
   if (!addOn) return <></>
@@ -88,6 +156,15 @@ export function AddOnEdit(props: Props) {
           </Select>
         </FormControl>
         <TextField fullWidth label="Name" name="name" value={addOn.name} onChange={handleChange} onKeyDown={handleKeyDown} />
+        <FormControl fullWidth>
+          <InputLabel>Add-on Type</InputLabel>
+          <Select label="Add-on Type" name="addOnType" value={addOn.addOnType} onChange={handleChange}>
+            <MenuItem value="externalVideo">External Video</MenuItem>
+            <MenuItem value="file">File</MenuItem>
+          </Select>
+        </FormControl>
+        <hr />
+        {getTypeFields()}
       </InputBox>
     </>
   );
