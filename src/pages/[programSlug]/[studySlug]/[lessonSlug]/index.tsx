@@ -2,7 +2,6 @@ import { GetStaticPaths, GetStaticProps } from "next";
 import { Grid, Container, Icon } from "@mui/material";
 import { Layout, Venue } from "@/components";
 import { ApiHelper, ProgramInterface, StudyInterface, LessonInterface, ArrayHelper, FeedVenueInterface, PlaylistFileInterface, AnalyticsHelper } from "@/utils";
-import Error from "@/pages/_error";
 import Image from "next/image";
 import { Header } from "@/components/Header";
 import Link from "next/link";
@@ -29,11 +28,11 @@ export default function LessonsPage(props: Props) {
       setPresenterFiles(result);
     });
   }
-
+  /*
   if (props.hasError) {
     return <Error message={props.error.message} />
   }
-
+*/
   const title = selectedVenue.programName + ": " + selectedVenue.lessonName + " - Free Church Curriculum";
   return (
     <Layout pageTitle={title} metaDescription={selectedVenue.lessonDescription} image={selectedVenue.lessonImage} withoutNavbar>

@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
 import { SectionEdit, RoleEdit, ActionEdit, SectionCopy } from "@/components";
-import { VenueInterface, LessonInterface, StudyInterface, SectionInterface, RoleInterface, ActionInterface, ResourceInterface, AssetInterface, ApiHelper, ArrayHelper, CopySectionInterface, ExternalVideoInterface } from "@/utils";
+import { VenueInterface, LessonInterface, StudyInterface, SectionInterface, RoleInterface, ActionInterface, ResourceInterface, AssetInterface, ApiHelper, ArrayHelper, CopySectionInterface, ExternalVideoInterface, AddOnInterface } from "@/utils";
 import { Wrapper } from "@/components/Wrapper";
 import { Grid, Icon, Menu, MenuItem } from "@mui/material";
 import { SmallButton, DisplayBox, Loading } from "@churchapps/apphelper";
@@ -22,6 +22,7 @@ export default function Venue() {
   const [lessonResources, setLessonResources] = useState<ResourceInterface[]>(null);
   const [studyResources, setStudyResources] = useState<ResourceInterface[]>(null);
   const [programResources, setProgramResources] = useState<ResourceInterface[]>(null);
+  const [addOns, setAddOns] = useState<AddOnInterface[]>(null);
 
   const [lessonVideos, setLessonVideos] = useState<ExternalVideoInterface[]>(null);
   const [studyVideos, setStudyVideos] = useState<ExternalVideoInterface[]>(null);
@@ -77,6 +78,7 @@ export default function Venue() {
       ApiHelper.get("/sections/venue/" + v.id, "LessonsApi").then((data: any) => { setSections(data); });
       ApiHelper.get("/roles/public/lesson/" + v.lessonId, "LessonsApi").then((data: any) => { setRoles(data); });
       ApiHelper.get("/actions/public/lesson/" + v.lessonId, "LessonsApi").then((data: any) => { setActions(data); });
+      ApiHelper.get("/addOns", "LessonsApi").then((data: any) => { setAddOns(data); });
     });
   }
 
@@ -205,7 +207,7 @@ export default function Venue() {
       result.push(<ActionEdit action={editAction} updatedCallback={handleActionUpdated}
         lessonResources={lessonResources} studyResources={studyResources} programResources={programResources}
         lessonVideos={lessonVideos} studyVideos={studyVideos} programVideos={programVideos}
-        allAssets={allAssets} key="actionEdit" />);
+        allAssets={allAssets} key="actionEdit" addOns={addOns} />);
     }
     return result;
   };

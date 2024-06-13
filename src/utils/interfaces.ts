@@ -101,6 +101,7 @@ export interface ActionInterface {
   sort?: number;
   resourceId?: string;
   assetId?: string;
+  addOnId?: string;
   externalVideoId?: string;
 }
 
