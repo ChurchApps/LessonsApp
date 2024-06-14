@@ -78,7 +78,7 @@ export default function Venue() {
       ApiHelper.get("/sections/venue/" + v.id, "LessonsApi").then((data: any) => { setSections(data); });
       ApiHelper.get("/roles/public/lesson/" + v.lessonId, "LessonsApi").then((data: any) => { setRoles(data); });
       ApiHelper.get("/actions/public/lesson/" + v.lessonId, "LessonsApi").then((data: any) => { setActions(data); });
-      ApiHelper.get("/addOns", "LessonsApi").then((data: any) => { setAddOns(data); });
+      ApiHelper.get("/addOns/public", "LessonsApi").then((data: any) => { setAddOns(data); });
     });
   }
 
