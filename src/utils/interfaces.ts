@@ -67,7 +67,10 @@ export interface FileInterface {
   dateModified?: Date;
   fileContents?: string;
   thumbPath?: string;
+  contentType?: string;
+  contentId?: string;
 }
+
 export interface VenueInterface {
   id?: string;
   lessonId?: string;
