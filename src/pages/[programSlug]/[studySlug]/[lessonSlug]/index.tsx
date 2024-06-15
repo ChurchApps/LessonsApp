@@ -2,6 +2,7 @@ import { GetStaticPaths, GetStaticProps } from "next";
 import { Grid, Container, Icon } from "@mui/material";
 import { Layout, Venue } from "@/components";
 import { ApiHelper, ProgramInterface, StudyInterface, LessonInterface, ArrayHelper, FeedVenueInterface, PlaylistFileInterface, AnalyticsHelper } from "@/utils";
+import Error from "@/pages/_error";
 import Image from "next/image";
 import { Header } from "@/components/Header";
 import Link from "next/link";
@@ -28,11 +29,11 @@ export default function LessonsPage(props: Props) {
       setPresenterFiles(result);
     });
   }
-  /*
+
   if (props.hasError) {
     return <Error message={props.error.message} />
   }
-*/
+
   const title = selectedVenue.programName + ": " + selectedVenue.lessonName + " - Free Church Curriculum";
   return (
     <Layout pageTitle={title} metaDescription={selectedVenue.lessonDescription} image={selectedVenue.lessonImage} withoutNavbar>
@@ -98,10 +99,22 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
 
     const lessonData = await ApiHelper.getAnonymous("/lessons/public/slugAlt/" + params.programSlug + "/" + params.studySlug + "/" + params.lessonSlug, "LessonsApi");
     console.log("just below lessonData: ", lessonData)
-    return {
-      props: { lessonData, hasError: false },
-      revalidate: 30,
-    };
+
+    if (lessonData.venues.length === 0) {
+      return {
+        props: {
+          hasError: true, error: {
+            message: "No venues for lesson."
+          }
+        },
+        revalidate: 1
+      }
+    } else {
+      return {
+        props: { lessonData, hasError: false },
+        revalidate: 30,
+      };
+    }
   } catch (error: any) {
     console.log("inside catch: ", error)
     return {
