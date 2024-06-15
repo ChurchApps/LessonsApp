@@ -93,6 +93,9 @@ export function Action(props: Props) {
     case "say":
       result = (<div className="say"><MarkdownPreview value={props.action.content} /></div>);
       break;
+    case "add-on":
+      result = (<div>{props.action.content}</div>);
+      break;
     case "play":
       const f = props.action.files[0];
       if (!f) result = <div className="playAction"><a href="#" className="text">{props.action.content}</a></div>

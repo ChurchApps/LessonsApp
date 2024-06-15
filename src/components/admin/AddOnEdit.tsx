@@ -15,7 +15,6 @@ export function AddOnEdit(props: Props) {
   const [errors, setErrors] = useState([]);
   const [showImageEditor, setShowImageEditor] = useState<boolean>(false);
   const [externalVideo, setExternalVideo] = useState<ExternalVideoInterface>(null);
-  const [file, setFile] = useState<FileInterface>(null);
   const [pendingFileSave, setPendingFileSave] = useState(false);
 
   const handleCancel = () => props.updatedCallback(addOn);
@@ -54,11 +53,11 @@ export function AddOnEdit(props: Props) {
   const handleSave = () => {
     if (validate()) {
       ApiHelper.post("/addOns", [addOn], "LessonsApi").then((data) => {
-        setAddOn(data);
+        setAddOn(data[0]);
+        console.log("Add-on type", addOn.addOnType)
         if (addOn.addOnType === "file") {
-          setTimeout(() => {
-            setPendingFileSave(true);
-          }, 100);
+          console.log("Setting Pending file save", pendingFileSave)
+          setPendingFileSave(true);
         }
         else {
           ApiHelper.post("/externalVideos", [externalVideo], "LessonsApi").then(() => {
@@ -114,8 +113,7 @@ export function AddOnEdit(props: Props) {
 
   const loadContent = async (a: AddOnInterface) => {
     if (a.addOnType === "file") {
-      if (a.fileId) await ApiHelper.get("/file/" + a.fileId, "LessonsApi").then((data) => setFile(data));
-      else setFile({ id: "" });
+
     } else {
       const data = await ApiHelper.get("/externalVideos/content/addOn/" + a.id, "LessonsApi");
       if (data.length > 0) setExternalVideo(data[0]);
@@ -158,7 +156,7 @@ export function AddOnEdit(props: Props) {
         <TextField fullWidth label="Name" name="name" value={addOn.name} onChange={handleChange} onKeyDown={handleKeyDown} />
         <FormControl fullWidth>
           <InputLabel>Add-on Type</InputLabel>
-          <Select label="Add-on Type" name="addOnType" value={addOn.addOnType} onChange={handleChange}>
+          <Select label="Add-on Type" name="addOnType" value={addOn.addOnType || "file"} onChange={handleChange}>
             <MenuItem value="externalVideo">External Video</MenuItem>
             <MenuItem value="file">File</MenuItem>
           </Select>

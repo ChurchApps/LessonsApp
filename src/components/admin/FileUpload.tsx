@@ -42,8 +42,12 @@ export function FileUpload(props: Props) {
     f.size = uploadedFile.size;
     f.fileType = uploadedFile.type;
     f.fileName = uploadedFile.name;
+    f.contentType = props.contentType;
+    f.contentId = props.contentId;
 
+    console.log("Handling file save", f)
     const preUploaded: boolean = await preUpload();
+    console.log("Preuploaded", preUploaded)
     if (!preUploaded) {
       const base64 = await convertBase64();
       f.fileContents = base64 as string;
@@ -54,6 +58,7 @@ export function FileUpload(props: Props) {
   };
 
   const checkSave = () => {
+    console.log("CHECK SAVE", props.pendingSave);
     if (props.pendingSave) {
       if (uploadedFile.size > 0) handleSave();
       else props.saveCallback(file);
