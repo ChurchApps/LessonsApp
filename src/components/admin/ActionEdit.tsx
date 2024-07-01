@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { InputBox, ErrorMessages, MarkdownEditor } from "@churchapps/apphelper";
-import { ArrayHelper, AssetInterface, ResourceInterface, ActionInterface, ApiHelper, ExternalVideoInterface } from "@/utils";
+import { ArrayHelper, AssetInterface, ResourceInterface, ActionInterface, ApiHelper, ExternalVideoInterface, AddOnInterface } from "@/utils";
 import { InputLabel, MenuItem, Select, FormControl, TextField, SelectChangeEvent, ListSubheader } from "@mui/material";
 
 type Props = {
@@ -12,6 +12,7 @@ type Props = {
   studyResources: ResourceInterface[];
   programResources: ResourceInterface[];
   allAssets: AssetInterface[];
+  addOns: AddOnInterface[];
   updatedCallback: (action: ActionInterface, created: boolean) => void;
 };
 
@@ -78,6 +79,12 @@ export function ActionEdit(props: Props) {
         const asset = ArrayHelper.getOne(props.allAssets, "id", a.assetId);
         a.content = (asset) ? assetResource.name + " - " + asset.name : assetResource?.name;
         break;
+      case "addOn":
+        a.addOnId = e.target.value;
+        if (a.addOnId === "") a.addOnId = null;
+        const addOn = ArrayHelper.getOne(props.addOns, "id", a.addOnId);
+        a.content = addOn.name;
+        break;
     }
     setAction(a);
   };
@@ -121,7 +128,7 @@ export function ActionEdit(props: Props) {
   };
 
   const getContent = () => {
-    if (action.actionType !== "Play" && action.actionType !== "Download") {
+    if (action.actionType !== "Play" && action.actionType !== "Download" && action.actionType!=="Add-on") {
       return <MarkdownEditor value={action.content} onChange={handleMarkdownChange} />
     }
   };
@@ -188,6 +195,45 @@ export function ActionEdit(props: Props) {
             a.resourceId = resources[0].id;
             a.content = resources[0].name;
             a.assetId = null;
+            a.addOnId = null;
+            setAction(a);
+          }
+        }
+      }
+    }
+  }
+
+  const getAddOn = () => {
+    if (action.actionType === "Add-on") {
+      if (props.addOns.length > 0) {
+        let currentValue = action.addOnId;
+        return (
+          <>
+            <FormControl fullWidth>
+              <InputLabel>Add-on</InputLabel>
+              <Select label="Add-on" name="addOn" value={currentValue} onChange={handleChange}>
+                {props.addOns.map((a) => <MenuItem value={a.id}>{a.name}</MenuItem>)}
+              </Select>
+            </FormControl>
+
+
+            {getAsset()}
+          </>
+        );
+      }
+    }
+  };
+
+  const updateAddOn = () => {
+    if (action?.actionType === "Add-on") {
+      if (action.addOnId) {
+        if (props.addOns.length > 0) {
+          if (ArrayHelper.getOne(props.addOns, "id", action.id) === null) {
+            let a = { ...action };
+            a.addOnId = props.addOns[0].id;
+            a.content = props.addOns[0].name;
+            a.assetId = null;
+            a.resourceId = null;
             setAction(a);
           }
         }
@@ -198,7 +244,7 @@ export function ActionEdit(props: Props) {
 
   useEffect(() => {
     setAction(props.action);
-    setTimeout(updateResource, 500);
+    setTimeout(() => { updateResource(); updateAddOn() }, 500);
   }, [props.action]);
 
 
@@ -217,10 +263,12 @@ export function ActionEdit(props: Props) {
             <MenuItem value="Play" key="Play">Play</MenuItem>
             <MenuItem value="Download" key="Download">Download</MenuItem>
             <MenuItem value="Note" key="Note">Note</MenuItem>
+            <MenuItem value="Add-on" key="Add-on">Add-on</MenuItem>
           </Select>
         </FormControl>
         {getContent()}
         {getResource()}
+        {getAddOn()}
       </InputBox>
     </>
   );

@@ -67,7 +67,10 @@ export interface FileInterface {
   dateModified?: Date;
   fileContents?: string;
   thumbPath?: string;
+  contentType?: string;
+  contentId?: string;
 }
+
 export interface VenueInterface {
   id?: string;
   lessonId?: string;
@@ -101,6 +104,7 @@ export interface ActionInterface {
   sort?: number;
   resourceId?: string;
   assetId?: string;
+  addOnId?: string;
   externalVideoId?: string;
 }
 
@@ -204,6 +208,17 @@ export interface DownloadInterface {
   downloadDate?: Date,
   fileName?: string
 }
+
+export interface AddOnInterface {
+  id?: string;
+  providerId?: string;
+  category?: string;
+  name?: string;
+  image?: string;
+  addOnType?: string;
+  fileId?: string;
+}
+
 export interface PlaylistFileInterface { name: string, url: string, seconds: number, loopVideo: boolean }
 
 

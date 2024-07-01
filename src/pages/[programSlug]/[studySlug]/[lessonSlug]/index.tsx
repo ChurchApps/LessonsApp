@@ -99,10 +99,22 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
 
     const lessonData = await ApiHelper.getAnonymous("/lessons/public/slugAlt/" + params.programSlug + "/" + params.studySlug + "/" + params.lessonSlug, "LessonsApi");
     console.log("just below lessonData: ", lessonData)
-    return {
-      props: { lessonData, hasError: false },
-      revalidate: 30,
-    };
+
+    if (lessonData.venues.length === 0) {
+      return {
+        props: {
+          hasError: true, error: {
+            message: "No venues for lesson."
+          }
+        },
+        revalidate: 1
+      }
+    } else {
+      return {
+        props: { lessonData, hasError: false },
+        revalidate: 30,
+      };
+    }
   } catch (error: any) {
     console.log("inside catch: ", error)
     return {
