@@ -24,7 +24,16 @@ export default function CP() {
   }
 
   const getScheduleSection = () => {
-    if (classroomId === "") return <p>Select or add a classroom to manage schedules.</p>
+    if (classroomId === "") {
+      let html = "<lite-vimeo videoid=\"969317486\" videotitle=\"Setup Instructions\" start=\"1m29s\"></lite-vimeo>";
+      return <>
+        <p>Select or add a classroom to manage schedules.</p>
+        <div>
+          <b>Setup instructions:</b>
+          <div style={{maxWidth:600, marginLeft:"auto", marginRight:"auto"}} dangerouslySetInnerHTML={{ __html: html }}></div>
+        </div>
+      </>
+    }
     else return <ScheduleList classroomId={classroomId} />
   }
 
