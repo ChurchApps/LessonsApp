@@ -25,7 +25,7 @@ export default function CP() {
 
   const getScheduleSection = () => {
     if (classroomId === "") {
-      let html = "<lite-vimeo videoid=\"969317486\" videotitle=\"Setup Instructions\" start=\"1m29s\"></lite-vimeo>";
+      let html = "<lite-vimeo videoid=\"985348183\" videotitle=\"Setup Instructions\"></lite-vimeo>";
       return <>
         <p>Select or add a classroom to manage schedules.</p>
         <div>
