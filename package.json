@@ -7,10 +7,11 @@
     "build": "next build",
     "postbuild": "next-sitemap",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "postinstall": "copyfiles -a -f node_modules/@churchapps/apphelper/public/locales/** public/apphelper/locales"
   },
   "dependencies": {
-    "@churchapps/apphelper": "0.2.29",
+    "@churchapps/apphelper": "0.2.40",
     "@mui/icons-material": "^5.14.7",
     "@mui/lab": "^5.0.0-alpha.142",
     "@mui/material": "^5.14.7",
@@ -36,6 +37,7 @@
     "@types/node": "^20.5.9",
     "@types/react": "^18.2.21",
     "@types/react-simple-maps": "^3.0.0",
+    "copyfiles": "^2.4.1",
     "eslint": "8.48.0",
     "eslint-config-next": "^13.4.19",
     "eslint-plugin-unused-imports": "^3.0.0",
