@@ -1,12 +1,12 @@
 import { ApiHelper } from "./index";
-import { CommonEnvironmentHelper } from "@churchapps/apphelper";
+import { CommonEnvironmentHelper, Locale } from "@churchapps/apphelper";
 
 export class EnvironmentHelper {
   private static LessonsApi = "";
   static GoogleAnalyticsTag = "";
   static Common = CommonEnvironmentHelper;
 
-  static init = () => {
+  static init = async () => {
     let stage = process.env.STAGE;
     switch (stage) {
       case "staging": EnvironmentHelper.initStaging(); break;
@@ -20,6 +20,10 @@ export class EnvironmentHelper {
       { keyName: "LessonsApi", url: EnvironmentHelper.LessonsApi, jwt: "", permisssions: [] },
       { keyName: "MessagingApi", url: EnvironmentHelper.Common.MessagingApi, jwt: "", permisssions: [] },
     ];
+
+    let baseUrl = "https://staging.lessons.church";
+    if (typeof window !== "undefined") baseUrl = window.location.origin;
+    await Locale.init([baseUrl + `/apphelper/locales/{{lng}}.json`])
   };
 
   static initDev = () => {
