@@ -23,7 +23,11 @@ export class EnvironmentHelper {
 
     let baseUrl = "https://staging.lessons.church";
     if (typeof window !== "undefined") baseUrl = window.location.origin;
-    await Locale.init([baseUrl + `/apphelper/locales/{{lng}}.json`])
+    try {
+      await Locale.init([baseUrl + `/apphelper/locales/{{lng}}.json`])
+    } catch (e) {
+      console.log("Couldn't init locales", e);
+    }
   };
 
   static initDev = () => {
