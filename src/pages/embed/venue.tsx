@@ -35,7 +35,7 @@ export default function B1Venue() {
 
   const getVenue = () => {
     if (venue) {
-      return <Venue useAccordion={true} venue={venue} hidePrint={true} print={0} />
+      return <Venue useAccordion={true} venue={venue} print={0} />
     }
   }
 
