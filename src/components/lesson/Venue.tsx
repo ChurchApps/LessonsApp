@@ -13,7 +13,7 @@ type Props = {
   print: number;
 };
 
-export function Venue(props: Props) {
+export function Venue({ hidePrint = true, ...props }: Props) {
   const contentRef = React.useRef<HTMLDivElement>(null);
   const [activeSectionId, setActiveSectionId] = React.useState<string>(props.venue?.sections[0]?.name || "");
   const [displaySection, setDisplaySection] = React.useState<boolean>(false);
@@ -36,7 +36,7 @@ export function Venue(props: Props) {
       });
     }
 
-    return <div>{sections}</div>;
+    return <div style={{ display: "inline-block" }}>{sections}</div>;
   }
 
   const shouldHide = (id: string) => {
@@ -54,7 +54,9 @@ export function Venue(props: Props) {
     if (props.venue?.sections) {
       const customSections = CustomizationHelper.applyCustomSort(props.customizations, props.venue?.sections, "section");
       customSections.forEach((s) => {
-        sections.push(<Section section={s} toggleActive={handleToggle} activeSectionId={[activeSectionId]} key={s.id} customizations={props.customizations} />);
+        if (!shouldHide(s.id)) {
+          sections.push(<Section section={s} toggleActive={handleToggle} activeSectionId={[activeSectionId]} key={s.id} customizations={props.customizations} />);
+        }
       });
     }
 
@@ -62,10 +64,10 @@ export function Venue(props: Props) {
   }
 
   const getPrint = () => {
-    if (!props.hidePrint) {
-      return (<Button size="small" variant="outlined" key={"print" + props.venue.name}
-        onClick={() => { setDisplaySection(true) }} title="print">
-        <Icon>print</Icon>
+    if (!hidePrint) {
+      return (<Button size="small" variant="outlined" key={"print" + props.venue.name} sx={{ float: "right", marginBottom: "20px" }}
+        onClick={() => { setDisplaySection(true) }} title="print" startIcon={<Icon>print</Icon>}>
+          print
       </Button>);
     }
   }
@@ -78,10 +80,11 @@ export function Venue(props: Props) {
     <div>
       <div>
         <h2 className="printOnly">{props.venue?.name} Instructions</h2>
+        {getPrint()}
         {getSections()}
       </div>
       <div ref={contentRef} style={displaySection ? {display: 'block'} : {display: 'none'}}>
-        <h2 className="printOnly">{props.venue?.name} Instructions</h2>
+        <h2 className="printOnly">{props.venue?.lessonName} Instructions</h2>
         {getPrintSections()}
       </div>
 
