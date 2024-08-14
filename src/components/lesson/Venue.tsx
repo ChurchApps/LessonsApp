@@ -54,7 +54,9 @@ export function Venue({ hidePrint = true, ...props }: Props) {
     if (props.venue?.sections) {
       const customSections = CustomizationHelper.applyCustomSort(props.customizations, props.venue?.sections, "section");
       customSections.forEach((s) => {
-        sections.push(<Section section={s} toggleActive={handleToggle} activeSectionId={[activeSectionId]} key={s.id} customizations={props.customizations} />);
+        if (!shouldHide(s.id)) {
+          sections.push(<Section section={s} toggleActive={handleToggle} activeSectionId={[activeSectionId]} key={s.id} customizations={props.customizations} />);
+        }
       });
     }
 
