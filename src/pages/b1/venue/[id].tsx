@@ -22,6 +22,7 @@ export default function B1Venue() {
   const [selectedTab, setSelectedTab] = useState<string>("");
   const router = useRouter();
   const id = router.query.id;
+  const autoPrint = router.query.autoPrint;
 
   useEffect(() => { loadData(); }, [id]);
 
@@ -47,14 +48,9 @@ export default function B1Venue() {
   const loadData = async () => {
     if (id) {
       let search = new URLSearchParams(process.browser ? window.location.search : "");
-
       const externalProviderId = search.get("externalProviderId");
-
-
       if (externalProviderId) await loadExternal(externalProviderId, id.toString())
       else await loadInternal();
-
-
 
       const classroomId = search.get("classroomId");
       ApiHelper.get("/classrooms/" + classroomId, "LessonsApi").then((c: ClassroomInterface) => {
@@ -76,8 +72,9 @@ export default function B1Venue() {
   }
 
   const getVenue = () => {
+
     if (venue) {
-      return <Venue useAccordion={true} venue={venue} hidePrint={false} print={0} customizations={customizations} />
+      return <Venue useAccordion={true} venue={venue} hidePrint={false} print={(autoPrint) ? 1 : 0} customizations={customizations} />
     }
   }
 
