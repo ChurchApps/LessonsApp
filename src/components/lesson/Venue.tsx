@@ -22,7 +22,16 @@ export function Venue({ hidePrint = true, ...props }: Props) {
 
   const handlePrint = useReactToPrint({ content: () => contentRef.current });
 
-  React.useEffect(() => { displaySection && handlePrint(); setDisplaySection(false); }, [displaySection])
+  const checkPrint = () => {
+    try {
+      const w = window as any;
+      w.ReactNativeWebView.postMessage("print");
+    } catch (e) {
+      handlePrint();
+    }
+  }
+
+  React.useEffect(() => { displaySection && checkPrint(); setDisplaySection(false); }, [displaySection])
 
   function getSections() {
     const sections: JSX.Element[] = [];
