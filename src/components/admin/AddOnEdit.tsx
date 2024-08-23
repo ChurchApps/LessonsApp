@@ -20,6 +20,7 @@ export function AddOnEdit(props: Props) {
   const handleCancel = () => props.updatedCallback(addOn);
   const handleKeyDown = (e: React.KeyboardEvent<any>) => { if (e.key === "Enter") { e.preventDefault(); handleSave(); } };
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement> | SelectChangeEvent<string>) => {
+    let reloadContent = false;
     e.preventDefault();
     let a = { ...addOn };
     const val = e.target.value;
@@ -27,10 +28,21 @@ export function AddOnEdit(props: Props) {
       case "category": a.category = val; break;
       case "name": a.name = val; break;
       case "image": a.image = val; break;
-      case "addOnType": a.addOnType = val; break;
+      case "addOnType": a.addOnType = val; reloadContent=true; break;
     }
+    console.log(a);
     setAddOn(a);
-    loadContent(a);
+    if (reloadContent) loadContent(a);
+  };
+
+  const handleExternalVideoChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement> | SelectChangeEvent<string>) => {
+    e.preventDefault();
+    let ex = { ...externalVideo };
+    const val = e.target.value;
+    switch (e.target.name) {
+      case "videoId": ex.videoId = val; break;
+    }
+    setExternalVideo(ex);
   };
 
   const handleImageUpdated = (dataUrl: string) => {
@@ -60,7 +72,11 @@ export function AddOnEdit(props: Props) {
           setPendingFileSave(true);
         }
         else {
-          ApiHelper.post("/externalVideos", [externalVideo], "LessonsApi").then(() => {
+          const ev = { ...externalVideo };
+          ev.contentType = "addOn";
+          ev.contentId = data[0].id;
+          ev.name = data[0].name;
+          ApiHelper.post("/externalVideos", [ev], "LessonsApi").then(() => {
             props.updatedCallback(data);
           });
         }
@@ -78,7 +94,7 @@ export function AddOnEdit(props: Props) {
 
   const handleImageClick = (e: React.MouseEvent) => { e.preventDefault(); setShowImageEditor(true); };
 
-  useEffect(() => { setAddOn(props.addOn); }, [props.addOn]);
+  useEffect(() => { setAddOn(props.addOn); loadContent(props.addOn); }, [props.addOn]);
 
   const getImageEditor = () => {
     if (showImageEditor) return (<ImageEditor updatedFunction={handleImageUpdated} imageUrl={addOn.image} onCancel={() => setShowImageEditor(false)} />);
@@ -93,7 +109,7 @@ export function AddOnEdit(props: Props) {
           <MenuItem value="Vimeo">Vimeo</MenuItem>
         </Select>
       </FormControl>
-      <TextField fullWidth label="Video Id" name="videoId" value={externalVideo.videoId} onChange={handleChange} onKeyDown={handleKeyDown} placeholder="abc123" />
+      <TextField fullWidth label="Video Id" name="videoId" value={externalVideo.videoId} onChange={handleExternalVideoChange} onKeyDown={handleKeyDown} placeholder="abc123" />
       <FormControl fullWidth>
         <InputLabel>Looping Video</InputLabel>
         <Select label="Looping Video" name="loopVideo" value={externalVideo.loopVideo?.toString()} onChange={handleChange}>
