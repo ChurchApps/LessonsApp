@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import { ProgramEdit, StudyEdit, LessonEdit, VenueList, BundleList } from "@/components";
-import { ApiHelper, LessonInterface, ProgramInterface, StudyInterface, ArrayHelper, AddOnInterface } from "@/utils";
+import { ApiHelper, LessonInterface, ProgramInterface, StudyInterface, ArrayHelper, AddOnInterface, ProviderInterface } from "@/utils";
 import { Wrapper } from "@/components/Wrapper";
 import { Accordion, AccordionDetails, AccordionSummary, Grid, Icon } from "@mui/material";
 import { SmallButton, DisplayBox, Loading } from "@churchapps/apphelper";
@@ -9,6 +9,7 @@ import { AddOnEdit } from "@/components/admin/AddOnEdit";
 
 
 export default function Admin() {
+  const [providers, setProviders] = useState<ProviderInterface[]>(null);
   const [programs, setPrograms] = useState<ProgramInterface[]>(null);
   const [studies, setStudies] = useState<StudyInterface[]>(null);
   const [lessons, setLessons] = useState<LessonInterface[]>(null);
@@ -35,6 +36,7 @@ export default function Admin() {
   useEffect(() => { if (isAuthenticated) { loadData(); } }, [isAuthenticated]);
 
   function loadData() {
+    ApiHelper.get("/providers", "LessonsApi").then((data: any) => { setProviders(data); });
     ApiHelper.get("/programs", "LessonsApi").then((data: any) => { setPrograms(data); });
     ApiHelper.get("/studies", "LessonsApi").then((data: any) => { setStudies(data); });
     ApiHelper.get("/lessons", "LessonsApi").then((data: any) => { setLessons(data); });
@@ -196,8 +198,8 @@ export default function Admin() {
     return result;
   }
 
-  const getEditContent = (<SmallButton icon="add" onClick={() => { clearEdits(); setEditProgram({ providerId: (programs.length>0) ? programs[0].providerId : "", live:false }); }} />);
-  const getAddOnEditContent = (<SmallButton icon="add" onClick={() => { clearEdits(); setEditAddOn({ providerId: (programs.length>0) ? programs[0].providerId : "", addOnType: "externalVideo" }); }} />);
+  const getEditContent = (<SmallButton icon="add" onClick={() => { clearEdits(); setEditProgram({ providerId: (providers.length>0) ? providers[0].id : "", live:false }); }} />);
+  const getAddOnEditContent = (<SmallButton icon="add" onClick={() => { clearEdits(); setEditAddOn({ providerId: (providers.length>0) ? providers[0].id : "", addOnType: "externalVideo", category:"slow worship" }); }} />);
 
   return (
     <Wrapper>
