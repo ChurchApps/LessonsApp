@@ -79,11 +79,14 @@ export default function Home({ programs, providers, studies, stats, hasError, er
 
 export const getStaticProps: GetStaticProps = async () => {
   try {
-    console.log("Fetching data for home page");
-    const programs: ProgramInterface[] = await ApiHelper.getAnonymous("/programs/public", "LessonsApi");
+    const excludeIds = ["CMCkovCA00e", "yBl-EUBxm17"];
+    let programs: ProgramInterface[] = await ApiHelper.getAnonymous("/programs/public", "LessonsApi");
     const providers: ProviderInterface[] = await ApiHelper.getAnonymous("/providers/public", "LessonsApi");
     const studies: ProviderInterface[] = await ApiHelper.getAnonymous("/studies/public", "LessonsApi");
     const stats: any = await ApiHelper.getAnonymous("/providers/stats", "LessonsApi");
+
+    programs = programs.filter((p) => !excludeIds.includes(p.id));
+
     return {
       props: { programs, providers, studies, stats, hasError: false },
       revalidate: 30,
