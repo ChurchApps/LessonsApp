@@ -13,6 +13,7 @@ type Props = {
 export function Header(props: Props) {
   const [menuAnchor, setMenuAnchor] = useState<any>(null);
   const [showSupport, setShowSupport] = useState(false);
+
   /*
   const adminItems = UserHelper.checkAccess(Permissions.lessonsApi.lessons.edit) && (
     <Link href="/admin"><Icon sx={{ marginRight: "5px" }}>admin_panel_settings</Icon> Admin</Link>
@@ -20,14 +21,15 @@ export function Header(props: Props) {
 
   const cpItems = UserHelper.checkAccess(Permissions.lessonsApi.lessons.editSchedules) && (
     <Link href="/portal"><Icon sx={{ marginRight: "5px" }}>calendar_month</Icon> Schedules</Link>
-  );
-*/
+  );*/
+
 
   //const pathName = usePathname();
   //const returnUrl = (router.pathname === "/") ? "" : `?returnUrl=${encodeURIComponent(pathName)}`;
   /*
-  {adminItems}
-          {cpItems}*/
+  */
+  //{adminItems}
+  //{cpItems}
 
   const userAction = ApiHelper.isAuthenticated
     ? (
