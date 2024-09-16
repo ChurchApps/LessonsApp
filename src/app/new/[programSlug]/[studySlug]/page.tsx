@@ -1,5 +1,4 @@
 import { Layout } from "@/components/Layout";
-import { EnvironmentHelper } from "@/utils/EnvironmentHelper";
 import { LessonInterface, ProgramInterface, StudyInterface } from "@/utils/interfaces";
 import { ApiHelper } from "@churchapps/apphelper/dist/helpers/ApiHelper";
 import Container from "@mui/material/Container";
@@ -14,7 +13,6 @@ import Error from "@/pages/_error";
 export default async function StudyPage({params}: {params:{programSlug:string, studySlug:string}}) {
 
   const loadData = async () => {
-    await EnvironmentHelper.init();
     const program: ProgramInterface = await ApiHelper.getAnonymous("/programs/public/slug/" + params.programSlug, "LessonsApi");
     const study: StudyInterface = await ApiHelper.getAnonymous("/studies/public/slug/" + program?.id + "/" + params.studySlug, "LessonsApi");
     const lessons: LessonInterface[] = await ApiHelper.getAnonymous("/lessons/public/study/" + study?.id, "LessonsApi");

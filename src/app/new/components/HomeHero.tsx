@@ -1,6 +1,6 @@
 import { Container, Fade, Grid, Link, Slide, Stack } from "@mui/material";
 import { Stats } from "./Stats";
-import { Header } from "../Header";
+import { Header } from "../../../components/Header";
 
 type Props = {
   stats: any;

@@ -3,8 +3,8 @@ import { HomeAbout, HomeConnect, Layout, Programs } from "@/components";
 import { ApiHelper, ProgramInterface, ProviderInterface, StudyInterface } from "@/utils";
 import { FloatingSupport } from "@churchapps/apphelper";
 import Error from "./_error";
-import { HomeTestimonials } from "@/components/home/HomeTestimonials";
-import { HomeHero } from "@/components/home/HomeHero";
+import { HomeTestimonials } from "@/app/new/components/HomeTestimonials";
+import { HomeHero } from "@/app/new/components/HomeHero";
 import { Container, Grid, Link } from "@mui/material";
 import Image from "next/image";
 

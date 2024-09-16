@@ -2,7 +2,6 @@ import { Container } from "@mui/material";
 import { Layout } from "@/components/Layout";
 import { ProgramInterface, StudyCategoryInterface, StudyInterface } from "@/utils/interfaces";
 import { ApiHelper } from "@churchapps/apphelper/dist/helpers/ApiHelper";
-import { EnvironmentHelper } from "@/utils/EnvironmentHelper";
 import Image from "next/image";
 import { CategoriesAndStudies } from "./components/CategoriesAndStudies";
 import { ProgramVideo } from "./components/ProgramVideo";
@@ -13,7 +12,6 @@ import Error from "@/pages/_error";
 export default async function ProgramPage({params}: { params:{programSlug:string }}) {
 
   const loadData = async () => {
-    await EnvironmentHelper.init();
     const program: ProgramInterface = await ApiHelper.getAnonymous("/programs/public/slug/" + params?.programSlug, "LessonsApi");
     //const provider: ProviderInterface = await ApiHelper.getAnonymous("/providers/public/" + program?.providerId, "LessonsApi");
     const studies: StudyInterface[] = await ApiHelper.getAnonymous("/studies/public/program/" + program?.id, "LessonsApi");
