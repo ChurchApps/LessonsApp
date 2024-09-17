@@ -1,22 +1,17 @@
-import React from "react";
+"use client"
+
+import React, { useEffect } from "react";
 import { ClassroomInterface, CustomizationInterface, FeedVenueInterface, ScheduleInterface } from "@/utils/interfaces";
 import { ApiHelper } from "@churchapps/apphelper/dist/helpers/ApiHelper";
 import { VenueClient } from "./components/VenueClient";
+import { EnvironmentHelper } from "@/utils";
+import { useSearchParams } from 'next/navigation';
 
-export default async function B1Venue({params}: { params:{id:string }}) {
-  /*
-  const [venue, setVenue] = useState<FeedVenueInterface>(null);
-  const [classroom, setClassroom] = useState<ClassroomInterface>(null);
-  const [customizations, setCustomizations] = useState<CustomizationInterface[]>([]);
-  const [currentSchedule, setCurrentSchedule] = useState<ScheduleInterface>(null);
-  const [prevSchedule, setPrevSchedule] = useState<ScheduleInterface>(null);
-  const [nextSchedule, setNextSchedule] = useState<ScheduleInterface>(null);
+export default function B1Venue({params}: { params:{id:string }}) {
 
-  const [selectedTab, setSelectedTab] = useState<string>("");
-  const router = useRouter();
-  const id = router.query.id;*/
-  //const autoPrint = router.query.autoPrint;
-
+  const searchParams = useSearchParams();
+  const autoPrint = searchParams.get("autoPrint") === "1";
+  const [data, setData] = React.useState<any>(null);
 
   const loadInternal = async () => {
     const venue: FeedVenueInterface = await ApiHelper.get("/venues/public/feed/" + params.id, "LessonsApi");
@@ -29,6 +24,7 @@ export default async function B1Venue({params}: { params:{id:string }}) {
   }
 
   const loadData = async () => {
+    await EnvironmentHelper.init();
 
     let search = new URLSearchParams(process.browser ? window.location.search : "");
     const externalProviderId = search.get("externalProviderId");
@@ -54,10 +50,14 @@ export default async function B1Venue({params}: { params:{id:string }}) {
       if (currentIndex < schedules.length - 1) nextSchedule = schedules[currentIndex + 1];
     }
 
-    return {classroom, customizations, currentSchedule, prevSchedule, nextSchedule, venue};
+    //return {classroom, customizations, currentSchedule, prevSchedule, nextSchedule, venue};
+    setData({classroom, customizations, currentSchedule, prevSchedule, nextSchedule, venue});
   }
 
-  const {classroom, customizations, currentSchedule, prevSchedule, nextSchedule, venue } = await loadData();
+  //const {classroom, customizations, currentSchedule, prevSchedule, nextSchedule, venue } = await loadData();
+  useEffect(() => { loadData(); }, []);
 
-  return <VenueClient venue={venue} classroom={classroom} customizations={customizations} currentSchedule={currentSchedule} prevSchedule={prevSchedule} nextSchedule={nextSchedule} />;
+
+  return <VenueClient venue={data?.venue} classroom={data?.classroom} customizations={data?.customizations} currentSchedule={data?.currentSchedule} prevSchedule={data?.prevSchedule} nextSchedule={data?.nextSchedule} autoPrint={autoPrint} />;
+
 }

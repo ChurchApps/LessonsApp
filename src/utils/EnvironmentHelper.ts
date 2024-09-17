@@ -8,7 +8,11 @@ export class EnvironmentHelper {
   static GoogleAnalyticsTag = "";
   static Common = CommonEnvironmentHelper;
 
+  static hasInit = false;
+
   static init = async () => {
+    if (this.hasInit) return;
+
     let stage = process.env.STAGE;
     switch (stage) {
       case "staging": EnvironmentHelper.initStaging(); break;
@@ -30,6 +34,7 @@ export class EnvironmentHelper {
     } catch (e) {
       console.log("Couldn't init locales", e);
     }
+    this.hasInit = true;
   };
 
   static initDev = () => {

@@ -9,26 +9,26 @@ import Grid from "@mui/material/Grid";
 import Tab from "@mui/material/Tab";
 import Tabs from "@mui/material/Tabs";
 import Link from "next/link";
-import { useRouter } from "next/router";
+
 import { useEffect, useState } from "react";
 
 type Props = {
-
   classroom:ClassroomInterface;
   customizations:CustomizationInterface[];
   currentSchedule:ScheduleInterface;
   prevSchedule:ScheduleInterface;
   nextSchedule:ScheduleInterface;
   venue:FeedVenueInterface;
+  autoPrint:boolean;
 };
 
 export function VenueClient(props: Props) {
   const [selectedTab, setSelectedTab] = useState<string>("");
-  const router = useRouter();
-  const autoPrint = router.query.autoPrint;
+
+
 
   const getVenue = () => {
-    if (props.venue) return <Venue useAccordion={true} venue={props.venue} hidePrint={false} print={(autoPrint) ? 1 : 0} customizations={props.customizations} />
+    if (props.venue) return <Venue useAccordion={true} venue={props.venue} hidePrint={false} print={(props.autoPrint) ? 1 : 0} customizations={props.customizations} />
   }
 
   const getTabs = () => {
@@ -70,7 +70,8 @@ export function VenueClient(props: Props) {
     };
   }, []);
 
-  return (
+  if (props.venue === null) return <></>;
+  else return (
     <Layout withoutNavbar={true} withoutFooter={true}>
       <div id="b1Tabs">
         <Tabs value={selectedTab} onChange={(e, newVal) => { handleChange(newVal) } } variant="scrollable" scrollButtons="auto" aria-label="scrollable auto tabs example">
