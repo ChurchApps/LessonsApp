@@ -1,0 +1,110 @@
+"use client";
+
+import { Layout } from "@/components/Layout";
+import { Venue } from "@/components/lesson/Venue";
+import { ClassroomInterface, CustomizationInterface, FeedVenueInterface, ScheduleInterface } from "@/utils/interfaces";
+import { DateHelper } from "@churchapps/apphelper/dist/helpers/DateHelper";
+import Container from "@mui/material/Container";
+import Grid from "@mui/material/Grid";
+import Tab from "@mui/material/Tab";
+import Tabs from "@mui/material/Tabs";
+import Link from "next/link";
+import { useRouter } from "next/router";
+import { useEffect, useState } from "react";
+
+type Props = {
+
+  classroom:ClassroomInterface;
+  customizations:CustomizationInterface[];
+  currentSchedule:ScheduleInterface;
+  prevSchedule:ScheduleInterface;
+  nextSchedule:ScheduleInterface;
+  venue:FeedVenueInterface;
+};
+
+export function VenueClient(props: Props) {
+  const [selectedTab, setSelectedTab] = useState<string>("");
+  const router = useRouter();
+  const autoPrint = router.query.autoPrint;
+
+  const getVenue = () => {
+    if (props.venue) return <Venue useAccordion={true} venue={props.venue} hidePrint={false} print={(autoPrint) ? 1 : 0} customizations={props.customizations} />
+  }
+
+  const getTabs = () => {
+    const result: JSX.Element[] = [];
+    props.venue?.sections?.forEach(s => {
+      if (s.actions?.length>0) result.push(<Tab label={s.name} value={s.name} />)
+    })
+    return result;
+  }
+
+  const handleChange = (newValue: string) => {
+    setSelectedTab(newValue);
+    const scrollTop = document.getElementById("section-" + newValue).offsetTop - 50;
+    window.scrollTo({top: scrollTop, behavior: "smooth"});
+  };
+
+  const handleHighlight = () => {
+    const elements = document.getElementsByClassName("sectionCard");
+    let maxTop=0;
+    let result = "";
+    for (let i=0;i<elements.length;i++) {
+      const el:any = elements[i];
+      if (window.scrollY>=el.offsetTop - 60 && el.offsetTop>0) {
+        if (el.offsetTop > maxTop) {
+          maxTop = el.offsetTop;
+          result=el.id.replace("section-", "");
+        }
+      }
+    }
+
+    if (result !== selectedTab) setSelectedTab(result);
+  }
+
+  useEffect(() => {
+    window.addEventListener('scroll', handleHighlight);
+
+    return () => {
+      window.removeEventListener('scroll', handleHighlight);
+    };
+  }, []);
+
+  return (
+    <Layout withoutNavbar={true} withoutFooter={true}>
+      <div id="b1Tabs">
+        <Tabs value={selectedTab} onChange={(e, newVal) => { handleChange(newVal) } } variant="scrollable" scrollButtons="auto" aria-label="scrollable auto tabs example">
+          {getTabs()}
+        </Tabs>
+      </div>
+      <div style={{height:50}}></div>
+      <Link href={"/b1/" + props.classroom?.churchId}>Go back</Link>
+      <Grid container columnSpacing={2}>
+        <Grid item xs={4}>
+          {props.prevSchedule && (
+            <Link href={"/b1/venue/" + props.prevSchedule?.venueId + "?classroomId=" + props.classroom?.id}>{DateHelper.prettyDate(DateHelper.toDate(props.prevSchedule.scheduledDate))}</Link>
+          )}
+        </Grid>
+        <Grid item xs={4} style={{ textAlign: "center" }}>
+          {props.currentSchedule && (
+            <b>{DateHelper.prettyDate(DateHelper.toDate(props.currentSchedule.scheduledDate))}</b>
+          )}
+        </Grid>
+        <Grid item xs={4} style={{ textAlign: "right" }}>
+          {props.nextSchedule && (
+            <Link href={"/b1/venue/" + props.nextSchedule?.venueId + "?classroomId=" + props.classroom?.id}>{DateHelper.prettyDate(DateHelper.toDate(props.nextSchedule.scheduledDate))}</Link>
+          )}
+        </Grid>
+      </Grid>
+
+      <Container fixed>
+        <h1>{props.venue?.lessonName}</h1>
+      </Container>
+      <div className="b1">
+        {getVenue()}
+      </div>
+      <br />
+    </Layout>
+  );
+
+}
