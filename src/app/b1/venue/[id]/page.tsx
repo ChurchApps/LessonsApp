@@ -6,12 +6,6 @@ import { ApiHelper } from "@churchapps/apphelper/dist/helpers/ApiHelper";
 import { VenueClient } from "./components/VenueClient";
 import { EnvironmentHelper } from "@/utils";
 import { useSearchParams } from 'next/navigation';
-import { Metadata } from "next";
-import { MetaHelper } from "@/utils/MetaHelper";
-
-export async function generateMetadata(): Promise<Metadata> {
-  return MetaHelper.getMetaData();
-}
 
 export default function B1Venue({params}: { params:{id:string }}) {
 

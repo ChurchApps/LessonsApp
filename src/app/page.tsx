@@ -34,9 +34,7 @@ const loadSharedData = async () => {
   return loadDataPromise;
 }
 
-type PageProps = Awaited<ReturnType<typeof loadData>>;
-
-export async function generateMetadata(pageProps: PageProps): Promise<Metadata> {
+export async function generateMetadata(): Promise<Metadata> {
   return MetaHelper.getMetaData();
 }
 
@@ -45,6 +43,10 @@ export default async function Home() {
   const { programs, providers, studies, stats, errorMessage } = pageProps;
 
   if (errorMessage) return <Error message={errorMessage} />
+
+  //const headersList = headers();
+  //headersList.set('Cache-Control', 'public, s-maxage=5, stale-while-revalidate=2500000');
+
 
   const getElmPrograms = () => (<>
     <Grid item md={2} sm={4} xs={4}>

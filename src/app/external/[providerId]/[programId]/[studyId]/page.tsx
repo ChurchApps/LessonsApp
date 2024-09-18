@@ -11,12 +11,6 @@ import Link from "next/link";
 import { ExternalProviderHelper } from "@/utils/ExternalProviderHelper";
 import { useEffect, useState } from "react";
 import { EnvironmentHelper } from "@/utils";
-import { Metadata } from "next";
-import { MetaHelper } from "@/utils/MetaHelper";
-
-export async function generateMetadata(): Promise<Metadata> {
-  return MetaHelper.getMetaData();
-}
 
 export default function StudyPage({params}: { params:{providerId:string, programId:string, studyId:string }}) {
 

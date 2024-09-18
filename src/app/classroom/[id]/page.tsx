@@ -9,12 +9,6 @@ import { ArrayHelper, DateHelper, ChurchInterface, MarkdownPreview } from "@chur
 import { AppBar, Container, Grid, Stack } from "@mui/material";
 import { ExternalProviderHelper } from "@/utils/ExternalProviderHelper";
 import { useSearchParams } from "next/navigation";
-import { Metadata } from "next";
-import { MetaHelper } from "@/utils/MetaHelper";
-
-export async function generateMetadata(): Promise<Metadata> {
-  return MetaHelper.getMetaData();
-}
 
 export default function Venue() {
   const [classroom, setClassroom] = useState<ClassroomInterface>(null);
