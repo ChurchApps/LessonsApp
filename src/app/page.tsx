@@ -11,32 +11,40 @@ import { HomeHero } from "@/app/components/HomeHero";
 import { Container, Grid, Link } from "@mui/material";
 import Image from "next/image";
 import { FloatingSupportWrapper } from "./components/FloatingSupportWrapper";
+import { Metadata } from "next";
 import { EnvironmentHelper } from "@/utils/EnvironmentHelper";
+import { MetaHelper } from "@/utils/MetaHelper";
 
+const loadData = async () => {
+  EnvironmentHelper.init();
+  const excludeIds = ["CMCkovCA00e", "yBl-EUBxm17"];
+  let programs: ProgramInterface[] = await ApiHelper.getAnonymous("/programs/public", "LessonsApi");
+  const providers: ProviderInterface[] = await ApiHelper.getAnonymous("/providers/public", "LessonsApi");
+  const studies: ProviderInterface[] = await ApiHelper.getAnonymous("/studies/public", "LessonsApi");
+  const stats: any = await ApiHelper.getAnonymous("/providers/stats", "LessonsApi");
+
+  programs = programs.filter((p) => !excludeIds.includes(p.id));
+  return {programs, providers, studies, stats, errorMessage: ""};
+}
+
+let loadDataPromise:ReturnType<typeof loadData>;
+
+const loadSharedData = async () => {
+  if (!loadDataPromise) loadDataPromise = loadData();
+  return loadDataPromise;
+}
+
+type PageProps = Awaited<ReturnType<typeof loadData>>;
+
+export async function generateMetadata(pageProps: PageProps): Promise<Metadata> {
+  return MetaHelper.getMetaData();
+}
 
 export default async function Home() {
-
-  const loadData = async () => {
-    EnvironmentHelper.init();
-    const excludeIds = ["CMCkovCA00e", "yBl-EUBxm17"];
-    let programs: ProgramInterface[] = await ApiHelper.getAnonymous("/programs/public", "LessonsApi");
-    const providers: ProviderInterface[] = await ApiHelper.getAnonymous("/providers/public", "LessonsApi");
-    const studies: ProviderInterface[] = await ApiHelper.getAnonymous("/studies/public", "LessonsApi");
-    const stats: any = await ApiHelper.getAnonymous("/providers/stats", "LessonsApi");
-
-    programs = programs.filter((p) => !excludeIds.includes(p.id));
-    return {programs, providers, studies, stats, errorMessage: ""};
-  }
-
-  const {programs, providers, studies, stats, errorMessage} = await loadData();
+  const pageProps = await loadSharedData();
+  const { programs, providers, studies, stats, errorMessage } = pageProps;
 
   if (errorMessage) return <Error message={errorMessage} />
-
-
-  let description = "Church budgets prohibit teaching the word of God in the most effective way possible. We provide high quality content to churches completely free of charge, thanks to our generous partners."
-  let ogDescription = "We provide high quality content to churches completely free of charge, thanks to our generous partners."
-  let pageImage = "https://lessons.church/images/og-image.png";
-
 
   const getElmPrograms = () => (<>
     <Grid item md={2} sm={4} xs={4}>
@@ -72,7 +80,7 @@ export default async function Home() {
   );
 
   return (
-    <Layout metaDescription={description} image={pageImage} ogDescription={ogDescription} withoutNavbar>
+    <Layout withoutNavbar>
       <HomeHero stats={stats} />
       <HomeAbout />
       <Programs programs={programs} providers={providers} studies={studies} />
@@ -84,32 +92,3 @@ export default async function Home() {
     </Layout>
   );
 }
-/*<FloatingSupport appName="Lessons.church" />*/
-
-/*
-export const getStaticProps: GetStaticProps = async () => {
-  try {
-    const excludeIds = ["CMCkovCA00e", "yBl-EUBxm17"];
-    let programs: ProgramInterface[] = await ApiHelper.getAnonymous("/programs/public", "LessonsApi");
-    const providers: ProviderInterface[] = await ApiHelper.getAnonymous("/providers/public", "LessonsApi");
-    const studies: ProviderInterface[] = await ApiHelper.getAnonymous("/studies/public", "LessonsApi");
-    const stats: any = await ApiHelper.getAnonymous("/providers/stats", "LessonsApi");
-
-    programs = programs.filter((p) => !excludeIds.includes(p.id));
-
-    return {
-      props: { programs, providers, studies, stats, hasError: false },
-      revalidate: 30,
-    };
-  } catch (error:any) {
-    return {
-      props: {
-        hasError: true, error: {
-          message: error.message
-        }
-      },
-      revalidate: 1
-    }
-  }
-};
-*/

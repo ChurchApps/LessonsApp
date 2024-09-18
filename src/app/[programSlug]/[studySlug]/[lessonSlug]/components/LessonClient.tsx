@@ -20,9 +20,9 @@ export default function LessonClient(props: Props) {
   const [selectedVenue, setSelectedVenue] = React.useState<FeedVenueInterface>(props.lessonData?.venues?.[0]);
   const [print, setPrint] = React.useState<number>(0);
 
-  const title = selectedVenue.programName + ": " + selectedVenue.lessonName + " - Free Church Curriculum";
+
   return (
-    <Layout pageTitle={title} metaDescription={selectedVenue.lessonDescription} image={selectedVenue.lessonImage} withoutNavbar>
+    <Layout withoutNavbar>
       <div id="studyHero">
         <div className="content">
           <Container fixed>

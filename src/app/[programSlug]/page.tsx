@@ -9,33 +9,47 @@ import { HeaderWrapper } from "@/app/components/HeaderWrapper";
 import { MarkdownWrapper } from "@/app/components/MarkdownWrapper";
 import Error from "@/pages/_error";
 import { EnvironmentHelper } from "@/utils/EnvironmentHelper";
+import { Metadata } from "next";
+import { MetaHelper } from "@/utils/MetaHelper";
 
-export default async function ProgramPage({params}: { params:{programSlug:string }}) {
+type PageParams = {programSlug:string }
 
-  const loadData = async () => {
-    EnvironmentHelper.init();
-    const program: ProgramInterface = await ApiHelper.getAnonymous("/programs/public/slug/" + params?.programSlug, "LessonsApi");
-    //const provider: ProviderInterface = await ApiHelper.getAnonymous("/providers/public/" + program?.providerId, "LessonsApi");
-    const studies: StudyInterface[] = await ApiHelper.getAnonymous("/studies/public/program/" + program?.id, "LessonsApi");
-    const studyCategories: StudyCategoryInterface[] = await ApiHelper.getAnonymous("/studyCategories/public/program/" + program?.id, "LessonsApi");
-    return {program, studies, studyCategories, errorMessage: ""};
-  }
+const loadData = async (programSlug:string) => {
+  EnvironmentHelper.init();
+  const program: ProgramInterface = await ApiHelper.getAnonymous("/programs/public/slug/" + programSlug, "LessonsApi");
+  const studies: StudyInterface[] = await ApiHelper.getAnonymous("/studies/public/program/" + program?.id, "LessonsApi");
+  const studyCategories: StudyCategoryInterface[] = await ApiHelper.getAnonymous("/studyCategories/public/program/" + program?.id, "LessonsApi");
+  return {program, studies, studyCategories, errorMessage: ""};
+}
 
-  const {program, studies, studyCategories, errorMessage} = await loadData();
+let loadDataPromise:ReturnType<typeof loadData>;
 
-  if (errorMessage) return <Error message={errorMessage} />
+const loadSharedData = async (programSlug:string) => {
+  if (!loadDataPromise) loadDataPromise = loadData(programSlug);
+  return loadDataPromise;
+}
+
+
+export async function generateMetadata({params}: {params:PageParams}): Promise<Metadata> {
+  const props = await loadSharedData(params.programSlug);
+  return MetaHelper.getMetaData(props.program.name + " - Free Church Curriculum", props.program.description, props.program.image);
+}
+
+export default async function ProgramPage({params}: {params:PageParams}) {
+  const props = await loadSharedData(params.programSlug);
+  if (props.errorMessage) return <Error message={props.errorMessage} />
 
   return (
-    <Layout pageTitle={program.name + " - Free Church Curriculum"} metaDescription={program.description} image={program.image} withoutNavbar>
-      <div id="programHero" style={{ backgroundImage:"url('/images/programs/" + program.slug + ".jpg')" }}>
+    <Layout withoutNavbar>
+      <div id="programHero" style={{ backgroundImage:"url('/images/programs/" + props.program.slug + ".jpg')" }}>
         <div className="content">
           <Container fixed>
             <HeaderWrapper position="static" />
-            <h1>{program.name}</h1>
-            <div style={{marginBottom:20}}>{program.shortDescription}</div>
-            <ProgramVideo program={program} />
+            <h1>{props.program.name}</h1>
+            <div style={{marginBottom:20}}>{props.program.shortDescription}</div>
+            <ProgramVideo program={props.program} />
             <div style={{height:90}}></div>
-            <Image src={program.image || "/not-found"} alt={program.name} width={320} height={180} className="badge" />
+            <Image src={props.program.image || "/not-found"} alt={props.program.name} width={320} height={180} className="badge" />
           </Container>
         </div>
       </div>
@@ -43,10 +57,10 @@ export default async function ProgramPage({params}: { params:{programSlug:string
         <Container fixed>
           <div id="programIntro">
             <h2>Studies</h2>
-            <div><MarkdownWrapper value={program.description} /></div>
+            <div><MarkdownWrapper value={props.program.description} /></div>
           </div>
 
-          <CategoriesAndStudies program={program} studies={studies} studyCategories={studyCategories} />
+          <CategoriesAndStudies program={props.program} studies={props.studies} studyCategories={props.studyCategories} />
         </Container>
       </div>
 
