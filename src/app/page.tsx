@@ -11,17 +11,18 @@ import { HomeHero } from "@/app/components/HomeHero";
 import { Container, Grid, Link } from "@mui/material";
 import Image from "next/image";
 import { FloatingSupportWrapper } from "./components/FloatingSupportWrapper";
+import { EnvironmentHelper } from "@/utils/EnvironmentHelper";
 
 
 export default async function Home() {
 
   const loadData = async () => {
+    EnvironmentHelper.init();
     const excludeIds = ["CMCkovCA00e", "yBl-EUBxm17"];
     let programs: ProgramInterface[] = await ApiHelper.getAnonymous("/programs/public", "LessonsApi");
     const providers: ProviderInterface[] = await ApiHelper.getAnonymous("/providers/public", "LessonsApi");
     const studies: ProviderInterface[] = await ApiHelper.getAnonymous("/studies/public", "LessonsApi");
     const stats: any = await ApiHelper.getAnonymous("/providers/stats", "LessonsApi");
-
 
     programs = programs.filter((p) => !excludeIds.includes(p.id));
     return {programs, providers, studies, stats, errorMessage: ""};

@@ -1,10 +1,11 @@
 "use client";
 
 import Link from "next/link";
-import { UserHelper, ApiHelper } from "@/utils";
+import { UserHelper } from "@churchapps/apphelper/dist/helpers/UserHelper";
+import { ApiHelper } from "@churchapps/apphelper/dist/helpers/ApiHelper";
 import { ClickAwayListener, Icon, Menu, AppBar, Stack, Box } from "@mui/material";
 import { useState } from "react";
-import { SupportModal } from "@churchapps/apphelper";
+import { SupportModal } from "@churchapps/apphelper/dist/components/SupportModal";
 
 type Props = {
   position?: "fixed" | "sticky" | "static" | "relative" | "absolute";
