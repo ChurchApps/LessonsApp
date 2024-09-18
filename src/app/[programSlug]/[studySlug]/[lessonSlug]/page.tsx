@@ -2,10 +2,12 @@ import { ApiHelper } from "@churchapps/apphelper/dist/helpers/ApiHelper";
 import Error from "@/pages/_error";
 import React from "react";
 import LessonClient from "./components/LessonClient";
+import { EnvironmentHelper } from "@/utils/EnvironmentHelper";
 
 export default async function LessonsPage({params}: {params:{programSlug:string, studySlug:string, lessonSlug:string}}) {
 
   const loadData = async () => {
+    EnvironmentHelper.init();
     try {
       const lessonData = await ApiHelper.getAnonymous("/lessons/public/slugAlt/" + params.programSlug + "/" + params.studySlug + "/" + params.lessonSlug, "LessonsApi");
 

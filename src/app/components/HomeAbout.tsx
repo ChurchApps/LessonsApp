@@ -1,5 +1,5 @@
 import { Container, Grid } from "@mui/material";
-import { EmbeddedVideo } from "../../../components/EmbeddedVideo";
+import { EmbeddedVideo } from "../../components/EmbeddedVideo";
 
 export function HomeAbout() {
 

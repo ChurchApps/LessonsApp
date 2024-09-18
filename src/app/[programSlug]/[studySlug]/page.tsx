@@ -9,10 +9,12 @@ import { Lessons } from "@/components/Lessons";
 import { MarkdownWrapper } from "@/app/components/MarkdownWrapper";
 import { HeaderWrapper } from "@/app/components/HeaderWrapper";
 import Error from "@/pages/_error";
+import { EnvironmentHelper } from "@/utils/EnvironmentHelper";
 
 export default async function StudyPage({params}: {params:{programSlug:string, studySlug:string}}) {
 
   const loadData = async () => {
+    EnvironmentHelper.init();
     const program: ProgramInterface = await ApiHelper.getAnonymous("/programs/public/slug/" + params.programSlug, "LessonsApi");
     const study: StudyInterface = await ApiHelper.getAnonymous("/studies/public/slug/" + program?.id + "/" + params.studySlug, "LessonsApi");
     const lessons: LessonInterface[] = await ApiHelper.getAnonymous("/lessons/public/study/" + study?.id, "LessonsApi");

@@ -1,13 +1,13 @@
 //import { HomeAbout, HomeConnect, Layout, Programs } from "@/components/home";
-import { HomeAbout } from "@/app/new/components/HomeAbout";
-import { HomeConnect } from "@/app/new/components/HomeConnect";
+import { HomeAbout } from "@/app/components/HomeAbout";
+import { HomeConnect } from "@/app/components/HomeConnect";
 import { Layout } from "@/components/Layout";
-import { Programs } from "@/app/new/components/Programs";
+import { Programs } from "@/app/components/Programs";
 import { ProgramInterface, ProviderInterface } from "@/utils/interfaces";
 import { ApiHelper } from "@churchapps/apphelper/dist/helpers/ApiHelper";
 import Error from "@/pages/_error";
-import { HomeTestimonials } from "@/app/new/components/HomeTestimonials";
-import { HomeHero } from "@/app/new/components/HomeHero";
+import { HomeTestimonials } from "@/app/components/HomeTestimonials";
+import { HomeHero } from "@/app/components/HomeHero";
 import { Container, Grid, Link } from "@mui/material";
 import Image from "next/image";
 import { FloatingSupportWrapper } from "./components/FloatingSupportWrapper";

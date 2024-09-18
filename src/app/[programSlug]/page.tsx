@@ -8,10 +8,12 @@ import { ProgramVideo } from "./components/ProgramVideo";
 import { HeaderWrapper } from "@/app/components/HeaderWrapper";
 import { MarkdownWrapper } from "@/app/components/MarkdownWrapper";
 import Error from "@/pages/_error";
+import { EnvironmentHelper } from "@/utils/EnvironmentHelper";
 
 export default async function ProgramPage({params}: { params:{programSlug:string }}) {
 
   const loadData = async () => {
+    EnvironmentHelper.init();
     const program: ProgramInterface = await ApiHelper.getAnonymous("/programs/public/slug/" + params?.programSlug, "LessonsApi");
     //const provider: ProviderInterface = await ApiHelper.getAnonymous("/providers/public/" + program?.providerId, "LessonsApi");
     const studies: StudyInterface[] = await ApiHelper.getAnonymous("/studies/public/program/" + program?.id, "LessonsApi");

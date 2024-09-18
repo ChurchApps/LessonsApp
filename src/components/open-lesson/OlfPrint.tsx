@@ -1,4 +1,5 @@
-import { FeedActionInterface, FeedSectionInterface, FeedVenueInterface, MarkdownPreview } from "@/utils";
+import { FeedActionInterface, FeedSectionInterface, FeedVenueInterface } from "@/utils";
+import { MarkdownPreview } from "@churchapps/apphelper/dist/components/markdownEditor/MarkdownPreview";
 import Image from "next/image";
 
 type Props = {
