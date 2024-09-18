@@ -6,7 +6,13 @@ import Link from "next/link";
 import { DateHelper } from "@churchapps/apphelper/dist/helpers/DateHelper";
 import { Container } from "@mui/material";
 import { redirect } from "next/navigation";
+import { Metadata } from "next";
+import { MetaHelper } from "@/utils/MetaHelper";
 
+
+export async function generateMetadata(): Promise<Metadata> {
+  return MetaHelper.getMetaData();
+}
 
 export default async function Classroom({params}: { params:{id:string }}) {
 

@@ -4,18 +4,21 @@ import { EmbeddedVideo } from "@/components/EmbeddedVideo";
 import { Videos } from "./components/videos";
 import { HomeConnect } from "../../components/HomeConnect";
 import { FloatingSupportWrapper } from "../../components/FloatingSupportWrapper";
+import { Metadata } from "next";
+import { MetaHelper } from "@/utils/MetaHelper";
 
-
-export default async function ArkHome() {
-
+export async function generateMetadata(): Promise<Metadata> {
   let description = "Church budgets prohibit teaching the word of God in the most effective way possible. We provide high quality content to churches completely free of charge, thanks to our generous partners."
   let ogDescription = "We provide high quality content to churches completely free of charge, thanks to our generous partners."
   let pageImage = "https://lessons.church/images/og-image.png";
+  return MetaHelper.getMetaData("The Ark Church Children's Curriculum", description, pageImage, ogDescription);
+}
 
+export default async function ArkHome() {
   const video = <EmbeddedVideo videoEmbedUrl="https://www.youtube.com/embed/MHcvK1IfOvE" title="Welcome to Lessons.church" />
 
   return (
-    <Layout metaDescription={description} image={pageImage} ogDescription={ogDescription}>
+    <Layout>
       <div id="hero" className="arkHero">
         <Container fixed>
           <h1>Children's Ministry Can be Complicated</h1>

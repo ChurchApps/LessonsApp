@@ -8,15 +8,12 @@ import { EmbeddedVideo } from "@/components/EmbeddedVideo";
 import { Header } from "@/components/Header";
 import Image from "next/image";
 import { useEffect, useState } from "react";
+import { Metadata } from "next";
+import { MetaHelper } from "@/utils/MetaHelper";
 
-type Props = {
-  program: any;
-  providerId: string;
-  hasError: Boolean;
-  error: {
-    message: string;
-  };
-};
+export async function generateMetadata(): Promise<Metadata> {
+  return MetaHelper.getMetaData();
+}
 
 export default function ProgramPage({params}: { params:{providerId:string, programId:string }}) {
   const [filteredStudies, setFilteredStudies] = useState([]);

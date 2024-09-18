@@ -3,6 +3,12 @@ import { Layout } from "@/components/Layout";
 import { ApiHelper } from "@churchapps/apphelper/dist/helpers/ApiHelper";
 import Link from "next/link";
 import { Container } from "@mui/material";
+import { Metadata } from "next";
+import { MetaHelper } from "@/utils/MetaHelper";
+
+export async function generateMetadata(): Promise<Metadata> {
+  return MetaHelper.getMetaData();
+}
 
 export default async function Venue({params}: { params:{churchId:string }}) {
   const classrooms = await ApiHelper.get("/classrooms/public/church/" + params.churchId, "LessonsApi");

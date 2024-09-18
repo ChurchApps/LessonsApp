@@ -12,19 +12,6 @@ import { ExternalProviderHelper } from "@/utils/ExternalProviderHelper";
 import axios from "axios";
 import { AnalyticsHelper } from "@churchapps/apphelper/dist/helpers/AnalyticsHelper";
 
-
-type Props = {
-  lessonData: {
-    providerId: string,
-    programId: string,
-    studyId: string,
-    lessonId: string,
-    venueId: string,
-    venues: FeedVenueInterface[]
-  };
-  hasError: boolean; error: { message: string };
-};
-
 export default function LessonsPage({params}: { params:{providerId:string, programId:string, studyId:string, lessonId:string }}) {
 
   const [lessonData, setLessonData] = React.useState<any>(null);
