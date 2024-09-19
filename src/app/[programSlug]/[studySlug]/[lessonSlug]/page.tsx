@@ -5,6 +5,7 @@ import LessonClient from "./components/LessonClient";
 import { EnvironmentHelper } from "@/utils/EnvironmentHelper";
 import { MetaHelper } from "@/utils/MetaHelper";
 import { Metadata } from "next";
+import { unstable_cache } from "next/cache";
 
 type PageParams = {programSlug:string, studySlug:string, lessonSlug:string }
 
@@ -20,11 +21,9 @@ const loadData = async (params:PageParams) => {
   }
 }
 
-let loadDataPromise:ReturnType<typeof loadData>;
-
-const loadSharedData = async (params:PageParams) => {
-  if (!loadDataPromise) loadDataPromise = loadData(params);
-  return loadDataPromise;
+const loadSharedData = (params:PageParams) => {
+  const result = unstable_cache(loadData, ["/[programSlug]/[studySlug]/[lessonSlug]", params.programSlug, params.studySlug, params.lessonSlug], {tags:["all"]});
+  return result(params);
 }
 
 export async function generateMetadata({params}:{params:PageParams}): Promise<Metadata> {

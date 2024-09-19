@@ -12,6 +12,7 @@ import Error from "@/pages/_error";
 import { EnvironmentHelper } from "@/utils/EnvironmentHelper";
 import { Metadata } from "next";
 import { MetaHelper } from "@/utils/MetaHelper";
+import { unstable_cache } from "next/cache";
 
 type PageParams = {programSlug:string, studySlug:string }
 
@@ -22,13 +23,19 @@ const loadData = async (params:PageParams) => {
   const lessons: LessonInterface[] = await ApiHelper.getAnonymous("/lessons/public/study/" + study?.id, "LessonsApi");
   return {program, study, lessons, errorMessage: ""};
 }
-
+/*
 let loadDataPromise:ReturnType<typeof loadData>;
 
 const loadSharedData = async (params:PageParams) => {
   if (!loadDataPromise) loadDataPromise = loadData(params);
   return loadDataPromise;
+}*/
+
+const loadSharedData = (params:PageParams) => {
+  const result = unstable_cache(loadData, ["/[programSlug]/[studySlug]", params.programSlug, params.studySlug], {tags:["all"]});
+  return result(params);
 }
+
 
 export async function generateMetadata({params}:{params:PageParams}): Promise<Metadata> {
   const props = await loadSharedData(params);

@@ -11,9 +11,11 @@ import Error from "@/pages/_error";
 import { EnvironmentHelper } from "@/utils/EnvironmentHelper";
 import { Metadata } from "next";
 import { MetaHelper } from "@/utils/MetaHelper";
+import { unstable_cache } from "next/cache";
 
 type PageParams = {programSlug:string }
 
+//NOTE: These api calls only fire once per page load.  NextJS remembers the results and reuses them on subsequent calls.
 const loadData = async (programSlug:string) => {
   EnvironmentHelper.init();
   const program: ProgramInterface = await ApiHelper.getAnonymous("/programs/public/slug/" + programSlug, "LessonsApi");
@@ -22,13 +24,10 @@ const loadData = async (programSlug:string) => {
   return {program, studies, studyCategories, errorMessage: ""};
 }
 
-let loadDataPromise:ReturnType<typeof loadData>;
-
-const loadSharedData = async (programSlug:string) => {
-  if (!loadDataPromise) loadDataPromise = loadData(programSlug);
-  return loadDataPromise;
+const loadSharedData = (programSlug:string) => {
+  const result = unstable_cache(loadData, ["/[programSlug]", programSlug], {tags:["all"]});
+  return result(programSlug);
 }
-
 
 export async function generateMetadata({params}: {params:PageParams}): Promise<Metadata> {
   const props = await loadSharedData(params.programSlug);
@@ -46,6 +45,7 @@ export default async function ProgramPage({params}: {params:PageParams}) {
           <Container fixed>
             <HeaderWrapper position="static" />
             <h1>{props.program.name}</h1>
+            {new Date().toString()}
             <div style={{marginBottom:20}}>{props.program.shortDescription}</div>
             <ProgramVideo program={props.program} />
             <div style={{height:90}}></div>

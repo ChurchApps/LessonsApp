@@ -14,8 +14,10 @@ import { FloatingSupportWrapper } from "./components/FloatingSupportWrapper";
 import { Metadata } from "next";
 import { EnvironmentHelper } from "@/utils/EnvironmentHelper";
 import { MetaHelper } from "@/utils/MetaHelper";
+import { revalidateTag, unstable_cache } from "next/cache";
 
 const loadData = async () => {
+  console.log("LOAD DATA");
   EnvironmentHelper.init();
   const excludeIds = ["CMCkovCA00e", "yBl-EUBxm17"];
   let programs: ProgramInterface[] = await ApiHelper.getAnonymous("/programs/public", "LessonsApi");
@@ -27,20 +29,18 @@ const loadData = async () => {
   return {programs, providers, studies, stats, errorMessage: ""};
 }
 
-let loadDataPromise:ReturnType<typeof loadData>;
-
-const loadSharedData = async () => {
-  if (!loadDataPromise) loadDataPromise = loadData();
-  return loadDataPromise;
-}
+const loadSharedData = unstable_cache(loadData, ["homedata"], {tags:["all"]});
 
 export async function generateMetadata(): Promise<Metadata> {
   return MetaHelper.getMetaData();
 }
 
-export default async function Home() {
+export default async function Home(params:any) {
+
   const pageProps = await loadSharedData();
   const { programs, providers, studies, stats, errorMessage } = pageProps;
+
+  if (params.searchParams.clearCache) { console.log("CLEARING CACHE"); revalidateTag("all"); }
 
   if (errorMessage) return <Error message={errorMessage} />
 
@@ -83,6 +83,7 @@ export default async function Home() {
 
   return (
     <Layout withoutNavbar>
+
       <HomeHero stats={stats} />
       <HomeAbout />
       <Programs programs={programs} providers={providers} studies={studies} />
