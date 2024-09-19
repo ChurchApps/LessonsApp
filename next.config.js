@@ -11,7 +11,13 @@ const config = {
     NEXT_PUBLIC_GOOGLE_ANALYTICS: process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS,
   },
   images: {
-    domains: ["content.lessons.church", "content.staging.lessons.church", "i.vimeocdn.com", "d347bo4ltvvnaz.cloudfront.net", "files.churchpdf.com"]
+    remotePatterns: [
+      { protocol: "https", hostname: "content.lessons.church" },
+      { protocol: "https", hostname: "content.staging.lessons.church" },
+      { protocol: "https", hostname: "i.vimeocdn.com" },
+      { protocol: "https", hostname: "d347bo4ltvvnaz.cloudfront.net" },
+      { protocol: "https", hostname: "files.churchpdf.com" }
+    ]
   },
   transpilePackages: ["@churchapps/apphelper", "mui-tel-input"]
 }

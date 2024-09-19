@@ -1,34 +1,36 @@
+"use client";
+
 import Link from "next/link";
-import { useRouter } from "next/router"
-import { UserHelper, Permissions, ApiHelper } from "@/utils";
-import { ClickAwayListener, Icon, Menu, MenuItem, AppBar, Stack, Box } from "@mui/material";
+import { UserHelper } from "@churchapps/apphelper/dist/helpers/UserHelper";
+import { ApiHelper } from "@churchapps/apphelper/dist/helpers/ApiHelper";
+import { ClickAwayListener, Icon, Menu, AppBar, Stack, Box } from "@mui/material";
 import { useState } from "react";
-import { SupportModal } from "@churchapps/apphelper";
-import { usePathname } from "next/navigation";
+import { SupportModal } from "@churchapps/apphelper/dist/components/SupportModal";
 
 type Props = {
   position?: "fixed" | "sticky" | "static" | "relative" | "absolute";
 };
 
 export function Header(props: Props) {
-  const router = useRouter()
   const [menuAnchor, setMenuAnchor] = useState<any>(null);
   const [showSupport, setShowSupport] = useState(false);
 
+  /*
   const adminItems = UserHelper.checkAccess(Permissions.lessonsApi.lessons.edit) && (
-    <MenuItem onClick={() => { router.push("/admin") }}><Icon sx={{ marginRight: "5px" }}>admin_panel_settings</Icon> Admin</MenuItem>
+    <Link href="/admin"><Icon sx={{ marginRight: "5px" }}>admin_panel_settings</Icon> Admin</Link>
   );
 
   const cpItems = UserHelper.checkAccess(Permissions.lessonsApi.lessons.editSchedules) && (
-    <MenuItem onClick={() => { router.push("/portal") }}><Icon sx={{ marginRight: "5px" }}>calendar_month</Icon> Schedules</MenuItem>
-  );
+    <Link href="/portal"><Icon sx={{ marginRight: "5px" }}>calendar_month</Icon> Schedules</Link>
+  );*/
 
-  function logout() {
-    router.push("/logout")
-  }
 
-  const pathName = usePathname();
-  const returnUrl = (router.pathname === "/") ? "" : `?returnUrl=${encodeURIComponent(pathName)}`;
+  //const pathName = usePathname();
+  //const returnUrl = (router.pathname === "/") ? "" : `?returnUrl=${encodeURIComponent(pathName)}`;
+  /*
+  */
+  //{adminItems}
+  //{cpItems}
 
   const userAction = ApiHelper.isAuthenticated
     ? (
@@ -37,14 +39,13 @@ export function Header(props: Props) {
           <a id="userMenuLink" href="about:blank" onClick={(e) => { e.preventDefault(); setMenuAnchor((Boolean(menuAnchor)) ? null : e.target); }}>{`${UserHelper.user.firstName} ${UserHelper.user.lastName}`}<Icon style={{ paddingTop: 6 }}>expand_more</Icon></a>
         </ClickAwayListener>
         <Menu id="userMenu" anchorEl={menuAnchor} open={Boolean(menuAnchor)} onClose={() => { setMenuAnchor(null) }} MenuListProps={{ "aria-labelledby": "userMenuLink" }} style={{ top: "0", width: "min-content" }}>
-          {adminItems}
-          {cpItems}
-          <MenuItem onClick={() => { logout(); }}><Icon sx={{ marginRight: "5px" }}>logout</Icon> Logout</MenuItem>
+
+          <Link href="/logout"><Icon sx={{ marginRight: "5px" }}>logout</Icon> Logout</Link>
         </Menu>
       </>
     )
     : (<>
-      <Link href={"/login" + returnUrl} className="cta alt">Login</Link>
+      <Link href={"/login"} className="cta alt">Login</Link>
       <Link href="/register" style={{paddingRight:15}} className="cta">Register</Link>
     </>);
     // <a href="about:blank"  onClick={(e) => { e.preventDefault(); setShowSupport(!showSupport) }} style={{paddingRight:15}}>Support</a>

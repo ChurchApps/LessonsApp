@@ -1,9 +1,11 @@
 import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
-import { ApiHelper, DisplayBox, ExternalProviderInterface, SmallButton } from "@/utils";
+import { ApiHelper, ExternalProviderInterface } from "@/utils";
 import { Wrapper } from "@/components/Wrapper";
 import { Grid, Icon } from "@mui/material";
 import { ProviderEdit } from "@/components/portal/ProviderEdit";
+import { DisplayBox } from "@churchapps/apphelper/dist/components/DisplayBox";
+import { SmallButton } from "@churchapps/apphelper/dist/components/SmallButton";
 
 export default function ThirdParty() {
   const router = useRouter();
