@@ -1,5 +1,5 @@
 import React from "react"
-import { LoginUserChurchInterface, PersonInterface, UserContextInterface, UserInterface } from "./utils";
+import { LoginUserChurchInterface, PersonInterface, UserContextInterface, UserInterface } from "@churchapps/apphelper/dist/helpers";
 
 const UserContext = React.createContext<UserContextInterface | undefined>(undefined);
 

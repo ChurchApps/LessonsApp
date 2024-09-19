@@ -1,9 +1,9 @@
-export { HomeAbout } from "./home/HomeAbout";
-export { HomeConnect } from "./home/HomeConnect";
+export { HomeAbout } from "../app/components/HomeAbout";
+export { HomeConnect } from "../app/components/HomeConnect";
 export { Layout } from "./Layout";
 export { Lessons } from "./Lessons";
-export { Programs } from "./home/Programs";
-export { Stats } from "./home/Stats";
+export { Programs } from "../app/components/Programs";
+export { Stats } from "../app/components/Stats";
 export { Studies } from "./Studies";
 export { Venue } from "./lesson/Venue";
 export { VideoModal } from "./VideoModal";

@@ -1,7 +1,8 @@
+"use client";  //todo remove
+
 import React from "react";
 import { Box, Button, Container, Dialog, DialogActions, DialogContent, DialogTitle, Grid, Icon, Stack, Typography } from "@mui/material";
 import { Layout } from "@/components";
-import { useRouter } from "next/router";
 import { NextPageContext } from "next";
 
 type Props = {
@@ -9,7 +10,6 @@ type Props = {
   message: string,
 };
 function Error({ message, statusCode }: Props) {
-  const router = useRouter();
   const [showError, setShowError] = React.useState(false);
   const onClose = () => setShowError(!showError);
 
@@ -43,7 +43,7 @@ function Error({ message, statusCode }: Props) {
               <div>
                 <span style={{ color: '#1976d2', cursor: 'pointer' }} onClick={onClose}>See error details</span>
               </div>
-              <Button type="button" fullWidth variant="contained" onClick={() => router.push('/')} style={{ width: 200, marginTop: '10px' }}>Go to Home</Button>
+              <Button type="button" fullWidth variant="contained" href="/" style={{ width: 200, marginTop: '10px' }}>Go to Home</Button>
             </Grid>
           </Grid>
         </Container>
