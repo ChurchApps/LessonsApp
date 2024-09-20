@@ -59,6 +59,11 @@ export default async function Home(params:any) {
         <Image alt="Faith Kidz" width={256} height={144} style={{height:"auto"}} placeholder="empty" className="img-fluid" src="https://content.lessons.church/programs/CMCkovCA00e.png?dt=1724178996201" />
       </Link>
     </Grid>
+    <Grid item md={2} sm={4} xs={4}>
+      <Link href="/west-ridge">
+        <Image alt="West Ridge" width={256} height={144} style={{height:"auto"}} placeholder="empty" className="img-fluid" src="https://content.lessons.church/programs/CjDN3VrEm3s.png?dt=1695316859942" />
+      </Link>
+    </Grid>
   </>)
 
   const getElementaryDiv = () => (

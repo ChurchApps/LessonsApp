@@ -45,7 +45,6 @@ export default async function ProgramPage({params}: {params:PageParams}) {
           <Container fixed>
             <HeaderWrapper position="static" />
             <h1>{props.program.name}</h1>
-            {new Date().toString()}
             <div style={{marginBottom:20}}>{props.program.shortDescription}</div>
             <ProgramVideo program={props.program} />
             <div style={{height:90}}></div>
