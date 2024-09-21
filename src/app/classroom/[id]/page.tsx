@@ -8,9 +8,11 @@ import Link from "next/link";
 import { ArrayHelper, DateHelper, ChurchInterface, MarkdownPreview } from "@churchapps/apphelper";
 import { AppBar, Container, Grid, Stack } from "@mui/material";
 import { ExternalProviderHelper } from "@/utils/ExternalProviderHelper";
-import { useSearchParams } from "next/navigation";
 
-export default function Venue() {
+type PageParams = {id:string }
+
+export default function Venue({params, searchParams}: {params:PageParams, searchParams:any}) {
+
   const [classroom, setClassroom] = useState<ClassroomInterface>(null);
   const [schedules, setSchedules] = useState<ScheduleInterface[]>([]);
   const [lessons, setLessons] = useState<LessonInterface[]>([]);
@@ -19,11 +21,10 @@ export default function Venue() {
   const [church, setChurch] = useState<ChurchInterface>(null)
   const [churchSettings, setChurchSettings] = useState<any>({})
 
-  const searchParams = useSearchParams();
-  const id = searchParams.get("id");
-  const upcoming = searchParams.get("upcoming") === "1";
+  const id = params.id;
+  const upcoming = searchParams.upcoming === "1";
 
-  useEffect(() => { loadData(); }, [id]);
+  useEffect(() => { loadData(); }, [params.id]);
 
   const loadData = async () => {
     if (id) {
@@ -53,7 +54,6 @@ export default function Venue() {
     const data = await ApiHelper.get("/externalProviders/" + externalProviderId + "/lessons", "LessonsApi");
     const lessonArray:LessonInterface[] = [];
     const studyArray:StudyInterface[] = [];
-    console.log("Data is: ", data);
 
     schedules.forEach(s => {
       const {lesson, study, program} = ExternalProviderHelper.getLesson(data, s.programId, s.studyId, s.lessonId);
