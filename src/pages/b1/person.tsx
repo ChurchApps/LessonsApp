@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Layout } from "@/components";
-import { ApiHelper, ArrayHelper, ClassroomInterface, UserHelper } from "@/utils";
+import { ApiHelper, ArrayHelper, ClassroomInterface } from "@/utils";
 import Link from "next/link";
 import { Container } from "@mui/material";
 import UserContext from "@/UserContext";
@@ -12,13 +12,10 @@ export default function Venue() {
   const [classrooms, setClassrooms] = useState<ClassroomInterface[]>([]);
   const context = React.useContext(UserContext);
   const params = useSearchParams()
-  const { isAuthenticated } = ApiHelper
-  useEffect(() => { loadData(); }, [UserHelper.user, isAuthenticated]);
+  useEffect(() => { loadData(); }, [context.person]);
 
   const loadData = () => {
-    console.log("MADE IT")
     if (context.person) {
-        console.log("MADE IT HERE")
       let url = "/classrooms/person";
       ApiHelper.get(url, "LessonsApi").then((c: ClassroomInterface[]) => {
         if (c.length === 0) redirect("/b1/" + (params.get("churchId") || context.userChurch.church.id));
@@ -36,9 +33,6 @@ export default function Venue() {
     })
     return result;
   }
-
-  console.log("IS AUTHENTICATED", isAuthenticated)
-  console.log("USER", UserHelper.user)
 
   if (classrooms?.length === 1) window.location.href = "/b1/classroom/" + classrooms[0].id;
   else {
