@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Layout } from "@/components";
-import { ApiHelper, ArrayHelper, ClassroomInterface } from "@/utils";
+import { ApiHelper, ArrayHelper, ClassroomInterface, EnvironmentHelper } from "@/utils";
 import Link from "next/link";
 import { Container } from "@mui/material";
 import UserContext from "@/UserContext";
@@ -15,13 +15,20 @@ export default function Venue() {
   useEffect(() => { loadData(); }, [context.person]);
 
   const loadData = () => {
-    if (context.person) {
-      let url = "/classrooms/person";
+    EnvironmentHelper.init();
+    console.log("MADE IT")
+    //if (context.person) {
+        console.log("MADE IT HERE")
+      let url = "/classrooms";
       ApiHelper.get(url, "LessonsApi").then((c: ClassroomInterface[]) => {
-        if (c.length === 0) redirect("/b1/" + (params.get("churchId") || context.userChurch.church.id));
+        if (c.length === 0) {
+          const url = "/b1/" + (params.get("churchId") || context.userChurch?.church?.id || "");
+          console.log("URL", url)
+          redirect(url);
+        }
         else setClassrooms(c);
       });
-    }
+    //}
   }
 
   const getRows = () => {
