@@ -4,6 +4,7 @@ import { Layout } from "@/components";
 import { LoginPage, ApiHelper, UserHelper } from "@churchapps/apphelper";
 import React from "react";
 import UserContext from "@/UserContext";
+import { useUser } from "@/app/context/UserContext";
 
 export default function Login() {
   const router = useRouter()
@@ -11,12 +12,16 @@ export default function Login() {
 
   const returnUrl= (router.query.returnUrl) ? router.query.returnUrl.toString() : "/portal";
 
-  if (ApiHelper.isAuthenticated && UserHelper.currentUserChurch) { router.push(returnUrl) }
+  //if (ApiHelper.isAuthenticated && UserHelper.currentUserChurch) { router.push(returnUrl) }
 
-  /*
+  const context2 = useUser();
+
   const loginSuccess = () => {
-    router.push("/portal");
-  }*/
+    console.log("CONTEXT2 is", context2)
+    context2.setPerson(UserHelper.person);
+
+    router.push(returnUrl);
+  }
 
   const appUrl = (process.browser) ? window.location.href : "";
   let jwt: string = "", auth: string = "";
@@ -30,7 +35,7 @@ export default function Login() {
 
   return (
     <Layout withoutNavbar withoutFooter>
-      <LoginPage auth={auth} context={context} jwt={jwt} appName="Lessons.church" appUrl={appUrl} returnUrl={returnUrl} />
+      <LoginPage auth={auth} context={context} jwt={jwt} appName="Lessons.church" appUrl={appUrl} returnUrl={returnUrl} loginSuccessOverride={loginSuccess} />
     </Layout>
   );
 

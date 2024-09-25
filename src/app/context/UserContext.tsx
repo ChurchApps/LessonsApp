@@ -1,6 +1,6 @@
 "use client"
 
-import React from "react"
+import React, { useContext } from "react"
 import { LoginUserChurchInterface, PersonInterface, UserContextInterface, UserInterface } from "@churchapps/apphelper/dist/helpers";
 
 const UserContext = React.createContext<UserContextInterface | undefined>(undefined);
@@ -26,6 +26,8 @@ export const UserProvider = ({ children }: Props) => {
   }}>{children} </UserContext.Provider>
 };
 
+
+export const useUser = () => useContext(UserContext);
 export default UserContext;
 
 
