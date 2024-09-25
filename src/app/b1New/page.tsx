@@ -8,7 +8,6 @@ import React from "react";
 
 export default function Test() {
 
-  //const context = React.useContext(UserContext);
   const userData = useUser();
 
   return (

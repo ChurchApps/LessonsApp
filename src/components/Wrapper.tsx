@@ -1,14 +1,14 @@
 import React from "react";
-import UserContext from "../UserContext";
 import { Box, CssBaseline, List, ThemeProvider } from "@mui/material";
 import { SiteWrapper, NavItem, Themes } from "@churchapps/apphelper";
 import { UserHelper, Permissions } from "@/utils";
 import { useRouter } from "next/router"
+import { useUser } from "@/app/context/UserContext";
 
 interface Props { pageTitle?: string, children: React.ReactNode }
 
 export const Wrapper: React.FC<Props> = props => {
-  const context = React.useContext(UserContext);
+  const context = useUser();
   const tabs = []
   const router = useRouter();
 

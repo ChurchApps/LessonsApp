@@ -5,7 +5,8 @@ import { useEffect } from "react";
 import type { AppProps } from "next/app";
 import { EnvironmentHelper } from "@/utils";
 import { AnalyticsHelper } from "@churchapps/apphelper";
-import { UserProvider } from "@/UserContext";
+import { UserProvider } from "@/app/context/UserContext";
+
 
 EnvironmentHelper.init();
 

@@ -3,12 +3,12 @@ import { Layout } from "@/components/Layout";
 
 import Link from "next/link";
 import { Container } from "@mui/material";
-import UserContext from "@/UserContext";
 import { redirect, useSearchParams } from "next/navigation";
 import { ClassroomInterface } from "@/utils/interfaces";
 import { EnvironmentHelper } from "@/utils/EnvironmentHelper";
 import { ApiHelper } from "@churchapps/apphelper/dist/helpers/ApiHelper";
 import { ArrayHelper } from "@churchapps/apphelper/dist/helpers/ArrayHelper";
+import { useUser } from "@/app/context/UserContext";
 //import { useRouter } from "next/router";
 
 
@@ -17,7 +17,7 @@ export function PersonInner() {
 
   //const [church, setChurch] = useState<ChurchInterface>(null);
   const [classrooms, setClassrooms] = useState<ClassroomInterface[]>([]);
-  const context = React.useContext(UserContext);
+  const context = useUser();
   const params = useSearchParams()
   useEffect(() => { loadData(); }, [context?.person]);
 

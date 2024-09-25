@@ -4,7 +4,7 @@ import { Layout } from "@/components";
 import { ApiHelper, ClassroomInterface } from "@/utils";
 import Link from "next/link";
 import { Container } from "@mui/material";
-import UserContext from "@/UserContext";
+import { useUser } from "@/app/context/UserContext";
 
 
 export default function Venue() {
@@ -12,7 +12,7 @@ export default function Venue() {
   const [classrooms, setClassrooms] = useState<ClassroomInterface[]>([]);
   const router = useRouter();
   const churchId = router.query.churchId;
-  const context = React.useContext(UserContext);
+  const context = useUser();
 
   useEffect(() => { loadData(); }, [churchId]);
 

@@ -3,14 +3,14 @@ import { Layout } from "@/components";
 import { ApiHelper, ArrayHelper, ClassroomInterface } from "@/utils";
 import Link from "next/link";
 import { Container } from "@mui/material";
-import UserContext from "@/UserContext";
 import { redirect, useSearchParams } from "next/navigation";
+import { useUser } from "@/app/context/UserContext";
 
 
 export default function Venue() {
   //const [church, setChurch] = useState<ChurchInterface>(null);
   const [classrooms, setClassrooms] = useState<ClassroomInterface[]>([]);
-  const context = React.useContext(UserContext);
+  const context = useUser();
   const params = useSearchParams()
   useEffect(() => { loadData(); }, [context.person]);
 
