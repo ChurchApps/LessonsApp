@@ -1,11 +1,15 @@
+"use client";
+
 import { useState, useEffect } from "react";
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
 import { Layout } from "@/components";
 import { DisplayBox, Loading } from "@churchapps/apphelper";
-import { VenueInterface, LessonInterface, StudyInterface, SectionInterface, RoleInterface, ActionInterface, ApiHelper, ArrayHelper, CustomizationInterface, CustomizationHelper } from "@/utils";
+import { VenueInterface, LessonInterface, StudyInterface, SectionInterface, RoleInterface, ActionInterface, ApiHelper, ArrayHelper, CustomizationInterface, CustomizationHelper, EnvironmentHelper } from "@/utils";
 import { Container, Icon, Box } from "@mui/material";
 
-export default function Venue() {
+type PageParams = {id:string }
+
+export default function Venue({params}: {params:PageParams}) {
   const [venue, setVenue] = useState<VenueInterface>(null);
   const [lesson, setLesson] = useState<LessonInterface>(null);
   const [study, setStudy] = useState<StudyInterface>(null);
@@ -17,7 +21,7 @@ export default function Venue() {
 
   const { isAuthenticated } = ApiHelper;
   const router = useRouter();
-  const pathId = router.query.id;
+  const pathId = params.id;
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
   useEffect(() => { if (!isAuthenticated) router.push("/login"); }, []);
@@ -25,6 +29,7 @@ export default function Venue() {
 
 
   function loadData() {
+    EnvironmentHelper.init();
     ApiHelper.get("/venues/public/" + pathId, "LessonsApi").then((v: VenueInterface) => {
       setVenue(v);
       ApiHelper.get("/lessons/public/" + v.lessonId, "LessonsApi").then((data: any) => {

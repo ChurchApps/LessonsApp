@@ -1,20 +1,22 @@
+"use client";
+
 import { useState, useEffect } from "react";
-import { useRouter } from "next/router";
 import { ClassroomList, HomeConnect, ScheduleList, } from "@/components";
 import { PlaylistFeed } from "@/components/portal/PlaylistFeed";
 import { ApiHelper } from "@/utils";
 import { Wrapper } from "@/components/Wrapper";
 import { Grid } from "@mui/material";
+import { redirect } from "next/navigation";
 
 export default function CP() {
-  const router = useRouter();
+
   const { isAuthenticated } = ApiHelper;
   const [classroomId, setClassroomId] = useState("");
   const [feedClassroomId, setFeedClassroomId] = useState("");
 
   useEffect(() => {
     if (!isAuthenticated) {
-      router.push("/login");
+      redirect("/login");
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);

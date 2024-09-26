@@ -1,5 +1,7 @@
+"use client";
+
 import { useState, useEffect } from "react";
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
 import { ApiHelper, ExternalProviderInterface } from "@/utils";
 import { Wrapper } from "@/components/Wrapper";
 import { Grid, Icon } from "@mui/material";
