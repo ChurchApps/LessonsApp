@@ -1,3 +1,5 @@
+"use client";
+
 import { Wrapper } from "@/components/Wrapper";
 import { OlfActionEdit } from "@/components/open-lesson/OlfActionEdit";
 import { OlfPrintPreview } from "@/components/open-lesson/OlfPrintPreview";

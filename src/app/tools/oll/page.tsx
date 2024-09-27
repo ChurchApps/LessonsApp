@@ -1,3 +1,5 @@
+"use client";
+
 import { Wrapper } from "@/components/Wrapper";
 import { FeedLessonInterface, FeedListInterface, FeedProgramInterface, FeedStudyInterface, FeedVenueLinkInterface } from "@/utils";
 import { DisplayBox, SmallButton } from "@churchapps/apphelper";

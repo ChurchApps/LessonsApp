@@ -7,6 +7,7 @@ import { UserHelper, Permissions } from "@/utils";
 import { useUser } from "@/app/context/UserContext";
 import { redirect } from "next/navigation";
 import { useRouter } from "next/navigation";
+import "@churchapps/apphelper/dist/components/markdownEditor/editor.css";
 
 interface Props { pageTitle?: string, children: React.ReactNode }
 
