@@ -32,8 +32,8 @@ export const Wrapper: React.FC<Props> = props => {
   const dummyRouter = {}
 
   tabs.push(<NavItem url="/" label="Home" icon="home" router={dummyRouter} onClick={() => { redirect("/") }} />);
-  if (UserHelper.checkAccess(Permissions.lessonsApi.lessons.edit)) tabs.push(<NavItem url="/admin" label="Admin" icon="admin_panel_settings" router={dummyRouter} onClick={() => { redirect("/admin") }} selected={selectedTab === "admin"} key="admin" />);
-  if (UserHelper.checkAccess(Permissions.lessonsApi.lessons.editSchedules)) tabs.push(<NavItem url="/portal" label="Schedules" icon="calendar_month" router={dummyRouter}  onClick={() => { redirect("/portal") }} selected={selectedTab === "cp"} key="cp" />);
+  if (UserHelper.checkAccess(Permissions.lessonsApi.lessons.edit)) tabs.push(<NavItem url="/admin" label="Admin" icon="admin_panel_settings" router={dummyRouter} onClick={() => { router.push("/admin") }} selected={selectedTab === "admin"} key="admin" />);
+  if (UserHelper.checkAccess(Permissions.lessonsApi.lessons.editSchedules)) tabs.push(<NavItem url="/portal" label="Schedules" icon="calendar_month" router={dummyRouter}  onClick={() => { router.push("/portal") }} selected={selectedTab === "cp"} key="cp" />);
   if (UserHelper.checkAccess(Permissions.lessonsApi.lessons.editSchedules)) tabs.push(<NavItem url="/portal/thirdParty" label="External Providers" icon="groups" router={dummyRouter} onClick={() => { console.log("THIRD PARTY"); router.push("/portal/thirdParty") }} selected={selectedTab === "external"} key="external" />);
 
   const navContent = <><List component="nav" sx={Themes.NavBarStyle}>{tabs}</List></>

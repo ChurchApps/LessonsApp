@@ -1,3 +1,5 @@
+"use client";
+
 import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import { ApiHelper, ProgramInterface, StudyCategoryInterface, StudyInterface } from "@/utils";

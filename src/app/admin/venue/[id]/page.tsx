@@ -1,12 +1,15 @@
+"use client";
 import { useState, useEffect } from "react";
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
 import { SectionEdit, RoleEdit, ActionEdit, SectionCopy } from "@/components";
-import { VenueInterface, LessonInterface, StudyInterface, SectionInterface, RoleInterface, ActionInterface, ResourceInterface, AssetInterface, ApiHelper, ArrayHelper, CopySectionInterface, ExternalVideoInterface, AddOnInterface } from "@/utils";
+import { VenueInterface, LessonInterface, StudyInterface, SectionInterface, RoleInterface, ActionInterface, ResourceInterface, AssetInterface, ApiHelper, ArrayHelper, CopySectionInterface, ExternalVideoInterface, AddOnInterface, EnvironmentHelper } from "@/utils";
 import { Wrapper } from "@/components/Wrapper";
 import { Grid, Icon, Menu, MenuItem } from "@mui/material";
 import { SmallButton, DisplayBox, Loading } from "@churchapps/apphelper";
 
-export default function Venue() {
+type PageParams = {id:string }
+
+export default function Venue({params}: {params:PageParams}) {
   const [venue, setVenue] = useState<VenueInterface>(null);
   const [lesson, setLesson] = useState<LessonInterface>(null);
   const [study, setStudy] = useState<StudyInterface>(null);
@@ -31,7 +34,7 @@ export default function Venue() {
   const [allAssets, setAllAssets] = useState<AssetInterface[]>(null);
   const { isAuthenticated } = ApiHelper;
   const router = useRouter();
-  const pathId = router.query.id;
+  const pathId = params.id;
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
   useEffect(() => { if (!isAuthenticated) router.push("/login"); }, []);
@@ -68,7 +71,8 @@ export default function Venue() {
     }
   }
 
-  function loadData() {
+  async function loadData() {
+    await EnvironmentHelper.init();
     ApiHelper.get("/venues/" + pathId, "LessonsApi").then((v: VenueInterface) => {
       setVenue(v);
       ApiHelper.get("/lessons/" + v.lessonId, "LessonsApi").then((data: any) => {
