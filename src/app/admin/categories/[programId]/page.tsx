@@ -1,13 +1,15 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
 import { ApiHelper, ProgramInterface, StudyCategoryInterface, StudyInterface } from "@/utils";
 import { Wrapper } from "@/components/Wrapper";
 import { Grid } from "@mui/material";
 import { SmallButton, DisplayBox, ArrayHelper } from "@churchapps/apphelper";
 
-export default function Admin() {
+type PageParams = {programId:string }
+
+export default function Admin({params}: {params:PageParams}) {
 
   const router = useRouter();
   const { isAuthenticated } = ApiHelper
@@ -17,7 +19,7 @@ export default function Admin() {
   const [categoryName, setCategoryName] = useState<string>("");
   const [studyCategories, setStudyCategories] = useState<StudyCategoryInterface[]>([]);
   const [studies, setStudies] = useState<StudyInterface[]>([]);
-  const programId = router.query.programId as string;
+  const programId = params.programId as string;
 
   const loadData = () => {
     ApiHelper.get("/programs/" + programId, "LessonsApi").then((data: any) => { setProgram(data); });

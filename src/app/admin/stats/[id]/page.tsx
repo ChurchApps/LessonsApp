@@ -1,14 +1,15 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
 import { ApiHelper, ProgramInterface } from "@/utils";
 import { ArrayHelper, DateHelper, ChurchInterface, DisplayBox, InputBox } from "@churchapps/apphelper";
 import { Wrapper } from "@/components/Wrapper";
 import { Grid, TextField } from "@mui/material";
 import { Map } from "@/components/admin/Map";
 
-export default function Admin() {
+type PageParams = {id:string }
+export default function Admin({params}: {params:PageParams}) {
 
   let initialStartDate = new Date(new Date().getFullYear(), new Date().getMonth(), 1);
   let initialEndDate = new Date(initialStartDate.toDateString());
@@ -23,7 +24,7 @@ export default function Admin() {
 
   const router = useRouter();
   const { isAuthenticated } = ApiHelper
-  const programId = router.query.id;
+  const programId = params.id;
 
   useEffect(() => { if (!isAuthenticated) { router.push("/login"); } }, []);     // eslint-disable-line react-hooks/exhaustive-deps
   useEffect(() => { if (isAuthenticated) { loadData(); } }, [isAuthenticated]);
