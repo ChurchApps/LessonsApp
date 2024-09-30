@@ -34,9 +34,8 @@ export default function Login(params: any) {
   const appUrl = (process.browser) ? window.location.href : "";
   let jwt: string = "", auth: string = "";
   if (!ApiHelper.isAuthenticated) {
-    auth = params.auth as string
-    let search = new URLSearchParams(process.browser ? window.location.search : "");
-    jwt = search.get("jwt") || cookies.jwt
+    auth = params.searchParams.auth as string
+    jwt = params.searchParams || cookies.jwt
   }
 
   EnvironmentHelper.init();
