@@ -7,7 +7,7 @@ import { CategoriesAndStudies } from "./components/CategoriesAndStudies";
 import { ProgramVideo } from "./components/ProgramVideo";
 import { HeaderWrapper } from "@/app/components/HeaderWrapper";
 import { MarkdownWrapper } from "@/app/components/MarkdownWrapper";
-import Error from "@/pages/_error";
+import Error from "@/components/Error";
 import { EnvironmentHelper } from "@/utils/EnvironmentHelper";
 import { Metadata } from "next";
 import { MetaHelper } from "@/utils/MetaHelper";
@@ -18,10 +18,15 @@ type PageParams = {programSlug:string }
 //NOTE: These api calls only fire once per page load.  NextJS remembers the results and reuses them on subsequent calls.
 const loadData = async (programSlug:string) => {
   EnvironmentHelper.init();
-  const program: ProgramInterface = await ApiHelper.getAnonymous("/programs/public/slug/" + programSlug, "LessonsApi");
-  const studies: StudyInterface[] = await ApiHelper.getAnonymous("/studies/public/program/" + program?.id, "LessonsApi");
-  const studyCategories: StudyCategoryInterface[] = await ApiHelper.getAnonymous("/studyCategories/public/program/" + program?.id, "LessonsApi");
-  return {program, studies, studyCategories, errorMessage: ""};
+  try {
+    const program: ProgramInterface = await ApiHelper.getAnonymous("/programs/public/slug/" + programSlug, "LessonsApi");
+    const studies: StudyInterface[] = await ApiHelper.getAnonymous("/studies/public/program/" + program?.id, "LessonsApi");
+    const studyCategories: StudyCategoryInterface[] = await ApiHelper.getAnonymous("/studyCategories/public/program/" + program?.id, "LessonsApi");
+    return {program, studies, studyCategories, errorMessage: ""};
+  } catch (error: any) {
+    console.log("inside catch: ", error)
+    return {errorMessage: error.message}
+  }
 }
 
 const loadSharedData = (programSlug:string) => {
@@ -31,7 +36,7 @@ const loadSharedData = (programSlug:string) => {
 
 export async function generateMetadata({params}: {params:PageParams}): Promise<Metadata> {
   const props = await loadSharedData(params.programSlug);
-  return MetaHelper.getMetaData(props.program.name + " - Free Church Curriculum", props.program.description, props.program.image);
+  if (!props.errorMessage) return MetaHelper.getMetaData(props.program.name + " - Free Church Curriculum", props.program.description, props.program.image);
 }
 
 export default async function ProgramPage({params}: {params:PageParams}) {
