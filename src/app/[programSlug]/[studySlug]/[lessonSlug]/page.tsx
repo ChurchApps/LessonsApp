@@ -30,7 +30,7 @@ export async function generateMetadata({params}:{params:PageParams}): Promise<Me
   const props = await loadSharedData(params);
   const selectedVenue = props.lessonData.venues[0];
   const title = selectedVenue?.programName + ": " + selectedVenue?.lessonName + " - Free Church Curriculum";
-  return MetaHelper.getMetaData(title, selectedVenue?.lessonDescription, selectedVenue?.lessonImage);
+  if (!props.errorMessage) return MetaHelper.getMetaData(title, selectedVenue?.lessonDescription, selectedVenue?.lessonImage);
 }
 
 export default async function LessonsPage({params}: {params:{programSlug:string, studySlug:string, lessonSlug:string}}) {

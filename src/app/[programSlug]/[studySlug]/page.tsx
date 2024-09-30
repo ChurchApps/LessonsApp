@@ -18,10 +18,14 @@ type PageParams = {programSlug:string, studySlug:string }
 
 const loadData = async (params:PageParams) => {
   EnvironmentHelper.init();
-  const program: ProgramInterface = await ApiHelper.getAnonymous("/programs/public/slug/" + params.programSlug, "LessonsApi");
-  const study: StudyInterface = await ApiHelper.getAnonymous("/studies/public/slug/" + program?.id + "/" + params.studySlug, "LessonsApi");
-  const lessons: LessonInterface[] = await ApiHelper.getAnonymous("/lessons/public/study/" + study?.id, "LessonsApi");
-  return {program, study, lessons, errorMessage: ""};
+  try {
+    const program: ProgramInterface = await ApiHelper.getAnonymous("/programs/public/slug/" + params.programSlug, "LessonsApi");
+    const study: StudyInterface = await ApiHelper.getAnonymous("/studies/public/slug/" + program?.id + "/" + params.studySlug, "LessonsApi");
+    const lessons: LessonInterface[] = await ApiHelper.getAnonymous("/lessons/public/study/" + study?.id, "LessonsApi");
+    return {program, study, lessons, errorMessage: ""};
+  } catch (error: any) {
+    return {errorMessage: error.message}
+  }
 }
 /*
 let loadDataPromise:ReturnType<typeof loadData>;
@@ -40,7 +44,7 @@ const loadSharedData = (params:PageParams) => {
 export async function generateMetadata({params}:{params:PageParams}): Promise<Metadata> {
   const props = await loadSharedData(params);
   let title = props.program.name + ": " + props.study?.name + " - Free Church Curriculum";
-  return MetaHelper.getMetaData(title, props.study.description, props.study.image);
+  if (!props.errorMessage) return MetaHelper.getMetaData(title, props.study.description, props.study.image);
 }
 
 export default async function StudyPage({params}: {params:PageParams}) {
