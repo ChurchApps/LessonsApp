@@ -5,7 +5,7 @@ import { Layout } from "@/components/Layout";
 import { Programs } from "@/app/components/Programs";
 import { ProgramInterface, ProviderInterface } from "@/utils/interfaces";
 import { ApiHelper } from "@churchapps/apphelper/dist/helpers/ApiHelper";
-import Error from "@/pages/_error";
+import Error from "@/components/Error";
 import { HomeTestimonials } from "@/app/components/HomeTestimonials";
 import { HomeHero } from "@/app/components/HomeHero";
 import { Container, Grid, Link } from "@mui/material";

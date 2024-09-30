@@ -1,5 +1,5 @@
 import { ApiHelper } from "@churchapps/apphelper/dist/helpers/ApiHelper";
-import Error from "@/pages/_error";
+import Error from "@/components/Error";
 import React from "react";
 import LessonClient from "./components/LessonClient";
 import { EnvironmentHelper } from "@/utils/EnvironmentHelper";

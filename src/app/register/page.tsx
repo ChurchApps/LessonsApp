@@ -1,5 +1,7 @@
+"use client";
+
 import React from "react"
-import { useRouter } from "next/router"
+import { useRouter } from "next/navigation"
 import { Layout } from "@/components";
 import { Register, ApiHelper, UserHelper, ErrorMessages } from "@churchapps/apphelper";
 

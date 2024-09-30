@@ -7,7 +7,7 @@ import { CategoriesAndStudies } from "./components/CategoriesAndStudies";
 import { ProgramVideo } from "./components/ProgramVideo";
 import { HeaderWrapper } from "@/app/components/HeaderWrapper";
 import { MarkdownWrapper } from "@/app/components/MarkdownWrapper";
-import Error from "@/pages/_error";
+import Error from "@/components/Error";
 import { EnvironmentHelper } from "@/utils/EnvironmentHelper";
 import { Metadata } from "next";
 import { MetaHelper } from "@/utils/MetaHelper";

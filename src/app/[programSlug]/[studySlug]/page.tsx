@@ -8,7 +8,7 @@ import Image from "next/image";
 import { Lessons } from "@/components/Lessons";
 import { MarkdownWrapper } from "@/app/components/MarkdownWrapper";
 import { HeaderWrapper } from "@/app/components/HeaderWrapper";
-import Error from "@/pages/_error";
+import Error from "@/components/Error";
 import { EnvironmentHelper } from "@/utils/EnvironmentHelper";
 import { Metadata } from "next";
 import { MetaHelper } from "@/utils/MetaHelper";

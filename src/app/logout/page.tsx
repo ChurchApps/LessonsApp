@@ -1,3 +1,5 @@
+"use client";
+
 import { Layout } from "@/components";
 import { LogoutPage } from "@churchapps/apphelper";
 import { Container } from "@mui/material";
