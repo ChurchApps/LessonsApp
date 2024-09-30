@@ -1,6 +1,5 @@
 "use client";
 
-import { UserProvider } from "@/UserContext";
 import { Header } from "@/components/Header";
 
 type Props = {
@@ -8,7 +7,5 @@ type Props = {
 };
 
 export function HeaderWrapper(props: Props) {
-  return <UserProvider>
-    <Header position={props.position} />
-  </UserProvider>
+  return <Header position={props.position} />
 }

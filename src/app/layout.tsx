@@ -1,5 +1,8 @@
+
 import "@/styles/globals.css";
 import { EnvironmentHelper } from "@/utils/EnvironmentHelper";
+import { UserProvider } from './context/UserContext';
+
 
 export const metadata = {
   title: 'Lessons.church',
@@ -18,7 +21,11 @@ export default async function RootLayout({ children }: { children: React.ReactNo
         <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" />
         <script async type="module" src="https://cdn.jsdelivr.net/npm/@slightlyoff/lite-vimeo@0.1.1/lite-vimeo.js"></script>
       </head>
-      <body>{children}</body>
+      <body>
+        <UserProvider>
+          {children}
+        </UserProvider>
+      </body>
     </html>
   )
 }

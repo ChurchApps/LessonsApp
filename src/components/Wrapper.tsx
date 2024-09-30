@@ -1,15 +1,20 @@
+"use client";
+
 import React from "react";
-import UserContext from "../UserContext";
 import { Box, CssBaseline, List, ThemeProvider } from "@mui/material";
 import { SiteWrapper, NavItem, Themes } from "@churchapps/apphelper";
 import { UserHelper, Permissions } from "@/utils";
-import { useRouter } from "next/router"
+import { useUser } from "@/app/context/UserContext";
+import { redirect } from "next/navigation";
+import { useRouter } from "next/navigation";
+import "@churchapps/apphelper/dist/components/markdownEditor/editor.css";
 
 interface Props { pageTitle?: string, children: React.ReactNode }
 
 export const Wrapper: React.FC<Props> = props => {
-  const context = React.useContext(UserContext);
+  const context = useUser();
   const tabs = []
+
   const router = useRouter();
 
   const getSelectedTab = () => {
@@ -24,11 +29,12 @@ export const Wrapper: React.FC<Props> = props => {
   }
 
   const selectedTab = getSelectedTab();
+  const dummyRouter = {}
 
-  tabs.push(<NavItem url="/" label="Home" icon="home" router={router} />);
-  if (UserHelper.checkAccess(Permissions.lessonsApi.lessons.edit)) tabs.push(<NavItem url="/admin" label="Admin" icon="admin_panel_settings" router={router} selected={selectedTab === "admin"} key="admin" />);
-  if (UserHelper.checkAccess(Permissions.lessonsApi.lessons.editSchedules)) tabs.push(<NavItem url="/portal" label="Schedules" icon="calendar_month" router={router} selected={selectedTab === "cp"} key="cp" />);
-  if (UserHelper.checkAccess(Permissions.lessonsApi.lessons.editSchedules)) tabs.push(<NavItem url="/portal/thirdParty" label="External Providers" icon="groups" router={router} selected={selectedTab === "external"} key="external" />);
+  tabs.push(<NavItem url="/" label="Home" icon="home" router={dummyRouter} onClick={() => { redirect("/") }} />);
+  if (UserHelper.checkAccess(Permissions.lessonsApi.lessons.edit)) tabs.push(<NavItem url="/admin" label="Admin" icon="admin_panel_settings" router={dummyRouter} onClick={() => { router.push("/admin") }} selected={selectedTab === "admin"} key="admin" />);
+  if (UserHelper.checkAccess(Permissions.lessonsApi.lessons.editSchedules)) tabs.push(<NavItem url="/portal" label="Schedules" icon="calendar_month" router={dummyRouter}  onClick={() => { router.push("/portal") }} selected={selectedTab === "cp"} key="cp" />);
+  if (UserHelper.checkAccess(Permissions.lessonsApi.lessons.editSchedules)) tabs.push(<NavItem url="/portal/thirdParty" label="External Providers" icon="groups" router={dummyRouter} onClick={() => { console.log("THIRD PARTY"); router.push("/portal/thirdParty") }} selected={selectedTab === "external"} key="external" />);
 
   const navContent = <><List component="nav" sx={Themes.NavBarStyle}>{tabs}</List></>
 
@@ -37,7 +43,7 @@ export const Wrapper: React.FC<Props> = props => {
   return <ThemeProvider theme={Themes.BaseTheme}>
     <CssBaseline />
     <Box sx={{ display: "flex", backgroundColor: "#EEE" }}>
-      <SiteWrapper navContent={navContent} context={context} appName="Lessons.church" router={router}>{props.children}</SiteWrapper>
+      <SiteWrapper navContent={navContent} context={context} appName="Lessons.church" router={dummyRouter}>{props.children}</SiteWrapper>
     </Box>
   </ThemeProvider>
 
