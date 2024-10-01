@@ -1,10 +1,13 @@
 "use client";
 
 import { Layout } from "@/components";
+import { EnvironmentHelper } from "@/utils/EnvironmentHelper";
 import { LogoutPage } from "@churchapps/apphelper";
 import { Container } from "@mui/material";
 
 export default function Logout() {
+  EnvironmentHelper.init();
+
   return (
     <Layout>
       <div style={{minHeight:500}}>

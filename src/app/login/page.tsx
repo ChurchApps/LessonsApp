@@ -14,6 +14,8 @@ export default function Login(params: any) {
   const returnUrl= (params.searchParams.returnUrl) ? params.searchParams.returnUrl.toString() : "/portal";
 
   const context = useUser();
+
+  EnvironmentHelper.init();
   console.log("CONTExT IS", context)
   console.log("Params are", params.searchParams)
   console.log("Return Url is", returnUrl)
@@ -38,7 +40,7 @@ export default function Login(params: any) {
     jwt = params.searchParams || cookies.jwt
   }
 
-  EnvironmentHelper.init();
+
 
 
   return (
