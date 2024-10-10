@@ -37,8 +37,9 @@ export default function Login(params: any) {
   let jwt: string = "", auth: string = "";
   if (!ApiHelper.isAuthenticated) {
     auth = params.searchParams.auth as string
-    jwt = params.searchParams || cookies.jwt
+    jwt = params.searchParams.jwt || cookies.jwt
   }
+  console.log("JWT IS", jwt)
 
 
 

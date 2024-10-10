@@ -2,14 +2,17 @@
 
 import React from "react";
 import { Box, CssBaseline, List, ThemeProvider } from "@mui/material";
-import { SiteWrapper, NavItem, Themes } from "@churchapps/apphelper";
+import { SiteWrapper, NavItem } from "@churchapps/apphelper";
 import { UserHelper, Permissions } from "@/utils";
 import { useUser } from "@/app/context/UserContext";
 import { redirect } from "next/navigation";
 import { useRouter } from "next/navigation";
 import "@churchapps/apphelper/dist/components/markdownEditor/editor.css";
+import { Themes } from "@/utils/Themes";
 
 interface Props { pageTitle?: string, children: React.ReactNode }
+
+
 
 export const Wrapper: React.FC<Props> = props => {
   const context = useUser();
