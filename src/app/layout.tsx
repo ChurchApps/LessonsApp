@@ -2,6 +2,7 @@
 import "@/styles/globals.css";
 import { EnvironmentHelper } from "@/utils/EnvironmentHelper";
 import { UserProvider } from './context/UserContext';
+import { AnalyticsHelper } from "@churchapps/apphelper";
 
 
 export const metadata = {
@@ -12,6 +13,7 @@ export const metadata = {
 export default async function RootLayout({ children }: { children: React.ReactNode }) {
 
   await EnvironmentHelper.init();
+  AnalyticsHelper.init();
 
   return (
     <html lang="en">
