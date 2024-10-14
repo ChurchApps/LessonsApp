@@ -3,7 +3,7 @@
 import { Container, Icon } from "@mui/material";
 import { Layout, Studies, VideoModal } from "@/components";
 import { ApiHelper, ArrayHelper, ProgramInterface, } from "@/utils";
-import { MarkdownPreview } from "@churchapps/apphelper"
+import { MarkdownPreviewLight } from "@churchapps/apphelper/dist/components/markdownEditor/MarkdownPreviewLight";
 import { EmbeddedVideo } from "@/components/EmbeddedVideo";
 import { Header } from "@/components/Header";
 import Image from "next/image";
@@ -45,7 +45,7 @@ export default function ProgramPage({params}: { params:{providerId:string, progr
         <Container fixed>
           <div id="programIntro">
             <h2>Studies</h2>
-            <div><MarkdownPreview value={program.description} /></div>
+            <div><MarkdownPreviewLight value={program.description} /></div>
           </div>
 
           {filteredStudies?.length > 0 && (

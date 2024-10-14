@@ -5,7 +5,7 @@ import React, { useState, useEffect } from "react";
 import { Layout } from "@/components";
 import { ApiHelper, ClassroomInterface, EnvironmentHelper, LessonInterface, ProgramInterface, ScheduleInterface, StudyInterface } from "@/utils";
 import Link from "next/link";
-import { ArrayHelper, DateHelper, ChurchInterface, MarkdownPreview } from "@churchapps/apphelper";
+import { ArrayHelper, DateHelper, ChurchInterface, MarkdownPreviewLight } from "@churchapps/apphelper";
 import { AppBar, Container, Grid, Stack } from "@mui/material";
 import { ExternalProviderHelper } from "@/utils/ExternalProviderHelper";
 
@@ -136,7 +136,7 @@ export default function Venue({params, searchParams}: {params:PageParams, search
               <div className="title">{lesson.name}</div>
               <h3 style={{ fontSize: "28px", fontWeight: 600, margin: "0 0 8px 0" }}>{lesson.title}</h3>
               <p style={{ margin: "0 0 16px 0" }}>
-                <MarkdownPreview value={lesson.description} />
+                <MarkdownPreviewLight value={lesson.description} />
               </p>
             </Grid>
           </Grid>

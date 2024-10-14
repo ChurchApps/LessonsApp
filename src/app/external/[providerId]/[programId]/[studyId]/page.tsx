@@ -1,7 +1,7 @@
 "use client";
 
 import { Layout, Lessons } from "@/components";
-import { MarkdownPreview } from "@churchapps/apphelper";
+import { MarkdownPreviewLight } from "@churchapps/apphelper/dist/components/markdownEditor/MarkdownPreviewLight";
 import { ProgramInterface, StudyInterface, LessonInterface } from "@/utils/interfaces";
 import { ApiHelper } from "@churchapps/apphelper/dist/helpers/ApiHelper";
 import { Grid, Container } from "@mui/material";
@@ -57,7 +57,7 @@ export default function StudyPage({params}: { params:{providerId:string, program
         <Container fixed>
           <div id="studyIntro">
             <h2>Lessons</h2>
-            <div><MarkdownPreview value={study.description} /></div>
+            <div><MarkdownPreviewLight value={study.description} /></div>
           </div>
           {lessons?.length > 0 && (
             <Lessons lessons={lessons} slug={`/external/${params.providerId}/${program.id}/${study.id}`} />

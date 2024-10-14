@@ -5,7 +5,7 @@ import { OlfActionEdit } from "@/components/open-lesson/OlfActionEdit";
 import { OlfPrintPreview } from "@/components/open-lesson/OlfPrintPreview";
 import { OlfSectionEdit } from "@/components/open-lesson/OlfSectionEdit";
 import { FeedActionInterface, FeedSectionInterface, FeedVenueInterface, PlaylistFileInterface } from "@/utils";
-import { DisplayBox, MarkdownEditor, MarkdownPreview, SmallButton } from "@churchapps/apphelper";
+import { DisplayBox, MarkdownEditor, MarkdownPreviewLight, SmallButton } from "@churchapps/apphelper";
 import { Grid, Table, TableBody, TableCell, TableHead, TableRow, TextField } from "@mui/material";
 import { useEffect, useState } from "react";
 import { useSearchParams } from "next/navigation";
@@ -106,7 +106,7 @@ export default function OlfInner() {
         </TableCell>
 
         <TableCell><a href="about:blank" onClick={(e) => { e.preventDefault(); handleEditAction(sectionIndex, j); }}>{a.actionType}</a></TableCell>
-        <TableCell><MarkdownPreview value={a.content} /></TableCell>
+        <TableCell><MarkdownPreviewLight value={a.content} /></TableCell>
         <TableCell style={{whiteSpace:"nowrap"}}>{getFiles(a)}</TableCell>
       </TableRow>);
     });
