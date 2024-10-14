@@ -1,6 +1,6 @@
 import { FeedActionInterface, FeedVenueInterface } from "@/utils";
 import Image from "next/image";
-import { MarkdownPreview } from "@churchapps/apphelper/dist/components/markdownEditor/MarkdownPreview";
+import { MarkdownPreviewLight } from "@churchapps/apphelper/dist/components/markdownEditor/MarkdownPreviewLight";
 
 type Props = {
   feed: FeedVenueInterface;
@@ -12,7 +12,7 @@ export function OlfScriptPrint(props: Props) {
   const getActions = (actions:FeedActionInterface[]) => {
     const result:JSX.Element[] = [];
     actions.forEach(a => {
-      result.push(<li className={"olfAction " + a.actionType}><MarkdownPreview value={a.content} /></li>);
+      result.push(<li className={"olfAction " + a.actionType}><MarkdownPreviewLight value={a.content} /></li>);
     });
     return result;
   }
@@ -39,7 +39,7 @@ export function OlfScriptPrint(props: Props) {
       <h2>{props.feed.lessonName}</h2>
       <h3>{props.feed.name}</h3>
       <div>
-        <MarkdownPreview value={props.feed.lessonDescription} />
+        <MarkdownPreviewLight value={props.feed.lessonDescription} />
       </div>
     </div>
     <div className="olfBody">

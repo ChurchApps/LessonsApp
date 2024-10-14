@@ -1,6 +1,6 @@
 import { Container, Icon, Menu, MenuItem, Select } from "@mui/material";
 import { ArrayHelper, FeedVenueInterface } from "@/utils";
-import { B1ShareModal, MarkdownPreview } from "@churchapps/apphelper";
+import { B1ShareModal, MarkdownPreviewLight } from "@churchapps/apphelper";
 import React, { useEffect, useState } from "react";
 import { Downloads } from "./Downloads";
 import { OlfPrintPreview } from "../open-lesson/OlfPrintPreview";
@@ -123,7 +123,7 @@ export function LessonSidebar(props: Props) {
           <hr />
           <Container>
             <h3>About</h3>
-            <MarkdownPreview value={props.selectedVenue.programAbout} />
+            <MarkdownPreviewLight value={props.selectedVenue.programAbout} />
           </Container>
         </>)}
       </div>

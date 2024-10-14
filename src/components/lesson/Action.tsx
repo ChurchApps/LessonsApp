@@ -3,7 +3,8 @@ import { UserHelper, ApiHelper, FeedActionInterface, FeedFileInterface } from "@
 import { EnvironmentHelper } from "@/utils/EnvironmentHelper";
 import { VideoModal } from "../VideoModal";
 import Image from "next/image";
-import { AnalyticsHelper, MarkdownPreview } from "@churchapps/apphelper";
+import { AnalyticsHelper } from "@churchapps/apphelper";
+import { MarkdownPreviewLight } from "@churchapps/apphelper/dist/components/markdownEditor/MarkdownPreviewLight";
 import { ImageModal } from "../ImageModal";
 
 type Props = {
@@ -86,13 +87,13 @@ export function Action(props: Props) {
 
   switch (props.action.actionType) {
     case "note":
-      result = (<div className="note"><MarkdownPreview value={props.action.content} /></div>);
+      result = (<div className="note"><MarkdownPreviewLight value={props.action.content} /></div>);
       break;
     case "do":
-      result = (<div className="actions"><MarkdownPreview value={props.action.content} /></div>);
+      result = (<div className="actions"><MarkdownPreviewLight value={props.action.content} /></div>);
       break;
     case "say":
-      result = (<div className="say"><MarkdownPreview value={props.action.content} /></div>);
+      result = (<div className="say"><MarkdownPreviewLight value={props.action.content} /></div>);
       break;
     case "add-on":
       result = (<div>{props.action.content}</div>);
