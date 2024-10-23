@@ -8,10 +8,13 @@ import Link from "next/link";
 import { ArrayHelper, DateHelper, ChurchInterface, MarkdownPreviewLight } from "@churchapps/apphelper";
 import { AppBar, Container, Grid, Stack } from "@mui/material";
 import { ExternalProviderHelper } from "@/utils/ExternalProviderHelper";
+import { useParams, useSearchParams } from "next/navigation";
 
 type PageParams = {id:string }
 
-export default function Venue({params, searchParams}: {params:PageParams, searchParams:any}) {
+export default function Venue() {
+  const params = useParams<PageParams>()
+  const searchParams = useSearchParams();
 
   const [classroom, setClassroom] = useState<ClassroomInterface>(null);
   const [schedules, setSchedules] = useState<ScheduleInterface[]>([]);
@@ -22,7 +25,7 @@ export default function Venue({params, searchParams}: {params:PageParams, search
   const [churchSettings, setChurchSettings] = useState<any>({})
 
   const id = params.id;
-  const upcoming = searchParams.upcoming === "1";
+  const upcoming = searchParams.get("upcoming") === "1";
 
   useEffect(() => { loadData(); }, [params.id]);
 

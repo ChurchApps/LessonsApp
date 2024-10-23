@@ -14,33 +14,34 @@ import { FloatingSupportWrapper } from "./components/FloatingSupportWrapper";
 import { Metadata } from "next";
 import { EnvironmentHelper } from "@/utils/EnvironmentHelper";
 import { MetaHelper } from "@/utils/MetaHelper";
-import { revalidateTag, unstable_cache } from "next/cache";
+import { revalidateTag } from "next/cache";
 
 const loadData = async () => {
   console.log("LOAD DATA");
   EnvironmentHelper.init();
   const excludeIds = ["CMCkovCA00e", "yBl-EUBxm17"];
-  let programs: ProgramInterface[] = await ApiHelper.getAnonymous("/programs/public", "LessonsApi");
-  const providers: ProviderInterface[] = await ApiHelper.getAnonymous("/providers/public", "LessonsApi");
-  const studies: ProviderInterface[] = await ApiHelper.getAnonymous("/studies/public", "LessonsApi");
-  const stats: any = await ApiHelper.getAnonymous("/providers/stats", "LessonsApi");
+  let programs: ProgramInterface[] = await ApiHelper.getAnonymous("/programs/public", "LessonsApi", ["all"]);
+  const providers: ProviderInterface[] = await ApiHelper.getAnonymous("/providers/public", "LessonsApi", ["all"]);
+  const studies: ProviderInterface[] = await ApiHelper.getAnonymous("/studies/public", "LessonsApi", ["all"]);
+  const stats: any = await ApiHelper.getAnonymous("/providers/stats", "LessonsApi", ["all"]);
 
   programs = programs.filter((p) => !excludeIds.includes(p.id));
   return {programs, providers, studies, stats, errorMessage: ""};
 }
 
-const loadSharedData = unstable_cache(loadData, ["homedata"], {tags:["all"]});
 
 export async function generateMetadata(): Promise<Metadata> {
   return MetaHelper.getMetaData();
 }
 
 export default async function Home(params:any) {
+  const { searchParams } = await params;
+  const { clearCache } = await searchParams;
 
-  const pageProps = await loadSharedData();
+  const pageProps = await loadData();
   const { programs, providers, studies, stats, errorMessage } = pageProps;
 
-  if (params.searchParams.clearCache) { console.log("CLEARING CACHE"); revalidateTag("all"); }
+  if (clearCache) { console.log("CLEARING CACHE"); revalidateTag("all"); }
 
   if (errorMessage) return <Error message={errorMessage} />
 

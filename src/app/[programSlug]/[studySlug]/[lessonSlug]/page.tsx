@@ -21,19 +21,21 @@ const loadData = async (params:PageParams) => {
   }
 }
 
-const loadSharedData = (params:PageParams) => {
-  const result = unstable_cache(loadData, ["/[programSlug]/[studySlug]/[lessonSlug]", params.programSlug, params.studySlug, params.lessonSlug], {tags:["all"]});
-  return result(params);
+const loadSharedData = async (params:Promise<PageParams>) => {
+  const {programSlug, studySlug, lessonSlug} = await params;
+  const p = {programSlug, studySlug, lessonSlug};
+  const result = unstable_cache(loadData, ["/[programSlug]/[studySlug]/[lessonSlug]", programSlug, studySlug, lessonSlug], {tags:["all"]});
+  return result(p);
 }
 
-export async function generateMetadata({params}:{params:PageParams}): Promise<Metadata> {
+export async function generateMetadata({params}:{params:Promise<PageParams>}): Promise<Metadata> {
   const props = await loadSharedData(params);
   const selectedVenue = props.lessonData.venues[0];
   const title = selectedVenue?.programName + ": " + selectedVenue?.lessonName + " - Free Church Curriculum";
   if (!props.errorMessage) return MetaHelper.getMetaData(title, selectedVenue?.lessonDescription, selectedVenue?.lessonImage);
 }
 
-export default async function LessonsPage({params}: {params:{programSlug:string, studySlug:string, lessonSlug:string}}) {
+export default async function LessonsPage({params}: {params:Promise<PageParams>}) {
   const {lessonData, errorMessage} = await loadSharedData(params);
   if (errorMessage) return <Error message={errorMessage} />
   else return <LessonClient lessonData={lessonData} />

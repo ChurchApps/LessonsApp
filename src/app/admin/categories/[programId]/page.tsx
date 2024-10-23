@@ -6,11 +6,13 @@ import { ApiHelper, ProgramInterface, StudyCategoryInterface, StudyInterface } f
 import { Wrapper } from "@/components/Wrapper";
 import { Grid } from "@mui/material";
 import { SmallButton, DisplayBox, ArrayHelper } from "@churchapps/apphelper";
+import { useParams } from 'next/navigation'
 
 type PageParams = {programId:string }
 
-export default function Admin({params}: {params:PageParams}) {
+export default function Admin() {
 
+  const params = useParams<PageParams>()
   const router = useRouter();
   const { isAuthenticated } = ApiHelper
 

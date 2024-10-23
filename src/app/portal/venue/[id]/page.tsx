@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { useRouter } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 import { Layout } from "@/components";
 import { DisplayBox, Loading } from "@churchapps/apphelper";
 import { VenueInterface, LessonInterface, StudyInterface, SectionInterface, RoleInterface, ActionInterface, ApiHelper, ArrayHelper, CustomizationInterface, CustomizationHelper, EnvironmentHelper } from "@/utils";
@@ -9,7 +9,8 @@ import { Container, Icon, Box } from "@mui/material";
 
 type PageParams = {id:string }
 
-export default function Venue({params}: {params:PageParams}) {
+export default function Venue() {
+  const params = useParams<PageParams>();
   const [venue, setVenue] = useState<VenueInterface>(null);
   const [lesson, setLesson] = useState<LessonInterface>(null);
   const [study, setStudy] = useState<StudyInterface>(null);

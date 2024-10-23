@@ -9,15 +9,17 @@ import { redirect } from "next/navigation";
 import { Metadata } from "next";
 import { MetaHelper } from "@/utils/MetaHelper";
 
+type PageParams = {id:string }
 
 export async function generateMetadata(): Promise<Metadata> {
   return MetaHelper.getMetaData();
 }
 
-export default async function Classroom({params}: { params:{id:string }}) {
+export default async function Classroom({params}: { params:Promise<PageParams> }) {
 
   const loadData = async () => {
-    const classroom:ClassroomInterface = await ApiHelper.get("/classrooms/" + params.id, "LessonsApi")
+    const { id } = await params;
+    const classroom:ClassroomInterface = await ApiHelper.get("/classrooms/" + id, "LessonsApi")
     const schedules:ScheduleInterface[] = await ApiHelper.get("/schedules/public/classroom/" + classroom.id, "LessonsApi");
     return {classroom, schedules};
   }

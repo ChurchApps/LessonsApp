@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { useRouter } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 import { ApiHelper, ProgramInterface } from "@/utils";
 import { ArrayHelper, DateHelper, ChurchInterface, DisplayBox, InputBox } from "@churchapps/apphelper";
 import { Wrapper } from "@/components/Wrapper";
@@ -9,7 +9,8 @@ import { Grid, TextField } from "@mui/material";
 import { Map } from "@/components/admin/Map";
 
 type PageParams = {id:string }
-export default function Admin({params}: {params:PageParams}) {
+export default function Admin() {
+  const params = useParams<PageParams>()
 
   let initialStartDate = new Date(new Date().getFullYear(), new Date().getMonth(), 1);
   let initialEndDate = new Date(initialStartDate.toDateString());
