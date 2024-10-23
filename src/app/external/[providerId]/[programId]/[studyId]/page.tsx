@@ -11,8 +11,12 @@ import Link from "next/link";
 import { ExternalProviderHelper } from "@/utils/ExternalProviderHelper";
 import { useEffect, useState } from "react";
 import { EnvironmentHelper } from "@/utils";
+import { useParams } from "next/navigation";
 
-export default function StudyPage({params}: { params:{providerId:string, programId:string, studyId:string }}) {
+type PageParams = { providerId:string, programId:string, studyId:string }
+
+export default function StudyPage() {
+  const params = useParams<PageParams>();
 
   const [program, setProgram] = useState<ProgramInterface>(null);
   const [study, setStudy] = useState<StudyInterface>(null);

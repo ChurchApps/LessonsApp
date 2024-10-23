@@ -35,19 +35,21 @@ const loadSharedData = async (params:PageParams) => {
   return loadDataPromise;
 }*/
 
-const loadSharedData = (params:PageParams) => {
-  const result = unstable_cache(loadData, ["/[programSlug]/[studySlug]", params.programSlug, params.studySlug], {tags:["all"]});
-  return result(params);
+const loadSharedData = async (params:Promise<PageParams>) => {
+  const { programSlug, studySlug } = await params;
+  const p = {programSlug, studySlug};
+  const result = unstable_cache(loadData, ["/[programSlug]/[studySlug]", programSlug, studySlug], {tags:["all"]});
+  return result(p);
 }
 
 
-export async function generateMetadata({params}:{params:PageParams}): Promise<Metadata> {
+export async function generateMetadata({params}:{params:Promise<PageParams>}): Promise<Metadata> {
   const props = await loadSharedData(params);
   let title = props.program.name + ": " + props.study?.name + " - Free Church Curriculum";
   if (!props.errorMessage) return MetaHelper.getMetaData(title, props.study.description, props.study.image);
 }
 
-export default async function StudyPage({params}: {params:PageParams}) {
+export default async function StudyPage({params}: {params:Promise<PageParams>}) {
   const {program, study, lessons, errorMessage} = await loadSharedData(params);
 
   if (errorMessage) return <Error message={errorMessage} />

@@ -8,8 +8,13 @@ import { EmbeddedVideo } from "@/components/EmbeddedVideo";
 import { Header } from "@/components/Header";
 import Image from "next/image";
 import { useEffect, useState } from "react";
+import { useParams } from "next/navigation";
 
-export default function ProgramPage({params}: { params:{providerId:string, programId:string }}) {
+type PageParams = { providerId:string, programId:string }
+
+
+export default function ProgramPage() {
+  const params = useParams<PageParams>();
   const [filteredStudies, setFilteredStudies] = useState([]);
   const [category, setCategory] = useState("");
   const [program, setProgram] = useState<ProgramInterface>(null);

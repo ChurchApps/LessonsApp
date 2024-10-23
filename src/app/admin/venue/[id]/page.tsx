@@ -1,6 +1,6 @@
 "use client";
 import { useState, useEffect } from "react";
-import { useRouter } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 import { SectionEdit, RoleEdit, ActionEdit, SectionCopy } from "@/components";
 import { VenueInterface, LessonInterface, StudyInterface, SectionInterface, RoleInterface, ActionInterface, ResourceInterface, AssetInterface, ApiHelper, ArrayHelper, CopySectionInterface, ExternalVideoInterface, AddOnInterface, EnvironmentHelper } from "@/utils";
 import { Wrapper } from "@/components/Wrapper";
@@ -9,7 +9,8 @@ import { SmallButton, DisplayBox, Loading } from "@churchapps/apphelper";
 
 type PageParams = {id:string }
 
-export default function Venue({params}: {params:PageParams}) {
+export default function Venue() {
+  const params = useParams<PageParams>()
   const [venue, setVenue] = useState<VenueInterface>(null);
   const [lesson, setLesson] = useState<LessonInterface>(null);
   const [study, setStudy] = useState<StudyInterface>(null);

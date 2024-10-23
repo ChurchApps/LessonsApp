@@ -6,12 +6,15 @@ import { Container } from "@mui/material";
 import { Metadata } from "next";
 import { MetaHelper } from "@/utils/MetaHelper";
 
+type PageParams = {churchId:string }
+
 export async function generateMetadata(): Promise<Metadata> {
   return MetaHelper.getMetaData();
 }
 
-export default async function Venue({params}: { params:{churchId:string }}) {
-  const classrooms = await ApiHelper.get("/classrooms/public/church/" + params.churchId, "LessonsApi");
+export default async function Venue({params}: { params:Promise<PageParams> }) {
+  const { churchId } = await params;
+  const classrooms = await ApiHelper.get("/classrooms/public/church/" + churchId, "LessonsApi");
 
   const getRows = () => {
     const result: JSX.Element[] = [];

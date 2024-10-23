@@ -11,8 +11,12 @@ import { Presenter } from "@/components/Presenter";
 import { ExternalProviderHelper } from "@/utils/ExternalProviderHelper";
 import axios from "axios";
 import { AnalyticsHelper } from "@churchapps/apphelper/dist/helpers/AnalyticsHelper";
+import { useParams } from "next/navigation";
 
-export default function LessonsPage({params}: { params:{providerId:string, programId:string, studyId:string, lessonId:string }}) {
+type PageParams = { providerId:string, programId:string, studyId:string, lessonId:string }
+
+export default function LessonsPage() {
+  const params = useParams<PageParams>();
 
   const [lessonData, setLessonData] = React.useState<any>(null);
   const [selectedVenue, setSelectedVenue] = React.useState<FeedVenueInterface>(lessonData?.venues?.[0]);

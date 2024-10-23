@@ -5,9 +5,13 @@ import { ClassroomInterface, CustomizationInterface, FeedVenueInterface, Schedul
 import { ApiHelper } from "@churchapps/apphelper/dist/helpers/ApiHelper";
 import { VenueClient } from "./components/VenueClient";
 import { EnvironmentHelper } from "@/utils";
-import { useSearchParams } from 'next/navigation';
+import { useParams, useSearchParams } from 'next/navigation';
 
-export default function B1Venue({params}: { params:{id:string }}) {
+type PageParams = {id:string }
+
+export default function B1Venue() {
+
+  const params = useParams<PageParams>()
 
   const searchParams = useSearchParams();
   const autoPrint = searchParams.get("autoPrint") === "1";
