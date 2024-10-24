@@ -15,7 +15,7 @@ interface Props {
 export const OlfPrintPreview: React.FC<Props> = (props: Props) => {
 
   const contentRef = useRef<HTMLDivElement>(null);
-  const handlePrint = useReactToPrint({ content: () => contentRef.current });
+  const handlePrint = useReactToPrint({ contentRef });
   const [format, setFormat] = useState("colorCoded");
 
 
