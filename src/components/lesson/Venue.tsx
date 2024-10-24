@@ -20,7 +20,7 @@ export function Venue({ hidePrint = true, ...props }: Props) {
 
   const handleToggle = (sectionId: string) => { setActiveSectionId(sectionId); };
 
-  const handlePrint = useReactToPrint({ content: () => contentRef.current });
+  const handlePrint = useReactToPrint({ contentRef });
 
   const checkPrint = () => {
     try {
