@@ -12,13 +12,11 @@ import { Container, Grid, Link } from "@mui/material";
 import Image from "next/image";
 import { FloatingSupportWrapper } from "./components/FloatingSupportWrapper";
 import { Metadata } from "next";
-import { EnvironmentHelper } from "@/utils/EnvironmentHelper";
 import { MetaHelper } from "@/utils/MetaHelper";
 import { revalidateTag } from "next/cache";
 
 const loadData = async () => {
   console.log("LOAD DATA");
-  EnvironmentHelper.init();
   const excludeIds = ["CMCkovCA00e", "yBl-EUBxm17"];
   let programs: ProgramInterface[] = await ApiHelper.getAnonymous("/programs/public", "LessonsApi", ["all"]);
   const providers: ProviderInterface[] = await ApiHelper.getAnonymous("/providers/public", "LessonsApi", ["all"]);

@@ -1,8 +1,8 @@
 
 import "@/styles/globals.css";
 import { EnvironmentHelper } from "@/utils/EnvironmentHelper";
-import { UserProvider } from './context/UserContext';
 import { AnalyticsHelper } from "@churchapps/apphelper";
+import ClientLayout from "./ClientLayout";
 
 
 export const metadata = {
@@ -12,7 +12,8 @@ export const metadata = {
 
 export default async function RootLayout({ children }: { children: React.ReactNode }) {
 
-  await EnvironmentHelper.init();
+  EnvironmentHelper.init();
+  await EnvironmentHelper.initLocale();
   AnalyticsHelper.init();
 
   return (
@@ -24,9 +25,9 @@ export default async function RootLayout({ children }: { children: React.ReactNo
         <script async type="module" src="https://cdn.jsdelivr.net/npm/@slightlyoff/lite-vimeo@0.1.1/lite-vimeo.js"></script>
       </head>
       <body>
-        <UserProvider>
+        <ClientLayout>
           {children}
-        </UserProvider>
+        </ClientLayout>
         <script type="text/javascript" id="hs-script-loader" async defer src="//js.hs-scripts.com/20077299.js"></script>
       </body>
     </html>

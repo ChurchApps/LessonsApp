@@ -1,17 +1,15 @@
 "use client";
 
-import React, { useEffect } from "react"
+import React from "react"
 import { useRouter } from "next/navigation"
 import { Layout } from "@/components";
 import { Register, ApiHelper, UserHelper, ErrorMessages } from "@churchapps/apphelper";
-import { EnvironmentHelper } from "@/utils/EnvironmentHelper";
 
 export default function RegisterPage() {
   const router = useRouter()
   const [errors, setErrors] = React.useState([]);
 
   if (ApiHelper.isAuthenticated && UserHelper.currentUserChurch) { router.push("/") }
-  useEffect(() => { EnvironmentHelper.init(); }, []);
 
   return (
     <Layout withoutNavbar withoutFooter>

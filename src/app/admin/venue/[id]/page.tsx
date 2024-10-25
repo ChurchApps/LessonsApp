@@ -2,7 +2,7 @@
 import { useState, useEffect } from "react";
 import { useParams, useRouter } from "next/navigation";
 import { SectionEdit, RoleEdit, ActionEdit, SectionCopy } from "@/components";
-import { VenueInterface, LessonInterface, StudyInterface, SectionInterface, RoleInterface, ActionInterface, ResourceInterface, AssetInterface, ApiHelper, ArrayHelper, CopySectionInterface, ExternalVideoInterface, AddOnInterface, EnvironmentHelper } from "@/utils";
+import { VenueInterface, LessonInterface, StudyInterface, SectionInterface, RoleInterface, ActionInterface, ResourceInterface, AssetInterface, ApiHelper, ArrayHelper, CopySectionInterface, ExternalVideoInterface, AddOnInterface } from "@/utils";
 import { Wrapper } from "@/components/Wrapper";
 import { Grid, Icon, Menu, MenuItem } from "@mui/material";
 import { SmallButton, DisplayBox, Loading } from "@churchapps/apphelper";
@@ -73,7 +73,6 @@ export default function Venue() {
   }
 
   async function loadData() {
-    await EnvironmentHelper.init();
     ApiHelper.get("/venues/" + pathId, "LessonsApi").then((v: VenueInterface) => {
       setVenue(v);
       ApiHelper.get("/lessons/" + v.lessonId, "LessonsApi").then((data: any) => {

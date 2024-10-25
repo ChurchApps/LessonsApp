@@ -10,7 +10,6 @@ import { Header } from "@/components/Header";
 import Link from "next/link";
 import { ExternalProviderHelper } from "@/utils/ExternalProviderHelper";
 import { useEffect, useState } from "react";
-import { EnvironmentHelper } from "@/utils";
 import { useParams } from "next/navigation";
 
 type PageParams = { providerId:string, programId:string, studyId:string }
@@ -24,7 +23,6 @@ export default function StudyPage() {
 
 
   const loadData = async () => {
-    EnvironmentHelper.init();
     const lessonList = await ApiHelper.getAnonymous("/externalProviders/" + params.providerId + "/lessons", "LessonsApi");
     const {study, program} = ExternalProviderHelper.getStudy(lessonList, params.programId as string, params.studyId as string);
     console.log("STUDY IS: ", study);

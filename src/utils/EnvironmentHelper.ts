@@ -10,7 +10,7 @@ export class EnvironmentHelper {
 
   static hasInit = false;
 
-  static init = async () => {
+  static init = () => {
     if (this.hasInit) return;
 
     let stage = process.env.STAGE;
@@ -27,6 +27,10 @@ export class EnvironmentHelper {
       { keyName: "MessagingApi", url: EnvironmentHelper.Common.MessagingApi, jwt: "", permisssions: [] },
     ];
 
+    this.hasInit = true;
+  };
+
+  static initLocale = async () => {
     let baseUrl = "https://staging.lessons.church";
     if (typeof window !== "undefined") baseUrl = window.location.origin;
     try {
@@ -34,8 +38,7 @@ export class EnvironmentHelper {
     } catch (e) {
       console.log("Couldn't init locales", e);
     }
-    this.hasInit = true;
-  };
+  }
 
   static initDev = () => {
     this.initStaging();

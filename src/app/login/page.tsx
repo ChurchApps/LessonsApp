@@ -5,7 +5,6 @@ import { Layout } from "@/components";
 import { LoginPage, ApiHelper, UserHelper } from "@churchapps/apphelper";
 import React from "react";
 import { redirect } from "next/navigation";
-import { EnvironmentHelper } from "@/utils";
 import { useUser } from "../context/UserContext";
 
 export default function Login(params: any) {
@@ -15,7 +14,6 @@ export default function Login(params: any) {
 
   const context = useUser();
 
-  EnvironmentHelper.init();
   console.log("CONTExT IS", context)
   console.log("Params are", params.searchParams)
   console.log("Return Url is", returnUrl)

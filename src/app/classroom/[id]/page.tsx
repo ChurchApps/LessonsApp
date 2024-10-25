@@ -3,7 +3,7 @@
 import React, { useState, useEffect } from "react";
 
 import { Layout } from "@/components";
-import { ApiHelper, ClassroomInterface, EnvironmentHelper, LessonInterface, ProgramInterface, ScheduleInterface, StudyInterface } from "@/utils";
+import { ApiHelper, ClassroomInterface, LessonInterface, ProgramInterface, ScheduleInterface, StudyInterface } from "@/utils";
 import Link from "next/link";
 import { ArrayHelper, DateHelper, ChurchInterface, MarkdownPreviewLight } from "@churchapps/apphelper";
 import { AppBar, Container, Grid, Stack } from "@mui/material";
@@ -31,7 +31,6 @@ export default function Venue() {
 
   const loadData = async () => {
     if (id) {
-      EnvironmentHelper.init();
       ApiHelper.get("/programs/public", "LessonsApi").then(p => setPrograms(p));
 
       const c = await ApiHelper.get("/classrooms/" + id, "LessonsApi");

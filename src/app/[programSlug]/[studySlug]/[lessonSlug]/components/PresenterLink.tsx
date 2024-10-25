@@ -1,7 +1,6 @@
 "use client";
 
 import { Presenter } from "@/components/Presenter";
-import { EnvironmentHelper } from "@/utils";
 import { PlaylistFileInterface, VenueInterface } from "@/utils/interfaces";
 import { AnalyticsHelper } from "@churchapps/apphelper/dist/helpers/AnalyticsHelper";
 import { ApiHelper } from "@churchapps/apphelper/dist/helpers/ApiHelper";
@@ -17,7 +16,6 @@ export function PresenterLink(props: Props) {
   const [presenterFiles, setPresenterFiles] = useState<PlaylistFileInterface[]>(null);
 
   const loadPresenterData = async () => {
-    await EnvironmentHelper.init();
     AnalyticsHelper.logEvent("Presenter", "Start", props.selectedVenue.name);
     ApiHelper.get("/venues/playlist/" + props.selectedVenue.id + "?mode=web", "LessonsApi").then(data => {
       const result: PlaylistFileInterface[] = [];

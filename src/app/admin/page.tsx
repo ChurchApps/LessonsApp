@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { ProgramEdit, StudyEdit, LessonEdit, VenueList, BundleList } from "@/components";
-import { ApiHelper, LessonInterface, ProgramInterface, StudyInterface, ArrayHelper, AddOnInterface, ProviderInterface, EnvironmentHelper } from "@/utils";
+import { ApiHelper, LessonInterface, ProgramInterface, StudyInterface, ArrayHelper, AddOnInterface, ProviderInterface } from "@/utils";
 import { Wrapper } from "@/components/Wrapper";
 import { Accordion, AccordionDetails, AccordionSummary, Grid, Icon } from "@mui/material";
 import { SmallButton, DisplayBox, Loading } from "@churchapps/apphelper";
@@ -38,7 +38,6 @@ export default function Admin() {
   useEffect(() => { if (isAuthenticated) { loadData(); } }, [isAuthenticated]);
 
   async function loadData() {
-    await EnvironmentHelper.init();
     ApiHelper.get("/providers", "LessonsApi").then((data: any) => { setProviders(data); });
     ApiHelper.get("/programs", "LessonsApi").then((data: any) => { setPrograms(data); });
     ApiHelper.get("/studies", "LessonsApi").then((data: any) => { setStudies(data); });

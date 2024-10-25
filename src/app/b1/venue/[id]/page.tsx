@@ -4,7 +4,6 @@ import React, { useEffect } from "react";
 import { ClassroomInterface, CustomizationInterface, FeedVenueInterface, ScheduleInterface } from "@/utils/interfaces";
 import { ApiHelper } from "@churchapps/apphelper/dist/helpers/ApiHelper";
 import { VenueClient } from "./components/VenueClient";
-import { EnvironmentHelper } from "@/utils";
 import { useParams, useSearchParams } from 'next/navigation';
 
 type PageParams = {id:string }
@@ -28,7 +27,6 @@ export default function B1Venue() {
   }
 
   const loadData = async () => {
-    await EnvironmentHelper.init();
 
     let search = new URLSearchParams(process.browser ? window.location.search : "");
     const externalProviderId = search.get("externalProviderId");

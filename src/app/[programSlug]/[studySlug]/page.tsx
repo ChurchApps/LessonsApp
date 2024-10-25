@@ -9,7 +9,6 @@ import { Lessons } from "@/components/Lessons";
 import { MarkdownWrapper } from "@/app/components/MarkdownWrapper";
 import { HeaderWrapper } from "@/app/components/HeaderWrapper";
 import Error from "@/components/Error";
-import { EnvironmentHelper } from "@/utils/EnvironmentHelper";
 import { Metadata } from "next";
 import { MetaHelper } from "@/utils/MetaHelper";
 import { unstable_cache } from "next/cache";
@@ -17,7 +16,6 @@ import { unstable_cache } from "next/cache";
 type PageParams = {programSlug:string, studySlug:string }
 
 const loadData = async (params:PageParams) => {
-  EnvironmentHelper.init();
   try {
     const program: ProgramInterface = await ApiHelper.getAnonymous("/programs/public/slug/" + params.programSlug, "LessonsApi");
     const study: StudyInterface = await ApiHelper.getAnonymous("/studies/public/slug/" + program?.id + "/" + params.studySlug, "LessonsApi");
