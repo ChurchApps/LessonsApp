@@ -12,9 +12,9 @@
   },
   "dependencies": {
     "@churchapps/apphelper": "0.2.61",
-    "@mui/icons-material": "^5.14.7",
+    "@mui/icons-material": "^5.15.7",
     "@mui/lab": "^5.0.0-alpha.142",
-    "@mui/material": "^5.14.7",
+    "@mui/material": "^5.16.7",
     "axios": "^1.5.0",
     "cropperjs": "^1.6.0",
     "date-fns": "^2.30.0",

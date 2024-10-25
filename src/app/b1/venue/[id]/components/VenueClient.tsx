@@ -36,7 +36,8 @@ export function VenueClient(props: Props) {
     props.venue?.sections?.forEach(s => {
       if (s.actions?.length>0) result.push(<Tab label={s.name} value={s.name} />)
     })
-    return result;
+    if (result.length === 0) return <></>;
+    else return <Tabs value={selectedTab} onChange={(e, newVal) => { handleChange(newVal) } } variant="scrollable" scrollButtons="auto">{result}</Tabs>
   }
 
   const handleChange = (newValue: string) => {
@@ -74,9 +75,7 @@ export function VenueClient(props: Props) {
   else return (
     <Layout withoutNavbar={true} withoutFooter={true}>
       <div id="b1Tabs">
-        <Tabs value={selectedTab} onChange={(e, newVal) => { handleChange(newVal) } } variant="scrollable" scrollButtons="auto" aria-label="scrollable auto tabs example">
-          {getTabs()}
-        </Tabs>
+        {getTabs()}
       </div>
       <div style={{height:50}}></div>
       <Link href={"/b1/" + props.classroom?.churchId}>Go back</Link>
