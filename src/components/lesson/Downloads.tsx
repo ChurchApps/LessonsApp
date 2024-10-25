@@ -1,5 +1,5 @@
 import { AnalyticsHelper, CommonEnvironmentHelper } from "@churchapps/apphelper";
-import { ApiHelper, EnvironmentHelper, FeedDownloadInterface, UserHelper } from "@/utils";
+import { ApiHelper, FeedDownloadInterface, UserHelper } from "@/utils";
 import { Icon } from "@mui/material";
 
 type Props = {
@@ -10,7 +10,6 @@ type Props = {
 export function Downloads(props: Props) {
 
   const trackDownload = (download: FeedDownloadInterface) => {
-    EnvironmentHelper.init();
     if (CommonEnvironmentHelper.GoogleAnalyticsTag) {
       const action = download.name;
       const label = window.location.pathname;

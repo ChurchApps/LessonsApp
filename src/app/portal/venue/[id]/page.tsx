@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import { useParams, useRouter } from "next/navigation";
 import { Layout } from "@/components";
 import { DisplayBox, Loading } from "@churchapps/apphelper";
-import { VenueInterface, LessonInterface, StudyInterface, SectionInterface, RoleInterface, ActionInterface, ApiHelper, ArrayHelper, CustomizationInterface, CustomizationHelper, EnvironmentHelper } from "@/utils";
+import { VenueInterface, LessonInterface, StudyInterface, SectionInterface, RoleInterface, ActionInterface, ApiHelper, ArrayHelper, CustomizationInterface, CustomizationHelper } from "@/utils";
 import { Container, Icon, Box } from "@mui/material";
 
 type PageParams = {id:string }
@@ -30,7 +30,6 @@ export default function Venue() {
 
 
   function loadData() {
-    EnvironmentHelper.init();
     ApiHelper.get("/venues/public/" + pathId, "LessonsApi").then((v: VenueInterface) => {
       setVenue(v);
       ApiHelper.get("/lessons/public/" + v.lessonId, "LessonsApi").then((data: any) => {

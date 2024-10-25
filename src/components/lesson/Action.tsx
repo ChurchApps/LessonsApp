@@ -1,6 +1,5 @@
 import React from "react";
 import { UserHelper, ApiHelper, FeedActionInterface, FeedFileInterface } from "@/utils";
-import { EnvironmentHelper } from "@/utils/EnvironmentHelper";
 import { VideoModal } from "../VideoModal";
 import Image from "next/image";
 import { AnalyticsHelper } from "@churchapps/apphelper";
@@ -123,7 +122,6 @@ export function Action(props: Props) {
   }
 
   const handlePreviewClick = (file:FeedFileInterface) => {
-    EnvironmentHelper.init();
     const action = file.name;
     const label = window.location.pathname;
     AnalyticsHelper.logEvent("Preview", action, label);

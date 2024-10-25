@@ -5,7 +5,6 @@ import Link from "next/link";
 import { Container } from "@mui/material";
 import { redirect, useSearchParams } from "next/navigation";
 import { ClassroomInterface } from "@/utils/interfaces";
-import { EnvironmentHelper } from "@/utils/EnvironmentHelper";
 import { ApiHelper } from "@churchapps/apphelper/dist/helpers/ApiHelper";
 import { ArrayHelper } from "@churchapps/apphelper/dist/helpers/ArrayHelper";
 import { useUser } from "@/app/context/UserContext";
@@ -23,7 +22,6 @@ export function PersonInner() {
 
   const loadData = () => {
     if (context.person) {
-      EnvironmentHelper.init();
       let url = "/classrooms/person";
       ApiHelper.get(url, "LessonsApi").then((c: ClassroomInterface[]) => {
         if (c.length === 0) redirect("/b1/" + (params.get("churchId") || context.userChurch.church.id));

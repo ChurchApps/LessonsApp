@@ -1,7 +1,7 @@
 "use client";
 import { Grid, Container, Icon } from "@mui/material";
 import { Layout, Venue } from "@/components";
-import { ApiHelper, EnvironmentHelper, FeedVenueInterface, PlaylistFileInterface } from "@/utils";
+import { ApiHelper, FeedVenueInterface, PlaylistFileInterface } from "@/utils";
 import Image from "next/image";
 import { Header } from "@/components/Header";
 import Link from "next/link";
@@ -25,7 +25,6 @@ export default function LessonsPage() {
 
 
   const loadData = async () => {
-    EnvironmentHelper.init();
     const lessonList = await ApiHelper.getAnonymous("/externalProviders/" + params.providerId + "/lessons", "LessonsApi");
     const {lesson, study, program} = ExternalProviderHelper.getLesson(lessonList, params.programId as string, params.studyId as string, params.lessonId as string);
     const apiUrl = lesson.venues[0].apiUrl;
