@@ -11,11 +11,13 @@ import Error from "@/components/Error";
 import { Metadata } from "next";
 import { MetaHelper } from "@/utils/MetaHelper";
 import { unstable_cache } from "next/cache";
+import { EnvironmentHelper } from "@/utils";
 
 type PageParams = {programSlug:string }
 
 //NOTE: These api calls only fire once per page load.  NextJS remembers the results and reuses them on subsequent calls.
 const loadData = async (programSlug:string) => {
+  EnvironmentHelper.init();
   try {
     const program: ProgramInterface = await ApiHelper.getAnonymous("/programs/public/slug/" + programSlug, "LessonsApi");
     const studies: StudyInterface[] = await ApiHelper.getAnonymous("/studies/public/program/" + program?.id, "LessonsApi");

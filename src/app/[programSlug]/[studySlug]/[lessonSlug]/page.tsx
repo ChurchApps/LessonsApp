@@ -5,11 +5,13 @@ import LessonClient from "./components/LessonClient";
 import { MetaHelper } from "@/utils/MetaHelper";
 import { Metadata } from "next";
 import { unstable_cache } from "next/cache";
+import { EnvironmentHelper } from "@/utils";
 
 type PageParams = {programSlug:string, studySlug:string, lessonSlug:string }
 
 const loadData = async (params:PageParams) => {
   try {
+    EnvironmentHelper.init();
     const lessonData = await ApiHelper.getAnonymous("/lessons/public/slugAlt/" + params.programSlug + "/" + params.studySlug + "/" + params.lessonSlug, "LessonsApi");
     if (lessonData.venues.length === 0) return {errorMessage: "No venues for lesson."}
     else return { lessonData, errorMessage: "" }
