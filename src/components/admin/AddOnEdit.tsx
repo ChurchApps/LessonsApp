@@ -167,6 +167,8 @@ export function AddOnEdit(props: Props) {
             <MenuItem value="scripture song">Scripture Song</MenuItem>
             <MenuItem value="scripture song with actions">Scripture Song with Actions</MenuItem>
             <MenuItem value="game">Game</MenuItem>
+            <MenuItem value="christmas">Christmas</MenuItem>
+            <MenuItem value="easter">Easter</MenuItem>
           </Select>
         </FormControl>
         <TextField fullWidth label="Name" name="name" value={addOn.name} onChange={handleChange} onKeyDown={handleKeyDown} />
