@@ -1,7 +1,7 @@
 
 import "@/styles/globals.css";
 import { EnvironmentHelper } from "@/utils/EnvironmentHelper";
-import { AnalyticsHelper } from "@churchapps/apphelper";
+
 import ClientLayout from "./ClientLayout";
 
 
@@ -14,7 +14,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
 
   EnvironmentHelper.init();
   await EnvironmentHelper.initLocale();
-  AnalyticsHelper.init();
+  
 
   return (
     <html lang="en">

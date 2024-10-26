@@ -4,7 +4,6 @@ import { AnalyticsHelper, UserHelper, ErrrorAppDataInterface, ErrorLogInterface 
 import React, { useEffect } from "react";
 import { ErrorHelper } from "@churchapps/apphelper";
 import { ErrorMessages } from "@churchapps/apphelper";
-
 import { UserProvider } from "./context/UserContext";
 import { EnvironmentHelper } from "@/utils/EnvironmentHelper";
 
@@ -17,10 +16,14 @@ function ClientLayout({ children}: {children: React.ReactNode}) {
   const location = (typeof(window) === "undefined") ? null : window.location;
 
 
+  AnalyticsHelper.init();
   useEffect(()=>{
     EnvironmentHelper.initLocale();
     EnvironmentHelper.init();
+    
   },[])
+  
+  useEffect(() => { AnalyticsHelper.logPageView() }, [location]);
 
 
   const getErrorAppData = () => {
