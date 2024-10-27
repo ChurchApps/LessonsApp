@@ -1,13 +1,14 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { startTransition, useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { ProgramEdit, StudyEdit, LessonEdit, VenueList, BundleList } from "@/components";
 import { ApiHelper, LessonInterface, ProgramInterface, StudyInterface, ArrayHelper, AddOnInterface, ProviderInterface } from "@/utils";
 import { Wrapper } from "@/components/Wrapper";
-import { Accordion, AccordionDetails, AccordionSummary, Grid, Icon } from "@mui/material";
+import { Accordion, AccordionDetails, AccordionSummary, Button, Grid, Icon } from "@mui/material";
 import { SmallButton, DisplayBox, Loading } from "@churchapps/apphelper";
 import { AddOnEdit } from "@/components/admin/AddOnEdit";
+import { revalidate } from "../actions";
 
 
 export default function Admin() {
@@ -200,6 +201,12 @@ export default function Admin() {
     return result;
   }
 
+  function clearCache() {
+    startTransition(async () => {
+      revalidate("all");
+    })
+  }
+
   const getEditContent = (<SmallButton icon="add" onClick={() => { clearEdits(); setEditProgram({ providerId: (providers.length>0) ? providers[0].id : "", live:false }); }} />);
   const getAddOnEditContent = (<SmallButton icon="add" onClick={() => { clearEdits(); setEditAddOn({ providerId: (providers.length>0) ? providers[0].id : "", addOnType: "externalVideo", category:"slow worship" }); }} />);
 
@@ -216,7 +223,11 @@ export default function Admin() {
             {getAddOnAccordion()}
           </DisplayBox>
         </Grid>
-        <Grid item md={4} xs={12}>{getSidebar()}</Grid>
+        <Grid item md={4} xs={12}>
+          {getSidebar()}
+          <Button variant="contained" color="primary" onClick={clearCache}>
+            <Icon>delete</Icon> &nbsp; Clear Cache</Button>
+        </Grid>
       </Grid>
     </Wrapper>
   );
