@@ -16,13 +16,13 @@ function ClientLayout({ children}: {children: React.ReactNode}) {
   const location = (typeof(window) === "undefined") ? null : window.location;
 
 
-  AnalyticsHelper.init();
+
   useEffect(()=>{
     EnvironmentHelper.initLocale();
     EnvironmentHelper.init();
-    
+    AnalyticsHelper.init();
   },[])
-  
+
   useEffect(() => { AnalyticsHelper.logPageView() }, [location]);
 
 
