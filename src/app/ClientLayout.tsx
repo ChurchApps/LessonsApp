@@ -13,12 +13,13 @@ EnvironmentHelper.init();
 
 function ClientLayout({ children}: {children: React.ReactNode}) {
   const [errors, setErrors] = React.useState([]);
+  const [localeInit, setLocaleInit] = React.useState(false);
   const location = (typeof(window) === "undefined") ? null : window.location;
 
 
 
   useEffect(()=>{
-    EnvironmentHelper.initLocale();
+    EnvironmentHelper.initLocale().then(() => setLocaleInit(true));
     EnvironmentHelper.init();
     AnalyticsHelper.init();
   },[])
