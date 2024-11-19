@@ -46,7 +46,7 @@ export const Wrapper: React.FC<Props> = props => {
   return <ThemeProvider theme={Themes.BaseTheme}>
     <CssBaseline />
     <Box sx={{ display: "flex", backgroundColor: "#EEE" }}>
-      <SiteWrapper navContent={navContent} context={context} appName="Lessons.church" router={dummyRouter}>{props.children}</SiteWrapper>
+      <SiteWrapper navContent={navContent} context={context} appName="Lessons.church" router={router}>{props.children}</SiteWrapper>
     </Box>
   </ThemeProvider>
 
