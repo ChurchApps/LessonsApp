@@ -3,7 +3,7 @@
 import Head from "next/head";
 import { Header } from "./Header";
 import { Footer } from "./Footer";
-import { Container, createTheme, CssBaseline, ThemeProvider } from "@mui/material";
+import { Container, CssBaseline } from "@mui/material";
 
 type Props = {
   children: React.ReactNode;
@@ -29,21 +29,8 @@ export function Layout(props: Props) {
     if (props.image) return (<meta property="og:image" content={props.image}></meta>);
   }
 
-
-  const mdTheme = createTheme({
-    palette: {
-      secondary: {
-        main: "#444444"
-      }
-    },
-    components: {
-      MuiTextField: { defaultProps: { margin: "normal" } },
-      MuiFormControl: { defaultProps: { margin: "normal" } }
-    }
-  });
-
   return (
-    <ThemeProvider theme={mdTheme}>
+    <>
       <CssBaseline />
       <div>
         <Head>
@@ -55,6 +42,6 @@ export function Layout(props: Props) {
         <main>{props.children}</main>
         {!props.withoutFooter && <Footer />}
       </div>
-    </ThemeProvider>
+    </>
   );
 }

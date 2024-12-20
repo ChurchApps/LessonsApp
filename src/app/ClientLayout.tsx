@@ -6,6 +6,7 @@ import { ErrorHelper } from "@churchapps/apphelper";
 import { ErrorMessages } from "@churchapps/apphelper";
 import { UserProvider } from "./context/UserContext";
 import { EnvironmentHelper } from "@/utils/EnvironmentHelper";
+import { ThemeProvider, createTheme } from "@mui/material/styles";
 
 
 EnvironmentHelper.initLocale();
@@ -13,16 +14,17 @@ EnvironmentHelper.init();
 
 function ClientLayout({ children}: {children: React.ReactNode}) {
   const [errors, setErrors] = React.useState([]);
+  const [localeInit, setLocaleInit] = React.useState(false);
   const location = (typeof(window) === "undefined") ? null : window.location;
 
 
-  AnalyticsHelper.init();
+
   useEffect(()=>{
-    EnvironmentHelper.initLocale();
+    EnvironmentHelper.initLocale().then(() => setLocaleInit(true));
     EnvironmentHelper.init();
-    
+    AnalyticsHelper.init();
   },[])
-  
+
   useEffect(() => { AnalyticsHelper.logPageView() }, [location]);
 
 
@@ -47,11 +49,27 @@ function ClientLayout({ children}: {children: React.ReactNode}) {
   ErrorHelper.init(getErrorAppData, customErrorHandler);
   React.useEffect(() => { AnalyticsHelper.logPageView() }, [location]);
 
+
+  const mdTheme = createTheme({
+    palette: {
+      secondary: {
+        main: "#444444"
+      }
+    },
+    components: {
+      MuiTextField: { defaultProps: { margin: "normal" } },
+      MuiFormControl: { defaultProps: { margin: "normal" } }
+    }
+  });
+
+
   return (
-    <UserProvider>
-      <ErrorMessages errors={errors} />
-      <>{children}</>
-    </UserProvider>
+    <ThemeProvider theme={mdTheme}>
+      <UserProvider>
+        <ErrorMessages errors={errors} />
+        <>{children}</>
+      </UserProvider>
+    </ThemeProvider>
   );
 }
 export default ClientLayout;
