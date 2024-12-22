@@ -6,6 +6,7 @@ import React, { useEffect } from "react";
 import { SecondaryMenuHelper } from "@/helpers/SecondaryMenuHelper";
 import { useRouter } from "next/navigation";
 import { UserHelper, Permissions } from "@/helpers";
+import { usePathname } from 'next/navigation'
 
 type Props = {
   position?: "fixed" | "sticky" | "static" | "relative" | "absolute";
@@ -15,6 +16,7 @@ export function PortalHeader(props: Props) {
   const context = React.useContext(UserContext);
   const router = useRouter();
   const [secondaryMenu, setSecondaryMenu] = React.useState({menuItems:[], label:""});
+  const pathname = usePathname();
 
   const getPrimaryMenu = () => {
     const menuItems:{ url: string, icon:string, label: string }[] = []
@@ -27,7 +29,7 @@ export function PortalHeader(props: Props) {
   }
 
   const getPrimaryLabel = () => {
-    const path = window.location.pathname;
+    const path = pathname;
     let result = "Schedules";
     if (path.startsWith("/portal") || path.startsWith("/portal/thirdParty")) result = "Schedules";
     if (path.startsWith("/admin")) result = "Admin";
@@ -43,7 +45,7 @@ export function PortalHeader(props: Props) {
   useEffect(() => {
     const items = SecondaryMenuHelper.getSecondaryMenu(window.location.pathname, {})
     setSecondaryMenu(items);
-  }, [window.location.pathname]);
+  }, [pathname]);
 
   /*<Typography variant="h6" noWrap>{UserHelper.currentUserChurch?.church?.name || ""}</Typography>*/
   return (<SiteHeader primaryMenuItems={getPrimaryMenu()} primaryMenuLabel={getPrimaryLabel()} secondaryMenuItems={secondaryMenu.menuItems} secondaryMenuLabel={secondaryMenu.label} context={context} appName={"Lessons"} onNavigate={handleNavigate} /> );
