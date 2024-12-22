@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { InputBox } from "@churchapps/apphelper";
-import { ApiHelper } from "@/utils";
-import { VenueInterface } from "@/utils/interfaces";
+import { ApiHelper } from "@/helpers";
+import { VenueInterface } from "@/helpers/interfaces";
 
 type Props = {
   classroomId: string;

@@ -2,12 +2,13 @@
 
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
-import { ApiHelper, ExternalProviderInterface } from "@/utils";
+import { ApiHelper, ExternalProviderInterface } from "@/helpers";
 import { Wrapper } from "@/components/Wrapper";
-import { Grid, Icon } from "@mui/material";
+import { Icon } from "@mui/material";
 import { ProviderEdit } from "@/components/portal/ProviderEdit";
 import { DisplayBox } from "@churchapps/apphelper/dist/components/DisplayBox";
 import { SmallButton } from "@churchapps/apphelper/dist/components/SmallButton";
+import { Banner } from "@churchapps/apphelper";
 
 export default function ThirdParty() {
   const router = useRouter();
@@ -56,18 +57,15 @@ export default function ThirdParty() {
 
   return (
     <Wrapper>
-      <h1>External Lesson Providers</h1>
-      <p>You can use lessons from other sources that support the <a href="https://support.churchapps.org/developer/open-lesson-schema.html" target="_blank">Open Lesson Format</a> in the Lessons.church and B1.church apps.  Manage those providers here.</p>
-      <Grid container spacing={3}>
-        <Grid item md={8} xs={12}>
-          <DisplayBox headerText="Providers" headerIcon="groups" editContent={getEditContent()}>
-            {getProviders()}
-          </DisplayBox>
-        </Grid>
-        <Grid item md={4} xs={12}>
-          { editProvider && (<ProviderEdit provider={editProvider} updatedCallback={() => { setEditProvider(null); loadData(); }} />)}
-        </Grid>
-      </Grid>
+      <Banner><h1>External Lesson Providers</h1></Banner>
+      <div id="mainContent">
+
+        { editProvider && (<ProviderEdit provider={editProvider} updatedCallback={() => { setEditProvider(null); loadData(); }} />)}
+        <DisplayBox headerText="Providers" headerIcon="groups" editContent={getEditContent()}>
+          <p>You can use lessons from other sources that support the <a href="https://support.churchapps.org/developer/open-lesson-schema.html" target="_blank">Open Lesson Format</a> in the Lessons.church and B1.church apps.  Manage those providers here.</p>
+          {getProviders()}
+        </DisplayBox>
+      </div>
 
     </Wrapper>
   );

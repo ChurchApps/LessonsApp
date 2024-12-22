@@ -1,9 +1,9 @@
 "use client";
 
-import { Locale, SiteHeader } from "@churchapps/apphelper";
+import { SiteHeader } from "@churchapps/apphelper";
 import UserContext from "@/app/context/UserContext";
 import React from "react";
-import { SecondaryMenuHelper } from "@/utils/SecondaryMenuHelper";
+import { SecondaryMenuHelper } from "@/helpers/SecondaryMenuHelper";
 import { useRouter } from "next/navigation";
 
 type Props = {
@@ -16,20 +16,12 @@ export function PortalHeader(props: Props) {
 
   const getPrimaryMenu = () => {
     const menuItems:{ url: string, icon:string, label: string }[] = []
-    menuItems.push({url: "/", icon:"home", label: Locale.label("components.wrapper.dash")});
-    menuItems.push({url: "/people", icon:"person", label: Locale.label("components.wrapper.ppl")});
+    menuItems.push({url: "/", icon:"home", label: "Home" });
+    menuItems.push({url: "/portal", icon:"home", label: "Schedules" });
 
     // if (UserHelper.checkAccess(Permissions.membershipApi.server.admin)) tabs.push(<NavItem key="/admin" url="/admin" label={Locale.label("components.wrapper.servAdmin")} icon="admin_panel_settings" selected={selectedTab === "admin"} />);
     return menuItems;
   }
-  /*
-  const getSecondaryMenu = () => {
-    const menuItems:{ url: string, label: string }[] = []
-    menuItems.push({url: "/groups", label: Locale.label("components.wrapper.groups")});
-    menuItems.push({url: "/people", label: Locale.label("components.wrapper.ppl")});
-    if (UserHelper.checkAccess(Permissions.attendanceApi.attendance.viewSummary)) menuItems.push({url:"/attendance", label: Locale.label("components.wrapper.att")});
-    return menuItems;
-  }*/
 
   const getPrimaryLabel = () => {
     const path = window.location.pathname;

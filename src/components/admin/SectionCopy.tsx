@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { ApiHelper, CopySectionInterface, SectionInterface, VenueInterface } from "@/utils";
+import { ApiHelper, CopySectionInterface, SectionInterface, VenueInterface } from "@/helpers";
 import { InputBox, ErrorMessages } from "@churchapps/apphelper";
 import { FormControl, InputLabel, MenuItem, Select, SelectChangeEvent } from "@mui/material";
 

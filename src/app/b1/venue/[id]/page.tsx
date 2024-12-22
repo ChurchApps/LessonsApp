@@ -1,7 +1,7 @@
 "use client"
 
 import React, { useEffect } from "react";
-import { ClassroomInterface, CustomizationInterface, FeedVenueInterface, ScheduleInterface } from "@/utils/interfaces";
+import { ClassroomInterface, CustomizationInterface, FeedVenueInterface, ScheduleInterface } from "@/helpers/interfaces";
 import { ApiHelper } from "@churchapps/apphelper/dist/helpers/ApiHelper";
 import { VenueClient } from "./components/VenueClient";
 import { useParams, useSearchParams } from 'next/navigation';

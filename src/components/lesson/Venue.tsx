@@ -1,6 +1,6 @@
 import * as React from "react";
 import { useReactToPrint } from "react-to-print";
-import { CustomizationInterface, CustomizationHelper, FeedVenueInterface, ArrayHelper } from "@/utils";
+import { CustomizationInterface, CustomizationHelper, FeedVenueInterface, ArrayHelper } from "@/helpers";
 import { Section } from "./Section";
 import { Icon, Button } from "@mui/material";
 

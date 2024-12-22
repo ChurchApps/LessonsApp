@@ -1,4 +1,4 @@
-import { FeedActionInterface, FeedSectionInterface, FeedVenueInterface } from "@/utils";
+import { FeedActionInterface, FeedSectionInterface, FeedVenueInterface } from "@/helpers";
 import { MarkdownPreviewLight } from "@churchapps/apphelper/dist/components/markdownEditor/MarkdownPreviewLight";
 import Image from "next/image";
 

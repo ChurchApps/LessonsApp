@@ -1,4 +1,4 @@
-import { PlaylistFileInterface } from "@/utils";
+import { PlaylistFileInterface } from "@/helpers";
 
 
 type Props = {

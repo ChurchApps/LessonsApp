@@ -1,6 +1,6 @@
 import React from "react";
 import { InputBox, ErrorMessages } from "@churchapps/apphelper";
-import { ApiHelper, VariantInterface, FileInterface } from "@/utils";
+import { ApiHelper, VariantInterface, FileInterface } from "@/helpers";
 import { FileUpload } from "./FileUpload";
 import { FormControl, InputLabel, MenuItem, Select, SelectChangeEvent, TextField } from "@mui/material";
 

@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { useParams, useRouter } from "next/navigation";
-import { ApiHelper, ProgramInterface } from "@/utils";
+import { ApiHelper, ProgramInterface } from "@/helpers";
 import { ArrayHelper, DateHelper, ChurchInterface, DisplayBox, InputBox } from "@churchapps/apphelper";
 import { Wrapper } from "@/components/Wrapper";
 import { Grid, TextField } from "@mui/material";

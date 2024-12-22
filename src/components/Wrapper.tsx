@@ -3,12 +3,12 @@
 import React from "react";
 import { List, ThemeProvider } from "@mui/material";
 import { NavItem } from "@churchapps/apphelper";
-import { UserHelper, Permissions } from "@/utils";
+import { UserHelper, Permissions } from "@/helpers";
 import { useUser } from "@/app/context/UserContext";
 import { redirect } from "next/navigation";
 import { useRouter } from "next/navigation";
 import "@churchapps/apphelper/dist/components/markdownEditor/editor.css";
-import { Themes } from "@/utils/Themes";
+import { Themes } from "@/helpers/Themes";
 import { PortalHeader } from "./PortalHeader";
 
 interface Props { pageTitle?: string, children: React.ReactNode }

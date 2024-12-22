@@ -4,7 +4,7 @@ import { ApiHelper } from "@churchapps/apphelper/dist/helpers/ApiHelper";
 import Link from "next/link";
 import { Container } from "@mui/material";
 import { Metadata } from "next";
-import { MetaHelper } from "@/utils/MetaHelper";
+import { MetaHelper } from "@/helpers/MetaHelper";
 
 type PageParams = {churchId:string }
 

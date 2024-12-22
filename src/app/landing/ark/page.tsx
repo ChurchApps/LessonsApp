@@ -5,7 +5,7 @@ import { Videos } from "./components/videos";
 import { HomeConnect } from "../../components/HomeConnect";
 import { FloatingSupportWrapper } from "../../components/FloatingSupportWrapper";
 import { Metadata } from "next";
-import { MetaHelper } from "@/utils/MetaHelper";
+import { MetaHelper } from "@/helpers/MetaHelper";
 
 export async function generateMetadata(): Promise<Metadata> {
   let description = "Church budgets prohibit teaching the word of God in the most effective way possible. We provide high quality content to churches completely free of charge, thanks to our generous partners."

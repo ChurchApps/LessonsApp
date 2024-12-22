@@ -1,5 +1,5 @@
 import { Container, Icon, Menu, MenuItem, Select } from "@mui/material";
-import { ArrayHelper, FeedVenueInterface } from "@/utils";
+import { ArrayHelper, FeedVenueInterface } from "@/helpers";
 import { B1ShareModal, MarkdownPreviewLight } from "@churchapps/apphelper";
 import React, { useEffect, useState } from "react";
 import { Downloads } from "./Downloads";

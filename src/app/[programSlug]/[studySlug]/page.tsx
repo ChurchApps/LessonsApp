@@ -1,5 +1,5 @@
 import { Layout } from "@/components/Layout";
-import { LessonInterface, ProgramInterface, StudyInterface } from "@/utils/interfaces";
+import { LessonInterface, ProgramInterface, StudyInterface } from "@/helpers/interfaces";
 import { ApiHelper } from "@churchapps/apphelper/dist/helpers/ApiHelper";
 import Container from "@mui/material/Container";
 import Grid from "@mui/material/Grid";
@@ -10,9 +10,9 @@ import { MarkdownWrapper } from "@/app/components/MarkdownWrapper";
 import { HeaderWrapper } from "@/app/components/HeaderWrapper";
 import Error from "@/components/Error";
 import { Metadata } from "next";
-import { MetaHelper } from "@/utils/MetaHelper";
+import { MetaHelper } from "@/helpers/MetaHelper";
 import { unstable_cache } from "next/cache";
-import { EnvironmentHelper } from "@/utils";
+import { EnvironmentHelper } from "@/helpers";
 
 type PageParams = {programSlug:string, studySlug:string }
 

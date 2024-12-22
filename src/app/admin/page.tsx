@@ -3,7 +3,7 @@
 import { startTransition, useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { ProgramEdit, StudyEdit, LessonEdit, VenueList, BundleList } from "@/components";
-import { ApiHelper, LessonInterface, ProgramInterface, StudyInterface, ArrayHelper, AddOnInterface, ProviderInterface } from "@/utils";
+import { ApiHelper, LessonInterface, ProgramInterface, StudyInterface, ArrayHelper, AddOnInterface, ProviderInterface } from "@/helpers";
 import { Wrapper } from "@/components/Wrapper";
 import { Accordion, AccordionDetails, AccordionSummary, Button, Grid, Icon } from "@mui/material";
 import { SmallButton, DisplayBox, Loading } from "@churchapps/apphelper";

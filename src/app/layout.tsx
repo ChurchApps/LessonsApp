@@ -1,6 +1,6 @@
 
 import "@/styles/globals.css";
-import { EnvironmentHelper } from "@/utils/EnvironmentHelper";
+import { EnvironmentHelper } from "@/helpers/EnvironmentHelper";
 
 import ClientLayout from "./ClientLayout";
 

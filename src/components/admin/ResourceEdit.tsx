@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { InputBox, ErrorMessages } from "@churchapps/apphelper";
-import { ApiHelper, BundleInterface, LessonInterface, ResourceInterface, StudyInterface } from "@/utils";
+import { ApiHelper, BundleInterface, LessonInterface, ResourceInterface, StudyInterface } from "@/helpers";
 import { FormControl, InputLabel, MenuItem, Select, SelectChangeEvent, TextField } from "@mui/material";
 
 type Props = {

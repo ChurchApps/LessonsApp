@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import Link from "next/link";
-import { VenueInterface, ApiHelper } from "@/utils";
+import { VenueInterface, ApiHelper } from "@/helpers";
 import { VenueEdit } from "../index";
 import { DisplayBox, Loading, SmallButton } from "@churchapps/apphelper";
 import { Icon } from "@mui/material";

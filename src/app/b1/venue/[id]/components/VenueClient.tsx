@@ -2,7 +2,7 @@
 
 import { Layout } from "@/components/Layout";
 import { Venue } from "@/components/lesson/Venue";
-import { ClassroomInterface, CustomizationInterface, FeedVenueInterface, ScheduleInterface } from "@/utils/interfaces";
+import { ClassroomInterface, CustomizationInterface, FeedVenueInterface, ScheduleInterface } from "@/helpers/interfaces";
 import { DateHelper } from "@churchapps/apphelper/dist/helpers/DateHelper";
 import Container from "@mui/material/Container";
 import Grid from "@mui/material/Grid";

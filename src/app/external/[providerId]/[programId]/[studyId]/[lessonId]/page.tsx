@@ -1,14 +1,14 @@
 "use client";
 import { Grid, Container, Icon } from "@mui/material";
 import { Layout, Venue } from "@/components";
-import { ApiHelper, FeedVenueInterface, PlaylistFileInterface } from "@/utils";
+import { ApiHelper, FeedVenueInterface, PlaylistFileInterface } from "@/helpers";
 import Image from "next/image";
 import { Header } from "@/components/Header";
 import Link from "next/link";
 import { LessonSidebar } from "@/components/lesson/LessonSidebar";
 import React, { useEffect } from "react";
 import { Presenter } from "@/components/Presenter";
-import { ExternalProviderHelper } from "@/utils/ExternalProviderHelper";
+import { ExternalProviderHelper } from "@/helpers/ExternalProviderHelper";
 import axios from "axios";
 import { AnalyticsHelper } from "@churchapps/apphelper/dist/helpers/AnalyticsHelper";
 import { useParams } from "next/navigation";
