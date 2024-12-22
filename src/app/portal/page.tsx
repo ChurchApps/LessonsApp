@@ -31,7 +31,6 @@ export default function CP() {
       let html = "<lite-vimeo videoid=\"985348183\" videotitle=\"Setup Instructions\"></lite-vimeo>";
       return <>
         <div>
-          <h4>Setup instructions:</h4>
           <div style={{maxWidth:600, marginLeft:"auto", marginRight:"auto"}} dangerouslySetInnerHTML={{ __html: html }}></div>
         </div>
       </>
@@ -50,10 +49,11 @@ export default function CP() {
         {getPlaylistFeed()}
         <Grid container spacing={3}>
           <Grid item md={8} xs={12}>
-            <ClassroomList classroomSelected={setClassroomId} showFeed={handleShowFeed} />
+            {getScheduleSection()}
+
           </Grid>
           <Grid item md={4} xs={12}>
-            {getScheduleSection()}
+            <ClassroomList classroomSelected={setClassroomId} showFeed={handleShowFeed} />
           </Grid>
         </Grid>
         <HomeConnect />
