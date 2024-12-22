@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { InputBox, ErrorMessages, MarkdownEditor } from "@churchapps/apphelper";
-import { FeedProgramInterface } from "@/utils";
+import { FeedProgramInterface } from "@/helpers";
 import { SelectChangeEvent, TextField } from "@mui/material";
 
 type Props = {

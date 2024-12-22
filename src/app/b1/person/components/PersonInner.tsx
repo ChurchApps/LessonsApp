@@ -4,7 +4,7 @@ import { Layout } from "@/components/Layout";
 import Link from "next/link";
 import { Container } from "@mui/material";
 import { redirect, useSearchParams } from "next/navigation";
-import { ClassroomInterface } from "@/utils/interfaces";
+import { ClassroomInterface } from "@/helpers/interfaces";
 import { ApiHelper } from "@churchapps/apphelper/dist/helpers/ApiHelper";
 import { ArrayHelper } from "@churchapps/apphelper/dist/helpers/ArrayHelper";
 import { useUser } from "@/app/context/UserContext";

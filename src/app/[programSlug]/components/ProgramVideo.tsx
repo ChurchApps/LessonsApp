@@ -2,7 +2,7 @@
 
 import { EmbeddedVideo } from "@/components/EmbeddedVideo";
 import { VideoModal } from "@/components/VideoModal";
-import { ProgramInterface } from "@/utils/interfaces";
+import { ProgramInterface } from "@/helpers/interfaces";
 import { Icon } from "@mui/material";
 import { useState } from "react";
 

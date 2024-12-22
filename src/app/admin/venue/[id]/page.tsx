@@ -2,10 +2,10 @@
 import { useState, useEffect } from "react";
 import { useParams, useRouter } from "next/navigation";
 import { SectionEdit, RoleEdit, ActionEdit, SectionCopy } from "@/components";
-import { VenueInterface, LessonInterface, StudyInterface, SectionInterface, RoleInterface, ActionInterface, ResourceInterface, AssetInterface, ApiHelper, ArrayHelper, CopySectionInterface, ExternalVideoInterface, AddOnInterface } from "@/utils";
+import { VenueInterface, LessonInterface, StudyInterface, SectionInterface, RoleInterface, ActionInterface, ResourceInterface, AssetInterface, ApiHelper, ArrayHelper, CopySectionInterface, ExternalVideoInterface, AddOnInterface } from "@/helpers";
 import { Wrapper } from "@/components/Wrapper";
 import { Grid, Icon, Menu, MenuItem } from "@mui/material";
-import { SmallButton, DisplayBox, Loading } from "@churchapps/apphelper";
+import { SmallButton, DisplayBox, Loading, Banner } from "@churchapps/apphelper";
 
 type PageParams = {id:string }
 
@@ -229,17 +229,20 @@ export default function Venue() {
 
   return (
     <Wrapper>
-      <h1>{lesson?.name}: {venue?.name}</h1>
-      <Grid container spacing={3}>
-        <Grid item md={8} xs={12}>
-          <div className="scrollingList">
-            <DisplayBox headerText="Sections" headerIcon="list" editContent={getEditContent()}>
-              {getTable()}
-            </DisplayBox>
-          </div>
+      <Banner><h1>{lesson?.name}: {venue?.name}</h1></Banner>
+      <div id="mainContent">
+
+        <Grid container spacing={3}>
+          <Grid item md={8} xs={12}>
+            <div className="scrollingList">
+              <DisplayBox headerText="Sections" headerIcon="list" editContent={getEditContent()}>
+                {getTable()}
+              </DisplayBox>
+            </div>
+          </Grid>
+          <Grid item md={4} xs={12}>{getSidebar()}</Grid>
         </Grid>
-        <Grid item md={4} xs={12}>{getSidebar()}</Grid>
-      </Grid>
+      </div>
     </Wrapper>
   );
 }

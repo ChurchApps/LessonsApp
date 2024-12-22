@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
-import { ApiHelper, FileInterface } from "@/utils";
+import { ApiHelper, FileInterface } from "@/helpers";
 import { LinearProgress } from "@mui/material";
 
 type Props = {

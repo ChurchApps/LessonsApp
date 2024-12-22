@@ -1,4 +1,4 @@
-import { PlaylistFileInterface } from "@/utils";
+import { PlaylistFileInterface } from "@/helpers";
 import { useEffect, useState } from "react";
 import Carousel from "react-material-ui-carousel";
 import { PresenterSlide } from "./PresenterSlide";

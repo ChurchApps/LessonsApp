@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { ScheduleInterface, ApiHelper } from "@/utils";
+import { ScheduleInterface, ApiHelper } from "@/helpers";
 import { ScheduleEdit } from "../index";
 import { DisplayBox, Loading, ArrayHelper, DateHelper, SmallButton } from "@churchapps/apphelper";
 import Link from "next/link";

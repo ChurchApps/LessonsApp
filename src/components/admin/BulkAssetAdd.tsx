@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { ApiHelper, AssetInterface, FileInterface } from "@/utils";
+import { ApiHelper, AssetInterface, FileInterface } from "@/helpers";
 import { InputBox } from "@churchapps/apphelper";
 import { BulkFileUpload } from "./BulkFileUpload";
 

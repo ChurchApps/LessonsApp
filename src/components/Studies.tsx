@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { StudyInterface } from "@/utils";
+import { StudyInterface } from "@/helpers";
 import { Card, Grid } from "@mui/material";
 import Image from "next/image";
 

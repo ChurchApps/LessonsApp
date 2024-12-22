@@ -1,5 +1,5 @@
 import { Container, Grid } from "@mui/material";
-import { ProgramInterface, ProviderInterface, StudyInterface } from "@/utils/interfaces";
+import { ProgramInterface, ProviderInterface, StudyInterface } from "@/helpers/interfaces";
 import { ArrayHelper } from "@churchapps/apphelper/dist/helpers/ArrayHelper";
 import Image from "next/image";
 import Link from "next/link";

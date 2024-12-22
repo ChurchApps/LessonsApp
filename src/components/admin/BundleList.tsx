@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { ApiHelper, ResourceInterface, AssetInterface, VariantInterface, ArrayHelper, BundleInterface, ExternalVideoInterface } from "@/utils";
+import { ApiHelper, ResourceInterface, AssetInterface, VariantInterface, ArrayHelper, BundleInterface, ExternalVideoInterface } from "@/helpers";
 import { DisplayBox, Loading, SmallButton } from "@churchapps/apphelper";
 import { VariantEdit } from "./VariantEdit";
 import { ResourceEdit } from "./ResourceEdit";

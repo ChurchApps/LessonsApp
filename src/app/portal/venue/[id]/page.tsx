@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import { useParams, useRouter } from "next/navigation";
 import { Layout } from "@/components";
 import { DisplayBox, Loading } from "@churchapps/apphelper";
-import { VenueInterface, LessonInterface, StudyInterface, SectionInterface, RoleInterface, ActionInterface, ApiHelper, ArrayHelper, CustomizationInterface, CustomizationHelper } from "@/utils";
+import { VenueInterface, LessonInterface, StudyInterface, SectionInterface, RoleInterface, ActionInterface, ApiHelper, ArrayHelper, CustomizationInterface, CustomizationHelper } from "@/helpers";
 import { Container, Icon, Box } from "@mui/material";
 
 type PageParams = {id:string }

@@ -1,5 +1,5 @@
 import React from "react";
-import { UserHelper, ApiHelper, FeedActionInterface, FeedFileInterface } from "@/utils";
+import { UserHelper, ApiHelper, FeedActionInterface, FeedFileInterface } from "@/helpers";
 import { VideoModal } from "../VideoModal";
 import Image from "next/image";
 import { AnalyticsHelper } from "@churchapps/apphelper";

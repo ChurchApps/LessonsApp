@@ -1,6 +1,6 @@
 import { Box, Dialog, DialogActions, DialogContent, DialogTitle, Grid, Tab, Tabs } from "@mui/material";
 import React, { useRef, useState } from "react";
-import { FeedVenueInterface } from "@/utils";
+import { FeedVenueInterface } from "@/helpers";
 import { useReactToPrint } from "react-to-print";
 import { Section } from "../lesson/Section";
 import { OlfPrint } from "./OlfPrint";

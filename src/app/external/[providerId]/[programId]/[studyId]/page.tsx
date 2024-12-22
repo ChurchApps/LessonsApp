@@ -2,13 +2,13 @@
 
 import { Layout, Lessons } from "@/components";
 import { MarkdownPreviewLight } from "@churchapps/apphelper/dist/components/markdownEditor/MarkdownPreviewLight";
-import { ProgramInterface, StudyInterface, LessonInterface } from "@/utils/interfaces";
+import { ProgramInterface, StudyInterface, LessonInterface } from "@/helpers/interfaces";
 import { ApiHelper } from "@churchapps/apphelper/dist/helpers/ApiHelper";
 import { Grid, Container } from "@mui/material";
 import Image from "next/image";
 import { Header } from "@/components/Header";
 import Link from "next/link";
-import { ExternalProviderHelper } from "@/utils/ExternalProviderHelper";
+import { ExternalProviderHelper } from "@/helpers/ExternalProviderHelper";
 import { useEffect, useState } from "react";
 import { useParams } from "next/navigation";
 

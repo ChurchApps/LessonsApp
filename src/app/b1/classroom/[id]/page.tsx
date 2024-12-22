@@ -1,13 +1,13 @@
 import React from "react";
 import { Layout } from "@/components/Layout";
-import { ClassroomInterface, ScheduleInterface } from "@/utils/interfaces";
+import { ClassroomInterface, ScheduleInterface } from "@/helpers/interfaces";
 import { ApiHelper } from "@churchapps/apphelper/dist/helpers/ApiHelper";
 import Link from "next/link";
 import { DateHelper } from "@churchapps/apphelper/dist/helpers/DateHelper";
 import { Container } from "@mui/material";
 import { redirect } from "next/navigation";
 import { Metadata } from "next";
-import { MetaHelper } from "@/utils/MetaHelper";
+import { MetaHelper } from "@/helpers/MetaHelper";
 
 type PageParams = {id:string }
 

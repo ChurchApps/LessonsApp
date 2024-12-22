@@ -2,10 +2,10 @@ import { ApiHelper } from "@churchapps/apphelper/dist/helpers/ApiHelper";
 import Error from "@/components/Error";
 import React from "react";
 import LessonClient from "./components/LessonClient";
-import { MetaHelper } from "@/utils/MetaHelper";
+import { MetaHelper } from "@/helpers/MetaHelper";
 import { Metadata } from "next";
 import { unstable_cache } from "next/cache";
-import { EnvironmentHelper } from "@/utils";
+import { EnvironmentHelper } from "@/helpers";
 
 type PageParams = {programSlug:string, studySlug:string, lessonSlug:string }
 

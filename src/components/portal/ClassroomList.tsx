@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { ClassroomInterface, ApiHelper } from "@/utils";
+import { ClassroomInterface, ApiHelper } from "@/helpers";
 import { ClassroomEdit } from "../index";
 import { DisplayBox, Loading, SmallButton } from "@churchapps/apphelper";
 import { Icon, Stack } from "@mui/material";
@@ -63,6 +63,7 @@ export function ClassroomList(props: Props) {
     return (
       <>
         <DisplayBox headerText="Classrooms" headerIcon="school" editContent={getEditContent()}>
+          <p>Select or add a classroom to manage schedules.</p>
           {getTable()}
         </DisplayBox>
       </>

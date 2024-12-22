@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { ErrorMessages, InputBox } from "@churchapps/apphelper";
 import { ImageEditor } from "../index";
-import { ApiHelper, ProgramInterface } from "@/utils";
+import { ApiHelper, ProgramInterface } from "@/helpers";
 import { FormControl, InputLabel, MenuItem, Select, SelectChangeEvent, TextField } from "@mui/material";
 import Link from "next/link";
 
