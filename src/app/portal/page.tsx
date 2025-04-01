@@ -3,10 +3,11 @@
 import { useState, useEffect } from "react";
 import { ClassroomList, HomeConnect, ScheduleList, } from "@/components";
 import { PlaylistFeed } from "@/components/portal/PlaylistFeed";
-import { ApiHelper } from "@/utils";
+import { ApiHelper } from "@/helpers";
 import { Wrapper } from "@/components/Wrapper";
 import { Grid } from "@mui/material";
 import { redirect } from "next/navigation";
+import { Banner } from "@churchapps/apphelper";
 
 export default function CP() {
 
@@ -29,9 +30,7 @@ export default function CP() {
     if (classroomId === "") {
       let html = "<lite-vimeo videoid=\"985348183\" videotitle=\"Setup Instructions\"></lite-vimeo>";
       return <>
-        <p>Select or add a classroom to manage schedules.</p>
         <div>
-          <b>Setup instructions:</b>
           <div style={{maxWidth:600, marginLeft:"auto", marginRight:"auto"}} dangerouslySetInnerHTML={{ __html: html }}></div>
         </div>
       </>
@@ -45,17 +44,20 @@ export default function CP() {
 
   return (
     <Wrapper>
-      <h1>Manage Classroom Schedules</h1>
-      <Grid container spacing={3}>
-        <Grid item md={8} xs={12}>
-          {getScheduleSection()}
+      <Banner><h1>Manage Classroom Schedules</h1></Banner>
+      <div id="mainContent">
+        {getPlaylistFeed()}
+        <Grid container spacing={3}>
+          <Grid item md={8} xs={12}>
+            {getScheduleSection()}
+
+          </Grid>
+          <Grid item md={4} xs={12}>
+            <ClassroomList classroomSelected={setClassroomId} showFeed={handleShowFeed} />
+          </Grid>
         </Grid>
-        <Grid item md={4} xs={12}>
-          {getPlaylistFeed()}
-          <ClassroomList classroomSelected={setClassroomId} showFeed={handleShowFeed} />
-        </Grid>
-      </Grid>
-      <HomeConnect />
+        <HomeConnect />
+      </div>
     </Wrapper>
   );
 }

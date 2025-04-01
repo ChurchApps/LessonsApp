@@ -1,6 +1,6 @@
 "use client";
 
-import { FeedLessonInterface, FeedListInterface, FeedProgramInterface, FeedStudyInterface, FeedVenueLinkInterface } from "@/utils";
+import { FeedLessonInterface, FeedListInterface, FeedProgramInterface, FeedStudyInterface, FeedVenueLinkInterface } from "@/helpers";
 import { DisplayBox, SmallButton } from "@churchapps/apphelper";
 import { Grid, Table, TableBody, TableCell, TableHead, TableRow } from "@mui/material";
 import { useEffect, useState } from "react";

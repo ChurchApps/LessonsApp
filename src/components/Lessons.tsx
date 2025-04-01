@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { LessonInterface } from "@/utils";
+import { LessonInterface } from "@/helpers";
 import { Card, Grid } from "@mui/material";
 import Image from "next/image";
 

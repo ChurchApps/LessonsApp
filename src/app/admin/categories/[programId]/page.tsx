@@ -2,10 +2,10 @@
 
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
-import { ApiHelper, ProgramInterface, StudyCategoryInterface, StudyInterface } from "@/utils";
+import { ApiHelper, ProgramInterface, StudyCategoryInterface, StudyInterface } from "@/helpers";
 import { Wrapper } from "@/components/Wrapper";
 import { Grid } from "@mui/material";
-import { SmallButton, DisplayBox, ArrayHelper } from "@churchapps/apphelper";
+import { SmallButton, DisplayBox, ArrayHelper, Banner } from "@churchapps/apphelper";
 import { useParams } from 'next/navigation'
 
 type PageParams = {programId:string }
@@ -108,21 +108,24 @@ export default function Admin() {
 
   return (
     <Wrapper>
-      <h1>Categories for {program?.name}</h1>
-      <Grid container spacing={3}>
-        <Grid item md={8} xs={12}>
-          <DisplayBox headerText={categoryName || "Select Category"} headerIcon="edit_note">
-            {getCategory()}
-          </DisplayBox>
+      <Banner><h1>Programs</h1></Banner>
+      <div id="mainContent">
+        <h1>Categories for {program?.name}</h1>
+        <Grid container spacing={3}>
+          <Grid item md={8} xs={12}>
+            <DisplayBox headerText={categoryName || "Select Category"} headerIcon="edit_note">
+              {getCategory()}
+            </DisplayBox>
+          </Grid>
+          <Grid item md={4} xs={12}>
+            <DisplayBox headerText="Categories" headerIcon="edit_note" editContent={getEditContent()}>
+              <table className="table table-striped">
+                { categoryNames.map((c) => (<><tr><td><a href="about:blank" onClick={(e) => { e.preventDefault(); setCategoryName(c); } }>{c}</a></td></tr></>)) }
+              </table>
+            </DisplayBox>
+          </Grid>
         </Grid>
-        <Grid item md={4} xs={12}>
-          <DisplayBox headerText="Categories" headerIcon="edit_note" editContent={getEditContent()}>
-            <table className="table table-striped">
-              { categoryNames.map((c) => (<><tr><td><a href="about:blank" onClick={(e) => { e.preventDefault(); setCategoryName(c); } }>{c}</a></td></tr></>)) }
-            </table>
-          </DisplayBox>
-        </Grid>
-      </Grid>
+      </div>
     </Wrapper>
   );
 }

@@ -1,4 +1,4 @@
-import { ActionInterface, ArrayHelper, CustomizationHelper, CustomizationInterface, FeedSectionInterface } from "@/utils";
+import { ActionInterface, ArrayHelper, CustomizationHelper, CustomizationInterface, FeedSectionInterface } from "@/helpers";
 import { Action } from "./Action";
 import { Card, CardContent, CardHeader } from "@mui/material";
 

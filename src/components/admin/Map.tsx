@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { ApiHelper } from "@/utils";
+import { ApiHelper } from "@/helpers";
 import { DisplayBox, DateHelper } from "@churchapps/apphelper";
 import { ComposableMap, Geographies, Geography, ZoomableGroup, Marker } from "react-simple-maps"
 import {Tooltip} from "react-tooltip";

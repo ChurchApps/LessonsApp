@@ -2,7 +2,7 @@
 
 import { Grid, Container } from "@mui/material";
 import { Layout, Venue } from "@/components";
-import { FeedVenueInterface } from "@/utils/interfaces";
+import { FeedVenueInterface } from "@/helpers/interfaces";
 import Image from "next/image";
 import { Header } from "@/components/Header";
 import Link from "next/link";

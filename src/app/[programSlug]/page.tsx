@@ -1,6 +1,6 @@
 import { Container } from "@mui/material";
 import { Layout } from "@/components/Layout";
-import { ProgramInterface, StudyCategoryInterface, StudyInterface } from "@/utils/interfaces";
+import { ProgramInterface, StudyCategoryInterface, StudyInterface } from "@/helpers/interfaces";
 import { ApiHelper } from "@churchapps/apphelper/dist/helpers/ApiHelper";
 import Image from "next/image";
 import { CategoriesAndStudies } from "./components/CategoriesAndStudies";
@@ -9,9 +9,9 @@ import { HeaderWrapper } from "@/app/components/HeaderWrapper";
 import { MarkdownWrapper } from "@/app/components/MarkdownWrapper";
 import Error from "@/components/Error";
 import { Metadata } from "next";
-import { MetaHelper } from "@/utils/MetaHelper";
+import { MetaHelper } from "@/helpers/MetaHelper";
 import { unstable_cache } from "next/cache";
-import { EnvironmentHelper } from "@/utils";
+import { EnvironmentHelper } from "@/helpers";
 
 type PageParams = {programSlug:string }
 

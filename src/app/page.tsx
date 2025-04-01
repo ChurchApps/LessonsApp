@@ -3,7 +3,7 @@ import { HomeAbout } from "@/app/components/HomeAbout";
 import { HomeConnect } from "@/app/components/HomeConnect";
 import { Layout } from "@/components/Layout";
 import { Programs } from "@/app/components/Programs";
-import { ProgramInterface, ProviderInterface } from "@/utils/interfaces";
+import { ProgramInterface, ProviderInterface } from "@/helpers/interfaces";
 import { ApiHelper } from "@churchapps/apphelper/dist/helpers/ApiHelper";
 import Error from "@/components/Error";
 import { HomeTestimonials } from "@/app/components/HomeTestimonials";
@@ -12,7 +12,7 @@ import { Container, Grid, Link } from "@mui/material";
 import Image from "next/image";
 import { FloatingSupportWrapper } from "./components/FloatingSupportWrapper";
 import { Metadata } from "next";
-import { MetaHelper } from "@/utils/MetaHelper";
+import { MetaHelper } from "@/helpers/MetaHelper";
 import { revalidateTag } from "next/cache";
 
 const loadData = async () => {

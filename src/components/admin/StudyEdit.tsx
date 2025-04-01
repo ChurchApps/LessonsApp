@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { ImageEditor } from "../index";
 import { InputBox, ErrorMessages, SlugHelper } from "@churchapps/apphelper";
-import { ApiHelper, StudyInterface, ProgramInterface } from "@/utils";
+import { ApiHelper, StudyInterface, ProgramInterface } from "@/helpers";
 import { Button, FormControl, Grid, IconButton, InputLabel, MenuItem, Paper, Select, SelectChangeEvent, Stack, TextField, Typography } from "@mui/material";
 import EditIcon from '@mui/icons-material/Edit';
 

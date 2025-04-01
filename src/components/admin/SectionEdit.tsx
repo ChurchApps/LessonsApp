@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { ApiHelper, SectionInterface } from "@/utils";
+import { ApiHelper, SectionInterface } from "@/helpers";
 import { InputBox, ErrorMessages } from "@churchapps/apphelper";
 import { TextField } from "@mui/material";
 

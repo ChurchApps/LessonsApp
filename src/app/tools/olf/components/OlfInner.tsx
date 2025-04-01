@@ -4,7 +4,7 @@ import { Wrapper } from "@/components/Wrapper";
 import { OlfActionEdit } from "@/components/open-lesson/OlfActionEdit";
 import { OlfPrintPreview } from "@/components/open-lesson/OlfPrintPreview";
 import { OlfSectionEdit } from "@/components/open-lesson/OlfSectionEdit";
-import { FeedActionInterface, FeedSectionInterface, FeedVenueInterface, PlaylistFileInterface } from "@/utils";
+import { FeedActionInterface, FeedSectionInterface, FeedVenueInterface, PlaylistFileInterface } from "@/helpers";
 import { DisplayBox, MarkdownEditor, MarkdownPreviewLight, SmallButton } from "@churchapps/apphelper";
 import { Grid, Table, TableBody, TableCell, TableHead, TableRow, TextField } from "@mui/material";
 import { useEffect, useState } from "react";

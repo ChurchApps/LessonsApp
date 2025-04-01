@@ -5,6 +5,7 @@
 #eff8fd - very faint blue
 */
 
+
 :root {
   scroll-behavior: smooth;
 }
@@ -13,7 +14,7 @@ body {
   font-family: "Roboto", sans-serif;
   color: #333;
   font-display: swap;
-  background-color: #f0f1f3;
+  background-color:#e5e8ee;
 }
 
 .table {
@@ -1986,6 +1987,10 @@ a.dropdown-toggle::after {
 
 .text-danger {
   color: #dc3545
+}
+
+#primaryNavButton h2 {
+  color:#FFF;
 }
 
 /* End private messaging & notes */

@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { InputBox, ErrorMessages, MarkdownEditor, SmallButton } from "@churchapps/apphelper";
-import { FeedActionInterface, FeedFileInterface } from "@/utils";
+import { FeedActionInterface, FeedFileInterface } from "@/helpers";
 import { InputLabel, MenuItem, Select, FormControl, SelectChangeEvent, Table, TableBody, TableCell, TableHead, TableRow, TextField } from "@mui/material";
 import { OlfFileEdit } from "./OlfFileEdit";
 

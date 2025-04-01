@@ -3,11 +3,10 @@
 import { startTransition, useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { ProgramEdit, StudyEdit, LessonEdit, VenueList, BundleList } from "@/components";
-import { ApiHelper, LessonInterface, ProgramInterface, StudyInterface, ArrayHelper, AddOnInterface, ProviderInterface } from "@/utils";
+import { ApiHelper, LessonInterface, ProgramInterface, StudyInterface, ArrayHelper, ProviderInterface } from "@/helpers";
 import { Wrapper } from "@/components/Wrapper";
 import { Accordion, AccordionDetails, AccordionSummary, Button, Grid, Icon } from "@mui/material";
-import { SmallButton, DisplayBox, Loading } from "@churchapps/apphelper";
-import { AddOnEdit } from "@/components/admin/AddOnEdit";
+import { SmallButton, DisplayBox, Loading, Banner } from "@churchapps/apphelper";
 import { revalidate } from "../actions";
 
 
@@ -16,8 +15,6 @@ export default function Admin() {
   const [programs, setPrograms] = useState<ProgramInterface[]>(null);
   const [studies, setStudies] = useState<StudyInterface[]>(null);
   const [lessons, setLessons] = useState<LessonInterface[]>(null);
-  const [addOns, setAddOns] = useState<AddOnInterface[]>(null);
-  const [editAddOn, setEditAddOn] = useState<AddOnInterface>(null);
 
   const [editProgram, setEditProgram] = useState<ProgramInterface>(null);
   const [editStudy, setEditStudy] = useState<StudyInterface>(null);
@@ -43,7 +40,6 @@ export default function Admin() {
     ApiHelper.get("/programs", "LessonsApi").then((data: any) => { setPrograms(data); });
     ApiHelper.get("/studies", "LessonsApi").then((data: any) => { setStudies(data); });
     ApiHelper.get("/lessons", "LessonsApi").then((data: any) => { setLessons(data); });
-    ApiHelper.get("/addOns", "LessonsApi").then((data: any) => { setAddOns(data); });
   }
 
   function clearEdits() {
@@ -64,12 +60,10 @@ export default function Admin() {
     setEditStudy(null);
     setEditLesson(null);
     setVenuesLessonId(null);
-    setEditAddOn(null);
   }
 
   const handleUpdated = () => {
     loadData();
-    setEditAddOn(null);
     setEditProgram(null);
     setEditStudy(null);
     setEditLesson(null);
@@ -171,24 +165,7 @@ export default function Admin() {
     else return getPrograms();
   }
 
-  function getAddOnAccordion() {
-    if (addOns === null) return <Loading />;
-    else return getAddOns();
-  }
 
-  function getAddOns() {
-    const result: JSX.Element[] = [];
-    addOns.forEach((a) => {
-      result.push(
-        <div className="lessonDiv" key={"addOn" + a.id}>
-          <a href="about:blank" onClick={(e) => { e.preventDefault(); clearEdits(); setEditAddOn(a); }}>
-            <Icon>movie</Icon> {a.category}: {a.name}
-          </a>
-        </div>
-      );
-    });
-    return result;
-  }
 
   function getSidebar() {
     const result: JSX.Element[] = [];
@@ -197,7 +174,6 @@ export default function Admin() {
     else if (editLesson) result.push(<LessonEdit lesson={editLesson} updatedCallback={handleUpdated} key="lessonEdit" />);
     else if (venuesLessonId) result.push(<VenueList lessonId={venuesLessonId} key="venueLesson" />);
     else if (resourceContentType && resourceContentId) result.push(<BundleList contentType={resourceContentType} contentId={resourceContentId} key="bundleList" contentDisplayName={resourceName} />);
-    if (editAddOn) result.push(<AddOnEdit addOn={editAddOn} updatedCallback={handleUpdated} key="addOnEdit" />);
     return result;
   }
 
@@ -208,27 +184,24 @@ export default function Admin() {
   }
 
   const getEditContent = (<SmallButton icon="add" onClick={() => { clearEdits(); setEditProgram({ providerId: (providers.length>0) ? providers[0].id : "", live:false }); }} />);
-  const getAddOnEditContent = (<SmallButton icon="add" onClick={() => { clearEdits(); setEditAddOn({ providerId: (providers.length>0) ? providers[0].id : "", addOnType: "externalVideo", category:"slow worship" }); }} />);
 
   return (
     <Wrapper>
-      <h1>Programs and Add-ons</h1>
-
-      <Grid container spacing={3}>
-        <Grid item md={8} xs={12}>
-          <DisplayBox headerText="Programs" headerIcon="school" editContent={getEditContent}>
-            {getAccordion()}
-          </DisplayBox>
-          <DisplayBox headerText="Add-ons" headerIcon="movie" editContent={getAddOnEditContent}>
-            {getAddOnAccordion()}
-          </DisplayBox>
+      <Banner><h1>Programs</h1></Banner>
+      <div id="mainContent">
+        <Grid container spacing={3}>
+          <Grid item md={8} xs={12}>
+            <DisplayBox headerText="Programs" headerIcon="school" editContent={getEditContent}>
+              {getAccordion()}
+            </DisplayBox>
+          </Grid>
+          <Grid item md={4} xs={12}>
+            {getSidebar()}
+            <Button variant="contained" color="primary" onClick={clearCache}>
+              <Icon>delete</Icon> &nbsp; Clear Cache</Button>
+          </Grid>
         </Grid>
-        <Grid item md={4} xs={12}>
-          {getSidebar()}
-          <Button variant="contained" color="primary" onClick={clearCache}>
-            <Icon>delete</Icon> &nbsp; Clear Cache</Button>
-        </Grid>
-      </Grid>
+      </div>
     </Wrapper>
   );
 }

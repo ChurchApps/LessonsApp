@@ -1,5 +1,5 @@
 import { AnalyticsHelper, CommonEnvironmentHelper } from "@churchapps/apphelper";
-import { ApiHelper, FeedDownloadInterface, UserHelper } from "@/utils";
+import { ApiHelper, FeedDownloadInterface, UserHelper } from "@/helpers";
 import { Icon } from "@mui/material";
 
 type Props = {

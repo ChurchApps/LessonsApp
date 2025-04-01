@@ -3,11 +3,11 @@
 import React, { useState, useEffect } from "react";
 
 import { Layout } from "@/components";
-import { ApiHelper, ClassroomInterface, LessonInterface, ProgramInterface, ScheduleInterface, StudyInterface } from "@/utils";
+import { ApiHelper, ClassroomInterface, LessonInterface, ProgramInterface, ScheduleInterface, StudyInterface } from "@/helpers";
 import Link from "next/link";
 import { ArrayHelper, DateHelper, ChurchInterface, MarkdownPreviewLight } from "@churchapps/apphelper";
 import { AppBar, Container, Grid, Stack } from "@mui/material";
-import { ExternalProviderHelper } from "@/utils/ExternalProviderHelper";
+import { ExternalProviderHelper } from "@/helpers/ExternalProviderHelper";
 import { useParams, useSearchParams } from "next/navigation";
 
 type PageParams = {id:string }

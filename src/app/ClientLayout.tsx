@@ -5,7 +5,7 @@ import React, { useEffect } from "react";
 import { ErrorHelper } from "@churchapps/apphelper";
 import { ErrorMessages } from "@churchapps/apphelper";
 import { UserProvider } from "./context/UserContext";
-import { EnvironmentHelper } from "@/utils/EnvironmentHelper";
+import { EnvironmentHelper } from "@/helpers/EnvironmentHelper";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
 
 

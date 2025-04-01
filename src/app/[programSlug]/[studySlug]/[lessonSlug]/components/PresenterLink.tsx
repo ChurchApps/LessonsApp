@@ -1,7 +1,7 @@
 "use client";
 
 import { Presenter } from "@/components/Presenter";
-import { PlaylistFileInterface, VenueInterface } from "@/utils/interfaces";
+import { PlaylistFileInterface, VenueInterface } from "@/helpers/interfaces";
 import { AnalyticsHelper } from "@churchapps/apphelper/dist/helpers/AnalyticsHelper";
 import { ApiHelper } from "@churchapps/apphelper/dist/helpers/ApiHelper";
 import Icon from "@mui/material/Icon";

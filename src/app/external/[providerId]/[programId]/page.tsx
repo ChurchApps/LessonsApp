@@ -2,7 +2,7 @@
 
 import { Container, Icon } from "@mui/material";
 import { Layout, Studies, VideoModal } from "@/components";
-import { ApiHelper, ArrayHelper, ProgramInterface, } from "@/utils";
+import { ApiHelper, ArrayHelper, ProgramInterface, } from "@/helpers";
 import { MarkdownPreviewLight } from "@churchapps/apphelper/dist/components/markdownEditor/MarkdownPreviewLight";
 import { EmbeddedVideo } from "@/components/EmbeddedVideo";
 import { Header } from "@/components/Header";
