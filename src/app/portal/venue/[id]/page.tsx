@@ -1,16 +1,17 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { useParams, useRouter } from "next/navigation";
+import { useParams, useRouter, useSearchParams } from "next/navigation";
 import { Layout } from "@/components";
 import { DisplayBox, Loading } from "@churchapps/apphelper";
 import { VenueInterface, LessonInterface, StudyInterface, SectionInterface, RoleInterface, ActionInterface, ApiHelper, ArrayHelper, CustomizationInterface, CustomizationHelper } from "@/helpers";
-import { Container, Icon, Box } from "@mui/material";
+import { Container, Icon, Box, Button, Menu, MenuItem, FormControl, FormLabel, RadioGroup, FormControlLabel, Radio } from "@mui/material";
 
-type PageParams = {id:string }
+type PageParams = { id: string };
 
 export default function Venue() {
   const params = useParams<PageParams>();
+  const searchParams = useSearchParams();
   const [venue, setVenue] = useState<VenueInterface>(null);
   const [lesson, setLesson] = useState<LessonInterface>(null);
   const [study, setStudy] = useState<StudyInterface>(null);
@@ -18,16 +19,39 @@ export default function Venue() {
   const [roles, setRoles] = useState<RoleInterface[]>(null);
   const [actions, setActions] = useState<ActionInterface[]>(null);
   const [customizations, setCustomizations] = useState<CustomizationInterface[]>([]);
+  const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
+  const [customizationFor, setCustomizationFor] = useState<string>(null);
 
 
   const { isAuthenticated } = ApiHelper;
   const router = useRouter();
   const pathId = params.id;
+  const classroomId = searchParams.get('classroomId');
+  const open = Boolean(anchorEl);
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
   useEffect(() => { if (!isAuthenticated) router.push("/login"); }, []);
   useEffect(() => { if (isAuthenticated) { loadData(); } }, [pathId, isAuthenticated]);
 
+  const getInitialCustomizationState = (contentType: string, contentId: string) => {
+    const contentItems = ArrayHelper.getAll(customizations, "contentType", contentType);
+    const items = ArrayHelper.getAll(contentItems, "contentId", contentId);
+    const ITEM = ArrayHelper.getOne(items, "action", "remove");
+    if (!ITEM) return null;
+    return ITEM.classroomId ? "specific" : "all";
+  }
+
+  const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
+    setAnchorEl(event.currentTarget);
+    const contentType = event.currentTarget.dataset.contentType;
+    const contentId = event.currentTarget.dataset.contentId;
+    const initialState = getInitialCustomizationState(contentType, contentId);
+    setCustomizationFor(initialState)
+  };
+
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
 
   function loadData() {
     ApiHelper.get("/venues/public/" + pathId, "LessonsApi").then((v: VenueInterface) => {
@@ -39,39 +63,69 @@ export default function Venue() {
       ApiHelper.get("/sections/public/venue/" + v.id, "LessonsApi").then((data: any) => { setSections(data); });
       ApiHelper.get("/roles/public/lesson/" + v.lessonId, "LessonsApi").then((data: any) => { setRoles(data); });
       ApiHelper.get("/actions/public/lesson/" + v.lessonId, "LessonsApi").then((data: any) => { setActions(data); });
-      ApiHelper.get("/customizations/venue/" + v.id, "LessonsApi").then(data => setCustomizations(data));
+      ApiHelper.get("/customizations/venue/" + v.id + "?classroomId=" + classroomId, "LessonsApi").then(data => setCustomizations(data));
     });
   }
 
-  const toggleTrash = async (contentType: string, contentId: string) => {
+  const toggleTrash = async (contentType: string, contentId: string, type: string) => {
     const contentItems = ArrayHelper.getAll(customizations, "contentType", contentType);
-    const item = ArrayHelper.getOne(contentItems, "contentId", contentId);
-    if (item) {
-      await ApiHelper.delete("/customizations/" + item.id, "LessonsApi");
+    const items = ArrayHelper.getAll(contentItems, "contentId", contentId);
+    const ITEM = ArrayHelper.getOne(items, "action", "remove");
+    if (ITEM) {
+      if (type === "none") {
+        await ApiHelper.delete("/customizations/" + ITEM.id, "LessonsApi");
+      } else {
+        let id = (type === "specific") ? classroomId : null;
+        const c: CustomizationInterface = { ...ITEM };
+        c.classroomId = id
+        await ApiHelper.post("/customizations", [c], "LessonsApi");
+      }
     } else {
-      const c: CustomizationInterface = { contentType, contentId, venueId: venue.id, action: "remove" }
+      let id = (type === "specific") ? classroomId : null;
+      const c: CustomizationInterface = { contentType, contentId, venueId: venue.id, action: "remove", classroomId: id }
       await ApiHelper.post("/customizations", [c], "LessonsApi");
     }
-    ApiHelper.get("/customizations/venue/" + venue.id, "LessonsApi").then(data => setCustomizations(data));
+    ApiHelper.get("/customizations/venue/" + venue.id + "?classroomId=" + classroomId, "LessonsApi").then(data => setCustomizations(data));
   }
 
 
 
-  const move = async (contentType: string, item: any, swap: any) => {
+  const move = async (contentType: string, item: any, swap: any, type: string) => {
     const contentCustomizations = ArrayHelper.getAll(customizations, "contentType", contentType);
     let itemCust: CustomizationInterface = ArrayHelper.getOne(contentCustomizations, "contentId", item.id);
     let swapCust: CustomizationInterface = ArrayHelper.getOne(contentCustomizations, "contentId", swap.id);
+    const id = type === "specific" ? classroomId : null;
 
-    if (!itemCust) itemCust = { contentType, contentId: item.id, venueId: venue.id, action: "sort", actionContent: item.sort };
-    if (!swapCust) swapCust = { contentType, contentId: swap.id, venueId: venue.id, action: "sort", actionContent: swap.sort };
+    if (!itemCust) {
+      itemCust = { contentType, contentId: item.id, venueId: venue.id, action: "sort", actionContent: item.sort, classroomId: id };
+    } else {
+      itemCust = { ...itemCust, classroomId: id };
+    }
+    if (!swapCust) {
+      swapCust = { contentType, contentId: swap.id, venueId: venue.id, action: "sort", actionContent: swap.sort, classroomId: id };
+    } else {
+      swapCust = { ...swapCust, classroomId: id };
+    }
 
     const swapSort = swapCust.actionContent;
     swapCust.actionContent = itemCust.actionContent;
     itemCust.actionContent = swapSort;
 
     await ApiHelper.post("/customizations", [itemCust, swapCust], "LessonsApi");
-    ApiHelper.get("/customizations/venue/" + venue.id, "LessonsApi").then(data => setCustomizations(data));
+    ApiHelper.get("/customizations/venue/" + venue.id + "?classroomId=" + classroomId, "LessonsApi").then(data => setCustomizations(data));
   }
+
+  const handleSave = (type: string) => {
+    const contentType = anchorEl.dataset.contentType;
+    if (anchorEl.id === "delete-button") {
+      toggleTrash(contentType, anchorEl.dataset.contentId, type)
+    } else if (anchorEl.id === "up-button" || anchorEl.id === "down-button") {
+      const item = JSON.parse(anchorEl.dataset.item);
+      const swapItem = JSON.parse(anchorEl.dataset.swapItem);
+      move(contentType, item, swapItem, type);
+    }
+    handleClose();
+  };
 
   const getRows = () => {
     const result: JSX.Element[] = [];
@@ -159,11 +213,52 @@ export default function Venue() {
 
 
 
-  const getDeleteLink = (contentType: string, contentId: string) => (<a href="about:blank" onClick={(e) => { e.preventDefault(); toggleTrash(contentType, contentId) }}><Icon color="error">delete</Icon></a>)
+  const getDeleteLink = (contentType: string, contentId: string) => (
+    <Button
+      id="delete-button"
+      data-content-type={contentType}
+      data-content-id={contentId}
+      aria-controls={open ? "basic-menu" : undefined}
+      aria-haspopup="true"
+      aria-expanded={open ? "true" : undefined}
+      onClick={handleClick}
+      size="small"
+    >
+      <Icon color="error">delete</Icon>
+    </Button>
+  );
 
-  const getUpLink = (contentType: string, item: any, swapItem: any) => (<a href="about:blank" onClick={(e) => { e.preventDefault(); move(contentType, item, swapItem) }}><Icon>arrow_upward</Icon></a>)
+  const getUpLink = (contentType: string, item: any, swapItem: any) => (
+    <Button
+      id="up-button"
+      data-content-type={contentType}
+      data-item={JSON.stringify(item)}
+      data-swap-item={JSON.stringify(swapItem)}
+      aria-controls={open ? "basic-menu" : undefined}
+      aria-haspopup="true"
+      aria-expanded={open ? "true" : undefined}
+      onClick={handleClick}
+      size="small"
+    >
+      <Icon>arrow_upward</Icon>
+    </Button>
+  );
 
-  const getDownLink = (contentType: string, item: any, swapItem: any) => (<a href="about:blank" onClick={(e) => { e.preventDefault(); move(contentType, item, swapItem) }}><Icon>arrow_downward</Icon></a>)
+  const getDownLink = (contentType: string, item: any, swapItem: any) => (
+    <Button
+      id="down-button"
+      data-content-type={contentType}
+      data-item={JSON.stringify(item)}
+      data-swap-item={JSON.stringify(swapItem)}
+      aria-controls={open ? "basic-menu" : undefined}
+      aria-haspopup="true"
+      aria-expanded={open ? "true" : undefined}
+      onClick={handleClick}
+      size="small"
+    >
+      <Icon>arrow_downward</Icon>
+    </Button>
+  );
 
   const getLinks = (contentType: string, contentId: string, parentRemoved: boolean, index: number, array: any[]) => {
     const result: JSX.Element[] = [];
@@ -182,6 +277,58 @@ export default function Venue() {
         <DisplayBox headerText="Sections" headerIcon="none">
           {getTable()}
         </DisplayBox>
+        <Menu
+          id="basic-menu"
+          anchorEl={anchorEl}
+          open={open}
+          onClose={handleClose}
+          MenuListProps={{
+            "aria-labelledby": "delete-button up-button down-button",
+          }}
+        >
+          <FormControl fullWidth>
+            <FormLabel
+              sx={{ paddingLeft: 2, paddingRight: 2 }}
+              id="customization-menu-heading"
+            >
+              Apply selected customization to:
+            </FormLabel>
+            <RadioGroup
+              aria-labelledby="customization-menu-heading"
+              name="customization-radio-buttons"
+              value={customizationFor}
+              onChange={(e) => {
+                e.preventDefault();
+                setCustomizationFor(e.target.value);
+                handleSave(e.target.value);
+              }}
+            >
+              <MenuItem dense>
+                <FormControlLabel
+                  value="specific"
+                  control={<Radio />}
+                  label="This Classroom"
+                />
+              </MenuItem>
+              <MenuItem dense>
+                <FormControlLabel
+                  value="all"
+                  control={<Radio />}
+                  label="All the Classrooms"
+                />
+              </MenuItem>
+              {(anchorEl?.id === "delete-button" && customizationFor !== null) && (
+                <MenuItem dense>
+                  <FormControlLabel
+                    value="none"
+                    control={<Radio />}
+                    label="None"
+                  />
+                </MenuItem>
+              )}
+            </RadioGroup>
+          </FormControl>
+        </Menu>
       </Container>
     </Layout>
   );
