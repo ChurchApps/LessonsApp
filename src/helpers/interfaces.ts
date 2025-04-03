@@ -172,6 +172,7 @@ export interface CustomizationInterface {
   id?: string;
   churchId?: string;
   venueId?: string;
+  classroomId?: string;
   contentType?: string;
   contentId?: string;
   action?: string;

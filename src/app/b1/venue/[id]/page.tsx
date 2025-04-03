@@ -36,7 +36,7 @@ export default function B1Venue() {
 
     const classroomId = search.get("classroomId");
     const classroom:ClassroomInterface = await ApiHelper.get("/classrooms/" + classroomId, "LessonsApi");
-    const customizations:CustomizationInterface[] = await ApiHelper.get("/customizations/public/venue/" + params.id + "/" + classroom.churchId, "LessonsApi");
+    const customizations:CustomizationInterface[] = await ApiHelper.get("/customizations/public/venue/" + params.id + "/" + classroom.churchId + "?classroomId=" + classroomId, "LessonsApi");
     const schedules:ScheduleInterface[] = await ApiHelper.get("/schedules/public/classroom/" + classroomId, "LessonsApi");
     let currentSchedule: ScheduleInterface = null;
     let prevSchedule: ScheduleInterface = null;
