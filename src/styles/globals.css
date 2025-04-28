@@ -106,7 +106,6 @@ a:hover {
 .cta.alt {
   background-color: transparent;
   border: 2px solid #34a8de;
-
 }
 
 .cta.alt:hover {
@@ -120,17 +119,19 @@ a:hover {
   border-radius: var(--border-radius-md);
   box-shadow: var(--shadow-sm);
   padding: var(--spacing-lg);
-  transition: box-shadow 0.3s ease;
+  transition: all 0.3s ease;
 }
 
 .card:hover {
   box-shadow: var(--shadow-md);
+  transform: translateY(-2px);
 }
 
 /* Sections */
 .homeSection, .pageSection {
   padding: var(--spacing-xl) 0;
   background-color: var(--background-light);
+  animation: fadeIn 0.5s ease-out;
 }
 
 .homeSection .title {
@@ -154,6 +155,11 @@ a:hover {
   width: 100%;
   height: auto;
   border-radius: var(--border-radius-md);
+  transition: transform 0.3s ease;
+}
+
+.img-fluid:hover {
+  transform: scale(1.02);
 }
 
 /* Form Elements */
@@ -163,12 +169,12 @@ a:hover {
   border: 1px solid var(--border-color);
   border-radius: var(--border-radius-sm);
   font-size: var(--font-size-base);
-  transition: border-color 0.3s ease;
+  transition: all 0.3s ease;
 }
 
 .form-control:focus {
-  border-color: var(--primary-color);
-  outline: none;
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-sm);
 }
 
 /* Navigation */
@@ -183,11 +189,24 @@ a:hover {
   color: var(--text-color);
   font-size: var(--font-size-base);
   padding: var(--spacing-sm) var(--spacing-md);
-  transition: color 0.3s ease;
+  transition: all 0.3s ease;
+  position: relative;
 }
 
-#navbar .nav-link:hover {
-  color: var(--primary-color);
+#navbar .nav-link::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  width: 0;
+  height: 2px;
+  background-color: var(--primary-color);
+  transition: all 0.3s ease;
+  transform: translateX(-50%);
+}
+
+#navbar .nav-link:hover::after {
+  width: 100%;
 }
 
 /* Media Queries */
@@ -600,7 +619,6 @@ label .description {
 
 .homeSection {
   padding: 4rem 0;
-  background-color: #f5f5f5;
 }
 
 .homeSection .video-container {
@@ -628,12 +646,9 @@ label .description {
 
 .homeSection .cta {
   display: inline-block;
-  padding: 12px 32px;
   background-color: #24b8ff;
   color: #fff;
   text-decoration: none;
-  border-radius: 5px;
-  font-size: 1.1rem;
   transition: background-color 0.3s ease;
 }
 
@@ -718,9 +733,9 @@ label .description {
   margin-top: 13vh;
   font-size: 16px;
   text-transform: uppercase;
+  color: var(--primary-color);
   font-weight: bold;
   text-shadow: #000 3px 3px 10px;
-  color: var(--primary-color);
 }
 
 #hero h1 {
@@ -744,12 +759,6 @@ label .description {
 #hero p {
   text-shadow: #000 3px 3px 10px;
   color: #FFF;
-}
-
-#hero h1 span {
-  color: #03a9f4;
-  font-style: italic;
-  font-weight: normal;
 }
 
 #navbar .cta.alt {
@@ -2139,3 +2148,102 @@ a.dropdown-toggle::after {
 }
 
 /* End private messaging & notes */
+
+/* Animations */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slideUp {
+  from { transform: translateY(20px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+
+@keyframes scaleIn {
+  from { transform: scale(0.95); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
+}
+
+/* Study Card Enhancements */
+.studyCard {
+  transition: all 0.3s ease;
+}
+
+.studyCard:hover {
+  transform: translateY(-5px);
+  box-shadow: var(--shadow-md);
+}
+
+.studyCard img {
+  transition: transform 0.3s ease;
+}
+
+.studyCard:hover img {
+  transform: scale(1.05);
+}
+
+/* Lesson Card Enhancements */
+.lessonCard {
+  transition: all 0.3s ease;
+}
+
+.lessonCard:hover {
+  transform: translateY(-5px);
+  box-shadow: var(--shadow-md);
+}
+
+.lessonCard img {
+  transition: transform 0.3s ease;
+}
+
+.lessonCard:hover img {
+  transform: scale(1.05);
+}
+
+/* Form Element Enhancements */
+.form-control {
+  transition: all 0.3s ease;
+}
+
+.form-control:focus {
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-sm);
+}
+
+/* Button Group Hover Effects */
+.btn-group .btn {
+  transition: all 0.3s ease;
+}
+
+.btn-group .btn:hover {
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-sm);
+}
+
+/* Loading States */
+.loading {
+  position: relative;
+  overflow: hidden;
+}
+
+.loading::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 50%;
+  height: 100%;
+  background: linear-gradient(
+    to right,
+    transparent,
+    rgba(255, 255, 255, 0.3),
+    transparent
+  );
+  animation: loading 1.5s infinite;
+}
+
+@keyframes loading {
+  from { left: -100%; }
+  to { left: 200%; }
+}
