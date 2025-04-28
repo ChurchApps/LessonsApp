@@ -55,7 +55,16 @@ export default async function ProgramPage({ params }: { params: Promise<PagePara
             <div style={{ marginBottom: 20 }}>{props.program.shortDescription}</div>
             <ProgramVideo program={props.program} />
             <div style={{ height: 90 }}></div>
-            <Image src={props.program.image || "/not-found"} alt={props.program.name} width={320} height={180} className="badge" />
+            <Image
+              src={props.program.image || "/not-found"}
+              alt={props.program.name}
+              width={320}
+              height={180}
+              className="badge"
+              loading="eager"
+              priority={true}
+              quality={75}
+            />
           </Container>
         </div>
       </div>

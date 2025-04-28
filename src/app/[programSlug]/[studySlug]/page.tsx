@@ -74,8 +74,9 @@ export default async function StudyPage({ params }: { params: Promise<PageParams
               alt={`${study.name} - ${program.name} curriculum`}
               width={320}
               height={180}
+              loading="eager"
               priority={true}
-              quality={90}
+              quality={75}
             />
           </Container>
         </div>
