@@ -1,4 +1,3 @@
-
 import "@/styles/globals.css";
 import { EnvironmentHelper } from "@/helpers/EnvironmentHelper";
 
@@ -22,8 +21,21 @@ export default async function RootLayout({ children }: { children: React.ReactNo
         <link rel="preload" href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" as="font" crossOrigin="anonymous" />
         <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet" />
         <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" />
-        <link rel="stylesheet" href="/apphelper/css/styles.css"  />
+        <link rel="stylesheet" href="/apphelper/css/styles.css" />
         <script async type="module" src="https://cdn.jsdelivr.net/npm/@slightlyoff/lite-vimeo@0.1.1/lite-vimeo.js"></script>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "Organization",
+              name: "Lessons.church",
+              url: "https://lessons.church",
+              logo: "https://lessons.church/images/logo-dark.png",
+              description: "Free church curriculum for children, youth, and adults."
+            })
+          }}
+        />
       </head>
       <body>
         <ClientLayout>
