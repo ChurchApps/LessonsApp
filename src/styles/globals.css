@@ -411,20 +411,46 @@ label .description {
 }
 
 .homeSection {
-  padding-top: 50px;
-  padding-bottom: 70px;
+  padding: 4rem 0;
+  background-color: #f5f5f5;
+}
+
+.homeSection .video-container {
+  background-color: #FFF;
+  padding: 2rem;
+  border-radius: 15px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  height: 100%;
 }
 
 .homeSection .title {
-  font-size: 14px;
-  text-transform: uppercase;
-  margin-bottom: 10px;
-  color: #03a9f4;
-  font-weight: bold;
+  margin-bottom: 1rem;
 }
 
-.homeSection .title span {
-  color: #03a9f4;
+.homeSection h2 {
+  margin-bottom: 1.5rem;
+  color: #24b8ff;
+}
+
+.homeSection p {
+  font-size: 1.1rem;
+  line-height: 1.6;
+  margin-bottom: 1.5rem;
+}
+
+.homeSection .cta {
+  display: inline-block;
+  padding: 12px 32px;
+  background-color: #24b8ff;
+  color: #fff;
+  text-decoration: none;
+  border-radius: 5px;
+  font-size: 1.1rem;
+  transition: background-color 0.3s ease;
+}
+
+.homeSection .cta:hover {
+  background-color: #1a9de0;
 }
 
 .homeSection.alt {

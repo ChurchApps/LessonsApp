@@ -10,7 +10,7 @@ export function HomeAbout() {
       <Container fixed>
         <Grid container spacing={3}>
           <Grid item md={6} sm={12}>
-            <div style={{ backgroundColor: "#FFF", padding: "15px", borderRadius: "10px", boxShadow: "0px 0px 10px 0px #0000001a" }}>
+            <div className="video-container">
               {video}
             </div>
           </Grid>
