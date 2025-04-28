@@ -14,17 +14,17 @@ import { MetaHelper } from "@/helpers/MetaHelper";
 import { unstable_cache } from "next/cache";
 import { EnvironmentHelper } from "@/helpers";
 
-type PageParams = {programSlug:string, studySlug:string }
+type PageParams = { programSlug: string, studySlug: string }
 
-const loadData = async (params:PageParams) => {
+const loadData = async (params: PageParams) => {
   try {
     EnvironmentHelper.init();
     const program: ProgramInterface = await ApiHelper.getAnonymous("/programs/public/slug/" + params.programSlug, "LessonsApi");
     const study: StudyInterface = await ApiHelper.getAnonymous("/studies/public/slug/" + program?.id + "/" + params.studySlug, "LessonsApi");
     const lessons: LessonInterface[] = await ApiHelper.getAnonymous("/lessons/public/study/" + study?.id, "LessonsApi");
-    return {program, study, lessons, errorMessage: ""};
+    return { program, study, lessons, errorMessage: "" };
   } catch (error: any) {
-    return {errorMessage: error.message}
+    return { errorMessage: error.message }
   }
 }
 /*
@@ -35,22 +35,22 @@ const loadSharedData = async (params:PageParams) => {
   return loadDataPromise;
 }*/
 
-const loadSharedData = async (params:Promise<PageParams>) => {
+const loadSharedData = async (params: Promise<PageParams>) => {
   const { programSlug, studySlug } = await params;
-  const p = {programSlug, studySlug};
-  const result = unstable_cache(loadData, ["/[programSlug]/[studySlug]", programSlug, studySlug], {tags:["all"]});
+  const p = { programSlug, studySlug };
+  const result = unstable_cache(loadData, ["/[programSlug]/[studySlug]", programSlug, studySlug], { tags: ["all"] });
   return result(p);
 }
 
 
-export async function generateMetadata({params}:{params:Promise<PageParams>}): Promise<Metadata> {
+export async function generateMetadata({ params }: { params: Promise<PageParams> }): Promise<Metadata> {
   const props = await loadSharedData(params);
   let title = props.program.name + ": " + props.study?.name + " - Free Church Curriculum";
   if (!props.errorMessage) return MetaHelper.getMetaData(title, props.study.description, props.study.image);
 }
 
-export default async function StudyPage({params}: {params:Promise<PageParams>}) {
-  const {program, study, lessons, errorMessage} = await loadSharedData(params);
+export default async function StudyPage({ params }: { params: Promise<PageParams> }) {
+  const { program, study, lessons, errorMessage } = await loadSharedData(params);
 
   if (errorMessage) return <Error message={errorMessage} />
 
@@ -67,8 +67,16 @@ export default async function StudyPage({params}: {params:Promise<PageParams>}) 
               </Grid>
             </Grid>
 
-            <div style={{height:50}}></div>
-            <Image className="badge" src={study.image ?? "/not-found"} alt={study.name} width={320} height={180} />
+            <div style={{ height: 50 }}></div>
+            <Image
+              className="badge"
+              src={study.image ?? "/not-found"}
+              alt={`${study.name} - ${program.name} curriculum`}
+              width={320}
+              height={180}
+              priority={true}
+              quality={90}
+            />
           </Container>
         </div>
       </div>
@@ -83,6 +91,27 @@ export default async function StudyPage({params}: {params:Promise<PageParams>}) 
           )}
         </Container>
       </div>
+
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "Course",
+            name: study.name,
+            description: study.description,
+            provider: {
+              "@type": "Organization",
+              name: "Lessons.church",
+              sameAs: "https://lessons.church"
+            },
+            isPartOf: {
+              "@type": "Course",
+              name: program.name
+            }
+          })
+        }}
+      />
     </Layout>
   </>
 
