@@ -24,7 +24,7 @@ const loadData = async () => {
   const stats: any = await ApiHelper.getAnonymous("/providers/stats", "LessonsApi", ["all"]);
 
   programs = programs.filter((p) => !excludeIds.includes(p.id));
-  return {programs, providers, studies, stats, errorMessage: ""};
+  return { programs, providers, studies, stats, errorMessage: "" };
 }
 
 
@@ -32,7 +32,7 @@ export async function generateMetadata(): Promise<Metadata> {
   return MetaHelper.getMetaData();
 }
 
-export default async function Home(params:any) {
+export default async function Home(params: any) {
   const { searchParams } = await params;
   const { clearCache } = await searchParams;
 
@@ -50,30 +50,30 @@ export default async function Home(params:any) {
   const getElmPrograms = () => (<>
     <Grid item md={2} sm={4} xs={4}>
       <Link href="/high-voltage">
-        <Image alt="High Voltage Elementary" width={256} height={144} style={{height:"auto"}} placeholder="empty" className="img-fluid" src="https://content.lessons.church/programs/yBl-EUBxm17.png?dt=1625530793952" />
+        <Image alt="High Voltage Elementary" width={256} height={144} style={{ height: "auto" }} placeholder="empty" className="img-fluid" src="https://content.lessons.church/programs/yBl-EUBxm17.png?dt=1625530793952" />
       </Link>
     </Grid>
     <Grid item md={2} sm={4} xs={4}>
       <Link href="/faith-kidz">
-        <Image alt="Faith Kidz" width={256} height={144} style={{height:"auto"}} placeholder="empty" className="img-fluid" src="https://content.lessons.church/programs/CMCkovCA00e.png?dt=1724178996201" />
+        <Image alt="Faith Kidz" width={256} height={144} style={{ height: "auto" }} placeholder="empty" className="img-fluid" src="https://content.lessons.church/programs/CMCkovCA00e.png?dt=1724178996201" />
       </Link>
     </Grid>
     <Grid item md={2} sm={4} xs={4}>
       <Link href="/west-ridge">
-        <Image alt="West Ridge" width={256} height={144} style={{height:"auto"}} placeholder="empty" className="img-fluid" src="https://content.lessons.church/programs/CjDN3VrEm3s.png?dt=1695316859942" />
+        <Image alt="West Ridge" width={256} height={144} style={{ height: "auto" }} placeholder="empty" className="img-fluid" src="https://content.lessons.church/programs/CjDN3VrEm3s.png?dt=1695316859942" />
       </Link>
     </Grid>
   </>)
 
   const getElementaryDiv = () => (
-    <div className="programPromo" style={{ backgroundImage:"url('/images/home/elementary.png')" }}>
+    <div className="programPromo" style={{ backgroundImage: "url('/images/home/elementary.png')" }}>
       <div className="programHeroContent">
         <Container fixed>
           <Grid container spacing={3}>
             <Grid item md={7} xs={12}>
               <div className="age">ELEMENTARY</div>
               <h2>Additional Elementary Curriculum Offered by Partner Organizations</h2>
-              <p style={{width:"67%"}}>More fun curriculum!</p>
+              <p style={{ width: "67%" }}>More fun curriculum!</p>
             </Grid>
           </Grid>
           <Grid container spacing={2} className="programStudies">
@@ -99,3 +99,4 @@ export default async function Home(params:any) {
     </Layout>
   );
 }
+
