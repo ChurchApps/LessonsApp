@@ -18,7 +18,7 @@ export function Section(props: Props) {
     if (!shouldHide(action.id)) {
       result = <Action action={action} lessonId={props.lessonId} key={action.id} />
     }
-    
+
     return result;
   };
 

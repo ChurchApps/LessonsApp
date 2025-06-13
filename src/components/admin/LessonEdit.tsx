@@ -127,25 +127,27 @@ export function LessonEdit(props: Props) {
         </Grid>
         <TextField fullWidth label="Lesson Name" name="name" value={lesson.name} onChange={handleChange} onKeyDown={handleKeyDown} placeholder="Lesson 1" />
         <TextField fullWidth label="Title" name="title" value={lesson.title} onChange={handleChange} onKeyDown={handleKeyDown} placeholder="Jesus Feeds 5,000" />
-        {checked ? (
-          <div style={{ paddingTop: "5px", paddingLeft: "4px" }}>
-            <Paper elevation={0}>
-              <Stack direction="row" alignItems="center" justifyContent="space-between">
-                <Typography>{lesson.slug}</Typography>
-                <IconButton onClick={() => setChecked(false)} color="primary"><EditIcon /></IconButton>
-              </Stack>
-            </Paper>
-            <div>
-              <a href={"https://lessons.church/" + program?.slug + "/" + study?.slug + "/" + lesson.slug + "/"} target="_blank" rel="noopener noreferrer">
-                {"https://lessons.church/" + program?.slug + "/" + study?.slug + "/" + lesson.slug + "/"}
-              </a>
+        {checked
+          ? (
+            <div style={{ paddingTop: "5px", paddingLeft: "4px" }}>
+              <Paper elevation={0}>
+                <Stack direction="row" alignItems="center" justifyContent="space-between">
+                  <Typography>{lesson.slug}</Typography>
+                  <IconButton onClick={() => setChecked(false)} color="primary"><EditIcon /></IconButton>
+                </Stack>
+              </Paper>
+              <div>
+                <a href={"https://lessons.church/" + program?.slug + "/" + study?.slug + "/" + lesson.slug + "/"} target="_blank" rel="noopener noreferrer">
+                  {"https://lessons.church/" + program?.slug + "/" + study?.slug + "/" + lesson.slug + "/"}
+                </a>
+              </div>
             </div>
-          </div>
-        ): (
-          <TextField fullWidth label="Url Slug" name="slug" value={lesson.slug} onChange={handleChange} helperText="Make sure to check before saving"
-            InputProps={{ endAdornment: <Button variant="contained" color="primary" onClick={handleSlugValidation}>Check</Button> }}
-          />
-        )}
+          )
+          : (
+            <TextField fullWidth label="Url Slug" name="slug" value={lesson.slug} onChange={handleChange} helperText="Make sure to check before saving"
+              InputProps={{ endAdornment: <Button variant="contained" color="primary" onClick={handleSlugValidation}>Check</Button> }}
+            />
+          )}
         <TextField fullWidth multiline label="Description" name="description" value={lesson.description} onChange={handleChange} onKeyDown={handleKeyDown} />
         <TextField fullWidth label="Video Embed Url" name="videoEmbedUrl" value={lesson.videoEmbedUrl} onChange={handleChange} onKeyDown={handleKeyDown} />
       </InputBox>

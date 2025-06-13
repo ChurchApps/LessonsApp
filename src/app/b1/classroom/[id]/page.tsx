@@ -30,7 +30,7 @@ export default async function Classroom({params}: { params:Promise<PageParams> }
     const result: JSX.Element[] = [];
     schedules?.forEach(s => {
       result.push(<Link href={"/b1/venue/" + s.venueId + "?classroomId=" + classroom?.id} className="bigLink">
-        {DateHelper.getShortDate(DateHelper.convertToDate(s.scheduledDate))}
+        {DateHelper.getShortDate(DateHelper.toDate(s.scheduledDate))}
         <span>{s.displayName}</span>
       </Link>);
     });
@@ -43,12 +43,12 @@ export default async function Classroom({params}: { params:Promise<PageParams> }
       let notExpired: ScheduleInterface[] = [];
       const cutOff = new Date();
       cutOff.setDate(cutOff.getDate() - 5);
-      schedules.forEach(s => { if (DateHelper.convertToDate(s.scheduledDate) >= cutOff) notExpired.push(s); });
+      schedules.forEach(s => { if (DateHelper.toDate(s.scheduledDate) >= cutOff) notExpired.push(s); });
 
       if (notExpired.length > 0) {
         notExpired = notExpired.sort((a, b) => {
-          const dateA = DateHelper.convertToDate(a.scheduledDate);
-          const dateB = DateHelper.convertToDate(b.scheduledDate);
+          const dateA = DateHelper.toDate(a.scheduledDate);
+          const dateB = DateHelper.toDate(b.scheduledDate);
           return (dateA < dateB) ? -1 : 1;
         });
         let redirectUrl = "/b1/venue/" + notExpired[0].venueId + "?classroomId=" + classroom?.id;

@@ -7,6 +7,7 @@ import { ErrorMessages } from "@churchapps/apphelper";
 import { UserProvider } from "./context/UserContext";
 import { EnvironmentHelper } from "@/helpers/EnvironmentHelper";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
+import { CookiesProvider } from "react-cookie";
 
 
 EnvironmentHelper.initLocale();
@@ -64,12 +65,14 @@ function ClientLayout({ children}: {children: React.ReactNode}) {
 
 
   return (
-    <ThemeProvider theme={mdTheme}>
-      <UserProvider>
-        <ErrorMessages errors={errors} />
-        <>{children}</>
-      </UserProvider>
-    </ThemeProvider>
+    <CookiesProvider>
+      <ThemeProvider theme={mdTheme}>
+        <UserProvider>
+          <ErrorMessages errors={errors} />
+          <>{children}</>
+        </UserProvider>
+      </ThemeProvider>
+    </CookiesProvider>
   );
 }
 export default ClientLayout;
