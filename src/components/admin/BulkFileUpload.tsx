@@ -3,11 +3,11 @@ import axios from "axios";
 import { ApiHelper, FileInterface } from "@/helpers";
 import { LinearProgress } from "@mui/material";
 
-type Props = {
+interface Props {
   resourceId: string;
   pendingSave: boolean;
   saveCallback: (files: FileInterface[]) => void;
-};
+}
 
 export function BulkFileUpload(props: Props) {
   const [uploadedFiles, setUploadedFiles] = useState<FileList>(null);

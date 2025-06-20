@@ -5,9 +5,9 @@ import { DisplayBox, Loading, ArrayHelper, DateHelper, SmallButton } from "@chur
 import Link from "next/link";
 import { Icon } from "@mui/material";
 
-type Props = {
+interface Props {
   classroomId: string;
-};
+}
 
 export function ScheduleList(props: Props) {
   const [schedules, setSchedules] = useState<ScheduleInterface[]>(null);

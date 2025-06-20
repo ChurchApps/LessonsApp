@@ -9,10 +9,10 @@ import { ApiHelper, ProgramInterface } from "@/helpers";
 import { FormControl, InputLabel, MenuItem, Select, SelectChangeEvent, TextField } from "@mui/material";
 import Link from "next/link";
 
-type Props = {
+interface Props {
   program: ProgramInterface;
   updatedCallback: (program: ProgramInterface) => void;
-};
+}
 
 export function ProgramEdit(props: Props) {
   const [program, setProgram] = useState<ProgramInterface>(null);

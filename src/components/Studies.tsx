@@ -3,10 +3,10 @@ import { StudyInterface } from "@/helpers";
 import { Card, Grid } from "@mui/material";
 import Image from "next/image";
 
-type Props = {
+interface Props {
   studies: StudyInterface[];
   slug: string;
-};
+}
 
 export function Studies({ studies, slug }: Props) {
 

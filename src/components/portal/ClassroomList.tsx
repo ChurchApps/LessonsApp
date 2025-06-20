@@ -4,10 +4,10 @@ import { ClassroomEdit } from "../index";
 import { DisplayBox, Loading, SmallButton } from "@churchapps/apphelper";
 import { Icon, Stack } from "@mui/material";
 
-type Props = {
+interface Props {
   classroomSelected: (classroomId: string) => void;
   showFeed: (classroomId: string) => void;
-};
+}
 
 export function ClassroomList(props: Props) {
   const [classrooms, setClassrooms] = useState<ClassroomInterface[]>(null);

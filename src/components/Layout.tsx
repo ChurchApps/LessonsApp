@@ -5,7 +5,7 @@ import { Header } from "./Header";
 import { Footer } from "./Footer";
 import { Container, CssBaseline } from "@mui/material";
 
-type Props = {
+interface Props {
   children: React.ReactNode;
   withoutNavbar?: boolean;
   withoutFooter?: boolean;
@@ -13,7 +13,7 @@ type Props = {
   metaDescription?: string;
   ogDescription?: string;
   image?: string;
-};
+}
 
 
 

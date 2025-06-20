@@ -3,10 +3,10 @@ import { InputBox, ErrorMessages } from "@churchapps/apphelper";
 import { FeedSectionInterface } from "@/helpers";
 import { SelectChangeEvent, TextField } from "@mui/material";
 
-type Props = {
+interface Props {
   section: FeedSectionInterface;
   updatedCallback: (section: FeedSectionInterface, cancelled:boolean) => void;
-};
+}
 
 export function OlfSectionEdit(props: Props) {
   const [section, setSection] = useState<FeedSectionInterface>(null);

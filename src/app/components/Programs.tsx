@@ -4,11 +4,11 @@ import { ArrayHelper } from "@churchapps/apphelper/dist/helpers/ArrayHelper";
 import Image from "next/image";
 import Link from "next/link";
 
-type Props = {
+interface Props {
   programs: ProgramInterface[];
   providers: ProviderInterface[];
   studies: StudyInterface[];
-};
+}
 
 export function Programs(props: Props) {
 

@@ -5,11 +5,11 @@ import { Button, FormControl, InputLabel, MenuItem, Select, SelectChangeEvent, T
 import OpenInNewIcon from '@mui/icons-material/OpenInNew';
 import PrintIcon from '@mui/icons-material/Print';
 
-type Props = {
+interface Props {
   schedule: ScheduleInterface;
   schedules: ScheduleInterface[];
   updatedCallback: (schedule: ScheduleInterface) => void;
-};
+}
 
 export function ScheduleEdit(props: Props) {
   const [schedule, setSchedule] = useState<ScheduleInterface>(props.schedule);

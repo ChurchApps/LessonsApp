@@ -4,11 +4,11 @@ import { DisplayBox, DateHelper } from "@churchapps/apphelper";
 import { ComposableMap, Geographies, Geography, ZoomableGroup, Marker } from "react-simple-maps"
 import {Tooltip} from "react-tooltip";
 
-type Props = {
+interface Props {
   programId: string;
   startDate: Date;
   endDate: Date;
-};
+}
 
 export const Map: React.FC<Props> = (props) => {
 

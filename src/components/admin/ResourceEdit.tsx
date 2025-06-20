@@ -3,11 +3,11 @@ import { InputBox, ErrorMessages } from "@churchapps/apphelper";
 import { ApiHelper, BundleInterface, LessonInterface, ResourceInterface, StudyInterface } from "@/helpers";
 import { FormControl, InputLabel, MenuItem, Select, SelectChangeEvent, TextField } from "@mui/material";
 
-type Props = {
+interface Props {
   resource: ResourceInterface;
   updatedCallback: (resource: ResourceInterface) => void;
   contentDisplayName: string;
-};
+}
 
 export function ResourceEdit(props: Props) {
   const [bundles, setBundles] = useState<BundleInterface[]>([]);

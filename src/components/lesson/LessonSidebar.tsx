@@ -5,12 +5,12 @@ import React, { useEffect, useState } from "react";
 import { Downloads } from "./Downloads";
 import { OlfPrintPreview } from "../open-lesson/OlfPrintPreview";
 
-type Props = {
-  venues: FeedVenueInterface[],
-  selectedVenue: FeedVenueInterface,
-  onVenueChange: (venue: FeedVenueInterface) => void,
-  onPrint: () => void
-};
+interface Props {
+  venues: FeedVenueInterface[];
+  selectedVenue: FeedVenueInterface;
+  onVenueChange: (venue: FeedVenueInterface) => void;
+  onPrint: () => void;
+}
 
 export function LessonSidebar(props: Props) {
   const [showPrintPreview, setShowPrintPreview] = useState(false);

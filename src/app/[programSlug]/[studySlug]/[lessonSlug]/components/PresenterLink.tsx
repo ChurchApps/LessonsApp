@@ -8,9 +8,9 @@ import Icon from "@mui/material/Icon";
 import { useState } from "react";
 
 
-type Props = {
+interface Props {
   selectedVenue: VenueInterface;
-};
+}
 
 export function PresenterLink(props: Props) {
   const [presenterFiles, setPresenterFiles] = useState<PlaylistFileInterface[]>(null);

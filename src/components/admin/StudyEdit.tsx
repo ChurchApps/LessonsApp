@@ -9,10 +9,10 @@ import { ApiHelper, StudyInterface, ProgramInterface } from "@/helpers";
 import { Button, FormControl, Grid, IconButton, InputLabel, MenuItem, Paper, Select, SelectChangeEvent, Stack, TextField, Typography } from "@mui/material";
 import EditIcon from '@mui/icons-material/Edit';
 
-type Props = {
+interface Props {
   study: StudyInterface;
   updatedCallback: (study: StudyInterface) => void;
-};
+}
 
 export function StudyEdit(props: Props) {
   const [study, setStudy] = useState<StudyInterface>(null);

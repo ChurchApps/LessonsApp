@@ -3,10 +3,10 @@ import { InputBox, ErrorMessages } from "@churchapps/apphelper";
 import { ApiHelper, ExternalProviderInterface } from "@/helpers";
 import { SelectChangeEvent, TextField } from "@mui/material";
 
-type Props = {
+interface Props {
   provider: ExternalProviderInterface;
   updatedCallback: (provider: ExternalProviderInterface) => void;
-};
+}
 
 export function ProviderEdit(props: Props) {
   const [provider, setProvider] = useState<ExternalProviderInterface>(props.provider);

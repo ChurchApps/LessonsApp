@@ -3,10 +3,10 @@ import { LessonInterface } from "@/helpers";
 import { Card, Grid } from "@mui/material";
 import Image from "next/image";
 
-type Props = {
+interface Props {
   slug: string;
   lessons: LessonInterface[];
-};
+}
 
 export function Lessons({ lessons, slug }: Props) {
 

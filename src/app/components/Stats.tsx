@@ -3,9 +3,9 @@
 import { Grid } from "@mui/material";
 import { useEffect } from "react";
 
-type Props = {
+interface Props {
   stats: any;
-};
+}
 
 export function Stats(props: Props) {
 

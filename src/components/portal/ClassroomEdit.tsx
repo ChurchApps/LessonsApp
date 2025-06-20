@@ -3,10 +3,10 @@ import { InputBox, ErrorMessages, GroupInterface } from "@churchapps/apphelper";
 import { ApiHelper, ClassroomInterface } from "@/helpers";
 import { FormControl, InputLabel, MenuItem, Select, SelectChangeEvent, TextField } from "@mui/material";
 
-type Props = {
+interface Props {
   classroom: ClassroomInterface;
   updatedCallback: (classroom: ClassroomInterface) => void;
-};
+}
 
 export function ClassroomEdit(props: Props) {
   const [classroom, setClassroom] = useState<ClassroomInterface>({} as ClassroomInterface);

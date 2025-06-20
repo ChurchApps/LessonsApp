@@ -3,7 +3,7 @@ import { InputBox, ErrorMessages, MarkdownEditor } from "@churchapps/apphelper";
 import { ArrayHelper, AssetInterface, ResourceInterface, ActionInterface, ApiHelper, ExternalVideoInterface, AddOnInterface } from "@/helpers";
 import { InputLabel, MenuItem, Select, FormControl, TextField, SelectChangeEvent, ListSubheader } from "@mui/material";
 
-type Props = {
+interface Props {
   action: ActionInterface;
   lessonVideos: ExternalVideoInterface[];
   studyVideos: ExternalVideoInterface[];
@@ -14,7 +14,7 @@ type Props = {
   allAssets: AssetInterface[];
   addOns: AddOnInterface[];
   updatedCallback: (action: ActionInterface, created: boolean) => void;
-};
+}
 
 export function ActionEdit(props: Props) {
   const [action, setAction] = useState<ActionInterface>(null);

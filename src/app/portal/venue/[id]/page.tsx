@@ -7,7 +7,7 @@ import { DisplayBox, Loading } from "@churchapps/apphelper";
 import { VenueInterface, LessonInterface, StudyInterface, SectionInterface, RoleInterface, ActionInterface, ApiHelper, ArrayHelper, CustomizationInterface, CustomizationHelper } from "@/helpers";
 import { Container, Icon, Box, Button, Menu, MenuItem, FormControl, FormLabel, RadioGroup, FormControlLabel, Radio } from "@mui/material";
 
-type PageParams = { id: string };
+type PageParams = { id: string }
 
 export default function Venue() {
   const params = useParams<PageParams>();

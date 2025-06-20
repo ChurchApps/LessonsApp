@@ -10,9 +10,9 @@ import { LessonSidebar } from "@/components/lesson/LessonSidebar";
 import React from "react";
 import { PresenterLink } from "./PresenterLink";
 
-type Props = {
+interface Props {
   lessonData: any;
-};
+}
 
 
 export default function LessonClient(props: Props) {

@@ -6,10 +6,9 @@ import { ProgramInterface } from "@/helpers/interfaces";
 import { Icon } from "@mui/material";
 import { useState } from "react";
 
-type Props = {
-
+interface Props {
   program: ProgramInterface;
-};
+}
 
 export function ProgramVideo(props: Props) {
   const [showVideo, setShowVideo] = useState(false);

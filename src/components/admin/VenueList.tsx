@@ -5,9 +5,9 @@ import { VenueEdit } from "../index";
 import { DisplayBox, Loading, SmallButton } from "@churchapps/apphelper";
 import { Icon } from "@mui/material";
 
-type Props = {
+interface Props {
   lessonId: string;
-};
+}
 
 export function VenueList(props: Props) {
   const [venues, setVenues] = useState<VenueInterface[]>(null);

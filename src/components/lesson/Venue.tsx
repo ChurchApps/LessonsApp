@@ -5,13 +5,13 @@ import { Section } from "./Section";
 import { Icon, Button } from "@mui/material";
 
 
-type Props = {
+interface Props {
   useAccordion: boolean;
   venue: FeedVenueInterface;
   hidePrint?: boolean;
   customizations?: CustomizationInterface[]
   print: number;
-};
+}
 
 export function Venue({ hidePrint = true, ...props }: Props) {
   const contentRef = React.useRef<HTMLDivElement>(null);

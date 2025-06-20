@@ -10,10 +10,10 @@ const ImageEditor = dynamic(() => import("../index").then(mod => ({ default: mod
   loading: () => <div>Loading image editor...</div>
 });
 
-type Props = {
+interface Props {
   addOn: AddOnInterface;
   updatedCallback: (addOn: AddOnInterface) => void;
-};
+}
 
 export function AddOnEdit(props: Props) {
   const [addOn, setAddOn] = useState<AddOnInterface>(null);

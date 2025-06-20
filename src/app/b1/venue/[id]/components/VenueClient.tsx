@@ -12,7 +12,7 @@ import Link from "next/link";
 
 import { useEffect, useState } from "react";
 
-type Props = {
+interface Props {
   classroom:ClassroomInterface;
   customizations:CustomizationInterface[];
   currentSchedule:ScheduleInterface;
@@ -20,7 +20,7 @@ type Props = {
   nextSchedule:ScheduleInterface;
   venue:FeedVenueInterface;
   autoPrint:boolean;
-};
+}
 
 export function VenueClient(props: Props) {
   const [selectedTab, setSelectedTab] = useState<string>("");

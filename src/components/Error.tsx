@@ -5,10 +5,10 @@ import { Box, Button, Container, Dialog, DialogActions, DialogContent, DialogTit
 import { Layout } from "@/components";
 import { NextPageContext } from "next";
 
-type Props = {
-  statusCode?: number,
-  message: string,
-};
+interface Props {
+  statusCode?: number;
+  message: string;
+}
 function Error({ message, statusCode }: Props) {
   const [showError, setShowError] = React.useState(false);
   const onClose = () => setShowError(!showError);

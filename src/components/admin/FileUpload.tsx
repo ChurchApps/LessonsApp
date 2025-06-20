@@ -3,14 +3,14 @@ import axios from "axios";
 import { ApiHelper, FileInterface } from "@/helpers";
 import { LinearProgress } from "@mui/material";
 
-type Props = {
+interface Props {
   resourceId?: string;
   contentType?: string;
   contentId?: string;
   fileId: string;
   pendingSave: boolean;
   saveCallback: (file: FileInterface) => void;
-};
+}
 
 export function FileUpload(props: Props) {
   const [file, setFile] = useState<FileInterface>({} as FileInterface);

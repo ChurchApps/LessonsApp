@@ -7,11 +7,11 @@ import Tab from "@mui/material/Tab";
 import Tabs from "@mui/material/Tabs";
 import { useEffect, useState } from "react";
 
-type Props = {
+interface Props {
   studyCategories: StudyCategoryInterface[];
   studies: StudyInterface[];
   program: ProgramInterface;
-};
+}
 
 export function CategoriesAndStudies(props: Props) {
 
