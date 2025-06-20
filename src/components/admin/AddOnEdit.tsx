@@ -1,9 +1,14 @@
 import { useState, useEffect } from "react";
+import dynamic from "next/dynamic";
 import { ErrorMessages, InputBox, Loading } from "@churchapps/apphelper";
-import { ImageEditor } from "../index";
 import { AddOnInterface, ApiHelper, ExternalVideoInterface, FileInterface } from "@/helpers";
+
 import { FormControl, InputLabel, MenuItem, Select, SelectChangeEvent, TextField } from "@mui/material";
 import { FileUpload } from "./FileUpload";
+
+const ImageEditor = dynamic(() => import("../index").then(mod => ({ default: mod.ImageEditor })), {
+  loading: () => <div>Loading image editor...</div>
+});
 
 type Props = {
   addOn: AddOnInterface;

@@ -8,6 +8,9 @@
     "postbuild": "next-sitemap",
     "start": "next start",
     "lint": "next lint",
+    "analyze": "ANALYZE=true next build",
+    "analyze:server": "ANALYZE=true BUNDLE_ANALYZE=server next build",
+    "analyze:browser": "ANALYZE=true BUNDLE_ANALYZE=browser next build",
     "postinstall": "copyfiles -a -f node_modules/@churchapps/apphelper/public/locales/** public/apphelper/locales && copyfiles -a -f node_modules/@churchapps/apphelper/public/css/** public/apphelper/css"
   },
   "dependencies": {
@@ -34,6 +37,7 @@
     "react-vimeo": "^2.0.0"
   },
   "devDependencies": {
+    "@next/bundle-analyzer": "^15.3.4",
     "@types/node": "^24.0.1",
     "@types/react": "^18.3.14",
     "@types/react-simple-maps": "^3.0.6",

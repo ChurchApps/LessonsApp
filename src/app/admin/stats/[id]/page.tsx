@@ -2,11 +2,15 @@
 
 import { useEffect, useState } from "react";
 import { useParams, useRouter } from "next/navigation";
+import dynamic from "next/dynamic";
 import { ApiHelper, ProgramInterface } from "@/helpers";
 import { ArrayHelper, DateHelper, ChurchInterface, DisplayBox, InputBox, Banner } from "@churchapps/apphelper";
 import { Wrapper } from "@/components/Wrapper";
 import { Grid, TextField } from "@mui/material";
-import { Map } from "@/components/admin/Map";
+
+const Map = dynamic(() => import("@/components/admin/Map").then(mod => ({ default: mod.Map })), {
+  loading: () => <div>Loading map...</div>
+});
 
 type PageParams = {id:string }
 export default function Admin() {

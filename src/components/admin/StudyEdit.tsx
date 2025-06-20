@@ -1,5 +1,9 @@
 import { useState, useEffect } from "react";
-import { ImageEditor } from "../index";
+import dynamic from "next/dynamic";
+
+const ImageEditor = dynamic(() => import("../index").then(mod => ({ default: mod.ImageEditor })), {
+  loading: () => <div>Loading image editor...</div>
+});
 import { InputBox, ErrorMessages, SlugHelper } from "@churchapps/apphelper";
 import { ApiHelper, StudyInterface, ProgramInterface } from "@/helpers";
 import { Button, FormControl, Grid, IconButton, InputLabel, MenuItem, Paper, Select, SelectChangeEvent, Stack, TextField, Typography } from "@mui/material";

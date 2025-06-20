@@ -1,6 +1,6 @@
 "use client"
 
-import { AnalyticsHelper, UserHelper, ErrrorAppDataInterface, ErrorLogInterface } from "@churchapps/apphelper";
+import { AnalyticsHelper, UserHelper, ErrorAppDataInterface, ErrorLogInterface } from "@churchapps/apphelper";
 import React, { useEffect } from "react";
 import { ErrorHelper } from "@churchapps/apphelper";
 import { ErrorMessages } from "@churchapps/apphelper";
@@ -30,7 +30,7 @@ function ClientLayout({ children}: {children: React.ReactNode}) {
 
 
   const getErrorAppData = () => {
-    const result: ErrrorAppDataInterface = {
+    const result: ErrorAppDataInterface = {
       churchId: UserHelper.currentUserChurch?.church?.id || "",
       userId: UserHelper.user?.id || "",
       originUrl: location?.toString(),

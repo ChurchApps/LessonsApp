@@ -19,12 +19,13 @@ const config = {
       { protocol: "https", hostname: "files.churchpdf.com" }
     ]
   },
-  transpilePackages: ["@churchapps/apphelper", "mui-tel-input"]
+  transpilePackages: ["@churchapps/apphelper", "mui-tel-input"],
+  experimental: {
+    optimizePackageImports: ['@mui/material', '@mui/icons-material']
+  }
 }
 
-
-module.exports = config;
-
-//const withBundleAnalyzer = require('@next/bundle-analyzer')({ enabled: true })
-//module.exports = withBundleAnalyzer(config)
+module.exports = process.env.ANALYZE === 'true' 
+  ? require('@next/bundle-analyzer')({ enabled: true })(config)
+  : config
 
