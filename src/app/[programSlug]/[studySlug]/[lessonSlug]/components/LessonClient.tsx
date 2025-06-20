@@ -1,7 +1,7 @@
 "use client";
 
 import { Grid, Container } from "@mui/material";
-import { Layout, Venue } from "@/components";
+import { Layout, Venue, ErrorBoundary } from "@/components";
 import { FeedVenueInterface } from "@/helpers/interfaces";
 import Image from "next/image";
 import { Header } from "@/components/Header";
@@ -50,7 +50,9 @@ export default function LessonClient(props: Props) {
         <Grid item md={9} sm={12}>
           <Container>
             <div style={{marginTop:60}}>
-              <Venue useAccordion={false} venue={selectedVenue} print={print} />
+              <ErrorBoundary>
+                <Venue useAccordion={false} venue={selectedVenue} print={print} />
+              </ErrorBoundary>
             </div>
           </Container>
         </Grid>

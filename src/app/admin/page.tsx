@@ -2,7 +2,7 @@
 
 import { startTransition, useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
-import { ProgramEdit, StudyEdit, LessonEdit, VenueList, BundleList } from "@/components";
+import { ProgramEdit, StudyEdit, LessonEdit, VenueList, BundleList, ErrorBoundary } from "@/components";
 import { ApiHelper, LessonInterface, ProgramInterface, StudyInterface, ArrayHelper, ProviderInterface } from "@/helpers";
 import { Wrapper } from "@/components/Wrapper";
 import { Accordion, AccordionDetails, AccordionSummary, Button, Grid, Icon } from "@mui/material";
@@ -196,7 +196,9 @@ export default function Admin() {
             </DisplayBox>
           </Grid>
           <Grid item md={4} xs={12}>
-            {getSidebar()}
+            <ErrorBoundary>
+              {getSidebar()}
+            </ErrorBoundary>
             <Button variant="contained" color="primary" onClick={clearCache}>
               <Icon>delete</Icon> &nbsp; Clear Cache</Button>
           </Grid>

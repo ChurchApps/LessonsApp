@@ -7,6 +7,7 @@ export { Stats } from "../app/components/Stats";
 export { Studies } from "./Studies";
 export { Venue } from "./lesson/Venue";
 export { VideoModal } from "./VideoModal";
+export { default as ErrorBoundary } from "./ErrorBoundary";
 
 export { ProgramEdit } from "./admin/ProgramEdit";
 export { StudyEdit } from "./admin/StudyEdit";

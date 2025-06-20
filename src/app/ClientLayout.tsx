@@ -8,6 +8,7 @@ import { UserProvider } from "./context/UserContext";
 import { EnvironmentHelper } from "@/helpers/EnvironmentHelper";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
 import { CookiesProvider } from "react-cookie";
+import { ErrorBoundary } from "@/components";
 
 
 EnvironmentHelper.initLocale();
@@ -69,7 +70,9 @@ function ClientLayout({ children}: {children: React.ReactNode}) {
       <ThemeProvider theme={mdTheme}>
         <UserProvider>
           <ErrorMessages errors={errors} />
-          <>{children}</>
+          <ErrorBoundary>
+            {children}
+          </ErrorBoundary>
         </UserProvider>
       </ThemeProvider>
     </CookiesProvider>
