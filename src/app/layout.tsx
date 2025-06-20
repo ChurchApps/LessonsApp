@@ -1,7 +1,14 @@
 import "@/styles/globals.css";
 import { EnvironmentHelper } from "@/helpers/EnvironmentHelper";
+import { Roboto } from 'next/font/google';
 
 import ClientLayout from "./ClientLayout";
+
+const roboto = Roboto({
+  weight: ['400', '700'],
+  subsets: ['latin'],
+  display: 'swap',
+});
 
 
 export const metadata = {
@@ -16,10 +23,8 @@ export default async function RootLayout({ children }: { children: React.ReactNo
 
 
   return (
-    <html lang="en">
+    <html lang="en" className={roboto.className}>
       <head>
-        <link rel="preload" href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" as="font" crossOrigin="anonymous" />
-        <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet" />
         <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" />
         <link rel="stylesheet" href="/apphelper/css/styles.css" />
         <script async type="module" src="https://cdn.jsdelivr.net/npm/@slightlyoff/lite-vimeo@0.1.1/lite-vimeo.js"></script>
