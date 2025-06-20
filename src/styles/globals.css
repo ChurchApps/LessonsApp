@@ -56,6 +56,10 @@ h1, h2, h3, h4, h5, h6 {
   line-height: var(--line-height-tight);
 }
 
+#banner h1, #banner h2, #banner h3, #banner h4, #banner h5, #banner h6 {
+  color: #FFF !important;
+}
+
 h1 {
   font-size: var(--font-size-3xl);
   margin-bottom: var(--spacing-lg);
