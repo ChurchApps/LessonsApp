@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
-import { ApiHelper, FileInterface } from "@/helpers";
+import { ApiHelper, FileInterface, PresignedUploadInterface } from "@/helpers";
+import type { AxiosProgressEvent } from "axios";
 import { LinearProgress } from "@mui/material";
 
 interface Props {
@@ -42,21 +43,21 @@ export function BulkFileUpload(props: Props) {
   };
 
   //This will throw a CORS error if ran from localhost
-  const postPresignedFile = (presigned: any, uploadedFile: File, index: number) => {
+  const postPresignedFile = (presigned: PresignedUploadInterface, uploadedFile: File, index: number) => {
     const formData = new FormData();
     formData.append("key", presigned.key);
     formData.append("acl", "public-read");
     formData.append("Content-Type", uploadedFile.type);
     for (const property in presigned.fields) formData.append(property, presigned.fields[property]);
-    const f: any = document.getElementById("fileUpload");
+    const f = document.getElementById("fileUpload") as HTMLInputElement;
     formData.append("file", uploadedFile);
 
     const completedPercent = Math.round((index / uploadedFiles.length) * 100);
 
     const axiosConfig = {
       headers: { "Content-Type": "multipart/form-data", },
-      onUploadProgress: (data: any) => {
-        const currentFilePercent = Math.round((100 * data.loaded) / data.total);
+      onUploadProgress: (data: AxiosProgressEvent) => {
+        const currentFilePercent = Math.round((100 * data.loaded) / (data.total || 1));
         let overallPercent = completedPercent + Math.round(currentFilePercent / uploadedFiles.length);
         setUploadProgress(overallPercent);
       },

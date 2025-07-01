@@ -19,7 +19,7 @@ export function Presenter(props: Props) {
     if (!document.fullscreenElement) props.onClose();
   }
 
-  const upHandler = (data:any) => {
+  const upHandler = (data: KeyboardEvent) => {
     if (data.key.toString() === "ArrowLeft") { setPendingGoBack(Math.random()); }
     if (data.key.toString() === "ArrowRight") { setPendingGoForward(Math.random()); }
   }

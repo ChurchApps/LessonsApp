@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
-import { ApiHelper, FileInterface } from "@/helpers";
+import { ApiHelper, FileInterface, PresignedUploadInterface } from "@/helpers";
+import type { AxiosProgressEvent } from "axios";
 import { LinearProgress } from "@mui/material";
 
 interface Props {
@@ -85,21 +86,21 @@ export function FileUpload(props: Props) {
   };
 
   //This will throw a CORS error if ran from localhost
-  const postPresignedFile = (presigned: any) => {
+  const postPresignedFile = (presigned: PresignedUploadInterface) => {
     const formData = new FormData();
     formData.append("key", presigned.key);
     formData.append("acl", "public-read");
     formData.append("Content-Type", uploadedFile.type);
     for (const property in presigned.fields)
       formData.append(property, presigned.fields[property]);
-    const f: any = document.getElementById("fileUpload");
+    const f = document.getElementById("fileUpload") as HTMLInputElement;
     formData.append("file", f.files[0]);
     //const requestOptions: RequestInit = { method: "POST", body: formData };
 
     const axiosConfig = {
       headers: { "Content-Type": "multipart/form-data" },
-      onUploadProgress: (data: any) => {
-        setUploadProgress(Math.round((100 * data.loaded) / data.total));
+      onUploadProgress: (data: AxiosProgressEvent) => {
+        setUploadProgress(Math.round((100 * data.loaded) / (data.total || 1)));
       },
     };
 

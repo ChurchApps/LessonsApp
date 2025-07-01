@@ -232,3 +232,47 @@ export interface FeedLessonInterface { id?: string, name?: string, slug?: string
 export interface FeedStudyInterface { id?: string, name?: string, slug?: string, image?: string, description?: string, lessons:FeedLessonInterface[] }
 export interface FeedProgramInterface { id?: string, name?: string, slug?: string, image?: string, description?: string, studies:FeedStudyInterface[] }
 export interface FeedListInterface { programs?: FeedProgramInterface[] }
+
+// Additional interfaces for strong typing
+export interface PresignedUploadInterface {
+  url: string;
+  key: string;
+  fields: Record<string, string>;
+}
+
+export interface UploadProgressInterface {
+  loaded: number;
+  total?: number;
+}
+
+export interface LessonTreeInterface {
+  programs?: Array<{
+    id: string;
+    name: string;
+    studies?: Array<{
+      id: string;
+      name: string;
+      lessons?: Array<{
+        id: string;
+        name: string;
+        venues?: Array<{
+          id: string;
+          name: string;
+        }>;
+      }>;
+    }>;
+  }>;
+}
+
+export interface PlaylistMessageInterface {
+  files?: PlaylistFileInterface[];
+}
+
+export interface PlaylistResponseInterface {
+  messages?: PlaylistMessageInterface[];
+}
+
+export interface StudyStatsInterface {
+  studyName: string;
+  downloadCount: number;
+}

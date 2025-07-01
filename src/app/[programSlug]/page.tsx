@@ -15,17 +15,24 @@ import { EnvironmentHelper } from "@/helpers";
 
 type PageParams = { programSlug: string }
 
+interface LoadDataResult {
+  program?: ProgramInterface;
+  studies?: StudyInterface[];
+  studyCategories?: StudyCategoryInterface[];
+  errorMessage: string;
+}
+
 //NOTE: These api calls only fire once per page load.  NextJS remembers the results and reuses them on subsequent calls.
-const loadData = async (programSlug: string) => {
+const loadData = async (programSlug: string): Promise<LoadDataResult> => {
   EnvironmentHelper.init();
   try {
     const program: ProgramInterface = await ApiHelper.getAnonymous("/programs/public/slug/" + programSlug, "LessonsApi");
     const studies: StudyInterface[] = await ApiHelper.getAnonymous("/studies/public/program/" + program?.id, "LessonsApi");
     const studyCategories: StudyCategoryInterface[] = await ApiHelper.getAnonymous("/studyCategories/public/program/" + program?.id, "LessonsApi");
     return { program, studies, studyCategories, errorMessage: "" };
-  } catch (error: any) {
+  } catch (error: unknown) {
     console.log("inside catch: ", error)
-    return { errorMessage: error.message }
+    return { errorMessage: String(error) }
   }
 }
 

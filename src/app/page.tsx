@@ -21,7 +21,7 @@ const loadData = async () => {
   let programs: ProgramInterface[] = await ApiHelper.getAnonymous("/programs/public", "LessonsApi", ["all"]);
   const providers: ProviderInterface[] = await ApiHelper.getAnonymous("/providers/public", "LessonsApi", ["all"]);
   const studies: ProviderInterface[] = await ApiHelper.getAnonymous("/studies/public", "LessonsApi", ["all"]);
-  const stats: any = await ApiHelper.getAnonymous("/providers/stats", "LessonsApi", ["all"]);
+  const stats: {churchCount: number, lessonCount: number, studyCount: number, programCount: number} = await ApiHelper.getAnonymous("/providers/stats", "LessonsApi", ["all"]);
 
   programs = programs.filter((p) => !excludeIds.includes(p.id));
   return { programs, providers, studies, stats, errorMessage: "" };
@@ -32,8 +32,11 @@ export async function generateMetadata(): Promise<Metadata> {
   return MetaHelper.getMetaData();
 }
 
-export default async function Home(params: any) {
-  const { searchParams } = await params;
+export default async function Home(props: {
+  params: Promise<{}>;
+  searchParams: Promise<{ clearCache?: string }>;
+}) {
+  const { searchParams } = props;
   const { clearCache } = await searchParams;
 
   const pageProps = await loadData();

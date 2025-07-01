@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { InputBox, ErrorMessages, ArrayHelper, DateHelper } from "@churchapps/apphelper";
-import { ApiHelper, ExternalProviderInterface, ScheduleInterface } from "@/helpers";
+import { ApiHelper, ExternalProviderInterface, ScheduleInterface, LessonTreeInterface } from "@/helpers";
 import { Button, FormControl, InputLabel, MenuItem, Select, SelectChangeEvent, TextField } from "@mui/material";
 import { OpenInNew as OpenInNewIcon } from '@mui/icons-material';
 import { Print as PrintIcon } from '@mui/icons-material';
@@ -13,22 +13,22 @@ interface Props {
 
 export function ScheduleEdit(props: Props) {
   const [schedule, setSchedule] = useState<ScheduleInterface>(props.schedule);
-  const [errors, setErrors] = useState([]);
+  const [errors, setErrors] = useState<string[]>([]);
 
 
   const [externalProviders, setExternalProviders] = useState<ExternalProviderInterface[]>([]);
 
-  const [lessonTree, setLessonTree] = useState<any>({})
+  const [lessonTree, setLessonTree] = useState<LessonTreeInterface>({})
 
 
 
-  const getDefault = (array:any[], id:string) => {
+  const getDefault = (array: Array<{id: string}>, id:string) => {
     let result = id;
     if (array && (!id || !ArrayHelper.getOne(array, "id", id))) result = array[0].id;
     return result;
   }
 
-  const getLessonId = (array: any[], id: string) => {
+  const getLessonId = (array: Array<{id: string}>, id: string) => {
     let result = id;
     if (id === "default") {
       result = getDefault(array, id);

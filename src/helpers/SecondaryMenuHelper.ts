@@ -7,7 +7,7 @@ interface MenuItem {
 
 export class SecondaryMenuHelper {
 
-  static getSecondaryMenu = (path:string, data:any) => {
+  static getSecondaryMenu = (path:string, data?: unknown) => {
     let result:{menuItems:MenuItem[], label:string} = {menuItems:[], label:""};
 
 

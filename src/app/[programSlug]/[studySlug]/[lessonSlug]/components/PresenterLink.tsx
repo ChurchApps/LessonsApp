@@ -1,7 +1,7 @@
 "use client";
 
 import { Presenter } from "@/components/Presenter";
-import { PlaylistFileInterface, VenueInterface } from "@/helpers/interfaces";
+import { PlaylistFileInterface, VenueInterface, PlaylistResponseInterface, PlaylistMessageInterface } from "@/helpers/interfaces";
 import { AnalyticsHelper } from "@churchapps/apphelper/dist/helpers/AnalyticsHelper";
 import { ApiHelper } from "@churchapps/apphelper/dist/helpers/ApiHelper";
 import Icon from "@mui/material/Icon";
@@ -17,9 +17,9 @@ export function PresenterLink(props: Props) {
 
   const loadPresenterData = async () => {
     AnalyticsHelper.logEvent("Presenter", "Start", props.selectedVenue.name);
-    ApiHelper.get("/venues/playlist/" + props.selectedVenue.id + "?mode=web", "LessonsApi").then(data => {
+    ApiHelper.get("/venues/playlist/" + props.selectedVenue.id + "?mode=web", "LessonsApi").then((data: PlaylistResponseInterface) => {
       const result: PlaylistFileInterface[] = [];
-      data?.messages?.forEach((m:any) => {
+      data?.messages?.forEach((m: PlaylistMessageInterface) => {
         m.files?.forEach((f:PlaylistFileInterface) => { result.push(f) })
       });
       setPresenterFiles(result);
