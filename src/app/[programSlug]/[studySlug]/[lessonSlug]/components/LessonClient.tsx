@@ -1,7 +1,8 @@
 "use client";
 
 import { Grid, Container } from "@mui/material";
-import { Layout, Venue, ErrorBoundary } from "@/components";
+import { Layout, ErrorBoundary } from "@/components";
+import { Venue } from "@/components/lesson/Venue";
 import { FeedVenueInterface } from "@/helpers/interfaces";
 import Image from "next/image";
 import { Header } from "@/components/Header";
@@ -19,6 +20,14 @@ export default function LessonClient(props: Props) {
 
   const [selectedVenue, setSelectedVenue] = React.useState<FeedVenueInterface>(props.lessonData?.venues?.[0]);
   const [print, setPrint] = React.useState<number>(0);
+
+  const handleVenueChange = React.useCallback((v: FeedVenueInterface) => {
+    setSelectedVenue(v);
+  }, []);
+
+  const handlePrint = React.useCallback(() => {
+    setPrint(Math.random());
+  }, []);
 
 
   return (
@@ -45,7 +54,7 @@ export default function LessonClient(props: Props) {
 
       <Grid container spacing={2}>
         <Grid item md={3} sm={12} style={{backgroundColor:"#FFF"}}>
-          <LessonSidebar venues={props.lessonData?.venues} selectedVenue={selectedVenue} onVenueChange={(v) => { setSelectedVenue(v); }} onPrint={() => { setPrint(Math.random()) } } />
+          <LessonSidebar venues={props.lessonData?.venues} selectedVenue={selectedVenue} onVenueChange={handleVenueChange} onPrint={handlePrint} />
         </Grid>
         <Grid item md={9} sm={12}>
           <Container>

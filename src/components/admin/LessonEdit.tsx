@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import dynamic from "next/dynamic";
 
 const ImageEditor = dynamic(() => import("../index").then(mod => ({ default: mod.ImageEditor })), {
@@ -14,7 +14,7 @@ interface Props {
   updatedCallback: (lesson: LessonInterface) => void;
 }
 
-export function LessonEdit(props: Props) {
+const LessonEdit = React.memo((props: Props) => {
   const [lesson, setLesson] = useState<LessonInterface>(null);
   const [study, setStudy] = useState<StudyInterface>({});
   const [program, setProgram] = useState<ProgramInterface>({});
@@ -23,16 +23,9 @@ export function LessonEdit(props: Props) {
   const [showImageEditor, setShowImageEditor] = useState<boolean>(false);
   const [checked, setChecked] = useState<boolean>();
 
-  const handleCancel = () => props.updatedCallback(lesson);
+  const handleCancel = React.useCallback(() => props.updatedCallback(lesson), [props, lesson]);
 
-  const handleKeyDown = (e: React.KeyboardEvent<any>) => {
-    if (e.key === "Enter") {
-      e.preventDefault();
-      handleSave();
-    }
-  };
-
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement> | SelectChangeEvent<string>) => {
+  const handleChange = React.useCallback((e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement> | SelectChangeEvent<string>) => {
     e.preventDefault();
     let p = { ...lesson };
     const val = e.target.value;
@@ -46,7 +39,7 @@ export function LessonEdit(props: Props) {
       case "videoEmbedUrl": p.videoEmbedUrl = val; break;
     }
     setLesson(p);
-  };
+  }, [lesson]);
 
   const loadStudy = (studyId: string) => {
     ApiHelper.get("/studies/" + studyId, "LessonsApi").then((s: StudyInterface) => {
@@ -70,25 +63,32 @@ export function LessonEdit(props: Props) {
     return errors.length === 0;
   };
 
-  const handleSave = () => {
+  const handleSave = React.useCallback(() => {
     if (validate()) {
       ApiHelper.post("/lessons", [lesson], "LessonsApi").then((data) => {
         setLesson(data);
         props.updatedCallback(data);
       });
     }
-  };
+  }, [lesson, props]);
 
-  const handleDelete = () => {
+  const handleKeyDown = React.useCallback((e: React.KeyboardEvent<any>) => {
+    if (e.key === "Enter") {
+      e.preventDefault();
+      handleSave();
+    }
+  }, [handleSave]);
+
+  const handleDelete = React.useCallback(() => {
     if (window.confirm("Are you sure you wish to permanently delete this lesson?")) {
       ApiHelper.delete("/lessons/" + lesson.id.toString(), "LessonsApi").then(() => props.updatedCallback(null));
     }
-  };
+  }, [lesson, props]);
 
-  const handleImageClick = (e: React.MouseEvent) => {
+  const handleImageClick = React.useCallback((e: React.MouseEvent) => {
     e.preventDefault();
     setShowImageEditor(true);
-  };
+  }, []);
 
   const handleSlugValidation = () => {
     const l = { ...lesson };
@@ -157,4 +157,8 @@ export function LessonEdit(props: Props) {
       </InputBox>
     </>
   );
-}
+});
+
+LessonEdit.displayName = 'LessonEdit';
+
+export { LessonEdit };

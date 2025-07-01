@@ -12,12 +12,12 @@ interface Props {
   onPrint: () => void;
 }
 
-export function LessonSidebar(props: Props) {
+const LessonSidebar = React.memo((props: Props) => {
   const [showPrintPreview, setShowPrintPreview] = useState(false);
   const [shareAnchor, setShareAnchor] = React.useState<null | HTMLElement>(null);
   const [showB1Share, setShowB1Share] = React.useState(false);
 
-  const handleAffix = () => {
+  const handleAffix = React.useCallback(() => {
     const sidebar = document.getElementById("lessonSidebar");
     const inner = document.getElementById("lessonSidebarInner");
     const footer = document.getElementById("footer");
@@ -34,9 +34,9 @@ export function LessonSidebar(props: Props) {
     } else {
       if (inner.classList.contains("affix")) inner.classList.remove("affix");
     }
-  }
+  }, []);
 
-  const handleHighlight = () => {
+  const handleHighlight = React.useCallback(() => {
     const elements = document.getElementsByClassName("sectionCard");
     let maxTop=0;
     let result = "";
@@ -57,32 +57,49 @@ export function LessonSidebar(props: Props) {
         if (a.classList.contains("active")) a.classList.remove("active");
       }
     });
-  }
+  }, []);
+
+  const handleScroll = React.useCallback(() => {
+    handleAffix();
+    handleHighlight();
+  }, [handleAffix, handleHighlight]);
 
   useEffect(() => {
-    const handleScroll = () => {
-      handleAffix();
-      handleHighlight();
-    };
-
     window.addEventListener('scroll', handleScroll);
-
     return () => {
       window.removeEventListener('scroll', handleScroll);
     };
-  }, []);
+  }, [handleScroll]);
 
-  const handleB1Share = (e:React.MouseEvent) => {
+  const handleB1Share = React.useCallback((e:React.MouseEvent) => {
     setShareAnchor(null);
     setShowB1Share(true);
-  }
+  }, []);
 
-  const handleExport = (e:React.MouseEvent) => {
+  const handleExport = React.useCallback((e:React.MouseEvent) => {
     e.preventDefault();
     setShareAnchor(null);
     const feedUrl = "https://api.lessons.church/venues/public/feed/" + props.selectedVenue.id;
     window.location.href = "/tools/olf?feedUrl=" + encodeURIComponent(feedUrl);
-  }
+  }, [props.selectedVenue.id]);
+
+  const venueOptions = React.useMemo(() =>
+    props.venues.map((v) => (<MenuItem key={v.name} value={v.name}>{v.name}</MenuItem>)),
+  [props.venues]
+  );
+
+  const sectionLinks = React.useMemo(() =>
+    props.selectedVenue?.sections?.map((s, idx) =>
+      (s.actions?.length > 0) && (
+        <li key={"section-" + idx}>
+          <a className="sectionLink" id={"sectionLink-" + idx} href={"#section-" + s.name}>
+            {s.name}
+          </a>
+        </li>
+      )
+    ),
+  [props.selectedVenue?.sections]
+  );
 
   return (
     <div id="lessonSidebar">
@@ -90,7 +107,7 @@ export function LessonSidebar(props: Props) {
         <Container>
           <h3>Venue</h3>
           <Select fullWidth size="small" value={props.selectedVenue?.name} onChange={(e) => { props.onVenueChange(ArrayHelper.getOne(props.venues, "name", e.target.value)); }}>
-            {props.venues.map((v) => (<MenuItem key={v.name} value={v.name}>{v.name}</MenuItem>))}
+            {venueOptions}
           </Select>
         </Container>
         <hr />
@@ -107,7 +124,7 @@ export function LessonSidebar(props: Props) {
 
           <h3>Sections</h3>
           <ul>
-            {props.selectedVenue?.sections?.map((s, idx) => (s.actions?.length > 0) && (<li key={"section-" + idx}><a className="sectionLink" id={"sectionLink-" + idx} href={"#section-" + s.name}>{s.name}</a></li>))}
+            {sectionLinks}
           </ul>
         </Container>
 
@@ -133,4 +150,8 @@ export function LessonSidebar(props: Props) {
     </div>
 
   );
-}
+});
+
+LessonSidebar.displayName = 'LessonSidebar';
+
+export { LessonSidebar };
