@@ -2,8 +2,8 @@ import { useState, useEffect } from "react";
 import { InputBox, ErrorMessages, ArrayHelper, DateHelper } from "@churchapps/apphelper";
 import { ApiHelper, ExternalProviderInterface, ScheduleInterface } from "@/helpers";
 import { Button, FormControl, InputLabel, MenuItem, Select, SelectChangeEvent, TextField } from "@mui/material";
-import OpenInNewIcon from '@mui/icons-material/OpenInNew';
-import PrintIcon from '@mui/icons-material/Print';
+import { OpenInNew as OpenInNewIcon } from '@mui/icons-material';
+import { Print as PrintIcon } from '@mui/icons-material';
 
 interface Props {
   schedule: ScheduleInterface;
