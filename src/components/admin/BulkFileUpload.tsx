@@ -45,9 +45,9 @@ export function BulkFileUpload(props: Props) {
   //This will throw a CORS error if ran from localhost
   const postPresignedFile = (presigned: PresignedUploadInterface, uploadedFile: File, index: number) => {
     const formData = new FormData();
-    formData.append("key", presigned.key);
     formData.append("acl", "public-read");
     formData.append("Content-Type", uploadedFile.type);
+
     for (const property in presigned.fields) formData.append(property, presigned.fields[property]);
     const f = document.getElementById("fileUpload") as HTMLInputElement;
     formData.append("file", uploadedFile);

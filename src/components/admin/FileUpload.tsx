@@ -68,13 +68,13 @@ export function FileUpload(props: Props) {
 
   const getResourcePresigned = async () => {
     const params = { resourceId: props.resourceId, fileName: uploadedFile.name };
-    const presigned =  await ApiHelper.post("/files/postUrl", params, "LessonsApi");
+    const presigned = await ApiHelper.post("/files/postUrl", params, "LessonsApi");
     return presigned;
   }
 
   const getOtherPresigned = async () => {
     const params = { fileName: uploadedFile.name };
-    const presigned =  await ApiHelper.post("/files/postUrl/content/" + props.contentType + "/" + props.contentId, params, "LessonsApi");
+    const presigned = await ApiHelper.post("/files/postUrl/content/" + props.contentType + "/" + props.contentId, params, "LessonsApi");
     return presigned;
   }
 
@@ -88,7 +88,6 @@ export function FileUpload(props: Props) {
   //This will throw a CORS error if ran from localhost
   const postPresignedFile = (presigned: PresignedUploadInterface) => {
     const formData = new FormData();
-    formData.append("key", presigned.key);
     formData.append("acl", "public-read");
     formData.append("Content-Type", uploadedFile.type);
     for (const property in presigned.fields)
