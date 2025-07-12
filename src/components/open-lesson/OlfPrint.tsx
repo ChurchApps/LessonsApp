@@ -2,9 +2,9 @@ import { FeedActionInterface, FeedSectionInterface, FeedVenueInterface } from "@
 import { MarkdownPreviewLight } from "@churchapps/apphelper/dist/components/markdownEditor/MarkdownPreviewLight";
 import Image from "next/image";
 
-type Props = {
+interface Props {
   feed: FeedVenueInterface;
-};
+}
 
 export function OlfPrint(props: Props) {
 

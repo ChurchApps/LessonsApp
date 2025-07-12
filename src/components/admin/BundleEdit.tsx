@@ -3,11 +3,11 @@ import { InputBox, ErrorMessages } from "@churchapps/apphelper";
 import { ApiHelper, BundleInterface } from "@/helpers";
 import { TextField } from "@mui/material";
 
-type Props = {
+interface Props {
   bundle: BundleInterface;
   updatedCallback: (bundle: BundleInterface) => void;
   contentDisplayName: string;
-};
+}
 
 export function BundleEdit(props: Props) {
   const [bundle, setBundle] = useState<BundleInterface>({} as BundleInterface);

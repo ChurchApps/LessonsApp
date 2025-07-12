@@ -4,10 +4,10 @@ import { FeedActionInterface, FeedFileInterface } from "@/helpers";
 import { InputLabel, MenuItem, Select, FormControl, SelectChangeEvent, Table, TableBody, TableCell, TableHead, TableRow, TextField } from "@mui/material";
 import { OlfFileEdit } from "./OlfFileEdit";
 
-type Props = {
+interface Props {
   action: FeedActionInterface;
   updatedCallback: (action: FeedActionInterface, cancelled:boolean) => void;
-};
+}
 
 export function OlfActionEdit(props: Props) {
   const [action, setAction] = useState<FeedActionInterface>(null);

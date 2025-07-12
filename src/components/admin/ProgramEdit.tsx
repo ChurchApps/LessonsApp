@@ -1,14 +1,18 @@
 import { useState, useEffect } from "react";
+import dynamic from "next/dynamic";
 import { ErrorMessages, InputBox } from "@churchapps/apphelper";
-import { ImageEditor } from "../index";
+
+const ImageEditor = dynamic(() => import("../index").then(mod => ({ default: mod.ImageEditor })), {
+  loading: () => <div>Loading image editor...</div>
+});
 import { ApiHelper, ProgramInterface } from "@/helpers";
 import { FormControl, InputLabel, MenuItem, Select, SelectChangeEvent, TextField } from "@mui/material";
 import Link from "next/link";
 
-type Props = {
+interface Props {
   program: ProgramInterface;
   updatedCallback: (program: ProgramInterface) => void;
-};
+}
 
 export function ProgramEdit(props: Props) {
   const [program, setProgram] = useState<ProgramInterface>(null);

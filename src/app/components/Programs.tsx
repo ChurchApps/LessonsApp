@@ -3,16 +3,17 @@ import { ProgramInterface, ProviderInterface, StudyInterface } from "@/helpers/i
 import { ArrayHelper } from "@churchapps/apphelper/dist/helpers/ArrayHelper";
 import Image from "next/image";
 import Link from "next/link";
+import React from "react";
 
-type Props = {
+interface Props {
   programs: ProgramInterface[];
   providers: ProviderInterface[];
   studies: StudyInterface[];
-};
+}
 
-export function Programs(props: Props) {
+const Programs = React.memo((props: Props) => {
 
-  const getStudies = (program: ProgramInterface) => {
+  const getStudies = React.useCallback((program: ProgramInterface) => {
 
     const studies = ArrayHelper.getAll(props.studies, "programId", program.id);
     const result:JSX.Element[] = [];
@@ -25,9 +26,9 @@ export function Programs(props: Props) {
       result.push(<Grid item md={2} sm={4} xs={4} key={i}>{link}</Grid>);
     }
     return result;
-  }
+  }, [props.studies]);
 
-  const getProgramDiv = (program: ProgramInterface) => {
+  const getProgramDiv = React.useCallback((program: ProgramInterface) => {
     const url = "/" + program.slug + "/";
     return (<div key={program.slug} id={program.slug} className="programPromo" style={{ backgroundImage:"url('/images/programs/" + program.slug + ".jpg')" }}>
       <div className="programHeroContent">
@@ -46,14 +47,16 @@ export function Programs(props: Props) {
         </Container>
       </div>
     </div> )
-  }
+  }, [getStudies]);
 
-
-  const programDivs:JSX.Element[] = [];
-  props.programs.forEach((program) => {
-    //temp hack to exclude west ridge kids for now.
-    if (program.id!=="CjDN3VrEm3s") programDivs.push(getProgramDiv(program));
-  });
+  const programDivs = React.useMemo(() => {
+    const divs: JSX.Element[] = [];
+    props.programs.forEach((program) => {
+      //temp hack to exclude west ridge kids for now.
+      if (program.id !== "CjDN3VrEm3s") divs.push(getProgramDiv(program));
+    });
+    return divs;
+  }, [props.programs, getProgramDiv]);
 
   return (<>
     <div className="homeSection" style={{paddingTop:20, paddingBottom:20}}>
@@ -66,4 +69,8 @@ export function Programs(props: Props) {
     </div>
     {programDivs}
   </>);
-}
+});
+
+Programs.displayName = 'Programs';
+
+export { Programs };

@@ -2,7 +2,11 @@
 
 import { Wrapper } from "@/components/Wrapper";
 import { Suspense } from "react";
-import OlfInner from "./components/OlfInner";
+import dynamic from "next/dynamic";
+
+const OlfInner = dynamic(() => import("./components/OlfInner"), {
+  loading: () => <div>Loading lesson builder...</div>
+});
 
 export default function CP() {
 

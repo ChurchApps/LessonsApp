@@ -1,14 +1,18 @@
 import { useState, useEffect } from "react";
-import { ImageEditor } from "../index";
+import dynamic from "next/dynamic";
+
+const ImageEditor = dynamic(() => import("../index").then(mod => ({ default: mod.ImageEditor })), {
+  loading: () => <div>Loading image editor...</div>
+});
 import { InputBox, ErrorMessages, SlugHelper } from "@churchapps/apphelper";
 import { ApiHelper, StudyInterface, ProgramInterface } from "@/helpers";
 import { Button, FormControl, Grid, IconButton, InputLabel, MenuItem, Paper, Select, SelectChangeEvent, Stack, TextField, Typography } from "@mui/material";
 import EditIcon from '@mui/icons-material/Edit';
 
-type Props = {
+interface Props {
   study: StudyInterface;
   updatedCallback: (study: StudyInterface) => void;
-};
+}
 
 export function StudyEdit(props: Props) {
   const [study, setStudy] = useState<StudyInterface>(null);
@@ -71,7 +75,6 @@ export function StudyEdit(props: Props) {
   };
 
   const handleImageClick = (e: React.MouseEvent) => { e.preventDefault(); setShowImageEditor(true); };
-  
   const handleSlugValidation = () => {
     const s = { ...study };
     s.slug = SlugHelper.slugifyString(s.slug, "urlSlug");
@@ -110,25 +113,27 @@ export function StudyEdit(props: Props) {
           </Grid>
         </Grid>
         <TextField fullWidth label="Study Name" name="name" value={study.name} onChange={handleChange} onKeyDown={handleKeyDown} />
-        {checked ? (
-          <div style={{ paddingTop: "5px", paddingLeft: "4px" }}>
-            <Paper elevation={0}>
-              <Stack direction="row" alignItems="center" justifyContent="space-between">
-                <Typography>{study.slug}</Typography>
-                <IconButton onClick={() => setChecked(false)} color="primary"><EditIcon /></IconButton>
-              </Stack>
-            </Paper>
-            <div>
-              <a href={"https://lessons.church/" + program?.slug + "/" + study.slug + "/"} target="_blank" rel="noopener noreferrer">
-                {"https://lessons.church/" + program?.slug + "/" + study.slug + "/"}
-              </a>
+        {checked
+          ? (
+            <div style={{ paddingTop: "5px", paddingLeft: "4px" }}>
+              <Paper elevation={0}>
+                <Stack direction="row" alignItems="center" justifyContent="space-between">
+                  <Typography>{study.slug}</Typography>
+                  <IconButton onClick={() => setChecked(false)} color="primary"><EditIcon /></IconButton>
+                </Stack>
+              </Paper>
+              <div>
+                <a href={"https://lessons.church/" + program?.slug + "/" + study.slug + "/"} target="_blank" rel="noopener noreferrer">
+                  {"https://lessons.church/" + program?.slug + "/" + study.slug + "/"}
+                </a>
+              </div>
             </div>
-          </div>
-        ) : (
-          <TextField fullWidth label="Url Slug" name="slug" value={study.slug} onChange={handleChange} helperText="Make sure to check before saving"
-            InputProps={{ endAdornment: <Button variant="contained" color="primary" onClick={handleSlugValidation}>Check</Button> }}
-          />
-        )}
+          )
+          : (
+            <TextField fullWidth label="Url Slug" name="slug" value={study.slug} onChange={handleChange} helperText="Make sure to check before saving"
+              InputProps={{ endAdornment: <Button variant="contained" color="primary" onClick={handleSlugValidation}>Check</Button> }}
+            />
+          )}
         <TextField fullWidth label="One-Line Description" name="shortDescription" value={study.shortDescription} onChange={handleChange} onKeyDown={handleKeyDown} />
         <TextField fullWidth multiline label="Description" name="description" value={study.description} onChange={handleChange} onKeyDown={handleKeyDown} />
         <TextField fullWidth label="Video Embed Url" name="videoEmbedUrl" value={study.videoEmbedUrl} onChange={handleChange} onKeyDown={handleKeyDown} />

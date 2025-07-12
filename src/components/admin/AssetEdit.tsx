@@ -4,10 +4,10 @@ import { InputBox, ErrorMessages } from "@churchapps/apphelper";
 import { FileUpload } from "./FileUpload";
 import { TextField } from "@mui/material";
 
-type Props = {
+interface Props {
   asset: AssetInterface;
   updatedCallback: (asset: AssetInterface) => void;
-};
+}
 
 export function AssetEdit(props: Props) {
   const [asset, setAsset] = useState<AssetInterface>({} as AssetInterface);

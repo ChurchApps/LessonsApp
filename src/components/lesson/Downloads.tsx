@@ -2,10 +2,10 @@ import { AnalyticsHelper, CommonEnvironmentHelper } from "@churchapps/apphelper"
 import { ApiHelper, FeedDownloadInterface, UserHelper } from "@/helpers";
 import { Icon } from "@mui/material";
 
-type Props = {
+interface Props {
   downloads: FeedDownloadInterface[];
   lessonId: string;
-};
+}
 
 export function Downloads(props: Props) {
 

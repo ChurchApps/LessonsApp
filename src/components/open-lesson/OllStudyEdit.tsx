@@ -3,10 +3,10 @@ import { InputBox, ErrorMessages, MarkdownEditor } from "@churchapps/apphelper";
 import { FeedStudyInterface } from "@/helpers";
 import { SelectChangeEvent, TextField } from "@mui/material";
 
-type Props = {
+interface Props {
   study: FeedStudyInterface;
   updatedCallback: (study: FeedStudyInterface, cancelled:boolean) => void;
-};
+}
 
 export function OllStudyEdit(props: Props) {
   const [study, setStudy] = useState<FeedStudyInterface>(null);

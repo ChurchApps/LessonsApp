@@ -3,10 +3,10 @@ import { InputBox, ErrorMessages } from "@churchapps/apphelper";
 import { FeedFileInterface } from "@/helpers";
 import { FormControl, InputLabel, MenuItem, Select, SelectChangeEvent, TextField } from "@mui/material";
 
-type Props = {
+interface Props {
   file: FeedFileInterface;
   updatedCallback: (file: FeedFileInterface, cancelled:boolean) => void;
-};
+}
 
 export function OlfFileEdit(props: Props) {
   const [file, setFile] = useState<FeedFileInterface>(null);

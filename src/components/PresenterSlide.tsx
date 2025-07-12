@@ -1,9 +1,9 @@
 import { PlaylistFileInterface } from "@/helpers";
 
 
-type Props = {
+interface Props {
   file: PlaylistFileInterface;
-};
+}
 
 export function PresenterSlide(props: Props) {
 

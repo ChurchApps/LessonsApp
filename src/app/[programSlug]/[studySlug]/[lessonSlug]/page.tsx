@@ -13,11 +13,14 @@ const loadData = async (params:PageParams) => {
   try {
     EnvironmentHelper.init();
     const lessonData = await ApiHelper.getAnonymous("/lessons/public/slugAlt/" + params.programSlug + "/" + params.studySlug + "/" + params.lessonSlug, "LessonsApi");
-    if (lessonData.venues.length === 0) return {errorMessage: "No venues for lesson."}
-    else return { lessonData, errorMessage: "" }
+
+    if (!lessonData) return {errorMessage: "Lesson not found."}
+    if (!lessonData.venues || lessonData.venues.length === 0) return {errorMessage: "No venues for lesson."}
+
+    return { lessonData, errorMessage: "" }
   } catch (error: any) {
     console.log("inside catch: ", error)
-    return {errorMessage: error.message}
+    return {errorMessage: error.message || "Failed to load lesson data."}
   }
 }
 
@@ -30,9 +33,14 @@ const loadSharedData = async (params:Promise<PageParams>) => {
 
 export async function generateMetadata({params}:{params:Promise<PageParams>}): Promise<Metadata> {
   const props = await loadSharedData(params);
+
+  if (props.errorMessage || !props.lessonData || !props.lessonData.venues || props.lessonData.venues.length === 0) {
+    return MetaHelper.getMetaData("Lesson Not Found - Lessons.church", "The requested lesson could not be found.");
+  }
+
   const selectedVenue = props.lessonData.venues[0];
   const title = selectedVenue?.programName + ": " + selectedVenue?.lessonName + " - Free Church Curriculum";
-  if (!props.errorMessage) return MetaHelper.getMetaData(title, selectedVenue?.lessonDescription, selectedVenue?.lessonImage);
+  return MetaHelper.getMetaData(title, selectedVenue?.lessonDescription, selectedVenue?.lessonImage);
 }
 
 export default async function LessonsPage({params}: {params:Promise<PageParams>}) {

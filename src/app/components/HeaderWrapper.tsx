@@ -2,9 +2,9 @@
 
 import { Header } from "@/components/Header";
 
-type Props = {
+interface Props {
   position?: "fixed" | "sticky" | "static" | "relative" | "absolute";
-};
+}
 
 export function HeaderWrapper(props: Props) {
   return <Header position={props.position} />

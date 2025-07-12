@@ -4,6 +4,7 @@
 /public/content
 /public/robots.txt
 /public/sitemap*
+/analyze
 
 # dependencies
 /node_modules

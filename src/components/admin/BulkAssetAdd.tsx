@@ -3,10 +3,10 @@ import { ApiHelper, AssetInterface, FileInterface } from "@/helpers";
 import { InputBox } from "@churchapps/apphelper";
 import { BulkFileUpload } from "./BulkFileUpload";
 
-type Props = {
+interface Props {
   resourceId: string;
   updatedCallback: () => void;
-};
+}
 
 export function BulkAssetAdd(props: Props) {
   const [pendingFileSave, setPendingFileSave] = useState(false);

@@ -2,13 +2,13 @@ import { ActionInterface, ArrayHelper, CustomizationHelper, CustomizationInterfa
 import { Action } from "./Action";
 import { Card, CardContent, CardHeader } from "@mui/material";
 
-type Props = {
+interface Props {
   lessonId?: string;
   section: FeedSectionInterface;
   toggleActive: (id: string) => void;
   activeSectionId: string | string[];
   customizations?: CustomizationInterface[]
-};
+}
 
 export function Section(props: Props) {
 
@@ -18,7 +18,7 @@ export function Section(props: Props) {
     if (!shouldHide(action.id)) {
       result = <Action action={action} lessonId={props.lessonId} key={action.id} />
     }
-    
+
     return result;
   };
 

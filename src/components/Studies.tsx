@@ -2,15 +2,16 @@ import Link from "next/link";
 import { StudyInterface } from "@/helpers";
 import { Card, Grid } from "@mui/material";
 import Image from "next/image";
+import React from "react";
 
-type Props = {
+interface Props {
   studies: StudyInterface[];
   slug: string;
-};
+}
 
-export function Studies({ studies, slug }: Props) {
+const Studies = React.memo(({ studies, slug }: Props) => {
 
-  const createStudyCard = (study: StudyInterface) => {
+  const createStudyCard = React.useCallback((study: StudyInterface) => {
     const studyUrl = (slug.startsWith("/external/"))
       ? slug + `/${study.id}`
       : slug + `/${study.slug}`
@@ -37,13 +38,22 @@ export function Studies({ studies, slug }: Props) {
         </Link>
       </Grid>
     );
-  };
+  }, [slug]);
+
+  const studyCards = React.useMemo(() =>
+    studies.map(createStudyCard),
+  [studies, createStudyCard]
+  );
 
   return (
     <div>
       <Grid container spacing={3} style={{ paddingBottom: 20, paddingTop: 20, borderBottom: "1px solid #CCC" }}>
-        {studies.map(createStudyCard)}
+        {studyCards}
       </Grid>
     </div>
   );
-}
+});
+
+Studies.displayName = 'Studies';
+
+export { Studies };

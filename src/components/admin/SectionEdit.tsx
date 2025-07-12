@@ -3,10 +3,10 @@ import { ApiHelper, SectionInterface } from "@/helpers";
 import { InputBox, ErrorMessages } from "@churchapps/apphelper";
 import { TextField } from "@mui/material";
 
-type Props = {
+interface Props {
   section: SectionInterface;
   updatedCallback: (section: SectionInterface, created: boolean) => void;
-};
+}
 
 export function SectionEdit(props: Props) {
   const [section, setSection] = useState<SectionInterface>({} as SectionInterface);

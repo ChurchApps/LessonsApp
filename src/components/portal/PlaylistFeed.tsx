@@ -3,10 +3,10 @@ import { InputBox } from "@churchapps/apphelper";
 import { ApiHelper } from "@/helpers";
 import { VenueInterface } from "@/helpers/interfaces";
 
-type Props = {
+interface Props {
   classroomId: string;
   hideFeed: () => void;
-};
+}
 
 export function PlaylistFeed(props: Props) {
   const [venues, setVenues] = useState<VenueInterface[]>([]);

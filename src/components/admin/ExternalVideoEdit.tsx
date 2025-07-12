@@ -3,11 +3,11 @@ import { InputBox, ErrorMessages } from "@churchapps/apphelper";
 import { ApiHelper, ExternalVideoInterface } from "@/helpers";
 import { FormControl, InputLabel, MenuItem, Select, SelectChangeEvent, TextField } from "@mui/material";
 
-type Props = {
+interface Props {
   externalVideo: ExternalVideoInterface;
   updatedCallback: (externalVideo: ExternalVideoInterface) => void;
   contentDisplayName: string;
-};
+}
 
 export function ExternalVideoEdit(props: Props) {
   const [externalVideo, setExternalVideo] = useState<ExternalVideoInterface>(null);

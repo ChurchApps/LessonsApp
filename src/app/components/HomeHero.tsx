@@ -2,9 +2,9 @@ import { Container, Fade, Grid, Link, Slide, Stack } from "@mui/material";
 import { Stats } from "./Stats";
 import { Header } from "../../components/Header";
 
-type Props = {
+interface Props {
   stats: any;
-};
+}
 
 export function HomeHero(props: Props) {
 

@@ -3,11 +3,11 @@ import { ApiHelper, CopySectionInterface, SectionInterface, VenueInterface } fro
 import { InputBox, ErrorMessages } from "@churchapps/apphelper";
 import { FormControl, InputLabel, MenuItem, Select, SelectChangeEvent } from "@mui/material";
 
-type Props = {
+interface Props {
   copySection: CopySectionInterface,
   venueId: string,
   updatedCallback: () => void
-};
+}
 
 export function SectionCopy(props: Props) {
   const [copySection, setCopySection] = useState<CopySectionInterface>({} as CopySectionInterface);

@@ -4,11 +4,12 @@ import { useCookies } from "react-cookie"
 import { Layout } from "@/components";
 import { LoginPage, ApiHelper, UserHelper } from "@churchapps/apphelper";
 import React from "react";
-import { redirect } from "next/navigation";
+import { redirect, useRouter } from "next/navigation";
 import { useUser } from "../context/UserContext";
 
 export default function Login(params: any) {
   const [cookies] = useCookies()
+  const router = useRouter()
 
   const returnUrl= (params.searchParams.returnUrl) ? params.searchParams.returnUrl.toString() : "/portal";
 
@@ -25,11 +26,9 @@ export default function Login(params: any) {
     redirect(returnUrl)
   }
 
-
-  /*
-  const loginSuccess = () => {
-    router.push("/portal");
-  }*/
+  const handleRedirect = (url: string) => {
+    router.push(url);
+  }
 
   const appUrl = (process.browser) ? window.location.href : "";
   let jwt: string = "", auth: string = "";
@@ -44,7 +43,7 @@ export default function Login(params: any) {
 
   return (
     <Layout withoutNavbar withoutFooter>
-      <LoginPage auth={auth} context={context} jwt={jwt} appName="Lessons.church" appUrl={appUrl} returnUrl={returnUrl} />
+      <LoginPage auth={auth} context={context} jwt={jwt} appName="Lessons.church" appUrl={appUrl} returnUrl={returnUrl} handleRedirect={handleRedirect} />
     </Layout>
   );
 

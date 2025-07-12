@@ -2,15 +2,16 @@ import Link from "next/link";
 import { LessonInterface } from "@/helpers";
 import { Card, Grid } from "@mui/material";
 import Image from "next/image";
+import React from "react";
 
-type Props = {
+interface Props {
   slug: string;
   lessons: LessonInterface[];
-};
+}
 
-export function Lessons({ lessons, slug }: Props) {
+const Lessons = React.memo(({ lessons, slug }: Props) => {
 
-  function createLesson(lesson: LessonInterface) {
+  const createLesson = React.useCallback((lesson: LessonInterface) => {
     const url = (slug.startsWith("/external/"))
       ? slug + `/${lesson.id}`
       : slug + `/${lesson.slug}`;
@@ -36,13 +37,22 @@ export function Lessons({ lessons, slug }: Props) {
         </Link>
       </Grid>
     );
-  }
+  }, [slug]);
+
+  const lessonCards = React.useMemo(() =>
+    lessons.map(createLesson),
+  [lessons, createLesson]
+  );
 
   return (
     <div>
       <Grid container spacing={3} style={{ paddingBottom: 20, paddingTop: 20, borderBottom: "1px solid #CCC" }}>
-        {lessons.map(createLesson)}
+        {lessonCards}
       </Grid>
     </div>
   );
-}
+});
+
+Lessons.displayName = 'Lessons';
+
+export { Lessons };

@@ -3,10 +3,10 @@ import { InputBox, ErrorMessages, MarkdownEditor } from "@churchapps/apphelper";
 import { FeedProgramInterface } from "@/helpers";
 import { SelectChangeEvent, TextField } from "@mui/material";
 
-type Props = {
+interface Props {
   program: FeedProgramInterface;
   updatedCallback: (program: FeedProgramInterface, cancelled:boolean) => void;
-};
+}
 
 export function OllProgramEdit(props: Props) {
   const [program, setProgram] = useState<FeedProgramInterface>(null);

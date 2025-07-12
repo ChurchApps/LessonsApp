@@ -1,12 +1,14 @@
 "use client"
 
-import { AnalyticsHelper, UserHelper, ErrrorAppDataInterface, ErrorLogInterface } from "@churchapps/apphelper";
+import { AnalyticsHelper, UserHelper, ErrorAppDataInterface, ErrorLogInterface } from "@churchapps/apphelper";
 import React, { useEffect } from "react";
 import { ErrorHelper } from "@churchapps/apphelper";
 import { ErrorMessages } from "@churchapps/apphelper";
 import { UserProvider } from "./context/UserContext";
 import { EnvironmentHelper } from "@/helpers/EnvironmentHelper";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
+import { CookiesProvider } from "react-cookie";
+import { ErrorBoundary } from "@/components";
 
 
 EnvironmentHelper.initLocale();
@@ -29,7 +31,7 @@ function ClientLayout({ children}: {children: React.ReactNode}) {
 
 
   const getErrorAppData = () => {
-    const result: ErrrorAppDataInterface = {
+    const result: ErrorAppDataInterface = {
       churchId: UserHelper.currentUserChurch?.church?.id || "",
       userId: UserHelper.user?.id || "",
       originUrl: location?.toString(),
@@ -64,12 +66,16 @@ function ClientLayout({ children}: {children: React.ReactNode}) {
 
 
   return (
-    <ThemeProvider theme={mdTheme}>
-      <UserProvider>
-        <ErrorMessages errors={errors} />
-        <>{children}</>
-      </UserProvider>
-    </ThemeProvider>
+    <CookiesProvider>
+      <ThemeProvider theme={mdTheme}>
+        <UserProvider>
+          <ErrorMessages errors={errors} />
+          <ErrorBoundary>
+            {children}
+          </ErrorBoundary>
+        </UserProvider>
+      </ThemeProvider>
+    </CookiesProvider>
   );
 }
 export default ClientLayout;

@@ -3,10 +3,10 @@ import { InputBox, ErrorMessages } from "@churchapps/apphelper";
 import { ApiHelper, VenueInterface } from "@/helpers";
 import { TextField } from "@mui/material";
 
-type Props = {
+interface Props {
   venue: VenueInterface;
   updatedCallback: (venue: VenueInterface) => void;
-};
+}
 
 export function VenueEdit(props: Props) {
   const [venue, setVenue] = useState<VenueInterface>({} as VenueInterface);

@@ -9,9 +9,9 @@ import { SupportModal } from "@churchapps/apphelper/dist/components/SupportModal
 import { usePathname } from "next/navigation";
 import { Permissions } from '../helpers/Permissions'
 
-type Props = {
+interface Props {
   position?: "fixed" | "sticky" | "static" | "relative" | "absolute";
-};
+}
 
 export function Header(props: Props) {
   const [menuAnchor, setMenuAnchor] = useState<any>(null);

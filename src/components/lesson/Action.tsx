@@ -6,10 +6,10 @@ import { AnalyticsHelper } from "@churchapps/apphelper";
 import { MarkdownPreviewLight } from "@churchapps/apphelper/dist/components/markdownEditor/MarkdownPreviewLight";
 import { ImageModal } from "../ImageModal";
 
-type Props = {
+interface Props {
   action: FeedActionInterface;
   lessonId: string;
-};
+}
 
 export function Action(props: Props) {
   const [showPreview, setShowPreview] = React.useState(false);

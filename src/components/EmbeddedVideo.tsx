@@ -3,10 +3,10 @@
 import LiteYouTubeEmbed from "react-lite-youtube-embed";
 import "react-lite-youtube-embed/dist/LiteYouTubeEmbed.css";
 
-type Props = {
+interface Props {
   videoEmbedUrl: string;
   title: string;
-};
+}
 
 export function EmbeddedVideo(props: Props) {
   const youTubeBase = "https://www.youtube.com/embed/";

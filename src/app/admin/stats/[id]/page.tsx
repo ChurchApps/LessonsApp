@@ -2,11 +2,15 @@
 
 import { useEffect, useState } from "react";
 import { useParams, useRouter } from "next/navigation";
-import { ApiHelper, ProgramInterface } from "@/helpers";
+import dynamic from "next/dynamic";
+import { ApiHelper, ProgramInterface, StudyStatsInterface } from "@/helpers";
 import { ArrayHelper, DateHelper, ChurchInterface, DisplayBox, InputBox, Banner } from "@churchapps/apphelper";
 import { Wrapper } from "@/components/Wrapper";
 import { Grid, TextField } from "@mui/material";
-import { Map } from "@/components/admin/Map";
+
+const Map = dynamic(() => import("@/components/admin/Map").then(mod => ({ default: mod.Map })), {
+  loading: () => <div>Loading map...</div>
+});
 
 type PageParams = {id:string }
 export default function Admin() {
@@ -18,7 +22,7 @@ export default function Admin() {
   initialEndDate.setDate(initialEndDate.getDate() - 1);
 
   const [program, setProgram] = useState<ProgramInterface>(null);
-  const [studies, setStudies] = useState<any[]>([]);
+  const [studies, setStudies] = useState<StudyStatsInterface[]>([]);
   const [churches, setChurches] = useState<ChurchInterface[]>([]);
   const [startDate, setStartDate] = useState<Date>(initialStartDate);
   const [endDate, setEndDate] = useState<Date>(initialEndDate);
@@ -31,14 +35,14 @@ export default function Admin() {
   useEffect(() => { if (isAuthenticated) { loadData(); } }, [isAuthenticated]);
 
   function loadData() {
-    ApiHelper.get("/programs/" + programId, "LessonsApi").then((data: any) => { setProgram(data); });
+    ApiHelper.get("/programs/" + programId, "LessonsApi").then((data: ProgramInterface) => { setProgram(data); });
     filterResults();
   }
 
   const filterResults = () => {
     const dateString = "?startDate=" + DateHelper.formatHtml5Date(startDate) + "&endDate=" + DateHelper.formatHtml5Date(endDate);
     ApiHelper.get("/downloads/" + programId + "/studies" + dateString, "LessonsApi").then(d => setStudies(d));
-    ApiHelper.get("/downloads/" + programId + "/churches" + dateString, "LessonsApi").then((churchList: any[]) => {
+    ApiHelper.get("/downloads/" + programId + "/churches" + dateString, "LessonsApi").then((churchList: ChurchInterface[]) => {
       const ids = ArrayHelper.getIds(churchList, "churchId");
       ApiHelper.post("/churches/byIds", ids, "MembershipApi").then(d => setChurches(d));
     });

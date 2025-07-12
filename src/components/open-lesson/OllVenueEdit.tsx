@@ -3,10 +3,10 @@ import { InputBox, ErrorMessages } from "@churchapps/apphelper";
 import { FeedVenueLinkInterface } from "@/helpers";
 import { SelectChangeEvent, TextField } from "@mui/material";
 
-type Props = {
+interface Props {
   venue: FeedVenueLinkInterface;
   updatedCallback: (venue: FeedVenueLinkInterface, cancelled:boolean) => void;
-};
+}
 
 export function OllVenueEdit(props: Props) {
   const [venue, setVenue] = useState<FeedVenueLinkInterface>(null);

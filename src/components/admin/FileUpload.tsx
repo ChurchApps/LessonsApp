@@ -1,16 +1,17 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
-import { ApiHelper, FileInterface } from "@/helpers";
+import { ApiHelper, FileInterface, PresignedUploadInterface } from "@/helpers";
+import type { AxiosProgressEvent } from "axios";
 import { LinearProgress } from "@mui/material";
 
-type Props = {
+interface Props {
   resourceId?: string;
   contentType?: string;
   contentId?: string;
   fileId: string;
   pendingSave: boolean;
   saveCallback: (file: FileInterface) => void;
-};
+}
 
 export function FileUpload(props: Props) {
   const [file, setFile] = useState<FileInterface>({} as FileInterface);
@@ -67,13 +68,13 @@ export function FileUpload(props: Props) {
 
   const getResourcePresigned = async () => {
     const params = { resourceId: props.resourceId, fileName: uploadedFile.name };
-    const presigned =  await ApiHelper.post("/files/postUrl", params, "LessonsApi");
+    const presigned = await ApiHelper.post("/files/postUrl", params, "LessonsApi");
     return presigned;
   }
 
   const getOtherPresigned = async () => {
     const params = { fileName: uploadedFile.name };
-    const presigned =  await ApiHelper.post("/files/postUrl/content/" + props.contentType + "/" + props.contentId, params, "LessonsApi");
+    const presigned = await ApiHelper.post("/files/postUrl/content/" + props.contentType + "/" + props.contentId, params, "LessonsApi");
     return presigned;
   }
 
@@ -85,21 +86,20 @@ export function FileUpload(props: Props) {
   };
 
   //This will throw a CORS error if ran from localhost
-  const postPresignedFile = (presigned: any) => {
+  const postPresignedFile = (presigned: PresignedUploadInterface) => {
     const formData = new FormData();
-    formData.append("key", presigned.key);
     formData.append("acl", "public-read");
     formData.append("Content-Type", uploadedFile.type);
     for (const property in presigned.fields)
       formData.append(property, presigned.fields[property]);
-    const f: any = document.getElementById("fileUpload");
+    const f = document.getElementById("fileUpload") as HTMLInputElement;
     formData.append("file", f.files[0]);
     //const requestOptions: RequestInit = { method: "POST", body: formData };
 
     const axiosConfig = {
       headers: { "Content-Type": "multipart/form-data" },
-      onUploadProgress: (data: any) => {
-        setUploadProgress(Math.round((100 * data.loaded) / data.total));
+      onUploadProgress: (data: AxiosProgressEvent) => {
+        setUploadProgress(Math.round((100 * data.loaded) / (data.total || 1)));
       },
     };
 

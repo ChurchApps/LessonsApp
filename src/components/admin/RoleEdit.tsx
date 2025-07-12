@@ -3,10 +3,10 @@ import { ApiHelper, RoleInterface } from "@/helpers";
 import { InputBox, ErrorMessages } from "@churchapps/apphelper";
 import { TextField } from "@mui/material";
 
-type Props = {
+interface Props {
   role: RoleInterface;
   updatedCallback: (role: RoleInterface, created: boolean) => void;
-};
+}
 
 export function RoleEdit(props: Props) {
   const [role, setRole] = useState<RoleInterface>({} as RoleInterface);

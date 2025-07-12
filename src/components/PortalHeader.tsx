@@ -8,9 +8,9 @@ import { useRouter } from "next/navigation";
 import { UserHelper, Permissions } from "@/helpers";
 import { usePathname } from 'next/navigation'
 
-type Props = {
+interface Props {
   position?: "fixed" | "sticky" | "static" | "relative" | "absolute";
-};
+}
 
 export function PortalHeader(props: Props) {
   const context = React.useContext(UserContext);

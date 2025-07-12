@@ -3,11 +3,11 @@ import Cropper from "react-cropper";
 import "cropperjs/dist/cropper.css";
 import { InputBox, SmallButton } from "@churchapps/apphelper";
 
-type Props = {
+interface Props {
   imageUrl: string;
   updatedFunction: (dataUrl: string) => void;
   onCancel: () => void;
-};
+}
 
 export function ImageEditor(props: Props) {
   const [currentUrl, setCurrentUrl] = React.useState("about:blank");

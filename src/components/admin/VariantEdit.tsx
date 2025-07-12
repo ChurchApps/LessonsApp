@@ -4,10 +4,10 @@ import { ApiHelper, VariantInterface, FileInterface } from "@/helpers";
 import { FileUpload } from "./FileUpload";
 import { FormControl, InputLabel, MenuItem, Select, SelectChangeEvent, TextField } from "@mui/material";
 
-type Props = {
+interface Props {
   variant: VariantInterface;
   updatedCallback: (variant: VariantInterface) => void;
-};
+}
 
 export function VariantEdit(props: Props) {
   const [variant, setVariant] = React.useState<VariantInterface>(null);
