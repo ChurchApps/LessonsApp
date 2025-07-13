@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
-import { TextField } from "@mui/material";
-import { ErrorMessages, InputBox } from "@churchapps/apphelper";
+import { Box, Button, IconButton, Paper, Stack, TextField, Typography } from "@mui/material";
+import { List as ListIcon, Save as SaveIcon, Cancel as CancelIcon, Delete as DeleteIcon } from "@mui/icons-material";
+import { ErrorMessages } from "@churchapps/apphelper";
 import { ApiHelper, SectionInterface } from "@/helpers";
 
 interface Props {
@@ -67,44 +68,98 @@ export function SectionEdit(props: Props) {
   }, [props.section]);
 
   return (
-    <>
-      <InputBox
-        id="sectionDetailsBox"
-        headerText={section?.id ? "Edit Section" : "Create Section"}
-        headerIcon="list_alt"
-        saveFunction={handleSave}
-        cancelFunction={handleCancel}
-        deleteFunction={handleDelete}>
+    <Paper
+      sx={{
+        borderRadius: 2,
+        border: '1px solid var(--admin-border)',
+        boxShadow: 'var(--admin-shadow-sm)',
+        overflow: 'hidden'
+      }}>
+      {/* HEADER */}
+      <Box
+        sx={{
+          p: 2,
+          borderBottom: '1px solid var(--admin-border)',
+          backgroundColor: 'var(--c1l7)'
+        }}>
+        <Stack direction="row" alignItems="center" spacing={1}>
+          <ListIcon sx={{ color: 'var(--c1d2)', fontSize: '1.5rem' }} />
+          <Typography variant="h6" sx={{
+            color: 'var(--c1d2)',
+            fontWeight: 600,
+            lineHeight: 1,
+            fontSize: '1.25rem'
+          }}>
+            {section?.id ? "Edit Section" : "Create Section"}
+          </Typography>
+        </Stack>
+      </Box>
+
+      {/* CONTENT */}
+      <Box sx={{ p: 3 }}>
         <ErrorMessages errors={errors} />
-        <TextField
-          label="Order"
-          fullWidth
-          type="number"
-          name="sort"
-          value={section.sort}
-          onChange={handleChange}
-          onKeyDown={handleKeyDown}
-          placeholder="1"
-        />
-        <TextField
-          label="Section Name"
-          fullWidth
-          name="name"
-          value={section.name}
-          onChange={handleChange}
-          onKeyDown={handleKeyDown}
-          placeholder="Section 1"
-        />
-        <TextField
-          label="Materials Needed"
-          fullWidth
-          name="materials"
-          value={section.materials}
-          onChange={handleChange}
-          onKeyDown={handleKeyDown}
-          placeholder=""
-        />
-      </InputBox>
-    </>
+        
+        <Stack spacing={3}>
+          <TextField
+            label="Order"
+            fullWidth
+            type="number"
+            name="sort"
+            value={section.sort || ''}
+            onChange={handleChange}
+            onKeyDown={handleKeyDown}
+            placeholder="1"
+            helperText="Display order for this section"
+          />
+          
+          <TextField
+            label="Section Name"
+            fullWidth
+            name="name"
+            value={section.name || ''}
+            onChange={handleChange}
+            onKeyDown={handleKeyDown}
+            placeholder="Section 1"
+            required
+          />
+          
+          <TextField
+            label="Materials Needed"
+            fullWidth
+            multiline
+            rows={2}
+            name="materials"
+            value={section.materials || ''}
+            onChange={handleChange}
+            onKeyDown={handleKeyDown}
+            placeholder="List any materials needed for this section"
+          />
+        </Stack>
+      </Box>
+
+      {/* FOOTER */}
+      <Box
+        sx={{
+          p: 2,
+          borderTop: '1px solid var(--admin-border)',
+          backgroundColor: 'var(--admin-bg)',
+          display: 'flex',
+          justifyContent: 'flex-end',
+          gap: 1,
+          flexWrap: 'wrap'
+        }}>
+        <Button startIcon={<SaveIcon />} variant="contained" onClick={handleSave}>
+          Save
+        </Button>
+        <Button startIcon={<CancelIcon />} variant="outlined" onClick={handleCancel}>
+          Cancel
+        </Button>
+        {section.id && (
+          <IconButton color="error" onClick={handleDelete}>
+            <DeleteIcon />
+          </IconButton>
+        )}
+      </Box>
+    </Paper>
   );
 }

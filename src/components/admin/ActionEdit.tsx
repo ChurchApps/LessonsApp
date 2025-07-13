@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
-import { FormControl, InputLabel, ListSubheader, MenuItem, Select, SelectChangeEvent, TextField } from "@mui/material";
-import { ErrorMessages, InputBox, MarkdownEditor } from "@churchapps/apphelper";
+import { Box, Button, FormControl, IconButton, InputLabel, ListSubheader, MenuItem, Paper, Select, SelectChangeEvent, Stack, TextField, Typography } from "@mui/material";
+import { Check as CheckIcon, Save as SaveIcon, Cancel as CancelIcon, Delete as DeleteIcon } from "@mui/icons-material";
+import { ErrorMessages, MarkdownEditor } from "@churchapps/apphelper";
 import {
   ActionInterface,
   AddOnInterface,
@@ -262,54 +263,104 @@ export function ActionEdit(props: Props) {
     return <></>;
   } else {
     return (
-      <>
-        <InputBox
-          id="actionDetailsBox"
-          headerText={action?.id ? "Edit Action" : "Create Action"}
-          headerIcon="check"
-          saveFunction={handleSave}
-          cancelFunction={handleCancel}
-          deleteFunction={handleDelete}>
-          <ErrorMessages errors={errors} />
-          <TextField
-            fullWidth
-            label="Order"
-            type="number"
-            name="sort"
-            value={action.sort}
-            onChange={handleChange}
-            onKeyDown={handleKeyDown}
-            placeholder="1"
-          />
+      <Paper
+        sx={{
+          borderRadius: 2,
+          border: '1px solid var(--admin-border)',
+          boxShadow: 'var(--admin-shadow-sm)',
+          overflow: 'hidden'
+        }}>
+        {/* HEADER */}
+        <Box
+          sx={{
+            p: 2,
+            borderBottom: '1px solid var(--admin-border)',
+            backgroundColor: 'var(--c1l7)'
+          }}>
+          <Stack direction="row" alignItems="center" spacing={1}>
+            <CheckIcon sx={{ color: 'var(--c1d2)', fontSize: '1.5rem' }} />
+            <Typography variant="h6" sx={{
+              color: 'var(--c1d2)',
+              fontWeight: 600,
+              lineHeight: 1,
+              fontSize: '1.25rem'
+            }}>
+              {action?.id ? "Edit Action" : "Create Action"}
+            </Typography>
+          </Stack>
+        </Box>
 
-          <FormControl fullWidth>
-            <InputLabel>Action Type</InputLabel>
-            <Select label="Action Type" name="actionType" value={action.actionType} onChange={handleChange}>
-              <MenuItem value="Say" key="Say">
-                Say
-              </MenuItem>
-              <MenuItem value="Do" key="Do">
-                Do
-              </MenuItem>
-              <MenuItem value="Play" key="Play">
-                Play
-              </MenuItem>
-              <MenuItem value="Download" key="Download">
-                Download
-              </MenuItem>
-              <MenuItem value="Note" key="Note">
-                Note
-              </MenuItem>
-              <MenuItem value="Add-on" key="Add-on">
-                Add-on
-              </MenuItem>
-            </Select>
-          </FormControl>
-          {getContent()}
-          {getResource()}
-          {getAddOn()}
-        </InputBox>
-      </>
+        {/* CONTENT */}
+        <Box sx={{ p: 3 }}>
+          <ErrorMessages errors={errors} />
+          
+          <Stack spacing={3}>
+            <TextField
+              fullWidth
+              label="Order"
+              type="number"
+              name="sort"
+              value={action.sort || ''}
+              onChange={handleChange}
+              onKeyDown={handleKeyDown}
+              placeholder="1"
+              helperText="Display order for this action within the role"
+            />
+
+            <FormControl fullWidth>
+              <InputLabel>Action Type</InputLabel>
+              <Select label="Action Type" name="actionType" value={action.actionType} onChange={handleChange}>
+                <MenuItem value="Say" key="Say">
+                  Say
+                </MenuItem>
+                <MenuItem value="Do" key="Do">
+                  Do
+                </MenuItem>
+                <MenuItem value="Play" key="Play">
+                  Play
+                </MenuItem>
+                <MenuItem value="Download" key="Download">
+                  Download
+                </MenuItem>
+                <MenuItem value="Note" key="Note">
+                  Note
+                </MenuItem>
+                <MenuItem value="Add-on" key="Add-on">
+                  Add-on
+                </MenuItem>
+              </Select>
+            </FormControl>
+            
+            {getContent()}
+            {getResource()}
+            {getAddOn()}
+          </Stack>
+        </Box>
+
+        {/* FOOTER */}
+        <Box
+          sx={{
+            p: 2,
+            borderTop: '1px solid var(--admin-border)',
+            backgroundColor: 'var(--admin-bg)',
+            display: 'flex',
+            justifyContent: 'flex-end',
+            gap: 1,
+            flexWrap: 'wrap'
+          }}>
+          <Button startIcon={<SaveIcon />} variant="contained" onClick={handleSave}>
+            Save
+          </Button>
+          <Button startIcon={<CancelIcon />} variant="outlined" onClick={handleCancel}>
+            Cancel
+          </Button>
+          {action.id && (
+            <IconButton color="error" onClick={handleDelete}>
+              <DeleteIcon />
+            </IconButton>
+          )}
+        </Box>
+      </Paper>
     );
   }
 }

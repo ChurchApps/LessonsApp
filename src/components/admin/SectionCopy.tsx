@@ -91,29 +91,80 @@ export function SectionCopy(props: Props) {
   //return (<div>Hello WOrld</div>)
 
   return (
-    <>
-      <InputBox
-        id="sectionDetailsBox"
-        headerText="Copy Section From"
-        headerIcon="list_alt"
-        saveFunction={handleSave}
-        cancelFunction={handleCancel}
-        saveText="Copy!">
-        <ErrorMessages errors={errors} />
+    <Paper
+      sx={{
+        borderRadius: 2,
+        border: '1px solid var(--admin-border)',
+        boxShadow: 'var(--admin-shadow-sm)',
+        overflow: 'hidden'
+      }}>
+      {/* HEADER */}
+      <Box
+        sx={{
+          p: 2,
+          borderBottom: '1px solid var(--admin-border)',
+          backgroundColor: 'var(--c1l7)'
+        }}>
+        <Stack direction="row" alignItems="center" spacing={1}>
+          <CopyIcon sx={{ color: 'var(--c1d2)', fontSize: '1.5rem' }} />
+          <Typography variant="h6" sx={{
+            color: 'var(--c1d2)',
+            fontWeight: 600,
+            lineHeight: 1,
+            fontSize: '1.25rem'
+          }}>
+            Copy Section From
+          </Typography>
+        </Stack>
+      </Box>
 
-        <FormControl fullWidth>
-          <InputLabel>Venue</InputLabel>
-          <Select label="Venue" name="venue" value={copySection.sourceVenueId} onChange={handleChange}>
-            {getVenueOptions()}
-          </Select>
-        </FormControl>
-        <FormControl fullWidth>
-          <InputLabel>Section</InputLabel>
-          <Select label="Section" name="section" value={copySection.sourceSectionId} onChange={handleChange}>
-            {getSectionOptions()}
-          </Select>
-        </FormControl>
-      </InputBox>
-    </>
+      {/* CONTENT */}
+      <Box sx={{ p: 3 }}>
+        <ErrorMessages errors={errors} />
+        
+        <Stack spacing={3}>
+          <FormControl fullWidth>
+            <InputLabel>Venue</InputLabel>
+            <Select 
+              label="Venue" 
+              name="venue" 
+              value={copySection.sourceVenueId || ''} 
+              onChange={handleChange}>
+              {getVenueOptions()}
+            </Select>
+          </FormControl>
+          
+          <FormControl fullWidth>
+            <InputLabel>Section</InputLabel>
+            <Select 
+              label="Section" 
+              name="section" 
+              value={copySection.sourceSectionId || ''} 
+              onChange={handleChange}>
+              {getSectionOptions()}
+            </Select>
+          </FormControl>
+        </Stack>
+      </Box>
+
+      {/* FOOTER */}
+      <Box
+        sx={{
+          p: 2,
+          borderTop: '1px solid var(--admin-border)',
+          backgroundColor: 'var(--admin-bg)',
+          display: 'flex',
+          justifyContent: 'flex-end',
+          gap: 1,
+          flexWrap: 'wrap'
+        }}>
+        <Button startIcon={<CopyIcon />} variant="contained" onClick={handleSave}>
+          Copy Section
+        </Button>
+        <Button startIcon={<CancelIcon />} variant="outlined" onClick={handleCancel}>
+          Cancel
+        </Button>
+      </Box>
+    </Paper>
   );
 }
