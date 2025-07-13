@@ -1,7 +1,7 @@
-import { useState, useEffect } from "react";
-import { ApiHelper, RoleInterface } from "@/helpers";
-import { InputBox, ErrorMessages } from "@churchapps/apphelper";
+import { useEffect, useState } from "react";
 import { TextField } from "@mui/material";
+import { ErrorMessages, InputBox } from "@churchapps/apphelper";
+import { ApiHelper, RoleInterface } from "@/helpers";
 
 interface Props {
   role: RoleInterface;
@@ -25,8 +25,12 @@ export function RoleEdit(props: Props) {
     e.preventDefault();
     let r = { ...role };
     switch (e.currentTarget.name) {
-      case "name": r.name = e.currentTarget.value; break;
-      case "sort": r.sort = parseInt(e.currentTarget.value); break;
+      case "name":
+        r.name = e.currentTarget.value;
+        break;
+      case "sort":
+        r.sort = parseInt(e.currentTarget.value);
+        break;
     }
     setRole(r);
   };
@@ -40,7 +44,7 @@ export function RoleEdit(props: Props) {
 
   const handleSave = () => {
     if (validate()) {
-      ApiHelper.post("/roles", [role], "LessonsApi").then((data) => {
+      ApiHelper.post("/roles", [role], "LessonsApi").then(data => {
         setRole(data);
         props.updatedCallback(data[0], !props.role.id);
       });
@@ -48,18 +52,42 @@ export function RoleEdit(props: Props) {
   };
 
   const handleDelete = () => {
-    if (window.confirm("Are you sure you wish to permanently delete this role?")) {
+    if (window.confirm("Are you sure you wish to permanently delete this role?"))
       ApiHelper.delete("/roles/" + role.id.toString(), "LessonsApi").then(() => props.updatedCallback(null, false));
-    }
   };
 
-  useEffect(() => { setRole(props.role); }, [props.role]);
+  useEffect(() => {
+    setRole(props.role);
+  }, [props.role]);
 
   return (
-    <InputBox id="roleDetailsBox" headerText={role?.id ? "Edit Role" : "Create Role"} headerIcon="person" saveFunction={handleSave} cancelFunction={handleCancel} deleteFunction={handleDelete}>
+    <InputBox
+      id="roleDetailsBox"
+      headerText={role?.id ? "Edit Role" : "Create Role"}
+      headerIcon="person"
+      saveFunction={handleSave}
+      cancelFunction={handleCancel}
+      deleteFunction={handleDelete}>
       <ErrorMessages errors={errors} />
-      <TextField fullWidth label="Order" type="number" name="sort" value={role.sort} onChange={handleChange} onKeyDown={handleKeyDown} placeholder="1" />
-      <TextField fullWidth label="Role Name" name="name" value={role.name} onChange={handleChange} onKeyDown={handleKeyDown} placeholder="Leader" />
+      <TextField
+        fullWidth
+        label="Order"
+        type="number"
+        name="sort"
+        value={role.sort}
+        onChange={handleChange}
+        onKeyDown={handleKeyDown}
+        placeholder="1"
+      />
+      <TextField
+        fullWidth
+        label="Role Name"
+        name="name"
+        value={role.name}
+        onChange={handleChange}
+        onKeyDown={handleKeyDown}
+        placeholder="Leader"
+      />
     </InputBox>
   );
 }

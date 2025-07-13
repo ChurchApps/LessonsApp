@@ -1,6 +1,6 @@
+import { Icon } from "@mui/material";
 import { AnalyticsHelper, CommonEnvironmentHelper } from "@churchapps/apphelper";
 import { ApiHelper, FeedDownloadInterface, UserHelper } from "@/helpers";
-import { Icon } from "@mui/material";
 
 interface Props {
   downloads: FeedDownloadInterface[];
@@ -8,7 +8,6 @@ interface Props {
 }
 
 export function Downloads(props: Props) {
-
   const trackDownload = (download: FeedDownloadInterface) => {
     if (CommonEnvironmentHelper.GoogleAnalyticsTag) {
       const action = download.name;
@@ -23,16 +22,21 @@ export function Downloads(props: Props) {
       ipAddress: "",
       downloadDate: new Date(),
       fileName: download.name
-    }
+    };
     ApiHelper.post("/downloads", [d], "LessonsApi");
-  }
+  };
 
   const getDownloads = () => {
     const result: JSX.Element[] = [];
     props.downloads?.forEach((d, idx) => {
       result.push(
         <li key={"download-" + idx}>
-          <a href={d.files[0].url} onClick={(e) => { trackDownload(d); }} download={true}>
+          <a
+            href={d.files[0].url}
+            onClick={e => {
+              trackDownload(d);
+            }}
+            download={true}>
             <Icon>download</Icon>
             {d?.name}
           </a>
@@ -40,15 +44,12 @@ export function Downloads(props: Props) {
       );
     });
     return result;
-  }
-
+  };
 
   return (
-    (props.downloads?.length > 0) && (
+    props.downloads?.length > 0 && (
       <>
-        <ul>
-          {getDownloads()}
-        </ul>
+        <ul>{getDownloads()}</ul>
       </>
     )
   );

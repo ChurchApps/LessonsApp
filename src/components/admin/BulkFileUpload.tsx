@@ -1,8 +1,8 @@
-import { useState, useEffect } from "react";
 import axios from "axios";
-import { ApiHelper, FileInterface, PresignedUploadInterface } from "@/helpers";
 import type { AxiosProgressEvent } from "axios";
+import { useEffect, useState } from "react";
 import { LinearProgress } from "@mui/material";
+import { ApiHelper, FileInterface, PresignedUploadInterface } from "@/helpers";
 
 interface Props {
   resourceId: string;
@@ -30,12 +30,14 @@ export function BulkFileUpload(props: Props) {
     props.saveCallback(data);
   };
 
-  const checkSave = () => { if (props.pendingSave) handleSave(); };
+  const checkSave = () => {
+    if (props.pendingSave) handleSave();
+  };
 
   const preUpload = async () => {
     for (let i = 0; i < uploadedFiles.length; i++) {
       const uf = uploadedFiles[i];
-      const params = { resourceId: props.resourceId, fileName: uf.name, };
+      const params = { resourceId: props.resourceId, fileName: uf.name };
       const presigned = await ApiHelper.post("/files/postUrl", params, "LessonsApi");
       const doUpload = presigned.key !== undefined;
       if (doUpload) await postPresignedFile(presigned, uf, i);
@@ -55,12 +57,12 @@ export function BulkFileUpload(props: Props) {
     const completedPercent = Math.round((index / uploadedFiles.length) * 100);
 
     const axiosConfig = {
-      headers: { "Content-Type": "multipart/form-data", },
+      headers: { "Content-Type": "multipart/form-data" },
       onUploadProgress: (data: AxiosProgressEvent) => {
         const currentFilePercent = Math.round((100 * data.loaded) / (data.total || 1));
         let overallPercent = completedPercent + Math.round(currentFilePercent / uploadedFiles.length);
         setUploadProgress(overallPercent);
-      },
+      }
     };
 
     return axios.post(presigned.url, formData, axiosConfig);
@@ -69,9 +71,8 @@ export function BulkFileUpload(props: Props) {
   useEffect(checkSave, [props.pendingSave]); //eslint-disable-line
 
   const getFileLink = () => {
-    if (uploadProgress > -1) {
-      return <LinearProgress value={uploadProgress} />;
-    } else return <br />
+    if (uploadProgress > -1) return <LinearProgress value={uploadProgress} />;
+    else return <br />;
   };
 
   return (

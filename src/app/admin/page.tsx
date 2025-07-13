@@ -1,14 +1,13 @@
 "use client";
 
-import { startTransition, useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
-import { ProgramEdit, StudyEdit, LessonEdit, VenueList, BundleList, ErrorBoundary } from "@/components";
-import { ApiHelper, LessonInterface, ProgramInterface, StudyInterface, ArrayHelper, ProviderInterface } from "@/helpers";
-import { Wrapper } from "@/components/Wrapper";
+import { startTransition, useEffect, useState } from "react";
 import { Accordion, AccordionDetails, AccordionSummary, Button, Grid, Icon } from "@mui/material";
-import { SmallButton, DisplayBox, Loading, Banner } from "@churchapps/apphelper";
+import { Banner, DisplayBox, Loading, SmallButton } from "@churchapps/apphelper";
+import { BundleList, ErrorBoundary, LessonEdit, ProgramEdit, StudyEdit, VenueList } from "@/components";
+import { Wrapper } from "@/components/Wrapper";
+import { ApiHelper, ArrayHelper, LessonInterface, ProgramInterface, ProviderInterface, StudyInterface } from "@/helpers";
 import { revalidate } from "../actions";
-
 
 export default function Admin() {
   const [providers, setProviders] = useState<ProviderInterface[]>(null);
@@ -24,22 +23,33 @@ export default function Admin() {
   const [resourceContentId, setResourceContentId] = useState<string>(null);
   const [resourceName, setResourceName] = useState<string>(null);
   const router = useRouter();
-  const { isAuthenticated } = ApiHelper
+  const { isAuthenticated } = ApiHelper;
   const [expandedProgramId, setExpandedProgramId] = useState<string>("");
   const [expandedStudyId, setExpandedStudyId] = useState<string>("");
 
   useEffect(() => {
-    if (!isAuthenticated) { router.push("/login"); }
+    if (!isAuthenticated) router.push("/login");
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  useEffect(() => { if (isAuthenticated) { loadData(); } }, [isAuthenticated]);
+  useEffect(() => {
+    if (isAuthenticated) loadData();
+  }, [isAuthenticated]);
 
   async function loadData() {
-    ApiHelper.get("/providers", "LessonsApi").then((data: any) => { setProviders(data); });
-    ApiHelper.get("/programs", "LessonsApi").then((data: any) => { setPrograms(data); });
-    ApiHelper.get("/studies", "LessonsApi").then((data: any) => { setStudies(data); });
-    ApiHelper.get("/lessons", "LessonsApi").then((data: any) => { setLessons(data); });
+    ApiHelper.get("/providers", "LessonsApi").then((data: any) => {
+      setProviders(data);
+    });
+    ApiHelper.get("/programs", "LessonsApi").then((data: any) => {
+      setPrograms(data);
+    });
+    ApiHelper.get("/studies", "LessonsApi").then((data: any) => {
+      setStudies(data);
+    });
+    ApiHelper.get("/lessons", "LessonsApi").then((data: any) => {
+      setLessons(data);
+    });
   }
 
   function clearEdits() {
@@ -77,37 +87,67 @@ export default function Admin() {
 
   function getPrograms() {
     const result: JSX.Element[] = [];
-    programs.forEach((p) => {
-      if (typeof p.id !== 'string') p.id = '';
-      if (typeof p.providerId !== 'string') p.providerId = '';
-      if (typeof p.name !== 'string') p.name = '';
-      if (typeof p.slug !== 'string') p.slug = '';
-      if (typeof p.image !== 'string') p.image = '';
-      if (typeof p.shortDescription !== 'string') p.shortDescription = '';
-      if (typeof p.description !== 'string') p.description = '';
-      if (typeof p.videoEmbedUrl !== 'string') p.videoEmbedUrl = '';
-      if (typeof p.live !== 'boolean') p.live = false;
-      if (typeof p.aboutSection !== 'string') p.aboutSection = '';
+    programs.forEach(p => {
+      if (typeof p.id !== "string") p.id = "";
+      if (typeof p.providerId !== "string") p.providerId = "";
+      if (typeof p.name !== "string") p.name = "";
+      if (typeof p.slug !== "string") p.slug = "";
+      if (typeof p.image !== "string") p.image = "";
+      if (typeof p.shortDescription !== "string") p.shortDescription = "";
+      if (typeof p.description !== "string") p.description = "";
+      if (typeof p.videoEmbedUrl !== "string") p.videoEmbedUrl = "";
+      if (typeof p.live !== "boolean") p.live = false;
+      if (typeof p.aboutSection !== "string") p.aboutSection = "";
       result.push(
-        <Accordion expanded={expandedProgramId === p.id} onChange={() => { setExpandedProgramId((expandedProgramId === p.id) ? "" : p.id); }} className="adminAccordion programAccordion">
+        <Accordion
+          expanded={expandedProgramId === p.id}
+          onChange={() => {
+            setExpandedProgramId(expandedProgramId === p.id ? "" : p.id);
+          }}
+          className="adminAccordion programAccordion">
           <AccordionSummary expandIcon={<Icon>expand_more</Icon>} aria-controls="panel1bh-content" id="panel1bh-header">
             <div style={{ width: "100%", paddingRight: 20 }}>
               <span style={{ float: "right" }}>
-                <SmallButton onClick={() => { router.push("/admin/stats/" + p.id) }} icon="show_chart" text="Stats" />
+                <SmallButton
+                  onClick={() => {
+                    router.push("/admin/stats/" + p.id);
+                  }}
+                  icon="show_chart"
+                  text="Stats"
+                />
                 &nbsp;
-                <SmallButton icon="add" text="Study" onClick={() => { clearEdits(); setEditStudy({ programId: p.id }); }} />
+                <SmallButton
+                  icon="add"
+                  text="Study"
+                  onClick={() => {
+                    clearEdits();
+                    setEditStudy({ programId: p.id });
+                  }}
+                />
                 &nbsp;
-                <SmallButton icon="file_upload" text="Files" onClick={() => { clearEdits(); showResources("program", p.id, p.name); }} />
+                <SmallButton
+                  icon="file_upload"
+                  text="Files"
+                  onClick={() => {
+                    clearEdits();
+                    showResources("program", p.id, p.name);
+                  }}
+                />
               </span>
-              <a href="about:blank" onClick={(e) => { e.preventDefault(); clearEdits(); setEditProgram(p); }}>
+              <a
+                href="about:blank"
+                onClick={e => {
+                  e.preventDefault();
+                  clearEdits();
+                  setEditProgram(p);
+                }}>
                 <Icon>school</Icon> {p.name}
               </a>
             </div>
           </AccordionSummary>
-          <AccordionDetails>
-            {getStudies(p.id)}
-          </AccordionDetails>
-        </Accordion>)
+          <AccordionDetails>{getStudies(p.id)}</AccordionDetails>
+        </Accordion>
+      );
     });
     return result;
   }
@@ -115,25 +155,53 @@ export default function Admin() {
   function getStudies(programId: string) {
     const result: JSX.Element[] = [];
     if (studies) {
-      ArrayHelper.getAll(studies, "programId", programId).forEach((s) => {
+      ArrayHelper.getAll(studies, "programId", programId).forEach(s => {
         result.push(
-          <Accordion expanded={expandedStudyId === s.id} onChange={() => { setExpandedStudyId((expandedStudyId === s.id) ? "" : s.id); }} className="adminAccordion studyAccordion" elevation={0}>
-            <AccordionSummary expandIcon={<Icon>expand_more</Icon>} aria-controls="panel1bh-content" id="panel1bh-header">
+          <Accordion
+            expanded={expandedStudyId === s.id}
+            onChange={() => {
+              setExpandedStudyId(expandedStudyId === s.id ? "" : s.id);
+            }}
+            className="adminAccordion studyAccordion"
+            elevation={0}>
+            <AccordionSummary
+              expandIcon={<Icon>expand_more</Icon>}
+              aria-controls="panel1bh-content"
+              id="panel1bh-header">
               <div style={{ width: "100%", paddingRight: 20 }}>
                 <span style={{ float: "right" }}>
-                  <SmallButton icon="add" text="Lesson" onClick={() => { clearEdits(); setEditLesson({ studyId: s.id }); }} />
+                  <SmallButton
+                    icon="add"
+                    text="Lesson"
+                    onClick={() => {
+                      clearEdits();
+                      setEditLesson({ studyId: s.id });
+                    }}
+                  />
                   &nbsp;
-                  <SmallButton icon="file_upload" text="Files" onClick={() => { clearEdits(); showResources("study", s.id, s.name); }} />
+                  <SmallButton
+                    icon="file_upload"
+                    text="Files"
+                    onClick={() => {
+                      clearEdits();
+                      showResources("study", s.id, s.name);
+                    }}
+                  />
                 </span>
-                <a href="about:blank" onClick={(e) => { e.preventDefault(); clearEdits(); setEditStudy(s); }}>
+                <a
+                  href="about:blank"
+                  onClick={e => {
+                    e.preventDefault();
+                    clearEdits();
+                    setEditStudy(s);
+                  }}>
                   <Icon>layers</Icon> {s.name}
                 </a>
               </div>
             </AccordionSummary>
-            <AccordionDetails>
-              {getLessons(s.id)}
-            </AccordionDetails>
-          </Accordion>)
+            <AccordionDetails>{getLessons(s.id)}</AccordionDetails>
+          </Accordion>
+        );
       });
     }
     return result;
@@ -142,15 +210,35 @@ export default function Admin() {
   function getLessons(studyId: string) {
     const result: JSX.Element[] = [];
     if (lessons) {
-      ArrayHelper.getAll(lessons, "studyId", studyId).forEach((l) => {
+      ArrayHelper.getAll(lessons, "studyId", studyId).forEach(l => {
         result.push(
           <div className="lessonDiv" key={"l" + l.id}>
             <span style={{ float: "right" }}>
-              <SmallButton icon="map_marker" text="Venues" onClick={() => { clearEdits(); setVenuesLessonId(l.id); }} />
+              <SmallButton
+                icon="map_marker"
+                text="Venues"
+                onClick={() => {
+                  clearEdits();
+                  setVenuesLessonId(l.id);
+                }}
+              />
               &nbsp;
-              <SmallButton icon="file_upload" text="Files" onClick={() => { clearEdits(); showResources("lesson", l.id, l.name); }} />
+              <SmallButton
+                icon="file_upload"
+                text="Files"
+                onClick={() => {
+                  clearEdits();
+                  showResources("lesson", l.id, l.name);
+                }}
+              />
             </span>
-            <a href="about:blank" onClick={(e) => { e.preventDefault(); clearEdits(); setEditLesson(l); }}>
+            <a
+              href="about:blank"
+              onClick={e => {
+                e.preventDefault();
+                clearEdits();
+                setEditLesson(l);
+              }}>
               <Icon>book</Icon> {l.name}: {l.title}
             </a>
           </div>
@@ -165,29 +253,50 @@ export default function Admin() {
     else return getPrograms();
   }
 
-
-
   function getSidebar() {
     const result: JSX.Element[] = [];
-    if (editProgram) result.push(<ProgramEdit program={editProgram} updatedCallback={handleUpdated} key="programEdit" />);
-    else if (editStudy) result.push(<StudyEdit study={editStudy} updatedCallback={handleUpdated} key="studyEdit" />);
-    else if (editLesson) result.push(<LessonEdit lesson={editLesson} updatedCallback={handleUpdated} key="lessonEdit" />);
-    else if (venuesLessonId) result.push(<VenueList lessonId={venuesLessonId} key="venueLesson" />);
-    else if (resourceContentType && resourceContentId) result.push(<BundleList contentType={resourceContentType} contentId={resourceContentId} key="bundleList" contentDisplayName={resourceName} />);
+    if (editProgram) {
+      result.push(<ProgramEdit program={editProgram} updatedCallback={handleUpdated} key="programEdit" />);
+    } else if (editStudy) {
+      result.push(<StudyEdit study={editStudy} updatedCallback={handleUpdated} key="studyEdit" />);
+    } else if (editLesson) {
+      result.push(<LessonEdit lesson={editLesson} updatedCallback={handleUpdated} key="lessonEdit" />);
+    } else if (venuesLessonId) {
+      result.push(<VenueList lessonId={venuesLessonId} key="venueLesson" />);
+    } else if (resourceContentType && resourceContentId) {
+      result.push(
+        <BundleList
+          contentType={resourceContentType}
+          contentId={resourceContentId}
+          key="bundleList"
+          contentDisplayName={resourceName}
+        />
+      );
+    }
     return result;
   }
 
   function clearCache() {
     startTransition(async () => {
       revalidate("all");
-    })
+    });
   }
 
-  const getEditContent = (<SmallButton icon="add" onClick={() => { clearEdits(); setEditProgram({ providerId: (providers.length>0) ? providers[0].id : "", live:false }); }} />);
+  const getEditContent = (
+    <SmallButton
+      icon="add"
+      onClick={() => {
+        clearEdits();
+        setEditProgram({ providerId: providers.length > 0 ? providers[0].id : "", live: false });
+      }}
+    />
+  );
 
   return (
     <Wrapper>
-      <Banner><h1>Programs</h1></Banner>
+      <Banner>
+        <h1>Programs</h1>
+      </Banner>
       <div id="mainContent">
         <Grid container spacing={3}>
           <Grid item md={8} xs={12}>
@@ -196,11 +305,10 @@ export default function Admin() {
             </DisplayBox>
           </Grid>
           <Grid item md={4} xs={12}>
-            <ErrorBoundary>
-              {getSidebar()}
-            </ErrorBoundary>
+            <ErrorBoundary>{getSidebar()}</ErrorBoundary>
             <Button variant="contained" color="primary" onClick={clearCache}>
-              <Icon>delete</Icon> &nbsp; Clear Cache</Button>
+              <Icon>delete</Icon> &nbsp; Clear Cache
+            </Button>
           </Grid>
         </Grid>
       </div>

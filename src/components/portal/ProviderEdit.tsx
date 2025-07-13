@@ -1,7 +1,7 @@
-import { useState, useEffect } from "react";
-import { InputBox, ErrorMessages } from "@churchapps/apphelper";
-import { ApiHelper, ExternalProviderInterface } from "@/helpers";
+import { useEffect, useState } from "react";
 import { SelectChangeEvent, TextField } from "@mui/material";
+import { ErrorMessages, InputBox } from "@churchapps/apphelper";
+import { ApiHelper, ExternalProviderInterface } from "@/helpers";
 
 interface Props {
   provider: ExternalProviderInterface;
@@ -18,8 +18,12 @@ export function ProviderEdit(props: Props) {
     e.preventDefault();
     let p = { ...provider };
     switch (e.target.name) {
-      case "name": p.name = e.target.value; break;
-      case "apiUrl": p.apiUrl = e.target.value; break;
+      case "name":
+        p.name = e.target.value;
+        break;
+      case "apiUrl":
+        p.apiUrl = e.target.value;
+        break;
     }
     setProvider(p);
   };
@@ -34,7 +38,7 @@ export function ProviderEdit(props: Props) {
 
   const handleSave = () => {
     if (validate()) {
-      ApiHelper.post("/externalProviders", [provider], "LessonsApi").then((data) => {
+      ApiHelper.post("/externalProviders", [provider], "LessonsApi").then(data => {
         setProvider(data);
         props.updatedCallback(data);
       });
@@ -43,22 +47,28 @@ export function ProviderEdit(props: Props) {
 
   const handleDelete = () => {
     if (window.confirm("Are you sure you wish to permanently delete this provider?")) {
-      ApiHelper.delete("/externalProviders/" + provider.id.toString(), "LessonsApi").then(
-        () => props.updatedCallback(null)
+      ApiHelper.delete("/externalProviders/" + provider.id.toString(), "LessonsApi").then(() =>
+        props.updatedCallback(null)
       );
     }
   };
 
   useEffect(() => {
-    setProvider(props.provider)
+    setProvider(props.provider);
   }, [props.provider]);
 
-
-  if (!provider) return <></>
-  else {
+  if (!provider) {
+    return <></>;
+  } else {
     return (
       <>
-        <InputBox id="scheduleDetailsBox" headerText="Edit Schedule" headerIcon="school" saveFunction={handleSave} cancelFunction={handleCancel} deleteFunction={handleDelete}>
+        <InputBox
+          id="scheduleDetailsBox"
+          headerText="Edit Schedule"
+          headerIcon="school"
+          saveFunction={handleSave}
+          cancelFunction={handleCancel}
+          deleteFunction={handleDelete}>
           <ErrorMessages errors={errors} />
           <TextField fullWidth label="Name" name="name" value={provider?.name} onChange={handleChange} />
           <TextField fullWidth label="API URL" name="apiUrl" value={provider?.apiUrl} onChange={handleChange} />

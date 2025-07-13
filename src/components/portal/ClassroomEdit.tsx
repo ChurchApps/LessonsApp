@@ -1,7 +1,26 @@
-import { useState, useEffect } from "react";
-import { InputBox, ErrorMessages, GroupInterface } from "@churchapps/apphelper";
+import { useEffect, useState } from "react";
+import {
+  Cancel as CancelIcon,
+  Delete as DeleteIcon,
+  Save as SaveIcon,
+  School as SchoolIcon
+} from "@mui/icons-material";
+import {
+  Box,
+  Button,
+  FormControl,
+  IconButton,
+  InputLabel,
+  MenuItem,
+  Paper,
+  Select,
+  SelectChangeEvent,
+  Stack,
+  TextField,
+  Typography
+} from "@mui/material";
+import { ErrorMessages, GroupInterface } from "@churchapps/apphelper";
 import { ApiHelper, ClassroomInterface } from "@/helpers";
-import { FormControl, InputLabel, MenuItem, Select, SelectChangeEvent, TextField } from "@mui/material";
 
 interface Props {
   classroom: ClassroomInterface;
@@ -43,7 +62,7 @@ export function ClassroomEdit(props: Props) {
 
   const handleSave = () => {
     if (validate()) {
-      ApiHelper.post("/classrooms", [classroom], "LessonsApi").then((data) => {
+      ApiHelper.post("/classrooms", [classroom], "LessonsApi").then(data => {
         setClassroom(data);
         props.updatedCallback(data);
       });
@@ -51,38 +70,155 @@ export function ClassroomEdit(props: Props) {
   };
 
   const handleDelete = () => {
-    if (window.confirm("Are you sure you wish to permanently delete this classroom?")) {
+    if (window.confirm("Are you sure you wish to permanently delete this classroom?"))
       ApiHelper.delete("/classrooms/" + classroom.id.toString(), "LessonsApi").then(() => props.updatedCallback(null));
-    }
   };
 
   const loadData = () => {
-    ApiHelper.get("/groups/tag/standard", "MembershipApi").then((data) => { setGroups(data); });
-    ApiHelper.get("/groups/tag/team", "MembershipApi").then((data) => { setTeams(data); });
-  }
+    ApiHelper.get("/groups/tag/standard", "MembershipApi").then(data => {
+      setGroups(data);
+    });
+    ApiHelper.get("/groups/tag/team", "MembershipApi").then(data => {
+      setTeams(data);
+    });
+  };
 
-  useEffect(() => { setClassroom(props.classroom); loadData() }, [props.classroom]);
+  useEffect(() => {
+    setClassroom(props.classroom);
+    loadData();
+  }, [props.classroom]);
 
   return (
-    <InputBox id="classroomDetailsBox" headerText="Edit Classroom" headerIcon="school" saveFunction={handleSave} cancelFunction={handleCancel} deleteFunction={handleDelete}>
-      <ErrorMessages errors={errors} />
-      <TextField fullWidth label="Classroom Name" name="name" value={classroom.name} onChange={handleChange} onKeyDown={handleKeyDown} placeholder="3rd-5th Grade" />
-      <FormControl fullWidth>
-        <InputLabel>Volunteer Team (optional)</InputLabel>
-        <Select label="Volunteer Team (optional)" name="upcomingGroupId" value={classroom.upcomingGroupId || ""} onChange={handleChange}>
-          <MenuItem value="">None</MenuItem>
-          {teams.map((team) => <MenuItem key={team.id} value={team.id}>{team.name}</MenuItem>)}
-        </Select>
-        <p><i>You can select a <u>volunteer team</u> to have access to upcoming lessons in the B1 app.</i></p>
-      </FormControl>
-      <FormControl fullWidth>
-        <InputLabel>Parent/Student Group (optional)</InputLabel>
-        <Select label="Parent/Student Group (optional)" name="recentGroupId" value={classroom.recentGroupId || ""} onChange={handleChange}>
-          <MenuItem value="">None</MenuItem>
-          {groups.map((group) => <MenuItem key={group.id} value={group.id}>{group.name}</MenuItem>)}
-        </Select>
-        <p><i>You can select a <u>group</u> of students and/or parents to have access to recent lessons in the B1 app.</i></p>
-      </FormControl>
-    </InputBox>
+    <Paper
+      sx={{
+        borderRadius: 2,
+        border: "1px solid var(--admin-border)",
+        boxShadow: "var(--admin-shadow-sm)",
+        overflow: "hidden"
+      }}>
+      <Box
+        sx={{
+          p: 2,
+          borderBottom: "1px solid var(--admin-border)",
+          backgroundColor: "var(--c1l7)",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "space-between"
+        }}>
+        <Stack direction="row" alignItems="center" spacing={1}>
+          <SchoolIcon sx={{ color: "var(--c1d2)", fontSize: "1.5rem" }} />
+          <Typography
+            variant="h6"
+            sx={{
+              color: "var(--c1d2)",
+              fontWeight: 600,
+              lineHeight: 1,
+              fontSize: "1.25rem",
+              display: "flex",
+              alignItems: "center"
+            }}>
+            Edit Classroom
+          </Typography>
+        </Stack>
+      </Box>
+
+      <Box sx={{ p: 3 }}>
+        <ErrorMessages errors={errors} />
+        <Stack spacing={3}>
+          <TextField
+            fullWidth
+            label="Classroom Name"
+            name="name"
+            value={classroom.name || ""}
+            onChange={handleChange}
+            onKeyDown={handleKeyDown}
+            placeholder="3rd-5th Grade"
+          />
+
+          <FormControl fullWidth>
+            <InputLabel>Volunteer Team (optional)</InputLabel>
+            <Select
+              label="Volunteer Team (optional)"
+              name="upcomingGroupId"
+              value={classroom.upcomingGroupId || ""}
+              onChange={handleChange}>
+              <MenuItem value="">None</MenuItem>
+              {teams.map(team => (
+                <MenuItem key={team.id} value={team.id}>
+                  {team.name}
+                </MenuItem>
+              ))}
+            </Select>
+            <Typography variant="body2" color="text.secondary" sx={{ mt: 1, fontStyle: "italic" }}>
+              You can select a volunteer team to have access to upcoming lessons in the B1 app.
+            </Typography>
+          </FormControl>
+
+          <FormControl fullWidth>
+            <InputLabel>Parent/Student Group (optional)</InputLabel>
+            <Select
+              label="Parent/Student Group (optional)"
+              name="recentGroupId"
+              value={classroom.recentGroupId || ""}
+              onChange={handleChange}>
+              <MenuItem value="">None</MenuItem>
+              {groups.map(group => (
+                <MenuItem key={group.id} value={group.id}>
+                  {group.name}
+                </MenuItem>
+              ))}
+            </Select>
+            <Typography variant="body2" color="text.secondary" sx={{ mt: 1, fontStyle: "italic" }}>
+              You can select a group of students and/or parents to have access to recent lessons in the B1 app.
+            </Typography>
+          </FormControl>
+        </Stack>
+      </Box>
+
+      <Box
+        sx={{
+          p: 2,
+          borderTop: "1px solid var(--admin-border)",
+          backgroundColor: "var(--admin-bg)",
+          display: "flex",
+          justifyContent: "flex-end",
+          gap: 1
+        }}>
+        <Button
+          size="small"
+          startIcon={<SaveIcon />}
+          onClick={handleSave}
+          variant="contained"
+          sx={{
+            backgroundColor: "var(--c1)",
+            "&:hover": { backgroundColor: "var(--c1d1)" }
+          }}>
+          Save
+        </Button>
+        <Button
+          size="small"
+          startIcon={<CancelIcon />}
+          onClick={handleCancel}
+          variant="outlined"
+          sx={{
+            color: "var(--c1d2)",
+            borderColor: "var(--c1d2)"
+          }}>
+          Cancel
+        </Button>
+        {classroom.id && (
+          <IconButton
+            size="small"
+            onClick={handleDelete}
+            sx={{
+              color: "#d32f2f",
+              "&:hover": { backgroundColor: "rgba(211, 47, 47, 0.1)" }
+            }}
+            title="Delete classroom">
+            <DeleteIcon fontSize="small" />
+          </IconButton>
+        )}
+      </Box>
+    </Paper>
   );
 }

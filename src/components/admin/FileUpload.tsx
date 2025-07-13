@@ -1,8 +1,8 @@
-import { useState, useEffect } from "react";
 import axios from "axios";
-import { ApiHelper, FileInterface, PresignedUploadInterface } from "@/helpers";
 import type { AxiosProgressEvent } from "axios";
+import { useEffect, useState } from "react";
 import { LinearProgress } from "@mui/material";
+import { ApiHelper, FileInterface, PresignedUploadInterface } from "@/helpers";
 
 interface Props {
   resourceId?: string;
@@ -24,19 +24,27 @@ export function FileUpload(props: Props) {
   };
 
   const loadData = () => {
-    if (props.fileId) ApiHelper.get("/files/" + props.fileId, "LessonsApi").then((data: FileInterface) => {
-      data.resourceId = props.resourceId;
-      setFile(data);
-    });
-    else setFile({ resourceId: props.resourceId });
+    if (props.fileId) {
+      ApiHelper.get("/files/" + props.fileId, "LessonsApi").then((data: FileInterface) => {
+        data.resourceId = props.resourceId;
+        setFile(data);
+      });
+    } else {
+      setFile({ resourceId: props.resourceId });
+    }
   };
 
-  const convertBase64 = () => new Promise((resolve, reject) => {
-    const fileReader = new FileReader();
-    fileReader.readAsDataURL(uploadedFile);
-    fileReader.onload = () => { resolve(fileReader.result); };
-    fileReader.onerror = (error) => { reject(error); };
-  });
+  const convertBase64 = () =>
+    new Promise((resolve, reject) => {
+      const fileReader = new FileReader();
+      fileReader.readAsDataURL(uploadedFile);
+      fileReader.onload = () => {
+        resolve(fileReader.result);
+      };
+      fileReader.onerror = error => {
+        reject(error);
+      };
+    });
 
   const handleSave = async () => {
     const f = { ...file };
@@ -46,9 +54,9 @@ export function FileUpload(props: Props) {
     f.contentType = props.contentType;
     f.contentId = props.contentId;
 
-    console.log("Handling file save", f)
+    console.log("Handling file save", f);
     const preUploaded: boolean = await preUpload();
-    console.log("Preuploaded", preUploaded)
+    console.log("Preuploaded", preUploaded);
     if (!preUploaded) {
       const base64 = await convertBase64();
       f.fileContents = base64 as string;
@@ -70,13 +78,17 @@ export function FileUpload(props: Props) {
     const params = { resourceId: props.resourceId, fileName: uploadedFile.name };
     const presigned = await ApiHelper.post("/files/postUrl", params, "LessonsApi");
     return presigned;
-  }
+  };
 
   const getOtherPresigned = async () => {
     const params = { fileName: uploadedFile.name };
-    const presigned = await ApiHelper.post("/files/postUrl/content/" + props.contentType + "/" + props.contentId, params, "LessonsApi");
+    const presigned = await ApiHelper.post(
+      "/files/postUrl/content/" + props.contentType + "/" + props.contentId,
+      params,
+      "LessonsApi"
+    );
     return presigned;
-  }
+  };
 
   const preUpload = async () => {
     const presigned = props.resourceId ? await getResourcePresigned() : await getOtherPresigned();
@@ -90,8 +102,7 @@ export function FileUpload(props: Props) {
     const formData = new FormData();
     formData.append("acl", "public-read");
     formData.append("Content-Type", uploadedFile.type);
-    for (const property in presigned.fields)
-      formData.append(property, presigned.fields[property]);
+    for (const property in presigned.fields) formData.append(property, presigned.fields[property]);
     const f = document.getElementById("fileUpload") as HTMLInputElement;
     formData.append("file", f.files[0]);
     //const requestOptions: RequestInit = { method: "POST", body: formData };
@@ -100,7 +111,7 @@ export function FileUpload(props: Props) {
       headers: { "Content-Type": "multipart/form-data" },
       onUploadProgress: (data: AxiosProgressEvent) => {
         setUploadProgress(Math.round((100 * data.loaded) / (data.total || 1)));
-      },
+      }
     };
 
     return axios.post(presigned.url, formData, axiosConfig);
@@ -110,8 +121,15 @@ export function FileUpload(props: Props) {
   useEffect(checkSave, [props.pendingSave]);
 
   const getFileLink = () => {
-    if (uploadProgress > -1) return <LinearProgress value={uploadProgress} />;
-    else if (file) return (<div><a href={file.contentPath}>{file.fileName}</a></div>);
+    if (uploadProgress > -1) {
+      return <LinearProgress value={uploadProgress} />;
+    } else if (file) {
+      return (
+        <div>
+          <a href={file.contentPath}>{file.fileName}</a>
+        </div>
+      );
+    }
   };
 
   return (

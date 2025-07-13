@@ -1,11 +1,11 @@
-import { useState, useEffect } from "react";
-import { InputBox, ErrorMessages, MarkdownEditor } from "@churchapps/apphelper";
-import { FeedProgramInterface } from "@/helpers";
+import { useEffect, useState } from "react";
 import { SelectChangeEvent, TextField } from "@mui/material";
+import { ErrorMessages, InputBox, MarkdownEditor } from "@churchapps/apphelper";
+import { FeedProgramInterface } from "@/helpers";
 
 interface Props {
   program: FeedProgramInterface;
-  updatedCallback: (program: FeedProgramInterface, cancelled:boolean) => void;
+  updatedCallback: (program: FeedProgramInterface, cancelled: boolean) => void;
 }
 
 export function OllProgramEdit(props: Props) {
@@ -13,21 +13,28 @@ export function OllProgramEdit(props: Props) {
   const [errors, setErrors] = useState([]);
   const handleCancel = () => props.updatedCallback(null, true);
 
-
   const handleMarkdownChange = (newValue: string) => {
     let p = { ...program };
     p.description = newValue;
     setProgram(p);
-  }
+  };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement> | SelectChangeEvent<string>) => {
     e.preventDefault();
     let p = { ...program };
     switch (e.target.name) {
-      case "id": p.id = e.target.value; break;
-      case "name": p.name = e.target.value; break;
-      case "image": p.image = e.target.value; break;
-      case "description": p.description = e.target.value; break;
+      case "id":
+        p.id = e.target.value;
+        break;
+      case "name":
+        p.name = e.target.value;
+        break;
+      case "image":
+        p.image = e.target.value;
+        break;
+      case "description":
+        p.description = e.target.value;
+        break;
     }
     setProgram(p);
   };
@@ -41,33 +48,37 @@ export function OllProgramEdit(props: Props) {
   };
 
   const handleSave = () => {
-    if (validate()) {
-      props.updatedCallback(program, false);
-    }
+    if (validate()) props.updatedCallback(program, false);
   };
 
   const handleDelete = () => {
-    if (window.confirm("Are you sure you wish to delete this program?")) {
-      props.updatedCallback(null, false);
-    }
+    if (window.confirm("Are you sure you wish to delete this program?")) props.updatedCallback(null, false);
   };
 
   useEffect(() => {
     setProgram(props.program);
   }, [props.program]);
 
-
-  if (!program) return <></>;
-  else return (
-    <>
-      <InputBox id="programDetailsBox" headerText={props.program ? "Edit Program" : "Create Program"} headerIcon="check" saveFunction={handleSave} cancelFunction={handleCancel} deleteFunction={handleDelete}>
-        <ErrorMessages errors={errors} />
-        <TextField fullWidth label="Id" name="id" value={program.id} onChange={handleChange} />
-        <TextField fullWidth label="Name" name="name" value={program.name} onChange={handleChange} />
-        <TextField fullWidth label="Image" name="image" value={program.image} onChange={handleChange} />
-        <label>Description</label>
-        <MarkdownEditor value={program.description} onChange={handleMarkdownChange} />
-      </InputBox>
-    </>
-  );
+  if (!program) {
+    return <></>;
+  } else {
+    return (
+      <>
+        <InputBox
+          id="programDetailsBox"
+          headerText={props.program ? "Edit Program" : "Create Program"}
+          headerIcon="check"
+          saveFunction={handleSave}
+          cancelFunction={handleCancel}
+          deleteFunction={handleDelete}>
+          <ErrorMessages errors={errors} />
+          <TextField fullWidth label="Id" name="id" value={program.id} onChange={handleChange} />
+          <TextField fullWidth label="Name" name="name" value={program.name} onChange={handleChange} />
+          <TextField fullWidth label="Image" name="image" value={program.image} onChange={handleChange} />
+          <label>Description</label>
+          <MarkdownEditor value={program.description} onChange={handleMarkdownChange} />
+        </InputBox>
+      </>
+    );
+  }
 }

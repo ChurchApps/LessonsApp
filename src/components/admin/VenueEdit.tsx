@@ -1,7 +1,7 @@
-import { useState, useEffect } from "react";
-import { InputBox, ErrorMessages } from "@churchapps/apphelper";
-import { ApiHelper, VenueInterface } from "@/helpers";
+import { useEffect, useState } from "react";
 import { TextField } from "@mui/material";
+import { ErrorMessages, InputBox } from "@churchapps/apphelper";
+import { ApiHelper, VenueInterface } from "@/helpers";
 
 interface Props {
   venue: VenueInterface;
@@ -15,15 +15,22 @@ export function VenueEdit(props: Props) {
   const handleCancel = () => props.updatedCallback(venue);
 
   const handleKeyDown = (e: React.KeyboardEvent<any>) => {
-    if (e.key === "Enter") { e.preventDefault(); handleSave(); }
+    if (e.key === "Enter") {
+      e.preventDefault();
+      handleSave();
+    }
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     e.preventDefault();
     let v = { ...venue };
     switch (e.currentTarget.name) {
-      case "name": v.name = e.currentTarget.value; break;
-      case "sort": v.sort = parseInt(e.currentTarget.value); break;
+      case "name":
+        v.name = e.currentTarget.value;
+        break;
+      case "sort":
+        v.sort = parseInt(e.currentTarget.value);
+        break;
     }
     setVenue(v);
   };
@@ -37,7 +44,7 @@ export function VenueEdit(props: Props) {
 
   const handleSave = () => {
     if (validate()) {
-      ApiHelper.post("/venues", [venue], "LessonsApi").then((data) => {
+      ApiHelper.post("/venues", [venue], "LessonsApi").then(data => {
         setVenue(data);
         props.updatedCallback(data);
       });
@@ -45,19 +52,43 @@ export function VenueEdit(props: Props) {
   };
 
   const handleDelete = () => {
-    if (window.confirm("Are you sure you wish to permanently delete this venue?")) {
+    if (window.confirm("Are you sure you wish to permanently delete this venue?"))
       ApiHelper.delete("/venues/" + venue.id.toString(), "LessonsApi").then(() => props.updatedCallback(null));
-    }
   };
 
-  useEffect(() => { setVenue(props.venue); }, [props.venue]);
+  useEffect(() => {
+    setVenue(props.venue);
+  }, [props.venue]);
 
   return (
     <>
-      <InputBox id="venueDetailsBox" headerText="Edit Venue" headerIcon="map_marker" saveFunction={handleSave} cancelFunction={handleCancel} deleteFunction={handleDelete}>
+      <InputBox
+        id="venueDetailsBox"
+        headerText="Edit Venue"
+        headerIcon="map_marker"
+        saveFunction={handleSave}
+        cancelFunction={handleCancel}
+        deleteFunction={handleDelete}>
         <ErrorMessages errors={errors} />
-        <TextField fullWidth label="Order" type="number" name="sort" value={venue.sort} onChange={handleChange} onKeyDown={handleKeyDown} placeholder="1" />
-        <TextField fullWidth label="Venue Name" name="name" value={venue.name} onChange={handleChange} onKeyDown={handleKeyDown} placeholder="Small Group" />
+        <TextField
+          fullWidth
+          label="Order"
+          type="number"
+          name="sort"
+          value={venue.sort}
+          onChange={handleChange}
+          onKeyDown={handleKeyDown}
+          placeholder="1"
+        />
+        <TextField
+          fullWidth
+          label="Venue Name"
+          name="name"
+          value={venue.name}
+          onChange={handleChange}
+          onKeyDown={handleKeyDown}
+          placeholder="Small Group"
+        />
       </InputBox>
     </>
   );

@@ -1,7 +1,7 @@
-import { useState, useEffect } from "react";
-import { ApiHelper, SectionInterface } from "@/helpers";
-import { InputBox, ErrorMessages } from "@churchapps/apphelper";
+import { useEffect, useState } from "react";
 import { TextField } from "@mui/material";
+import { ErrorMessages, InputBox } from "@churchapps/apphelper";
+import { ApiHelper, SectionInterface } from "@/helpers";
 
 interface Props {
   section: SectionInterface;
@@ -15,7 +15,10 @@ export function SectionEdit(props: Props) {
   const handleCancel = () => props.updatedCallback(section, false);
 
   const handleKeyDown = (e: React.KeyboardEvent<any>) => {
-    if (e.key === "Enter") { e.preventDefault(); handleSave(); }
+    if (e.key === "Enter") {
+      e.preventDefault();
+      handleSave();
+    }
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -44,7 +47,7 @@ export function SectionEdit(props: Props) {
 
   const handleSave = () => {
     if (validate()) {
-      ApiHelper.post("/sections", [section], "LessonsApi").then((data) => {
+      ApiHelper.post("/sections", [section], "LessonsApi").then(data => {
         setSection(data);
         props.updatedCallback(data[0], !props.section.id);
       });
@@ -53,20 +56,54 @@ export function SectionEdit(props: Props) {
 
   const handleDelete = () => {
     if (window.confirm("Are you sure you wish to permanently delete this section?")) {
-      ApiHelper.delete("/sections/" + section.id.toString(), "LessonsApi").then(() => props.updatedCallback(null, false)
+      ApiHelper.delete("/sections/" + section.id.toString(), "LessonsApi").then(() =>
+        props.updatedCallback(null, false)
       );
     }
   };
 
-  useEffect(() => { setSection(props.section); }, [props.section]);
+  useEffect(() => {
+    setSection(props.section);
+  }, [props.section]);
 
   return (
     <>
-      <InputBox id="sectionDetailsBox" headerText={section?.id ? "Edit Section" : "Create Section"} headerIcon="list_alt" saveFunction={handleSave} cancelFunction={handleCancel} deleteFunction={handleDelete}>
+      <InputBox
+        id="sectionDetailsBox"
+        headerText={section?.id ? "Edit Section" : "Create Section"}
+        headerIcon="list_alt"
+        saveFunction={handleSave}
+        cancelFunction={handleCancel}
+        deleteFunction={handleDelete}>
         <ErrorMessages errors={errors} />
-        <TextField label="Order" fullWidth type="number" name="sort" value={section.sort} onChange={handleChange} onKeyDown={handleKeyDown} placeholder="1" />
-        <TextField label="Section Name" fullWidth name="name" value={section.name} onChange={handleChange} onKeyDown={handleKeyDown} placeholder="Section 1" />
-        <TextField label="Materials Needed" fullWidth name="materials" value={section.materials} onChange={handleChange} onKeyDown={handleKeyDown} placeholder="" />
+        <TextField
+          label="Order"
+          fullWidth
+          type="number"
+          name="sort"
+          value={section.sort}
+          onChange={handleChange}
+          onKeyDown={handleKeyDown}
+          placeholder="1"
+        />
+        <TextField
+          label="Section Name"
+          fullWidth
+          name="name"
+          value={section.name}
+          onChange={handleChange}
+          onKeyDown={handleKeyDown}
+          placeholder="Section 1"
+        />
+        <TextField
+          label="Materials Needed"
+          fullWidth
+          name="materials"
+          value={section.materials}
+          onChange={handleChange}
+          onKeyDown={handleKeyDown}
+          placeholder=""
+        />
       </InputBox>
     </>
   );

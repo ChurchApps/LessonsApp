@@ -1,10 +1,10 @@
-import React from "react";
-import { UserHelper, ApiHelper, FeedActionInterface, FeedFileInterface } from "@/helpers";
-import { VideoModal } from "../VideoModal";
 import Image from "next/image";
+import React from "react";
 import { AnalyticsHelper } from "@churchapps/apphelper";
 import { MarkdownPreviewLight } from "@churchapps/apphelper/dist/components/markdownEditor/MarkdownPreviewLight";
+import { ApiHelper, FeedActionInterface, FeedFileInterface, UserHelper } from "@/helpers";
 import { ImageModal } from "../ImageModal";
+import { VideoModal } from "../VideoModal";
 
 interface Props {
   action: FeedActionInterface;
@@ -86,42 +86,76 @@ export function Action(props: Props) {
 
   switch (props.action.actionType) {
     case "note":
-      result = (<div className="note"><MarkdownPreviewLight value={props.action.content} /></div>);
+      result = (
+        <div className="note">
+          <MarkdownPreviewLight value={props.action.content} />
+        </div>
+      );
       break;
     case "do":
-      result = (<div className="actions"><MarkdownPreviewLight value={props.action.content} /></div>);
+      result = (
+        <div className="actions">
+          <MarkdownPreviewLight value={props.action.content} />
+        </div>
+      );
       break;
     case "say":
-      result = (<div className="say"><MarkdownPreviewLight value={props.action.content} /></div>);
+      result = (
+        <div className="say">
+          <MarkdownPreviewLight value={props.action.content} />
+        </div>
+      );
       break;
     case "add-on":
-      result = (<div>{props.action.content}</div>);
+      result = <div>{props.action.content}</div>;
       break;
     case "play":
       const f = props.action.files[0];
-      if (!f) result = <div className="playAction"><a href="#" className="text">{props.action.content}</a></div>
-      else {
+      if (!f) {
+        result = (
+          <div className="playAction">
+            <a href="#" className="text">
+              {props.action.content}
+            </a>
+          </div>
+        );
+      } else {
         let duration = null;
-        if (f?.seconds>0) {
+        if (f?.seconds > 0) {
           const min = Math.floor(f.seconds / 60);
           const sec = f.seconds % 60;
-          duration = <span className="duration">{min.toString() + ":" + sec.toString().padStart(2, "0") }</span>;
+          duration = <span className="duration">{min.toString() + ":" + sec.toString().padStart(2, "0")}</span>;
         }
         let thumbnail = f.thumbnail || f.url || "";
-        if (thumbnail.indexOf(".mp4")>-1 || thumbnail.indexOf(".webm") >-1) thumbnail = "";
+        if (thumbnail.indexOf(".mp4") > -1 || thumbnail.indexOf(".webm") > -1) thumbnail = "";
 
-        result = (<div className="playAction">
-          {duration}
-          {thumbnail && <Image src={thumbnail} alt={props.action.content} width={128} height={72} style={{height:72}} /> }
-          <a href={f.url} rel="noopener noreferrer" onClick={(e) => { e.preventDefault(); handlePreviewClick(f); }} className="text">{props.action.content}</a>
-          {f.streamUrl && showPreview && <VideoModal onClose={() => setShowPreview(false)} url={f.streamUrl} loopVideo={f.loop} />}
-          {(!f.streamUrl) && showPreview && <ImageModal onClose={() => setShowPreview(false)} url={f.url} />}
-        </div>);
+        result = (
+          <div className="playAction">
+            {duration}
+            {thumbnail && (
+              <Image src={thumbnail} alt={props.action.content} width={128} height={72} style={{ height: 72 }} />
+            )}
+            <a
+              href={f.url}
+              rel="noopener noreferrer"
+              onClick={e => {
+                e.preventDefault();
+                handlePreviewClick(f);
+              }}
+              className="text">
+              {props.action.content}
+            </a>
+            {f.streamUrl && showPreview && (
+              <VideoModal onClose={() => setShowPreview(false)} url={f.streamUrl} loopVideo={f.loop} />
+            )}
+            {!f.streamUrl && showPreview && <ImageModal onClose={() => setShowPreview(false)} url={f.url} />}
+          </div>
+        );
       }
       break;
   }
 
-  const handlePreviewClick = (file:FeedFileInterface) => {
+  const handlePreviewClick = (file: FeedFileInterface) => {
     const action = file.name;
     const label = window.location.pathname;
     AnalyticsHelper.logEvent("Preview", action, label);
@@ -133,10 +167,10 @@ export function Action(props: Props) {
       ipAddress: "",
       downloadDate: new Date(),
       fileName: file.name
-    }
+    };
     ApiHelper.post("/downloads", [download], "LessonsApi");
     setShowPreview(true);
-  }
+  };
 
   return result;
 }

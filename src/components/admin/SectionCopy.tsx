@@ -1,12 +1,12 @@
-import { useState, useEffect } from "react";
-import { ApiHelper, CopySectionInterface, SectionInterface, VenueInterface } from "@/helpers";
-import { InputBox, ErrorMessages } from "@churchapps/apphelper";
+import { useEffect, useState } from "react";
 import { FormControl, InputLabel, MenuItem, Select, SelectChangeEvent } from "@mui/material";
+import { ErrorMessages, InputBox } from "@churchapps/apphelper";
+import { ApiHelper, CopySectionInterface, SectionInterface, VenueInterface } from "@/helpers";
 
 interface Props {
-  copySection: CopySectionInterface,
-  venueId: string,
-  updatedCallback: () => void
+  copySection: CopySectionInterface;
+  venueId: string;
+  updatedCallback: () => void;
 }
 
 export function SectionCopy(props: Props) {
@@ -40,7 +40,7 @@ export function SectionCopy(props: Props) {
 
   const handleSave = () => {
     if (validate()) {
-      ApiHelper.get("/sections/copy/" + copySection.sourceSectionId + "/" + props.venueId, "LessonsApi").then((data) => {
+      ApiHelper.get("/sections/copy/" + copySection.sourceSectionId + "/" + props.venueId, "LessonsApi").then(data => {
         props.updatedCallback();
       });
     }
@@ -56,7 +56,7 @@ export function SectionCopy(props: Props) {
         setCopySection(cs);
       }
     });
-  }
+  };
 
   const populateSections = () => {
     ApiHelper.get("/sections/venue/" + copySection.sourceVenueId, "LessonsApi").then((data: SectionInterface[]) => {
@@ -67,34 +67,38 @@ export function SectionCopy(props: Props) {
         setCopySection(cs);
       }
     });
-  }
+  };
 
   const getVenueOptions = () => {
-    const result: JSX.Element[] = []
+    const result: JSX.Element[] = [];
     venues.forEach(v => {
-      result.push(<MenuItem value={v.id}>{v.name}</MenuItem>)
+      result.push(<MenuItem value={v.id}>{v.name}</MenuItem>);
     });
     return result;
-  }
+  };
 
   const getSectionOptions = () => {
-    const result: JSX.Element[] = []
+    const result: JSX.Element[] = [];
     sections.forEach(s => {
-      result.push(<MenuItem value={s.id}>{s.name}</MenuItem>)
+      result.push(<MenuItem value={s.id}>{s.name}</MenuItem>);
     });
     return result;
-  }
+  };
 
   useEffect(init, [props.copySection.sourceLessonId]);
   useEffect(populateSections, [copySection.sourceVenueId]);
 
   //return (<div>Hello WOrld</div>)
 
-
-
   return (
     <>
-      <InputBox id="sectionDetailsBox" headerText="Copy Section From" headerIcon="list_alt" saveFunction={handleSave} cancelFunction={handleCancel} saveText="Copy!">
+      <InputBox
+        id="sectionDetailsBox"
+        headerText="Copy Section From"
+        headerIcon="list_alt"
+        saveFunction={handleSave}
+        cancelFunction={handleCancel}
+        saveText="Copy!">
         <ErrorMessages errors={errors} />
 
         <FormControl fullWidth>

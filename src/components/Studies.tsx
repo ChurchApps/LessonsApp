@@ -1,8 +1,8 @@
-import Link from "next/link";
-import { StudyInterface } from "@/helpers";
-import { Card, Grid } from "@mui/material";
 import Image from "next/image";
+import Link from "next/link";
 import React from "react";
+import { Card, Grid } from "@mui/material";
+import { StudyInterface } from "@/helpers";
 
 interface Props {
   studies: StudyInterface[];
@@ -10,40 +10,40 @@ interface Props {
 }
 
 const Studies = React.memo(({ studies, slug }: Props) => {
-
-  const createStudyCard = React.useCallback((study: StudyInterface) => {
-    const studyUrl = (slug.startsWith("/external/"))
-      ? slug + `/${study.id}`
-      : slug + `/${study.slug}`
-    return (
-      <Grid item md={6} xs={12} key={study.id}>
-        <Link href={studyUrl}>
-          <Card style={{padding:10}} className="studyCard">
-            <Grid container spacing={1}>
-              <Grid item xs={5}>
-                <Image src={study.image || "/not-found"} alt={study.name} width={640} height={360} style={{height:"auto"}} className="img-fluid" />
+  const createStudyCard = React.useCallback(
+    (study: StudyInterface) => {
+      const studyUrl = slug.startsWith("/external/") ? slug + `/${study.id}` : slug + `/${study.slug}`;
+      return (
+        <Grid item md={6} xs={12} key={study.id}>
+          <Link href={studyUrl}>
+            <Card style={{ padding: 10 }} className="studyCard">
+              <Grid container spacing={1}>
+                <Grid item xs={5}>
+                  <Image
+                    src={study.image || "/not-found"}
+                    alt={study.name}
+                    width={640}
+                    height={360}
+                    style={{ height: "auto" }}
+                    className="img-fluid"
+                  />
+                </Grid>
+                <Grid item xs={7}>
+                  <div className="duration">{study.lessonCount === 1 ? "1 Week" : study.lessonCount + " Weeks"}</div>
+                  <h3>{study.name}</h3>
+                  <div className="fadeOut">{study.shortDescription}</div>
+                  <div className="seeMore">SEE MORE</div>
+                </Grid>
               </Grid>
-              <Grid item xs={7}>
-                <div className="duration">{(study.lessonCount===1) ? "1 Week" : study.lessonCount + " Weeks" }</div>
-                <h3>{study.name}</h3>
-                <div className="fadeOut">
-                  {study.shortDescription}
-                </div>
-                <div className="seeMore">SEE MORE</div>
-              </Grid>
-            </Grid>
-
-
-          </Card>
-        </Link>
-      </Grid>
-    );
-  }, [slug]);
-
-  const studyCards = React.useMemo(() =>
-    studies.map(createStudyCard),
-  [studies, createStudyCard]
+            </Card>
+          </Link>
+        </Grid>
+      );
+    },
+    [slug]
   );
+
+  const studyCards = React.useMemo(() => studies.map(createStudyCard), [studies, createStudyCard]);
 
   return (
     <div>
@@ -54,6 +54,6 @@ const Studies = React.memo(({ studies, slug }: Props) => {
   );
 });
 
-Studies.displayName = 'Studies';
+Studies.displayName = "Studies";
 
 export { Studies };

@@ -1,6 +1,6 @@
 import { useState } from "react";
-import { ApiHelper, AssetInterface, FileInterface } from "@/helpers";
 import { InputBox } from "@churchapps/apphelper";
+import { ApiHelper, AssetInterface, FileInterface } from "@/helpers";
 import { BulkFileUpload } from "./BulkFileUpload";
 
 interface Props {
@@ -24,7 +24,7 @@ export function BulkAssetAdd(props: Props) {
         sort: i
       });
       i++;
-    })
+    });
 
     ApiHelper.post("/assets", assets, "LessonsApi").then(() => {
       setPendingFileSave(false);
@@ -38,7 +38,12 @@ export function BulkAssetAdd(props: Props) {
 
   return (
     <>
-      <InputBox id="bulkAssetDetailsBox" headerText="Bulk Add Assets" headerIcon="content_copy" saveFunction={handleSave} cancelFunction={handleCancel}>
+      <InputBox
+        id="bulkAssetDetailsBox"
+        headerText="Bulk Add Assets"
+        headerIcon="content_copy"
+        saveFunction={handleSave}
+        cancelFunction={handleCancel}>
         <BulkFileUpload resourceId={props.resourceId} pendingSave={pendingFileSave} saveCallback={handleFilesSaved} />
       </InputBox>
     </>

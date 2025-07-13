@@ -1,7 +1,15 @@
-import { useState, useEffect } from "react";
-import { InputBox, ErrorMessages, MarkdownEditor } from "@churchapps/apphelper";
-import { ArrayHelper, AssetInterface, ResourceInterface, ActionInterface, ApiHelper, ExternalVideoInterface, AddOnInterface } from "@/helpers";
-import { InputLabel, MenuItem, Select, FormControl, TextField, SelectChangeEvent, ListSubheader } from "@mui/material";
+import { useEffect, useState } from "react";
+import { FormControl, InputLabel, ListSubheader, MenuItem, Select, SelectChangeEvent, TextField } from "@mui/material";
+import { ErrorMessages, InputBox, MarkdownEditor } from "@churchapps/apphelper";
+import {
+  ActionInterface,
+  AddOnInterface,
+  ApiHelper,
+  ArrayHelper,
+  AssetInterface,
+  ExternalVideoInterface,
+  ResourceInterface
+} from "@/helpers";
 
 interface Props {
   action: ActionInterface;
@@ -24,12 +32,12 @@ export function ActionEdit(props: Props) {
   const getCombinedResources = () => {
     let result: ResourceInterface[] = [...props.lessonResources, ...props.studyResources, ...props.programResources];
     return result;
-  }
+  };
 
   const getCombinedVideos = () => {
     let result: ExternalVideoInterface[] = [...props.lessonVideos, ...props.studyVideos, ...props.programVideos];
     return result;
-  }
+  };
 
   const handleKeyDown = (e: React.KeyboardEvent<any>) => {
     if (e.key === "Enter") {
@@ -42,7 +50,7 @@ export function ActionEdit(props: Props) {
     let a = { ...action };
     a.content = newValue;
     setAction(a);
-  }
+  };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement> | SelectChangeEvent<string>) => {
     e.preventDefault();
@@ -77,7 +85,7 @@ export function ActionEdit(props: Props) {
         if (a.assetId === "") a.assetId = null;
         const assetResource = ArrayHelper.getOne(getCombinedResources(), "id", a.resourceId);
         const asset = ArrayHelper.getOne(props.allAssets, "id", a.assetId);
-        a.content = (asset) ? assetResource.name + " - " + asset.name : assetResource?.name;
+        a.content = asset ? assetResource.name + " - " + asset.name : assetResource?.name;
         break;
       case "addOn":
         a.addOnId = e.target.value;
@@ -108,11 +116,10 @@ export function ActionEdit(props: Props) {
           if (props.lessonResources.length > 0) a.resourceId = props.lessonResources[0].id;
           else if (props.studyResources.length > 0) a.resourceId = props.studyResources[0].id;
           else if (props.programResources.length > 0) a.resourceId = props.programResources[0].id;
-
         }
       }
 
-      ApiHelper.post("/actions", [a], "LessonsApi").then((data) => {
+      ApiHelper.post("/actions", [a], "LessonsApi").then(data => {
         setAction(data[0]);
         props.updatedCallback(data[0], !props.action.id);
       });
@@ -120,17 +127,13 @@ export function ActionEdit(props: Props) {
   };
 
   const handleDelete = () => {
-    if (window.confirm("Are you sure you wish to permanently delete this action?")) {
-      ApiHelper.delete("/actions/" + action.id.toString(), "LessonsApi").then(
-        () => props.updatedCallback(null, false)
-      );
-    }
+    if (window.confirm("Are you sure you wish to permanently delete this action?"))
+      ApiHelper.delete("/actions/" + action.id.toString(), "LessonsApi").then(() => props.updatedCallback(null, false));
   };
 
   const getContent = () => {
-    if (action.actionType !== "Play" && action.actionType !== "Download" && action.actionType!=="Add-on") {
-      return <MarkdownEditor value={action.content} onChange={handleMarkdownChange} />
-    }
+    if (action.actionType !== "Play" && action.actionType !== "Download" && action.actionType !== "Add-on")
+      return <MarkdownEditor value={action.content} onChange={handleMarkdownChange} />;
   };
 
   const getAsset = () => {
@@ -140,13 +143,15 @@ export function ActionEdit(props: Props) {
         const assetItems: JSX.Element[] = [];
         assets.forEach((a: AssetInterface) => assetItems.push(<MenuItem value={a.id}>{a.name}</MenuItem>));
 
-        return (<FormControl fullWidth>
-          <InputLabel>Asset</InputLabel>
-          <Select label="Asset" name="asset" value={action.assetId || ""} onChange={handleChange}>
-            <MenuItem value="">All</MenuItem>
-            {assetItems}
-          </Select>
-        </FormControl>);
+        return (
+          <FormControl fullWidth>
+            <InputLabel>Asset</InputLabel>
+            <Select label="Asset" name="asset" value={action.assetId || ""} onChange={handleChange}>
+              <MenuItem value="">All</MenuItem>
+              {assetItems}
+            </Select>
+          </FormControl>
+        );
       }
     }
   };
@@ -155,7 +160,7 @@ export function ActionEdit(props: Props) {
     if (action.actionType === "Play" || action.actionType === "Download") {
       if (props.lessonResources && props.studyResources && props.programResources) {
         let currentValue = action.resourceId;
-        if (!currentValue && action.externalVideoId) currentValue = "ev/" + action.externalVideoId
+        if (!currentValue && action.externalVideoId) currentValue = "ev/" + action.externalVideoId;
         return (
           <>
             <FormControl fullWidth>
@@ -166,7 +171,6 @@ export function ActionEdit(props: Props) {
                 {getResourceGroup("Program", props.programResources, props.programVideos)}
               </Select>
             </FormControl>
-
 
             {getAsset()}
           </>
@@ -179,8 +183,12 @@ export function ActionEdit(props: Props) {
     if (resources.length > 0 || videos.length > 0) {
       const items: JSX.Element[] = [];
       items.push(<ListSubheader>{groupName}</ListSubheader>);
-      resources.forEach((r) => { items.push(<MenuItem value={r.id}>{r.name}</MenuItem>); });
-      videos.forEach((v) => { items.push(<MenuItem value={"ev/" + v.id}>{v.name}</MenuItem>); });
+      resources.forEach(r => {
+        items.push(<MenuItem value={r.id}>{r.name}</MenuItem>);
+      });
+      videos.forEach(v => {
+        items.push(<MenuItem value={"ev/" + v.id}>{v.name}</MenuItem>);
+      });
       return items;
     }
   };
@@ -201,7 +209,7 @@ export function ActionEdit(props: Props) {
         }
       }
     }
-  }
+  };
 
   const getAddOn = () => {
     if (action.actionType === "Add-on") {
@@ -212,10 +220,11 @@ export function ActionEdit(props: Props) {
             <FormControl fullWidth>
               <InputLabel>Add-on</InputLabel>
               <Select label="Add-on" name="addOn" value={currentValue} onChange={handleChange}>
-                {props.addOns.map((a) => <MenuItem value={a.id}>{a.name}</MenuItem>)}
+                {props.addOns.map(a => (
+                  <MenuItem value={a.id}>{a.name}</MenuItem>
+                ))}
               </Select>
             </FormControl>
-
 
             {getAsset()}
           </>
@@ -239,37 +248,68 @@ export function ActionEdit(props: Props) {
         }
       }
     }
-  }
-
+  };
 
   useEffect(() => {
     setAction(props.action);
-    setTimeout(() => { updateResource(); updateAddOn() }, 500);
+    setTimeout(() => {
+      updateResource();
+      updateAddOn();
+    }, 500);
   }, [props.action]);
 
+  if (!action) {
+    return <></>;
+  } else {
+    return (
+      <>
+        <InputBox
+          id="actionDetailsBox"
+          headerText={action?.id ? "Edit Action" : "Create Action"}
+          headerIcon="check"
+          saveFunction={handleSave}
+          cancelFunction={handleCancel}
+          deleteFunction={handleDelete}>
+          <ErrorMessages errors={errors} />
+          <TextField
+            fullWidth
+            label="Order"
+            type="number"
+            name="sort"
+            value={action.sort}
+            onChange={handleChange}
+            onKeyDown={handleKeyDown}
+            placeholder="1"
+          />
 
-  if (!action) return <></>;
-  else return (
-    <>
-      <InputBox id="actionDetailsBox" headerText={action?.id ? "Edit Action" : "Create Action"} headerIcon="check" saveFunction={handleSave} cancelFunction={handleCancel} deleteFunction={handleDelete}>
-        <ErrorMessages errors={errors} />
-        <TextField fullWidth label="Order" type="number" name="sort" value={action.sort} onChange={handleChange} onKeyDown={handleKeyDown} placeholder="1" />
-
-        <FormControl fullWidth>
-          <InputLabel>Action Type</InputLabel>
-          <Select label="Action Type" name="actionType" value={action.actionType} onChange={handleChange}>
-            <MenuItem value="Say" key="Say">Say</MenuItem>
-            <MenuItem value="Do" key="Do">Do</MenuItem>
-            <MenuItem value="Play" key="Play">Play</MenuItem>
-            <MenuItem value="Download" key="Download">Download</MenuItem>
-            <MenuItem value="Note" key="Note">Note</MenuItem>
-            <MenuItem value="Add-on" key="Add-on">Add-on</MenuItem>
-          </Select>
-        </FormControl>
-        {getContent()}
-        {getResource()}
-        {getAddOn()}
-      </InputBox>
-    </>
-  );
+          <FormControl fullWidth>
+            <InputLabel>Action Type</InputLabel>
+            <Select label="Action Type" name="actionType" value={action.actionType} onChange={handleChange}>
+              <MenuItem value="Say" key="Say">
+                Say
+              </MenuItem>
+              <MenuItem value="Do" key="Do">
+                Do
+              </MenuItem>
+              <MenuItem value="Play" key="Play">
+                Play
+              </MenuItem>
+              <MenuItem value="Download" key="Download">
+                Download
+              </MenuItem>
+              <MenuItem value="Note" key="Note">
+                Note
+              </MenuItem>
+              <MenuItem value="Add-on" key="Add-on">
+                Add-on
+              </MenuItem>
+            </Select>
+          </FormControl>
+          {getContent()}
+          {getResource()}
+          {getAddOn()}
+        </InputBox>
+      </>
+    );
+  }
 }

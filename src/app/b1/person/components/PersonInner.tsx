@@ -1,15 +1,14 @@
-import React, { useState, useEffect } from "react";
-import { Layout } from "@/components/Layout";
-
 import Link from "next/link";
-import { Container } from "@mui/material";
 import { redirect, useSearchParams } from "next/navigation";
-import { ClassroomInterface } from "@/helpers/interfaces";
+import React, { useEffect, useState } from "react";
+import { Container } from "@mui/material";
 import { ApiHelper } from "@churchapps/apphelper/dist/helpers/ApiHelper";
 import { ArrayHelper } from "@churchapps/apphelper/dist/helpers/ArrayHelper";
 import { useUser } from "@/app/context/UserContext";
-//import { useRouter } from "next/router";
+import { Layout } from "@/components/Layout";
+import { ClassroomInterface } from "@/helpers/interfaces";
 
+//import { useRouter } from "next/router";
 
 export function PersonInner() {
   //const router = useRouter();
@@ -17,8 +16,10 @@ export function PersonInner() {
   //const [church, setChurch] = useState<ChurchInterface>(null);
   const [classrooms, setClassrooms] = useState<ClassroomInterface[]>([]);
   const context = useUser();
-  const params = useSearchParams()
-  useEffect(() => { loadData(); }, [context?.person]);
+  const params = useSearchParams();
+  useEffect(() => {
+    loadData();
+  }, [context?.person]);
 
   const loadData = () => {
     if (context.person) {
@@ -28,17 +29,21 @@ export function PersonInner() {
         else setClassrooms(c);
       });
     }
-  }
+  };
 
   const getRows = () => {
     const result: JSX.Element[] = [];
     classrooms?.forEach(c => {
       let url = "/b1/classroom/" + c.id;
       if (ArrayHelper.getOne(context.userChurch.groups, "id", c.recentGroupId)) url += "?recent=1";
-      result.push(<Link href={url} className="bigLink">{c.name}</Link>)
-    })
+      result.push(
+        <Link href={url} className="bigLink">
+          {c.name}
+        </Link>
+      );
+    });
     return result;
-  }
+  };
 
   //TODO: figure out how to add this back.
   //if (classrooms?.length === 1) router.push("/b1/classroom/" + classrooms[0].id);
