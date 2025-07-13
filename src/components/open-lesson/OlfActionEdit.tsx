@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
-import {
-  Box,
+import { Box,
   Button,
   FormControl,
   IconButton,
@@ -13,13 +12,11 @@ import {
   Table,
   TableBody,
   TableCell,
-  TableHead,
   TableRow,
   TextField,
-  Typography
-} from "@mui/material";
+  Typography } from "@mui/material";
 import { Edit as EditIcon, Save as SaveIcon, Delete as DeleteIcon, Cancel as CancelIcon, Add as AddIcon } from "@mui/icons-material";
-import { ErrorMessages, MarkdownEditor, SmallButton } from "@churchapps/apphelper";
+import { ErrorMessages, MarkdownEditor } from "@churchapps/apphelper";
 import { FeedActionInterface, FeedFileInterface } from "@/helpers";
 import { OlfFileEdit } from "./OlfFileEdit";
 
@@ -44,16 +41,16 @@ export function OlfActionEdit(props: Props) {
     e.preventDefault();
     let a = { ...action };
     switch (e.target.name) {
-      case "actionType":
-        a.actionType = e.target.value;
-        if (a.actionType === "play" && !a.files) a.files = [];
-        break;
-      case "role":
-        a.role = e.target.value;
-        break;
-      case "content":
-        a.content = e.target.value;
-        break;
+    case "actionType":
+      a.actionType = e.target.value;
+      if (a.actionType === "play" && !a.files) a.files = [];
+      break;
+    case "role":
+      a.role = e.target.value;
+      break;
+    case "content":
+      a.content = e.target.value;
+      break;
     }
     setAction(a);
   };
@@ -78,10 +75,8 @@ export function OlfActionEdit(props: Props) {
   };
 
   const getContent = () => {
-    if (action.actionType !== "play" && action.actionType !== "download")
-      return <MarkdownEditor value={action.content} onChange={handleMarkdownChange} />;
-    else
-      return <TextField fullWidth label="Display Name" name="content" value={action.content} onChange={handleChange} />;
+    if (action.actionType !== "play" && action.actionType !== "download") return <MarkdownEditor value={action.content} onChange={handleMarkdownChange} />;
+    else return <TextField fullWidth label="Display Name" name="content" value={action.content} onChange={handleChange} />;
   };
 
   const getFiles = () => {
@@ -89,20 +84,18 @@ export function OlfActionEdit(props: Props) {
 
     const rows: JSX.Element[] = [];
     action.files?.forEach((f, i) => {
-      rows.push(
-        <TableRow key={i}>
-          <TableCell colSpan={2}>
-            <a
-              href="about:blank"
-              onClick={e => {
-                e.preventDefault();
-                setEditFileIndex(i);
-              }}>
-              {f.name}
-            </a>
-          </TableCell>
-        </TableRow>
-      );
+      rows.push(<TableRow key={i}>
+        <TableCell colSpan={2}>
+          <a
+            href="about:blank"
+            onClick={e => {
+              e.preventDefault();
+              setEditFileIndex(i);
+            }}>
+            {f.name}
+          </a>
+        </TableCell>
+      </TableRow>);
     });
 
     return (
@@ -186,7 +179,7 @@ export function OlfActionEdit(props: Props) {
                 lineHeight: 1,
                 fontSize: "1.25rem"
               }}>
-              {props.action.id ? "Edit Action" : "Create Action"}
+              {props.action.content?.trim() ? "Edit Action" : "Create Action"}
             </Typography>
           </Stack>
         </Box>
@@ -212,19 +205,19 @@ export function OlfActionEdit(props: Props) {
                 </MenuItem>
               </Select>
             </FormControl>
-            
-            <TextField 
-              fullWidth 
-              label="Role (Optional)" 
-              name="role" 
-              value={action.role || ""} 
+
+            <TextField
+              fullWidth
+              label="Role (Optional)"
+              name="role"
+              value={action.role || ""}
               onChange={handleChange}
             />
-            
+
             <Box>
               {getContent()}
             </Box>
-            
+
             {getFiles()}
           </Stack>
         </Box>
@@ -259,7 +252,7 @@ export function OlfActionEdit(props: Props) {
             }}>
             Cancel
           </Button>
-          {props.action.id && (
+          {props.action.content?.trim() && (
             <IconButton
               color="error"
               onClick={handleDelete}

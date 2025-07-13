@@ -22,8 +22,7 @@ const LessonSidebar = React.memo((props: Props) => {
     const inner = document.getElementById("lessonSidebarInner");
     const footer = document.getElementById("footer");
 
-    const shouldAffix =
-      window.scrollY > sidebar.offsetTop + 100 &&
+    const shouldAffix = window.scrollY > sidebar.offsetTop + 100 &&
       window.scrollY < document.documentElement.offsetHeight - footer.offsetHeight - window.innerHeight;
     if (shouldAffix) {
       if (!inner.classList.contains("affix")) {
@@ -75,40 +74,29 @@ const LessonSidebar = React.memo((props: Props) => {
     setShowB1Share(true);
   }, []);
 
-  const handleExport = React.useCallback(
-    (e: React.MouseEvent) => {
-      e.preventDefault();
-      setShareAnchor(null);
-      const feedUrl = "https://api.lessons.church/venues/public/feed/" + props.selectedVenue.id;
-      window.location.href = "/tools/olf?feedUrl=" + encodeURIComponent(feedUrl);
-    },
-    [props.selectedVenue.id]
-  );
+  const handleExport = React.useCallback((e: React.MouseEvent) => {
+    e.preventDefault();
+    setShareAnchor(null);
+    const feedUrl = "https://api.lessons.church/venues/public/feed/" + props.selectedVenue.id;
+    window.location.href = "/tools/olf?feedUrl=" + encodeURIComponent(feedUrl);
+  }, [props.selectedVenue.id]);
 
-  const venueOptions = React.useMemo(
-    () =>
-      props.venues.map(v => (
-        <MenuItem key={v.name} value={v.name}>
-          {v.name}
-        </MenuItem>
-      )),
-    [props.venues]
-  );
+  const venueOptions = React.useMemo(() =>
+    props.venues.map(v => (
+      <MenuItem key={v.name} value={v.name}>
+        {v.name}
+      </MenuItem>
+    )), [props.venues]);
 
-  const sectionLinks = React.useMemo(
-    () =>
-      props.selectedVenue?.sections?.map(
-        (s, idx) =>
-          s.actions?.length > 0 && (
-            <li key={"section-" + idx}>
-              <a className="sectionLink" id={"sectionLink-" + idx} href={"#section-" + s.name}>
-                {s.name}
-              </a>
-            </li>
-          )
-      ),
-    [props.selectedVenue?.sections]
-  );
+  const sectionLinks = React.useMemo(() =>
+    props.selectedVenue?.sections?.map((s, idx) =>
+      s.actions?.length > 0 && (
+        <li key={"section-" + idx}>
+          <a className="sectionLink" id={"sectionLink-" + idx} href={"#section-" + s.name}>
+            {s.name}
+          </a>
+        </li>
+      )), [props.selectedVenue?.sections]);
 
   return (
     <div id="lessonSidebar">

@@ -1,11 +1,9 @@
 import { Card, CardContent, CardHeader } from "@mui/material";
-import {
-  ActionInterface,
+import { ActionInterface,
   ArrayHelper,
   CustomizationHelper,
   CustomizationInterface,
-  FeedSectionInterface
-} from "@/helpers";
+  FeedSectionInterface } from "@/helpers";
 import { Action } from "./Action";
 
 interface Props {
@@ -40,11 +38,9 @@ export function Section(props: Props) {
       const customRoles = CustomizationHelper.applyCustomSort(props.customizations, props.section.actions, "role");
       customRoles.forEach(r => {
         if (!shouldHide(r.roleId)) {
-          result.push(
-            <div className="part" key={r.id}>
-              {getActions(r)}
-            </div>
-          );
+          result.push(<div className="part" key={r.id}>
+            {getActions(r)}
+          </div>);
         }
       });
     }

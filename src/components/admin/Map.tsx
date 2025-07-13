@@ -16,8 +16,7 @@ export const Map: React.FC<Props> = props => {
   const [tooltipIp, setTooltipIp] = useState<any>(null);
 
   const loadData = () => {
-    const dateString =
-      "?startDate=" +
+    const dateString = "?startDate=" +
       DateHelper.formatHtml5Date(props.startDate) +
       "&endDate=" +
       DateHelper.formatHtml5Date(props.endDate);
@@ -27,20 +26,18 @@ export const Map: React.FC<Props> = props => {
   const getMarkers = () => {
     const result: JSX.Element[] = [];
     ipData.forEach(ip => {
-      result.push(
-        <Marker coordinates={[ip.lon, ip.lat]}>
-          <circle
-            r={2}
-            fill="#1976d2"
-            onMouseOver={() => {
-              setTooltipIp(ip);
-            }}
-            onMouseLeave={() => {
-              setTooltipIp(null);
-            }}
-          />
-        </Marker>
-      );
+      result.push(<Marker coordinates={[ip.lon, ip.lat]}>
+        <circle
+          r={2}
+          fill="#1976d2"
+          onMouseOver={() => {
+            setTooltipIp(ip);
+          }}
+          onMouseLeave={() => {
+            setTooltipIp(null);
+          }}
+        />
+      </Marker>);
     });
     //result.push(<Marker coordinates={[-95, 36]}><circle r={1} fill="#FF5533" /></Marker>);
     return result;

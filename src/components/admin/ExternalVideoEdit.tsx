@@ -26,18 +26,18 @@ export function ExternalVideoEdit(props: Props) {
     e.preventDefault();
     let v = { ...externalVideo };
     switch (e.target.name) {
-      case "name":
-        v.name = e.target.value;
-        break;
-      case "provider":
-        v.videoProvider = e.target.value;
-        break;
-      case "videoId":
-        v.videoId = e.target.value;
-        break;
-      case "loopVideo":
-        v.loopVideo = e.target.value === "true";
-        break;
+    case "name":
+      v.name = e.target.value;
+      break;
+    case "provider":
+      v.videoProvider = e.target.value;
+      break;
+    case "videoId":
+      v.videoId = e.target.value;
+      break;
+    case "loopVideo":
+      v.loopVideo = e.target.value === "true";
+      break;
     }
     setExternalVideo(v);
   };
@@ -63,8 +63,7 @@ export function ExternalVideoEdit(props: Props) {
   const handleDelete = () => {
     if (window.confirm("Are you sure you wish to permanently delete this video?")) {
       ApiHelper.delete("/externalVideos/" + externalVideo.id.toString(), "LessonsApi").then(() =>
-        props.updatedCallback(null)
-      );
+        props.updatedCallback(null));
     }
   };
 

@@ -2,14 +2,11 @@
 
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
-import {
-  Add as AddIcon,
+import { Add as AddIcon,
   Edit as EditIcon,
   Extension as ExtensionIcon,
-  Groups as GroupsIcon
-} from "@mui/icons-material";
-import {
-  Box,
+  Groups as GroupsIcon } from "@mui/icons-material";
+import { Box,
   Button,
   IconButton,
   Link,
@@ -19,8 +16,7 @@ import {
   TableBody,
   TableCell,
   TableRow,
-  Typography
-} from "@mui/material";
+  Typography } from "@mui/material";
 import { Wrapper } from "@/components/Wrapper";
 import { PageHeader } from "@/components/admin";
 import { ProviderEdit } from "@/components/portal/ProviderEdit";
@@ -108,15 +104,13 @@ export default function ThirdParty() {
           subtitle="Integrate third-party content sources"
           actions={
             providers.length > 0
-              ? [
-                  <Button
-                    variant="outlined"
-                    color="inherit"
-                    startIcon={<AddIcon />}
-                    onClick={() => setEditProvider({})}>
+              ? [<Button
+                variant="outlined"
+                color="inherit"
+                startIcon={<AddIcon />}
+                onClick={() => setEditProvider({})}>
                     Add Provider
-                  </Button>
-                ]
+              </Button>]
               : []
           }
         />
@@ -139,7 +133,7 @@ export default function ThirdParty() {
               />
             </Box>
           )}
-          
+
           {/* Providers List - Full Width */}
           <Paper
             sx={{
@@ -159,8 +153,8 @@ export default function ThirdParty() {
               }}>
               <Stack direction="row" alignItems="center" spacing={1}>
                 <GroupsIcon sx={{ color: "var(--c1d2)", fontSize: "1.5rem" }} />
-                <Typography variant="h6" sx={{ 
-                  color: "var(--c1d2)", 
+                <Typography variant="h6" sx={{
+                  color: "var(--c1d2)",
                   fontWeight: 600,
                   lineHeight: 1,
                   fontSize: "1.25rem",

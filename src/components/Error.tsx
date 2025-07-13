@@ -3,8 +3,7 @@
 //todo remove
 import { NextPageContext } from "next";
 import React from "react";
-import {
-  Box,
+import { Box,
   Button,
   Container,
   Dialog,
@@ -14,8 +13,7 @@ import {
   Grid,
   Icon,
   Stack,
-  Typography
-} from "@mui/material";
+  Typography } from "@mui/material";
 import { Layout } from "@/components";
 
 interface Props {
@@ -122,8 +120,7 @@ Error.getInitialProps = ({ res, err }: NextPageContext) => {
   res.setHeader("CDN-Cache-Control", "public, s-maxage=0, must-revalidate");
   res.setHeader("Vercel-CDN-Cache-Control", "public, s-maxage=0, must-revalidate");
   const statusCode = res ? res.statusCode : err ? err.statusCode : 404;
-  const message =
-    statusCode === 404 ? "This page does't exist" : "The server encountered an internal error. Please try again";
+  const message = statusCode === 404 ? "This page does't exist" : "The server encountered an internal error. Please try again";
   return { statusCode, message };
 };
 

@@ -34,13 +34,13 @@ export function StudyEdit(props: Props) {
     let p = { ...study };
     const val = e.target.value;
     switch (e.target.name) {
-      case "name": p.name = val; break;
-      case "slug": p.slug = val; break;
-      case "shortDescription": p.shortDescription = val; break;
-      case "description": p.description = val; break;
-      case "videoEmbedUrl": p.videoEmbedUrl = val; break;
-      case "live": p.live = val === "true"; break;
-      case "sort": p.sort = parseInt(val); break;
+    case "name": p.name = val; break;
+    case "slug": p.slug = val; break;
+    case "shortDescription": p.shortDescription = val; break;
+    case "description": p.description = val; break;
+    case "videoEmbedUrl": p.videoEmbedUrl = val; break;
+    case "live": p.live = val === "true"; break;
+    case "sort": p.sort = parseInt(val); break;
     }
     setStudy(p);
   };
@@ -76,8 +76,7 @@ export function StudyEdit(props: Props) {
   };
 
   const handleDelete = () => {
-    if (window.confirm("Are you sure you wish to permanently delete this study?"))
-      ApiHelper.delete("/studies/" + study.id.toString(), "LessonsApi").then(() => props.updatedCallback(null));
+    if (window.confirm("Are you sure you wish to permanently delete this study?")) ApiHelper.delete("/studies/" + study.id.toString(), "LessonsApi").then(() => props.updatedCallback(null));
   };
 
   const handleImageClick = (e: React.MouseEvent) => {
@@ -159,7 +158,7 @@ export function StudyEdit(props: Props) {
         {/* Content */}
         <Box sx={{ p: 3 }}>
           <ErrorMessages errors={errors} />
-          
+
           <Grid container spacing={3}>
             {/* Left Column - Form Fields */}
             <Grid item xs={12} md={8}>

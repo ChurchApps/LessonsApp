@@ -7,8 +7,7 @@ import { Add as AddIcon, ContentCopy as CopyIcon, List as ListIcon, Person as Pe
 import { ActionEdit, RoleEdit, SectionCopy, SectionEdit } from "@/components";
 import { PageHeader } from "@/components/admin";
 import { Wrapper } from "@/components/Wrapper";
-import {
-  ActionInterface,
+import { ActionInterface,
   AddOnInterface,
   ApiHelper,
   ArrayHelper,
@@ -20,8 +19,7 @@ import {
   RoleInterface,
   SectionInterface,
   StudyInterface,
-  VenueInterface
-} from "@/helpers";
+  VenueInterface } from "@/helpers";
 
 type PageParams = { id: string };
 
@@ -257,7 +255,7 @@ export default function Venue() {
                 </IconButton>
               </Box>
             </ListItem>
-            
+
             {/* Roles */}
             {roles && getRolesList(s.id)}
           </Box>
@@ -268,7 +266,7 @@ export default function Venue() {
 
   const getRolesList = (sectionId: string) => {
     const sectionRoles = ArrayHelper.getAll(roles, "sectionId", sectionId);
-    
+
     return sectionRoles.map((r) => (
       <Box key={r.id} sx={{ ml: 4 }}>
         {/* Role */}
@@ -318,7 +316,7 @@ export default function Venue() {
             </IconButton>
           </Box>
         </ListItem>
-        
+
         {/* Actions */}
         {actions && getActionsList(r.id)}
       </Box>
@@ -327,7 +325,7 @@ export default function Venue() {
 
   const getActionsList = (roleId: string) => {
     const roleActions = ArrayHelper.getAll(actions, "roleId", roleId);
-    
+
     return roleActions.map((a) => (
       <ListItem
         key={a.id}
@@ -363,7 +361,6 @@ export default function Venue() {
     ));
   };
 
-
   const getSidebar = () => {
     const result: JSX.Element[] = [];
     if (editSection) {
@@ -373,21 +370,19 @@ export default function Venue() {
     } else if (copySection) {
       result.push(<SectionCopy copySection={copySection} venueId={venue.id} updatedCallback={handleUpdated} />);
     } else if (editAction) {
-      result.push(
-        <ActionEdit
-          action={editAction}
-          updatedCallback={handleActionUpdated}
-          lessonResources={lessonResources}
-          studyResources={studyResources}
-          programResources={programResources}
-          lessonVideos={lessonVideos}
-          studyVideos={studyVideos}
-          programVideos={programVideos}
-          allAssets={allAssets}
-          key="actionEdit"
-          addOns={addOns}
-        />
-      );
+      result.push(<ActionEdit
+        action={editAction}
+        updatedCallback={handleActionUpdated}
+        lessonResources={lessonResources}
+        studyResources={studyResources}
+        programResources={programResources}
+        lessonVideos={lessonVideos}
+        studyVideos={studyVideos}
+        programVideos={programVideos}
+        allAssets={allAssets}
+        key="actionEdit"
+        addOns={addOns}
+      />);
     }
     return result;
   };
@@ -407,21 +402,19 @@ export default function Venue() {
           icon={<LocationIcon />}
           title={`${lesson?.name || 'Lesson'}: ${venue?.name || 'Venue'}`}
           subtitle="Manage sections, roles, and actions for this venue"
-          actions={[
-            <IconButton
-              key="add-menu"
-              onClick={handleAddMenuClick}
-              sx={{
-                color: 'white',
-                border: '1px solid rgba(255,255,255,0.5)',
-                '&:hover': {
-                  borderColor: 'white',
-                  backgroundColor: 'rgba(255,255,255,0.1)'
-                }
-              }}>
-              <AddIcon />
-            </IconButton>
-          ]}
+          actions={[<IconButton
+            key="add-menu"
+            onClick={handleAddMenuClick}
+            sx={{
+              color: 'white',
+              border: '1px solid rgba(255,255,255,0.5)',
+              '&:hover': {
+                borderColor: 'white',
+                backgroundColor: 'rgba(255,255,255,0.1)'
+              }
+            }}>
+            <AddIcon />
+          </IconButton>]}
         />
 
         <Paper
@@ -436,7 +429,7 @@ export default function Venue() {
               {getSidebar()}
             </Box>
           )}
-          
+
           {/* Sections List - Full Width */}
           <Paper
             sx={{
@@ -470,7 +463,7 @@ export default function Venue() {
                 </Typography>
               </Stack>
             </Box>
-            
+
             <Box sx={{ maxHeight: '70vh', overflow: 'auto' }}>
               {getSectionsTree()}
             </Box>

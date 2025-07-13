@@ -9,12 +9,10 @@ import Tabs from "@mui/material/Tabs";
 import { DateHelper } from "@churchapps/apphelper/dist/helpers/DateHelper";
 import { Layout } from "@/components/Layout";
 import { Venue } from "@/components/lesson/Venue";
-import {
-  ClassroomInterface,
+import { ClassroomInterface,
   CustomizationInterface,
   FeedVenueInterface,
-  ScheduleInterface
-} from "@/helpers/interfaces";
+  ScheduleInterface } from "@/helpers/interfaces";
 
 interface Props {
   classroom: ClassroomInterface;

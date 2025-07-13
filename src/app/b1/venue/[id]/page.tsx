@@ -3,12 +3,10 @@
 import { useParams, useSearchParams } from "next/navigation";
 import React, { useEffect } from "react";
 import { ApiHelper } from "@churchapps/apphelper/dist/helpers/ApiHelper";
-import {
-  ClassroomInterface,
+import { ClassroomInterface,
   CustomizationInterface,
   FeedVenueInterface,
-  ScheduleInterface
-} from "@/helpers/interfaces";
+  ScheduleInterface } from "@/helpers/interfaces";
 import { VenueClient } from "./components/VenueClient";
 
 type PageParams = { id: string };
@@ -39,14 +37,8 @@ export default function B1Venue() {
 
     const classroomId = search.get("classroomId");
     const classroom: ClassroomInterface = await ApiHelper.get("/classrooms/" + classroomId, "LessonsApi");
-    const customizations: CustomizationInterface[] = await ApiHelper.get(
-      "/customizations/public/venue/" + params.id + "/" + classroom.churchId + "?classroomId=" + classroomId,
-      "LessonsApi"
-    );
-    const schedules: ScheduleInterface[] = await ApiHelper.get(
-      "/schedules/public/classroom/" + classroomId,
-      "LessonsApi"
-    );
+    const customizations: CustomizationInterface[] = await ApiHelper.get("/customizations/public/venue/" + params.id + "/" + classroom.churchId + "?classroomId=" + classroomId, "LessonsApi");
+    const schedules: ScheduleInterface[] = await ApiHelper.get("/schedules/public/classroom/" + classroomId, "LessonsApi");
     let currentSchedule: ScheduleInterface = null;
     let prevSchedule: ScheduleInterface = null;
     let nextSchedule: ScheduleInterface = null;

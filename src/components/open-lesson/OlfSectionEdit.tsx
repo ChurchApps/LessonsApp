@@ -18,9 +18,9 @@ export function OlfSectionEdit(props: Props) {
     e.preventDefault();
     let s = { ...section };
     switch (e.target.name) {
-      case "name":
-        s.name = e.target.value;
-        break;
+    case "name":
+      s.name = e.target.value;
+      break;
     }
     setSection(s);
   };
@@ -74,18 +74,18 @@ export function OlfSectionEdit(props: Props) {
                 lineHeight: 1,
                 fontSize: "1.25rem"
               }}>
-              {props.section.id ? "Edit Section" : "Create Section"}
+              {props.section.name?.trim() ? "Edit Section" : "Create Section"}
             </Typography>
           </Stack>
         </Box>
 
         <Box sx={{ p: 3 }}>
           <ErrorMessages errors={errors} />
-          <TextField 
-            fullWidth 
-            label="Name" 
-            name="name" 
-            value={section.name || ""} 
+          <TextField
+            fullWidth
+            label="Name"
+            name="name"
+            value={section.name || ""}
             onChange={handleChange}
             required
           />
@@ -121,7 +121,7 @@ export function OlfSectionEdit(props: Props) {
             }}>
             Cancel
           </Button>
-          {props.section.id && (
+          {props.section.name?.trim() && (
             <IconButton
               color="error"
               onClick={handleDelete}

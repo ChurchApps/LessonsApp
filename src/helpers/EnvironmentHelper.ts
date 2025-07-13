@@ -16,23 +16,19 @@ export class EnvironmentHelper {
 
     let stage = process.env.STAGE;
     switch (stage) {
-      case "staging":
-        EnvironmentHelper.initStaging();
-        break;
-      case "prod":
-        EnvironmentHelper.initProd();
-        break;
-      default:
-        EnvironmentHelper.initDev();
-        break;
+    case "staging":
+      EnvironmentHelper.initStaging();
+      break;
+    case "prod":
+      EnvironmentHelper.initProd();
+      break;
+    default:
+      EnvironmentHelper.initDev();
+      break;
     }
     EnvironmentHelper.Common.init(stage);
 
-    ApiHelper.apiConfigs = [
-      { keyName: "MembershipApi", url: EnvironmentHelper.Common.MembershipApi, jwt: "", permissions: [] },
-      { keyName: "LessonsApi", url: EnvironmentHelper.LessonsApi, jwt: "", permissions: [] },
-      { keyName: "MessagingApi", url: EnvironmentHelper.Common.MessagingApi, jwt: "", permissions: [] }
-    ];
+    ApiHelper.apiConfigs = [{ keyName: "MembershipApi", url: EnvironmentHelper.Common.MembershipApi, jwt: "", permissions: [] }, { keyName: "LessonsApi", url: EnvironmentHelper.LessonsApi, jwt: "", permissions: [] }, { keyName: "MessagingApi", url: EnvironmentHelper.Common.MessagingApi, jwt: "", permissions: [] }];
 
     this.hasInit = true;
   };

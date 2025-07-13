@@ -19,14 +19,8 @@ type PageParams = { programSlug: string; studySlug: string };
 const loadData = async (params: PageParams) => {
   try {
     EnvironmentHelper.init();
-    const program: ProgramInterface = await ApiHelper.getAnonymous(
-      "/programs/public/slug/" + params.programSlug,
-      "LessonsApi"
-    );
-    const study: StudyInterface = await ApiHelper.getAnonymous(
-      "/studies/public/slug/" + program?.id + "/" + params.studySlug,
-      "LessonsApi"
-    );
+    const program: ProgramInterface = await ApiHelper.getAnonymous("/programs/public/slug/" + params.programSlug, "LessonsApi");
+    const study: StudyInterface = await ApiHelper.getAnonymous("/studies/public/slug/" + program?.id + "/" + params.studySlug, "LessonsApi");
     const lessons: LessonInterface[] = await ApiHelper.getAnonymous("/lessons/public/study/" + study?.id, "LessonsApi");
     return { program, study, lessons, errorMessage: "" };
   } catch (error: any) {

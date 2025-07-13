@@ -26,12 +26,12 @@ export function RoleEdit(props: Props) {
     e.preventDefault();
     let r = { ...role };
     switch (e.currentTarget.name) {
-      case "name":
-        r.name = e.currentTarget.value;
-        break;
-      case "sort":
-        r.sort = parseInt(e.currentTarget.value);
-        break;
+    case "name":
+      r.name = e.currentTarget.value;
+      break;
+    case "sort":
+      r.sort = parseInt(e.currentTarget.value);
+      break;
     }
     setRole(r);
   };
@@ -53,8 +53,7 @@ export function RoleEdit(props: Props) {
   };
 
   const handleDelete = () => {
-    if (window.confirm("Are you sure you wish to permanently delete this role?"))
-      ApiHelper.delete("/roles/" + role.id.toString(), "LessonsApi").then(() => props.updatedCallback(null, false));
+    if (window.confirm("Are you sure you wish to permanently delete this role?")) ApiHelper.delete("/roles/" + role.id.toString(), "LessonsApi").then(() => props.updatedCallback(null, false));
   };
 
   useEffect(() => {
@@ -92,7 +91,7 @@ export function RoleEdit(props: Props) {
       {/* CONTENT */}
       <Box sx={{ p: 3 }}>
         <ErrorMessages errors={errors} />
-        
+
         <Stack spacing={3}>
           <TextField
             fullWidth
@@ -105,7 +104,7 @@ export function RoleEdit(props: Props) {
             placeholder="1"
             helperText="Display order for this role within the section"
           />
-          
+
           <TextField
             fullWidth
             label="Role Name"

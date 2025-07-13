@@ -27,7 +27,7 @@
     "array-bracket-newline": ["warn", "never"],
     "function-paren-newline": ["warn", "never"],
     "function-call-argument-newline": ["warn", "never"],
-    "max-len": ["warn", { "code": 120, "ignoreStrings": true, "ignoreTemplateLiterals": true }],
+    "max-len": ["warn", { "code": 200, "ignoreStrings": true, "ignoreTemplateLiterals": true }],
     "brace-style": ["warn", "1tbs", { "allowSingleLine": true }],
     "curly": "off",
     "nonblock-statement-body-position": ["warn", "beside"],

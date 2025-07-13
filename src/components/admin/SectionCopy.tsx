@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
-import { FormControl, InputLabel, MenuItem, Select, SelectChangeEvent } from "@mui/material";
-import { ErrorMessages, InputBox } from "@churchapps/apphelper";
+import { Box, Button, FormControl, InputLabel, MenuItem, Paper, Select, SelectChangeEvent, Stack, Typography } from "@mui/material";
+import { Cancel as CancelIcon, ContentCopy as CopyIcon } from "@mui/icons-material";
+import { ErrorMessages } from "@churchapps/apphelper";
 import { ApiHelper, CopySectionInterface, SectionInterface, VenueInterface } from "@/helpers";
 
 interface Props {
@@ -21,12 +22,12 @@ export function SectionCopy(props: Props) {
     e.preventDefault();
     let s = { ...copySection };
     switch (e.target.name) {
-      case "venue":
-        s.sourceVenueId = e.target.value;
-        break;
-      case "section":
-        s.sourceSectionId = e.target.value;
-        break;
+    case "venue":
+      s.sourceVenueId = e.target.value;
+      break;
+    case "section":
+      s.sourceSectionId = e.target.value;
+      break;
     }
     setCopySection(s);
   };
@@ -121,25 +122,25 @@ export function SectionCopy(props: Props) {
       {/* CONTENT */}
       <Box sx={{ p: 3 }}>
         <ErrorMessages errors={errors} />
-        
+
         <Stack spacing={3}>
           <FormControl fullWidth>
             <InputLabel>Venue</InputLabel>
-            <Select 
-              label="Venue" 
-              name="venue" 
-              value={copySection.sourceVenueId || ''} 
+            <Select
+              label="Venue"
+              name="venue"
+              value={copySection.sourceVenueId || ''}
               onChange={handleChange}>
               {getVenueOptions()}
             </Select>
           </FormControl>
-          
+
           <FormControl fullWidth>
             <InputLabel>Section</InputLabel>
-            <Select 
-              label="Section" 
-              name="section" 
-              value={copySection.sourceSectionId || ''} 
+            <Select
+              label="Section"
+              name="section"
+              value={copySection.sourceSectionId || ''}
               onChange={handleChange}>
               {getSectionOptions()}
             </Select>

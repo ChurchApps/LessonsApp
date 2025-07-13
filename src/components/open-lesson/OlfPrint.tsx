@@ -11,18 +11,16 @@ export function OlfPrint(props: Props) {
     const blocks = groupActions(section.actions || []);
     const result: JSX.Element[] = [];
     blocks.forEach(b => {
-      result.push(
-        <div className="olfActionBlock">
-          <table>
-            <tr>
-              <td>{b.actions[0].actionType.toUpperCase()}</td>
-              <td>
-                <ul>{getActions(b.actions)}</ul>
-              </td>
-            </tr>
-          </table>
-        </div>
-      );
+      result.push(<div className="olfActionBlock">
+        <table>
+          <tr>
+            <td>{b.actions[0].actionType.toUpperCase()}</td>
+            <td>
+              <ul>{getActions(b.actions)}</ul>
+            </td>
+          </tr>
+        </table>
+      </div>);
     });
     return result;
   };
@@ -30,11 +28,9 @@ export function OlfPrint(props: Props) {
   const getActions = (actions: FeedActionInterface[]) => {
     const result: JSX.Element[] = [];
     actions.forEach(a => {
-      result.push(
-        <li className="olfAction">
-          <MarkdownPreviewLight value={a.content} />
-        </li>
-      );
+      result.push(<li className="olfAction">
+        <MarkdownPreviewLight value={a.content} />
+      </li>);
     });
     return result;
   };
@@ -56,12 +52,10 @@ export function OlfPrint(props: Props) {
   const getSections = () => {
     const result: JSX.Element[] = [];
     props.feed?.sections?.forEach((s, sectionIndex) => {
-      result.push(
-        <div className="olfSection" key={"section" + sectionIndex}>
-          <h2>{s.name}</h2>
-          {getActionGroups(s)}
-        </div>
-      );
+      result.push(<div className="olfSection" key={"section" + sectionIndex}>
+        <h2>{s.name}</h2>
+        {getActionGroups(s)}
+      </div>);
     });
     return result;
   };

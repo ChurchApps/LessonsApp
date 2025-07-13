@@ -9,13 +9,11 @@ import { OllLessonEdit } from "@/components/open-lesson/OllLessonEdit";
 import { OllProgramEdit } from "@/components/open-lesson/OllProgramEdit";
 import { OllStudyEdit } from "@/components/open-lesson/OllStudyEdit";
 import { OllVenueEdit } from "@/components/open-lesson/OllVenueEdit";
-import {
-  FeedLessonInterface,
+import { FeedLessonInterface,
   FeedListInterface,
   FeedProgramInterface,
   FeedStudyInterface,
-  FeedVenueLinkInterface
-} from "@/helpers";
+  FeedVenueLinkInterface } from "@/helpers";
 
 export default function OllInner() {
   const [data, setData] = useState<FeedListInterface>({} as FeedListInterface);
@@ -99,13 +97,11 @@ export default function OllInner() {
     setData(d);
   };
 
-  const moveVenue = (
-    programIndex: number,
+  const moveVenue = (programIndex: number,
     studyIndex: number,
     lessonIndex: number,
     index: number,
-    direction: "up" | "down"
-  ) => {
+    direction: "up" | "down") => {
     let d = { ...data };
     let l = d.programs[programIndex].studies[studyIndex].lessons[lessonIndex];
     if (direction === "up") {
@@ -121,42 +117,40 @@ export default function OllInner() {
   const getVenues = (l: FeedLessonInterface, programIndex: number, studyIndex: number, lessonIndex: number) => {
     let result: JSX.Element[] = [];
     l.venues?.forEach((v, j) => {
-      result.push(
-        <TableRow key={l.id + "-" + v.id}>
-          <TableCell></TableCell>
-          <TableCell></TableCell>
-          <TableCell></TableCell>
-          <TableCell>
-            {j !== 0 && (
-              <SmallButton
-                icon="arrow_upward"
-                onClick={() => {
-                  moveVenue(programIndex, studyIndex, lessonIndex, j, "up");
-                }}
-              />
-            )}
-            {j !== l.venues.length - 1 && (
-              <SmallButton
-                icon="arrow_downward"
-                onClick={() => {
-                  moveVenue(programIndex, studyIndex, lessonIndex, j, "down");
-                }}
-              />
-            )}
-          </TableCell>
+      result.push(<TableRow key={l.id + "-" + v.id}>
+        <TableCell></TableCell>
+        <TableCell></TableCell>
+        <TableCell></TableCell>
+        <TableCell>
+          {j !== 0 && (
+            <SmallButton
+              icon="arrow_upward"
+              onClick={() => {
+                moveVenue(programIndex, studyIndex, lessonIndex, j, "up");
+              }}
+            />
+          )}
+          {j !== l.venues.length - 1 && (
+            <SmallButton
+              icon="arrow_downward"
+              onClick={() => {
+                moveVenue(programIndex, studyIndex, lessonIndex, j, "down");
+              }}
+            />
+          )}
+        </TableCell>
 
-          <TableCell>
-            <a
-              href="about:blank"
-              onClick={e => {
-                e.preventDefault();
-                handleEditVenue(programIndex, studyIndex, lessonIndex, j);
-              }}>
-              {v.name}
-            </a>
-          </TableCell>
-        </TableRow>
-      );
+        <TableCell>
+          <a
+            href="about:blank"
+            onClick={e => {
+              e.preventDefault();
+              handleEditVenue(programIndex, studyIndex, lessonIndex, j);
+            }}>
+            {v.name}
+          </a>
+        </TableCell>
+      </TableRow>);
     });
     return result;
   };
@@ -164,54 +158,52 @@ export default function OllInner() {
   const getLessons = (s: FeedStudyInterface, programIndex: number, studyIndex: number) => {
     let result: JSX.Element[] = [];
     s.lessons?.forEach((l, j) => {
-      result.push(
-        <TableRow key={l.id}>
-          <TableCell></TableCell>
-          <TableCell></TableCell>
-          <TableCell>
-            {j !== 0 && (
-              <SmallButton
-                icon="arrow_upward"
-                onClick={() => {
-                  moveLesson(programIndex, studyIndex, j, "up");
-                }}
-              />
-            )}
-            {j !== s.lessons.length - 1 && (
-              <SmallButton
-                icon="arrow_downward"
-                onClick={() => {
-                  moveLesson(programIndex, studyIndex, j, "down");
-                }}
-              />
-            )}
-          </TableCell>
-
-          <TableCell>
-            <a
-              href="about:blank"
-              onClick={e => {
-                e.preventDefault();
-                handleEditLesson(programIndex, studyIndex, j);
-              }}>
-              {l.name}
-            </a>
-          </TableCell>
-
-          <TableCell colSpan={2} style={{ textAlign: "right" }}>
+      result.push(<TableRow key={l.id}>
+        <TableCell></TableCell>
+        <TableCell></TableCell>
+        <TableCell>
+          {j !== 0 && (
             <SmallButton
-              icon="add"
-              text="Venue"
+              icon="arrow_upward"
               onClick={() => {
-                setEditProgramIndex(programIndex);
-                setEditStudyIndex(studyIndex);
-                setEditLessonIndex(j);
-                setEditVenueIndex(-1);
+                moveLesson(programIndex, studyIndex, j, "up");
               }}
             />
-          </TableCell>
-        </TableRow>
-      );
+          )}
+          {j !== s.lessons.length - 1 && (
+            <SmallButton
+              icon="arrow_downward"
+              onClick={() => {
+                moveLesson(programIndex, studyIndex, j, "down");
+              }}
+            />
+          )}
+        </TableCell>
+
+        <TableCell>
+          <a
+            href="about:blank"
+            onClick={e => {
+              e.preventDefault();
+              handleEditLesson(programIndex, studyIndex, j);
+            }}>
+            {l.name}
+          </a>
+        </TableCell>
+
+        <TableCell colSpan={2} style={{ textAlign: "right" }}>
+          <SmallButton
+            icon="add"
+            text="Venue"
+            onClick={() => {
+              setEditProgramIndex(programIndex);
+              setEditStudyIndex(studyIndex);
+              setEditLessonIndex(j);
+              setEditVenueIndex(-1);
+            }}
+          />
+        </TableCell>
+      </TableRow>);
       result = result.concat(getVenues(l, programIndex, studyIndex, j));
     });
     return result;
@@ -220,52 +212,50 @@ export default function OllInner() {
   const getStudies = (p: FeedProgramInterface, programIndex: number) => {
     let result: JSX.Element[] = [];
     p.studies?.forEach((s, j) => {
-      result.push(
-        <TableRow key={s.id}>
-          <TableCell></TableCell>
-          <TableCell>
-            {j !== 0 && (
-              <SmallButton
-                icon="arrow_upward"
-                onClick={() => {
-                  moveStudy(programIndex, j, "up");
-                }}
-              />
-            )}
-            {j !== p.studies.length - 1 && (
-              <SmallButton
-                icon="arrow_downward"
-                onClick={() => {
-                  moveStudy(programIndex, j, "down");
-                }}
-              />
-            )}
-          </TableCell>
-
-          <TableCell>
-            <a
-              href="about:blank"
-              onClick={e => {
-                e.preventDefault();
-                handleEditStudy(programIndex, j);
-              }}>
-              {s.name}
-            </a>
-          </TableCell>
-          <TableCell></TableCell>
-          <TableCell colSpan={2} style={{ textAlign: "right" }}>
+      result.push(<TableRow key={s.id}>
+        <TableCell></TableCell>
+        <TableCell>
+          {j !== 0 && (
             <SmallButton
-              icon="add"
-              text="Lesson"
+              icon="arrow_upward"
               onClick={() => {
-                setEditProgramIndex(programIndex);
-                setEditStudyIndex(j);
-                setEditLessonIndex(-1);
+                moveStudy(programIndex, j, "up");
               }}
             />
-          </TableCell>
-        </TableRow>
-      );
+          )}
+          {j !== p.studies.length - 1 && (
+            <SmallButton
+              icon="arrow_downward"
+              onClick={() => {
+                moveStudy(programIndex, j, "down");
+              }}
+            />
+          )}
+        </TableCell>
+
+        <TableCell>
+          <a
+            href="about:blank"
+            onClick={e => {
+              e.preventDefault();
+              handleEditStudy(programIndex, j);
+            }}>
+            {s.name}
+          </a>
+        </TableCell>
+        <TableCell></TableCell>
+        <TableCell colSpan={2} style={{ textAlign: "right" }}>
+          <SmallButton
+            icon="add"
+            text="Lesson"
+            onClick={() => {
+              setEditProgramIndex(programIndex);
+              setEditStudyIndex(j);
+              setEditLessonIndex(-1);
+            }}
+          />
+        </TableCell>
+      </TableRow>);
       result = result.concat(getLessons(s, programIndex, j));
     });
     return result;
@@ -275,48 +265,46 @@ export default function OllInner() {
     let result: JSX.Element[] = [];
 
     data?.programs?.forEach((p, i) => {
-      result.push(
-        <TableRow key={p.id}>
-          <TableCell>
-            {i !== 0 && (
-              <SmallButton
-                icon="arrow_upward"
-                onClick={() => {
-                  moveProgram(i, "up");
-                }}
-              />
-            )}
-            {i < data.programs.length - 1 && (
-              <SmallButton
-                icon="arrow_downward"
-                onClick={() => {
-                  moveProgram(i, "down");
-                }}
-              />
-            )}
-          </TableCell>
-          <TableCell colSpan={2}>
-            <a
-              href="about:blank"
-              onClick={e => {
-                e.preventDefault();
-                setEditProgramIndex(i);
-              }}>
-              {p.name}
-            </a>
-          </TableCell>
-          <TableCell colSpan={2} style={{ textAlign: "right" }}>
+      result.push(<TableRow key={p.id}>
+        <TableCell>
+          {i !== 0 && (
             <SmallButton
-              icon="add"
-              text="Study"
+              icon="arrow_upward"
               onClick={() => {
-                setEditProgramIndex(i);
-                setEditStudyIndex(-1);
+                moveProgram(i, "up");
               }}
             />
-          </TableCell>
-        </TableRow>
-      );
+          )}
+          {i < data.programs.length - 1 && (
+            <SmallButton
+              icon="arrow_downward"
+              onClick={() => {
+                moveProgram(i, "down");
+              }}
+            />
+          )}
+        </TableCell>
+        <TableCell colSpan={2}>
+          <a
+            href="about:blank"
+            onClick={e => {
+              e.preventDefault();
+              setEditProgramIndex(i);
+            }}>
+            {p.name}
+          </a>
+        </TableCell>
+        <TableCell colSpan={2} style={{ textAlign: "right" }}>
+          <SmallButton
+            icon="add"
+            text="Study"
+            onClick={() => {
+              setEditProgramIndex(i);
+              setEditStudyIndex(-1);
+            }}
+          />
+        </TableCell>
+      </TableRow>);
       result = result.concat(getStudies(p, i));
     });
 
@@ -450,13 +438,10 @@ export default function OllInner() {
     if (editProgramIndex > -1 && editStudyIndex !== null) {
       if (editStudyIndex > -1 && editLessonIndex !== null) {
         if (editLessonIndex > -1 && editVenueIndex !== null) {
-          if (editVenueIndex > -1)
-            editVenue =
-              data.programs[editProgramIndex].studies[editStudyIndex].lessons[editLessonIndex].venues[editVenueIndex];
+          if (editVenueIndex > -1) editVenue = data.programs[editProgramIndex].studies[editStudyIndex].lessons[editLessonIndex].venues[editVenueIndex];
           else editVenue = {} as FeedVenueLinkInterface;
         } else {
-          if (editLessonIndex > -1)
-            editLesson = data.programs[editProgramIndex].studies[editStudyIndex].lessons[editLessonIndex];
+          if (editLessonIndex > -1) editLesson = data.programs[editProgramIndex].studies[editStudyIndex].lessons[editLessonIndex];
           else editLesson = {} as FeedLessonInterface;
         }
       } else {
@@ -505,7 +490,7 @@ export default function OllInner() {
                     Programs
                   </Typography>
                 </Stack>
-                
+
                 <SmallButton
                   icon="add"
                   text="Program"

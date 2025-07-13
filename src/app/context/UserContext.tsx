@@ -1,12 +1,10 @@
 "use client";
 
 import React, { useContext } from "react";
-import {
-  LoginUserChurchInterface,
+import { LoginUserChurchInterface,
   PersonInterface,
   UserContextInterface,
-  UserInterface
-} from "@churchapps/apphelper/dist/helpers";
+  UserInterface } from "@churchapps/apphelper/dist/helpers";
 
 const UserContext = React.createContext<UserContextInterface | undefined>(undefined);
 

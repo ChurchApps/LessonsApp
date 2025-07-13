@@ -6,14 +6,12 @@ import React, { useEffect, useState } from "react";
 import { AppBar, Container, Grid, Stack } from "@mui/material";
 import { ArrayHelper, ChurchInterface, DateHelper, MarkdownPreviewLight } from "@churchapps/apphelper";
 import { Layout } from "@/components";
-import {
-  ApiHelper,
+import { ApiHelper,
   ClassroomInterface,
   LessonInterface,
   ProgramInterface,
   ScheduleInterface,
-  StudyInterface
-} from "@/helpers";
+  StudyInterface } from "@/helpers";
 import { ExternalProviderHelper } from "@/helpers/ExternalProviderHelper";
 
 type PageParams = { id: string };
@@ -54,8 +52,7 @@ export default function Venue() {
       setSchedules(filteredSchedules);
       const lessonIds = ArrayHelper.getIds(filteredSchedules, "lessonId");
       if (lessonIds.length > 0) {
-        if (filteredSchedules[0].externalProviderId)
-          await loadExternalLessons(filteredSchedules[0].externalProviderId, filteredSchedules);
+        if (filteredSchedules[0].externalProviderId) await loadExternalLessons(filteredSchedules[0].externalProviderId, filteredSchedules);
         else await loadLessons(lessonIds);
       }
     }
@@ -125,23 +122,21 @@ export default function Venue() {
           ? "/external/" + s.externalProviderId + "/" + s.programId + "/" + s.studyId + "/" + s.lessonId
           : "/" + program.slug + "/" + study.slug + "/" + lesson.slug;
 
-        result.push(
-          <Link href={url} key={lesson.id} style={{ textDecoration: "none", color: "inherit" }}>
-            <h3>{DateHelper.prettyDate(DateHelper.toDate(s.scheduledDate))}</h3>
-            <Grid container spacing={3} style={{ paddingBottom: 20, borderBottom: "1px solid #CCC" }}>
-              <Grid item md={3} xs={12}>
-                <img src={lesson.image} style={{ verticalAlign: "middle" }} alt={lesson.name} className="img-fluid" />
-              </Grid>
-              <Grid item md={9} xs={12}>
-                <div className="title">{lesson.name}</div>
-                <h3 style={{ fontSize: "28px", fontWeight: 600, margin: "0 0 8px 0" }}>{lesson.title}</h3>
-                <p style={{ margin: "0 0 16px 0" }}>
-                  <MarkdownPreviewLight value={lesson.description} />
-                </p>
-              </Grid>
+        result.push(<Link href={url} key={lesson.id} style={{ textDecoration: "none", color: "inherit" }}>
+          <h3>{DateHelper.prettyDate(DateHelper.toDate(s.scheduledDate))}</h3>
+          <Grid container spacing={3} style={{ paddingBottom: 20, borderBottom: "1px solid #CCC" }}>
+            <Grid item md={3} xs={12}>
+              <img src={lesson.image} style={{ verticalAlign: "middle" }} alt={lesson.name} className="img-fluid" />
             </Grid>
-          </Link>
-        );
+            <Grid item md={9} xs={12}>
+              <div className="title">{lesson.name}</div>
+              <h3 style={{ fontSize: "28px", fontWeight: 600, margin: "0 0 8px 0" }}>{lesson.title}</h3>
+              <p style={{ margin: "0 0 16px 0" }}>
+                <MarkdownPreviewLight value={lesson.description} />
+              </p>
+            </Grid>
+          </Grid>
+        </Link>);
       }
     });
 

@@ -39,62 +39,54 @@ export const Wrapper: React.FC<Props> = props => {
     router.push(url);
   };
 
-  tabs.push(
-    <NavItem
-      url="/"
-      label="Home"
-      icon="home"
+  tabs.push(<NavItem
+    url="/"
+    label="Home"
+    icon="home"
+    onNavigate={handleNavigate}
+    onClick={() => {
+      redirect("/");
+    }}
+  />);
+  if (UserHelper.checkAccess(Permissions.lessonsApi.lessons.edit)) {
+    tabs.push(<NavItem
+      url="/admin"
+      label="Admin"
+      icon="admin_panel_settings"
       onNavigate={handleNavigate}
       onClick={() => {
-        redirect("/");
+        router.push("/admin");
       }}
-    />
-  );
-  if (UserHelper.checkAccess(Permissions.lessonsApi.lessons.edit)) {
-    tabs.push(
-      <NavItem
-        url="/admin"
-        label="Admin"
-        icon="admin_panel_settings"
-        onNavigate={handleNavigate}
-        onClick={() => {
-          router.push("/admin");
-        }}
-        selected={selectedTab === "admin"}
-        key="admin"
-      />
-    );
+      selected={selectedTab === "admin"}
+      key="admin"
+    />);
   }
   if (UserHelper.checkAccess(Permissions.lessonsApi.lessons.editSchedules)) {
-    tabs.push(
-      <NavItem
-        url="/portal"
-        label="Schedules"
-        icon="calendar_month"
-        onNavigate={handleNavigate}
-        onClick={() => {
-          router.push("/portal");
-        }}
-        selected={selectedTab === "cp"}
-        key="cp"
-      />
-    );
+    tabs.push(<NavItem
+      url="/portal"
+      label="Schedules"
+      icon="calendar_month"
+      onNavigate={handleNavigate}
+      onClick={() => {
+        router.push("/portal");
+      }}
+      selected={selectedTab === "cp"}
+      key="cp"
+    />);
   }
   if (UserHelper.checkAccess(Permissions.lessonsApi.lessons.editSchedules)) {
-    tabs.push(
-      <NavItem
-        url="/portal/thirdParty"
-        label="External Providers"
-        icon="groups"
-        onNavigate={handleNavigate}
-        onClick={() => {
-          console.log("THIRD PARTY");
-          router.push("/portal/thirdParty");
-        }}
-        selected={selectedTab === "external"}
-        key="external"
-      />
-    );
+    tabs.push(<NavItem
+      url="/portal/thirdParty"
+      label="External Providers"
+      icon="groups"
+      onNavigate={handleNavigate}
+      onClick={() => {
+        console.log("THIRD PARTY");
+        router.push("/portal/thirdParty");
+      }}
+      selected={selectedTab === "external"}
+      key="external"
+    />);
   }
 
   const navContent = (

@@ -20,10 +20,7 @@ export default function ProgramPage() {
   const [showVideo, setShowVideo] = useState(false);
 
   const loadData = async () => {
-    const lessonList = await ApiHelper.getAnonymous(
-      "/externalProviders/" + params.providerId + "/lessons",
-      "LessonsApi"
-    );
+    const lessonList = await ApiHelper.getAnonymous("/externalProviders/" + params.providerId + "/lessons", "LessonsApi");
     const program = ArrayHelper.getOne(lessonList.programs, "id", params.programId);
     setProgram(program);
     setFilteredStudies(program.studies);

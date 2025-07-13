@@ -35,35 +35,33 @@ export function AddOnEdit(props: Props) {
     let a = { ...addOn };
     const val = e.target.value;
     switch (e.target.name) {
-      case "category":
-        a.category = val;
-        break;
-      case "name":
-        a.name = val;
-        break;
-      case "image":
-        a.image = val;
-        break;
-      case "addOnType":
-        a.addOnType = val;
-        reloadContent = true;
-        break;
+    case "category":
+      a.category = val;
+      break;
+    case "name":
+      a.name = val;
+      break;
+    case "image":
+      a.image = val;
+      break;
+    case "addOnType":
+      a.addOnType = val;
+      reloadContent = true;
+      break;
     }
     console.log(a);
     setAddOn(a);
     if (reloadContent) loadContent(a);
   };
 
-  const handleExternalVideoChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement> | SelectChangeEvent<string>
-  ) => {
+  const handleExternalVideoChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement> | SelectChangeEvent<string>) => {
     e.preventDefault();
     let ex = { ...externalVideo };
     const val = e.target.value;
     switch (e.target.name) {
-      case "videoId":
-        ex.videoId = val;
-        break;
+    case "videoId":
+      ex.videoId = val;
+      break;
     }
     setExternalVideo(ex);
   };
@@ -118,8 +116,7 @@ export function AddOnEdit(props: Props) {
   );
 
   const handleDelete = () => {
-    if (window.confirm("Are you sure you wish to permanently delete this add-on?"))
-      ApiHelper.delete("/addOns/" + addOn.id.toString(), "LessonsApi").then(() => props.updatedCallback(null));
+    if (window.confirm("Are you sure you wish to permanently delete this add-on?")) ApiHelper.delete("/addOns/" + addOn.id.toString(), "LessonsApi").then(() => props.updatedCallback(null));
   };
 
   const handleImageClick = (e: React.MouseEvent) => {
@@ -193,10 +190,10 @@ export function AddOnEdit(props: Props) {
 
   const getTypeFields = () => {
     switch (addOn.addOnType) {
-      case "file":
-        return getFileFields();
-      default:
-        return getExternalVideoFields();
+    case "file":
+      return getFileFields();
+    default:
+      return getExternalVideoFields();
     }
   };
 
@@ -255,7 +252,7 @@ export function AddOnEdit(props: Props) {
           {/* CONTENT */}
           <Box sx={{ p: 3 }}>
             <ErrorMessages errors={errors} />
-            
+
             <Grid container spacing={3}>
               {/* Left Column - Form Fields */}
               <Grid item xs={12} md={8}>
@@ -274,7 +271,7 @@ export function AddOnEdit(props: Props) {
                       <MenuItem value="easter">Easter</MenuItem>
                     </Select>
                   </FormControl>
-                  
+
                   <TextField
                     fullWidth
                     label="Name"
@@ -284,7 +281,7 @@ export function AddOnEdit(props: Props) {
                     onKeyDown={handleKeyDown}
                     placeholder="Add-on name"
                   />
-                  
+
                   <FormControl fullWidth>
                     <InputLabel>Add-on Type</InputLabel>
                     <Select label="Add-on Type" name="addOnType" value={addOn.addOnType || "file"} onChange={handleChange}>

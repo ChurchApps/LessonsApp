@@ -19,10 +19,7 @@ export default async function Classroom({ params }: { params: Promise<PageParams
   const loadData = async () => {
     const { id } = await params;
     const classroom: ClassroomInterface = await ApiHelper.get("/classrooms/" + id, "LessonsApi");
-    const schedules: ScheduleInterface[] = await ApiHelper.get(
-      "/schedules/public/classroom/" + classroom.id,
-      "LessonsApi"
-    );
+    const schedules: ScheduleInterface[] = await ApiHelper.get("/schedules/public/classroom/" + classroom.id, "LessonsApi");
     return { classroom, schedules };
   };
 
@@ -31,12 +28,10 @@ export default async function Classroom({ params }: { params: Promise<PageParams
   const getRows = () => {
     const result: JSX.Element[] = [];
     schedules?.forEach(s => {
-      result.push(
-        <Link href={"/b1/venue/" + s.venueId + "?classroomId=" + classroom?.id} className="bigLink">
-          {DateHelper.getShortDate(DateHelper.toDate(s.scheduledDate))}
-          <span>{s.displayName}</span>
-        </Link>
-      );
+      result.push(<Link href={"/b1/venue/" + s.venueId + "?classroomId=" + classroom?.id} className="bigLink">
+        {DateHelper.getShortDate(DateHelper.toDate(s.scheduledDate))}
+        <span>{s.displayName}</span>
+      </Link>);
     });
 
     return result;

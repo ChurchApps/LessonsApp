@@ -69,8 +69,8 @@ export function EmptyState({ icon, title, description, action, actions = [] }: E
                 "&:hover":
                   actionItem.variant === "contained"
                     ? {
-                        backgroundColor: "var(--c1d1)"
-                      }
+                      backgroundColor: "var(--c1d1)"
+                    }
                     : undefined
               }}>
               {actionItem.label}

@@ -19,12 +19,12 @@ export function ProviderEdit(props: Props) {
     e.preventDefault();
     let p = { ...provider };
     switch (e.target.name) {
-      case "name":
-        p.name = e.target.value;
-        break;
-      case "apiUrl":
-        p.apiUrl = e.target.value;
-        break;
+    case "name":
+      p.name = e.target.value;
+      break;
+    case "apiUrl":
+      p.apiUrl = e.target.value;
+      break;
     }
     setProvider(p);
   };
@@ -49,8 +49,7 @@ export function ProviderEdit(props: Props) {
   const handleDelete = () => {
     if (window.confirm("Are you sure you wish to permanently delete this provider?")) {
       ApiHelper.delete("/externalProviders/" + provider.id.toString(), "LessonsApi").then(() =>
-        props.updatedCallback(null)
-      );
+        props.updatedCallback(null));
     }
   };
 
@@ -92,23 +91,23 @@ export function ProviderEdit(props: Props) {
         {/* CONTENT */}
         <Box sx={{ p: 3 }}>
           <ErrorMessages errors={errors} />
-          
+
           <Stack spacing={3}>
-            <TextField 
-              fullWidth 
-              label="Provider Name" 
-              name="name" 
-              value={provider?.name || ''} 
+            <TextField
+              fullWidth
+              label="Provider Name"
+              name="name"
+              value={provider?.name || ''}
               onChange={handleChange}
               placeholder="My External Provider"
               required
             />
-            
-            <TextField 
-              fullWidth 
-              label="API URL" 
-              name="apiUrl" 
-              value={provider?.apiUrl || ''} 
+
+            <TextField
+              fullWidth
+              label="API URL"
+              name="apiUrl"
+              value={provider?.apiUrl || ''}
               onChange={handleChange}
               placeholder="https://api.example.com/lessons"
               helperText="The API endpoint that provides lessons in Open Lesson Format"

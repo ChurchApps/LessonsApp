@@ -39,22 +39,16 @@ const Venue = React.memo(({ hidePrint = true, ...props }: Props) => {
     }
   }, [displaySection, checkPrint]);
 
-  const shouldHide = React.useCallback(
-    (id: string) => {
-      let result = false;
-      if (props.customizations?.length > 0) {
-        const removeItems = ArrayHelper.getAll(props.customizations, "action", "remove");
-        if (removeItems.length > 0) result = ArrayHelper.getOne(removeItems, "contentId", id) !== null;
-      }
-      return result;
-    },
-    [props.customizations]
-  );
+  const shouldHide = React.useCallback((id: string) => {
+    let result = false;
+    if (props.customizations?.length > 0) {
+      const removeItems = ArrayHelper.getAll(props.customizations, "action", "remove");
+      if (removeItems.length > 0) result = ArrayHelper.getOne(removeItems, "contentId", id) !== null;
+    }
+    return result;
+  }, [props.customizations]);
 
-  const customSections = React.useMemo(
-    () => CustomizationHelper.applyCustomSort(props.customizations, props.venue?.sections, "section"),
-    [props.customizations, props.venue?.sections]
-  );
+  const customSections = React.useMemo(() => CustomizationHelper.applyCustomSort(props.customizations, props.venue?.sections, "section"), [props.customizations, props.venue?.sections]);
 
   const getSections = React.useCallback(() => {
     const sections: JSX.Element[] = [];
@@ -62,15 +56,13 @@ const Venue = React.memo(({ hidePrint = true, ...props }: Props) => {
     if (props.venue?.sections) {
       customSections.forEach(s => {
         if (!shouldHide(s.id)) {
-          sections.push(
-            <Section
-              section={s}
-              toggleActive={handleToggle}
-              activeSectionId={activeSectionId}
-              key={s.id}
-              customizations={props.customizations}
-            />
-          );
+          sections.push(<Section
+            section={s}
+            toggleActive={handleToggle}
+            activeSectionId={activeSectionId}
+            key={s.id}
+            customizations={props.customizations}
+          />);
         }
       });
     }
@@ -84,15 +76,13 @@ const Venue = React.memo(({ hidePrint = true, ...props }: Props) => {
     if (props.venue?.sections) {
       customSections.forEach(s => {
         if (!shouldHide(s.id)) {
-          sections.push(
-            <Section
-              section={s}
-              toggleActive={handleToggle}
-              activeSectionId={[activeSectionId]}
-              key={s.id}
-              customizations={props.customizations}
-            />
-          );
+          sections.push(<Section
+            section={s}
+            toggleActive={handleToggle}
+            activeSectionId={[activeSectionId]}
+            key={s.id}
+            customizations={props.customizations}
+          />);
         }
       });
     }

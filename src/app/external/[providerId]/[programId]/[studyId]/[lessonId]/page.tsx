@@ -25,16 +25,8 @@ export default function LessonsPage() {
   const [presenterFiles, setPresenterFiles] = React.useState<PlaylistFileInterface[]>(null);
 
   const loadData = async () => {
-    const lessonList = await ApiHelper.getAnonymous(
-      "/externalProviders/" + params.providerId + "/lessons",
-      "LessonsApi"
-    );
-    const { lesson, study, program } = ExternalProviderHelper.getLesson(
-      lessonList,
-      params.programId as string,
-      params.studyId as string,
-      params.lessonId as string
-    );
+    const lessonList = await ApiHelper.getAnonymous("/externalProviders/" + params.providerId + "/lessons", "LessonsApi");
+    const { lesson, study, program } = ExternalProviderHelper.getLesson(lessonList, params.programId as string, params.studyId as string, params.lessonId as string);
     const apiUrl = lesson.venues[0].apiUrl;
     const venueData = await axios.get(apiUrl).then(res => res.data);
     venueData.id = lesson.venues[0].id;

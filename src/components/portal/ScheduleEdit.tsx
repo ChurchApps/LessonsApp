@@ -1,14 +1,11 @@
 import { useEffect, useState } from "react";
-import {
-  CalendarMonth as CalendarIcon,
+import { CalendarMonth as CalendarIcon,
   Cancel as CancelIcon,
   Delete as DeleteIcon,
   OpenInNew as OpenInNewIcon,
   Print as PrintIcon,
-  Save as SaveIcon
-} from "@mui/icons-material";
-import {
-  Box,
+  Save as SaveIcon } from "@mui/icons-material";
+import { Box,
   Button,
   FormControl,
   IconButton,
@@ -19,8 +16,7 @@ import {
   SelectChangeEvent,
   Stack,
   TextField,
-  Typography
-} from "@mui/material";
+  Typography } from "@mui/material";
 import { ArrayHelper, DateHelper, ErrorMessages } from "@churchapps/apphelper";
 import { ApiHelper, ExternalProviderInterface, LessonTreeInterface, ScheduleInterface } from "@/helpers";
 
@@ -74,10 +70,8 @@ export function ScheduleEdit(props: Props) {
 
   if (JSON.stringify(s) !== JSON.stringify(schedule)) setSchedule(s);
 
-  const loadExternalProviderData = async (
-    externalProviders: ExternalProviderInterface[],
-    externalProviderId: string
-  ) => {
+  const loadExternalProviderData = async (externalProviders: ExternalProviderInterface[],
+    externalProviderId: string) => {
     const ep: ExternalProviderInterface = ArrayHelper.getOne(externalProviders, "id", externalProviderId);
     const data = await ApiHelper.fetchWithErrorHandling(ep.apiUrl, { method: "GET" });
     setLessonTree(data);
@@ -117,11 +111,11 @@ export function ScheduleEdit(props: Props) {
     e.preventDefault();
     let s = { ...schedule };
     switch (e.target.name) {
-      case "scheduledDate": s.scheduledDate = new Date(e.target.value); break;
-      case "program": s.programId = e.target.value; break;
-      case "study": s.studyId = e.target.value; break;
-      case "lesson": s.lessonId = e.target.value; break;
-      case "venue": s.venueId = e.target.value; break;
+    case "scheduledDate": s.scheduledDate = new Date(e.target.value); break;
+    case "program": s.programId = e.target.value; break;
+    case "study": s.studyId = e.target.value; break;
+    case "lesson": s.lessonId = e.target.value; break;
+    case "venue": s.venueId = e.target.value; break;
     }
     setSchedule(s);
   };
@@ -152,8 +146,7 @@ export function ScheduleEdit(props: Props) {
   };
 
   const handleDelete = () => {
-    if (window.confirm("Are you sure you wish to permanently delete this schedule?"))
-      ApiHelper.delete("/schedules/" + schedule.id.toString(), "LessonsApi").then(() => props.updatedCallback(null));
+    if (window.confirm("Are you sure you wish to permanently delete this schedule?")) ApiHelper.delete("/schedules/" + schedule.id.toString(), "LessonsApi").then(() => props.updatedCallback(null));
   };
 
   const getProviderOptions = () => {
@@ -181,11 +174,9 @@ export function ScheduleEdit(props: Props) {
       let sx: any = {};
       const existing: ScheduleInterface = ArrayHelper.getOne(props.schedules, "lessonId", l.id);
       if (existing && existing?.scheduledDate !== schedule.scheduledDate) sx.color = "#999";
-      result.push(
-        <MenuItem value={l.id} sx={sx}>
-          {l.name}
-        </MenuItem>
-      );
+      result.push(<MenuItem value={l.id} sx={sx}>
+        {l.name}
+      </MenuItem>);
     });
     return result;
   };
@@ -202,71 +193,63 @@ export function ScheduleEdit(props: Props) {
     // Preview/Print button
     const currentVenue = ArrayHelper.getOne(currentLesson?.venues || [], "id", schedule.venueId);
     if (currentVenue) {
-      actions.push(
-        <Button
-          key="preview"
-          size="small"
-          startIcon={<OpenInNewIcon />}
-          endIcon={<PrintIcon />}
-          onClick={e => {
-            e.preventDefault();
-            window.open("/tools/olf?feedUrl=" + encodeURIComponent(currentVenue.apiUrl), "_blank");
-          }}
-          variant="outlined"
-          sx={{
-            color: "var(--c1d2)",
-            borderColor: "var(--c1d2)"
-          }}>
-          Preview / Print
-        </Button>
-      );
-    }
-
-    // Action buttons
-    actions.push(
-      <Button
-        key="save"
+      actions.push(<Button
+        key="preview"
         size="small"
-        startIcon={<SaveIcon />}
-        onClick={handleSave}
-        variant="contained"
-        sx={{
-          backgroundColor: "var(--c1)",
-          "&:hover": { backgroundColor: "var(--c1d1)" }
-        }}>
-        Save
-      </Button>
-    );
-
-    actions.push(
-      <Button
-        key="cancel"
-        size="small"
-        startIcon={<CancelIcon />}
-        onClick={handleCancel}
+        startIcon={<OpenInNewIcon />}
+        endIcon={<PrintIcon />}
+        onClick={e => {
+          e.preventDefault();
+          window.open("/tools/olf?feedUrl=" + encodeURIComponent(currentVenue.apiUrl), "_blank");
+        }}
         variant="outlined"
         sx={{
           color: "var(--c1d2)",
           borderColor: "var(--c1d2)"
         }}>
+          Preview / Print
+      </Button>);
+    }
+
+    // Action buttons
+    actions.push(<Button
+      key="save"
+      size="small"
+      startIcon={<SaveIcon />}
+      onClick={handleSave}
+      variant="contained"
+      sx={{
+        backgroundColor: "var(--c1)",
+        "&:hover": { backgroundColor: "var(--c1d1)" }
+      }}>
+        Save
+    </Button>);
+
+    actions.push(<Button
+      key="cancel"
+      size="small"
+      startIcon={<CancelIcon />}
+      onClick={handleCancel}
+      variant="outlined"
+      sx={{
+        color: "var(--c1d2)",
+        borderColor: "var(--c1d2)"
+      }}>
         Cancel
-      </Button>
-    );
+    </Button>);
 
     if (schedule.id) {
-      actions.push(
-        <IconButton
-          key="delete"
-          size="small"
-          onClick={handleDelete}
-          sx={{
-            color: "#d32f2f",
-            "&:hover": { backgroundColor: "rgba(211, 47, 47, 0.1)" }
-          }}
-          title="Delete schedule">
-          <DeleteIcon fontSize="small" />
-        </IconButton>
-      );
+      actions.push(<IconButton
+        key="delete"
+        size="small"
+        onClick={handleDelete}
+        sx={{
+          color: "#d32f2f",
+          "&:hover": { backgroundColor: "rgba(211, 47, 47, 0.1)" }
+        }}
+        title="Delete schedule">
+        <DeleteIcon fontSize="small" />
+      </IconButton>);
     }
 
     return actions;

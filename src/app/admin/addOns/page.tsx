@@ -52,8 +52,7 @@ export default function Admin() {
           <CircularProgress />
         </Box>
       );
-    }
-    else return getAddOns();
+    } else return getAddOns();
   }
 
   function getAddOns() {
@@ -109,7 +108,6 @@ export default function Admin() {
     );
   }
 
-
   const handleAddNew = () => {
     clearEdits();
     setEditAddOn({
@@ -126,16 +124,14 @@ export default function Admin() {
           icon={<ExtensionIcon />}
           title="Add-ons"
           subtitle="Manage additional content and media resources"
-          actions={[
-            <Button
-              key="add"
-              variant="outlined"
-              color="inherit"
-              startIcon={<AddIcon />}
-              onClick={handleAddNew}>
+          actions={[<Button
+            key="add"
+            variant="outlined"
+            color="inherit"
+            startIcon={<AddIcon />}
+            onClick={handleAddNew}>
               Add New Add-on
-            </Button>
-          ]}
+          </Button>]}
         />
 
         <Paper

@@ -82,11 +82,7 @@ export function FileUpload(props: Props) {
 
   const getOtherPresigned = async () => {
     const params = { fileName: uploadedFile.name };
-    const presigned = await ApiHelper.post(
-      "/files/postUrl/content/" + props.contentType + "/" + props.contentId,
-      params,
-      "LessonsApi"
-    );
+    const presigned = await ApiHelper.post("/files/postUrl/content/" + props.contentType + "/" + props.contentId, params, "LessonsApi");
     return presigned;
   };
 

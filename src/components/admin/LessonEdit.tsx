@@ -25,38 +25,35 @@ const LessonEdit = React.memo((props: Props) => {
 
   const handleCancel = React.useCallback(() => props.updatedCallback(lesson), [props, lesson]);
 
-  const handleChange = React.useCallback(
-    (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement> | SelectChangeEvent<string>) => {
-      e.preventDefault();
-      let p = { ...lesson };
-      const val = e.target.value;
-      switch (e.target.name) {
-        case "name":
-          p.name = val;
-          break;
-        case "title":
-          p.title = val;
-          break;
-        case "slug":
-          p.slug = val;
-          break;
-        case "description":
-          p.description = val;
-          break;
-        case "live":
-          p.live = val === "true";
-          break;
-        case "sort":
-          p.sort = parseInt(val);
-          break;
-        case "videoEmbedUrl":
-          p.videoEmbedUrl = val;
-          break;
-      }
-      setLesson(p);
-    },
-    [lesson]
-  );
+  const handleChange = React.useCallback((e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement> | SelectChangeEvent<string>) => {
+    e.preventDefault();
+    let p = { ...lesson };
+    const val = e.target.value;
+    switch (e.target.name) {
+    case "name":
+      p.name = val;
+      break;
+    case "title":
+      p.title = val;
+      break;
+    case "slug":
+      p.slug = val;
+      break;
+    case "description":
+      p.description = val;
+      break;
+    case "live":
+      p.live = val === "true";
+      break;
+    case "sort":
+      p.sort = parseInt(val);
+      break;
+    case "videoEmbedUrl":
+      p.videoEmbedUrl = val;
+      break;
+    }
+    setLesson(p);
+  }, [lesson]);
 
   const loadStudy = (studyId: string) => {
     ApiHelper.get("/studies/" + studyId, "LessonsApi").then((s: StudyInterface) => {
@@ -91,19 +88,15 @@ const LessonEdit = React.memo((props: Props) => {
     }
   }, [lesson, props]);
 
-  const handleKeyDown = React.useCallback(
-    (e: React.KeyboardEvent<any>) => {
-      if (e.key === "Enter") {
-        e.preventDefault();
-        handleSave();
-      }
-    },
-    [handleSave]
-  );
+  const handleKeyDown = React.useCallback((e: React.KeyboardEvent<any>) => {
+    if (e.key === "Enter") {
+      e.preventDefault();
+      handleSave();
+    }
+  }, [handleSave]);
 
   const handleDelete = React.useCallback(() => {
-    if (window.confirm("Are you sure you wish to permanently delete this lesson?"))
-      ApiHelper.delete("/lessons/" + lesson.id.toString(), "LessonsApi").then(() => props.updatedCallback(null));
+    if (window.confirm("Are you sure you wish to permanently delete this lesson?")) ApiHelper.delete("/lessons/" + lesson.id.toString(), "LessonsApi").then(() => props.updatedCallback(null));
   }, [lesson, props]);
 
   const handleImageClick = React.useCallback((e: React.MouseEvent) => {
@@ -186,7 +179,7 @@ const LessonEdit = React.memo((props: Props) => {
         {/* Content */}
         <Box sx={{ p: 3 }}>
           <ErrorMessages errors={errors} />
-          
+
           <Grid container spacing={3}>
             {/* Left Column - Form Fields */}
             <Grid item xs={12} md={8}>

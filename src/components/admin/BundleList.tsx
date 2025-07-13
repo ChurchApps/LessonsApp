@@ -1,15 +1,13 @@
 import React, { useState } from "react";
 import { Accordion, AccordionDetails, AccordionSummary, Icon, Menu, MenuItem } from "@mui/material";
 import { DisplayBox, Loading, SmallButton } from "@churchapps/apphelper";
-import {
-  ApiHelper,
+import { ApiHelper,
   ArrayHelper,
   AssetInterface,
   BundleInterface,
   ExternalVideoInterface,
   ResourceInterface,
-  VariantInterface
-} from "@/helpers";
+  VariantInterface } from "@/helpers";
 import { AssetEdit } from "./AssetEdit";
 import { BulkAssetAdd } from "./BulkAssetAdd";
 import { BundleEdit } from "./BundleEdit";
@@ -48,38 +46,28 @@ export const BundleList: React.FC<Props> = props => {
   const loadData = async () => {
     if (props.contentType && props.contentId) {
       ApiHelper.get("/externalVideos/content/" + props.contentType + "/" + props.contentId, "LessonsApi").then(data =>
-        setExternalVideos(data)
-      );
-      const bundleData: BundleInterface[] = await ApiHelper.get(
-        "/bundles/content/" + props.contentType + "/" + props.contentId,
-        "LessonsApi"
-      );
+        setExternalVideos(data));
+      const bundleData: BundleInterface[] = await ApiHelper.get("/bundles/content/" + props.contentType + "/" + props.contentId, "LessonsApi");
       setBundles(bundleData);
       if (bundleData.length === 0) {
         setResources([]);
         setAssets([]);
         setVariants([]);
       } else {
-        ApiHelper.get("/resources/content/" + props.contentType + "/" + props.contentId, "LessonsApi").then(
-          (data: ResourceInterface[]) => {
-            setResources(data);
-            if (data.length === 0) {
-              setAssets([]);
-              setVariants([]);
-            } else {
-              ApiHelper.get("/assets/content/" + props.contentType + "/" + props.contentId, "LessonsApi").then(
-                (data: any) => {
-                  setAssets(data);
-                }
-              );
-              ApiHelper.get("/variants/content/" + props.contentType + "/" + props.contentId, "LessonsApi").then(
-                (data: any) => {
-                  setVariants(data);
-                }
-              );
-            }
+        ApiHelper.get("/resources/content/" + props.contentType + "/" + props.contentId, "LessonsApi").then((data: ResourceInterface[]) => {
+          setResources(data);
+          if (data.length === 0) {
+            setAssets([]);
+            setVariants([]);
+          } else {
+            ApiHelper.get("/assets/content/" + props.contentType + "/" + props.contentId, "LessonsApi").then((data: any) => {
+              setAssets(data);
+            });
+            ApiHelper.get("/variants/content/" + props.contentType + "/" + props.contentId, "LessonsApi").then((data: any) => {
+              setVariants(data);
+            });
           }
-        );
+        });
       }
     }
   };
@@ -89,36 +77,34 @@ export const BundleList: React.FC<Props> = props => {
     if (resources) {
       ArrayHelper.getAll(resources, "bundleId", bundleId).forEach(r => {
         const resource = r;
-        result.push(
-          <Accordion
-            expanded={expandedResourceId === r.id}
-            onChange={() => {
-              setExpandedResourceId(expandedResourceId === resource.id ? "" : resource.id);
-            }}
-            elevation={0}>
-            <AccordionSummary
-              expandIcon={<Icon>expand_more</Icon>}
-              aria-controls="panel1bh-content"
-              id="panel1bh-header">
-              <div style={{ width: "100%", paddingRight: 20 }}>
-                <span style={{ float: "right" }}>{getDropDownMenu(resource.id)}</span>
-                <a
-                  href="about:blank"
-                  onClick={e => {
-                    e.preventDefault();
-                    clearEdits();
-                    setEditResource(resource);
-                  }}>
-                  <Icon>insert_drive_file</Icon> {r.name}
-                </a>
-              </div>
-            </AccordionSummary>
-            <AccordionDetails>
-              {getVariants(resource.id)}
-              {getAssets(resource.id)}
-            </AccordionDetails>
-          </Accordion>
-        );
+        result.push(<Accordion
+          expanded={expandedResourceId === r.id}
+          onChange={() => {
+            setExpandedResourceId(expandedResourceId === resource.id ? "" : resource.id);
+          }}
+          elevation={0}>
+          <AccordionSummary
+            expandIcon={<Icon>expand_more</Icon>}
+            aria-controls="panel1bh-content"
+            id="panel1bh-header">
+            <div style={{ width: "100%", paddingRight: 20 }}>
+              <span style={{ float: "right" }}>{getDropDownMenu(resource.id)}</span>
+              <a
+                href="about:blank"
+                onClick={e => {
+                  e.preventDefault();
+                  clearEdits();
+                  setEditResource(resource);
+                }}>
+                <Icon>insert_drive_file</Icon> {r.name}
+              </a>
+            </div>
+          </AccordionSummary>
+          <AccordionDetails>
+            {getVariants(resource.id)}
+            {getAssets(resource.id)}
+          </AccordionDetails>
+        </Accordion>);
       });
     }
     return result;
@@ -128,19 +114,17 @@ export const BundleList: React.FC<Props> = props => {
     const result: JSX.Element[] = [];
     if (variants) {
       ArrayHelper.getAll(variants, "resourceId", resourceId).forEach(v => {
-        result.push(
-          <div className="variantDiv" key={`v-${v.id}`}>
-            <a
-              href="about:blank"
-              onClick={e => {
-                e.preventDefault();
-                clearEdits();
-                setEditVariant(v);
-              }}>
-              <Icon>file_copy</Icon> {v.name}
-            </a>
-          </div>
-        );
+        result.push(<div className="variantDiv" key={`v-${v.id}`}>
+          <a
+            href="about:blank"
+            onClick={e => {
+              e.preventDefault();
+              clearEdits();
+              setEditVariant(v);
+            }}>
+            <Icon>file_copy</Icon> {v.name}
+          </a>
+        </div>);
       });
     }
     return result;
@@ -150,19 +134,17 @@ export const BundleList: React.FC<Props> = props => {
     const result: JSX.Element[] = [];
     if (assets) {
       ArrayHelper.getAll(assets, "resourceId", resourceId).forEach(a => {
-        result.push(
-          <div className="assetDiv" key={`a-${a.id}`}>
-            <a
-              href="about:blank"
-              onClick={e => {
-                e.preventDefault();
-                clearEdits();
-                setEditAsset(a);
-              }}>
-              <Icon>format_list_numbered</Icon> {a.name}
-            </a>
-          </div>
-        );
+        result.push(<div className="assetDiv" key={`a-${a.id}`}>
+          <a
+            href="about:blank"
+            onClick={e => {
+              e.preventDefault();
+              clearEdits();
+              setEditAsset(a);
+            }}>
+            <Icon>format_list_numbered</Icon> {a.name}
+          </a>
+        </div>);
       });
     }
     return result;
@@ -172,41 +154,39 @@ export const BundleList: React.FC<Props> = props => {
     const result: JSX.Element[] = [];
     bundles.forEach(b => {
       const bundle = b;
-      result.push(
-        <Accordion
-          expanded={expandedBundleId === b.id}
-          onChange={() => {
-            setExpandedBundleId(expandedBundleId === b.id ? "" : b.id);
-          }}
-          elevation={0}>
-          <AccordionSummary expandIcon={<Icon>expand_more</Icon>} aria-controls="panel1bh-content" id="panel1bh-header">
-            <div style={{ width: "100%", paddingRight: 20 }}>
-              <span style={{ float: "right" }}>
-                <SmallButton
-                  icon="add"
-                  onClick={() => {
-                    setEditResource({ category: bundle.name, bundleId: bundle.id, loopVideo: false });
-                  }}
-                  text="Resource"
-                />
-              </span>
-              <a
-                href="about:blank"
-                onClick={e => {
-                  e.preventDefault();
-                  clearEdits();
-                  setEditBundle(b);
+      result.push(<Accordion
+        expanded={expandedBundleId === b.id}
+        onChange={() => {
+          setExpandedBundleId(expandedBundleId === b.id ? "" : b.id);
+        }}
+        elevation={0}>
+        <AccordionSummary expandIcon={<Icon>expand_more</Icon>} aria-controls="panel1bh-content" id="panel1bh-header">
+          <div style={{ width: "100%", paddingRight: 20 }}>
+            <span style={{ float: "right" }}>
+              <SmallButton
+                icon="add"
+                onClick={() => {
+                  setEditResource({ category: bundle.name, bundleId: bundle.id, loopVideo: false });
                 }}
-                color="error">
-                <Icon style={{ paddingTop: 4 }}>folder_zip</Icon> {b.name}
-              </a>
-            </div>
-          </AccordionSummary>
-          <AccordionDetails>
-            <div className="adminAccordion resourceAccordion">{getResources(b.id)}</div>
-          </AccordionDetails>
-        </Accordion>
-      );
+                text="Resource"
+              />
+            </span>
+            <a
+              href="about:blank"
+              onClick={e => {
+                e.preventDefault();
+                clearEdits();
+                setEditBundle(b);
+              }}
+              color="error">
+              <Icon style={{ paddingTop: 4 }}>folder_zip</Icon> {b.name}
+            </a>
+          </div>
+        </AccordionSummary>
+        <AccordionDetails>
+          <div className="adminAccordion resourceAccordion">{getResources(b.id)}</div>
+        </AccordionDetails>
+      </Accordion>);
     });
 
     return result;
@@ -216,19 +196,17 @@ export const BundleList: React.FC<Props> = props => {
     const result: JSX.Element[] = [];
     externalVideos.forEach(v => {
       const video = v;
-      result.push(
-        <div style={{ paddingLeft: 16 }}>
-          <a
-            href="about:blank"
-            onClick={e => {
-              e.preventDefault();
-              clearEdits();
-              setEditVideo(video);
-            }}>
-            <Icon style={{ paddingTop: 4 }}>videocam</Icon> {video.name}
-          </a>
-        </div>
-      );
+      result.push(<div style={{ paddingLeft: 16 }}>
+        <a
+          href="about:blank"
+          onClick={e => {
+            e.preventDefault();
+            clearEdits();
+            setEditVideo(video);
+          }}>
+          <Icon style={{ paddingTop: 4 }}>videocam</Icon> {video.name}
+        </a>
+      </div>);
     });
     return result;
   };

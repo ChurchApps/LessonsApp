@@ -26,15 +26,15 @@ export function SectionEdit(props: Props) {
     e.preventDefault();
     let s = { ...section };
     switch (e.currentTarget.name) {
-      case "name":
-        s.name = e.currentTarget.value;
-        break;
-      case "materials":
-        s.materials = e.currentTarget.value;
-        break;
-      case "sort":
-        s.sort = parseInt(e.currentTarget.value);
-        break;
+    case "name":
+      s.name = e.currentTarget.value;
+      break;
+    case "materials":
+      s.materials = e.currentTarget.value;
+      break;
+    case "sort":
+      s.sort = parseInt(e.currentTarget.value);
+      break;
     }
     setSection(s);
   };
@@ -58,8 +58,7 @@ export function SectionEdit(props: Props) {
   const handleDelete = () => {
     if (window.confirm("Are you sure you wish to permanently delete this section?")) {
       ApiHelper.delete("/sections/" + section.id.toString(), "LessonsApi").then(() =>
-        props.updatedCallback(null, false)
-      );
+        props.updatedCallback(null, false));
     }
   };
 
@@ -98,7 +97,7 @@ export function SectionEdit(props: Props) {
       {/* CONTENT */}
       <Box sx={{ p: 3 }}>
         <ErrorMessages errors={errors} />
-        
+
         <Stack spacing={3}>
           <TextField
             label="Order"
@@ -111,7 +110,7 @@ export function SectionEdit(props: Props) {
             placeholder="1"
             helperText="Display order for this section"
           />
-          
+
           <TextField
             label="Section Name"
             fullWidth
@@ -122,7 +121,7 @@ export function SectionEdit(props: Props) {
             placeholder="Section 1"
             required
           />
-          
+
           <TextField
             label="Materials Needed"
             fullWidth

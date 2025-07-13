@@ -25,16 +25,8 @@ export function HomeTestimonials() {
           <h2>Testimonials</h2>
         </div>
         <Grid container spacing={3}>
-          {getTestimonial(
-            "Sarah DeLitta",
-            "One Church, NH",
-            "Lessons.church provides fun, biblical lessons with materials designed for different age groups, which allows families to discuss the same lesson all together."
-          )}
-          {getTestimonial(
-            "Chelsea Boldt",
-            "Venture Christian Church, TX",
-            "We love how Lessons.Church has provided a multitude of resources at our fingertips. It makes scheduling super easy!"
-          )}
+          {getTestimonial("Sarah DeLitta", "One Church, NH", "Lessons.church provides fun, biblical lessons with materials designed for different age groups, which allows families to discuss the same lesson all together.")}
+          {getTestimonial("Chelsea Boldt", "Venture Christian Church, TX", "We love how Lessons.Church has provided a multitude of resources at our fingertips. It makes scheduling super easy!")}
         </Grid>
       </Container>
     </div>

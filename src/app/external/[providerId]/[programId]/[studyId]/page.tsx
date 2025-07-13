@@ -22,15 +22,8 @@ export default function StudyPage() {
   const [lessons, setLessons] = useState<LessonInterface[]>([]);
 
   const loadData = async () => {
-    const lessonList = await ApiHelper.getAnonymous(
-      "/externalProviders/" + params.providerId + "/lessons",
-      "LessonsApi"
-    );
-    const { study, program } = ExternalProviderHelper.getStudy(
-      lessonList,
-      params.programId as string,
-      params.studyId as string
-    );
+    const lessonList = await ApiHelper.getAnonymous("/externalProviders/" + params.providerId + "/lessons", "LessonsApi");
+    const { study, program } = ExternalProviderHelper.getStudy(lessonList, params.programId as string, params.studyId as string);
     console.log("STUDY IS: ", study);
 
     setStudy(study);

@@ -27,15 +27,15 @@ export function ResourceEdit(props: Props) {
     e.preventDefault();
     let r = { ...resource };
     switch (e.target.name) {
-      case "name":
-        r.name = e.target.value;
-        break;
-      case "bundleId":
-        r.bundleId = e.target.value;
-        break;
-      case "loopVideo":
-        r.loopVideo = e.target.value === "true";
-        break;
+    case "name":
+      r.name = e.target.value;
+      break;
+    case "bundleId":
+      r.bundleId = e.target.value;
+      break;
+    case "loopVideo":
+      r.loopVideo = e.target.value === "true";
+      break;
     }
     setResource(r);
   };
@@ -60,36 +60,30 @@ export function ResourceEdit(props: Props) {
 
   const handleDelete = () => {
     if (
-      window.confirm(
-        "Are you sure you wish to permanently delete this resource?  This will delete all variants and assets."
-      )
-    )
-      ApiHelper.delete("/resources/" + resource.id.toString(), "LessonsApi").then(() => props.updatedCallback(null));
+      window.confirm("Are you sure you wish to permanently delete this resource?  This will delete all variants and assets.")
+    ) ApiHelper.delete("/resources/" + resource.id.toString(), "LessonsApi").then(() => props.updatedCallback(null));
   };
 
   const loadBundles = async (currentBundle: BundleInterface) => {
     let programId = "";
     let studyId = "";
     switch (currentBundle.contentType) {
-      case "program":
-        programId = currentBundle.contentId;
-        break;
-      case "study":
-        studyId = currentBundle.contentId;
-        let study: StudyInterface = await ApiHelper.get("/studies/" + studyId, "LessonsApi");
-        programId = study.programId;
-        break;
-      case "lesson":
-        let lesson: LessonInterface = await ApiHelper.get("/lessons/" + currentBundle.contentId, "LessonsApi");
-        studyId = lesson.studyId;
-        study = await ApiHelper.get("/studies/" + studyId, "LessonsApi");
-        programId = study.programId;
-        break;
+    case "program":
+      programId = currentBundle.contentId;
+      break;
+    case "study":
+      studyId = currentBundle.contentId;
+      let study: StudyInterface = await ApiHelper.get("/studies/" + studyId, "LessonsApi");
+      programId = study.programId;
+      break;
+    case "lesson":
+      let lesson: LessonInterface = await ApiHelper.get("/lessons/" + currentBundle.contentId, "LessonsApi");
+      studyId = lesson.studyId;
+      study = await ApiHelper.get("/studies/" + studyId, "LessonsApi");
+      programId = study.programId;
+      break;
     }
-    const available: BundleInterface[] = await ApiHelper.get(
-      "/bundles/available?programId=" + programId + "&studyId=" + studyId,
-      "LessonsApi"
-    );
+    const available: BundleInterface[] = await ApiHelper.get("/bundles/available?programId=" + programId + "&studyId=" + studyId, "LessonsApi");
     setBundles(available);
   };
 
@@ -106,11 +100,9 @@ export function ResourceEdit(props: Props) {
       let displayType = "Lesson";
       if (b.contentType === "study") displayType = "Study";
       if (b.contentType === "program") displayType = "Program";
-      result.push(
-        <MenuItem value={b.id}>
-          {displayType} - {b.contentName}: {b.name}
-        </MenuItem>
-      );
+      result.push(<MenuItem value={b.id}>
+        {displayType} - {b.contentName}: {b.name}
+      </MenuItem>);
     });
     return result;
   };

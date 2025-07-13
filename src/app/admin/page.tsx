@@ -110,117 +110,115 @@ export default function Admin() {
       if (typeof p.videoEmbedUrl !== "string") p.videoEmbedUrl = "";
       if (typeof p.live !== "boolean") p.live = false;
       if (typeof p.aboutSection !== "string") p.aboutSection = "";
-      
+
       const isExpanded = expandedProgramId === p.id;
-      
-      result.push(
-        <Paper
-          key={p.id}
+
+      result.push(<Paper
+        key={p.id}
+        sx={{
+          borderRadius: 2,
+          border: "1px solid var(--admin-border)",
+          boxShadow: "var(--admin-shadow-sm)",
+          overflow: "hidden",
+          mb: 2
+        }}>
+        <Box
           sx={{
-            borderRadius: 2,
-            border: "1px solid var(--admin-border)",
-            boxShadow: "var(--admin-shadow-sm)",
-            overflow: "hidden",
-            mb: 2
-          }}>
-          <Box
-            sx={{
-              p: 2,
-              borderBottom: isExpanded ? "1px solid var(--admin-border)" : "none",
-              backgroundColor: "var(--c1l7)",
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "space-between",
-              cursor: "pointer",
-              "&:hover": { backgroundColor: "var(--c1l6)" }
-            }}
-            onClick={() => setExpandedProgramId(isExpanded ? "" : p.id)}>
-            <Stack direction="row" alignItems="center" spacing={2}>
-              <SchoolIcon sx={{ color: "var(--c1d2)", fontSize: "1.5rem" }} />
+            p: 2,
+            borderBottom: isExpanded ? "1px solid var(--admin-border)" : "none",
+            backgroundColor: "var(--c1l7)",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "space-between",
+            cursor: "pointer",
+            "&:hover": { backgroundColor: "var(--c1l6)" }
+          }}
+          onClick={() => setExpandedProgramId(isExpanded ? "" : p.id)}>
+          <Stack direction="row" alignItems="center" spacing={2}>
+            <SchoolIcon sx={{ color: "var(--c1d2)", fontSize: "1.5rem" }} />
+            <Typography
+              variant="h6"
+              sx={{
+                color: "var(--c1d2)",
+                fontWeight: 600,
+                lineHeight: 1,
+                fontSize: "1.25rem"
+              }}>
+              {p.name}
+            </Typography>
+            {p.shortDescription && (
               <Typography
-                variant="h6"
+                variant="body2"
                 sx={{
-                  color: "var(--c1d2)",
-                  fontWeight: 600,
-                  lineHeight: 1,
-                  fontSize: "1.25rem"
+                  color: "var(--c1d1)",
+                  fontStyle: "italic",
+                  ml: 1
                 }}>
-                {p.name}
+                {p.shortDescription}
               </Typography>
-              {p.shortDescription && (
-                <Typography
-                  variant="body2"
-                  sx={{
-                    color: "var(--c1d1)",
-                    fontStyle: "italic",
-                    ml: 1
-                  }}>
-                  {p.shortDescription}
-                </Typography>
-              )}
-            </Stack>
-            
-            <Stack direction="row" alignItems="center" spacing={1}>
-              <IconButton
-                size="small"
-                onClick={(e) => {
-                  e.stopPropagation();
-                  router.push("/admin/stats/" + p.id);
-                }}
-                sx={{ color: "var(--c1d2)" }}
-                title="View Stats">
-                <StatsIcon fontSize="small" />
-              </IconButton>
-              
-              <IconButton
-                size="small"
-                onClick={(e) => {
-                  e.stopPropagation();
-                  clearEdits();
-                  setEditStudy({ programId: p.id });
-                  scrollToEdit();
-                }}
-                sx={{ color: "var(--c1d2)" }}
-                title="Add Study">
-                <AddIcon fontSize="small" />
-              </IconButton>
-              
-              <IconButton
-                size="small"
-                onClick={(e) => {
-                  e.stopPropagation();
-                  clearEdits();
-                  showResources("program", p.id, p.name);
-                }}
-                sx={{ color: "var(--c1d2)" }}
-                title="Manage Files">
-                <FilesIcon fontSize="small" />
-              </IconButton>
-              
-              <IconButton
-                size="small"
-                onClick={(e) => {
-                  e.stopPropagation();
-                  clearEdits();
-                  setEditProgram(p);
-                  scrollToEdit();
-                }}
-                sx={{ color: "var(--c1d2)" }}
-                title="Edit Program">
-                <EditIcon fontSize="small" />
-              </IconButton>
-              
-              {isExpanded ? <CollapseIcon sx={{ color: "var(--c1d2)" }} /> : <ExpandIcon sx={{ color: "var(--c1d2)" }} />}
-            </Stack>
+            )}
+          </Stack>
+
+          <Stack direction="row" alignItems="center" spacing={1}>
+            <IconButton
+              size="small"
+              onClick={(e) => {
+                e.stopPropagation();
+                router.push("/admin/stats/" + p.id);
+              }}
+              sx={{ color: "var(--c1d2)" }}
+              title="View Stats">
+              <StatsIcon fontSize="small" />
+            </IconButton>
+
+            <IconButton
+              size="small"
+              onClick={(e) => {
+                e.stopPropagation();
+                clearEdits();
+                setEditStudy({ programId: p.id });
+                scrollToEdit();
+              }}
+              sx={{ color: "var(--c1d2)" }}
+              title="Add Study">
+              <AddIcon fontSize="small" />
+            </IconButton>
+
+            <IconButton
+              size="small"
+              onClick={(e) => {
+                e.stopPropagation();
+                clearEdits();
+                showResources("program", p.id, p.name);
+              }}
+              sx={{ color: "var(--c1d2)" }}
+              title="Manage Files">
+              <FilesIcon fontSize="small" />
+            </IconButton>
+
+            <IconButton
+              size="small"
+              onClick={(e) => {
+                e.stopPropagation();
+                clearEdits();
+                setEditProgram(p);
+                scrollToEdit();
+              }}
+              sx={{ color: "var(--c1d2)" }}
+              title="Edit Program">
+              <EditIcon fontSize="small" />
+            </IconButton>
+
+            {isExpanded ? <CollapseIcon sx={{ color: "var(--c1d2)" }} /> : <ExpandIcon sx={{ color: "var(--c1d2)" }} />}
+          </Stack>
+        </Box>
+
+        {isExpanded && (
+          <Box sx={{ p: 0 }}>
+            {getStudies(p.id)}
           </Box>
-          
-          {isExpanded && (
-            <Box sx={{ p: 0 }}>
-              {getStudies(p.id)}
-            </Box>
-          )}
-        </Paper>
-      );
+        )}
+      </Paper>);
     });
     return result;
   }
@@ -230,100 +228,98 @@ export default function Admin() {
     if (studies) {
       ArrayHelper.getAll(studies, "programId", programId).forEach(s => {
         const isExpanded = expandedStudyId === s.id;
-        
-        result.push(
+
+        result.push(<Box
+          key={s.id}
+          sx={{
+            borderBottom: "1px solid var(--admin-border)",
+            "&:last-child": { borderBottom: "none" }
+          }}>
           <Box
-            key={s.id}
             sx={{
-              borderBottom: "1px solid var(--admin-border)",
-              "&:last-child": { borderBottom: "none" }
-            }}>
-            <Box
-              sx={{
-                p: 2,
-                pl: 4,
-                backgroundColor: "var(--admin-bg-light)",
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "space-between",
-                cursor: "pointer",
-                "&:hover": { backgroundColor: "var(--admin-bg)" }
-              }}
-              onClick={() => setExpandedStudyId(isExpanded ? "" : s.id)}>
-              <Stack direction="row" alignItems="center" spacing={2}>
-                <LayersIcon sx={{ color: "var(--c1d1)", fontSize: "1.25rem" }} />
+              p: 2,
+              pl: 4,
+              backgroundColor: "var(--admin-bg-light)",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "space-between",
+              cursor: "pointer",
+              "&:hover": { backgroundColor: "var(--admin-bg)" }
+            }}
+            onClick={() => setExpandedStudyId(isExpanded ? "" : s.id)}>
+            <Stack direction="row" alignItems="center" spacing={2}>
+              <LayersIcon sx={{ color: "var(--c1d1)", fontSize: "1.25rem" }} />
+              <Typography
+                variant="subtitle1"
+                sx={{
+                  color: "var(--c1d1)",
+                  fontWeight: 500,
+                  lineHeight: 1
+                }}>
+                {s.name}
+              </Typography>
+              {s.shortDescription && (
                 <Typography
-                  variant="subtitle1"
+                  variant="body2"
                   sx={{
-                    color: "var(--c1d1)",
-                    fontWeight: 500,
-                    lineHeight: 1
+                    color: "var(--c1)",
+                    fontStyle: "italic",
+                    ml: 1
                   }}>
-                  {s.name}
+                  {s.shortDescription}
                 </Typography>
-                {s.shortDescription && (
-                  <Typography
-                    variant="body2"
-                    sx={{
-                      color: "var(--c1)",
-                      fontStyle: "italic",
-                      ml: 1
-                    }}>
-                    {s.shortDescription}
-                  </Typography>
-                )}
-              </Stack>
-              
-              <Stack direction="row" alignItems="center" spacing={1}>
-                <IconButton
-                  size="small"
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    clearEdits();
-                    setEditLesson({ studyId: s.id });
-                    scrollToEdit();
-                  }}
-                  sx={{ color: "var(--c1d1)" }}
-                  title="Add Lesson">
-                  <AddIcon fontSize="small" />
-                </IconButton>
-                
-                <IconButton
-                  size="small"
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    clearEdits();
-                    showResources("study", s.id, s.name);
-                  }}
-                  sx={{ color: "var(--c1d1)" }}
-                  title="Manage Files">
-                  <FilesIcon fontSize="small" />
-                </IconButton>
-                
-                <IconButton
-                  size="small"
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    clearEdits();
-                    setEditStudy(s);
-                    scrollToEdit();
-                  }}
-                  sx={{ color: "var(--c1d1)" }}
-                  title="Edit Study">
-                  <EditIcon fontSize="small" />
-                </IconButton>
-                
-                {isExpanded ? <CollapseIcon sx={{ color: "var(--c1d1)" }} /> : <ExpandIcon sx={{ color: "var(--c1d1)" }} />}
-              </Stack>
-            </Box>
-            
-            {isExpanded && (
-              <Box sx={{ backgroundColor: "var(--admin-bg-lighter)" }}>
-                {getLessons(s.id)}
-              </Box>
-            )}
+              )}
+            </Stack>
+
+            <Stack direction="row" alignItems="center" spacing={1}>
+              <IconButton
+                size="small"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  clearEdits();
+                  setEditLesson({ studyId: s.id });
+                  scrollToEdit();
+                }}
+                sx={{ color: "var(--c1d1)" }}
+                title="Add Lesson">
+                <AddIcon fontSize="small" />
+              </IconButton>
+
+              <IconButton
+                size="small"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  clearEdits();
+                  showResources("study", s.id, s.name);
+                }}
+                sx={{ color: "var(--c1d1)" }}
+                title="Manage Files">
+                <FilesIcon fontSize="small" />
+              </IconButton>
+
+              <IconButton
+                size="small"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  clearEdits();
+                  setEditStudy(s);
+                  scrollToEdit();
+                }}
+                sx={{ color: "var(--c1d1)" }}
+                title="Edit Study">
+                <EditIcon fontSize="small" />
+              </IconButton>
+
+              {isExpanded ? <CollapseIcon sx={{ color: "var(--c1d1)" }} /> : <ExpandIcon sx={{ color: "var(--c1d1)" }} />}
+            </Stack>
           </Box>
-        );
+
+          {isExpanded && (
+            <Box sx={{ backgroundColor: "var(--admin-bg-lighter)" }}>
+              {getLessons(s.id)}
+            </Box>
+          )}
+        </Box>);
       });
     }
     return result;
@@ -333,95 +329,91 @@ export default function Admin() {
     const result: JSX.Element[] = [];
     if (lessons) {
       const studyLessons = ArrayHelper.getAll(lessons, "studyId", studyId);
-      
+
       if (studyLessons.length === 0) {
-        result.push(
-          <Box
-            key="no-lessons"
-            sx={{
-              p: 3,
-              pl: 6,
-              textAlign: "center",
-              color: "var(--text-secondary)",
-              fontStyle: "italic"
-            }}>
-            <Typography variant="body2">No lessons yet. Click the + button above to add one.</Typography>
-          </Box>
-        );
+        result.push(<Box
+          key="no-lessons"
+          sx={{
+            p: 3,
+            pl: 6,
+            textAlign: "center",
+            color: "var(--text-secondary)",
+            fontStyle: "italic"
+          }}>
+          <Typography variant="body2">No lessons yet. Click the + button above to add one.</Typography>
+        </Box>);
       } else {
         studyLessons.forEach((l, index) => {
-          result.push(
-            <Box
-              key={l.id}
-              sx={{
-                p: 2,
-                pl: 6,
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "space-between",
-                borderBottom: index === studyLessons.length - 1 ? "none" : "1px solid var(--admin-border-light)",
-                "&:hover": { backgroundColor: "var(--admin-bg)" }
+          result.push(<Box
+            key={l.id}
+            sx={{
+              p: 2,
+              pl: 6,
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "space-between",
+              borderBottom: index === studyLessons.length - 1 ? "none" : "1px solid var(--admin-border-light)",
+              "&:hover": { backgroundColor: "var(--admin-bg)" }
+            }}>
+            <Stack
+              direction="row"
+              alignItems="center"
+              spacing={2}
+              sx={{ cursor: "pointer" }}
+              onClick={() => {
+                clearEdits();
+                setEditLesson(l);
+                scrollToEdit();
               }}>
-              <Stack
-                direction="row"
-                alignItems="center"
-                spacing={2}
-                sx={{ cursor: "pointer" }}
+              <BookIcon sx={{ color: "var(--c1)", fontSize: "1.125rem" }} />
+              <Typography
+                variant="body1"
+                sx={{
+                  color: "var(--c1)",
+                  fontWeight: 500,
+                  "&:hover": { textDecoration: "underline" }
+                }}>
+                {l.name}: {l.title}
+              </Typography>
+            </Stack>
+
+            <Stack direction="row" alignItems="center" spacing={1}>
+              <IconButton
+                size="small"
+                onClick={() => {
+                  clearEdits();
+                  setVenuesLessonId(l.id);
+                  scrollToEdit();
+                }}
+                sx={{ color: "var(--c1)" }}
+                title="Manage Venues">
+                <VenueIcon fontSize="small" />
+              </IconButton>
+
+              <IconButton
+                size="small"
+                onClick={() => {
+                  clearEdits();
+                  showResources("lesson", l.id, l.name);
+                }}
+                sx={{ color: "var(--c1)" }}
+                title="Manage Files">
+                <FilesIcon fontSize="small" />
+              </IconButton>
+
+              <IconButton
+                size="small"
                 onClick={() => {
                   clearEdits();
                   setEditLesson(l);
                   scrollToEdit();
-                }}>
-                <BookIcon sx={{ color: "var(--c1)", fontSize: "1.125rem" }} />
-                <Typography
-                  variant="body1"
-                  sx={{
-                    color: "var(--c1)",
-                    fontWeight: 500,
-                    "&:hover": { textDecoration: "underline" }
-                  }}>
-                  {l.name}: {l.title}
-                </Typography>
-              </Stack>
-              
-              <Stack direction="row" alignItems="center" spacing={1}>
-                <IconButton
-                  size="small"
-                  onClick={() => {
-                    clearEdits();
-                    setVenuesLessonId(l.id);
-                    scrollToEdit();
-                  }}
-                  sx={{ color: "var(--c1)" }}
-                  title="Manage Venues">
-                  <VenueIcon fontSize="small" />
-                </IconButton>
-                
-                <IconButton
-                  size="small"
-                  onClick={() => {
-                    clearEdits();
-                    showResources("lesson", l.id, l.name);
-                  }}
-                  sx={{ color: "var(--c1)" }}
-                  title="Manage Files">
-                  <FilesIcon fontSize="small" />
-                </IconButton>
-                
-                <IconButton
-                  size="small"
-                  onClick={() => {
-                    clearEdits();
-                    setEditLesson(l);
-                    scrollToEdit();
-                  }}
-                  sx={{ color: "var(--c1)" }}
-                  title="Edit Lesson">
-                  <EditIcon fontSize="small" />
-                </IconButton>
-              </Stack>
-            </Box>
-          );
+                }}
+                sx={{ color: "var(--c1)" }}
+                title="Edit Lesson">
+                <EditIcon fontSize="small" />
+              </IconButton>
+            </Stack>
+          </Box>);
         });
       }
     }
@@ -467,14 +459,12 @@ export default function Admin() {
     } else if (venuesLessonId) {
       result.push(<VenueList lessonId={venuesLessonId} key="venueLesson" />);
     } else if (resourceContentType && resourceContentId) {
-      result.push(
-        <BundleList
-          contentType={resourceContentType}
-          contentId={resourceContentId}
-          key="bundleList"
-          contentDisplayName={resourceName}
-        />
-      );
+      result.push(<BundleList
+        contentType={resourceContentType}
+        contentId={resourceContentId}
+        key="bundleList"
+        contentDisplayName={resourceName}
+      />);
     }
     return result;
   }
@@ -485,42 +475,39 @@ export default function Admin() {
     });
   }
 
-  const headerActions = [
-    <Button
-      key="add-program"
-      variant="outlined"
-      startIcon={<AddIcon />}
-      onClick={() => {
-        clearEdits();
-        setEditProgram({ providerId: providers?.length > 0 ? providers[0].id : "", live: false });
-        scrollToEdit();
-      }}
-      sx={{
-        color: "white",
-        borderColor: "rgba(255,255,255,0.5)",
-        "&:hover": {
-          borderColor: "white",
-          backgroundColor: "rgba(255,255,255,0.1)"
-        }
-      }}>
+  const headerActions = [<Button
+    key="add-program"
+    variant="outlined"
+    startIcon={<AddIcon />}
+    onClick={() => {
+      clearEdits();
+      setEditProgram({ providerId: providers?.length > 0 ? providers[0].id : "", live: false });
+      scrollToEdit();
+    }}
+    sx={{
+      color: "white",
+      borderColor: "rgba(255,255,255,0.5)",
+      "&:hover": {
+        borderColor: "white",
+        backgroundColor: "rgba(255,255,255,0.1)"
+      }
+    }}>
       Add Program
-    </Button>,
-    <Button
-      key="clear-cache"
-      variant="outlined"
-      startIcon={<ClearIcon />}
-      onClick={clearCache}
-      sx={{
-        color: "white",
-        borderColor: "rgba(255,255,255,0.5)",
-        "&:hover": {
-          borderColor: "white",
-          backgroundColor: "rgba(255,255,255,0.1)"
-        }
-      }}>
+  </Button>, <Button
+    key="clear-cache"
+    variant="outlined"
+    startIcon={<ClearIcon />}
+    onClick={clearCache}
+    sx={{
+      color: "white",
+      borderColor: "rgba(255,255,255,0.5)",
+      "&:hover": {
+        borderColor: "white",
+        backgroundColor: "rgba(255,255,255,0.1)"
+      }
+    }}>
       Clear Cache
-    </Button>
-  ];
+  </Button>];
 
   return (
     <Wrapper>
@@ -530,7 +517,7 @@ export default function Admin() {
         subtitle="Manage programs, studies, and lessons for your curriculum"
         actions={headerActions}
       />
-      
+
       <Container maxWidth="xl" sx={{ p: 3, backgroundColor: "var(--admin-bg)" }}>
         {/* Edit Panel - appears at top when editing */}
         {getSidebar().length > 0 && (
@@ -540,7 +527,7 @@ export default function Admin() {
             </ErrorBoundary>
           </Box>
         )}
-        
+
         {/* Programs List - Full Width */}
         <Paper
           sx={{
@@ -574,7 +561,7 @@ export default function Admin() {
               </Typography>
             </Stack>
           </Box>
-          
+
           <Box sx={{ p: 0 }}>
             {getProgramsList()}
           </Box>

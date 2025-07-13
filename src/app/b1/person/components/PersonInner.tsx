@@ -36,11 +36,9 @@ export function PersonInner() {
     classrooms?.forEach(c => {
       let url = "/b1/classroom/" + c.id;
       if (ArrayHelper.getOne(context.userChurch.groups, "id", c.recentGroupId)) url += "?recent=1";
-      result.push(
-        <Link href={url} className="bigLink">
-          {c.name}
-        </Link>
-      );
+      result.push(<Link href={url} className="bigLink">
+        {c.name}
+      </Link>);
     });
     return result;
   };
