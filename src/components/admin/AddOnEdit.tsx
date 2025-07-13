@@ -1,7 +1,8 @@
 import dynamic from "next/dynamic";
 import { useEffect, useState } from "react";
-import { FormControl, InputLabel, MenuItem, Select, SelectChangeEvent, TextField } from "@mui/material";
-import { ErrorMessages, InputBox, Loading } from "@churchapps/apphelper";
+import { Box, Button, CircularProgress, FormControl, Grid, IconButton, InputLabel, MenuItem, Paper, Select, SelectChangeEvent, Stack, TextField, Typography } from "@mui/material";
+import { Movie as MovieIcon, Save as SaveIcon, Cancel as CancelIcon, Delete as DeleteIcon, Image as ImageIcon } from "@mui/icons-material";
+import { ErrorMessages } from "@churchapps/apphelper";
 import { AddOnInterface, ApiHelper, ExternalVideoInterface, FileInterface } from "@/helpers";
 import { FileUpload } from "./FileUpload";
 
@@ -145,10 +146,14 @@ export function AddOnEdit(props: Props) {
 
   const getExternalVideoFields = () => {
     if (!externalVideo) {
-      return <Loading />;
+      return (
+        <Box sx={{ display: 'flex', justifyContent: 'center', p: 2 }}>
+          <CircularProgress size={24} />
+        </Box>
+      );
     } else {
       return (
-        <>
+        <Stack spacing={3}>
           <FormControl fullWidth>
             <InputLabel>Provider</InputLabel>
             <Select
@@ -181,7 +186,7 @@ export function AddOnEdit(props: Props) {
               <MenuItem value="true">Yes</MenuItem>
             </Select>
           </FormControl>
-        </>
+        </Stack>
       );
     }
   };
@@ -220,55 +225,161 @@ export function AddOnEdit(props: Props) {
     return (
       <>
         {getImageEditor()}
-        <InputBox
-          id="addOnDetailsBox"
-          headerText="Edit Add-on"
-          headerIcon="movie"
-          saveFunction={handleSave}
-          cancelFunction={handleCancel}
-          deleteFunction={handleDelete}>
-          <ErrorMessages errors={errors} />
-          <a href="about:blank" className="d-block" onClick={handleImageClick}>
-            <img
-              src={addOn.image || "/images/blank.png"}
-              className="profilePic d-block mx-auto img-fluid"
-              id="imgPreview"
-              alt="add-on"
-            />
-          </a>
-          <br />
-          <FormControl fullWidth>
-            <InputLabel>Category</InputLabel>
-            <Select label="Category" name="category" value={addOn.category || "slow worship"} onChange={handleChange}>
-              <MenuItem value="slow worship">Slow Worship</MenuItem>
-              <MenuItem value="slow worship with actions">Slow Worship with Actions</MenuItem>
-              <MenuItem value="fast worship">Fast Worship</MenuItem>
-              <MenuItem value="fast worship with actions">Fast Worship with Actions</MenuItem>
-              <MenuItem value="scripture song">Scripture Song</MenuItem>
-              <MenuItem value="scripture song with actions">Scripture Song with Actions</MenuItem>
-              <MenuItem value="game">Game</MenuItem>
-              <MenuItem value="christmas">Christmas</MenuItem>
-              <MenuItem value="easter">Easter</MenuItem>
-            </Select>
-          </FormControl>
-          <TextField
-            fullWidth
-            label="Name"
-            name="name"
-            value={addOn.name}
-            onChange={handleChange}
-            onKeyDown={handleKeyDown}
-          />
-          <FormControl fullWidth>
-            <InputLabel>Add-on Type</InputLabel>
-            <Select label="Add-on Type" name="addOnType" value={addOn.addOnType || "file"} onChange={handleChange}>
-              <MenuItem value="externalVideo">External Video</MenuItem>
-              <MenuItem value="file">File</MenuItem>
-            </Select>
-          </FormControl>
-          <hr />
-          {getTypeFields()}
-        </InputBox>
+        <Paper
+          sx={{
+            borderRadius: 2,
+            border: '1px solid var(--admin-border)',
+            boxShadow: 'var(--admin-shadow-sm)',
+            overflow: 'hidden'
+          }}>
+          {/* HEADER */}
+          <Box
+            sx={{
+              p: 2,
+              borderBottom: '1px solid var(--admin-border)',
+              backgroundColor: 'var(--c1l7)'
+            }}>
+            <Stack direction="row" alignItems="center" spacing={1}>
+              <MovieIcon sx={{ color: 'var(--c1d2)', fontSize: '1.5rem' }} />
+              <Typography variant="h6" sx={{
+                color: 'var(--c1d2)',
+                fontWeight: 600,
+                lineHeight: 1,
+                fontSize: '1.25rem'
+              }}>
+                Edit Add-on
+              </Typography>
+            </Stack>
+          </Box>
+
+          {/* CONTENT */}
+          <Box sx={{ p: 3 }}>
+            <ErrorMessages errors={errors} />
+            
+            <Grid container spacing={3}>
+              {/* Left Column - Form Fields */}
+              <Grid item xs={12} md={8}>
+                <Stack spacing={3}>
+                  <FormControl fullWidth>
+                    <InputLabel>Category</InputLabel>
+                    <Select label="Category" name="category" value={addOn.category || "slow worship"} onChange={handleChange}>
+                      <MenuItem value="slow worship">Slow Worship</MenuItem>
+                      <MenuItem value="slow worship with actions">Slow Worship with Actions</MenuItem>
+                      <MenuItem value="fast worship">Fast Worship</MenuItem>
+                      <MenuItem value="fast worship with actions">Fast Worship with Actions</MenuItem>
+                      <MenuItem value="scripture song">Scripture Song</MenuItem>
+                      <MenuItem value="scripture song with actions">Scripture Song with Actions</MenuItem>
+                      <MenuItem value="game">Game</MenuItem>
+                      <MenuItem value="christmas">Christmas</MenuItem>
+                      <MenuItem value="easter">Easter</MenuItem>
+                    </Select>
+                  </FormControl>
+                  
+                  <TextField
+                    fullWidth
+                    label="Name"
+                    name="name"
+                    value={addOn.name}
+                    onChange={handleChange}
+                    onKeyDown={handleKeyDown}
+                    placeholder="Add-on name"
+                  />
+                  
+                  <FormControl fullWidth>
+                    <InputLabel>Add-on Type</InputLabel>
+                    <Select label="Add-on Type" name="addOnType" value={addOn.addOnType || "file"} onChange={handleChange}>
+                      <MenuItem value="externalVideo">External Video</MenuItem>
+                      <MenuItem value="file">File</MenuItem>
+                    </Select>
+                  </FormControl>
+
+                  {/* Type-specific Fields */}
+                  <Box sx={{ pt: 2, borderTop: '1px solid var(--admin-border)' }}>
+                    {getTypeFields()}
+                  </Box>
+                </Stack>
+              </Grid>
+
+              {/* Right Column - Image */}
+              <Grid item xs={12} md={4}>
+                <Box>
+                  <Typography variant="subtitle2" color="text.secondary" sx={{ mb: 1 }}>
+                    Add-on Image
+                  </Typography>
+                  {showImageEditor ? (
+                    <Box sx={{ minHeight: 200 }}>
+                      <ImageEditor
+                        updatedFunction={handleImageUpdated}
+                        imageUrl={addOn.image}
+                        onCancel={() => setShowImageEditor(false)}
+                      />
+                    </Box>
+                  ) : (
+                    <Paper
+                      variant="outlined"
+                      sx={{
+                        p: 2,
+                        textAlign: "center",
+                        cursor: "pointer",
+                        backgroundColor: "var(--admin-bg-light)",
+                        "&:hover": { backgroundColor: "var(--admin-bg)" },
+                        minHeight: 200,
+                        display: "flex",
+                        flexDirection: "column",
+                        alignItems: "center",
+                        justifyContent: "center"
+                      }}
+                      onClick={handleImageClick}>
+                      {addOn.image ? (
+                        <img
+                          src={addOn.image}
+                          alt="Add-on"
+                          style={{
+                            maxWidth: "100%",
+                            maxHeight: "160px",
+                            objectFit: "cover",
+                            borderRadius: "4px"
+                          }}
+                        />
+                      ) : (
+                        <Box sx={{ textAlign: "center" }}>
+                          <ImageIcon sx={{ fontSize: 48, color: "var(--c1d2)", mb: 1 }} />
+                          <Typography variant="body2" color="text.secondary">
+                            Click to add image
+                          </Typography>
+                        </Box>
+                      )}
+                    </Paper>
+                  )}
+                </Box>
+              </Grid>
+            </Grid>
+          </Box>
+
+          {/* FOOTER */}
+          <Box
+            sx={{
+              p: 2,
+              borderTop: '1px solid var(--admin-border)',
+              backgroundColor: 'var(--admin-bg)',
+              display: 'flex',
+              justifyContent: 'flex-end',
+              gap: 1,
+              flexWrap: 'wrap'
+            }}>
+            <Button startIcon={<SaveIcon />} variant="contained" onClick={handleSave}>
+              Save
+            </Button>
+            <Button startIcon={<CancelIcon />} variant="outlined" onClick={handleCancel}>
+              Cancel
+            </Button>
+            {addOn.id && (
+              <IconButton color="error" onClick={handleDelete}>
+                <DeleteIcon />
+              </IconButton>
+            )}
+          </Box>
+        </Paper>
       </>
     );
   }
