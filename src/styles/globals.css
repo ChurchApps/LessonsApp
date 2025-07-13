@@ -2299,6 +2299,7 @@ a.dropdown-toggle::after {
 
 #primaryNavButton h2 {
   color: #fff;
+  margin-bottom: 0;
 }
 
 /* End private messaging & notes */

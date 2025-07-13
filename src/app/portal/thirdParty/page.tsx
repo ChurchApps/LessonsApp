@@ -99,20 +99,6 @@ export default function ThirdParty() {
     ));
   };
 
-  if (editProvider) {
-    return (
-      <Wrapper>
-        <ProviderEdit
-          provider={editProvider}
-          updatedCallback={() => {
-            setEditProvider(null);
-            loadData();
-          }}
-        />
-      </Wrapper>
-    );
-  }
-
   return (
     <Wrapper>
       <Box sx={{ p: 0 }}>
@@ -141,6 +127,20 @@ export default function ThirdParty() {
             borderRadius: "0 0 8px 8px",
             minHeight: "calc(100vh - 200px)"
           }}>
+          {/* Edit Panel - appears at top when editing */}
+          {editProvider && (
+            <Box sx={{ mb: 3 }}>
+              <ProviderEdit
+                provider={editProvider}
+                updatedCallback={() => {
+                  setEditProvider(null);
+                  loadData();
+                }}
+              />
+            </Box>
+          )}
+          
+          {/* Providers List - Full Width */}
           <Paper
             sx={{
               borderRadius: 2,
@@ -158,8 +158,15 @@ export default function ThirdParty() {
                 justifyContent: "space-between"
               }}>
               <Stack direction="row" alignItems="center" spacing={1}>
-                <GroupsIcon sx={{ color: "var(--c1d2)" }} />
-                <Typography variant="h6" sx={{ color: "var(--c1d2)", fontWeight: 600 }}>
+                <GroupsIcon sx={{ color: "var(--c1d2)", fontSize: "1.5rem" }} />
+                <Typography variant="h6" sx={{ 
+                  color: "var(--c1d2)", 
+                  fontWeight: 600,
+                  lineHeight: 1,
+                  fontSize: "1.25rem",
+                  display: "flex",
+                  alignItems: "center"
+                }}>
                   Providers
                 </Typography>
               </Stack>
