@@ -2,15 +2,13 @@ import { useEffect, useState } from "react";
 import { Box, Button, FormControl, IconButton, InputLabel, ListSubheader, MenuItem, Paper, Select, SelectChangeEvent, Stack, TextField, Typography } from "@mui/material";
 import { Check as CheckIcon, Save as SaveIcon, Cancel as CancelIcon, Delete as DeleteIcon } from "@mui/icons-material";
 import { ErrorMessages, MarkdownEditor } from "@churchapps/apphelper";
-import {
-  ActionInterface,
+import { ActionInterface,
   AddOnInterface,
   ApiHelper,
   ArrayHelper,
   AssetInterface,
   ExternalVideoInterface,
-  ResourceInterface
-} from "@/helpers";
+  ResourceInterface } from "@/helpers";
 
 interface Props {
   action: ActionInterface;
@@ -57,43 +55,43 @@ export function ActionEdit(props: Props) {
     e.preventDefault();
     let a = { ...action };
     switch (e.target.name) {
-      case "sort":
-        a.sort = parseInt(e.target.value);
-        break;
-      case "actionType":
-        a.actionType = e.target.value;
-        break;
-      case "content":
-        a.content = e.target.value;
-        break;
-      case "resource":
-        if (e.target.value.startsWith("ev/")) {
-          a.resourceId = null;
-          a.assetId = null;
-          a.externalVideoId = e.target.value.replace("ev/", "");
-          const video = ArrayHelper.getOne(getCombinedVideos(), "id", a.externalVideoId);
-          a.content = video.name;
-        } else {
-          a.resourceId = e.target.value;
-          a.assetId = null;
-          a.externalVideoId = null;
-          const resource = ArrayHelper.getOne(getCombinedResources(), "id", a.resourceId);
-          a.content = resource.name;
-        }
-        break;
-      case "asset":
-        a.assetId = e.target.value;
-        if (a.assetId === "") a.assetId = null;
-        const assetResource = ArrayHelper.getOne(getCombinedResources(), "id", a.resourceId);
-        const asset = ArrayHelper.getOne(props.allAssets, "id", a.assetId);
-        a.content = asset ? assetResource.name + " - " + asset.name : assetResource?.name;
-        break;
-      case "addOn":
-        a.addOnId = e.target.value;
-        if (a.addOnId === "") a.addOnId = null;
-        const addOn = ArrayHelper.getOne(props.addOns, "id", a.addOnId);
-        a.content = addOn.name;
-        break;
+    case "sort":
+      a.sort = parseInt(e.target.value);
+      break;
+    case "actionType":
+      a.actionType = e.target.value;
+      break;
+    case "content":
+      a.content = e.target.value;
+      break;
+    case "resource":
+      if (e.target.value.startsWith("ev/")) {
+        a.resourceId = null;
+        a.assetId = null;
+        a.externalVideoId = e.target.value.replace("ev/", "");
+        const video = ArrayHelper.getOne(getCombinedVideos(), "id", a.externalVideoId);
+        a.content = video.name;
+      } else {
+        a.resourceId = e.target.value;
+        a.assetId = null;
+        a.externalVideoId = null;
+        const resource = ArrayHelper.getOne(getCombinedResources(), "id", a.resourceId);
+        a.content = resource.name;
+      }
+      break;
+    case "asset":
+      a.assetId = e.target.value;
+      if (a.assetId === "") a.assetId = null;
+      const assetResource = ArrayHelper.getOne(getCombinedResources(), "id", a.resourceId);
+      const asset = ArrayHelper.getOne(props.allAssets, "id", a.assetId);
+      a.content = asset ? assetResource.name + " - " + asset.name : assetResource?.name;
+      break;
+    case "addOn":
+      a.addOnId = e.target.value;
+      if (a.addOnId === "") a.addOnId = null;
+      const addOn = ArrayHelper.getOne(props.addOns, "id", a.addOnId);
+      a.content = addOn.name;
+      break;
     }
     setAction(a);
   };
@@ -128,13 +126,11 @@ export function ActionEdit(props: Props) {
   };
 
   const handleDelete = () => {
-    if (window.confirm("Are you sure you wish to permanently delete this action?"))
-      ApiHelper.delete("/actions/" + action.id.toString(), "LessonsApi").then(() => props.updatedCallback(null, false));
+    if (window.confirm("Are you sure you wish to permanently delete this action?")) ApiHelper.delete("/actions/" + action.id.toString(), "LessonsApi").then(() => props.updatedCallback(null, false));
   };
 
   const getContent = () => {
-    if (action.actionType !== "Play" && action.actionType !== "Download" && action.actionType !== "Add-on")
-      return <MarkdownEditor value={action.content} onChange={handleMarkdownChange} />;
+    if (action.actionType !== "Play" && action.actionType !== "Download" && action.actionType !== "Add-on") return <MarkdownEditor value={action.content} onChange={handleMarkdownChange} />;
   };
 
   const getAsset = () => {
@@ -293,7 +289,7 @@ export function ActionEdit(props: Props) {
         {/* CONTENT */}
         <Box sx={{ p: 3 }}>
           <ErrorMessages errors={errors} />
-          
+
           <Stack spacing={3}>
             <TextField
               fullWidth
@@ -330,7 +326,7 @@ export function ActionEdit(props: Props) {
                 </MenuItem>
               </Select>
             </FormControl>
-            
+
             {getContent()}
             {getResource()}
             {getAddOn()}

@@ -1,14 +1,11 @@
 import Link from "next/link";
 import { useEffect, useState } from "react";
-import {
-  Add as AddIcon,
+import { Add as AddIcon,
   CalendarMonth as CalendarIcon,
   Edit as EditIcon,
   Psychology as PsychologyIcon,
-  VideoLibrary as VideoIcon
-} from "@mui/icons-material";
-import {
-  Box,
+  VideoLibrary as VideoIcon } from "@mui/icons-material";
+import { Box,
   Button,
   Chip,
   IconButton,
@@ -18,8 +15,7 @@ import {
   TableBody,
   TableCell,
   TableRow,
-  Typography
-} from "@mui/material";
+  Typography } from "@mui/material";
 import { ArrayHelper, DateHelper, Loading } from "@churchapps/apphelper";
 import { ApiHelper, ScheduleInterface } from "@/helpers";
 import { ScheduleEdit } from "../index";

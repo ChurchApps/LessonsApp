@@ -1,12 +1,9 @@
 import { useEffect, useState } from "react";
-import {
-  Cancel as CancelIcon,
+import { Cancel as CancelIcon,
   Delete as DeleteIcon,
   Save as SaveIcon,
-  School as SchoolIcon
-} from "@mui/icons-material";
-import {
-  Box,
+  School as SchoolIcon } from "@mui/icons-material";
+import { Box,
   Button,
   FormControl,
   IconButton,
@@ -17,8 +14,7 @@ import {
   SelectChangeEvent,
   Stack,
   TextField,
-  Typography
-} from "@mui/material";
+  Typography } from "@mui/material";
 import { ErrorMessages, GroupInterface } from "@churchapps/apphelper";
 import { ApiHelper, ClassroomInterface } from "@/helpers";
 
@@ -46,9 +42,9 @@ export function ClassroomEdit(props: Props) {
     e.preventDefault();
     let c = { ...classroom };
     switch (e.target.name) {
-      case "name": c.name = e.target.value; break;
-      case "upcomingGroupId": c.upcomingGroupId = e.target.value; break;
-      case "recentGroupId": c.recentGroupId = e.target.value; break;
+    case "name": c.name = e.target.value; break;
+    case "upcomingGroupId": c.upcomingGroupId = e.target.value; break;
+    case "recentGroupId": c.recentGroupId = e.target.value; break;
     }
     setClassroom(c);
   };
@@ -70,8 +66,7 @@ export function ClassroomEdit(props: Props) {
   };
 
   const handleDelete = () => {
-    if (window.confirm("Are you sure you wish to permanently delete this classroom?"))
-      ApiHelper.delete("/classrooms/" + classroom.id.toString(), "LessonsApi").then(() => props.updatedCallback(null));
+    if (window.confirm("Are you sure you wish to permanently delete this classroom?")) ApiHelper.delete("/classrooms/" + classroom.id.toString(), "LessonsApi").then(() => props.updatedCallback(null));
   };
 
   const loadData = () => {

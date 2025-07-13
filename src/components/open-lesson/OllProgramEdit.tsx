@@ -24,18 +24,18 @@ export function OllProgramEdit(props: Props) {
     e.preventDefault();
     let p = { ...program };
     switch (e.target.name) {
-      case "id":
-        p.id = e.target.value;
-        break;
-      case "name":
-        p.name = e.target.value;
-        break;
-      case "image":
-        p.image = e.target.value;
-        break;
-      case "description":
-        p.description = e.target.value;
-        break;
+    case "id":
+      p.id = e.target.value;
+      break;
+    case "name":
+      p.name = e.target.value;
+      break;
+    case "image":
+      p.image = e.target.value;
+      break;
+    case "description":
+      p.description = e.target.value;
+      break;
     }
     setProgram(p);
   };

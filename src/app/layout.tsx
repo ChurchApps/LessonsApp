@@ -21,8 +21,6 @@ export default async function RootLayout({ children }: { children: React.ReactNo
   return (
     <html lang="en" className={roboto.className}>
       <head>
-        <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" />
-        <link rel="stylesheet" href="/apphelper/css/styles.css" />
         <script
           async
           type="module"

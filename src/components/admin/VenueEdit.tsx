@@ -26,12 +26,12 @@ export function VenueEdit(props: Props) {
     e.preventDefault();
     let v = { ...venue };
     switch (e.currentTarget.name) {
-      case "name":
-        v.name = e.currentTarget.value;
-        break;
-      case "sort":
-        v.sort = parseInt(e.currentTarget.value);
-        break;
+    case "name":
+      v.name = e.currentTarget.value;
+      break;
+    case "sort":
+      v.sort = parseInt(e.currentTarget.value);
+      break;
     }
     setVenue(v);
   };
@@ -53,8 +53,7 @@ export function VenueEdit(props: Props) {
   };
 
   const handleDelete = () => {
-    if (window.confirm("Are you sure you wish to permanently delete this venue?"))
-      ApiHelper.delete("/venues/" + venue.id.toString(), "LessonsApi").then(() => props.updatedCallback(null));
+    if (window.confirm("Are you sure you wish to permanently delete this venue?")) ApiHelper.delete("/venues/" + venue.id.toString(), "LessonsApi").then(() => props.updatedCallback(null));
   };
 
   useEffect(() => {
@@ -92,7 +91,7 @@ export function VenueEdit(props: Props) {
       {/* CONTENT */}
       <Box sx={{ p: 3 }}>
         <ErrorMessages errors={errors} />
-        
+
         <Stack spacing={3}>
           <TextField
             fullWidth
@@ -105,7 +104,7 @@ export function VenueEdit(props: Props) {
             placeholder="1"
             helperText="Display order for this venue"
           />
-          
+
           <TextField
             fullWidth
             label="Venue Name"

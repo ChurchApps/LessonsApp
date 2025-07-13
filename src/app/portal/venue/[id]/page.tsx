@@ -2,8 +2,7 @@
 
 import { useParams, useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
-import {
-  Box,
+import { Box,
   Button,
   Container,
   FormControl,
@@ -13,12 +12,10 @@ import {
   Menu,
   MenuItem,
   Radio,
-  RadioGroup
-} from "@mui/material";
+  RadioGroup } from "@mui/material";
 import { DisplayBox, Loading } from "@churchapps/apphelper";
 import { Layout } from "@/components";
-import {
-  ActionInterface,
+import { ActionInterface,
   ApiHelper,
   ArrayHelper,
   CustomizationHelper,
@@ -27,8 +24,7 @@ import {
   RoleInterface,
   SectionInterface,
   StudyInterface,
-  VenueInterface
-} from "@/helpers";
+  VenueInterface } from "@/helpers";
 
 type PageParams = { id: string };
 
@@ -98,8 +94,7 @@ export default function Venue() {
         setActions(data);
       });
       ApiHelper.get("/customizations/venue/" + v.id + "?classroomId=" + classroomId, "LessonsApi").then(data =>
-        setCustomizations(data)
-      );
+        setCustomizations(data));
     });
   }
 
@@ -128,8 +123,7 @@ export default function Venue() {
       await ApiHelper.post("/customizations", [c], "LessonsApi");
     }
     ApiHelper.get("/customizations/venue/" + venue.id + "?classroomId=" + classroomId, "LessonsApi").then(data =>
-      setCustomizations(data)
-    );
+      setCustomizations(data));
   };
 
   const move = async (contentType: string, item: any, swap: any, type: string) => {
@@ -169,8 +163,7 @@ export default function Venue() {
 
     await ApiHelper.post("/customizations", [itemCust, swapCust], "LessonsApi");
     ApiHelper.get("/customizations/venue/" + venue.id + "?classroomId=" + classroomId, "LessonsApi").then(data =>
-      setCustomizations(data)
-    );
+      setCustomizations(data));
   };
 
   const handleSave = (type: string) => {
@@ -194,14 +187,12 @@ export default function Venue() {
       const removedClass = removed ? " removed" : "";
       const links = getLinks("section", s.id, false, idx, sorted);
 
-      result.push(
-        <tr className={"sectionRow hoverHighlight" + removedClass} key={`s-${s.id}`}>
-          <td>
-            <Icon sx={{ marginRight: "5px" }}>list_alt</Icon> {s.name}
-          </td>
-          <td>{links}</td>
-        </tr>
-      );
+      result.push(<tr className={"sectionRow hoverHighlight" + removedClass} key={`s-${s.id}`}>
+        <td>
+          <Icon sx={{ marginRight: "5px" }}>list_alt</Icon> {s.name}
+        </td>
+        <td>{links}</td>
+      </tr>);
       getRoles(s.id, removed).forEach(r => result.push(r));
       idx++;
     });
@@ -219,16 +210,14 @@ export default function Venue() {
         const removedClass = removed ? " removed" : "";
         const links = getLinks("role", r.id, parentRemoved, idx, sorted);
 
-        result.push(
-          <tr className={"roleRow hoverHighlight" + removedClass} key={`r-${r.id}`}>
-            <td>
-              <Box sx={{ display: "flex", alignItems: "center" }}>
-                <Icon sx={{ marginRight: "5px" }}>person</Icon> {r.name}
-              </Box>
-            </td>
-            <td>{links}</td>
-          </tr>
-        );
+        result.push(<tr className={"roleRow hoverHighlight" + removedClass} key={`r-${r.id}`}>
+          <td>
+            <Box sx={{ display: "flex", alignItems: "center" }}>
+              <Icon sx={{ marginRight: "5px" }}>person</Icon> {r.name}
+            </Box>
+          </td>
+          <td>{links}</td>
+        </tr>);
         getActions(r.id, removed).forEach(i => result.push(i));
         idx++;
       });
@@ -254,16 +243,14 @@ export default function Venue() {
         const removedClass = removed ? " removed" : "";
 
         const links = getLinks("action", a.id, parentRemoved, idx, sorted);
-        result.push(
-          <tr className={"actionRow hoverHighlight" + removedClass} key={`a-${a.id}`}>
-            <td>
-              <span>
-                <Icon sx={{ marginRight: "5px" }}>check</Icon> {a.actionType}: {a.content}
-              </span>
-            </td>
-            <td>{links}</td>
-          </tr>
-        );
+        result.push(<tr className={"actionRow hoverHighlight" + removedClass} key={`a-${a.id}`}>
+          <td>
+            <span>
+              <Icon sx={{ marginRight: "5px" }}>check</Icon> {a.actionType}: {a.content}
+            </span>
+          </td>
+          <td>{links}</td>
+        </tr>);
         idx++;
       });
     }

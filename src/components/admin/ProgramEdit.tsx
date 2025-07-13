@@ -32,27 +32,27 @@ export function ProgramEdit(props: Props) {
     let p = { ...program };
     const val = e.target.value;
     switch (e.target.name) {
-      case "live":
-        p.live = val === "true";
-        break;
-      case "name":
-        p.name = val;
-        break;
-      case "slug":
-        p.slug = val;
-        break;
-      case "shortDescription":
-        p.shortDescription = val;
-        break;
-      case "description":
-        p.description = val;
-        break;
-      case "aboutSection":
-        p.aboutSection = val;
-        break;
-      case "videoEmbedUrl":
-        p.videoEmbedUrl = val;
-        break;
+    case "live":
+      p.live = val === "true";
+      break;
+    case "name":
+      p.name = val;
+      break;
+    case "slug":
+      p.slug = val;
+      break;
+    case "shortDescription":
+      p.shortDescription = val;
+      break;
+    case "description":
+      p.description = val;
+      break;
+    case "aboutSection":
+      p.aboutSection = val;
+      break;
+    case "videoEmbedUrl":
+      p.videoEmbedUrl = val;
+      break;
     }
     setProgram(p);
   };
@@ -81,8 +81,7 @@ export function ProgramEdit(props: Props) {
   };
 
   const handleDelete = () => {
-    if (window.confirm("Are you sure you wish to permanently delete this program?"))
-      ApiHelper.delete("/programs/" + program.id.toString(), "LessonsApi").then(() => props.updatedCallback(null));
+    if (window.confirm("Are you sure you wish to permanently delete this program?")) ApiHelper.delete("/programs/" + program.id.toString(), "LessonsApi").then(() => props.updatedCallback(null));
   };
 
   const handleImageClick = (e: React.MouseEvent) => {
@@ -163,7 +162,7 @@ export function ProgramEdit(props: Props) {
         {/* Content */}
         <Box sx={{ p: 3 }}>
           <ErrorMessages errors={errors} />
-          
+
           <Grid container spacing={3}>
             {/* Left Column - Form Fields */}
             <Grid item xs={12} md={8}>

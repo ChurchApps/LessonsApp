@@ -49,21 +49,21 @@ export default function OlfInner() {
     e.preventDefault();
     let d = { ...data };
     switch (e.currentTarget.name) {
-      case "name":
-        d.name = e.currentTarget.value;
-        break;
-      case "lessonName":
-        d.lessonName = e.currentTarget.value;
-        break;
-      case "lessonImage":
-        d.lessonImage = e.currentTarget.value;
-        break;
-      case "studyName":
-        d.studyName = e.currentTarget.value;
-        break;
-      case "programName":
-        d.programName = e.currentTarget.value;
-        break;
+    case "name":
+      d.name = e.currentTarget.value;
+      break;
+    case "lessonName":
+      d.lessonName = e.currentTarget.value;
+      break;
+    case "lessonImage":
+      d.lessonImage = e.currentTarget.value;
+      break;
+    case "studyName":
+      d.studyName = e.currentTarget.value;
+      break;
+    case "programName":
+      d.programName = e.currentTarget.value;
+      break;
     }
     setData(d);
   };
@@ -111,44 +111,42 @@ export default function OlfInner() {
   const getActions = (s: FeedSectionInterface, sectionIndex: number) => {
     let result: JSX.Element[] = [];
     s.actions?.forEach((a, j) => {
-      result.push(
-        <TableRow key={"action-" + sectionIndex + "-" + j}>
-          <TableCell></TableCell>
-          <TableCell>
-            {j !== 0 && (
-              <SmallButton
-                icon="arrow_upward"
-                onClick={() => {
-                  moveAction(sectionIndex, j, "up");
-                }}
-              />
-            )}
-            {j !== s.actions.length - 1 && (
-              <SmallButton
-                icon="arrow_downward"
-                onClick={() => {
-                  moveAction(sectionIndex, j, "down");
-                }}
-              />
-            )}
-          </TableCell>
+      result.push(<TableRow key={"action-" + sectionIndex + "-" + j}>
+        <TableCell></TableCell>
+        <TableCell>
+          {j !== 0 && (
+            <SmallButton
+              icon="arrow_upward"
+              onClick={() => {
+                moveAction(sectionIndex, j, "up");
+              }}
+            />
+          )}
+          {j !== s.actions.length - 1 && (
+            <SmallButton
+              icon="arrow_downward"
+              onClick={() => {
+                moveAction(sectionIndex, j, "down");
+              }}
+            />
+          )}
+        </TableCell>
 
-          <TableCell>
-            <a
-              href="about:blank"
-              onClick={e => {
-                e.preventDefault();
-                handleEditAction(sectionIndex, j);
-              }}>
-              {a.actionType}
-            </a>
-          </TableCell>
-          <TableCell>
-            <MarkdownPreviewLight value={a.content} />
-          </TableCell>
-          <TableCell style={{ whiteSpace: "nowrap" }}>{getFiles(a)}</TableCell>
-        </TableRow>
-      );
+        <TableCell>
+          <a
+            href="about:blank"
+            onClick={e => {
+              e.preventDefault();
+              handleEditAction(sectionIndex, j);
+            }}>
+            {a.actionType}
+          </a>
+        </TableCell>
+        <TableCell>
+          <MarkdownPreviewLight value={a.content} />
+        </TableCell>
+        <TableCell style={{ whiteSpace: "nowrap" }}>{getFiles(a)}</TableCell>
+      </TableRow>);
     });
     return result;
   };
@@ -156,48 +154,46 @@ export default function OlfInner() {
   const getSections = () => {
     let result: JSX.Element[] = [];
     data?.sections?.forEach((s, i) => {
-      result.push(
-        <TableRow key={"section-" + s.name}>
-          <TableCell>
-            {i !== 0 && (
-              <SmallButton
-                icon="arrow_upward"
-                onClick={() => {
-                  moveSection(i, "up");
-                }}
-              />
-            )}
-            {i < data.sections.length - 1 && (
-              <SmallButton
-                icon="arrow_downward"
-                onClick={() => {
-                  moveSection(i, "down");
-                }}
-              />
-            )}
-          </TableCell>
-          <TableCell colSpan={2}>
-            <a
-              href="about:blank"
-              onClick={e => {
-                e.preventDefault();
-                setEditSectionIndex(i);
-              }}>
-              {s.name}
-            </a>
-          </TableCell>
-          <TableCell colSpan={2} style={{ textAlign: "right" }}>
+      result.push(<TableRow key={"section-" + s.name}>
+        <TableCell>
+          {i !== 0 && (
             <SmallButton
-              icon="add"
-              text="Action"
+              icon="arrow_upward"
               onClick={() => {
-                setEditSectionIndex(i);
-                setEditActionIndex(-1);
+                moveSection(i, "up");
               }}
             />
-          </TableCell>
-        </TableRow>
-      );
+          )}
+          {i < data.sections.length - 1 && (
+            <SmallButton
+              icon="arrow_downward"
+              onClick={() => {
+                moveSection(i, "down");
+              }}
+            />
+          )}
+        </TableCell>
+        <TableCell colSpan={2}>
+          <a
+            href="about:blank"
+            onClick={e => {
+              e.preventDefault();
+              setEditSectionIndex(i);
+            }}>
+            {s.name}
+          </a>
+        </TableCell>
+        <TableCell colSpan={2} style={{ textAlign: "right" }}>
+          <SmallButton
+            icon="add"
+            text="Action"
+            onClick={() => {
+              setEditSectionIndex(i);
+              setEditActionIndex(-1);
+            }}
+          />
+        </TableCell>
+      </TableRow>);
       result = result.concat(getActions(s, i));
     });
     return result;
@@ -473,65 +469,65 @@ export default function OlfInner() {
 
         <Box sx={{ mt: 3 }}>
           <Grid container spacing={3}>
-          <Grid item md={8} xs={12}>
-            <Paper
-              sx={{
-                borderRadius: 2,
-                border: "1px solid var(--admin-border)",
-                boxShadow: "var(--admin-shadow-sm)",
-                overflow: "hidden"
-              }}>
-              <Box
+            <Grid item md={8} xs={12}>
+              <Paper
                 sx={{
-                  p: 2,
-                  borderBottom: "1px solid var(--admin-border)",
-                  backgroundColor: "var(--c1l7)",
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "space-between"
+                  borderRadius: 2,
+                  border: "1px solid var(--admin-border)",
+                  boxShadow: "var(--admin-shadow-sm)",
+                  overflow: "hidden"
                 }}>
-                <Stack direction="row" alignItems="center" spacing={1}>
-                  <ListIcon sx={{ color: "var(--c1d2)", fontSize: "1.5rem" }} />
-                  <Typography
-                    variant="h6"
-                    sx={{
-                      color: "var(--c1d2)",
-                      fontWeight: 600,
-                      lineHeight: 1,
-                      fontSize: "1.25rem"
-                    }}>
+                <Box
+                  sx={{
+                    p: 2,
+                    borderBottom: "1px solid var(--admin-border)",
+                    backgroundColor: "var(--c1l7)",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "space-between"
+                  }}>
+                  <Stack direction="row" alignItems="center" spacing={1}>
+                    <ListIcon sx={{ color: "var(--c1d2)", fontSize: "1.5rem" }} />
+                    <Typography
+                      variant="h6"
+                      sx={{
+                        color: "var(--c1d2)",
+                        fontWeight: 600,
+                        lineHeight: 1,
+                        fontSize: "1.25rem"
+                      }}>
                     Sections
-                  </Typography>
-                </Stack>
-                
-                <SmallButton
-                  icon="add"
-                  text="Section"
-                  onClick={() => {
-                    setEditSectionIndex(-1);
-                  }}
-                />
-              </Box>
+                    </Typography>
+                  </Stack>
 
-              <Box sx={{ maxHeight: "85vh", overflowY: "auto", pr: 2 }}>
-                <Table id="olfTable" size="small">
-                  <TableHead>
-                    <TableRow>
-                      <TableCell />
-                      <TableCell>Section</TableCell>
-                      <TableCell>Action</TableCell>
-                      <TableCell colSpan={2}>Content</TableCell>
-                    </TableRow>
-                  </TableHead>
-                  <TableBody>{getSections()}</TableBody>
-                </Table>
-              </Box>
-            </Paper>
-          </Grid>
-          <Grid item md={4} xs={12}>
-            {editAction && <OlfActionEdit action={editAction} updatedCallback={handleActionSave} />}
-            {editSection && <OlfSectionEdit section={editSection} updatedCallback={handleSectionSave} />}
-          </Grid>
+                  <SmallButton
+                    icon="add"
+                    text="Section"
+                    onClick={() => {
+                      setEditSectionIndex(-1);
+                    }}
+                  />
+                </Box>
+
+                <Box sx={{ maxHeight: "85vh", overflowY: "auto", pr: 2 }}>
+                  <Table id="olfTable" size="small">
+                    <TableHead>
+                      <TableRow>
+                        <TableCell />
+                        <TableCell>Section</TableCell>
+                        <TableCell>Action</TableCell>
+                        <TableCell colSpan={2}>Content</TableCell>
+                      </TableRow>
+                    </TableHead>
+                    <TableBody>{getSections()}</TableBody>
+                  </Table>
+                </Box>
+              </Paper>
+            </Grid>
+            <Grid item md={4} xs={12}>
+              {editAction && <OlfActionEdit action={editAction} updatedCallback={handleActionSave} />}
+              {editSection && <OlfSectionEdit section={editSection} updatedCallback={handleSectionSave} />}
+            </Grid>
           </Grid>
         </Box>
 

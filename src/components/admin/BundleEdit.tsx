@@ -26,9 +26,9 @@ export function BundleEdit(props: Props) {
     e.preventDefault();
     let v = { ...bundle };
     switch (e.currentTarget.name) {
-      case "name":
-        v.name = e.currentTarget.value;
-        break;
+    case "name":
+      v.name = e.currentTarget.value;
+      break;
     }
     setBundle(v);
   };
@@ -53,11 +53,8 @@ export function BundleEdit(props: Props) {
 
   const handleDelete = () => {
     if (
-      window.confirm(
-        "Are you sure you wish to permanently delete this bundle?  This will delete all variants and assets."
-      )
-    )
-      ApiHelper.delete("/bundles/" + bundle.id.toString(), "LessonsApi").then(() => props.updatedCallback(null));
+      window.confirm("Are you sure you wish to permanently delete this bundle?  This will delete all variants and assets.")
+    ) ApiHelper.delete("/bundles/" + bundle.id.toString(), "LessonsApi").then(() => props.updatedCallback(null));
   };
 
   useEffect(() => {

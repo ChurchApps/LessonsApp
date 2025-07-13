@@ -25,12 +25,12 @@ export function AssetEdit(props: Props) {
     e.preventDefault();
     let a = { ...asset };
     switch (e.currentTarget.name) {
-      case "name":
-        a.name = e.currentTarget.value;
-        break;
-      case "sort":
-        a.sort = parseInt(e.currentTarget.value);
-        break;
+    case "name":
+      a.name = e.currentTarget.value;
+      break;
+    case "sort":
+      a.sort = parseInt(e.currentTarget.value);
+      break;
     }
     setAsset(a);
   };
@@ -59,8 +59,7 @@ export function AssetEdit(props: Props) {
   const getDeleteFunction = () => (props.asset?.id ? handleDelete : undefined);
 
   const handleDelete = () => {
-    if (window.confirm("Are you sure you wish to permanently delete this asset?"))
-      ApiHelper.delete("/assets/" + asset.id.toString(), "LessonsApi").then(() => props.updatedCallback(null));
+    if (window.confirm("Are you sure you wish to permanently delete this asset?")) ApiHelper.delete("/assets/" + asset.id.toString(), "LessonsApi").then(() => props.updatedCallback(null));
   };
 
   useEffect(() => {

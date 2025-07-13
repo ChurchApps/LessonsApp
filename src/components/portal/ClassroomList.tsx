@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import { Add as AddIcon, Edit as EditIcon, RssFeed as RssFeedIcon, School as SchoolIcon } from "@mui/icons-material";
-import {
-  Box,
+import { Box,
   Button,
   IconButton,
   Paper,
@@ -10,8 +9,7 @@ import {
   TableBody,
   TableCell,
   TableRow,
-  Typography
-} from "@mui/material";
+  Typography } from "@mui/material";
 import { Loading } from "@churchapps/apphelper";
 import { ApiHelper, ClassroomInterface } from "@/helpers";
 import { ClassroomEdit } from "../index";

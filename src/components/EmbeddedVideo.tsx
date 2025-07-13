@@ -12,8 +12,7 @@ export function EmbeddedVideo(props: Props) {
   const youTubeBase = "https://www.youtube.com/embed/";
   const vimeoBase = "https://player.vimeo.com/video/"; // 738981143?h=526752b554&badge=0&autopause=0&player_id=0&app_id=58479/embed
   let youTubeId = props.videoEmbedUrl?.indexOf(youTubeBase) > -1 ? props.videoEmbedUrl?.replace(youTubeBase, "") : "";
-  let vimeoId =
-    props.videoEmbedUrl?.indexOf(vimeoBase) > -1 ? props.videoEmbedUrl?.replace(vimeoBase, "").split("?")[0] : "";
+  let vimeoId = props.videoEmbedUrl?.indexOf(vimeoBase) > -1 ? props.videoEmbedUrl?.replace(vimeoBase, "").split("?")[0] : "";
 
   if (youTubeId) {
     return <LiteYouTubeEmbed id={youTubeId} title={props.title} poster="maxresdefault" />;

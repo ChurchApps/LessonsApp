@@ -25,12 +25,12 @@ export function VariantEdit(props: Props) {
     e.preventDefault();
     let v = { ...variant };
     switch (e.target.name) {
-      case "hidden":
-        v.hidden = e.target.value === "true";
-        break;
-      case "name":
-        v.name = e.target.value;
-        break;
+    case "hidden":
+      v.hidden = e.target.value === "true";
+      break;
+    case "name":
+      v.name = e.target.value;
+      break;
     }
     setVariant(v);
   };
@@ -59,8 +59,7 @@ export function VariantEdit(props: Props) {
   const getDeleteFunction = () => (props.variant?.id ? handleDelete : undefined);
 
   const handleDelete = () => {
-    if (window.confirm("Are you sure you wish to permanently delete this variant?"))
-      ApiHelper.delete("/variants/" + variant.id.toString(), "LessonsApi").then(() => props.updatedCallback(null));
+    if (window.confirm("Are you sure you wish to permanently delete this variant?")) ApiHelper.delete("/variants/" + variant.id.toString(), "LessonsApi").then(() => props.updatedCallback(null));
   };
 
   React.useEffect(() => {

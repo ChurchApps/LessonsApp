@@ -88,7 +88,6 @@ export function VenueList(props: Props) {
     );
   };
 
-
   const handleAddNew = () => {
     setEditVenue({ lessonId: props.lessonId });
   };

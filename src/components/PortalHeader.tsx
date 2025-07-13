@@ -22,10 +22,10 @@ export function PortalHeader(props: Props) {
     const menuItems: { url: string; icon: string; label: string }[] = [];
     menuItems.push({ url: "/", icon: "home", label: "Home" });
     menuItems.push({ url: "/portal", icon: "calendar_month", label: "Schedules" });
-    if (UserHelper.checkAccess(Permissions.lessonsApi.lessons.edit))
-      menuItems.push({ url: "/admin", label: "Admin", icon: "admin_panel_settings" });
+    if (UserHelper.checkAccess(Permissions.lessonsApi.lessons.edit)) menuItems.push({ url: "/admin", label: "Admin", icon: "admin_panel_settings" });
 
-    // if (UserHelper.checkAccess(Permissions.membershipApi.server.admin)) tabs.push(<NavItem key="/admin" url="/admin" label={Locale.label("components.wrapper.servAdmin")} icon="admin_panel_settings" selected={selectedTab === "admin"} />);
+    // if (UserHelper.checkAccess(Permissions.membershipApi.server.admin))
+    //   tabs.push(<NavItem key="/admin" url="/admin" label={Locale.label("components.wrapper.servAdmin")} icon="admin_panel_settings" selected={selectedTab === "admin"} />);
     return menuItems;
   };
 

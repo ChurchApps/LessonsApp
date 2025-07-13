@@ -20,11 +20,9 @@ export default async function Venue({ params }: { params: Promise<PageParams> })
     const result: JSX.Element[] = [];
     classrooms?.forEach((c: any) => {
       let url = "/b1/classroom/" + c.id;
-      result.push(
-        <Link href={url} className="bigLink">
-          {c.name}
-        </Link>
-      );
+      result.push(<Link href={url} className="bigLink">
+        {c.name}
+      </Link>);
     });
     return result;
   };

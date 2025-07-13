@@ -24,18 +24,18 @@ export function OllStudyEdit(props: Props) {
     e.preventDefault();
     let s = { ...study };
     switch (e.target.name) {
-      case "id":
-        s.id = e.target.value;
-        break;
-      case "name":
-        s.name = e.target.value;
-        break;
-      case "image":
-        s.image = e.target.value;
-        break;
-      case "description":
-        s.description = e.target.value;
-        break;
+    case "id":
+      s.id = e.target.value;
+      break;
+    case "name":
+      s.name = e.target.value;
+      break;
+    case "image":
+      s.image = e.target.value;
+      break;
+    case "description":
+      s.description = e.target.value;
+      break;
     }
     setStudy(s);
   };

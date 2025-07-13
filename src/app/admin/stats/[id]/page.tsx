@@ -48,38 +48,33 @@ export default function Admin() {
   }
 
   const filterResults = () => {
-    const dateString =
-      "?startDate=" + DateHelper.formatHtml5Date(startDate) + "&endDate=" + DateHelper.formatHtml5Date(endDate);
+    const dateString = "?startDate=" + DateHelper.formatHtml5Date(startDate) + "&endDate=" + DateHelper.formatHtml5Date(endDate);
     ApiHelper.get("/downloads/" + programId + "/studies" + dateString, "LessonsApi").then(d => setStudies(d));
-    ApiHelper.get("/downloads/" + programId + "/churches" + dateString, "LessonsApi").then(
-      (churchList: ChurchInterface[]) => {
-        const ids = ArrayHelper.getIds(churchList, "churchId");
-        ApiHelper.post("/churches/byIds", ids, "MembershipApi").then(d => setChurches(d));
-      }
-    );
+    ApiHelper.get("/downloads/" + programId + "/churches" + dateString, "LessonsApi").then((churchList: ChurchInterface[]) => {
+      const ids = ArrayHelper.getIds(churchList, "churchId");
+      ApiHelper.post("/churches/byIds", ids, "MembershipApi").then(d => setChurches(d));
+    });
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const val = e.target.value;
     switch (e.target.name) {
-      case "startDate":
-        setStartDate(new Date(val));
-        break;
-      case "endDate":
-        setEndDate(new Date(val));
-        break;
+    case "startDate":
+      setStartDate(new Date(val));
+      break;
+    case "endDate":
+      setEndDate(new Date(val));
+      break;
     }
   };
 
   const getStudyRows = () => {
     const result: JSX.Element[] = [];
     studies.forEach((s, index) => {
-      result.push(
-        <tr key={index} style={{ borderBottom: '1px solid var(--admin-border)' }}>
-          <td style={{ padding: '12px' }}>{s.studyName}</td>
-          <td style={{ padding: '12px', fontWeight: 500 }}>{s.downloadCount}</td>
-        </tr>
-      );
+      result.push(<tr key={index} style={{ borderBottom: '1px solid var(--admin-border)' }}>
+        <td style={{ padding: '12px' }}>{s.studyName}</td>
+        <td style={{ padding: '12px', fontWeight: 500 }}>{s.downloadCount}</td>
+      </tr>);
     });
     return result;
   };
@@ -87,14 +82,12 @@ export default function Admin() {
   const getChurchRows = () => {
     const result: JSX.Element[] = [];
     churches.forEach((c, index) => {
-      result.push(
-        <tr key={index} style={{ borderBottom: '1px solid var(--admin-border)' }}>
-          <td style={{ padding: '12px' }}>{c.name}</td>
-          <td style={{ padding: '12px', color: 'var(--c1d2)' }}>
-            {c.city}, {c.state}
-          </td>
-        </tr>
-      );
+      result.push(<tr key={index} style={{ borderBottom: '1px solid var(--admin-border)' }}>
+        <td style={{ padding: '12px' }}>{c.name}</td>
+        <td style={{ padding: '12px', color: 'var(--c1d2)' }}>
+          {c.city}, {c.state}
+        </td>
+      </tr>);
     });
     return result;
   };

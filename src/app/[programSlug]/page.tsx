@@ -26,18 +26,9 @@ interface LoadDataResult {
 const loadData = async (programSlug: string): Promise<LoadDataResult> => {
   EnvironmentHelper.init();
   try {
-    const program: ProgramInterface = await ApiHelper.getAnonymous(
-      "/programs/public/slug/" + programSlug,
-      "LessonsApi"
-    );
-    const studies: StudyInterface[] = await ApiHelper.getAnonymous(
-      "/studies/public/program/" + program?.id,
-      "LessonsApi"
-    );
-    const studyCategories: StudyCategoryInterface[] = await ApiHelper.getAnonymous(
-      "/studyCategories/public/program/" + program?.id,
-      "LessonsApi"
-    );
+    const program: ProgramInterface = await ApiHelper.getAnonymous("/programs/public/slug/" + programSlug, "LessonsApi");
+    const studies: StudyInterface[] = await ApiHelper.getAnonymous("/studies/public/program/" + program?.id, "LessonsApi");
+    const studyCategories: StudyCategoryInterface[] = await ApiHelper.getAnonymous("/studyCategories/public/program/" + program?.id, "LessonsApi");
     return { program, studies, studyCategories, errorMessage: "" };
   } catch (error: unknown) {
     console.log("inside catch: ", error);
@@ -53,12 +44,7 @@ const loadSharedData = (programSlug: string) => {
 export async function generateMetadata({ params }: { params: Promise<PageParams> }): Promise<Metadata> {
   const { programSlug } = await params;
   const props = await loadSharedData(programSlug);
-  if (!props.errorMessage)
-    return MetaHelper.getMetaData(
-      props.program.name + " - Free Church Curriculum",
-      props.program.description,
-      props.program.image
-    );
+  if (!props.errorMessage) return MetaHelper.getMetaData(props.program.name + " - Free Church Curriculum", props.program.description, props.program.image);
 }
 
 export default async function ProgramPage({ params }: { params: Promise<PageParams> }) {

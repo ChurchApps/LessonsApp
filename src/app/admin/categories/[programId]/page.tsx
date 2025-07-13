@@ -32,11 +32,9 @@ export default function Admin() {
   };
 
   const loadCategory = () => {
-    ApiHelper.get("/studyCategories/" + programId + "?categoryName=" + escape(categoryName), "LessonsApi").then(
-      (data: any) => {
-        setStudyCategories(data);
-      }
-    );
+    ApiHelper.get("/studyCategories/" + programId + "?categoryName=" + escape(categoryName), "LessonsApi").then((data: any) => {
+      setStudyCategories(data);
+    });
     ApiHelper.get("/studies/program/" + programId, "LessonsApi").then((data: any) => {
       setStudies(data);
     });
@@ -99,8 +97,7 @@ export default function Admin() {
     studyCategories.forEach(sc => {
       const study = ArrayHelper.getOne(studies, "id", sc.studyId);
       const index = i;
-      const upLink =
-        i === 0 ? (
+      const upLink = i === 0 ? (
           <span style={{ paddingLeft: 14 }}>&nbsp;</span>
         ) : (
           <SmallButton
@@ -110,8 +107,7 @@ export default function Admin() {
             }}
           />
         );
-      const downLink =
-        i === studyCategories.length - 1 ? (
+      const downLink = i === studyCategories.length - 1 ? (
           <></>
         ) : (
           <SmallButton
@@ -122,23 +118,21 @@ export default function Admin() {
           />
         );
       i++;
-      result.push(
-        <tr>
-          <td>
-            <SmallButton
-              icon="remove"
-              onClick={() => {
-                handleRemove(sc.id);
-              }}
-            />
-          </td>
-          <td>{study?.name}</td>
-          <td>
-            {upLink}
-            {downLink}
-          </td>
-        </tr>
-      );
+      result.push(<tr>
+        <td>
+          <SmallButton
+            icon="remove"
+            onClick={() => {
+              handleRemove(sc.id);
+            }}
+          />
+        </td>
+        <td>{study?.name}</td>
+        <td>
+          {upLink}
+          {downLink}
+        </td>
+      </tr>);
     });
     return result;
   };
