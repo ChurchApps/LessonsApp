@@ -19,7 +19,6 @@ export default function CP() {
           icon={<BuildIcon />}
           title="Open Lesson Format Builder"
           subtitle="Create and manage custom lesson formats"
-          backgroundColor="var(--secondary-color)"
         />
 
         <Paper

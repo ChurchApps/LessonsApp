@@ -2,7 +2,7 @@
 
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
-import { Box, Grid, Paper, Stack, Typography, Button, List, ListItem, ListItemButton, ListItemIcon, ListItemText, CircularProgress } from "@mui/material";
+import { Box, Paper, Stack, Typography, Button, List, ListItem, ListItemButton, ListItemIcon, ListItemText, CircularProgress } from "@mui/material";
 import { Extension as ExtensionIcon, Movie as MovieIcon, Add as AddIcon } from "@mui/icons-material";
 import { Wrapper } from "@/components/Wrapper";
 import { PageHeader } from "@/components/admin";

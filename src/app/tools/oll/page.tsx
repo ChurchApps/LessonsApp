@@ -19,7 +19,6 @@ export default function CP() {
           icon={<ListIcon />}
           title="Open Lesson List Builder"
           subtitle="Create and manage lesson curriculum lists"
-          backgroundColor="var(--secondary-color)"
         />
 
         <Paper

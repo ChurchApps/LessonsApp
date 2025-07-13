@@ -3,7 +3,7 @@
 import { useRouter } from "next/navigation";
 import { startTransition, useEffect, useState } from "react";
 import { Add as AddIcon, Assessment as StatsIcon, Book as BookIcon, Clear as ClearIcon, Edit as EditIcon, ExpandLess as CollapseIcon, ExpandMore as ExpandIcon, FileUpload as FilesIcon, Layers as LayersIcon, LocationOn as VenueIcon, School as SchoolIcon } from "@mui/icons-material";
-import { Box, Button, Container, Grid, IconButton, Paper, Stack, Typography } from "@mui/material";
+import { Box, Button, Container, IconButton, Paper, Stack, Typography } from "@mui/material";
 import { Loading } from "@churchapps/apphelper";
 import { BundleList, ErrorBoundary, LessonEdit, ProgramEdit, StudyEdit, VenueList } from "@/components";
 import { PageHeader } from "@/components/admin/PageHeader";
