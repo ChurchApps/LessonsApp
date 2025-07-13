@@ -55,11 +55,15 @@
   --admin-header-height: 64px;
   --admin-content-padding: 24px;
   --admin-bg: #f5f5f5;
+  --admin-bg-light: #fafafa;
+  --admin-bg-lighter: #fdfdfd;
   --admin-surface: #ffffff;
   --admin-border: rgba(0, 0, 0, 0.12);
+  --admin-border-light: rgba(0, 0, 0, 0.08);
   --admin-shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.12);
   --admin-shadow-md: 0 2px 8px rgba(0, 0, 0, 0.15);
   --admin-shadow-lg: 0 4px 16px rgba(0, 0, 0, 0.2);
+  --text-secondary: #666;
 
   scroll-behavior: smooth;
 }
