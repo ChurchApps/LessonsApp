@@ -2,10 +2,10 @@
 
 import { useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
-import { Grid, Table, TableBody, TableCell, TableHead, TableRow, TextField } from "@mui/material";
-import { DisplayBox, MarkdownEditor, MarkdownPreviewLight, SmallButton } from "@churchapps/apphelper";
+import { Box, Grid, Paper, Stack, Table, TableBody, TableCell, TableHead, TableRow, TextField, Typography } from "@mui/material";
+import { Description as DescriptionIcon, Storage as StorageIcon, List as ListIcon } from "@mui/icons-material";
+import { MarkdownEditor, MarkdownPreviewLight, SmallButton } from "@churchapps/apphelper";
 import { Presenter } from "@/components/Presenter";
-import { Wrapper } from "@/components/Wrapper";
 import { OlfActionEdit } from "@/components/open-lesson/OlfActionEdit";
 import { OlfPrintPreview } from "@/components/open-lesson/OlfPrintPreview";
 import { OlfSectionEdit } from "@/components/open-lesson/OlfSectionEdit";
@@ -302,118 +302,208 @@ export default function OlfInner() {
   }, [feedUrl]);
 
   if (!data) {
-    return (
-      <Wrapper>
-        <></>
-      </Wrapper>
-    );
+    return <></>;
   } else {
     return (
       <>
-        <h1>Manually Create Open Lesson Format</h1>
         <Grid container spacing={3}>
           <Grid item md={8} xs={12}>
-            <DisplayBox headerText="Venue Details" headerIcon="map_marker">
-              <Grid container spacing={3}>
-                <Grid item xs={6}>
-                  <TextField
-                    label="Program Name"
-                    fullWidth
-                    name="programName"
-                    value={data.programName || ""}
-                    onChange={handleChange}
-                    placeholder="The Ark Kids"
-                  />
+            <Paper
+              sx={{
+                borderRadius: 2,
+                border: "1px solid var(--admin-border)",
+                boxShadow: "var(--admin-shadow-sm)",
+                overflow: "hidden"
+              }}>
+              <Box
+                sx={{
+                  p: 2,
+                  borderBottom: "1px solid var(--admin-border)",
+                  backgroundColor: "var(--c1l7)",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "space-between"
+                }}>
+                <Stack direction="row" alignItems="center" spacing={1}>
+                  <DescriptionIcon sx={{ color: "var(--c1d2)", fontSize: "1.5rem" }} />
+                  <Typography
+                    variant="h6"
+                    sx={{
+                      color: "var(--c1d2)",
+                      fontWeight: 600,
+                      lineHeight: 1,
+                      fontSize: "1.25rem"
+                    }}>
+                    Venue Details
+                  </Typography>
+                </Stack>
+              </Box>
+
+              <Box sx={{ p: 2 }}>
+                <Grid container spacing={3}>
+                  <Grid item xs={6}>
+                    <TextField
+                      label="Program Name"
+                      fullWidth
+                      name="programName"
+                      value={data.programName || ""}
+                      onChange={handleChange}
+                      placeholder="The Ark Kids"
+                    />
+                  </Grid>
+                  <Grid item xs={6}>
+                    <TextField
+                      label="Study Name"
+                      fullWidth
+                      name="studyName"
+                      value={data.studyName || ""}
+                      onChange={handleChange}
+                      placeholder="Peace"
+                    />
+                  </Grid>
                 </Grid>
-                <Grid item xs={6}>
-                  <TextField
-                    label="Study Name"
-                    fullWidth
-                    name="studyName"
-                    value={data.studyName || ""}
-                    onChange={handleChange}
-                    placeholder="Peace"
-                  />
+                <Grid container spacing={3}>
+                  <Grid item xs={6}>
+                    <TextField
+                      label="Lesson Name"
+                      fullWidth
+                      name="lessonName"
+                      value={data.lessonName || ""}
+                      onChange={handleChange}
+                      placeholder="I Can Have Peace When I'm Angry"
+                    />
+                  </Grid>
+                  <Grid item xs={6}>
+                    <TextField
+                      label="Lesson Image"
+                      fullWidth
+                      name="lessonImage"
+                      value={data.lessonImage || ""}
+                      onChange={handleChange}
+                      placeholder="https://content.lessons.church/lessons/LokAPfneEmp.png"
+                    />
+                  </Grid>
                 </Grid>
-              </Grid>
-              <Grid container spacing={3}>
-                <Grid item xs={6}>
-                  <TextField
-                    label="Lesson Name"
-                    fullWidth
-                    name="lessonName"
-                    value={data.lessonName || ""}
-                    onChange={handleChange}
-                    placeholder="I Can Have Peace When I'm Angry"
-                  />
+                <Grid container spacing={3}>
+                  <Grid item xs={6}>
+                    <Typography variant="body2" sx={{ fontSize: 13, pl: 1, mb: 1, color: "var(--text-secondary)" }}>
+                      Lesson Description
+                    </Typography>
+                    <MarkdownEditor value={data.lessonDescription || ""} onChange={handleMarkdownChange} />
+                  </Grid>
+                  <Grid item xs={6}>
+                    <TextField
+                      label="Venue Name"
+                      fullWidth
+                      name="name"
+                      value={data.name || ""}
+                      onChange={handleChange}
+                      placeholder="Classroom"
+                    />
+                  </Grid>
                 </Grid>
-                <Grid item xs={6}>
-                  <TextField
-                    label="Lesson Image"
-                    fullWidth
-                    name="lessonImage"
-                    value={data.lessonImage || ""}
-                    onChange={handleChange}
-                    placeholder="https://content.lessons.church/lessons/LokAPfneEmp.png"
-                  />
-                </Grid>
-              </Grid>
-              <Grid container spacing={3}>
-                <Grid item xs={6}>
-                  <label style={{ fontSize: 13, paddingLeft: 10 }}>Lesson Description</label>
-                  <MarkdownEditor value={data.lessonDescription || ""} onChange={handleMarkdownChange} />
-                </Grid>
-                <Grid item xs={6}>
-                  <TextField
-                    label="Venue Name"
-                    fullWidth
-                    name="name"
-                    value={data.name || ""}
-                    onChange={handleChange}
-                    placeholder="Classroom"
-                  />
-                </Grid>
-              </Grid>
-            </DisplayBox>
+              </Box>
+            </Paper>
           </Grid>
           <Grid item md={4} xs={12}>
-            <DisplayBox headerText="OLF File" headerIcon="map_marker">
-              <SmallButton text="Upload" icon="upload" onClick={handleUpload} /> &nbsp;
-              <SmallButton text="Download" icon="download" onClick={handleDownload} />
-              <br />
-              <br />
-              <SmallButton
-                icon="print"
-                text="Print Preview"
-                onClick={() => {
-                  setShowPrintPreview(true);
-                }}
-              />{" "}
-              &nbsp;
-              <SmallButton icon="play_arrow" text="Play Media" onClick={loadPresenterData} />
-              <input id="fileUpload" type="file" onChange={handleFileChange} style={{ display: "none" }} />
-              <div
-                style={{
-                  fontSize: 12,
-                  overflow: "scroll",
-                  maxHeight: 333,
-                  whiteSpace: "pre",
-                  border: "1px solid #CCC",
-                  padding: 15,
-                  marginTop: 20
+            <Paper
+              sx={{
+                borderRadius: 2,
+                border: "1px solid var(--admin-border)",
+                boxShadow: "var(--admin-shadow-sm)",
+                overflow: "hidden"
+              }}>
+              <Box
+                sx={{
+                  p: 2,
+                  borderBottom: "1px solid var(--admin-border)",
+                  backgroundColor: "var(--c1l7)",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "space-between"
                 }}>
-                {JSON.stringify(data, null, 2)}
-              </div>
-            </DisplayBox>
+                <Stack direction="row" alignItems="center" spacing={1}>
+                  <StorageIcon sx={{ color: "var(--c1d2)", fontSize: "1.5rem" }} />
+                  <Typography
+                    variant="h6"
+                    sx={{
+                      color: "var(--c1d2)",
+                      fontWeight: 600,
+                      lineHeight: 1,
+                      fontSize: "1.25rem"
+                    }}>
+                    OLF File
+                  </Typography>
+                </Stack>
+              </Box>
+
+              <Box sx={{ p: 2 }}>
+                <Stack direction="row" spacing={1} sx={{ mb: 2 }}>
+                  <SmallButton text="Upload" icon="upload" onClick={handleUpload} />
+                  <SmallButton text="Download" icon="download" onClick={handleDownload} />
+                </Stack>
+                <Stack direction="row" spacing={1} sx={{ mb: 2 }}>
+                  <SmallButton
+                    icon="print"
+                    text="Print Preview"
+                    onClick={() => {
+                      setShowPrintPreview(true);
+                    }}
+                  />
+                  <SmallButton icon="play_arrow" text="Play Media" onClick={loadPresenterData} />
+                </Stack>
+                <input id="fileUpload" type="file" onChange={handleFileChange} style={{ display: "none" }} />
+                <Box
+                  sx={{
+                    fontSize: 12,
+                    overflow: "auto",
+                    maxHeight: 333,
+                    whiteSpace: "pre",
+                    border: "1px solid var(--admin-border)",
+                    borderRadius: 1,
+                    backgroundColor: "var(--admin-bg-lighter)",
+                    p: 2
+                  }}>
+                  {JSON.stringify(data, null, 2)}
+                </Box>
+              </Box>
+            </Paper>
           </Grid>
         </Grid>
 
-        <Grid container spacing={3}>
+        <Box sx={{ mt: 3 }}>
+          <Grid container spacing={3}>
           <Grid item md={8} xs={12}>
-            <DisplayBox
-              headerText="Sections"
-              headerIcon="list_alt"
-              editContent={
+            <Paper
+              sx={{
+                borderRadius: 2,
+                border: "1px solid var(--admin-border)",
+                boxShadow: "var(--admin-shadow-sm)",
+                overflow: "hidden"
+              }}>
+              <Box
+                sx={{
+                  p: 2,
+                  borderBottom: "1px solid var(--admin-border)",
+                  backgroundColor: "var(--c1l7)",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "space-between"
+                }}>
+                <Stack direction="row" alignItems="center" spacing={1}>
+                  <ListIcon sx={{ color: "var(--c1d2)", fontSize: "1.5rem" }} />
+                  <Typography
+                    variant="h6"
+                    sx={{
+                      color: "var(--c1d2)",
+                      fontWeight: 600,
+                      lineHeight: 1,
+                      fontSize: "1.25rem"
+                    }}>
+                    Sections
+                  </Typography>
+                </Stack>
+                
                 <SmallButton
                   icon="add"
                   text="Section"
@@ -421,8 +511,9 @@ export default function OlfInner() {
                     setEditSectionIndex(-1);
                   }}
                 />
-              }>
-              <div style={{ maxHeight: "85vh", overflowY: "scroll", paddingRight: 15 }}>
+              </Box>
+
+              <Box sx={{ maxHeight: "85vh", overflowY: "auto", pr: 2 }}>
                 <Table id="olfTable" size="small">
                   <TableHead>
                     <TableRow>
@@ -434,14 +525,15 @@ export default function OlfInner() {
                   </TableHead>
                   <TableBody>{getSections()}</TableBody>
                 </Table>
-              </div>
-            </DisplayBox>
+              </Box>
+            </Paper>
           </Grid>
           <Grid item md={4} xs={12}>
             {editAction && <OlfActionEdit action={editAction} updatedCallback={handleActionSave} />}
             {editSection && <OlfSectionEdit section={editSection} updatedCallback={handleSectionSave} />}
           </Grid>
-        </Grid>
+          </Grid>
+        </Box>
 
         {showPrintPreview && (
           <OlfPrintPreview

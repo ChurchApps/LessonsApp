@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
-import { SelectChangeEvent, TextField } from "@mui/material";
-import { ErrorMessages, InputBox } from "@churchapps/apphelper";
+import { Box, Button, IconButton, Paper, SelectChangeEvent, Stack, TextField, Typography } from "@mui/material";
+import { Edit as EditIcon, Save as SaveIcon, Delete as DeleteIcon, Cancel as CancelIcon } from "@mui/icons-material";
+import { ErrorMessages } from "@churchapps/apphelper";
 import { FeedVenueLinkInterface } from "@/helpers";
 
 interface Props {
@@ -56,18 +57,89 @@ export function OllVenueEdit(props: Props) {
   } else {
     return (
       <>
-        <InputBox
-          id="venueDetailsBox"
-          headerText={props.venue ? "Edit Venue" : "Create Venue"}
-          headerIcon="check"
-          saveFunction={handleSave}
-          cancelFunction={handleCancel}
-          deleteFunction={handleDelete}>
+<Paper
+        sx={{
+          borderRadius: 2,
+          border: "1px solid var(--admin-border)",
+          boxShadow: "var(--admin-shadow-sm)",
+          overflow: "hidden"
+        }}>
+        <Box
+          sx={{
+            p: 2,
+            borderBottom: "1px solid var(--admin-border)",
+            backgroundColor: "var(--c1l7)",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "space-between"
+          }}>
+          <Stack direction="row" alignItems="center" spacing={1}>
+            <EditIcon sx={{ color: "var(--c1d2)", fontSize: "1.5rem" }} />
+            <Typography
+              variant="h6"
+              sx={{
+                color: "var(--c1d2)",
+                fontWeight: 600,
+                lineHeight: 1,
+                fontSize: "1.25rem"
+              }}>
+              {props.venue.id ? "Edit Venue" : "Create Venue"}
+            </Typography>
+          </Stack>
+        </Box>
+
+        <Box sx={{ p: 3 }}>
           <ErrorMessages errors={errors} />
-          <TextField fullWidth label="Id" name="id" value={venue.id} onChange={handleChange} />
-          <TextField fullWidth label="Name" name="name" value={venue.name} onChange={handleChange} />
-          <TextField fullWidth label="API Url" name="apiUrl" value={venue.apiUrl} onChange={handleChange} />
-        </InputBox>
+          <Stack spacing={3}>
+            <TextField fullWidth label="Id" name="id" value={venue.id || ""} onChange={handleChange} required />
+            <TextField fullWidth label="Name" name="name" value={venue.name || ""} onChange={handleChange} required />
+            <TextField fullWidth label="API Url" name="apiUrl" value={venue.apiUrl || ""} onChange={handleChange} required />
+          </Stack>
+        </Box>
+
+        <Box
+          sx={{
+            p: 2,
+            borderTop: "1px solid var(--admin-border)",
+            backgroundColor: "var(--admin-bg)",
+            display: "flex",
+            justifyContent: "flex-end",
+            gap: 1,
+            flexWrap: "wrap"
+          }}>
+          <Button
+            startIcon={<SaveIcon />}
+            variant="contained"
+            onClick={handleSave}
+            sx={{
+              backgroundColor: "var(--c1)",
+              "&:hover": { backgroundColor: "var(--c1d1)" }
+            }}>
+            Save
+          </Button>
+          <Button
+            startIcon={<CancelIcon />}
+            variant="outlined"
+            onClick={handleCancel}
+            sx={{
+              color: "var(--c1d2)",
+              borderColor: "var(--c1d2)"
+            }}>
+            Cancel
+          </Button>
+          {props.venue.id && (
+            <IconButton
+              color="error"
+              onClick={handleDelete}
+              sx={{
+                color: "#d32f2f",
+                "&:hover": { backgroundColor: "rgba(211, 47, 47, 0.1)" }
+              }}>
+              <DeleteIcon />
+            </IconButton>
+          )}
+        </Box>
+      </Paper>
       </>
     );
   }

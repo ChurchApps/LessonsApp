@@ -2,8 +2,9 @@
 
 import { useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
-import { Grid, Table, TableBody, TableCell, TableHead, TableRow } from "@mui/material";
-import { DisplayBox, SmallButton } from "@churchapps/apphelper";
+import { Box, Grid, Paper, Stack, Table, TableBody, TableCell, TableHead, TableRow, Typography } from "@mui/material";
+import { List as ListIcon, Storage as StorageIcon } from "@mui/icons-material";
+import { SmallButton } from "@churchapps/apphelper";
 import { OllLessonEdit } from "@/components/open-lesson/OllLessonEdit";
 import { OllProgramEdit } from "@/components/open-lesson/OllProgramEdit";
 import { OllStudyEdit } from "@/components/open-lesson/OllStudyEdit";
@@ -473,13 +474,38 @@ export default function OllInner() {
   } else {
     return (
       <>
-        <h1>Manually Create Open Lesson List</h1>
         <Grid container spacing={3}>
           <Grid item md={8} xs={12}>
-            <DisplayBox
-              headerText="Programs"
-              headerIcon="list_alt"
-              editContent={
+            <Paper
+              sx={{
+                borderRadius: 2,
+                border: "1px solid var(--admin-border)",
+                boxShadow: "var(--admin-shadow-sm)",
+                overflow: "hidden"
+              }}>
+              <Box
+                sx={{
+                  p: 2,
+                  borderBottom: "1px solid var(--admin-border)",
+                  backgroundColor: "var(--c1l7)",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "space-between"
+                }}>
+                <Stack direction="row" alignItems="center" spacing={1}>
+                  <ListIcon sx={{ color: "var(--c1d2)", fontSize: "1.5rem" }} />
+                  <Typography
+                    variant="h6"
+                    sx={{
+                      color: "var(--c1d2)",
+                      fontWeight: 600,
+                      lineHeight: 1,
+                      fontSize: "1.25rem"
+                    }}>
+                    Programs
+                  </Typography>
+                </Stack>
+                
                 <SmallButton
                   icon="add"
                   text="Program"
@@ -487,8 +513,9 @@ export default function OllInner() {
                     setEditProgramIndex(-1);
                   }}
                 />
-              }>
-              <div style={{ maxHeight: "85vh", overflowY: "scroll", paddingRight: 15 }}>
+              </Box>
+
+              <Box sx={{ maxHeight: "85vh", overflowY: "auto", pr: 2 }}>
                 <Table id="olfTable" size="small">
                   <TableHead>
                     <TableRow>
@@ -501,8 +528,8 @@ export default function OllInner() {
                   </TableHead>
                   <TableBody>{getPrograms()}</TableBody>
                 </Table>
-              </div>
-            </DisplayBox>
+              </Box>
+            </Paper>
           </Grid>
           <Grid item md={4} xs={12}>
             {editProgram && <OllProgramEdit program={editProgram} updatedCallback={handleProgramSave} />}
@@ -510,25 +537,59 @@ export default function OllInner() {
             {editLesson && <OllLessonEdit lesson={editLesson} updatedCallback={handleLessonSave} />}
             {editVenue && <OllVenueEdit venue={editVenue} updatedCallback={handleVenueSave} />}
 
-            <DisplayBox headerText="OLL File" headerIcon="map_marker">
-              <SmallButton text="Upload" icon="upload" onClick={handleUpload} /> &nbsp;
-              <SmallButton text="Download" icon="download" onClick={handleDownload} />
-              <br />
-              <br />
-              <input id="fileUpload" type="file" onChange={handleFileChange} style={{ display: "none" }} />
-              <div
-                style={{
-                  fontSize: 12,
-                  overflow: "scroll",
-                  maxHeight: 333,
-                  whiteSpace: "pre",
-                  border: "1px solid #CCC",
-                  padding: 15,
-                  marginTop: 20
+            <Paper
+              sx={{
+                borderRadius: 2,
+                border: "1px solid var(--admin-border)",
+                boxShadow: "var(--admin-shadow-sm)",
+                overflow: "hidden",
+                mt: editProgram || editStudy || editLesson || editVenue ? 3 : 0
+              }}>
+              <Box
+                sx={{
+                  p: 2,
+                  borderBottom: "1px solid var(--admin-border)",
+                  backgroundColor: "var(--c1l7)",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "space-between"
                 }}>
-                {JSON.stringify(data, null, 2)}
-              </div>
-            </DisplayBox>
+                <Stack direction="row" alignItems="center" spacing={1}>
+                  <StorageIcon sx={{ color: "var(--c1d2)", fontSize: "1.5rem" }} />
+                  <Typography
+                    variant="h6"
+                    sx={{
+                      color: "var(--c1d2)",
+                      fontWeight: 600,
+                      lineHeight: 1,
+                      fontSize: "1.25rem"
+                    }}>
+                    OLL File
+                  </Typography>
+                </Stack>
+              </Box>
+
+              <Box sx={{ p: 2 }}>
+                <Stack direction="row" spacing={1} sx={{ mb: 2 }}>
+                  <SmallButton text="Upload" icon="upload" onClick={handleUpload} />
+                  <SmallButton text="Download" icon="download" onClick={handleDownload} />
+                </Stack>
+                <input id="fileUpload" type="file" onChange={handleFileChange} style={{ display: "none" }} />
+                <Box
+                  sx={{
+                    fontSize: 12,
+                    overflow: "auto",
+                    maxHeight: 333,
+                    whiteSpace: "pre",
+                    border: "1px solid var(--admin-border)",
+                    borderRadius: 1,
+                    backgroundColor: "var(--admin-bg-lighter)",
+                    p: 2
+                  }}>
+                  {JSON.stringify(data, null, 2)}
+                </Box>
+              </Box>
+            </Paper>
           </Grid>
         </Grid>
       </>

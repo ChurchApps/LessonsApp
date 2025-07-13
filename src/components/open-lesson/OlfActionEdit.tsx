@@ -1,18 +1,25 @@
 import { useEffect, useState } from "react";
 import {
+  Box,
+  Button,
   FormControl,
+  IconButton,
   InputLabel,
   MenuItem,
+  Paper,
   Select,
   SelectChangeEvent,
+  Stack,
   Table,
   TableBody,
   TableCell,
   TableHead,
   TableRow,
-  TextField
+  TextField,
+  Typography
 } from "@mui/material";
-import { ErrorMessages, InputBox, MarkdownEditor, SmallButton } from "@churchapps/apphelper";
+import { Edit as EditIcon, Save as SaveIcon, Delete as DeleteIcon, Cancel as CancelIcon, Add as AddIcon } from "@mui/icons-material";
+import { ErrorMessages, MarkdownEditor, SmallButton } from "@churchapps/apphelper";
 import { FeedActionInterface, FeedFileInterface } from "@/helpers";
 import { OlfFileEdit } from "./OlfFileEdit";
 
@@ -99,23 +106,23 @@ export function OlfActionEdit(props: Props) {
     });
 
     return (
-      <Table>
-        <TableHead>
-          <TableRow>
-            <TableCell>Files</TableCell>
-            <TableCell style={{ textAlign: "right" }}>
-              <SmallButton
-                icon="add"
-                text="File"
-                onClick={() => {
-                  setEditFileIndex(-1);
-                }}
-              />
-            </TableCell>
-          </TableRow>
-        </TableHead>
-        <TableBody>{rows}</TableBody>
-      </Table>
+      <Box sx={{ mt: 2 }}>
+        <Stack direction="row" alignItems="center" justifyContent="space-between" sx={{ mb: 1 }}>
+          <Typography variant="subtitle2" sx={{ fontWeight: 600 }}>Files</Typography>
+          <Button
+            size="small"
+            startIcon={<AddIcon />}
+            onClick={() => {
+              setEditFileIndex(-1);
+            }}
+            sx={{ color: "var(--c1)" }}>
+            Add File
+          </Button>
+        </Stack>
+        <Table size="small">
+          <TableBody>{rows}</TableBody>
+        </Table>
+      </Box>
     );
   };
 
@@ -153,38 +160,118 @@ export function OlfActionEdit(props: Props) {
     return <OlfFileEdit file={editFile} updatedCallback={handleFileSave} />;
   } else {
     return (
-      <>
-        <InputBox
-          id="actionDetailsBox"
-          headerText={props.action ? "Edit Action" : "Create Action"}
-          headerIcon="check"
-          saveFunction={handleSave}
-          cancelFunction={handleCancel}
-          deleteFunction={handleDelete}>
+      <Paper
+        sx={{
+          borderRadius: 2,
+          border: "1px solid var(--admin-border)",
+          boxShadow: "var(--admin-shadow-sm)",
+          overflow: "hidden"
+        }}>
+        <Box
+          sx={{
+            p: 2,
+            borderBottom: "1px solid var(--admin-border)",
+            backgroundColor: "var(--c1l7)",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "space-between"
+          }}>
+          <Stack direction="row" alignItems="center" spacing={1}>
+            <EditIcon sx={{ color: "var(--c1d2)", fontSize: "1.5rem" }} />
+            <Typography
+              variant="h6"
+              sx={{
+                color: "var(--c1d2)",
+                fontWeight: 600,
+                lineHeight: 1,
+                fontSize: "1.25rem"
+              }}>
+              {props.action.id ? "Edit Action" : "Create Action"}
+            </Typography>
+          </Stack>
+        </Box>
+
+        <Box sx={{ p: 3 }}>
           <ErrorMessages errors={errors} />
 
-          <FormControl fullWidth>
-            <InputLabel>Action Type</InputLabel>
-            <Select label="Action Type" name="actionType" value={action.actionType} onChange={handleChange}>
-              <MenuItem value="say" key="say">
-                Say
-              </MenuItem>
-              <MenuItem value="do" key="do">
-                Do
-              </MenuItem>
-              <MenuItem value="play" key="play">
-                Play
-              </MenuItem>
-              <MenuItem value="note" key="note">
-                Note
-              </MenuItem>
-            </Select>
-          </FormControl>
-          <TextField fullWidth label="Role (Optional)" name="role" value={action.role} onChange={handleChange} />
-          {getContent()}
-          {getFiles()}
-        </InputBox>
-      </>
+          <Stack spacing={3}>
+            <FormControl fullWidth>
+              <InputLabel>Action Type</InputLabel>
+              <Select label="Action Type" name="actionType" value={action.actionType || ""} onChange={handleChange}>
+                <MenuItem value="say" key="say">
+                  Say
+                </MenuItem>
+                <MenuItem value="do" key="do">
+                  Do
+                </MenuItem>
+                <MenuItem value="play" key="play">
+                  Play
+                </MenuItem>
+                <MenuItem value="note" key="note">
+                  Note
+                </MenuItem>
+              </Select>
+            </FormControl>
+            
+            <TextField 
+              fullWidth 
+              label="Role (Optional)" 
+              name="role" 
+              value={action.role || ""} 
+              onChange={handleChange}
+            />
+            
+            <Box>
+              {getContent()}
+            </Box>
+            
+            {getFiles()}
+          </Stack>
+        </Box>
+
+        <Box
+          sx={{
+            p: 2,
+            borderTop: "1px solid var(--admin-border)",
+            backgroundColor: "var(--admin-bg)",
+            display: "flex",
+            justifyContent: "flex-end",
+            gap: 1,
+            flexWrap: "wrap"
+          }}>
+          <Button
+            startIcon={<SaveIcon />}
+            variant="contained"
+            onClick={handleSave}
+            sx={{
+              backgroundColor: "var(--c1)",
+              "&:hover": { backgroundColor: "var(--c1d1)" }
+            }}>
+            Save
+          </Button>
+          <Button
+            startIcon={<CancelIcon />}
+            variant="outlined"
+            onClick={handleCancel}
+            sx={{
+              color: "var(--c1d2)",
+              borderColor: "var(--c1d2)"
+            }}>
+            Cancel
+          </Button>
+          {props.action.id && (
+            <IconButton
+              color="error"
+              onClick={handleDelete}
+              sx={{
+                color: "#d32f2f",
+                "&:hover": { backgroundColor: "rgba(211, 47, 47, 0.1)" }
+              }}>
+              <DeleteIcon />
+            </IconButton>
+          )}
+        </Box>
+      </Paper>
     );
   }
 }
