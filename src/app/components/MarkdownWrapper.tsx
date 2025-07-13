@@ -3,9 +3,9 @@
 import { MarkdownPreviewLight } from "@churchapps/apphelper/dist/components/markdownEditor/MarkdownPreviewLight";
 
 interface Props {
-  value:string;
+  value: string;
 }
 
 export function MarkdownWrapper(props: Props) {
-  return <MarkdownPreviewLight value={props.value} />
+  return <MarkdownPreviewLight value={props.value} />;
 }

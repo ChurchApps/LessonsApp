@@ -1,13 +1,32 @@
 "use client";
 
-import { useState, useEffect } from "react";
 import { useParams, useRouter, useSearchParams } from "next/navigation";
-import { Layout } from "@/components";
+import { useEffect, useState } from "react";
+import { Box,
+  Button,
+  Container,
+  FormControl,
+  FormControlLabel,
+  FormLabel,
+  Icon,
+  Menu,
+  MenuItem,
+  Radio,
+  RadioGroup } from "@mui/material";
 import { DisplayBox, Loading } from "@churchapps/apphelper";
-import { VenueInterface, LessonInterface, StudyInterface, SectionInterface, RoleInterface, ActionInterface, ApiHelper, ArrayHelper, CustomizationInterface, CustomizationHelper } from "@/helpers";
-import { Container, Icon, Box, Button, Menu, MenuItem, FormControl, FormLabel, RadioGroup, FormControlLabel, Radio } from "@mui/material";
+import { Layout } from "@/components";
+import { ActionInterface,
+  ApiHelper,
+  ArrayHelper,
+  CustomizationHelper,
+  CustomizationInterface,
+  LessonInterface,
+  RoleInterface,
+  SectionInterface,
+  StudyInterface,
+  VenueInterface } from "@/helpers";
 
-type PageParams = { id: string }
+type PageParams = { id: string };
 
 export default function Venue() {
   const params = useParams<PageParams>();
@@ -22,16 +41,19 @@ export default function Venue() {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const [customizationFor, setCustomizationFor] = useState<string>(null);
 
-
   const { isAuthenticated } = ApiHelper;
   const router = useRouter();
   const pathId = params.id;
-  const classroomId = searchParams.get('classroomId');
+  const classroomId = searchParams.get("classroomId");
   const open = Boolean(anchorEl);
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  useEffect(() => { if (!isAuthenticated) router.push("/login"); }, []);
-  useEffect(() => { if (isAuthenticated) { loadData(); } }, [pathId, isAuthenticated]);
+  useEffect(() => {
+    if (!isAuthenticated) router.push("/login");
+  }, []);
+  useEffect(() => {
+    if (isAuthenticated) loadData();
+  }, [pathId, isAuthenticated]);
 
   const getInitialCustomizationState = (contentType: string, contentId: string) => {
     const contentItems = ArrayHelper.getAll(customizations, "contentType", contentType);
@@ -39,14 +61,14 @@ export default function Venue() {
     const ITEM = ArrayHelper.getOne(items, "action", "remove");
     if (!ITEM) return null;
     return ITEM.classroomId ? "specific" : "all";
-  }
+  };
 
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     setAnchorEl(event.currentTarget);
     const contentType = event.currentTarget.dataset.contentType;
     const contentId = event.currentTarget.dataset.contentId;
     const initialState = getInitialCustomizationState(contentType, contentId);
-    setCustomizationFor(initialState)
+    setCustomizationFor(initialState);
   };
 
   const handleClose = () => {
@@ -58,12 +80,21 @@ export default function Venue() {
       setVenue(v);
       ApiHelper.get("/lessons/public/" + v.lessonId, "LessonsApi").then((data: any) => {
         setLesson(data);
-        ApiHelper.get("/studies/public/" + data.studyId, "LessonsApi").then((d: any) => { setStudy(d); });
+        ApiHelper.get("/studies/public/" + data.studyId, "LessonsApi").then((d: any) => {
+          setStudy(d);
+        });
       });
-      ApiHelper.get("/sections/public/venue/" + v.id, "LessonsApi").then((data: any) => { setSections(data); });
-      ApiHelper.get("/roles/public/lesson/" + v.lessonId, "LessonsApi").then((data: any) => { setRoles(data); });
-      ApiHelper.get("/actions/public/lesson/" + v.lessonId, "LessonsApi").then((data: any) => { setActions(data); });
-      ApiHelper.get("/customizations/venue/" + v.id + "?classroomId=" + classroomId, "LessonsApi").then(data => setCustomizations(data));
+      ApiHelper.get("/sections/public/venue/" + v.id, "LessonsApi").then((data: any) => {
+        setSections(data);
+      });
+      ApiHelper.get("/roles/public/lesson/" + v.lessonId, "LessonsApi").then((data: any) => {
+        setRoles(data);
+      });
+      ApiHelper.get("/actions/public/lesson/" + v.lessonId, "LessonsApi").then((data: any) => {
+        setActions(data);
+      });
+      ApiHelper.get("/customizations/venue/" + v.id + "?classroomId=" + classroomId, "LessonsApi").then(data =>
+        setCustomizations(data));
     });
   }
 
@@ -75,20 +106,25 @@ export default function Venue() {
       if (type === "none") {
         await ApiHelper.delete("/customizations/" + ITEM.id, "LessonsApi");
       } else {
-        let id = (type === "specific") ? classroomId : null;
+        let id = type === "specific" ? classroomId : null;
         const c: CustomizationInterface = { ...ITEM };
-        c.classroomId = id
+        c.classroomId = id;
         await ApiHelper.post("/customizations", [c], "LessonsApi");
       }
     } else {
-      let id = (type === "specific") ? classroomId : null;
-      const c: CustomizationInterface = { contentType, contentId, venueId: venue.id, action: "remove", classroomId: id }
+      let id = type === "specific" ? classroomId : null;
+      const c: CustomizationInterface = {
+        contentType,
+        contentId,
+        venueId: venue.id,
+        action: "remove",
+        classroomId: id
+      };
       await ApiHelper.post("/customizations", [c], "LessonsApi");
     }
-    ApiHelper.get("/customizations/venue/" + venue.id + "?classroomId=" + classroomId, "LessonsApi").then(data => setCustomizations(data));
-  }
-
-
+    ApiHelper.get("/customizations/venue/" + venue.id + "?classroomId=" + classroomId, "LessonsApi").then(data =>
+      setCustomizations(data));
+  };
 
   const move = async (contentType: string, item: any, swap: any, type: string) => {
     const contentCustomizations = ArrayHelper.getAll(customizations, "contentType", contentType);
@@ -97,12 +133,26 @@ export default function Venue() {
     const id = type === "specific" ? classroomId : null;
 
     if (!itemCust) {
-      itemCust = { contentType, contentId: item.id, venueId: venue.id, action: "sort", actionContent: item.sort, classroomId: id };
+      itemCust = {
+        contentType,
+        contentId: item.id,
+        venueId: venue.id,
+        action: "sort",
+        actionContent: item.sort,
+        classroomId: id
+      };
     } else {
       itemCust = { ...itemCust, classroomId: id };
     }
     if (!swapCust) {
-      swapCust = { contentType, contentId: swap.id, venueId: venue.id, action: "sort", actionContent: swap.sort, classroomId: id };
+      swapCust = {
+        contentType,
+        contentId: swap.id,
+        venueId: venue.id,
+        action: "sort",
+        actionContent: swap.sort,
+        classroomId: id
+      };
     } else {
       swapCust = { ...swapCust, classroomId: id };
     }
@@ -112,13 +162,14 @@ export default function Venue() {
     itemCust.actionContent = swapSort;
 
     await ApiHelper.post("/customizations", [itemCust, swapCust], "LessonsApi");
-    ApiHelper.get("/customizations/venue/" + venue.id + "?classroomId=" + classroomId, "LessonsApi").then(data => setCustomizations(data));
-  }
+    ApiHelper.get("/customizations/venue/" + venue.id + "?classroomId=" + classroomId, "LessonsApi").then(data =>
+      setCustomizations(data));
+  };
 
   const handleSave = (type: string) => {
     const contentType = anchorEl.dataset.contentType;
     if (anchorEl.id === "delete-button") {
-      toggleTrash(contentType, anchorEl.dataset.contentId, type)
+      toggleTrash(contentType, anchorEl.dataset.contentId, type);
     } else if (anchorEl.id === "up-button" || anchorEl.id === "down-button") {
       const item = JSON.parse(anchorEl.dataset.item);
       const swapItem = JSON.parse(anchorEl.dataset.swapItem);
@@ -131,20 +182,18 @@ export default function Venue() {
     const result: JSX.Element[] = [];
     const sorted: SectionInterface[] = CustomizationHelper.applyCustomSort(customizations, sections, "section");
     let idx = 0;
-    sorted.forEach((s) => {
+    sorted.forEach(s => {
       const removed = determineRemoved(s.id);
-      const removedClass = (removed) ? " removed" : "";
+      const removedClass = removed ? " removed" : "";
       const links = getLinks("section", s.id, false, idx, sorted);
 
       result.push(<tr className={"sectionRow hoverHighlight" + removedClass} key={`s-${s.id}`}>
         <td>
           <Icon sx={{ marginRight: "5px" }}>list_alt</Icon> {s.name}
         </td>
-        <td>
-          {links}
-        </td>
+        <td>{links}</td>
       </tr>);
-      getRoles(s.id, removed).forEach((r) => result.push(r));
+      getRoles(s.id, removed).forEach(r => result.push(r));
       idx++;
     });
     return result;
@@ -154,18 +203,22 @@ export default function Venue() {
     const result: JSX.Element[] = [];
     if (roles) {
       let idx = 0;
-      const filtered = ArrayHelper.getAll(roles, "sectionId", sectionId)
+      const filtered = ArrayHelper.getAll(roles, "sectionId", sectionId);
       const sorted: RoleInterface[] = CustomizationHelper.applyCustomSort(customizations, filtered, "role");
-      sorted.forEach((r) => {
+      sorted.forEach(r => {
         const removed = parentRemoved || determineRemoved(r.id);
-        const removedClass = (removed) ? " removed" : "";
+        const removedClass = removed ? " removed" : "";
         const links = getLinks("role", r.id, parentRemoved, idx, sorted);
 
         result.push(<tr className={"roleRow hoverHighlight" + removedClass} key={`r-${r.id}`}>
-          <td><Box sx={{ display: "flex", alignItems: "center" }}><Icon sx={{ marginRight: "5px" }}>person</Icon> {r.name}</Box></td>
+          <td>
+            <Box sx={{ display: "flex", alignItems: "center" }}>
+              <Icon sx={{ marginRight: "5px" }}>person</Icon> {r.name}
+            </Box>
+          </td>
           <td>{links}</td>
         </tr>);
-        getActions(r.id, removed).forEach((i) => result.push(i));
+        getActions(r.id, removed).forEach(i => result.push(i));
         idx++;
       });
     }
@@ -175,9 +228,9 @@ export default function Venue() {
   const determineRemoved = (contentId: string) => {
     let result = false;
     const allRemoved = ArrayHelper.getAll(customizations, "action", "remove");
-    if (allRemoved.length > 0) result = ArrayHelper.getOne(allRemoved, "contentId", contentId) !== null
+    if (allRemoved.length > 0) result = ArrayHelper.getOne(allRemoved, "contentId", contentId) !== null;
     return result;
-  }
+  };
 
   const getActions = (roleId: string, parentRemoved: boolean) => {
     const result: JSX.Element[] = [];
@@ -187,17 +240,17 @@ export default function Venue() {
       const sorted: ActionInterface[] = CustomizationHelper.applyCustomSort(customizations, filtered, "action");
       sorted.forEach((a: ActionInterface) => {
         const removed = parentRemoved || determineRemoved(a.id);
-        const removedClass = (removed) ? " removed" : "";
+        const removedClass = removed ? " removed" : "";
 
         const links = getLinks("action", a.id, parentRemoved, idx, sorted);
-        result.push(
-          <tr className={"actionRow hoverHighlight" + removedClass} key={`a-${a.id}`}>
-            <td>
-              <span><Icon sx={{ marginRight: "5px" }}>check</Icon> {a.actionType}: {a.content}</span>
-            </td>
-            <td>{links}</td>
-          </tr>
-        );
+        result.push(<tr className={"actionRow hoverHighlight" + removedClass} key={`a-${a.id}`}>
+          <td>
+            <span>
+              <Icon sx={{ marginRight: "5px" }}>check</Icon> {a.actionType}: {a.content}
+            </span>
+          </td>
+          <td>{links}</td>
+        </tr>);
         idx++;
       });
     }
@@ -205,13 +258,16 @@ export default function Venue() {
   };
 
   const getTable = () => {
-    if (sections === null) return <Loading />;
-    else return (<table className="table table-sm" id="adminTree">
-      <tbody>{getRows()}</tbody>
-    </table>);
+    if (sections === null) {
+      return <Loading />;
+    } else {
+      return (
+        <table className="table table-sm" id="adminTree">
+          <tbody>{getRows()}</tbody>
+        </table>
+      );
+    }
   };
-
-
 
   const getDeleteLink = (contentType: string, contentId: string) => (
     <Button
@@ -222,8 +278,7 @@ export default function Venue() {
       aria-haspopup="true"
       aria-expanded={open ? "true" : undefined}
       onClick={handleClick}
-      size="small"
-    >
+      size="small">
       <Icon color="error">delete</Icon>
     </Button>
   );
@@ -238,8 +293,7 @@ export default function Venue() {
       aria-haspopup="true"
       aria-expanded={open ? "true" : undefined}
       onClick={handleClick}
-      size="small"
-    >
+      size="small">
       <Icon>arrow_upward</Icon>
     </Button>
   );
@@ -254,8 +308,7 @@ export default function Venue() {
       aria-haspopup="true"
       aria-expanded={open ? "true" : undefined}
       onClick={handleClick}
-      size="small"
-    >
+      size="small">
       <Icon>arrow_downward</Icon>
     </Button>
   );
@@ -266,14 +319,16 @@ export default function Venue() {
     if (index < array.length - 1) result.push(getDownLink(contentType, array[index], array[index + 1]));
     if (!parentRemoved) result.push(getDeleteLink(contentType, contentId));
     return result;
-  }
+  };
 
   return (
     <Layout>
       <Container fixed>
         <h1>Customize Lesson</h1>
         <p>You can customize each lesson for you church by removing sections you do not wish to use.</p>
-        <h4>{study?.name} - {lesson?.name}: {venue?.name}</h4>
+        <h4>
+          {study?.name} - {lesson?.name}: {venue?.name}
+        </h4>
         <DisplayBox headerText="Sections" headerIcon="none">
           {getTable()}
         </DisplayBox>
@@ -283,47 +338,30 @@ export default function Venue() {
           open={open}
           onClose={handleClose}
           MenuListProps={{
-            "aria-labelledby": "delete-button up-button down-button",
-          }}
-        >
+            "aria-labelledby": "delete-button up-button down-button"
+          }}>
           <FormControl fullWidth>
-            <FormLabel
-              sx={{ paddingLeft: 2, paddingRight: 2 }}
-              id="customization-menu-heading"
-            >
+            <FormLabel sx={{ paddingLeft: 2, paddingRight: 2 }} id="customization-menu-heading">
               Apply selected customization to:
             </FormLabel>
             <RadioGroup
               aria-labelledby="customization-menu-heading"
               name="customization-radio-buttons"
               value={customizationFor}
-              onChange={(e) => {
+              onChange={e => {
                 e.preventDefault();
                 setCustomizationFor(e.target.value);
                 handleSave(e.target.value);
-              }}
-            >
+              }}>
               <MenuItem dense>
-                <FormControlLabel
-                  value="specific"
-                  control={<Radio />}
-                  label="This Classroom"
-                />
+                <FormControlLabel value="specific" control={<Radio />} label="This Classroom" />
               </MenuItem>
               <MenuItem dense>
-                <FormControlLabel
-                  value="all"
-                  control={<Radio />}
-                  label="All the Classrooms"
-                />
+                <FormControlLabel value="all" control={<Radio />} label="All the Classrooms" />
               </MenuItem>
-              {(anchorEl?.id === "delete-button" && customizationFor !== null) && (
+              {anchorEl?.id === "delete-button" && customizationFor !== null && (
                 <MenuItem dense>
-                  <FormControlLabel
-                    value="none"
-                    control={<Radio />}
-                    label="None"
-                  />
+                  <FormControlLabel value="none" control={<Radio />} label="None" />
                 </MenuItem>
               )}
             </RadioGroup>

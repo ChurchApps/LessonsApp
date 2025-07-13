@@ -7,5 +7,5 @@ interface Props {
 }
 
 export function HeaderWrapper(props: Props) {
-  return <Header position={props.position} />
+  return <Header position={props.position} />;
 }

@@ -1,7 +1,7 @@
-import { useState, useEffect } from "react";
-import { InputBox, ErrorMessages } from "@churchapps/apphelper";
-import { ApiHelper, BundleInterface } from "@/helpers";
+import { useEffect, useState } from "react";
 import { TextField } from "@mui/material";
+import { ErrorMessages, InputBox } from "@churchapps/apphelper";
+import { ApiHelper, BundleInterface } from "@/helpers";
 
 interface Props {
   bundle: BundleInterface;
@@ -26,9 +26,9 @@ export function BundleEdit(props: Props) {
     e.preventDefault();
     let v = { ...bundle };
     switch (e.currentTarget.name) {
-      case "name":
-        v.name = e.currentTarget.value;
-        break;
+    case "name":
+      v.name = e.currentTarget.value;
+      break;
     }
     setBundle(v);
   };
@@ -42,29 +42,44 @@ export function BundleEdit(props: Props) {
 
   const handleSave = () => {
     if (validate()) {
-      ApiHelper.post("/bundles", [bundle], "LessonsApi").then((data) => {
+      ApiHelper.post("/bundles", [bundle], "LessonsApi").then(data => {
         setBundle(data);
         props.updatedCallback(data);
       });
     }
   };
 
-  const getDeleteFunction = () => props.bundle?.id ? handleDelete : undefined;
+  const getDeleteFunction = () => (props.bundle?.id ? handleDelete : undefined);
 
   const handleDelete = () => {
-    if (window.confirm("Are you sure you wish to permanently delete this bundle?  This will delete all variants and assets.")) {
-      ApiHelper.delete("/bundles/" + bundle.id.toString(), "LessonsApi")
-        .then(() => props.updatedCallback(null));
-    }
+    if (
+      window.confirm("Are you sure you wish to permanently delete this bundle?  This will delete all variants and assets.")
+    ) ApiHelper.delete("/bundles/" + bundle.id.toString(), "LessonsApi").then(() => props.updatedCallback(null));
   };
 
-  useEffect(() => { setBundle(props.bundle); }, [props.bundle]);
+  useEffect(() => {
+    setBundle(props.bundle);
+  }, [props.bundle]);
 
   return (
     <>
-      <InputBox id="bundleDetailsBox" headerText={props.contentDisplayName} headerIcon="insert_drive_file" saveFunction={handleSave} cancelFunction={handleCancel} deleteFunction={getDeleteFunction()}>
+      <InputBox
+        id="bundleDetailsBox"
+        headerText={props.contentDisplayName}
+        headerIcon="insert_drive_file"
+        saveFunction={handleSave}
+        cancelFunction={handleCancel}
+        deleteFunction={getDeleteFunction()}>
         <ErrorMessages errors={errors} />
-        <TextField fullWidth label="Bundle Name" name="name" value={bundle.name} onChange={handleChange} onKeyDown={handleKeyDown} placeholder="Countdown Video" />
+        <TextField
+          fullWidth
+          label="Bundle Name"
+          name="name"
+          value={bundle.name}
+          onChange={handleChange}
+          onKeyDown={handleKeyDown}
+          placeholder="Countdown Video"
+        />
       </InputBox>
     </>
   );

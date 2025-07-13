@@ -1,8 +1,7 @@
 import { Container, Grid } from "@mui/material";
 
 export function HomeTestimonials() {
-
-  const getTestimonial = (name:string, church:string, text:string) => (
+  const getTestimonial = (name: string, church: string, text: string) => (
     <Grid item xs={12} md={6}>
       <div className="testimonial">
         <div className="stars"></div>
@@ -14,12 +13,12 @@ export function HomeTestimonials() {
         <p className="quote">{text}</p>
       </div>
     </Grid>
-  )
+  );
 
   return (
     <div className="homeSection" id="testimonials">
       <Container fixed>
-        <div style={{textAlign:"center"}}>
+        <div style={{ textAlign: "center" }}>
           <div className="title">
             <span>CHURCH</span>
           </div>

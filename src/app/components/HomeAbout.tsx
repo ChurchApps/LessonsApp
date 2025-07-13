@@ -2,17 +2,16 @@ import { Container, Grid } from "@mui/material";
 import { EmbeddedVideo } from "../../components/EmbeddedVideo";
 
 export function HomeAbout() {
-
-  const video = <EmbeddedVideo videoEmbedUrl="https://player.vimeo.com/video/839888034" title="Welcome to Lessons.church" />
+  const video = (
+    <EmbeddedVideo videoEmbedUrl="https://player.vimeo.com/video/839888034" title="Welcome to Lessons.church" />
+  );
 
   return (
     <div className="homeSection" id="aboutSection">
       <Container fixed>
         <Grid container spacing={3}>
           <Grid item md={6} sm={12}>
-            <div className="video-container">
-              {video}
-            </div>
+            <div className="video-container">{video}</div>
           </Grid>
           <Grid item md={6} sm={12}>
             <div className="title">
@@ -20,19 +19,14 @@ export function HomeAbout() {
             </div>
             <h2>About Lessons.church</h2>
             <p>
-              <b>Lessons.church</b> is a completely free service provided to
-              Christian churches and ministries.
+              <b>Lessons.church</b> is a completely free service provided to Christian churches and ministries.
             </p>
             <p>
-              Every year the Church as a whole spends{" "}
-              <b>millions of dollars</b> purchasing curriculum for classrooms.
-              We believe that by working together to create and distribute
-              freely available curriculum, that money can be freed up for use
-              in other areas. Likewise, we do not believe that budget
-              restrictions should prevent teachers from doing the best job
-              they possibly can. That is why we developed Lessons.church; a
-              completely free, open-source platform for finding and managing
-              curriculum.
+              Every year the Church as a whole spends <b>millions of dollars</b> purchasing curriculum for classrooms.
+              We believe that by working together to create and distribute freely available curriculum, that money can
+              be freed up for use in other areas. Likewise, we do not believe that budget restrictions should prevent
+              teachers from doing the best job they possibly can. That is why we developed Lessons.church; a completely
+              free, open-source platform for finding and managing curriculum.
             </p>
             <a href="https://livecs.org/" className="cta">
               Learn More

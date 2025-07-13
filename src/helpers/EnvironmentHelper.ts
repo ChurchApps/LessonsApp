@@ -1,6 +1,7 @@
 import { ApiHelper } from "@churchapps/apphelper/dist/helpers/ApiHelper";
 import { CommonEnvironmentHelper } from "@churchapps/apphelper/dist/helpers/CommonEnvironmentHelper";
 import { Locale } from "@churchapps/apphelper/dist/helpers/Locale";
+
 //import { CommonEnvironmentHelper, Locale } from "@churchapps/apphelper";
 
 export class EnvironmentHelper {
@@ -15,17 +16,19 @@ export class EnvironmentHelper {
 
     let stage = process.env.STAGE;
     switch (stage) {
-      case "staging": EnvironmentHelper.initStaging(); break;
-      case "prod": EnvironmentHelper.initProd(); break;
-      default: EnvironmentHelper.initDev(); break;
+    case "staging":
+      EnvironmentHelper.initStaging();
+      break;
+    case "prod":
+      EnvironmentHelper.initProd();
+      break;
+    default:
+      EnvironmentHelper.initDev();
+      break;
     }
-    EnvironmentHelper.Common.init(stage)
+    EnvironmentHelper.Common.init(stage);
 
-    ApiHelper.apiConfigs = [
-      { keyName: "MembershipApi", url: EnvironmentHelper.Common.MembershipApi, jwt: "", permissions: [] },
-      { keyName: "LessonsApi", url: EnvironmentHelper.LessonsApi, jwt: "", permissions: [] },
-      { keyName: "MessagingApi", url: EnvironmentHelper.Common.MessagingApi, jwt: "", permissions: [] },
-    ];
+    ApiHelper.apiConfigs = [{ keyName: "MembershipApi", url: EnvironmentHelper.Common.MembershipApi, jwt: "", permissions: [] }, { keyName: "LessonsApi", url: EnvironmentHelper.LessonsApi, jwt: "", permissions: [] }, { keyName: "MessagingApi", url: EnvironmentHelper.Common.MessagingApi, jwt: "", permissions: [] }];
 
     this.hasInit = true;
   };
@@ -34,11 +37,11 @@ export class EnvironmentHelper {
     let baseUrl = "https://staging.lessons.church";
     if (typeof window !== "undefined") baseUrl = window.location.origin;
     try {
-      await Locale.init([baseUrl + `/apphelper/locales/{{lng}}.json`])
+      await Locale.init([baseUrl + `/apphelper/locales/{{lng}}.json`]);
     } catch (e) {
       console.log("Couldn't init locales", e);
     }
-  }
+  };
 
   static initDev = () => {
     this.initStaging();
