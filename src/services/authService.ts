@@ -15,8 +15,7 @@ export function login(data: Payload): Promise<LoginResponseInterface> {
 }
 
 function handleErrorType(errors: string[]) {
-  if (errors[0] === "No permissions") {
-    return "The provided login does not have access to this application.";
-  }
+  if (errors[0] === "No permissions") return "The provided login does not have access to this application.";
+
   return "Invalid login. Please check your email or password.";
 }

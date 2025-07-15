@@ -1,33 +1,30 @@
-import "@/styles/globals.css";
+import { Roboto } from "next/font/google";
 import { EnvironmentHelper } from "@/helpers/EnvironmentHelper";
-import { Roboto } from 'next/font/google';
-
+import "@/styles/globals.css";
 import ClientLayout from "./ClientLayout";
 
 const roboto = Roboto({
-  weight: ['400', '700'],
-  subsets: ['latin'],
-  display: 'swap',
+  weight: ["400", "700"],
+  subsets: ["latin"],
+  display: "swap"
 });
 
-
 export const metadata = {
-  title: 'Lessons.church',
-  description: 'Free church curriculum for children, youth, and adults.',
-}
+  title: "Lessons.church",
+  description: "Free church curriculum for children, youth, and adults."
+};
 
 export default async function RootLayout({ children }: { children: React.ReactNode }) {
-
   EnvironmentHelper.init();
   await EnvironmentHelper.initLocale();
-
 
   return (
     <html lang="en" className={roboto.className}>
       <head>
-        <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" />
-        <link rel="stylesheet" href="/apphelper/css/styles.css" />
-        <script async type="module" src="https://cdn.jsdelivr.net/npm/@slightlyoff/lite-vimeo@0.1.1/lite-vimeo.js"></script>
+        <script
+          async
+          type="module"
+          src="https://cdn.jsdelivr.net/npm/@slightlyoff/lite-vimeo@0.1.1/lite-vimeo.js"></script>
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
@@ -43,11 +40,9 @@ export default async function RootLayout({ children }: { children: React.ReactNo
         />
       </head>
       <body>
-        <ClientLayout>
-          {children}
-        </ClientLayout>
+        <ClientLayout>{children}</ClientLayout>
         <script type="text/javascript" id="hs-script-loader" async defer src="//js.hs-scripts.com/20077299.js"></script>
       </body>
     </html>
-  )
+  );
 }

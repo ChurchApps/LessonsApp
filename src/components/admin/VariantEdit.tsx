@@ -1,8 +1,8 @@
 import React from "react";
-import { InputBox, ErrorMessages } from "@churchapps/apphelper";
-import { ApiHelper, VariantInterface, FileInterface } from "@/helpers";
-import { FileUpload } from "./FileUpload";
 import { FormControl, InputLabel, MenuItem, Select, SelectChangeEvent, TextField } from "@mui/material";
+import { ErrorMessages, InputBox } from "@churchapps/apphelper";
+import { ApiHelper, FileInterface, VariantInterface } from "@/helpers";
+import { FileUpload } from "./FileUpload";
 
 interface Props {
   variant: VariantInterface;
@@ -25,8 +25,12 @@ export function VariantEdit(props: Props) {
     e.preventDefault();
     let v = { ...variant };
     switch (e.target.name) {
-      case "hidden": v.hidden = e.target.value === "true"; break;
-      case "name": v.name = e.target.value; break;
+    case "hidden":
+      v.hidden = e.target.value === "true";
+      break;
+    case "name":
+      v.name = e.target.value;
+      break;
     }
     setVariant(v);
   };
@@ -41,7 +45,7 @@ export function VariantEdit(props: Props) {
   const handleFileSaved = (file: FileInterface) => {
     const v = { ...variant };
     v.fileId = file.id;
-    ApiHelper.post("/variants", [v], "LessonsApi").then((data) => {
+    ApiHelper.post("/variants", [v], "LessonsApi").then(data => {
       setVariant(data);
       setPendingFileSave(false);
       props.updatedCallback(data);
@@ -52,31 +56,51 @@ export function VariantEdit(props: Props) {
     if (validate()) setPendingFileSave(true);
   };
 
-  const getDeleteFunction = () =>
-    props.variant?.id ? handleDelete : undefined;
+  const getDeleteFunction = () => (props.variant?.id ? handleDelete : undefined);
 
   const handleDelete = () => {
-    if (window.confirm("Are you sure you wish to permanently delete this variant?")) {
-      ApiHelper.delete("/variants/" + variant.id.toString(), "LessonsApi").then(() => props.updatedCallback(null));
-    }
+    if (window.confirm("Are you sure you wish to permanently delete this variant?")) ApiHelper.delete("/variants/" + variant.id.toString(), "LessonsApi").then(() => props.updatedCallback(null));
   };
 
-  React.useEffect(() => { setVariant(props.variant); }, [props.variant]);
+  React.useEffect(() => {
+    setVariant(props.variant);
+  }, [props.variant]);
 
-  if (!variant) return <></>
-  else return (
-    <InputBox id="variantDetailsBox" headerText="Edit Variant" headerIcon="content_copy" saveFunction={handleSave} cancelFunction={handleCancel} deleteFunction={getDeleteFunction()}>
-      <ErrorMessages errors={errors} />
-      <FormControl fullWidth>
-        <InputLabel>Hidden</InputLabel>
-        <Select label="Hidden" name="hidden" value={variant.hidden?.toString()} onChange={handleChange}>
-          <MenuItem value="false">No</MenuItem>
-          <MenuItem value="true">Yes</MenuItem>
-        </Select>
-      </FormControl>
-      <TextField fullWidth label="Variant Name" name="name" value={variant.name} onChange={handleChange} onKeyDown={handleKeyDown} placeholder="PDF" />
-      <FileUpload resourceId={props.variant?.resourceId} fileId={variant?.fileId} pendingSave={pendingFileSave} saveCallback={handleFileSaved} />
-    </InputBox>
-  );
-
+  if (!variant) {
+    return <></>;
+  } else {
+    return (
+      <InputBox
+        id="variantDetailsBox"
+        headerText="Edit Variant"
+        headerIcon="content_copy"
+        saveFunction={handleSave}
+        cancelFunction={handleCancel}
+        deleteFunction={getDeleteFunction()}>
+        <ErrorMessages errors={errors} />
+        <FormControl fullWidth>
+          <InputLabel>Hidden</InputLabel>
+          <Select label="Hidden" name="hidden" value={variant.hidden?.toString()} onChange={handleChange}>
+            <MenuItem value="false">No</MenuItem>
+            <MenuItem value="true">Yes</MenuItem>
+          </Select>
+        </FormControl>
+        <TextField
+          fullWidth
+          label="Variant Name"
+          name="name"
+          value={variant.name}
+          onChange={handleChange}
+          onKeyDown={handleKeyDown}
+          placeholder="PDF"
+        />
+        <FileUpload
+          resourceId={props.variant?.resourceId}
+          fileId={variant?.fileId}
+          pendingSave={pendingFileSave}
+          saveCallback={handleFileSaved}
+        />
+      </InputBox>
+    );
+  }
 }

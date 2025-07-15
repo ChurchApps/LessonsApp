@@ -193,19 +193,19 @@ export interface ScheduleInterface {
 }
 
 export interface CopySectionInterface {
-  sourceLessonId?: string,
-  sourceVenueId?: string,
-  sourceSectionId?: string
+  sourceLessonId?: string;
+  sourceVenueId?: string;
+  sourceSectionId?: string;
 }
 
 export interface DownloadInterface {
-  id?: string,
-  lessonId?: string,
-  fileId?: string,
-  userId?: string,
-  ipAddress?: string,
-  downloadDate?: Date,
-  fileName?: string
+  id?: string;
+  lessonId?: string;
+  fileId?: string;
+  userId?: string;
+  ipAddress?: string;
+  downloadDate?: Date;
+  fileName?: string;
 }
 
 export interface AddOnInterface {
@@ -218,20 +218,88 @@ export interface AddOnInterface {
   fileId?: string;
 }
 
-export interface PlaylistFileInterface { name: string, url: string, seconds: number, loopVideo: boolean }
+export interface PlaylistFileInterface {
+  name: string;
+  url: string;
+  seconds: number;
+  loopVideo: boolean;
+}
 
+export interface FeedActionInterface {
+  actionType?: string;
+  content?: string;
+  role?: string;
+  files?: FeedFileInterface[];
+}
+export interface FeedDownloadInterface {
+  name?: string;
+  files?: FeedFileInterface[];
+}
+export interface FeedFileInterface {
+  name?: string;
+  url?: string;
+  streamUrl?: string;
+  bytes?: number;
+  fileType?: string;
+  seconds?: number;
+  thumbnail?: string;
+  loop?: boolean;
+  id?: string;
+  expires?: Date;
+}
+export interface FeedSectionInterface {
+  name?: string;
+  actions?: FeedActionInterface[];
+  materials?: string;
+}
+export interface FeedVenueInterface {
+  id?: string;
+  name?: string;
+  lessonId: string;
+  lessonName?: string;
+  lessonImage?: string;
+  lessonDescription?: string;
+  studyName?: string;
+  studySlug?: string;
+  programName?: string;
+  programSlug?: string;
+  programAbout?: string;
+  downloads?: FeedDownloadInterface[];
+  sections?: FeedSectionInterface[];
+}
 
-export interface FeedActionInterface { actionType?: string, content?: string, role?: string,  files?: FeedFileInterface[] }
-export interface FeedDownloadInterface { name?: string, files?: FeedFileInterface[] }
-export interface FeedFileInterface { name?: string, url?: string, streamUrl?: string, bytes?: number, fileType?: string, seconds?: number, thumbnail?: string, loop?: boolean, id?: string; expires?: Date }
-export interface FeedSectionInterface { name?: string, actions?: FeedActionInterface[], materials?: string }
-export interface FeedVenueInterface { id?: string, name?: string, lessonId:string, lessonName?: string, lessonImage?: string, lessonDescription?: string, studyName?: string, studySlug?: string, programName?: string, programSlug?: string, programAbout?:string, downloads?: FeedDownloadInterface[], sections?: FeedSectionInterface[] }
-
-export interface FeedVenueLinkInterface { id?: string, name?: string, apiUrl?:string }
-export interface FeedLessonInterface { id?: string, name?: string, slug?: string, image?: string, description?: string, venues: FeedVenueLinkInterface[] }
-export interface FeedStudyInterface { id?: string, name?: string, slug?: string, image?: string, description?: string, lessons:FeedLessonInterface[] }
-export interface FeedProgramInterface { id?: string, name?: string, slug?: string, image?: string, description?: string, studies:FeedStudyInterface[] }
-export interface FeedListInterface { programs?: FeedProgramInterface[] }
+export interface FeedVenueLinkInterface {
+  id?: string;
+  name?: string;
+  apiUrl?: string;
+}
+export interface FeedLessonInterface {
+  id?: string;
+  name?: string;
+  slug?: string;
+  image?: string;
+  description?: string;
+  venues: FeedVenueLinkInterface[];
+}
+export interface FeedStudyInterface {
+  id?: string;
+  name?: string;
+  slug?: string;
+  image?: string;
+  description?: string;
+  lessons: FeedLessonInterface[];
+}
+export interface FeedProgramInterface {
+  id?: string;
+  name?: string;
+  slug?: string;
+  image?: string;
+  description?: string;
+  studies: FeedStudyInterface[];
+}
+export interface FeedListInterface {
+  programs?: FeedProgramInterface[];
+}
 
 // Additional interfaces for strong typing
 export interface PresignedUploadInterface {

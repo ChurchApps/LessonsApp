@@ -1,3 +1,6 @@
+@import url("https://fonts.googleapis.com/icon?family=Material+Icons");
+@import url("/apphelper/css/styles.css");
+
 /*
 #28235d - dark blue
 #35a8e0 - light blue
@@ -16,9 +19,9 @@
   --background-light: #e5e8ee;
   --background-white: #fff;
   --border-color: #ddd;
-  --shadow-sm: 0 2px 4px rgba(0,0,0,0.1);
-  --shadow-md: 0 4px 12px rgba(0,0,0,0.1);
-  --shadow-lg: 0 8px 24px rgba(0,0,0,0.1);
+  --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.1);
+  --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.1);
+  --shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.1);
   --border-radius-sm: 5px;
   --border-radius-md: 10px;
   --border-radius-lg: 15px;
@@ -36,6 +39,35 @@
   --line-height-tight: 1.2;
   --line-height-normal: 1.5;
   --line-height-loose: 1.8;
+
+  /* Admin/Portal Color System */
+  --c1: #1565c0;
+  --c1l1: #1976d2;
+  --c1l2: #568bda;
+  --c1l3: #7aa3e3;
+  --c1l4: #9ebbec;
+  --c1l5: #c2d3f5;
+  --c1l6: #e1ebfa;
+  --c1l7: #f0f4ff;
+  --c1d1: #0d47a1;
+  --c1d2: #0a3d8c;
+  --c1d3: #083377;
+
+  /* Admin Layout Variables */
+  --admin-sidebar-width: 280px;
+  --admin-header-height: 64px;
+  --admin-content-padding: 24px;
+  --admin-bg: #f5f5f5;
+  --admin-bg-light: #fafafa;
+  --admin-bg-lighter: #fdfdfd;
+  --admin-surface: #ffffff;
+  --admin-border: rgba(0, 0, 0, 0.12);
+  --admin-border-light: rgba(0, 0, 0, 0.08);
+  --admin-shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.12);
+  --admin-shadow-md: 0 2px 8px rgba(0, 0, 0, 0.15);
+  --admin-shadow-lg: 0 4px 16px rgba(0, 0, 0, 0.2);
+  --text-secondary: #666;
+
   scroll-behavior: smooth;
 }
 
@@ -50,14 +82,24 @@ body {
 }
 
 /* Typography */
-h1, h2, h3, h4, h5, h6 {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
   color: var(--secondary-color);
   margin-top: 0;
   line-height: var(--line-height-tight);
 }
 
-#banner h1, #banner h2, #banner h3, #banner h4, #banner h5, #banner h6 {
-  color: #FFF !important;
+#banner h1,
+#banner h2,
+#banner h3,
+#banner h4,
+#banner h5,
+#banner h6 {
+  color: #fff !important;
 }
 
 h1 {
@@ -96,7 +138,7 @@ a:hover {
   display: inline-block;
   border-width: 2px;
   background-color: #34a8de;
-  color: #FFF;
+  color: #fff;
   border-radius: 20px;
   padding: 6px 20px;
   transition: all 0.3s ease;
@@ -104,7 +146,7 @@ a:hover {
 
 .cta:hover {
   background-color: #2d96c4;
-  color: #FFF;
+  color: #fff;
 }
 
 .cta.alt {
@@ -114,7 +156,7 @@ a:hover {
 
 .cta.alt:hover {
   background-color: #34a8de;
-  color: #FFF;
+  color: #fff;
 }
 
 /* Cards */
@@ -132,7 +174,8 @@ a:hover {
 }
 
 /* Sections */
-.homeSection, .pageSection {
+.homeSection,
+.pageSection {
   padding: var(--spacing-xl) 0;
   background-color: var(--background-light);
   animation: fadeIn 0.5s ease-out;
@@ -198,7 +241,7 @@ a:hover {
 }
 
 #navbar .nav-link::after {
-  content: '';
+  content: "";
   position: absolute;
   bottom: 0;
   left: 50%;
@@ -576,7 +619,7 @@ h1 {
 
 #footer .copyright {
   border-top: 1px solid #3e3a6d;
-  padding-top:10px;
+  padding-top: 10px;
   text-align: center;
 }
 
@@ -626,10 +669,10 @@ label .description {
 }
 
 .homeSection .video-container {
-  background-color: #FFF;
+  background-color: #fff;
   padding: 2rem;
   border-radius: 15px;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
   height: 100%;
 }
 
@@ -672,9 +715,9 @@ label .description {
   margin-bottom: 30px;
   font-size: 36px;
   font-weight: bold;
-  margin-top:0px;
-  line-height:36px;
-  color:#28235d;
+  margin-top: 0px;
+  line-height: 36px;
+  color: #28235d;
 }
 
 .homeSection ul {
@@ -730,7 +773,7 @@ label .description {
   background-image: url("/images/home/home-hero.jpg");
   background-size: cover;
   min-height: 95vh;
-  color: #FFF;
+  color: #fff;
 }
 
 #hero .title {
@@ -751,7 +794,7 @@ label .description {
   margin-top: 10px;
   margin-bottom: 10px;
   text-shadow: #000 3px 3px 10px;
-  color: #FFF;
+  color: #fff;
 }
 
 #hero h1 span {
@@ -762,11 +805,11 @@ label .description {
 
 #hero p {
   text-shadow: #000 3px 3px 10px;
-  color: #FFF;
+  color: #fff;
 }
 
 #navbar .cta.alt {
-  margin-right:10px;
+  margin-right: 10px;
 }
 
 .statBox {
@@ -778,7 +821,7 @@ label .description {
   font-size: 30px;
   margin-left: 10px;
   color: #35a8e0;
-  padding-left:10px;
+  padding-left: 10px;
 }
 
 .statBox span {
@@ -786,7 +829,7 @@ label .description {
   display: block;
   margin-top: -7px;
   margin-left: 10px;
-  padding-left:10px;
+  padding-left: 10px;
 }
 
 #aboutSection h2 {
@@ -798,7 +841,7 @@ label .description {
 }
 
 #connectSection {
-  background-image: url('/images/connect-bg.png');
+  background-image: url("/images/connect-bg.png");
   background-position: center center;
   background-size: cover;
 }
@@ -808,7 +851,7 @@ label .description {
 }
 
 #connectSection li {
-  color: #DDD;
+  color: #ddd;
 }
 
 .lead {
@@ -862,7 +905,7 @@ dropdown-menu a {
 
 .programAccordion .MuiAccordionSummary-content.Mui-expanded {
   margin-bottom: 0px;
-  margin-top: 0px
+  margin-top: 0px;
 }
 
 /*
@@ -940,7 +983,7 @@ dropdown-menu a {
 }
 
 .hoverHighlight:hover {
-  background-color: #FFFFCC;
+  background-color: #ffffcc;
 }
 
 .hoverHighlight td:last-child {
@@ -1028,13 +1071,13 @@ dropdown-menu a {
 }
 
 .actions {
-  clear:both;
+  clear: both;
   padding-left: 0px;
   font-weight: bold;
 }
 
 .actions li {
-  font-size:18px;
+  font-size: 18px;
 }
 
 .btn-light {
@@ -1102,8 +1145,9 @@ dropdown-menu a {
     margin-bottom: 0px;
   }
 
-  #olfPrint, #olfScriptPrint {
-    padding:40px;
+  #olfPrint,
+  #olfScriptPrint {
+    padding: 40px;
   }
 }
 
@@ -1234,15 +1278,15 @@ dropdown-menu a {
   border-bottom: none;
 }
 
-.downloadAccordion .card>button {
+.downloadAccordion .card > button {
   border: none;
   text-align: left;
   background-color: #03a9f4;
-  color: #FFF;
+  color: #fff;
   padding-left: 5px;
   padding-top: 8px;
   padding-bottom: 8px;
-  border-bottom: 1px solid #FFF;
+  border-bottom: 1px solid #fff;
 }
 
 .downloadAccordion .collapse,
@@ -1254,7 +1298,7 @@ dropdown-menu a {
 }
 
 .downloadAccordion .card-body {
-  background-color: #FFF;
+  background-color: #fff;
 }
 
 .downloadsDropDown .dropdown-menu.show .dropdown-menu.show {
@@ -1276,8 +1320,8 @@ a.dropdown-toggle::after {
 
 .bigLink {
   background-color: #1c75bc;
-  color: #FFF;
-  border-bottom: 1px solid #FFFFFF;
+  color: #fff;
+  border-bottom: 1px solid #ffffff;
   font-size: 22px;
   padding-top: 15px;
   padding-bottom: 15px;
@@ -1287,7 +1331,7 @@ a.dropdown-toggle::after {
 }
 
 .bigLink:hover {
-  color: #FFF;
+  color: #fff;
 }
 
 .bigLink span {
@@ -1306,22 +1350,23 @@ a.dropdown-toggle::after {
   margin-bottom: 20px;
 }
 
-#b1Tabs, #embedTabs {
-  background-color:#28235d;
-  position:fixed;
-  width:100%;
-  z-index:9999;
+#b1Tabs,
+#embedTabs {
+  background-color: #28235d;
+  position: fixed;
+  width: 100%;
+  z-index: 9999;
 }
 
-#b1Tabs .MuiTab-root, #embedTabs .MuiTab-root
-{
-  color:#FFF;
+#b1Tabs .MuiTab-root,
+#embedTabs .MuiTab-root {
+  color: #fff;
 }
 
-#b1Tabs .Mui-selected, #embedTabs .Mui-selected
-{
-  background-color:#FFF;
-  color:#28235d;
+#b1Tabs .Mui-selected,
+#embedTabs .Mui-selected {
+  background-color: #fff;
+  color: #28235d;
 }
 
 .b1 .play {
@@ -1348,16 +1393,19 @@ a.dropdown-toggle::after {
   border: 1px solid #1c75bc;
 }
 
-.b1 .part {padding-left: 10px;padding-right:10px;}
+.b1 .part {
+  padding-left: 10px;
+  padding-right: 10px;
+}
 
 .adminAccordion .card {
   border: none;
   margin-bottom: 0px;
-  border-bottom: 1px solid #EEE;
+  border-bottom: 1px solid #eee;
 }
 
 .adminAccordion .card-header {
-  background-color: #FFF;
+  background-color: #fff;
   padding: 0px;
   border-bottom: none;
   padding-top: 2px;
@@ -1366,7 +1414,7 @@ a.dropdown-toggle::after {
 
 .adminAccordion .fa-chevron-down {
   padding-right: 10px;
-  color: #CCC;
+  color: #ccc;
 }
 
 .adminAccordion .collapse.show,
@@ -1377,7 +1425,7 @@ a.dropdown-toggle::after {
 
 .adminAccordion .card-body {
   padding: 0px;
-  background-color: #FFF;
+  background-color: #fff;
 }
 
 .studyAccordion .fa-chevron-down {
@@ -1392,10 +1440,9 @@ a.dropdown-toggle::after {
 .lessonDiv,
 .assetDiv,
 .variantDiv {
-  border-top: 1px solid #EEE;
+  border-top: 1px solid #eee;
   padding-top: 2px;
   padding-bottom: 2px;
-  ;
 }
 
 .lessonDiv {
@@ -1405,7 +1452,7 @@ a.dropdown-toggle::after {
   padding-bottom: 5px;
 }
 
-.reportTable> :not(:first-child) {
+.reportTable > :not(:first-child) {
   border-top: 1px solid #ccc;
 }
 
@@ -1415,7 +1462,7 @@ a.dropdown-toggle::after {
 }
 
 .reportTable tr:nth-child(odd) td {
-  background-color: #EEE;
+  background-color: #eee;
 }
 
 .modalMarkdown textarea {
@@ -1429,21 +1476,21 @@ a.dropdown-toggle::after {
 
 #markdownPreview table td,
 #markdownPreview table th {
-  border: 1px solid #DDD;
+  border: 1px solid #ddd;
   margin: 0px;
-  padding: 2px
+  padding: 2px;
 }
 
 .part table {
   border-spacing: 0px;
-  width: 100%
+  width: 100%;
 }
 
 .part table td,
 .part table th {
-  border: 1px solid #DDD;
+  border: 1px solid #ddd;
   margin: 0px;
-  padding: 2px
+  padding: 2px;
 }
 
 #smallPeopleTable img {
@@ -1460,7 +1507,12 @@ a.dropdown-toggle::after {
   width: 80%;
 }
 
-.programHeroContent h2 {line-height: 50px;padding-top:15px;padding-bottom: 15px;color:#FFF;}
+.programHeroContent h2 {
+  line-height: 50px;
+  padding-top: 15px;
+  padding-bottom: 15px;
+  color: #fff;
+}
 
 @media (max-width: 600px) {
   .downloadAccordion {
@@ -1482,19 +1534,22 @@ a.dropdown-toggle::after {
   }
 }
 
-.accordion .editor-listitem { padding-bottom: 0px; }
-.accordion .editor-list-ul { margin-top: 0px; padding-top:0px; }
+.accordion .editor-listitem {
+  padding-bottom: 0px;
+}
+.accordion .editor-list-ul {
+  margin-top: 0px;
+  padding-top: 0px;
+}
 
 .fadeOut {
-  --mask: linear-gradient(to bottom, 
-      rgba(0,0,0, 1) 0,   rgba(0,0,0, 1) 70%, 
-      rgba(0,0,0, 0) 95%, rgba(0,0,0, 0) 0
-  ) 100% 50% / 100% 100% repeat-x;
-  -webkit-mask: var(--mask); 
+  --mask: linear-gradient(to bottom, rgba(0, 0, 0, 1) 0, rgba(0, 0, 0, 1) 70%, rgba(0, 0, 0, 0) 95%, rgba(0, 0, 0, 0) 0)
+    100% 50% / 100% 100% repeat-x;
+  -webkit-mask: var(--mask);
   mask: var(--mask);
   overflow-y: hidden;
   color: #555;
-  font-size:13px;
+  font-size: 13px;
   height: 70px;
 }
 
@@ -1502,7 +1557,7 @@ a.dropdown-toggle::after {
   background-image: url("/images/landing/ark-hero.png");
   background-size: cover;
   margin-top: -24px;
-  color:#FFFFFF;
+  color: #ffffff;
 }
 
 .arkHero H1 {
@@ -1520,24 +1575,24 @@ a.dropdown-toggle::after {
 
 .arkHero H3 {
   font-size: 1.5em;
-  line-height: 1.0em;
+  line-height: 1em;
 }
 
 .arkUsp {
-  background-color:"#DDDDDD";
-  padding:30px;
-  margin-top:50px;
-  min-height:265px;
+  background-color: "#DDDDDD";
+  padding: 30px;
+  margin-top: 50px;
+  min-height: 265px;
 }
 
 @media (min-width: 601px) {
   .arkUspRight {
-    margin-left:-80px;
+    margin-left: -80px;
   }
 
   .arkUspLeftImg {
-    margin-left:-80px;
-    z-index:-1px;
+    margin-left: -80px;
+    z-index: -1px;
   }
 }
 
@@ -1591,7 +1646,7 @@ a.dropdown-toggle::after {
   top: 0px;
   left: 0px;
   */
-  color:#FFF;
+  color: #fff;
   background-color: #000;
 }
 
@@ -1599,12 +1654,12 @@ a.dropdown-toggle::after {
   background-size: cover;
   background-position-x: right;
   background-position-y: top;
-  background-color:#28235e;
-  color:#FFF;
+  background-color: #28235e;
+  color: #fff;
 }
 
 .programPromo .age {
-  margin-top:100px;
+  margin-top: 100px;
   color: #34a8de;
   font-weight: bold;
 }
@@ -1613,22 +1668,22 @@ a.dropdown-toggle::after {
   font-size: 50px;
   margin-top: 0px;
   margin-bottom: 0px;
-  color:#FFF;
+  color: #fff;
 }
 
 .programPromo p {
-  margin-top:0px;
+  margin-top: 0px;
 }
 
 .programPromo .programStudies {
-  width:100%;
-  margin-top:100px;
+  width: 100%;
+  margin-top: 100px;
   padding-bottom: 60px;
 }
 
 .apps {
   background-color: #28235d;
-  color: #FFF;
+  color: #fff;
   padding: 50px 40px 20px 40px;
   border-radius: 10px;
 }
@@ -1637,7 +1692,7 @@ a.dropdown-toggle::after {
   padding-bottom: 20px;
 }
 
-.testimonial { 
+.testimonial {
   background-color: #f9f9f9;
   color: #000;
   padding: 50px 40px 20px 40px;
@@ -1645,38 +1700,38 @@ a.dropdown-toggle::after {
   min-height: 230px;
 }
 
-.testimonial .stars { 
-  background-image:url("/images/stars.png");
+.testimonial .stars {
+  background-image: url("/images/stars.png");
   width: 124px;
   height: 19px;
-  float:right;
+  float: right;
 }
 
-.testimonial .icon { 
-  background-image:url("/images/quote.png");
+.testimonial .icon {
+  background-image: url("/images/quote.png");
   width: 73px;
   height: 52px;
-  float:left;
+  float: left;
   margin-right: 20px;
 }
 
 .testimonial .name {
   color: #28235d;
   font-weight: bold;
-  font-size:20px;
+  font-size: 20px;
 }
 
 .testimonial .church {
   color: #7a7a7a;
-  font-size:14px;
+  font-size: 14px;
 }
 
 .testimonial p {
-  clear:both;
+  clear: both;
 }
 
 .ageBox:hover {
-  opacity:0.8;
+  opacity: 0.8;
 }
 
 .programStudies a:hover {
@@ -1687,22 +1742,22 @@ a.dropdown-toggle::after {
   background-size: cover;
   background-position-x: right;
   background-position-y: top;
-  
-  min-height:200px;
-  color:#FFFFFF;
+
+  min-height: 200px;
+  color: #ffffff;
 }
 
 #programHero .content {
-  background:linear-gradient( rgba(0, 0, 0, .8), rgba(0, 0, 0, 0.0), rgba(0, 0, 0, 0.0) );
-  width:100%;
-  height:100%;
+  background: linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0), rgba(0, 0, 0, 0));
+  width: 100%;
+  height: 100%;
 }
 
 #programHero H1 {
-  margin-top:60px;
-  padding-bottom:0px;
+  margin-top: 60px;
+  padding-bottom: 0px;
   margin-bottom: 0px;
-  color:#FFF;
+  color: #fff;
 }
 
 #programIntro {
@@ -1711,51 +1766,51 @@ a.dropdown-toggle::after {
 }
 
 #programIntro .editor-container span {
-  display:block;
+  display: block;
   margin-bottom: -5px;
 }
 
 .studyCard img {
-  border-radius: 10px;;
+  border-radius: 10px;
 }
 
 .studyCard H3 {
   margin-top: 0px;
-  margin-bottom: 10px;;
-  height:24px;
+  margin-bottom: 10px;
+  height: 24px;
   overflow: hidden;
-  color:#28235d;
+  color: #28235d;
 }
 
 .studyCard .duration {
-  float:right;
+  float: right;
   text-align: right;
-  font-size:12px;
-  font-weight:bold;
+  font-size: 12px;
+  font-weight: bold;
 }
 
 .studyCard .downloads {
-  float:right;
-  color:#999;
-  font-size:12px;
+  float: right;
+  color: #999;
+  font-size: 12px;
 }
 
 .studyCard .downloads span {
   font-size: 14px;
-  float:left;
-  margin-top:3px;
+  float: left;
+  margin-top: 3px;
 }
 
 .studyCard .seeMore {
-  color:#24b8ff;
-  font-size:12px;
+  color: #24b8ff;
+  font-size: 12px;
 }
 
 #studyCategoryTabs {
   margin-top: 30px;
 }
 #studyCategoryTabs button {
-  background-color: #FFF;
+  background-color: #fff;
 }
 
 #studyCategoryTabs button:first-of-type {
@@ -1768,37 +1823,38 @@ a.dropdown-toggle::after {
 
 #studyCategoryTabs .Mui-selected {
   background-color: #34a8de;
-  color:#FFF;
+  color: #fff;
 }
 
 #studyHero {
-  min-height:200px;
+  min-height: 200px;
   background-color: #28235d;
-  color:#FFFFFF;
+  color: #ffffff;
 }
 
 #studyHero .content {
-  background:linear-gradient( rgba(0, 0, 0, .8), rgba(0, 0, 0, 0.0), rgba(0, 0, 0, 0.0) );
-  width:100%;
-  height:100%;
+  background: linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0), rgba(0, 0, 0, 0));
+  width: 100%;
+  height: 100%;
 }
 
 #studyHero H1 {
-  margin-top:0px;
-  padding-bottom:0px;
+  margin-top: 0px;
+  padding-bottom: 0px;
   margin-bottom: 0px;
-  font-size:40px;
-  color:#FFF;
+  font-size: 40px;
+  color: #fff;
 }
 
 #studyHero .breadcrumb {
-  margin-top:30px;
+  margin-top: 30px;
   color: #34a8de;
   font-weight: bold;
-  font-size:20px;
+  font-size: 20px;
 }
 
-#studyHero .badge, #programHero .badge {
+#studyHero .badge,
+#programHero .badge {
   border-radius: 10px;
   float: right;
   margin-top: -120px;
@@ -1816,35 +1872,35 @@ a.dropdown-toggle::after {
 }
 
 #studyIntro .editor-container span {
-  display:block;
+  display: block;
 }
 
 .lessonCard img {
-  border-radius: 10px;;
+  border-radius: 10px;
 }
 
 .lessonCard H3 {
   margin-top: 0px;
-  margin-bottom: 5px;;
-  height:24px;
+  margin-bottom: 5px;
+  height: 24px;
   overflow: hidden;
-  color:#28235d;
+  color: #28235d;
 }
 
 .lessonCard .name {
-  color:#24b8ff;
-  font-weight:bold;
+  color: #24b8ff;
+  font-weight: bold;
   text-transform: uppercase;
   font-size: 12px;
 }
 
 .lessonCard .seeMore {
-  color:#24b8ff;
-  font-size:12px;
+  color: #24b8ff;
+  font-size: 12px;
 }
 
 .lessonCard .fadeOut {
-  height:60px;
+  height: 60px;
 }
 
 .sectionCard {
@@ -1854,7 +1910,7 @@ a.dropdown-toggle::after {
 .sectionCard .MuiCardHeader-root {
   background-color: #eff8fd;
   padding-top: 8px;
-  padding-bottom: 8px;;
+  padding-bottom: 8px;
 }
 
 .sectionCard .MuiCardHeader-title {
@@ -1865,19 +1921,19 @@ a.dropdown-toggle::after {
 }
 
 .sectionCard .MuiCardHeader-subheader {
-  color:#333;
+  color: #333;
   display: inline-block;
   padding-left: 20px;
   font-size: 13px;
 }
 
 .playAction {
-  clear:both;
-  height:72px;
-  border:1px solid #CCC;
+  clear: both;
+  height: 72px;
+  border: 1px solid #ccc;
   border-radius: 10px;
   vertical-align: middle;
-  background-color: #FFF;
+  background-color: #fff;
   margin-bottom: 20px;
   margin-top: 20px;
 }
@@ -1885,26 +1941,26 @@ a.dropdown-toggle::after {
 .playAction img {
   border-top-left-radius: 10px;
   border-bottom-left-radius: 10px;
-  float:left;
+  float: left;
 }
 
 .playAction .text {
-  display:inline-block;
-  padding-top:20px;
-  padding-left:20px;
+  display: inline-block;
+  padding-top: 20px;
+  padding-left: 20px;
   font-weight: bold;
   font-size: 20px;
 }
 
 .playAction .duration {
-  float:right;
+  float: right;
   padding-right: 20px;
-  padding-top:23px;
-  font-size:14px;
+  padding-top: 23px;
+  font-size: 14px;
 }
 
-.part .note { 
-  background-image: url('/images/lesson/note.png');
+.part .note {
+  background-image: url("/images/lesson/note.png");
   background-position: 0px 0px;
   background-repeat: no-repeat;
   min-height: 50px;
@@ -1917,26 +1973,28 @@ a.dropdown-toggle::after {
 }
 
 .say {
-  clear:both;
+  clear: both;
   margin-bottom: 20px;
 }
 
-.say::after { clear:both;}
+.say::after {
+  clear: both;
+}
 
 .say p {
   background-color: #ebf7ff;
   border-top: none;
   border-bottom: none;
   border-right: none;
-  width:55%;
-  clear:both;
+  width: 55%;
+  clear: both;
   border-radius: 10px;
   padding: 5px 20px 5px 20px;
 }
 
 .say p:nth-of-type(even) {
   background-color: #edfeff;
-  float:right;
+  float: right;
   margin-bottom: 10px;
 }
 
@@ -1944,8 +2002,8 @@ a.dropdown-toggle::after {
   position: fixed;
   top: -100px;
   left: 0px;
-  height:calc(100vh + 80px);
-  overflow-y:scroll;
+  height: calc(100vh + 80px);
+  overflow-y: scroll;
 }
 
 #lessonSidebarInner.affix::-webkit-scrollbar {
@@ -1953,15 +2011,15 @@ a.dropdown-toggle::after {
 }
 
 #lessonSidebar h3 {
-  color:#28235d;
+  color: #28235d;
   margin-bottom: 5px;
-  margin-top:10px;
+  margin-top: 10px;
 }
 
 #lessonSidebar ul {
   margin-top: 0px;
-  margin-bottom:0px;
-  padding-left:0px;
+  margin-bottom: 0px;
+  padding-left: 0px;
 }
 
 #lessonSidebar li {
@@ -1969,10 +2027,10 @@ a.dropdown-toggle::after {
 }
 
 #lessonSidebar li a {
-  display:block;
-  color:#555;
+  display: block;
+  color: #555;
   border-radius: 5px;
-  padding:5px 10px 5px 5px;
+  padding: 5px 10px 5px 5px;
   font-size: 14px;
   font-weight: bold;
 }
@@ -1980,22 +2038,23 @@ a.dropdown-toggle::after {
 #lessonSidebar li a::before {
   content: "\203A";
   font-weight: bold;
-  font-size:20px;
+  font-size: 20px;
   line-height: 15px;
-  padding-right:10px;
+  padding-right: 10px;
 }
 
-#lessonSidebar li a:hover, #lessonSidebar li a.active {
+#lessonSidebar li a:hover,
+#lessonSidebar li a.active {
   text-decoration: none;
-  background-color:#cfefff;
-  color:#1d70b7;
+  background-color: #cfefff;
+  color: #1d70b7;
 }
 
 #lessonSidebar li a .material-icons {
-  float:right;
-  font-size:16px;
-  color:#28235d;
-  margin-top:5px;
+  float: right;
+  font-size: 16px;
+  color: #28235d;
+  margin-top: 5px;
 }
 
 #olfTable tr td:first-child {
@@ -2006,39 +2065,125 @@ a.dropdown-toggle::after {
   font-weight: bold;
 }
 
-#olfPrint { background-color: #FFF; color:#000; }
-.olfSection H2 { text-align: center; color:#FFF; }
+#olfPrint {
+  background-color: #fff;
+  color: #000;
+}
+.olfSection H2 {
+  text-align: center;
+  color: #fff;
+}
 
-.olfSection:nth-child(5n-4) H2 { background-color: #f7c411; }
-.olfSection:nth-child(5n-3) H2 { background-color: #f17094; }
-.olfSection:nth-child(5n-2) H2 { background-color: #f68b1f; }
-.olfSection:nth-child(5n-1) H2 { background-color: #538ec5; }
-.olfSection:nth-child(5n) H2 { background-color: #92c94f; }
+.olfSection:nth-child(5n-4) H2 {
+  background-color: #f7c411;
+}
+.olfSection:nth-child(5n-3) H2 {
+  background-color: #f17094;
+}
+.olfSection:nth-child(5n-2) H2 {
+  background-color: #f68b1f;
+}
+.olfSection:nth-child(5n-1) H2 {
+  background-color: #538ec5;
+}
+.olfSection:nth-child(5n) H2 {
+  background-color: #92c94f;
+}
 
-.olfSection:nth-child(5n-4) .olfActionBlock { border-color: #f7c411; }
-.olfSection:nth-child(5n-3) .olfActionBlock { border-color: #f17094; }
-.olfSection:nth-child(5n-2) .olfActionBlock { border-color: #f68b1f; }
-.olfSection:nth-child(5n-1) .olfActionBlock { border-color: #538ec5; }
-.olfSection:nth-child(5n) .olfActionBlock { border-color: #92c94f; }
+.olfSection:nth-child(5n-4) .olfActionBlock {
+  border-color: #f7c411;
+}
+.olfSection:nth-child(5n-3) .olfActionBlock {
+  border-color: #f17094;
+}
+.olfSection:nth-child(5n-2) .olfActionBlock {
+  border-color: #f68b1f;
+}
+.olfSection:nth-child(5n-1) .olfActionBlock {
+  border-color: #538ec5;
+}
+.olfSection:nth-child(5n) .olfActionBlock {
+  border-color: #92c94f;
+}
 
-.olfActionBlock { border-width: 3px; border-radius: 10px; padding:15px; border-style: solid; margin-bottom: 10px; }
-.olfActionBlock td:first-child { width: 100px; font-weight: bold; text-transform: uppercase; vertical-align: top; }
-.olfActionBlock ul {margin-top:0px; margin-bottom:0px; padding-left:0px; }
-.olfHeader { border-bottom: 5px solid #000; padding-bottom: 10px; }
-.olfHeader H1 { margin-bottom: 0px; padding-bottom: 0px; }
-.olfHeader H2 { margin-top: 0px; margin-bottom: 0px; }
+.olfActionBlock {
+  border-width: 3px;
+  border-radius: 10px;
+  padding: 15px;
+  border-style: solid;
+  margin-bottom: 10px;
+}
+.olfActionBlock td:first-child {
+  width: 100px;
+  font-weight: bold;
+  text-transform: uppercase;
+  vertical-align: top;
+}
+.olfActionBlock ul {
+  margin-top: 0px;
+  margin-bottom: 0px;
+  padding-left: 0px;
+}
+.olfHeader {
+  border-bottom: 5px solid #000;
+  padding-bottom: 10px;
+}
+.olfHeader H1 {
+  margin-bottom: 0px;
+  padding-bottom: 0px;
+}
+.olfHeader H2 {
+  margin-top: 0px;
+  margin-bottom: 0px;
+}
 
-.olfScriptHeader { text-align: center; width:80%;padding-left: 10%; page-break-after: always; margin-bottom: 40px;}
-.olfScriptSection H2 { text-transform: uppercase; color:#000; text-decoration: underline; }
+.olfScriptHeader {
+  text-align: center;
+  width: 80%;
+  padding-left: 10%;
+  page-break-after: always;
+  margin-bottom: 40px;
+}
+.olfScriptSection H2 {
+  text-transform: uppercase;
+  color: #000;
+  text-decoration: underline;
+}
 
-.olfScriptSection .olfAction { list-style: none; }
-.olfScriptSection .olfAction.play span { background-color: #000; color:#FFF; text-transform: uppercase; list-style: none; }
+.olfScriptSection .olfAction {
+  list-style: none;
+}
+.olfScriptSection .olfAction.play span {
+  background-color: #000;
+  color: #fff;
+  text-transform: uppercase;
+  list-style: none;
+}
 
-.olfScriptSection .olfAction.note {background-image: none; padding-left: 0px; font-style:italic;}
-.olfScriptSection .olfAction.do {font-weight:bold;}
-.olfScriptSection .olfAction.say {width:80%; margin-left:10%;}
-.olfScriptSection .olfAction.say p { float:none; background-color: #FFF;width:auto; border-radius: 0px; padding:0px;}
-.olfScriptSection .olfAction.say p strong:first-child { display:block; text-transform: uppercase; text-align: center; }
+.olfScriptSection .olfAction.note {
+  background-image: none;
+  padding-left: 0px;
+  font-style: italic;
+}
+.olfScriptSection .olfAction.do {
+  font-weight: bold;
+}
+.olfScriptSection .olfAction.say {
+  width: 80%;
+  margin-left: 10%;
+}
+.olfScriptSection .olfAction.say p {
+  float: none;
+  background-color: #fff;
+  width: auto;
+  border-radius: 0px;
+  padding: 0px;
+}
+.olfScriptSection .olfAction.say p strong:first-child {
+  display: block;
+  text-transform: uppercase;
+  text-align: center;
+}
 
 @media (max-width: 900px) {
   #lessonSidebarInner.affix {
@@ -2056,15 +2201,18 @@ a.dropdown-toggle::after {
     font-size: 30px;
   }
 
-  .programPromo p, .programPromo .age, .programPromo H2 {
+  .programPromo p,
+  .programPromo .age,
+  .programPromo H2 {
     text-shadow: #000 3px 3px 6px;
   }
 
   .programPromo table td {
-    width:33%;
+    width: 33%;
   }
 
-  .programPromo table td:nth-child(4), .programPromo table td:nth-child(3) {
+  .programPromo table td:nth-child(4),
+  .programPromo table td:nth-child(3) {
     display: none;
   }
 
@@ -2075,24 +2223,25 @@ a.dropdown-toggle::after {
   #aboutSection .MuiGrid-grid-sm-12 {
     min-width: 95vw;
   }
-  
-  #studyHero .badge, #programHero .badge {
+
+  #studyHero .badge,
+  #programHero .badge {
     float: left;
     margin-top: 15px;
-    width:100%;
-    height:auto;
+    width: 100%;
+    height: auto;
     margin-bottom: 15px;
   }
 
   .playAction .text {
-    font-size:16px;
+    font-size: 16px;
     max-width: 45vw;
-    max-height:45px;
+    max-height: 45px;
     overflow: hidden;
   }
 
   .playAction .duration {
-    display:none;
+    display: none;
   }
 }
 
@@ -2106,7 +2255,8 @@ a.dropdown-toggle::after {
   border-top: none;
 }
 
-.note, .conversation {
+.note,
+.conversation {
   margin-top: 10px;
   border-bottom: 1px solid #ddd;
   display: flex;
@@ -2114,17 +2264,20 @@ a.dropdown-toggle::after {
   padding: 0 10px;
 }
 
-.note:last-child, .conversation:last-child {
+.note:last-child,
+.conversation:last-child {
   border-bottom: none;
 }
 
-.note .postedBy, .conversation .postedBy {
+.note .postedBy,
+.conversation .postedBy {
   color: #999;
   justify-content: space-between;
   align-items: baseline;
 }
 
-.note .postedBy img, .conversation .postedBy img {
+.note .postedBy img,
+.conversation .postedBy img {
   width: 60px;
   height: 45px;
   margin-right: 15px;
@@ -2140,33 +2293,50 @@ a.dropdown-toggle::after {
 }
 
 .text-success {
-  color: #28a745
+  color: #28a745;
 }
 
 .text-danger {
-  color: #dc3545
+  color: #dc3545;
 }
 
 #primaryNavButton h2 {
-  color:#FFF;
+  color: #fff;
+  margin-bottom: 0;
 }
 
 /* End private messaging & notes */
 
 /* Animations */
 @keyframes fadeIn {
-  from { opacity: 0; }
-  to { opacity: 1; }
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }
 
 @keyframes slideUp {
-  from { transform: translateY(20px); opacity: 0; }
-  to { transform: translateY(0); opacity: 1; }
+  from {
+    transform: translateY(20px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
 }
 
 @keyframes scaleIn {
-  from { transform: scale(0.95); opacity: 0; }
-  to { transform: scale(1); opacity: 1; }
+  from {
+    transform: scale(0.95);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
 }
 
 /* Study Card Enhancements */
@@ -2232,22 +2402,56 @@ a.dropdown-toggle::after {
 }
 
 .loading::after {
-  content: '';
+  content: "";
   position: absolute;
   top: 0;
   left: -100%;
   width: 50%;
   height: 100%;
-  background: linear-gradient(
-    to right,
-    transparent,
-    rgba(255, 255, 255, 0.3),
-    transparent
-  );
+  background: linear-gradient(to right, transparent, rgba(255, 255, 255, 0.3), transparent);
   animation: loading 1.5s infinite;
 }
 
 @keyframes loading {
-  from { left: -100%; }
-  to { left: 200%; }
+  from {
+    left: -100%;
+  }
+  to {
+    left: 200%;
+  }
+}
+
+/* SiteHeader Navigation Alignment Fixes */
+.navbar .dropdown-menu {
+  padding: 0;
+}
+
+.navbar .dropdown-menu .dropdown-item {
+  padding: 8px 16px;
+  display: flex;
+  align-items: center;
+  line-height: 1;
+  min-height: auto;
+}
+
+.navbar .dropdown-menu .dropdown-item:hover {
+  background-color: var(--c1l7);
+}
+
+/* Primary menu dropdown alignment */
+.navbar-nav .nav-item .dropdown-menu .dropdown-item {
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--c1d2);
+  white-space: nowrap;
+}
+
+/* Icon alignment in dropdown */
+.navbar .dropdown-menu .dropdown-item i,
+.navbar .dropdown-menu .dropdown-item .material-icons {
+  margin-right: 8px;
+  font-size: 18px;
+  width: 18px;
+  text-align: center;
+  vertical-align: middle;
 }

@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import { Box, Button, Container, Typography, Stack, Icon } from "@mui/material";
+import { Box, Button, Container, Icon, Stack, Typography } from "@mui/material";
 
 interface ErrorBoundaryState {
   hasError: boolean;
@@ -28,9 +28,7 @@ class ErrorBoundary extends React.Component<ErrorBoundaryProps, ErrorBoundarySta
     this.setState({ error, errorInfo });
 
     // Log error to console in development
-    if (process.env.NODE_ENV === 'development') {
-      console.error('ErrorBoundary caught an error:', error, errorInfo);
-    }
+    if (process.env.NODE_ENV === "development") console.error("ErrorBoundary caught an error:", error, errorInfo);
   }
 
   reset = () => {
@@ -63,7 +61,7 @@ function DefaultErrorFallback({ error, reset }: { error?: Error; reset: () => vo
           We encountered an unexpected error. Please try again or contact support if the problem persists.
         </Typography>
 
-        {process.env.NODE_ENV === 'development' && error && (
+        {process.env.NODE_ENV === "development" && error && (
           <Box sx={{ mb: 4, p: 2, bgcolor: "grey.100", borderRadius: 1, textAlign: "left" }}>
             <Typography variant="body2" component="pre" sx={{ fontSize: 12, overflow: "auto" }}>
               {error.message}

@@ -1,15 +1,15 @@
 "use client";
 
-import React from "react"
-import { useRouter } from "next/navigation"
+import { useRouter } from "next/navigation";
+import React from "react";
+import { ApiHelper, ErrorMessages, Register, UserHelper } from "@churchapps/apphelper";
 import { Layout } from "@/components";
-import { Register, ApiHelper, UserHelper, ErrorMessages } from "@churchapps/apphelper";
 
 export default function RegisterPage() {
-  const router = useRouter()
+  const router = useRouter();
   const [errors, setErrors] = React.useState([]);
 
-  if (ApiHelper.isAuthenticated && UserHelper.currentUserChurch) { router.push("/") }
+  if (ApiHelper.isAuthenticated && UserHelper.currentUserChurch) router.push("/");
 
   return (
     <Layout withoutNavbar withoutFooter>

@@ -1,15 +1,14 @@
 import * as React from "react";
 import { useReactToPrint } from "react-to-print";
-import { CustomizationInterface, CustomizationHelper, FeedVenueInterface, ArrayHelper } from "@/helpers";
+import { Button, Icon } from "@mui/material";
+import { ArrayHelper, CustomizationHelper, CustomizationInterface, FeedVenueInterface } from "@/helpers";
 import { Section } from "./Section";
-import { Icon, Button } from "@mui/material";
-
 
 interface Props {
   useAccordion: boolean;
   venue: FeedVenueInterface;
   hidePrint?: boolean;
-  customizations?: CustomizationInterface[]
+  customizations?: CustomizationInterface[];
   print: number;
 }
 
@@ -49,18 +48,21 @@ const Venue = React.memo(({ hidePrint = true, ...props }: Props) => {
     return result;
   }, [props.customizations]);
 
-  const customSections = React.useMemo(() =>
-    CustomizationHelper.applyCustomSort(props.customizations, props.venue?.sections, "section"),
-  [props.customizations, props.venue?.sections]
-  );
+  const customSections = React.useMemo(() => CustomizationHelper.applyCustomSort(props.customizations, props.venue?.sections, "section"), [props.customizations, props.venue?.sections]);
 
   const getSections = React.useCallback(() => {
     const sections: JSX.Element[] = [];
 
     if (props.venue?.sections) {
-      customSections.forEach((s) => {
+      customSections.forEach(s => {
         if (!shouldHide(s.id)) {
-          sections.push(<Section section={s} toggleActive={handleToggle} activeSectionId={activeSectionId} key={s.id} customizations={props.customizations} />);
+          sections.push(<Section
+            section={s}
+            toggleActive={handleToggle}
+            activeSectionId={activeSectionId}
+            key={s.id}
+            customizations={props.customizations}
+          />);
         }
       });
     }
@@ -72,9 +74,15 @@ const Venue = React.memo(({ hidePrint = true, ...props }: Props) => {
     const sections: JSX.Element[] = [];
 
     if (props.venue?.sections) {
-      customSections.forEach((s) => {
+      customSections.forEach(s => {
         if (!shouldHide(s.id)) {
-          sections.push(<Section section={s} toggleActive={handleToggle} activeSectionId={[activeSectionId]} key={s.id} customizations={props.customizations} />);
+          sections.push(<Section
+            section={s}
+            toggleActive={handleToggle}
+            activeSectionId={[activeSectionId]}
+            key={s.id}
+            customizations={props.customizations}
+          />);
         }
       });
     }
@@ -84,10 +92,20 @@ const Venue = React.memo(({ hidePrint = true, ...props }: Props) => {
 
   const getPrint = React.useCallback(() => {
     if (!hidePrint) {
-      return (<Button size="small" variant="outlined" key={"print" + props.venue.name} sx={{ float: "right", marginBottom: "20px" }}
-        onClick={() => { setDisplaySection(true) }} title="print" startIcon={<Icon>print</Icon>}>
+      return (
+        <Button
+          size="small"
+          variant="outlined"
+          key={"print" + props.venue.name}
+          sx={{ float: "right", marginBottom: "20px" }}
+          onClick={() => {
+            setDisplaySection(true);
+          }}
+          title="print"
+          startIcon={<Icon>print</Icon>}>
           print
-      </Button>);
+        </Button>
+      );
     }
   }, [hidePrint, props.venue.name]);
 
@@ -105,15 +123,14 @@ const Venue = React.memo(({ hidePrint = true, ...props }: Props) => {
         {getPrint()}
         {sections}
       </div>
-      <div ref={contentRef} style={displaySection ? {display: 'block'} : {display: 'none'}}>
+      <div ref={contentRef} style={displaySection ? { display: "block" } : { display: "none" }}>
         <h2 className="printOnly">{props.venue?.lessonName} Instructions</h2>
         {printSections}
       </div>
-
     </div>
   );
 });
 
-Venue.displayName = 'Venue';
+Venue.displayName = "Venue";
 
 export { Venue };

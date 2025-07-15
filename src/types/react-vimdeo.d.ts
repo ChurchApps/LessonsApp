@@ -1,1 +1,1 @@
-declare module 'react-vimeo';
+declare module "react-vimeo";

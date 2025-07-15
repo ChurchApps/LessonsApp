@@ -1,8 +1,8 @@
-import { useState, useEffect } from "react";
-import { ApiHelper, AssetInterface, FileInterface } from "@/helpers";
-import { InputBox, ErrorMessages } from "@churchapps/apphelper";
-import { FileUpload } from "./FileUpload";
+import { useEffect, useState } from "react";
 import { TextField } from "@mui/material";
+import { ErrorMessages, InputBox } from "@churchapps/apphelper";
+import { ApiHelper, AssetInterface, FileInterface } from "@/helpers";
+import { FileUpload } from "./FileUpload";
 
 interface Props {
   asset: AssetInterface;
@@ -25,12 +25,12 @@ export function AssetEdit(props: Props) {
     e.preventDefault();
     let a = { ...asset };
     switch (e.currentTarget.name) {
-      case "name":
-        a.name = e.currentTarget.value;
-        break;
-      case "sort":
-        a.sort = parseInt(e.currentTarget.value);
-        break;
+    case "name":
+      a.name = e.currentTarget.value;
+      break;
+    case "sort":
+      a.sort = parseInt(e.currentTarget.value);
+      break;
     }
     setAsset(a);
   };
@@ -45,36 +45,62 @@ export function AssetEdit(props: Props) {
   const handleFileSaved = (file: FileInterface) => {
     const v = { ...asset };
     v.fileId = file.id;
-    ApiHelper.post("/assets", [v], "LessonsApi").then((data) => {
+    ApiHelper.post("/assets", [v], "LessonsApi").then(data => {
       setAsset(data);
       setPendingFileSave(false);
       props.updatedCallback(data);
     });
   };
 
-  const handleSave = () => { if (validate()) setPendingFileSave(true); };
+  const handleSave = () => {
+    if (validate()) setPendingFileSave(true);
+  };
 
   const getDeleteFunction = () => (props.asset?.id ? handleDelete : undefined);
 
   const handleDelete = () => {
-    if (
-      window.confirm("Are you sure you wish to permanently delete this asset?")
-    ) {
-      ApiHelper.delete("/assets/" + asset.id.toString(), "LessonsApi").then(
-        () => props.updatedCallback(null)
-      );
-    }
+    if (window.confirm("Are you sure you wish to permanently delete this asset?")) ApiHelper.delete("/assets/" + asset.id.toString(), "LessonsApi").then(() => props.updatedCallback(null));
   };
 
-  useEffect(() => { setAsset(props.asset); }, [props.asset]);
+  useEffect(() => {
+    setAsset(props.asset);
+  }, [props.asset]);
 
   return (
     <>
-      <InputBox id="assetDetailsBox" headerText="Edit Asset" headerIcon="content_copy" saveFunction={handleSave} cancelFunction={handleCancel} deleteFunction={getDeleteFunction()}>
+      <InputBox
+        id="assetDetailsBox"
+        headerText="Edit Asset"
+        headerIcon="content_copy"
+        saveFunction={handleSave}
+        cancelFunction={handleCancel}
+        deleteFunction={getDeleteFunction()}>
         <ErrorMessages errors={errors} />
-        <TextField label="Order" fullWidth type="number" name="sort" value={asset.sort} onChange={handleChange} onKeyDown={handleKeyDown} placeholder="1" />
-        <TextField label="Asset Name" fullWidth name="name" value={asset.name} onChange={handleChange} onKeyDown={handleKeyDown} placeholder="Asset 1" />
-        <FileUpload resourceId={props.asset?.resourceId} fileId={asset?.fileId} pendingSave={pendingFileSave} saveCallback={handleFileSaved} />
+        <TextField
+          label="Order"
+          fullWidth
+          type="number"
+          name="sort"
+          value={asset.sort}
+          onChange={handleChange}
+          onKeyDown={handleKeyDown}
+          placeholder="1"
+        />
+        <TextField
+          label="Asset Name"
+          fullWidth
+          name="name"
+          value={asset.name}
+          onChange={handleChange}
+          onKeyDown={handleKeyDown}
+          placeholder="Asset 1"
+        />
+        <FileUpload
+          resourceId={props.asset?.resourceId}
+          fileId={asset?.fileId}
+          pendingSave={pendingFileSave}
+          saveCallback={handleFileSaved}
+        />
       </InputBox>
     </>
   );

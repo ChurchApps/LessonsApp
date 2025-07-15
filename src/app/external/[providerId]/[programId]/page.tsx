@@ -1,17 +1,16 @@
 "use client";
 
+import Image from "next/image";
+import { useParams } from "next/navigation";
+import { useEffect, useState } from "react";
 import { Container, Icon } from "@mui/material";
-import { Layout, Studies, VideoModal } from "@/components";
-import { ApiHelper, ArrayHelper, ProgramInterface, } from "@/helpers";
 import { MarkdownPreviewLight } from "@churchapps/apphelper/dist/components/markdownEditor/MarkdownPreviewLight";
+import { Layout, Studies, VideoModal } from "@/components";
 import { EmbeddedVideo } from "@/components/EmbeddedVideo";
 import { Header } from "@/components/Header";
-import Image from "next/image";
-import { useEffect, useState } from "react";
-import { useParams } from "next/navigation";
+import { ApiHelper, ArrayHelper, ProgramInterface } from "@/helpers";
 
-type PageParams = { providerId:string, programId:string }
-
+type PageParams = { providerId: string; programId: string };
 
 export default function ProgramPage() {
   const params = useParams<PageParams>();
@@ -25,23 +24,39 @@ export default function ProgramPage() {
     const program = ArrayHelper.getOne(lessonList.programs, "id", params.programId);
     setProgram(program);
     setFilteredStudies(program.studies);
-  }
+  };
 
-  useEffect(() => { loadData(); }, [category]);
+  useEffect(() => {
+    loadData();
+  }, [category]);
 
-  const video = program.videoEmbedUrl && (<EmbeddedVideo videoEmbedUrl={program.videoEmbedUrl} title={program.name} />);
+  const video = program.videoEmbedUrl && <EmbeddedVideo videoEmbedUrl={program.videoEmbedUrl} title={program.name} />;
 
   if (!program) return <></>;
   return (
-    <Layout pageTitle={program.name + " - Free Church Curriculum"} metaDescription={program.description} image={program.image} withoutNavbar>
+    <Layout
+      pageTitle={program.name + " - Free Church Curriculum"}
+      metaDescription={program.description}
+      image={program.image}
+      withoutNavbar>
       <div id="studyHero">
         <div className="content">
           <Container fixed>
             <Header position="static" />
             <h1>{program.name}</h1>
-            <div style={{marginBottom:20}}>{program.shortDescription}</div>
-            {video && <a href="about:blank" onClick={(e) => { e.preventDefault(); setShowVideo(true); }} className="cta"><Icon style={{float:"left", marginRight:10}}>play_circle</Icon>Watch Trailer</a>}
-            <div style={{height:90}}></div>
+            <div style={{ marginBottom: 20 }}>{program.shortDescription}</div>
+            {video && (
+              <a
+                href="about:blank"
+                onClick={e => {
+                  e.preventDefault();
+                  setShowVideo(true);
+                }}
+                className="cta">
+                <Icon style={{ float: "left", marginRight: 10 }}>play_circle</Icon>Watch Trailer
+              </a>
+            )}
+            <div style={{ height: 90 }}></div>
             <Image src={program.image || "/not-found"} alt={program.name} width={320} height={180} className="badge" />
           </Container>
         </div>
@@ -50,7 +65,9 @@ export default function ProgramPage() {
         <Container fixed>
           <div id="programIntro">
             <h2>Studies</h2>
-            <div><MarkdownPreviewLight value={program.description} /></div>
+            <div>
+              <MarkdownPreviewLight value={program.description} />
+            </div>
           </div>
 
           {filteredStudies?.length > 0 && (
@@ -62,4 +79,3 @@ export default function ProgramPage() {
     </Layout>
   );
 }
-

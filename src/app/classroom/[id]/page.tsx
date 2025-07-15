@@ -1,33 +1,39 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
-
-import { Layout } from "@/components";
-import { ApiHelper, ClassroomInterface, LessonInterface, ProgramInterface, ScheduleInterface, StudyInterface } from "@/helpers";
 import Link from "next/link";
-import { ArrayHelper, DateHelper, ChurchInterface, MarkdownPreviewLight } from "@churchapps/apphelper";
-import { AppBar, Container, Grid, Stack } from "@mui/material";
-import { ExternalProviderHelper } from "@/helpers/ExternalProviderHelper";
 import { useParams, useSearchParams } from "next/navigation";
+import React, { useEffect, useState } from "react";
+import { AppBar, Container, Grid, Stack } from "@mui/material";
+import { ArrayHelper, ChurchInterface, DateHelper, MarkdownPreviewLight } from "@churchapps/apphelper";
+import { Layout } from "@/components";
+import { ApiHelper,
+  ClassroomInterface,
+  LessonInterface,
+  ProgramInterface,
+  ScheduleInterface,
+  StudyInterface } from "@/helpers";
+import { ExternalProviderHelper } from "@/helpers/ExternalProviderHelper";
 
-type PageParams = {id:string }
+type PageParams = { id: string };
 
 export default function Venue() {
-  const params = useParams<PageParams>()
+  const params = useParams<PageParams>();
   const searchParams = useSearchParams();
 
   const [classroom, setClassroom] = useState<ClassroomInterface>(null);
   const [schedules, setSchedules] = useState<ScheduleInterface[]>([]);
   const [lessons, setLessons] = useState<LessonInterface[]>([]);
-  const [studies, setStudies] = useState<StudyInterface[]>([])
-  const [programs, setPrograms] = useState<ProgramInterface[]>([])
-  const [church, setChurch] = useState<ChurchInterface>(null)
-  const [churchSettings, setChurchSettings] = useState<any>({})
+  const [studies, setStudies] = useState<StudyInterface[]>([]);
+  const [programs, setPrograms] = useState<ProgramInterface[]>([]);
+  const [church, setChurch] = useState<ChurchInterface>(null);
+  const [churchSettings, setChurchSettings] = useState<any>({});
 
   const id = params.id;
   const upcoming = searchParams.get("upcoming") === "1";
 
-  useEffect(() => { loadData(); }, [params.id]);
+  useEffect(() => {
+    loadData();
+  }, [params.id]);
 
   const loadData = async () => {
     if (id) {
@@ -41,7 +47,7 @@ export default function Venue() {
         ApiHelper.get("/settings/public/" + ch.id, "MembershipApi").then(set => setChurchSettings(set));
       });
 
-      const s = await ApiHelper.get("/schedules/public/classroom/" + c.id, "LessonsApi")
+      const s = await ApiHelper.get("/schedules/public/classroom/" + c.id, "LessonsApi");
       const filteredSchedules = filterSchedules(s);
       setSchedules(filteredSchedules);
       const lessonIds = ArrayHelper.getIds(filteredSchedules, "lessonId");
@@ -50,17 +56,16 @@ export default function Venue() {
         else await loadLessons(lessonIds);
       }
     }
-  }
+  };
 
-  const loadExternalLessons = async (externalProviderId:string, schedules:ScheduleInterface[]) => {
+  const loadExternalLessons = async (externalProviderId: string, schedules: ScheduleInterface[]) => {
     const data = await ApiHelper.get("/externalProviders/" + externalProviderId + "/lessons", "LessonsApi");
-    const lessonArray:LessonInterface[] = [];
-    const studyArray:StudyInterface[] = [];
+    const lessonArray: LessonInterface[] = [];
+    const studyArray: StudyInterface[] = [];
 
     schedules.forEach(s => {
-      const {lesson, study, program} = ExternalProviderHelper.getLesson(data, s.programId, s.studyId, s.lessonId);
-      if (lesson)
-      {
+      const { lesson, study, program } = ExternalProviderHelper.getLesson(data, s.programId, s.studyId, s.lessonId);
+      if (lesson) {
         lessonArray.push(lesson);
         if (!ArrayHelper.getOne(studyArray, "id", lesson.studyId)) studyArray.push(study);
       }
@@ -73,9 +78,6 @@ export default function Venue() {
     setPrograms(data.programs);
     //const program = ArrayHelper.getOne(data.programs, "id", programId);
 
-
-
-
     /*
     setLessons(l);
     const studyIds = ArrayHelper.getIds(l, "studyId");
@@ -83,9 +85,9 @@ export default function Venue() {
       const st = await ApiHelper.get("/studies/public/ids?ids=" + studyIds, "LessonsApi");
       setStudies(st);
     }*/
-  }
+  };
 
-  const loadLessons = async (lessonIds:string[]) => {
+  const loadLessons = async (lessonIds: string[]) => {
     const l = await ApiHelper.get("/lessons/public/ids?ids=" + lessonIds, "LessonsApi");
     setLessons(l);
     const studyIds = ArrayHelper.getIds(l, "studyId");
@@ -93,33 +95,30 @@ export default function Venue() {
       const st = await ApiHelper.get("/studies/public/ids?ids=" + studyIds, "LessonsApi");
       setStudies(st);
     }
-  }
+  };
 
   const filterSchedules = (s: ScheduleInterface[]) => {
-    let result:ScheduleInterface[] = []
-    if (upcoming)
-    {
-      for (let i = s.length - 1; i >= 0; i--) {
-        if (DateHelper.toDate(s[i].scheduledDate) < new Date()) s.splice(i, 1);
-      }
-      result = s.sort((a, b) => (DateHelper.toDate(a.scheduledDate) > DateHelper.toDate(b.scheduledDate)) ? 1 : -1)
-      if (result.length > 4) result.splice(4, result.length - 4)
+    let result: ScheduleInterface[] = [];
+    if (upcoming) {
+      for (let i = s.length - 1; i >= 0; i--) if (DateHelper.toDate(s[i].scheduledDate) < new Date()) s.splice(i, 1);
+
+      result = s.sort((a, b) => (DateHelper.toDate(a.scheduledDate) > DateHelper.toDate(b.scheduledDate) ? 1 : -1));
+      if (result.length > 4) result.splice(4, result.length - 4);
     } else {
-      for (let i = s.length - 1; i >= 0; i--) {
-        if (DateHelper.toDate(s[i].scheduledDate) > new Date()) s.splice(i, 1);
-      }
-      if (s.length > 4) s.splice(0, s.length - 4)
-      result = s.sort((a, b) => (DateHelper.toDate(a.scheduledDate) < DateHelper.toDate(b.scheduledDate)) ? 1 : -1)
+      for (let i = s.length - 1; i >= 0; i--) if (DateHelper.toDate(s[i].scheduledDate) > new Date()) s.splice(i, 1);
+
+      if (s.length > 4) s.splice(0, s.length - 4);
+      result = s.sort((a, b) => (DateHelper.toDate(a.scheduledDate) < DateHelper.toDate(b.scheduledDate) ? 1 : -1));
     }
     return result;
-  }
+  };
 
   const getRows = () => {
     const result: JSX.Element[] = [];
     schedules?.forEach(s => {
       const { lesson, study, program } = getRowData(s);
       if (program) {
-        const url = (s.externalProviderId)
+        const url = s.externalProviderId
           ? "/external/" + s.externalProviderId + "/" + s.programId + "/" + s.studyId + "/" + s.lessonId
           : "/" + program.slug + "/" + study.slug + "/" + lesson.slug;
 
@@ -127,12 +126,7 @@ export default function Venue() {
           <h3>{DateHelper.prettyDate(DateHelper.toDate(s.scheduledDate))}</h3>
           <Grid container spacing={3} style={{ paddingBottom: 20, borderBottom: "1px solid #CCC" }}>
             <Grid item md={3} xs={12}>
-              <img
-                src={lesson.image}
-                style={{ verticalAlign: "middle" }}
-                alt={lesson.name}
-                className="img-fluid"
-              />
+              <img src={lesson.image} style={{ verticalAlign: "middle" }} alt={lesson.name} className="img-fluid" />
             </Grid>
             <Grid item md={9} xs={12}>
               <div className="title">{lesson.name}</div>
@@ -147,20 +141,22 @@ export default function Venue() {
     });
 
     return result;
-  }
+  };
 
   const getRowData = (schedule: ScheduleInterface) => {
-    let result: { lesson: LessonInterface, study: StudyInterface, program: ProgramInterface } = { lesson: null, study: null, program: null };
+    let result: { lesson: LessonInterface; study: StudyInterface; program: ProgramInterface } = {
+      lesson: null,
+      study: null,
+      program: null
+    };
     result.lesson = ArrayHelper.getOne(lessons, "id", schedule.lessonId);
     if (result.lesson) {
       result.study = ArrayHelper.getOne(studies, "id", schedule.studyId);
-      if (result.study) {
-        result.program = ArrayHelper.getOne(programs, "id", schedule.programId);
-      }
+      if (result.study) result.program = ArrayHelper.getOne(programs, "id", schedule.programId);
     }
-    console.log("ROW DATA is: ", result)
+    console.log("ROW DATA is: ", result);
     return result;
-  }
+  };
 
   let logoUrl = "/images/logo-dark.png";
   if (churchSettings?.logoDark) logoUrl = churchSettings.logoDark;
@@ -168,16 +164,17 @@ export default function Venue() {
   return (
     <Layout withoutNavbar={true} withoutFooter={true}>
       <div>
-        <div id="studyHero" style={{minHeight:70}}>
+        <div id="studyHero" style={{ minHeight: 70 }}>
           <div className="content">
             <Container fixed>
               <AppBar id="navbar" position="fixed">
                 <Container>
                   <Stack direction="row" justifyContent="left" alignItems="center">
-                    <Link href="/" className="logo"><img src={logoUrl} alt="Lessons.church - Free Curriculum for Churches" className="img-fluid" /></Link>
-                    <b style={{ color: "#FFF", fontSize: 24, paddingLeft:30 }}>{church?.name}</b>
+                    <Link href="/" className="logo">
+                      <img src={logoUrl} alt="Lessons.church - Free Curriculum for Churches" className="img-fluid" />
+                    </Link>
+                    <b style={{ color: "#FFF", fontSize: 24, paddingLeft: 30 }}>{church?.name}</b>
                   </Stack>
-
                 </Container>
               </AppBar>
               <div id="navSpacer" />

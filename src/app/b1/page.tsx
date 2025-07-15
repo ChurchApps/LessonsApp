@@ -1,13 +1,10 @@
 "use client";
-import { useUser } from '@/app/context/UserContext';
 
-import { ApiHelper } from "@churchapps/apphelper/dist/helpers/ApiHelper";
 import React from "react";
-
-
+import { ApiHelper } from "@churchapps/apphelper/dist/helpers/ApiHelper";
+import { useUser } from "@/app/context/UserContext";
 
 export default function Test() {
-
   const userData = useUser();
 
   return (
@@ -15,7 +12,6 @@ export default function Test() {
       <h1>Test Page</h1>
       <p>Context: {JSON.stringify(userData)}</p>
       <p>Authenticated: {ApiHelper.isAuthenticated}</p>
-
     </>
   );
 }
