@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { AppBar, Box, ClickAwayListener, Icon, Menu, Stack } from "@mui/material";
 import { SupportModal } from "@churchapps/apphelper";
 import { ApiHelper, UserHelper } from "@churchapps/apphelper";
@@ -15,14 +15,19 @@ interface Props {
 export function Header(props: Props) {
   const [menuAnchor, setMenuAnchor] = useState<any>(null);
   const [showSupport, setShowSupport] = useState(false);
+  const [isClient, setIsClient] = useState(false);
 
-  const adminItems = UserHelper.checkAccess(Permissions.lessonsApi.lessons.edit) && (
+  useEffect(() => {
+    setIsClient(true);
+  }, []);
+
+  const adminItems = isClient && UserHelper.checkAccess?.(Permissions.lessonsApi.lessons.edit) && (
     <Link href="/admin">
       <Icon sx={{ marginRight: "5px" }}>admin_panel_settings</Icon> Admin
     </Link>
   );
 
-  const cpItems = UserHelper.checkAccess(Permissions.lessonsApi.lessons.editSchedules) && (
+  const cpItems = isClient && UserHelper.checkAccess?.(Permissions.lessonsApi.lessons.editSchedules) && (
     <Link href="/portal">
       <Icon sx={{ marginRight: "5px" }}>calendar_month</Icon> Schedules
     </Link>
@@ -31,7 +36,7 @@ export function Header(props: Props) {
   const pathName = usePathname();
   //const returnUrl = (router.pathname === "/") ? "" : `?returnUrl=${encodeURIComponent(pathName)}`;
 
-  const userAction = ApiHelper.isAuthenticated ? (
+  const userAction = isClient && ApiHelper.isAuthenticated ? (
     <>
       <ClickAwayListener onClickAway={() => setMenuAnchor(null)}>
         <a
@@ -41,7 +46,7 @@ export function Header(props: Props) {
             e.preventDefault();
             setMenuAnchor(Boolean(menuAnchor) ? null : e.target);
           }}>
-          {`${UserHelper.user.firstName} ${UserHelper.user.lastName}`}
+          {UserHelper.user ? `${UserHelper.user.firstName} ${UserHelper.user.lastName}` : 'User'}
           <Icon style={{ paddingTop: 6 }}>expand_more</Icon>
         </a>
       </ClickAwayListener>

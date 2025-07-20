@@ -2,7 +2,7 @@
 
 import { useRouter } from "next/navigation";
 import { usePathname } from "next/navigation";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { SiteHeader } from "@churchapps/apphelper";
 import UserContext from "@/app/context/UserContext";
 import { Permissions, UserHelper } from "@/helpers";
@@ -16,17 +16,29 @@ export function PortalHeader(props: Props) {
   const context = React.useContext(UserContext);
   const router = useRouter();
   const [secondaryMenu, setSecondaryMenu] = React.useState({ menuItems: [], label: "" });
+  const [primaryMenu, setPrimaryMenu] = React.useState<{ url: string; icon: string; label: string }[]>([]);
+  const [isClient, setIsClient] = useState(false);
   const pathname = usePathname();
 
-  const getPrimaryMenu = () => {
+  useEffect(() => {
+    setIsClient(true);
+  }, []);
+
+  useEffect(() => {
+    if (!isClient) return;
+
     const menuItems: { url: string; icon: string; label: string }[] = [];
     menuItems.push({ url: "/", icon: "home", label: "Home" });
     menuItems.push({ url: "/portal", icon: "calendar_month", label: "Schedules" });
-    if (UserHelper.checkAccess(Permissions.lessonsApi.lessons.edit)) menuItems.push({ url: "/admin", label: "Admin", icon: "admin_panel_settings" });
+    if (UserHelper.checkAccess?.(Permissions.lessonsApi.lessons.edit)) {
+      menuItems.push({ url: "/admin", label: "Admin", icon: "admin_panel_settings" });
+    }
 
-    // if (UserHelper.checkAccess(Permissions.membershipApi.server.admin))
-    //   tabs.push(<NavItem key="/admin" url="/admin" label={Locale.label("components.wrapper.servAdmin")} icon="admin_panel_settings" selected={selectedTab === "admin"} />);
-    return menuItems;
+    setPrimaryMenu(menuItems);
+  }, [isClient]);
+
+  const getPrimaryMenu = () => {
+    return primaryMenu;
   };
 
   const getPrimaryLabel = () => {
