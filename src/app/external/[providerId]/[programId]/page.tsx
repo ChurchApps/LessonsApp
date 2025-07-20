@@ -4,7 +4,7 @@ import Image from "next/image";
 import { useParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import { Container, Icon } from "@mui/material";
-import { MarkdownPreviewLight } from "@churchapps/apphelper/dist/components/markdownEditor/MarkdownPreviewLight";
+import { MarkdownPreviewLight } from "@churchapps/apphelper-markdown";
 import { Layout, Studies, VideoModal } from "@/components";
 import { EmbeddedVideo } from "@/components/EmbeddedVideo";
 import { Header } from "@/components/Header";

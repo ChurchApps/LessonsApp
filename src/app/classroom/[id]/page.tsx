@@ -4,7 +4,8 @@ import Link from "next/link";
 import { useParams, useSearchParams } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import { AppBar, Container, Grid, Stack } from "@mui/material";
-import { ArrayHelper, ChurchInterface, DateHelper, MarkdownPreviewLight } from "@churchapps/apphelper";
+import { ArrayHelper, ChurchInterface, DateHelper } from "@churchapps/apphelper";
+import { MarkdownPreviewLight } from "@churchapps/apphelper-markdown";
 import { Layout } from "@/components";
 import { ApiHelper,
   ClassroomInterface,

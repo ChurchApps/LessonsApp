@@ -2,7 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 import { Container, Grid } from "@mui/material";
-import { ArrayHelper } from "@churchapps/apphelper/dist/helpers/ArrayHelper";
+import { ArrayHelper } from "@churchapps/apphelper";
 import { ProgramInterface, ProviderInterface, StudyInterface } from "@/helpers/interfaces";
 
 interface Props {

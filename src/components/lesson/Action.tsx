@@ -1,7 +1,7 @@
 import Image from "next/image";
 import React from "react";
 import { AnalyticsHelper } from "@churchapps/apphelper";
-import { MarkdownPreviewLight } from "@churchapps/apphelper/dist/components/markdownEditor/MarkdownPreviewLight";
+import { MarkdownPreviewLight } from "@churchapps/apphelper-markdown";
 import { ApiHelper, FeedActionInterface, FeedFileInterface, UserHelper } from "@/helpers";
 import { ImageModal } from "../ImageModal";
 import { VideoModal } from "../VideoModal";

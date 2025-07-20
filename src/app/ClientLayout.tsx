@@ -3,9 +3,8 @@
 import React, { useEffect } from "react";
 import { CookiesProvider } from "react-cookie";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
-import { AnalyticsHelper, ErrorAppDataInterface, ErrorLogInterface, UserHelper } from "@churchapps/apphelper";
-import { ErrorHelper } from "@churchapps/apphelper";
-import { ErrorMessages } from "@churchapps/apphelper";
+import { AnalyticsHelper, ErrorLogInterface, UserHelper, ErrorHelper, ErrorMessages } from "@churchapps/apphelper";
+import { ErrorAppDataInterface } from "@churchapps/helpers";
 import { ErrorBoundary } from "@/components";
 import { EnvironmentHelper } from "@/helpers/EnvironmentHelper";
 import { UserProvider } from "./context/UserContext";

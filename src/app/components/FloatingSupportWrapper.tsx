@@ -1,6 +1,6 @@
 "use client";
 
-import { FloatingSupport } from "@churchapps/apphelper/dist/components/FloatingSupport";
+import { FloatingSupport } from "@churchapps/apphelper";
 
 export function FloatingSupportWrapper() {
   return <FloatingSupport appName="Lessons.church" />;

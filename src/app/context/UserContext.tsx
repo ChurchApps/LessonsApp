@@ -4,7 +4,7 @@ import React, { useContext } from "react";
 import { LoginUserChurchInterface,
   PersonInterface,
   UserContextInterface,
-  UserInterface } from "@churchapps/apphelper/dist/helpers";
+  UserInterface } from "@churchapps/apphelper";
 
 const UserContext = React.createContext<UserContextInterface | undefined>(undefined);
 

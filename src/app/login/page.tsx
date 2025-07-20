@@ -3,7 +3,8 @@
 import { redirect, useRouter } from "next/navigation";
 import React from "react";
 import { useCookies } from "react-cookie";
-import { ApiHelper, LoginPage, UserHelper } from "@churchapps/apphelper";
+import { ApiHelper, UserHelper } from "@churchapps/apphelper";
+import { LoginPage } from "@churchapps/apphelper-login";
 import { Layout } from "@/components";
 import { useUser } from "../context/UserContext";
 

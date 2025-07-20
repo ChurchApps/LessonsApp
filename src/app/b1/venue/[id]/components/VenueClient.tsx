@@ -6,7 +6,7 @@ import Container from "@mui/material/Container";
 import Grid from "@mui/material/Grid";
 import Tab from "@mui/material/Tab";
 import Tabs from "@mui/material/Tabs";
-import { DateHelper } from "@churchapps/apphelper/dist/helpers/DateHelper";
+import { DateHelper } from "@churchapps/apphelper";
 import { Layout } from "@/components/Layout";
 import { Venue } from "@/components/lesson/Venue";
 import { ClassroomInterface,

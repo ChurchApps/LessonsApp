@@ -4,9 +4,8 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
 import { AppBar, Box, ClickAwayListener, Icon, Menu, Stack } from "@mui/material";
-import { SupportModal } from "@churchapps/apphelper/dist/components/SupportModal";
-import { ApiHelper } from "@churchapps/apphelper/dist/helpers/ApiHelper";
-import { UserHelper } from "@churchapps/apphelper/dist/helpers/UserHelper";
+import { SupportModal } from "@churchapps/apphelper";
+import { ApiHelper, UserHelper } from "@churchapps/apphelper";
 import { Permissions } from "../helpers/Permissions";
 
 interface Props {

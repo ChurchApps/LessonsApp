@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import { ApiHelper } from "@churchapps/apphelper/dist/helpers/ApiHelper";
+import { ApiHelper } from "@churchapps/apphelper";
 import { useUser } from "@/app/context/UserContext";
 
 export default function Test() {

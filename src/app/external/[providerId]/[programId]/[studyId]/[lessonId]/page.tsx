@@ -6,7 +6,7 @@ import Link from "next/link";
 import { useParams } from "next/navigation";
 import React, { useEffect } from "react";
 import { Container, Grid, Icon } from "@mui/material";
-import { AnalyticsHelper } from "@churchapps/apphelper/dist/helpers/AnalyticsHelper";
+import { AnalyticsHelper } from "@churchapps/apphelper";
 import { Layout, Venue } from "@/components";
 import { Header } from "@/components/Header";
 import { Presenter } from "@/components/Presenter";

@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import Tab from "@mui/material/Tab";
 import Tabs from "@mui/material/Tabs";
-import { ArrayHelper } from "@churchapps/apphelper/dist/helpers/ArrayHelper";
+import { ArrayHelper } from "@churchapps/apphelper";
 import { Studies } from "@/components/Studies";
 import { ProgramInterface, StudyCategoryInterface, StudyInterface } from "@/helpers/interfaces";
 

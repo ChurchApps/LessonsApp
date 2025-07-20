@@ -19,7 +19,7 @@ const config = {
       { protocol: "https", hostname: "files.churchpdf.com" }
     ]
   },
-  transpilePackages: ["@churchapps/apphelper", "mui-tel-input"],
+  transpilePackages: ["@churchapps/apphelper", "@churchapps/apphelper-markdown", "mui-tel-input"],
   experimental: {
     optimizePackageImports: ['@mui/material', '@mui/icons-material']
   }

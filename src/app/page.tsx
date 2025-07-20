@@ -3,7 +3,7 @@ import { Metadata } from "next";
 import { revalidateTag } from "next/cache";
 import Image from "next/image";
 import { Container, Grid, Link } from "@mui/material";
-import { ApiHelper } from "@churchapps/apphelper/dist/helpers/ApiHelper";
+import { ApiHelper } from "@churchapps/apphelper";
 import { HomeAbout } from "@/app/components/HomeAbout";
 import { HomeConnect } from "@/app/components/HomeConnect";
 import { HomeHero } from "@/app/components/HomeHero";
@@ -18,10 +18,10 @@ import { FloatingSupportWrapper } from "./components/FloatingSupportWrapper";
 const loadData = async () => {
   console.log("LOAD DATA");
   const excludeIds = ["CMCkovCA00e", "yBl-EUBxm17"];
-  let programs: ProgramInterface[] = await ApiHelper.getAnonymous("/programs/public", "LessonsApi", ["all"]);
-  const providers: ProviderInterface[] = await ApiHelper.getAnonymous("/providers/public", "LessonsApi", ["all"]);
-  const studies: ProviderInterface[] = await ApiHelper.getAnonymous("/studies/public", "LessonsApi", ["all"]);
-  const stats: { churchCount: number; lessonCount: number; studyCount: number; programCount: number } = await ApiHelper.getAnonymous("/providers/stats", "LessonsApi", ["all"]);
+  let programs: ProgramInterface[] = await ApiHelper.getAnonymous("/programs/public", "LessonsApi");
+  const providers: ProviderInterface[] = await ApiHelper.getAnonymous("/providers/public", "LessonsApi");
+  const studies: ProviderInterface[] = await ApiHelper.getAnonymous("/studies/public", "LessonsApi");
+  const stats: { churchCount: number; lessonCount: number; studyCount: number; programCount: number } = await ApiHelper.getAnonymous("/providers/stats", "LessonsApi");
 
   programs = programs.filter(p => !excludeIds.includes(p.id));
   return { programs, providers, studies, stats, errorMessage: "" };

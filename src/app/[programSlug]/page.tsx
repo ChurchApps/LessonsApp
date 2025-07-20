@@ -2,7 +2,7 @@ import { Metadata } from "next";
 import { unstable_cache } from "next/cache";
 import Image from "next/image";
 import { Container } from "@mui/material";
-import { ApiHelper } from "@churchapps/apphelper/dist/helpers/ApiHelper";
+import { ApiHelper } from "@churchapps/apphelper";
 import { HeaderWrapper } from "@/app/components/HeaderWrapper";
 import { MarkdownWrapper } from "@/app/components/MarkdownWrapper";
 import Error from "@/components/Error";
