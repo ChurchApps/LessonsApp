@@ -17,7 +17,7 @@
     "postinstall": "copyfiles -a -f node_modules/@churchapps/apphelper/public/locales/** public/apphelper/locales && copyfiles -a -f node_modules/@churchapps/apphelper/public/css/** public/apphelper/css"
   },
   "dependencies": {
-    "@churchapps/apphelper": "^0.4.18",
+    "@churchapps/apphelper": "^0.4.19",
     "@churchapps/apphelper-login": "^0.4.18",
     "@churchapps/apphelper-markdown": "^0.4.18",
     "@churchapps/helpers": "^1.0.40",

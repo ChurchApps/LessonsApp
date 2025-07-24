@@ -4,7 +4,7 @@ import { redirect } from "next/navigation";
 import { useRouter } from "next/navigation";
 import React, { useState, useEffect } from "react";
 import { List, ThemeProvider } from "@mui/material";
-import { NavItem } from "@churchapps/apphelper";
+import { NavItem, ApiHelper } from "@churchapps/apphelper";
 import "@churchapps/apphelper-markdown/dist/components/markdownEditor/editor.css";
 import { useUser } from "@/app/context/UserContext";
 import { Permissions, UserHelper } from "@/helpers";
@@ -26,6 +26,19 @@ export const Wrapper: React.FC<Props> = props => {
   useEffect(() => {
     setIsClient(true);
   }, []);
+
+  // Protect portal routes - redirect to login if not authenticated
+  useEffect(() => {
+    if (isClient && typeof window !== "undefined") {
+      const path = window.location.pathname;
+      const isPortalRoute = path.startsWith("/portal") || path.startsWith("/admin");
+      
+      if (isPortalRoute && !ApiHelper.isAuthenticated) {
+        const returnUrl = encodeURIComponent(path);
+        router.push(`/login?returnUrl=${returnUrl}`);
+      }
+    }
+  }, [isClient, router]);
 
   const getSelectedTab = () => {
     let result = "";
@@ -124,7 +137,7 @@ export const Wrapper: React.FC<Props> = props => {
     <ThemeProvider theme={Themes.BaseTheme}>
       <PortalHeader />
 
-      <div style={{ width: "100%", marginTop: "64px" }}>
+      <div style={{ width: "100%" }}>
         {props.children}
       </div>
     </ThemeProvider>

@@ -92,6 +92,10 @@ h6 {
   line-height: var(--line-height-tight);
 }
 
+#page-header-text h4 {
+  color:#FFF;
+}
+
 #banner h1,
 #banner h2,
 #banner h3,
