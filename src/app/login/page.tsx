@@ -21,8 +21,10 @@ export default function Login(params: any) {
   console.log("Return Url is", returnUrl);
 
   if (ApiHelper.isAuthenticated && UserHelper.currentUserChurch) {
-    //context2.setPerson(UserHelper.person);
-    //context2.setUserChurch(UserHelper.currentUserChurch);
+    context.setUser(UserHelper.user);
+    context.setPerson(UserHelper.person);
+    context.setUserChurch(UserHelper.currentUserChurch);
+    context.setUserChurches(UserHelper.userChurches);
 
     redirect(returnUrl);
   }

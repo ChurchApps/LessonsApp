@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 import { Box, Paper, Stack, Typography, Button, List, ListItem, ListItemButton, ListItemIcon, ListItemText, CircularProgress } from "@mui/material";
 import { Extension as ExtensionIcon, Movie as MovieIcon, Add as AddIcon } from "@mui/icons-material";
 import { Wrapper } from "@/components/Wrapper";
-import { PageHeader } from "@/components/admin";
+import { PageHeader } from "@churchapps/apphelper";
 import { AddOnEdit } from "@/components/admin/AddOnEdit";
 import { AddOnInterface, ApiHelper, ProviderInterface } from "@/helpers";
 

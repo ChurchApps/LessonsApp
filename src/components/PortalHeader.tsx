@@ -3,9 +3,9 @@
 import { useRouter } from "next/navigation";
 import { usePathname } from "next/navigation";
 import React, { useEffect, useState } from "react";
-import { SiteHeader } from "@churchapps/apphelper";
+import { SiteHeader, UserHelper } from "@churchapps/apphelper";
 import UserContext from "@/app/context/UserContext";
-import { Permissions, UserHelper } from "@/helpers";
+import { Permissions } from "@/helpers";
 import { SecondaryMenuHelper } from "@/helpers/SecondaryMenuHelper";
 
 interface Props {
@@ -19,6 +19,16 @@ export function PortalHeader(props: Props) {
   const [primaryMenu, setPrimaryMenu] = React.useState<{ url: string; icon: string; label: string }[]>([]);
   const [isClient, setIsClient] = useState(false);
   const pathname = usePathname();
+
+  // Populate context with user data if authenticated but context is empty
+  React.useEffect(() => {
+    if (isClient && !context.user && UserHelper.user) {
+      context.setUser(UserHelper.user);
+      context.setPerson(UserHelper.person);
+      context.setUserChurch(UserHelper.currentUserChurch);
+      context.setUserChurches(UserHelper.userChurches);
+    }
+  }, [isClient, context, context.user]);
 
   useEffect(() => {
     setIsClient(true);

@@ -6,7 +6,7 @@ import { School as SchoolIcon } from "@mui/icons-material";
 import { Box, Grid, Paper } from "@mui/material";
 import { ClassroomList, HomeConnect, ScheduleList } from "@/components";
 import { Wrapper } from "@/components/Wrapper";
-import { PageHeader } from "@/components/admin";
+import { PageHeader } from "@churchapps/apphelper";
 import { PlaylistFeed } from "@/components/portal/PlaylistFeed";
 import { ApiHelper } from "@/helpers";
 

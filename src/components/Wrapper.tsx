@@ -124,8 +124,7 @@ export const Wrapper: React.FC<Props> = props => {
     <ThemeProvider theme={Themes.BaseTheme}>
       <PortalHeader />
 
-      <div style={{ width: "100%" }}>
-        <div id="appBarSpacer"></div>
+      <div style={{ width: "100%", marginTop: "64px" }}>
         {props.children}
       </div>
     </ThemeProvider>

@@ -25,4 +25,4 @@ export { ClassroomEdit } from "./portal/ClassroomEdit";
 export { ScheduleList } from "./portal/ScheduleList";
 export { ScheduleEdit } from "./portal/ScheduleEdit";
 
-export { PageHeader, StatusChip, ContentCard } from "./admin";
+export { StatusChip, ContentCard } from "./admin";

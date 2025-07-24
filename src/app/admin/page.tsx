@@ -6,7 +6,7 @@ import { Add as AddIcon, Assessment as StatsIcon, Book as BookIcon, Clear as Cle
 import { Box, Button, Container, IconButton, Paper, Stack, Typography } from "@mui/material";
 import { Loading } from "@churchapps/apphelper";
 import { BundleList, ErrorBoundary, LessonEdit, ProgramEdit, StudyEdit, VenueList } from "@/components";
-import { PageHeader } from "@/components/admin/PageHeader";
+import { PageHeader } from "@churchapps/apphelper";
 import { Wrapper } from "@/components/Wrapper";
 import { ApiHelper, ArrayHelper, LessonInterface, ProgramInterface, ProviderInterface, StudyInterface } from "@/helpers";
 import { revalidate } from "../actions";

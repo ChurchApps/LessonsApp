@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 import { Box, CircularProgress, IconButton, List, ListItem, ListItemButton, ListItemIcon, ListItemText, Menu, MenuItem, Paper, Stack, Typography } from "@mui/material";
 import { Add as AddIcon, ContentCopy as CopyIcon, List as ListIcon, Person as PersonIcon, Check as CheckIcon, LocationOn as LocationIcon } from "@mui/icons-material";
 import { ActionEdit, RoleEdit, SectionCopy, SectionEdit } from "@/components";
-import { PageHeader } from "@/components/admin";
+import { PageHeader } from "@churchapps/apphelper";
 import { Wrapper } from "@/components/Wrapper";
 import { ActionInterface,
   AddOnInterface,
