@@ -4,7 +4,8 @@ import Link from "next/link";
 import { useParams, useSearchParams } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import { AppBar, Container, Grid, Stack } from "@mui/material";
-import { ArrayHelper, ChurchInterface, DateHelper, MarkdownPreviewLight } from "@churchapps/apphelper";
+import { ArrayHelper, ChurchInterface, DateHelper } from "@churchapps/apphelper";
+import { MarkdownPreviewLight } from "@churchapps/apphelper-markdown";
 import { Layout } from "@/components";
 import { ApiHelper,
   ClassroomInterface,
@@ -37,14 +38,14 @@ export default function Venue() {
 
   const loadData = async () => {
     if (id) {
-      ApiHelper.get("/programs/public", "LessonsApi").then(p => setPrograms(p));
+      ApiHelper.get("/programs/public", "LessonsApi").then((p: ProgramInterface[]) => setPrograms(p));
 
       const c = await ApiHelper.get("/classrooms/" + id, "LessonsApi");
       setClassroom(c);
 
-      ApiHelper.get("/churches/" + c.churchId, "MembershipApi").then(ch => {
+      ApiHelper.get("/churches/" + c.churchId, "MembershipApi").then((ch: ChurchInterface) => {
         setChurch(ch);
-        ApiHelper.get("/settings/public/" + ch.id, "MembershipApi").then(set => setChurchSettings(set));
+        ApiHelper.get("/settings/public/" + ch.id, "MembershipApi").then((set: any[]) => setChurchSettings(set));
       });
 
       const s = await ApiHelper.get("/schedules/public/classroom/" + c.id, "LessonsApi");

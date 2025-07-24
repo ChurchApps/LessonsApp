@@ -1,38 +1,56 @@
 "use client";
 
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { CookiesProvider } from "react-cookie";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
-import { AnalyticsHelper, ErrorAppDataInterface, ErrorLogInterface, UserHelper } from "@churchapps/apphelper";
-import { ErrorHelper } from "@churchapps/apphelper";
-import { ErrorMessages } from "@churchapps/apphelper";
+import { AnalyticsHelper, ErrorLogInterface, UserHelper, ErrorHelper, ErrorMessages } from "@churchapps/apphelper";
+import { ErrorAppDataInterface } from "@churchapps/helpers";
 import { ErrorBoundary } from "@/components";
 import { EnvironmentHelper } from "@/helpers/EnvironmentHelper";
 import { UserProvider } from "./context/UserContext";
 
-EnvironmentHelper.initLocale();
-EnvironmentHelper.init();
-
 function ClientLayout({ children }: { children: React.ReactNode }) {
-  const [errors, setErrors] = React.useState([]);
-  const [localeInit, setLocaleInit] = React.useState(false);
-  const location = typeof window === "undefined" ? null : window.location;
+  const [errors, setErrors] = useState<string[]>([]);
+  const [isClient, setIsClient] = useState(false);
 
   useEffect(() => {
-    EnvironmentHelper.initLocale().then(() => setLocaleInit(true));
+    setIsClient(true);
+    EnvironmentHelper.initLocale();
     EnvironmentHelper.init();
-    AnalyticsHelper.init();
+
+    try {
+      AnalyticsHelper.init();
+    } catch (error) {
+      console.warn('Analytics initialization failed:', error);
+    }
+
+    ErrorHelper.init(getErrorAppData, customErrorHandler);
+
+    // Load HubSpot script after hydration to prevent hydration mismatch
+    const script = document.createElement('script');
+    script.type = 'text/javascript';
+    script.id = 'hs-script-loader';
+    script.async = true;
+    script.defer = true;
+    script.src = '//js.hs-scripts.com/20077299.js';
+    document.body.appendChild(script);
   }, []);
 
   useEffect(() => {
-    AnalyticsHelper.logPageView();
-  }, [location]);
+    if (isClient) {
+      try {
+        AnalyticsHelper.logPageView();
+      } catch (error) {
+        console.warn('Analytics page view logging failed:', error);
+      }
+    }
+  }, [isClient]);
 
   const getErrorAppData = () => {
     const result: ErrorAppDataInterface = {
       churchId: UserHelper.currentUserChurch?.church?.id || "",
       userId: UserHelper.user?.id || "",
-      originUrl: location?.toString(),
+      originUrl: typeof window !== "undefined" ? window.location.toString() : "",
       application: "B1"
     };
     return result;
@@ -48,12 +66,6 @@ function ClientLayout({ children }: { children: React.ReactNode }) {
       break;
     }
   };
-
-  AnalyticsHelper.init();
-  ErrorHelper.init(getErrorAppData, customErrorHandler);
-  React.useEffect(() => {
-    AnalyticsHelper.logPageView();
-  }, [location]);
 
   const mdTheme = createTheme({
     palette: {

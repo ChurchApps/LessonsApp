@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
 import { Box, Button, FormControl, IconButton, InputLabel, ListSubheader, MenuItem, Paper, Select, SelectChangeEvent, Stack, TextField, Typography } from "@mui/material";
 import { Check as CheckIcon, Save as SaveIcon, Cancel as CancelIcon, Delete as DeleteIcon } from "@mui/icons-material";
-import { ErrorMessages, MarkdownEditor } from "@churchapps/apphelper";
+import { ErrorMessages } from "@churchapps/apphelper";
+import { MarkdownEditor } from "@churchapps/apphelper-markdown";
 import { ActionInterface,
   AddOnInterface,
   ApiHelper,
@@ -118,7 +119,7 @@ export function ActionEdit(props: Props) {
         }
       }
 
-      ApiHelper.post("/actions", [a], "LessonsApi").then(data => {
+      ApiHelper.post("/actions", [a], "LessonsApi").then((data: ActionInterface[]) => {
         setAction(data[0]);
         props.updatedCallback(data[0], !props.action.id);
       });

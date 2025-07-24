@@ -84,7 +84,7 @@ export function AddOnEdit(props: Props) {
 
   const handleSave = () => {
     if (validate()) {
-      ApiHelper.post("/addOns", [addOn], "LessonsApi").then(data => {
+      ApiHelper.post("/addOns", [addOn], "LessonsApi").then((data: AddOnInterface[]) => {
         setAddOn(data[0]);
         console.log("Add-on type", addOn.addOnType);
         if (addOn.addOnType === "file") {
@@ -96,7 +96,7 @@ export function AddOnEdit(props: Props) {
           ev.contentId = data[0].id;
           ev.name = data[0].name;
           ApiHelper.post("/externalVideos", [ev], "LessonsApi").then(() => {
-            props.updatedCallback(data);
+            props.updatedCallback(data[0]);
           });
         }
       });
@@ -209,10 +209,10 @@ export function AddOnEdit(props: Props) {
   const handleFileSaved = (file: FileInterface) => {
     const a = { ...addOn };
     a.fileId = file.id;
-    ApiHelper.post("/addOns", [a], "LessonsApi").then(data => {
-      setAddOn(data);
+    ApiHelper.post("/addOns", [a], "LessonsApi").then((data: AddOnInterface[]) => {
+      setAddOn(data[0]);
       setPendingFileSave(false);
-      props.updatedCallback(data);
+      props.updatedCallback(data[0]);
     });
   };
 

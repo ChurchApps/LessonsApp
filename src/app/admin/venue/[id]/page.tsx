@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 import { Box, CircularProgress, IconButton, List, ListItem, ListItemButton, ListItemIcon, ListItemText, Menu, MenuItem, Paper, Stack, Typography } from "@mui/material";
 import { Add as AddIcon, ContentCopy as CopyIcon, List as ListIcon, Person as PersonIcon, Check as CheckIcon, LocationOn as LocationIcon } from "@mui/icons-material";
 import { ActionEdit, RoleEdit, SectionCopy, SectionEdit } from "@/components";
-import { PageHeader } from "@/components/admin";
+import { PageHeader } from "@churchapps/apphelper";
 import { Wrapper } from "@/components/Wrapper";
 import { ActionInterface,
   AddOnInterface,
@@ -402,8 +402,8 @@ export default function Venue() {
           icon={<LocationIcon />}
           title={`${lesson?.name || 'Lesson'}: ${venue?.name || 'Venue'}`}
           subtitle="Manage sections, roles, and actions for this venue"
-          actions={[<IconButton
-            key="add-menu"
+        >
+          <IconButton
             onClick={handleAddMenuClick}
             sx={{
               color: 'white',
@@ -414,8 +414,8 @@ export default function Venue() {
               }
             }}>
             <AddIcon />
-          </IconButton>]}
-        />
+          </IconButton>
+        </PageHeader>
 
         <Paper
           sx={{

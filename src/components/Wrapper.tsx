@@ -2,10 +2,10 @@
 
 import { redirect } from "next/navigation";
 import { useRouter } from "next/navigation";
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { List, ThemeProvider } from "@mui/material";
-import { NavItem } from "@churchapps/apphelper";
-import "@churchapps/apphelper/dist/components/markdownEditor/editor.css";
+import { NavItem, ApiHelper } from "@churchapps/apphelper";
+import "@churchapps/apphelper-markdown/dist/components/markdownEditor/editor.css";
 import { useUser } from "@/app/context/UserContext";
 import { Permissions, UserHelper } from "@/helpers";
 import { Themes } from "@/helpers/Themes";
@@ -18,9 +18,27 @@ interface Props {
 
 export const Wrapper: React.FC<Props> = props => {
   const context = useUser();
-  const tabs = [];
+  const [tabs, setTabs] = useState<React.ReactElement[]>([]);
+  const [isClient, setIsClient] = useState(false);
 
   const router = useRouter();
+
+  useEffect(() => {
+    setIsClient(true);
+  }, []);
+
+  // Protect portal routes - redirect to login if not authenticated
+  useEffect(() => {
+    if (isClient && typeof window !== "undefined") {
+      const path = window.location.pathname;
+      const isPortalRoute = path.startsWith("/portal") || path.startsWith("/admin");
+
+      if (isPortalRoute && !ApiHelper.isAuthenticated) {
+        const returnUrl = encodeURIComponent(path);
+        router.push(`/login?returnUrl=${returnUrl}`);
+      }
+    }
+  }, [isClient, router]);
 
   const getSelectedTab = () => {
     let result = "";
@@ -39,55 +57,67 @@ export const Wrapper: React.FC<Props> = props => {
     router.push(url);
   };
 
-  tabs.push(<NavItem
-    url="/"
-    label="Home"
-    icon="home"
-    onNavigate={handleNavigate}
-    onClick={() => {
-      redirect("/");
-    }}
-  />);
-  if (UserHelper.checkAccess(Permissions.lessonsApi.lessons.edit)) {
-    tabs.push(<NavItem
-      url="/admin"
-      label="Admin"
-      icon="admin_panel_settings"
+  useEffect(() => {
+    if (!isClient) return;
+
+    const newTabs: React.ReactElement[] = [];
+
+    newTabs.push(<NavItem
+      url="/"
+      label="Home"
+      icon="home"
       onNavigate={handleNavigate}
       onClick={() => {
-        router.push("/admin");
+        redirect("/");
       }}
-      selected={selectedTab === "admin"}
-      key="admin"
+      key="home"
     />);
-  }
-  if (UserHelper.checkAccess(Permissions.lessonsApi.lessons.editSchedules)) {
-    tabs.push(<NavItem
-      url="/portal"
-      label="Schedules"
-      icon="calendar_month"
-      onNavigate={handleNavigate}
-      onClick={() => {
-        router.push("/portal");
-      }}
-      selected={selectedTab === "cp"}
-      key="cp"
-    />);
-  }
-  if (UserHelper.checkAccess(Permissions.lessonsApi.lessons.editSchedules)) {
-    tabs.push(<NavItem
-      url="/portal/thirdParty"
-      label="External Providers"
-      icon="groups"
-      onNavigate={handleNavigate}
-      onClick={() => {
-        console.log("THIRD PARTY");
-        router.push("/portal/thirdParty");
-      }}
-      selected={selectedTab === "external"}
-      key="external"
-    />);
-  }
+
+    if (UserHelper.checkAccess?.(Permissions.lessonsApi.lessons.edit)) {
+      newTabs.push(<NavItem
+        url="/admin"
+        label="Admin"
+        icon="admin_panel_settings"
+        onNavigate={handleNavigate}
+        onClick={() => {
+          router.push("/admin");
+        }}
+        selected={selectedTab === "admin"}
+        key="admin"
+      />);
+    }
+
+    if (UserHelper.checkAccess?.(Permissions.lessonsApi.lessons.editSchedules)) {
+      newTabs.push(<NavItem
+        url="/portal"
+        label="Schedules"
+        icon="calendar_month"
+        onNavigate={handleNavigate}
+        onClick={() => {
+          router.push("/portal");
+        }}
+        selected={selectedTab === "cp"}
+        key="cp"
+      />);
+    }
+
+    if (UserHelper.checkAccess?.(Permissions.lessonsApi.lessons.editSchedules)) {
+      newTabs.push(<NavItem
+        url="/portal/thirdParty"
+        label="External Providers"
+        icon="groups"
+        onNavigate={handleNavigate}
+        onClick={() => {
+          console.log("THIRD PARTY");
+          router.push("/portal/thirdParty");
+        }}
+        selected={selectedTab === "external"}
+        key="external"
+      />);
+    }
+
+    setTabs(newTabs);
+  }, [isClient, selectedTab]);
 
   const navContent = (
     <>
@@ -108,7 +138,6 @@ export const Wrapper: React.FC<Props> = props => {
       <PortalHeader />
 
       <div style={{ width: "100%" }}>
-        <div id="appBarSpacer"></div>
         {props.children}
       </div>
     </ThemeProvider>

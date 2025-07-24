@@ -82,7 +82,6 @@ body {
 }
 
 /* Typography */
-h1,
 h2,
 h3,
 h4,
@@ -93,12 +92,61 @@ h6 {
   line-height: var(--line-height-tight);
 }
 
+#page-header-text h4 {
+  color:#FFF;
+}
+
 #banner h1,
 #banner h2,
 #banner h3,
 #banner h4,
 #banner h5,
 #banner h6 {
+  color: #fff !important;
+}
+
+/* PageHeader from @churchapps/apphelper should have white h1 text */
+.MuiBox-root[style*="var(--c1l2)"] h1,
+.MuiBox-root[style*="var(--c1l2)"] h2,
+.MuiBox-root[style*="var(--c1l2)"] h3,
+.MuiBox-root[style*="var(--c1l2)"] h4,
+.MuiBox-root[style*="var(--c1l2)"] h5,
+.MuiBox-root[style*="var(--c1l2)"] h6,
+/* More specific selectors for PageHeader */
+.MuiBox-root[style*="background: var(--c1l2)"] h1,
+.MuiBox-root[style*="background: var(--c1l2)"] h2,
+.MuiBox-root[style*="background: var(--c1l2)"] h3,
+.MuiBox-root[style*="background: var(--c1l2)"] h4,
+.MuiBox-root[style*="background: var(--c1l2)"] h5,
+.MuiBox-root[style*="background: var(--c1l2)"] h6,
+/* Even more specific for any blue background header */
+.MuiBox-root[style*="#568bda"] h1,
+.MuiBox-root[style*="#568bda"] h2,
+.MuiBox-root[style*="#568bda"] h3,
+.MuiBox-root[style*="#568bda"] h4,
+.MuiBox-root[style*="#568bda"] h5,
+.MuiBox-root[style*="#568bda"] h6,
+/* Universal PageHeader selector */
+.MuiBox-root[style*="color: white"] h1,
+.MuiBox-root[style*="color: white"] h2,
+.MuiBox-root[style*="color: white"] h3,
+.MuiBox-root[style*="color: white"] h4,
+.MuiBox-root[style*="color: white"] h5,
+.MuiBox-root[style*="color: white"] h6,
+/* Very specific selector for any blue header container */
+div[style*="background"][style*="color: white"] h1,
+div[style*="background"][style*="color: white"] h2,
+div[style*="background"][style*="color: white"] h3,
+div[style*="background"][style*="color: white"] h4,
+div[style*="background"][style*="color: white"] h5,
+div[style*="background"][style*="color: white"] h6,
+/* Target MUI Typography components in header areas */
+.MuiBox-root[style*="background"] .MuiTypography-h4,
+.MuiBox-root[style*="background"] .MuiTypography-h1,
+.MuiBox-root[style*="background"] .MuiTypography-h2,
+.MuiBox-root[style*="background"] .MuiTypography-h3,
+.MuiBox-root[style*="background"] .MuiTypography-h5,
+.MuiBox-root[style*="background"] .MuiTypography-h6 {
   color: #fff !important;
 }
 

@@ -1,7 +1,7 @@
 import { Metadata } from "next";
 import { unstable_cache } from "next/cache";
 import React from "react";
-import { ApiHelper } from "@churchapps/apphelper/dist/helpers/ApiHelper";
+import { ApiHelper } from "@churchapps/apphelper";
 import Error from "@/components/Error";
 import { EnvironmentHelper } from "@/helpers";
 import { MetaHelper } from "@/helpers/MetaHelper";

@@ -6,6 +6,5 @@ export { FormField } from "./FormField";
 export { SectionHeader } from "./SectionHeader";
 
 // Re-export existing design system components
-export { PageHeader } from "../admin/PageHeader";
 export { StatusChip } from "../admin/StatusChip";
 export { ContentCard } from "../admin/ContentCard";

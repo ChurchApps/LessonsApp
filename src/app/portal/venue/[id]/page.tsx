@@ -93,7 +93,7 @@ export default function Venue() {
       ApiHelper.get("/actions/public/lesson/" + v.lessonId, "LessonsApi").then((data: any) => {
         setActions(data);
       });
-      ApiHelper.get("/customizations/venue/" + v.id + "?classroomId=" + classroomId, "LessonsApi").then(data =>
+      ApiHelper.get("/customizations/venue/" + v.id + "?classroomId=" + classroomId, "LessonsApi").then((data: CustomizationInterface[]) =>
         setCustomizations(data));
     });
   }
@@ -122,7 +122,7 @@ export default function Venue() {
       };
       await ApiHelper.post("/customizations", [c], "LessonsApi");
     }
-    ApiHelper.get("/customizations/venue/" + venue.id + "?classroomId=" + classroomId, "LessonsApi").then(data =>
+    ApiHelper.get("/customizations/venue/" + venue.id + "?classroomId=" + classroomId, "LessonsApi").then((data: CustomizationInterface[]) =>
       setCustomizations(data));
   };
 
@@ -162,7 +162,7 @@ export default function Venue() {
     itemCust.actionContent = swapSort;
 
     await ApiHelper.post("/customizations", [itemCust, swapCust], "LessonsApi");
-    ApiHelper.get("/customizations/venue/" + venue.id + "?classroomId=" + classroomId, "LessonsApi").then(data =>
+    ApiHelper.get("/customizations/venue/" + venue.id + "?classroomId=" + classroomId, "LessonsApi").then((data: CustomizationInterface[]) =>
       setCustomizations(data));
   };
 

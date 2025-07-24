@@ -1,6 +1,6 @@
 "use client";
 
-import { MarkdownPreviewLight } from "@churchapps/apphelper/dist/components/markdownEditor/MarkdownPreviewLight";
+import { MarkdownPreviewLight } from "@churchapps/apphelper-markdown";
 
 interface Props {
   value: string;

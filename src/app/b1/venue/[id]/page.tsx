@@ -2,7 +2,7 @@
 
 import { useParams, useSearchParams } from "next/navigation";
 import React, { useEffect } from "react";
-import { ApiHelper } from "@churchapps/apphelper/dist/helpers/ApiHelper";
+import { ApiHelper } from "@churchapps/apphelper";
 import { ClassroomInterface,
   CustomizationInterface,
   FeedVenueInterface,
