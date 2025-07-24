@@ -16,6 +16,9 @@
     "analyze:browser": "ANALYZE=true BUNDLE_ANALYZE=browser next build",
     "postinstall": "copyfiles -a -f node_modules/@churchapps/apphelper/public/locales/** public/apphelper/locales && copyfiles -a -f node_modules/@churchapps/apphelper/public/css/** public/apphelper/css"
   },
+  "engines": {
+    "node": ">=20.0.0"
+  },
   "dependencies": {
     "@churchapps/apphelper": "^0.4.20",
     "@churchapps/apphelper-login": "^0.4.18",
