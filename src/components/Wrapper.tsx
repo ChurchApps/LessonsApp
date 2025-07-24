@@ -32,7 +32,7 @@ export const Wrapper: React.FC<Props> = props => {
     if (isClient && typeof window !== "undefined") {
       const path = window.location.pathname;
       const isPortalRoute = path.startsWith("/portal") || path.startsWith("/admin");
-      
+
       if (isPortalRoute && !ApiHelper.isAuthenticated) {
         const returnUrl = encodeURIComponent(path);
         router.push(`/login?returnUrl=${returnUrl}`);

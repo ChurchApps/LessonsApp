@@ -102,18 +102,17 @@ export default function ThirdParty() {
           icon={<ExtensionIcon />}
           title="External Lesson Providers"
           subtitle="Integrate third-party content sources"
-          actions={
-            providers.length > 0
-              ? [<Button
-                variant="outlined"
-                color="inherit"
-                startIcon={<AddIcon />}
-                onClick={() => setEditProvider({})}>
-                    Add Provider
-              </Button>]
-              : []
-          }
-        />
+        >
+          {providers.length > 0 && (
+            <Button
+              variant="outlined"
+              color="inherit"
+              startIcon={<AddIcon />}
+              onClick={() => setEditProvider({})}>
+                Add Provider
+            </Button>
+          )}
+        </PageHeader>
 
         <Paper
           sx={{

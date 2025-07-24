@@ -45,7 +45,7 @@ export default function LessonsPage() {
   const loadPresenterData = () => {
     AnalyticsHelper.logEvent("Presenter", "Start", selectedVenue.name);
     const url = `/externalProviders/playlist/${lessonData.providerId}/${lessonData.programId}/${lessonData.studyId}/${lessonData.lessonId}/${lessonData.venueId}`;
-    ApiHelper.get(url, "LessonsApi").then(data => {
+    ApiHelper.get(url, "LessonsApi").then((data: any) => {
       const result: PlaylistFileInterface[] = [];
       data?.messages?.forEach((m: any) => {
         m.files?.forEach((f: PlaylistFileInterface) => {

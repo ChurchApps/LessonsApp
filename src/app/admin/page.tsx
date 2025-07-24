@@ -515,8 +515,9 @@ export default function Admin() {
         icon={<SchoolIcon />}
         title="Program Management"
         subtitle="Manage programs, studies, and lessons for your curriculum"
-        actions={headerActions}
-      />
+      >
+        {headerActions}
+      </PageHeader>
 
       <Container maxWidth="xl" sx={{ p: 3, backgroundColor: "var(--admin-bg)" }}>
         {/* Edit Panel - appears at top when editing */}

@@ -1,6 +1,6 @@
 "use client";
 
-import { redirect, useRouter } from "next/navigation";
+import { useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import { useCookies } from "react-cookie";
 import { ApiHelper, UserHelper } from "@churchapps/apphelper";

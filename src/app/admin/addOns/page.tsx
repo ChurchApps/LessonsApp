@@ -124,15 +124,15 @@ export default function Admin() {
           icon={<ExtensionIcon />}
           title="Add-ons"
           subtitle="Manage additional content and media resources"
-          actions={[<Button
-            key="add"
+        >
+          <Button
             variant="outlined"
             color="inherit"
             startIcon={<AddIcon />}
             onClick={handleAddNew}>
               Add New Add-on
-          </Button>]}
-        />
+          </Button>
+        </PageHeader>
 
         <Paper
           sx={{

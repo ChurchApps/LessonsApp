@@ -38,14 +38,14 @@ export default function Venue() {
 
   const loadData = async () => {
     if (id) {
-      ApiHelper.get("/programs/public", "LessonsApi").then(p => setPrograms(p));
+      ApiHelper.get("/programs/public", "LessonsApi").then((p: ProgramInterface[]) => setPrograms(p));
 
       const c = await ApiHelper.get("/classrooms/" + id, "LessonsApi");
       setClassroom(c);
 
-      ApiHelper.get("/churches/" + c.churchId, "MembershipApi").then(ch => {
+      ApiHelper.get("/churches/" + c.churchId, "MembershipApi").then((ch: ChurchInterface) => {
         setChurch(ch);
-        ApiHelper.get("/settings/public/" + ch.id, "MembershipApi").then(set => setChurchSettings(set));
+        ApiHelper.get("/settings/public/" + ch.id, "MembershipApi").then((set: any[]) => setChurchSettings(set));
       });
 
       const s = await ApiHelper.get("/schedules/public/classroom/" + c.id, "LessonsApi");

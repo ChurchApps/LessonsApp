@@ -402,8 +402,8 @@ export default function Venue() {
           icon={<LocationIcon />}
           title={`${lesson?.name || 'Lesson'}: ${venue?.name || 'Venue'}`}
           subtitle="Manage sections, roles, and actions for this venue"
-          actions={[<IconButton
-            key="add-menu"
+        >
+          <IconButton
             onClick={handleAddMenuClick}
             sx={{
               color: 'white',
@@ -414,8 +414,8 @@ export default function Venue() {
               }
             }}>
             <AddIcon />
-          </IconButton>]}
-        />
+          </IconButton>
+        </PageHeader>
 
         <Paper
           sx={{

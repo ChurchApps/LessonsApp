@@ -49,10 +49,10 @@ export default function Admin() {
 
   const filterResults = () => {
     const dateString = "?startDate=" + DateHelper.formatHtml5Date(startDate) + "&endDate=" + DateHelper.formatHtml5Date(endDate);
-    ApiHelper.get("/downloads/" + programId + "/studies" + dateString, "LessonsApi").then(d => setStudies(d));
+    ApiHelper.get("/downloads/" + programId + "/studies" + dateString, "LessonsApi").then((d: StudyStatsInterface[]) => setStudies(d));
     ApiHelper.get("/downloads/" + programId + "/churches" + dateString, "LessonsApi").then((churchList: ChurchInterface[]) => {
       const ids = ArrayHelper.getIds(churchList, "churchId");
-      ApiHelper.post("/churches/byIds", ids, "MembershipApi").then(d => setChurches(d));
+      ApiHelper.post("/churches/byIds", ids, "MembershipApi").then((d: ChurchInterface[]) => setChurches(d));
     });
   };
 
