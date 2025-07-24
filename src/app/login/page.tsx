@@ -1,44 +1,61 @@
 "use client";
 
 import { redirect, useRouter } from "next/navigation";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useCookies } from "react-cookie";
 import { ApiHelper, UserHelper } from "@churchapps/apphelper";
 import { LoginPage } from "@churchapps/apphelper-login";
 import { Layout } from "@/components";
 import { useUser } from "../context/UserContext";
 
-export default function Login(params: any) {
+export default function Login() {
   const [cookies] = useCookies();
   const router = useRouter();
-
-  const returnUrl = params.searchParams.returnUrl ? params.searchParams.returnUrl.toString() : "/portal";
+  const [searchParams, setSearchParams] = useState<{ [key: string]: string }>({});
+  const [isClient, setIsClient] = useState(false);
 
   const context = useUser();
 
+  // Extract search params on client side
+  useEffect(() => {
+    setIsClient(true);
+    if (typeof window !== "undefined") {
+      const urlParams = new URLSearchParams(window.location.search);
+      const params: { [key: string]: string } = {};
+      urlParams.forEach((value, key) => {
+        params[key] = value;
+      });
+      setSearchParams(params);
+    }
+  }, []);
+
+  const returnUrl = searchParams.returnUrl || "/portal";
+
   console.log("CONTExT IS", context);
-  console.log("Params are", params.searchParams);
+  console.log("Search Params are", searchParams);
   console.log("Return Url is", returnUrl);
 
-  if (ApiHelper.isAuthenticated && UserHelper.currentUserChurch) {
-    context.setUser(UserHelper.user);
-    context.setPerson(UserHelper.person);
-    context.setUserChurch(UserHelper.currentUserChurch);
-    context.setUserChurches(UserHelper.userChurches);
+  useEffect(() => {
+    if (isClient && ApiHelper.isAuthenticated && UserHelper.currentUserChurch) {
+      context.setUser(UserHelper.user);
+      context.setPerson(UserHelper.person);
+      context.setUserChurch(UserHelper.currentUserChurch);
+      context.setUserChurches(UserHelper.userChurches);
 
-    redirect(returnUrl);
-  }
+      router.push(returnUrl);
+    }
+  }, [isClient, returnUrl, context, router]);
 
   const handleRedirect = (url: string) => {
     router.push(url);
   };
 
-  const appUrl = process.browser ? window.location.href : "";
+  const appUrl = isClient ? window.location.href : "";
   let jwt: string = "",
     auth: string = "";
-  if (!ApiHelper.isAuthenticated) {
-    auth = params.searchParams.auth as string;
-    jwt = params.searchParams.jwt || cookies.jwt;
+  if (isClient && !ApiHelper.isAuthenticated) {
+    auth = searchParams.auth || "";
+    jwt = searchParams.jwt || cookies.jwt || "";
   }
   console.log("JWT IS", jwt);
 
