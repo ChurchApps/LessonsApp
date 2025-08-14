@@ -67,7 +67,7 @@ const Venue = React.memo(({ hidePrint = true, ...props }: Props) => {
       });
     }
 
-    return <div style={{ display: "inline-block" }}>{sections}</div>;
+    return <div style={{ width: "100%", maxWidth: "100%", overflow: "hidden" }}>{sections}</div>;
   }, [customSections, shouldHide, handleToggle, activeSectionId, props.customizations, props.venue?.sections]);
 
   const getPrintSections = React.useCallback(() => {
