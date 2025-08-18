@@ -4,7 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import Container from "@mui/material/Container";
 import Grid from "@mui/material/Grid";
-import { ApiHelper } from "@churchapps/apphelper/dist/helpers/ApiHelper";
+import { ApiHelper } from "@churchapps/apphelper";
 import { HeaderWrapper } from "@/app/components/HeaderWrapper";
 import { MarkdownWrapper } from "@/app/components/MarkdownWrapper";
 import Error from "@/components/Error";

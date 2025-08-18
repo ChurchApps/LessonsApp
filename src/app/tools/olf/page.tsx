@@ -5,7 +5,7 @@ import { Suspense } from "react";
 import { Build as BuildIcon } from "@mui/icons-material";
 import { Box, Paper } from "@mui/material";
 import { Wrapper } from "@/components/Wrapper";
-import { PageHeader } from "@/components/admin";
+import { PageHeader } from "@churchapps/apphelper";
 
 const OlfInner = dynamic(() => import("./components/OlfInner"), {
   loading: () => <div>Loading lesson builder...</div>

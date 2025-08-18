@@ -2,7 +2,7 @@ import { Metadata } from "next";
 import Link from "next/link";
 import React from "react";
 import { Container } from "@mui/material";
-import { ApiHelper } from "@churchapps/apphelper/dist/helpers/ApiHelper";
+import { ApiHelper } from "@churchapps/apphelper";
 import { Layout } from "@/components/Layout";
 import { MetaHelper } from "@/helpers/MetaHelper";
 

@@ -45,10 +45,10 @@ export function AssetEdit(props: Props) {
   const handleFileSaved = (file: FileInterface) => {
     const v = { ...asset };
     v.fileId = file.id;
-    ApiHelper.post("/assets", [v], "LessonsApi").then(data => {
-      setAsset(data);
+    ApiHelper.post("/assets", [v], "LessonsApi").then((data: AssetInterface[]) => {
+      setAsset(data[0]);
       setPendingFileSave(false);
-      props.updatedCallback(data);
+      props.updatedCallback(data[0]);
     });
   };
 

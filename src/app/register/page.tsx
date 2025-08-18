@@ -2,7 +2,8 @@
 
 import { useRouter } from "next/navigation";
 import React from "react";
-import { ApiHelper, ErrorMessages, Register, UserHelper } from "@churchapps/apphelper";
+import { ApiHelper, ErrorMessages, UserHelper } from "@churchapps/apphelper";
+import { Register } from "@churchapps/apphelper-login";
 import { Layout } from "@/components";
 
 export default function RegisterPage() {

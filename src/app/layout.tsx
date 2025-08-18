@@ -14,6 +14,13 @@ export const metadata = {
   description: "Free church curriculum for children, youth, and adults."
 };
 
+export const viewport = {
+  width: 'device-width',
+  initialScale: 1,
+  maximumScale: 1,
+  userScalable: false,
+};
+
 export default async function RootLayout({ children }: { children: React.ReactNode }) {
   EnvironmentHelper.init();
   await EnvironmentHelper.initLocale();
@@ -41,7 +48,6 @@ export default async function RootLayout({ children }: { children: React.ReactNo
       </head>
       <body>
         <ClientLayout>{children}</ClientLayout>
-        <script type="text/javascript" id="hs-script-loader" async defer src="//js.hs-scripts.com/20077299.js"></script>
       </body>
     </html>
   );

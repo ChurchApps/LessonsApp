@@ -6,7 +6,7 @@ import { Add as AddIcon, Assessment as StatsIcon, Book as BookIcon, Clear as Cle
 import { Box, Button, Container, IconButton, Paper, Stack, Typography } from "@mui/material";
 import { Loading } from "@churchapps/apphelper";
 import { BundleList, ErrorBoundary, LessonEdit, ProgramEdit, StudyEdit, VenueList } from "@/components";
-import { PageHeader } from "@/components/admin/PageHeader";
+import { PageHeader } from "@churchapps/apphelper";
 import { Wrapper } from "@/components/Wrapper";
 import { ApiHelper, ArrayHelper, LessonInterface, ProgramInterface, ProviderInterface, StudyInterface } from "@/helpers";
 import { revalidate } from "../actions";
@@ -515,8 +515,9 @@ export default function Admin() {
         icon={<SchoolIcon />}
         title="Program Management"
         subtitle="Manage programs, studies, and lessons for your curriculum"
-        actions={headerActions}
-      />
+      >
+        {headerActions}
+      </PageHeader>
 
       <Container maxWidth="xl" sx={{ p: 3, backgroundColor: "var(--admin-bg)" }}>
         {/* Edit Panel - appears at top when editing */}

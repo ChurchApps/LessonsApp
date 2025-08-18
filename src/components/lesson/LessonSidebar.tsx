@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Container, Icon, Menu, MenuItem, Select } from "@mui/material";
-import { B1ShareModal, MarkdownPreviewLight } from "@churchapps/apphelper";
+// import { B1ShareModal } from "@churchapps/apphelper"; // B1ShareModal has been removed from the split packages
+import { MarkdownPreviewLight } from "@churchapps/apphelper-markdown";
 import { ArrayHelper, FeedVenueInterface } from "@/helpers";
 import { OlfPrintPreview } from "../open-lesson/OlfPrintPreview";
 import { Downloads } from "./Downloads";
@@ -142,6 +143,7 @@ const LessonSidebar = React.memo((props: Props) => {
             <MenuItem onClick={handleB1Share}>Share to B1 Group</MenuItem>
             <MenuItem onClick={handleExport}>Export to OLF</MenuItem>
           </Menu>
+          {/* B1ShareModal has been removed from the split packages
           {showB1Share && (
             <B1ShareModal
               contentDisplayName={props.selectedVenue.name}
@@ -151,7 +153,7 @@ const LessonSidebar = React.memo((props: Props) => {
                 setShowB1Share(false);
               }}
             />
-          )}
+          )} */}
 
           <h3>Sections</h3>
           <ul>{sectionLinks}</ul>

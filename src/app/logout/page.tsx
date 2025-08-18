@@ -1,7 +1,7 @@
 "use client";
 
 import { Container } from "@mui/material";
-import { LogoutPage } from "@churchapps/apphelper";
+import { LogoutPage } from "@churchapps/apphelper-login";
 import { Layout } from "@/components";
 
 export default function Logout() {

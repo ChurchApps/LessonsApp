@@ -15,7 +15,8 @@ import { Box,
   Stack,
   TextField,
   Typography } from "@mui/material";
-import { ErrorMessages, GroupInterface } from "@churchapps/apphelper";
+import { ErrorMessages } from "@churchapps/apphelper";
+import { GroupInterface } from "@churchapps/helpers";
 import { ApiHelper, ClassroomInterface } from "@/helpers";
 
 interface Props {

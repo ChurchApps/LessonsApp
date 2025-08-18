@@ -2,8 +2,7 @@
 
 import { useState } from "react";
 import Icon from "@mui/material/Icon";
-import { AnalyticsHelper } from "@churchapps/apphelper/dist/helpers/AnalyticsHelper";
-import { ApiHelper } from "@churchapps/apphelper/dist/helpers/ApiHelper";
+import { AnalyticsHelper, ApiHelper } from "@churchapps/apphelper";
 import { Presenter } from "@/components/Presenter";
 import { PlaylistFileInterface,
   PlaylistMessageInterface,

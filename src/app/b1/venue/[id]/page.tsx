@@ -2,7 +2,8 @@
 
 import { useParams, useSearchParams } from "next/navigation";
 import React, { useEffect } from "react";
-import { ApiHelper } from "@churchapps/apphelper/dist/helpers/ApiHelper";
+import { ApiHelper } from "@churchapps/apphelper";
+import { EnvironmentHelper } from "@/helpers/EnvironmentHelper";
 import { ClassroomInterface,
   CustomizationInterface,
   FeedVenueInterface,
@@ -29,6 +30,7 @@ export default function B1Venue() {
   };
 
   const loadData = async () => {
+    EnvironmentHelper.init();
     let search = new URLSearchParams(process.browser ? window.location.search : "");
     const externalProviderId = search.get("externalProviderId");
     let venue: FeedVenueInterface = null;

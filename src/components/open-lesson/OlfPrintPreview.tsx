@@ -1,7 +1,7 @@
 import React, { useRef, useState } from "react";
 import { useReactToPrint } from "react-to-print";
 import { Box, Dialog, DialogActions, DialogContent, DialogTitle, Grid, Tab, Tabs } from "@mui/material";
-import { SmallButton } from "@churchapps/apphelper/dist/components/SmallButton";
+import { SmallButton } from "@churchapps/apphelper";
 import { FeedVenueInterface } from "@/helpers";
 import { Section } from "../lesson/Section";
 import { OlfPrint } from "./OlfPrint";

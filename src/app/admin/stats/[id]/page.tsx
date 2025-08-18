@@ -7,7 +7,7 @@ import { Box, Grid, Paper, Stack, TextField, Typography, Button } from "@mui/mat
 import { BarChart as BarChartIcon, FilterList as FilterIcon, Map as MapIcon, Business as BusinessIcon } from "@mui/icons-material";
 import { ArrayHelper, ChurchInterface, DateHelper } from "@churchapps/apphelper";
 import { Wrapper } from "@/components/Wrapper";
-import { PageHeader } from "@/components/admin";
+import { PageHeader } from "@churchapps/apphelper";
 import { ApiHelper, ProgramInterface, StudyStatsInterface } from "@/helpers";
 
 const Map = dynamic(() => import("@/components/admin/Map").then(mod => ({ default: mod.Map })), {
@@ -49,10 +49,10 @@ export default function Admin() {
 
   const filterResults = () => {
     const dateString = "?startDate=" + DateHelper.formatHtml5Date(startDate) + "&endDate=" + DateHelper.formatHtml5Date(endDate);
-    ApiHelper.get("/downloads/" + programId + "/studies" + dateString, "LessonsApi").then(d => setStudies(d));
+    ApiHelper.get("/downloads/" + programId + "/studies" + dateString, "LessonsApi").then((d: StudyStatsInterface[]) => setStudies(d));
     ApiHelper.get("/downloads/" + programId + "/churches" + dateString, "LessonsApi").then((churchList: ChurchInterface[]) => {
       const ids = ArrayHelper.getIds(churchList, "churchId");
-      ApiHelper.post("/churches/byIds", ids, "MembershipApi").then(d => setChurches(d));
+      ApiHelper.post("/churches/byIds", ids, "MembershipApi").then((d: ChurchInterface[]) => setChurches(d));
     });
   };
 

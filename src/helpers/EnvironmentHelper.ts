@@ -1,8 +1,4 @@
-import { ApiHelper } from "@churchapps/apphelper/dist/helpers/ApiHelper";
-import { CommonEnvironmentHelper } from "@churchapps/apphelper/dist/helpers/CommonEnvironmentHelper";
-import { Locale } from "@churchapps/apphelper/dist/helpers/Locale";
-
-//import { CommonEnvironmentHelper, Locale } from "@churchapps/apphelper";
+import { ApiHelper, CommonEnvironmentHelper, Locale } from "@churchapps/apphelper";
 
 export class EnvironmentHelper {
   private static LessonsApi = "";
