@@ -17,7 +17,11 @@ export function PresenterLink(props: Props) {
   const [presenterFiles, setPresenterFiles] = useState<PlaylistFileInterface[]>(null);
 
   const loadPresenterData = async () => {
-    AnalyticsHelper.logEvent("Presenter", "Start", props.selectedVenue.name);
+    try {
+      AnalyticsHelper.logEvent("Presenter", "Start", props.selectedVenue.name);
+    } catch (error) {
+      console.warn('Analytics logging failed:', error);
+    }
     ApiHelper.get("/venues/playlist/" + props.selectedVenue.id + "?mode=web", "LessonsApi").then((data: PlaylistResponseInterface) => {
       const result: PlaylistFileInterface[] = [];
       data?.messages?.forEach((m: PlaylistMessageInterface) => {
@@ -32,7 +36,7 @@ export function PresenterLink(props: Props) {
   return (
     <>
       <a
-        href="about:blank"
+        href="#"
         onClick={e => {
           e.preventDefault();
           loadPresenterData();
