@@ -29,7 +29,7 @@ const Programs = React.memo((props: Props) => {
               />
             </Link>
           ) : null;
-      result.push(<Grid item md={2} sm={4} xs={4} key={i}>
+      result.push(<Grid size={{ md: 2, sm: 4, xs: 4 }} key={i}>
         {link}
       </Grid>);
     }
@@ -47,7 +47,7 @@ const Programs = React.memo((props: Props) => {
         <div className="programHeroContent">
           <Container fixed>
             <Grid container spacing={3}>
-              <Grid item md={9} xs={12}>
+              <Grid size={{ md: 9, xs: 12 }}>
                 <div className="age">{program.age?.toUpperCase()}</div>
                 <h2>{program.name}</h2>
                 <p style={{ width: "67%" }}>{program.shortDescription}</p>

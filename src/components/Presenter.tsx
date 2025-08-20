@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import Carousel from "react-material-ui-carousel";
+import { SimpleCarousel } from "./SimpleCarousel";
 import { PlaylistFileInterface } from "@/helpers";
 import { PresenterSlide } from "./PresenterSlide";
 
@@ -49,7 +49,7 @@ export function Presenter(props: Props) {
 
   return (
     <div id="presenter">
-      <Carousel
+      <SimpleCarousel
         height={"100vh"}
         autoPlay={false}
         fullHeightHover={true}
@@ -61,7 +61,7 @@ export function Presenter(props: Props) {
         {props.files.map((f, i) => (
           <div key={i}>{i === index ? <PresenterSlide file={f} /> : <div></div>}</div>
         ))}
-      </Carousel>
+      </SimpleCarousel>
     </div>
   );
 }

@@ -108,7 +108,7 @@ export default function Admin() {
             minHeight: "calc(100vh - 200px)"
           }}>
           <Grid container spacing={3}>
-            <Grid item md={8} xs={12}>
+            <Grid size={{ md: 8, xs: 12 }}>
               <Paper
                 sx={{
                   borderRadius: 2,
@@ -192,7 +192,7 @@ export default function Admin() {
               </Paper>
             </Grid>
 
-            <Grid item md={4} xs={12}>
+            <Grid size={{ md: 4, xs: 12 }}>
               <Paper
                 sx={{
                   borderRadius: 2,

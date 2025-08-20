@@ -460,7 +460,7 @@ export default function OllInner() {
     return (
       <>
         <Grid container spacing={3}>
-          <Grid item md={8} xs={12}>
+          <Grid size={{ md: 8, xs: 12 }}>
             <Paper
               sx={{
                 borderRadius: 2,
@@ -516,7 +516,7 @@ export default function OllInner() {
               </Box>
             </Paper>
           </Grid>
-          <Grid item md={4} xs={12}>
+          <Grid size={{ md: 4, xs: 12 }}>
             {editProgram && <OllProgramEdit program={editProgram} updatedCallback={handleProgramSave} />}
             {editStudy && <OllStudyEdit study={editStudy} updatedCallback={handleStudySave} />}
             {editLesson && <OllLessonEdit lesson={editLesson} updatedCallback={handleLessonSave} />}

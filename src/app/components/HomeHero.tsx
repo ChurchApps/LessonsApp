@@ -22,7 +22,7 @@ export function HomeHero(props: Props) {
   const getLeftContent = () => (
     <>
       <Grid container spacing={3}>
-        <Grid item md={7} xs={12}>
+        <Grid size={{ md: 7, xs: 12 }}>
           <Slide direction="up" in={true} timeout={800}>
             <Fade in={true} timeout={800}>
               <div>
@@ -71,10 +71,10 @@ export function HomeHero(props: Props) {
       <Container fixed>
         {getAppBar()}
         <Grid container spacing={3}>
-          <Grid item md={10} xs={12}>
+          <Grid size={{ md: 10, xs: 12 }}>
             {getLeftContent()}
           </Grid>
-          <Grid item md={2} xs={12}>
+          <Grid size={{ md: 2, xs: 12 }}>
             {getAges()}
           </Grid>
         </Grid>

@@ -10,10 +10,10 @@ export function HomeAbout() {
     <div className="homeSection" id="aboutSection">
       <Container fixed>
         <Grid container spacing={3}>
-          <Grid item md={6} sm={12}>
+          <Grid size={{ md: 6, sm: 12 }}>
             <div className="video-container">{video}</div>
           </Grid>
-          <Grid item md={6} sm={12}>
+          <Grid size={{ md: 6, sm: 12 }}>
             <div className="title">
               <span>Who we are</span>
             </div>

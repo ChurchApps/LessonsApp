@@ -1,6 +1,7 @@
 import React, { useState } from "react";
-import { Accordion, AccordionDetails, AccordionSummary, Icon, Menu, MenuItem } from "@mui/material";
-import { DisplayBox, Loading, SmallButton } from "@churchapps/apphelper";
+import { Accordion, AccordionDetails, AccordionSummary, Box, Icon, Menu, MenuItem, Paper, Stack, Typography } from "@mui/material";
+import { FileUpload as FilesIcon } from "@mui/icons-material";
+import { Loading, SmallButton } from "@churchapps/apphelper";
 import { ApiHelper,
   ArrayHelper,
   AssetInterface,
@@ -380,13 +381,42 @@ export const BundleList: React.FC<Props> = props => {
   } else {
     return (
       <>
-        <DisplayBox
-          id="resourcesBox"
-          headerText={props.contentDisplayName}
-          headerIcon="folder_zip"
-          editContent={getEditContent()}>
-          {getAccordion()}
-        </DisplayBox>
+        <Paper
+          sx={{
+            borderRadius: 2,
+            border: "1px solid var(--admin-border)",
+            boxShadow: "var(--admin-shadow-sm)",
+            overflow: "hidden"
+          }}>
+          <Box
+            sx={{
+              p: 2,
+              borderBottom: "1px solid var(--admin-border)",
+              backgroundColor: "var(--c1l7)",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "space-between"
+            }}>
+            <Stack direction="row" alignItems="center" spacing={1}>
+              <FilesIcon sx={{ color: "var(--c1d2)", fontSize: "1.5rem" }} />
+              <Typography
+                variant="h6"
+                sx={{
+                  color: "var(--c1d2)",
+                  fontWeight: 600,
+                  lineHeight: 1,
+                  fontSize: "1.25rem"
+                }}>
+                {props.contentDisplayName} Files
+              </Typography>
+            </Stack>
+            {getEditContent()}
+          </Box>
+
+          <Box sx={{ p: 2 }}>
+            {getAccordion()}
+          </Box>
+        </Paper>
       </>
     );
   }

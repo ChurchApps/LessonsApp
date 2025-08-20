@@ -182,7 +182,7 @@ const LessonEdit = React.memo((props: Props) => {
 
           <Grid container spacing={3}>
             {/* Left Column - Form Fields */}
-            <Grid item xs={12} md={8}>
+            <Grid size={{ xs: 12, md: 8 }}>
               <Stack spacing={3}>
                 <Box sx={{ display: 'flex', gap: 2 }}>
                   <FormControl fullWidth>
@@ -292,7 +292,7 @@ const LessonEdit = React.memo((props: Props) => {
             </Grid>
 
             {/* Right Column - Image */}
-            <Grid item xs={12} md={4}>
+            <Grid size={{ xs: 12, md: 4 }}>
               <Box>
                 <Typography variant="subtitle2" color="text.secondary" sx={{ mb: 1 }}>Lesson Image</Typography>
                 {showImageEditor ? (

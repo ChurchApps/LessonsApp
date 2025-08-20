@@ -170,7 +170,7 @@ export function VenueClient(props: Props) {
             </Box>
 
             <Grid container spacing={isMobile ? 1 : 2} sx={{ mb: 3 }}>
-              <Grid item xs={12} sm={4}>
+              <Grid size={{ xs: 12, sm: 4 }}>
                 {props.prevSchedule && (
                   <Box sx={{
                     textAlign: isMobile ? 'left' : 'left',
@@ -185,7 +185,7 @@ export function VenueClient(props: Props) {
                   </Box>
                 )}
               </Grid>
-              <Grid item xs={12} sm={4}>
+              <Grid size={{ xs: 12, sm: 4 }}>
                 {props.currentSchedule && (
                   <Box sx={{
                     textAlign: 'center',
@@ -196,7 +196,7 @@ export function VenueClient(props: Props) {
                   </Box>
                 )}
               </Grid>
-              <Grid item xs={12} sm={4}>
+              <Grid size={{ xs: 12, sm: 4 }}>
                 {props.nextSchedule && (
                   <Box sx={{
                     textAlign: isMobile ? 'left' : 'right',

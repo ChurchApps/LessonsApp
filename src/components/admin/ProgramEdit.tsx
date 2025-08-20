@@ -165,7 +165,7 @@ export function ProgramEdit(props: Props) {
 
           <Grid container spacing={3}>
             {/* Left Column - Form Fields */}
-            <Grid item xs={12} md={8}>
+            <Grid size={{ xs: 12, md: 8 }}>
               <Stack spacing={3}>
                 <FormControl fullWidth>
                   <InputLabel>Live</InputLabel>
@@ -263,7 +263,7 @@ export function ProgramEdit(props: Props) {
             </Grid>
 
             {/* Right Column - Image */}
-            <Grid item xs={12} md={4}>
+            <Grid size={{ xs: 12, md: 4 }}>
               <Box>
                 <Typography variant="subtitle2" color="text.secondary" sx={{ mb: 1 }}>Program Image</Typography>
                 {showImageEditor ? (

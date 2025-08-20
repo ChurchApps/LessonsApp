@@ -304,7 +304,7 @@ export default function OlfInner() {
     return (
       <>
         <Grid container spacing={3}>
-          <Grid item md={8} xs={12}>
+          <Grid size={{ md: 8, xs: 12 }}>
             <Paper
               sx={{
                 borderRadius: 2,
@@ -338,7 +338,7 @@ export default function OlfInner() {
 
               <Box sx={{ p: 2 }}>
                 <Grid container spacing={3}>
-                  <Grid item xs={6}>
+                  <Grid size={{ xs: 6 }}>
                     <TextField
                       label="Program Name"
                       fullWidth
@@ -348,7 +348,7 @@ export default function OlfInner() {
                       placeholder="The Ark Kids"
                     />
                   </Grid>
-                  <Grid item xs={6}>
+                  <Grid size={{ xs: 6 }}>
                     <TextField
                       label="Study Name"
                       fullWidth
@@ -360,7 +360,7 @@ export default function OlfInner() {
                   </Grid>
                 </Grid>
                 <Grid container spacing={3}>
-                  <Grid item xs={6}>
+                  <Grid size={{ xs: 6 }}>
                     <TextField
                       label="Lesson Name"
                       fullWidth
@@ -370,7 +370,7 @@ export default function OlfInner() {
                       placeholder="I Can Have Peace When I'm Angry"
                     />
                   </Grid>
-                  <Grid item xs={6}>
+                  <Grid size={{ xs: 6 }}>
                     <TextField
                       label="Lesson Image"
                       fullWidth
@@ -382,13 +382,13 @@ export default function OlfInner() {
                   </Grid>
                 </Grid>
                 <Grid container spacing={3}>
-                  <Grid item xs={6}>
+                  <Grid size={{ xs: 6 }}>
                     <Typography variant="body2" sx={{ fontSize: 13, pl: 1, mb: 1, color: "var(--text-secondary)" }}>
                       Lesson Description
                     </Typography>
                     <MarkdownEditor value={data.lessonDescription || ""} onChange={handleMarkdownChange} />
                   </Grid>
-                  <Grid item xs={6}>
+                  <Grid size={{ xs: 6 }}>
                     <TextField
                       label="Venue Name"
                       fullWidth
@@ -402,7 +402,7 @@ export default function OlfInner() {
               </Box>
             </Paper>
           </Grid>
-          <Grid item md={4} xs={12}>
+          <Grid size={{ md: 4, xs: 12 }}>
             <Paper
               sx={{
                 borderRadius: 2,
@@ -470,7 +470,7 @@ export default function OlfInner() {
 
         <Box sx={{ mt: 3 }}>
           <Grid container spacing={3}>
-            <Grid item md={8} xs={12}>
+            <Grid size={{ md: 8, xs: 12 }}>
               <Paper
                 sx={{
                   borderRadius: 2,
@@ -525,7 +525,7 @@ export default function OlfInner() {
                 </Box>
               </Paper>
             </Grid>
-            <Grid item md={4} xs={12}>
+            <Grid size={{ md: 4, xs: 12 }}>
               {editAction && <OlfActionEdit action={editAction} updatedCallback={handleActionSave} />}
               {editSection && <OlfSectionEdit section={editSection} updatedCallback={handleSectionSave} />}
             </Grid>

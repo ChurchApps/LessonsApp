@@ -34,7 +34,7 @@ export default function LessonClient(props: Props) {
           <Container fixed>
             <Header position="static" />
             <Grid container spacing={2}>
-              <Grid item md={7} xs={12}>
+              <Grid size={{ md: 7, xs: 12 }}>
                 <div className="breadcrumb">
                   <Link href={"/" + selectedVenue.programSlug}>{selectedVenue.programName}</Link>:{" "}
                   <Link href={"/" + selectedVenue.programSlug + "/" + selectedVenue.studySlug}>
@@ -62,7 +62,7 @@ export default function LessonClient(props: Props) {
       </div>
 
       <Grid container spacing={2}>
-        <Grid item md={3} sm={12} style={{ backgroundColor: "#FFF" }}>
+        <Grid size={{ md: 3, sm: 12 }} style={{ backgroundColor: "#FFF" }}>
           <LessonSidebar
             venues={props.lessonData?.venues}
             selectedVenue={selectedVenue}
@@ -70,7 +70,7 @@ export default function LessonClient(props: Props) {
             onPrint={handlePrint}
           />
         </Grid>
-        <Grid item md={9} sm={12}>
+        <Grid size={{ md: 9, sm: 12 }}>
           <Container>
             <div style={{ marginTop: 60 }}>
               <ErrorBoundary>

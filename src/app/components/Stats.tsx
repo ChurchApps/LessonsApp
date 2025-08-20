@@ -36,12 +36,12 @@ export function Stats(props: Props) {
   return (
     <div style={{ marginTop: 60 }}>
       <Grid container>
-        <Grid item xs={4} sx={{ textAlign: "center" }}>
+        <Grid size={{ xs: 4 }} sx={{ textAlign: "center" }}>
           <Grid container>
-            <Grid item xs={4} className="iconBox">
+            <Grid size={{ xs: 4 }} className="iconBox">
               <img src="/images/home/programs-icon.png" alt="programs" className="img-fluid" />
             </Grid>
-            <Grid item xs={8} className="statBox">
+            <Grid size={{ xs: 8 }} className="statBox">
               <div id="providerCount" data-val={props.stats?.providers}>
                 {props.stats?.providers}
               </div>
@@ -50,12 +50,12 @@ export function Stats(props: Props) {
           </Grid>
         </Grid>
 
-        <Grid item xs={4} sx={{ textAlign: "center" }}>
+        <Grid size={{ xs: 4 }} sx={{ textAlign: "center" }}>
           <Grid container>
-            <Grid item xs={4} className="iconBox">
+            <Grid size={{ xs: 4 }} className="iconBox">
               <img src="/images/home/studies-icon.png" alt="studies" className="img-fluid" />
             </Grid>
-            <Grid item xs={8} className="statBox">
+            <Grid size={{ xs: 8 }} className="statBox">
               <div id="studyCount" data-val={props.stats?.studies}>
                 {props.stats?.studies}
               </div>
@@ -64,12 +64,12 @@ export function Stats(props: Props) {
           </Grid>
         </Grid>
 
-        <Grid item xs={4} sx={{ textAlign: "center" }}>
+        <Grid size={{ xs: 4 }} sx={{ textAlign: "center" }}>
           <Grid container>
-            <Grid item xs={4} className="iconBox">
+            <Grid size={{ xs: 4 }} className="iconBox">
               <img src="/images/home/lessons-icon.png" alt="lessons" className="img-fluid" />
             </Grid>
-            <Grid item xs={8} className="statBox">
+            <Grid size={{ xs: 8 }} className="statBox">
               <div id="lessonCount" data-val={props.stats?.lessons}>
                 {props.stats?.lessons}
               </div>

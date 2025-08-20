@@ -29,7 +29,7 @@ function Error({ message, statusCode }: Props) {
       <Box sx={{ textAlign: "center", padding: "0 16px" }}>
         <img src="/images/logo-dark.png" alt="Free church curriculum" style={{ maxWidth: "100%" }} />
         <Grid container justifyContent="center" sx={{ marginTop: 4 }}>
-          <Grid item>
+          <Grid size="auto">
             <Stack direction="row" alignItems="center" sx={{ flexWrap: "wrap" }} mb={2}>
               <b>
                 <Stack direction="row" alignItems="center" mr="5px">
@@ -78,7 +78,7 @@ function Error({ message, statusCode }: Props) {
       <div style={{ margin: "70px 0" }}>
         <Container fixed>
           <Grid container justifyContent="center">
-            <Grid item md={9} sm={12} sx={{ textAlign: "center" }}>
+            <Grid size={{ md: 9, sm: 12 }} sx={{ textAlign: "center" }}>
               <Typography
                 component="h1"
                 sx={{ fontSize: "42px", fontWeight: 600, margin: "0 0 8px 0", border: "none" }}>
