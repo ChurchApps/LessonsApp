@@ -2240,6 +2240,28 @@ a.dropdown-toggle::after {
   }
 }
 
+@media (max-width: 960px) {
+  #studyHero .badge,
+  #programHero .badge {
+    float: none;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    max-width: 200px;
+    height: auto;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  #studyHero h1 {
+    font-size: 32px;
+  }
+
+  #studyHero .breadcrumb {
+    font-size: 16px;
+  }
+}
+
 @media (max-width: 600px) {
   .programPromo {
     background-position-x: 80%;
@@ -2274,11 +2296,24 @@ a.dropdown-toggle::after {
 
   #studyHero .badge,
   #programHero .badge {
-    float: left;
+    float: none;
     margin-top: 15px;
     width: 100%;
+    max-width: 160px;
     height: auto;
     margin-bottom: 15px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  #studyHero h1 {
+    font-size: 28px;
+  }
+
+  #studyHero .breadcrumb {
+    font-size: 14px;
+    margin-top: 20px;
   }
 
   .playAction .text {
