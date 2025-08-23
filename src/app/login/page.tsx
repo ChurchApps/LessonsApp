@@ -46,7 +46,26 @@ export default function Login() {
     }
   }, [isClient, returnUrl, context, router]);
 
-  const handleRedirect = (url: string) => {
+  const handleRedirect = (
+    url: string,
+    user: any,
+    person: any,
+    currentUserChurch: any,
+    userChurches: any[]
+  ) => {
+    // Update UserHelper values to ensure they're available immediately
+    UserHelper.user = user;
+    UserHelper.person = person;
+    UserHelper.currentUserChurch = currentUserChurch;
+    UserHelper.userChurches = userChurches;
+
+    // Update context with values passed from LoginPage component
+    context.setUser(user);
+    context.setPerson(person);
+    context.setUserChurch(currentUserChurch);
+    context.setUserChurches(userChurches);
+
+    console.log("Person is", person);
     router.push(url);
   };
 
