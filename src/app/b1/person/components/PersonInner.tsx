@@ -2,7 +2,7 @@ import Link from "next/link";
 import { redirect, useSearchParams } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import { Container } from "@mui/material";
-import { ApiHelper, ArrayHelper } from "@churchapps/apphelper";
+import { ApiHelper, ArrayHelper, UserHelper } from "@churchapps/apphelper";
 import { useUser } from "@/app/context/UserContext";
 import { Layout } from "@/components/Layout";
 import { ClassroomInterface } from "@/helpers/interfaces";
@@ -10,17 +10,23 @@ import { ClassroomInterface } from "@/helpers/interfaces";
 //import { useRouter } from "next/router";
 
 export function PersonInner() {
+
   //const router = useRouter();
 
   //const [church, setChurch] = useState<ChurchInterface>(null);
   const [classrooms, setClassrooms] = useState<ClassroomInterface[]>([]);
   const context = useUser();
   const params = useSearchParams();
+
+  const person = context?.person || UserHelper.person;
+  console.log("Person", person);
   useEffect(() => {
     loadData();
-  }, [context?.person]);
+  }, [person]);
 
   const loadData = () => {
+    const person = context?.person || UserHelper.person;
+    console.log("PersonInner loadData", person);
     if (context.person) {
       let url = "/classrooms/person";
       ApiHelper.get(url, "LessonsApi").then((c: ClassroomInterface[]) => {
