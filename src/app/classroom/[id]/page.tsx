@@ -7,12 +7,15 @@ import { AppBar, Container, Grid, Stack } from "@mui/material";
 import { ArrayHelper, ChurchInterface, DateHelper } from "@churchapps/apphelper";
 import { MarkdownPreviewLight } from "@churchapps/apphelper-markdown";
 import { Layout } from "@/components";
-import { ApiHelper,
+import {
+  ApiHelper,
   ClassroomInterface,
+  EnvironmentHelper,
   LessonInterface,
   ProgramInterface,
   ScheduleInterface,
-  StudyInterface } from "@/helpers";
+  StudyInterface
+} from "@/helpers";
 import { ExternalProviderHelper } from "@/helpers/ExternalProviderHelper";
 
 type PageParams = { id: string };
@@ -37,6 +40,7 @@ export default function Venue() {
   }, [params.id]);
 
   const loadData = async () => {
+    EnvironmentHelper.init();
     if (id) {
       ApiHelper.get("/programs/public", "LessonsApi").then((p: ProgramInterface[]) => setPrograms(p));
 
