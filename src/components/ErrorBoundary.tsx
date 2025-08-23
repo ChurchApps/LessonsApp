@@ -61,12 +61,31 @@ function DefaultErrorFallback({ error, reset }: { error?: Error; reset: () => vo
           We encountered an unexpected error. Please try again or contact support if the problem persists.
         </Typography>
 
-        {process.env.NODE_ENV === "development" && error && (
-          <Box sx={{ mb: 4, p: 2, bgcolor: "grey.100", borderRadius: 1, textAlign: "left" }}>
-            <Typography variant="body2" component="pre" sx={{ fontSize: 12, overflow: "auto" }}>
-              {error.message}
-              {error.stack && `\n\n${error.stack}`}
+        {error && (
+          <Box sx={{ mb: 4, p: 3, bgcolor: "error.light", borderRadius: 2, textAlign: "left" }}>
+            <Typography variant="h6" color="error.dark" gutterBottom>
+              Error Details:
             </Typography>
+            <Typography variant="body2" component="div" sx={{ mb: 2, fontWeight: "bold", color: "error.dark" }}>
+              {error.name}: {error.message}
+            </Typography>
+            {error.stack && (
+              <Box sx={{ bgcolor: "grey.900", p: 2, borderRadius: 1, overflow: "auto", maxHeight: 400 }}>
+                <Typography 
+                  variant="body2" 
+                  component="pre" 
+                  sx={{ 
+                    fontSize: 12, 
+                    color: "common.white",
+                    fontFamily: "monospace",
+                    whiteSpace: "pre-wrap",
+                    wordBreak: "break-word"
+                  }}
+                >
+                  {error.stack}
+                </Typography>
+              </Box>
+            )}
           </Box>
         )}
 
