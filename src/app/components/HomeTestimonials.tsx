@@ -2,7 +2,7 @@ import { Container, Grid } from "@mui/material";
 
 export function HomeTestimonials() {
   const getTestimonial = (name: string, church: string, text: string) => (
-    <Grid item xs={12} md={6}>
+    <Grid size={{ xs: 12, md: 6 }}>
       <div className="testimonial">
         <div className="stars"></div>
         <div className="icon"></div>

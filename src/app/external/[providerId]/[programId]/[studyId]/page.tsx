@@ -44,7 +44,7 @@ export default function StudyPage() {
           <Container fixed>
             <Header position="static" />
             <Grid container spacing={2}>
-              <Grid item md={7} xs={12}>
+              <Grid size={{ md: 7, xs: 12 }}>
                 <div className="breadcrumb">
                   <Link href={"/external/" + params.providerId + "/" + program.id}>{program.name}</Link>
                 </div>

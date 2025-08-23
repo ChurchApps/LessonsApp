@@ -46,7 +46,7 @@ export default async function ArkHome() {
       <div className="homeSection" style={{ backgroundColor: "#f5f5f5", padding: "4rem 0" }}>
         <Container fixed>
           <Grid container spacing={4}>
-            <Grid item md={4} xs={12} style={{ textAlign: "center" }}>
+            <Grid size={{ md: 4, xs: 12 }} style={{ textAlign: "center" }}>
               <p
                 style={{
                   minHeight: 100,
@@ -62,7 +62,7 @@ export default async function ArkHome() {
               <br />
               Bedford Outpost Church, VA
             </Grid>
-            <Grid item md={4} xs={12} style={{ textAlign: "center" }}>
+            <Grid size={{ md: 4, xs: 12 }} style={{ textAlign: "center" }}>
               <p
                 style={{
                   minHeight: 100,
@@ -78,7 +78,7 @@ export default async function ArkHome() {
               <br />
               Venture Christian Church, TX
             </Grid>
-            <Grid item md={4} xs={12} style={{ textAlign: "center" }}>
+            <Grid size={{ md: 4, xs: 12 }} style={{ textAlign: "center" }}>
               <p
                 style={{
                   minHeight: 100,
@@ -101,8 +101,8 @@ export default async function ArkHome() {
       <div className="homeSection" style={{ padding: "4rem 0" }}>
         <Container fixed>
           <Grid container spacing={3}>
-            <Grid item md={1} sm={12}></Grid>
-            <Grid item md={4} sm={12}>
+            <Grid size={{ md: 1, sm: 12 }}></Grid>
+            <Grid size={{ md: 4, sm: 12 }}>
               <img
                 src="/images/landing/ark-videos.jpg"
                 alt="Videos"
@@ -110,7 +110,7 @@ export default async function ArkHome() {
                 style={{ borderRadius: 30, boxShadow: "0 4px 12px rgba(0,0,0,0.1)" }}
               />
             </Grid>
-            <Grid item md={4} sm={12}>
+            <Grid size={{ md: 4, sm: 12 }}>
               <div
                 className="arkUsp arkUspRight"
                 style={{
@@ -130,8 +130,8 @@ export default async function ArkHome() {
           </Grid>
 
           <Grid container spacing={3} style={{ marginTop: "3rem" }}>
-            <Grid item md={3} sm={12}></Grid>
-            <Grid item md={5} sm={12}>
+            <Grid size={{ md: 3, sm: 12 }}></Grid>
+            <Grid size={{ md: 5, sm: 12 }}>
               <div
                 style={{
                   backgroundColor: "#f5f5f5",
@@ -148,7 +148,7 @@ export default async function ArkHome() {
                 </p>
               </div>
             </Grid>
-            <Grid item md={4} sm={12}>
+            <Grid size={{ md: 4, sm: 12 }}>
               <img
                 src="/images/landing/ark-tech.jpg"
                 alt="Technology"
@@ -159,8 +159,8 @@ export default async function ArkHome() {
           </Grid>
 
           <Grid container spacing={3} style={{ marginTop: "3rem" }}>
-            <Grid item md={1} sm={12}></Grid>
-            <Grid item md={4} sm={12}>
+            <Grid size={{ md: 1, sm: 12 }}></Grid>
+            <Grid size={{ md: 4, sm: 12 }}>
               <img
                 src="/images/landing/ark-support.jpg"
                 alt="Support"
@@ -168,7 +168,7 @@ export default async function ArkHome() {
                 style={{ borderRadius: 30, boxShadow: "0 4px 12px rgba(0,0,0,0.1)" }}
               />
             </Grid>
-            <Grid item md={4} sm={12}>
+            <Grid size={{ md: 4, sm: 12 }}>
               <div
                 className="arkUsp arkUspRight"
                 style={{
@@ -195,15 +195,15 @@ export default async function ArkHome() {
         <Container fixed>
           <h2 style={{ marginBottom: "2rem", textAlign: "center" }}>Our Story</h2>
           <Grid container spacing={3}>
-            <Grid item md={2} sm={0} />
-            <Grid item md={8} sm={12} sx={{ textAlign: "center" }}>
+            <Grid size={{ md: 2, sm: 0 }} />
+            <Grid size={{ md: 8, sm: 12 }} sx={{ textAlign: "center" }}>
               {video}
             </Grid>
           </Grid>
 
           <Grid container spacing={3} style={{ marginTop: "3rem" }}>
-            <Grid item md={1} sm={0} />
-            <Grid item md={10} sm={12} sx={{ textAlign: "center" }}>
+            <Grid size={{ md: 1, sm: 0 }} />
+            <Grid size={{ md: 10, sm: 12 }} sx={{ textAlign: "center" }}>
               <p className="lead" style={{ fontSize: "1.3rem", marginBottom: "1.5rem" }}>
                 Lessons.church is a completely free service provided to Christian churches and ministries.
               </p>

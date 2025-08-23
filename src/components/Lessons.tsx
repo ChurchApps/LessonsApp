@@ -14,11 +14,11 @@ const Lessons = React.memo(({ lessons, slug }: Props) => {
     const url = slug.startsWith("/external/") ? slug + `/${lesson.id}` : slug + `/${lesson.slug}`;
 
     return (
-      <Grid item md={6} xs={12} key={lesson.id}>
+      <Grid size={{ md: 6, xs: 12 }} key={lesson.id}>
         <Link href={url} key={lesson.id} style={{ textDecoration: "none", color: "inherit" }}>
           <Card style={{ padding: 10 }} className="lessonCard">
             <Grid container spacing={1}>
-              <Grid item xs={5}>
+              <Grid size={{ xs: 5 }}>
                 <Image
                   src={lesson.image || "/not-found"}
                   alt={lesson.name}
@@ -28,7 +28,7 @@ const Lessons = React.memo(({ lessons, slug }: Props) => {
                   className="img-fluid"
                 />
               </Grid>
-              <Grid item xs={7}>
+              <Grid size={{ xs: 7 }}>
                 <div className="name">{lesson.name}</div>
                 <h3>{lesson.title}</h3>
                 <div className="fadeOut">{lesson.description}</div>

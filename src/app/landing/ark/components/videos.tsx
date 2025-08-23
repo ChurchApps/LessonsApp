@@ -12,7 +12,7 @@ export function Videos() {
     <>
       <Container fixed style={{ paddingTop: 40, paddingBottom: 40 }}>
         <Grid container spacing={2}>
-          <Grid item md={4} xs={12}>
+          <Grid size={{ md: 4, xs: 12 }}>
             <a
               href="about:blank"
               onClick={e => {
@@ -22,7 +22,7 @@ export function Videos() {
               <img src="/images/landing/ark-video-1.png" alt="Ark Kids Junior" className="img-fluid" />
             </a>
           </Grid>
-          <Grid item md={4} xs={12}>
+          <Grid size={{ md: 4, xs: 12 }}>
             <a
               href="about:blank"
               onClick={e => {
@@ -32,7 +32,7 @@ export function Videos() {
               <img src="/images/landing/ark-video-2.png" alt="Ark Kids" className="img-fluid" />
             </a>
           </Grid>
-          <Grid item md={4} xs={12}>
+          <Grid size={{ md: 4, xs: 12 }}>
             <a
               href="about:blank"
               onClick={e => {

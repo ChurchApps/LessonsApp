@@ -5,10 +5,10 @@ export function Footer() {
     <div id="footer">
       <Container fixed>
         <Grid container spacing={3}>
-          <Grid item xs={3}>
+          <Grid size={{ xs: 3 }}>
             <img src="/images/logo-dark.png" alt="Free church curriculum" className="img-fluid" />
           </Grid>
-          <Grid item xs={9} style={{ textAlign: "center" }}>
+          <Grid size={{ xs: 9 }} style={{ textAlign: "center" }}>
             <p style={{ paddingTop: 8 }}>
               Phone:{" "}
               <a href="tex:9189942638" style={{ color: "#FFF" }}>

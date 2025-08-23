@@ -19,10 +19,7 @@ const config = {
       { protocol: "https", hostname: "files.churchpdf.com" }
     ]
   },
-  transpilePackages: ["@churchapps/apphelper", "@churchapps/apphelper-markdown", "mui-tel-input", "react-ga4"],
-  experimental: {
-    optimizePackageImports: ['@mui/material', '@mui/icons-material']
-  }
+  transpilePackages: ["@churchapps/apphelper", "@churchapps/apphelper-markdown", "mui-tel-input", "react-ga4", "@mui/material", "@mui/styled-engine"]
 }
 
 module.exports = process.env.ANALYZE === 'true' 

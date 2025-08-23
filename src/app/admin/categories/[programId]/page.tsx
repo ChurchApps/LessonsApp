@@ -143,11 +143,11 @@ export default function Admin() {
     } else {
       return (
         <Grid container spacing={3} alignItems="center">
-          <Grid item xs={6} style={{ alignSelf: "start" }}>
+          <Grid size={{ xs: 6 }} style={{ alignSelf: "start" }}>
             <h2>Included Studies</h2>
             <table>{getStudyCategories()}</table>
           </Grid>
-          <Grid item xs={6}>
+          <Grid size={{ xs: 6 }}>
             <h2>Available Studies</h2>
             <table>
               {studies.map(s => (
@@ -178,12 +178,12 @@ export default function Admin() {
       <div id="mainContent">
         <h1>Categories for {program?.name}</h1>
         <Grid container spacing={3}>
-          <Grid item md={8} xs={12}>
+          <Grid size={{ md: 8, xs: 12 }}>
             <DisplayBox headerText={categoryName || "Select Category"} headerIcon="edit_note">
               {getCategory()}
             </DisplayBox>
           </Grid>
-          <Grid item md={4} xs={12}>
+          <Grid size={{ md: 4, xs: 12 }}>
             <DisplayBox headerText="Categories" headerIcon="edit_note" editContent={getEditContent()}>
               <table className="table table-striped">
                 {categoryNames.map(c => (

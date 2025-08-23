@@ -6,10 +6,10 @@ export function HomeConnect() {
       <Container fixed>
         <div className="apps">
           <Grid container justifyContent="center" spacing={3}>
-            <Grid item md={6} xs={12}>
+            <Grid size={{ md: 6, xs: 12 }}>
               <img src="/images/home/apps.png" alt="Church Apps" className="img-fluid" />
             </Grid>
-            <Grid item md={6} xs={12}>
+            <Grid size={{ md: 6, xs: 12 }}>
               <div className="title">
                 <span>DOWNLOAD OUR</span>
               </div>

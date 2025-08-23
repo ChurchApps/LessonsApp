@@ -13,11 +13,11 @@ const Studies = React.memo(({ studies, slug }: Props) => {
   const createStudyCard = React.useCallback((study: StudyInterface) => {
     const studyUrl = slug.startsWith("/external/") ? slug + `/${study.id}` : slug + `/${study.slug}`;
     return (
-      <Grid item md={6} xs={12} key={study.id}>
+      <Grid size={{ md: 6, xs: 12 }} key={study.id}>
         <Link href={studyUrl}>
           <Card style={{ padding: 10 }} className="studyCard">
             <Grid container spacing={1}>
-              <Grid item xs={5}>
+              <Grid size={{ xs: 5 }}>
                 <Image
                   src={study.image || "/not-found"}
                   alt={study.name}
@@ -27,7 +27,7 @@ const Studies = React.memo(({ studies, slug }: Props) => {
                   className="img-fluid"
                 />
               </Grid>
-              <Grid item xs={7}>
+              <Grid size={{ xs: 7 }}>
                 <div className="duration">{study.lessonCount === 1 ? "1 Week" : study.lessonCount + " Weeks"}</div>
                 <h3>{study.name}</h3>
                 <div className="fadeOut">{study.shortDescription}</div>

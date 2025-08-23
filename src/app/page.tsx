@@ -50,7 +50,7 @@ export default async function Home(props: { params: Promise<{}>; searchParams: P
 
   const getElmPrograms = () => (
     <>
-      <Grid item md={2} sm={4} xs={4}>
+      <Grid size={{ md: 2, sm: 4, xs: 4 }}>
         <Link href="/high-voltage">
           <Image
             alt="High Voltage Elementary"
@@ -63,7 +63,7 @@ export default async function Home(props: { params: Promise<{}>; searchParams: P
           />
         </Link>
       </Grid>
-      <Grid item md={2} sm={4} xs={4}>
+      <Grid size={{ md: 2, sm: 4, xs: 4 }}>
         <Link href="/faith-kidz">
           <Image
             alt="Faith Kidz"
@@ -76,7 +76,7 @@ export default async function Home(props: { params: Promise<{}>; searchParams: P
           />
         </Link>
       </Grid>
-      <Grid item md={2} sm={4} xs={4}>
+      <Grid size={{ md: 2, sm: 4, xs: 4 }}>
         <Link href="/west-ridge">
           <Image
             alt="West Ridge"
@@ -97,7 +97,7 @@ export default async function Home(props: { params: Promise<{}>; searchParams: P
       <div className="programHeroContent">
         <Container fixed>
           <Grid container spacing={3}>
-            <Grid item md={7} xs={12}>
+            <Grid size={{ md: 7, xs: 12 }}>
               <div className="age">ELEMENTARY</div>
               <h2>Additional Elementary Curriculum Offered by Partner Organizations</h2>
               <p style={{ width: "67%" }}>More fun curriculum!</p>

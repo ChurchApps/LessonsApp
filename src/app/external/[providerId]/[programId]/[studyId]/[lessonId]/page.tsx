@@ -73,7 +73,7 @@ export default function LessonsPage() {
           <Container fixed>
             <Header position="static" />
             <Grid container spacing={2}>
-              <Grid item md={7} xs={12}>
+              <Grid size={{ md: 7, xs: 12 }}>
                 <div className="breadcrumb">
                   <Link href={"/" + selectedVenue.programSlug}>{selectedVenue.programName}</Link>:{" "}
                   <Link
@@ -112,7 +112,7 @@ export default function LessonsPage() {
       </div>
 
       <Grid container spacing={2}>
-        <Grid item md={3} sm={12} style={{ backgroundColor: "#FFF" }}>
+        <Grid size={{ md: 3, sm: 12 }} style={{ backgroundColor: "#FFF" }}>
           <LessonSidebar
             venues={lessonData?.venues}
             selectedVenue={selectedVenue}
@@ -124,7 +124,7 @@ export default function LessonsPage() {
             }}
           />
         </Grid>
-        <Grid item md={9} sm={12}>
+        <Grid size={{ md: 9, sm: 12 }}>
           <Container>
             <div style={{ marginTop: 60 }}>
               <Venue useAccordion={false} venue={selectedVenue} print={print} />

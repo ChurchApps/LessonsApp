@@ -7,12 +7,15 @@ import { AppBar, Container, Grid, Stack } from "@mui/material";
 import { ArrayHelper, ChurchInterface, DateHelper } from "@churchapps/apphelper";
 import { MarkdownPreviewLight } from "@churchapps/apphelper-markdown";
 import { Layout } from "@/components";
-import { ApiHelper,
+import {
+  ApiHelper,
   ClassroomInterface,
+  EnvironmentHelper,
   LessonInterface,
   ProgramInterface,
   ScheduleInterface,
-  StudyInterface } from "@/helpers";
+  StudyInterface
+} from "@/helpers";
 import { ExternalProviderHelper } from "@/helpers/ExternalProviderHelper";
 
 type PageParams = { id: string };
@@ -37,6 +40,7 @@ export default function Venue() {
   }, [params.id]);
 
   const loadData = async () => {
+    EnvironmentHelper.init();
     if (id) {
       ApiHelper.get("/programs/public", "LessonsApi").then((p: ProgramInterface[]) => setPrograms(p));
 
@@ -126,10 +130,10 @@ export default function Venue() {
         result.push(<Link href={url} key={lesson.id} style={{ textDecoration: "none", color: "inherit" }}>
           <h3>{DateHelper.prettyDate(DateHelper.toDate(s.scheduledDate))}</h3>
           <Grid container spacing={3} style={{ paddingBottom: 20, borderBottom: "1px solid #CCC" }}>
-            <Grid item md={3} xs={12}>
+            <Grid size={{ md: 3, xs: 12 }}>
               <img src={lesson.image} style={{ verticalAlign: "middle" }} alt={lesson.name} className="img-fluid" />
             </Grid>
-            <Grid item md={9} xs={12}>
+            <Grid size={{ md: 9, xs: 12 }}>
               <div className="title">{lesson.name}</div>
               <h3 style={{ fontSize: "28px", fontWeight: 600, margin: "0 0 8px 0" }}>{lesson.title}</h3>
               <p style={{ margin: "0 0 16px 0" }}>
