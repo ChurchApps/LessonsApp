@@ -59,7 +59,7 @@ export function VenueClient(props: Props) {
           position: 'sticky',
           top: 0,
           zIndex: 1000,
-          backgroundColor: 'background.paper',
+          backgroundColor: '#28235d',
           borderBottom: 1,
           borderColor: 'divider',
           width: '100%',
@@ -79,7 +79,21 @@ export function VenueClient(props: Props) {
               '& .MuiTab-root': {
                 minHeight: isMobile ? 36 : 48,
                 fontSize: isMobile ? '0.75rem' : '0.875rem',
-                padding: isMobile ? '6px 8px' : '12px 16px'
+                padding: isMobile ? '6px 8px' : '12px 16px',
+                color: '#fff',
+                '&.Mui-selected': {
+                  backgroundColor: '#fff',
+                  color: '#1c75bc'
+                }
+              },
+              '& .MuiTabs-indicator': {
+                display: 'none'
+              },
+              '& .MuiTabs-scrollButtons': {
+                color: '#fff',
+                '&.Mui-disabled': {
+                  opacity: 0.3
+                }
               }
             }}>
             {result}
@@ -143,7 +157,7 @@ export function VenueClient(props: Props) {
         }}>
           <div id="b1Tabs">{getTabs()}</div>
           <Container maxWidth="lg" sx={{
-            mt: 2,
+            mt: isMobile ? 7 : 8,
             mb: 2,
             px: isMobile ? 1 : 3,
             width: '100%',
@@ -161,11 +175,13 @@ export function VenueClient(props: Props) {
                 href={"/b1/" + props.classroom?.churchId}
                 style={{
                   textDecoration: 'none',
-                  color: 'primary.main',
-                  fontSize: isMobile ? '0.875rem' : '1rem'
+                  color: '#1c75bc',
+                  fontSize: isMobile ? '0.875rem' : '1rem',
+                  display: 'inline-flex',
+                  alignItems: 'center'
                 }}
               >
-              ← Go back
+              ← Back to Classrooms
               </Link>
             </Box>
 
