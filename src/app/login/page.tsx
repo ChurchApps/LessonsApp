@@ -36,7 +36,9 @@ export default function Login() {
   console.log("Return Url is", returnUrl);
 
   useEffect(() => {
-    if (isClient && ApiHelper.isAuthenticated && UserHelper.currentUserChurch) {
+    // Don't auto-redirect if there's a JWT parameter, let LoginPage handle it
+    const hasJwtParam = searchParams.jwt;
+    if (isClient && !hasJwtParam && ApiHelper.isAuthenticated && UserHelper.currentUserChurch) {
       context.setUser(UserHelper.user);
       context.setPerson(UserHelper.person);
       context.setUserChurch(UserHelper.currentUserChurch);
@@ -44,7 +46,7 @@ export default function Login() {
 
       router.push(returnUrl);
     }
-  }, [isClient, returnUrl, context, router]);
+  }, [isClient, returnUrl, context, router, searchParams.jwt]);
 
   const handleRedirect = (
     url: string,
@@ -70,12 +72,9 @@ export default function Login() {
   };
 
   const appUrl = isClient ? window.location.href : "";
-  let jwt: string = "",
-    auth: string = "";
-  if (isClient && !ApiHelper.isAuthenticated) {
-    auth = searchParams.auth || "";
-    jwt = searchParams.jwt || cookies.jwt || "";
-  }
+  // Always extract JWT and auth params, similar to B1App
+  const auth = isClient ? (searchParams.auth || "") : "";
+  const jwt = isClient ? (searchParams.jwt || cookies.jwt || "") : "";
   console.log("JWT IS", jwt);
 
   return (
