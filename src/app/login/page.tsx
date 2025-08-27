@@ -1,6 +1,6 @@
 "use client";
 
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import { useCookies } from "react-cookie";
 import { ApiHelper, UserHelper } from "@churchapps/apphelper";
@@ -11,71 +11,29 @@ import { useUser } from "../context/UserContext";
 export default function Login() {
   const [cookies] = useCookies();
   const router = useRouter();
-  const [searchParams, setSearchParams] = useState<{ [key: string]: string }>({});
-  const [isClient, setIsClient] = useState(false);
-
+  const searchParams = useSearchParams();
   const context = useUser();
 
-  // Extract search params on client side
-  useEffect(() => {
-    setIsClient(true);
-    if (typeof window !== "undefined") {
-      const urlParams = new URLSearchParams(window.location.search);
-      const params: { [key: string]: string } = {};
-      urlParams.forEach((value, key) => {
-        params[key] = value;
-      });
-      setSearchParams(params);
-    }
-  }, []);
+  const returnUrl = searchParams.get("returnUrl") || "/portal";
 
-  const returnUrl = searchParams.returnUrl || "/portal";
-
-  console.log("CONTExT IS", context);
-  console.log("Search Params are", searchParams);
-  console.log("Return Url is", returnUrl);
-
-  useEffect(() => {
-    // Don't auto-redirect if there's a JWT parameter, let LoginPage handle it
-    const hasJwtParam = searchParams.jwt;
-    if (isClient && !hasJwtParam && ApiHelper.isAuthenticated && UserHelper.currentUserChurch) {
-      context.setUser(UserHelper.user);
-      context.setPerson(UserHelper.person);
-      context.setUserChurch(UserHelper.currentUserChurch);
-      context.setUserChurches(UserHelper.userChurches);
-
-      router.push(returnUrl);
-    }
-  }, [isClient, returnUrl, context, router, searchParams.jwt]);
-
-  const handleRedirect = (
-    url: string,
-    user: any,
-    person: any,
-    currentUserChurch: any,
-    userChurches: any[]
-  ) => {
-    // Update UserHelper values to ensure they're available immediately
-    UserHelper.user = user;
-    UserHelper.person = person;
-    UserHelper.currentUserChurch = currentUserChurch;
-    UserHelper.userChurches = userChurches;
-
-    // Update context with values passed from LoginPage component
-    context.setUser(user);
-    context.setPerson(person);
-    context.setUserChurch(currentUserChurch);
-    context.setUserChurches(userChurches);
-
-    console.log("Person is", person);
+  const handleRedirect = (url: string) => {
+    console.log("Redirecting to:", url);
+    // The LoginPage component will have already set up UserHelper values
+    // We just need to update our context
+    context.setUser(UserHelper.user);
+    context.setPerson(UserHelper.person);
+    context.setUserChurch(UserHelper.currentUserChurch);
+    context.setUserChurches(UserHelper.userChurches);
+    
     router.push(url);
   };
 
-  const appUrl = isClient ? window.location.href : "";
-  // Always extract JWT and auth params, similar to B1App
-  const auth = isClient ? (searchParams.auth || "") : "";
-  const jwt = isClient ? (searchParams.jwt || cookies.jwt || "") : "";
+  // Get JWT from search params or cookies, similar to B1App
+  const jwt = searchParams.get("jwt") || cookies.jwt || "";
+  const auth = searchParams.get("auth") || "";
+
   console.log("JWT IS", jwt);
+  console.log("Return Url is", returnUrl);
 
   return (
     <Layout withoutNavbar withoutFooter>
@@ -84,7 +42,7 @@ export default function Login() {
         context={context}
         jwt={jwt}
         appName="Lessons.church"
-        appUrl={appUrl}
+        appUrl={typeof window !== "undefined" ? window.location.href : ""}
         returnUrl={returnUrl}
         handleRedirect={handleRedirect}
       />
