@@ -16,15 +16,28 @@ function LoginContent() {
 
   const returnUrl = searchParams.get("returnUrl") || "/portal";
 
-  const handleRedirect = (url: string) => {
+  const handleRedirect = (
+    url: string,
+    user: any,
+    person: any,
+    currentUserChurch: any,
+    userChurches: any[]
+  ) => {
     console.log("Redirecting to:", url);
-    // The LoginPage component will have already set up UserHelper values
-    // We just need to update our context
-    context.setUser(UserHelper.user);
-    context.setPerson(UserHelper.person);
-    context.setUserChurch(UserHelper.currentUserChurch);
-    context.setUserChurches(UserHelper.userChurches);
+    console.log("Auth data received:", { user, person, currentUserChurch, userChurches });
     
+    // Update UserHelper values to ensure they're available immediately
+    UserHelper.user = user;
+    UserHelper.person = person;
+    UserHelper.currentUserChurch = currentUserChurch;
+    UserHelper.userChurches = userChurches;
+
+    // Update context with values passed from LoginPage component
+    context.setUser(user);
+    context.setPerson(person);
+    context.setUserChurch(currentUserChurch);
+    context.setUserChurches(userChurches);
+
     router.push(url);
   };
 
