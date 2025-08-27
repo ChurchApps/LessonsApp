@@ -1,14 +1,14 @@
 "use client";
 
 import { useRouter, useSearchParams } from "next/navigation";
-import React, { useEffect, useState } from "react";
+import React, { Suspense } from "react";
 import { useCookies } from "react-cookie";
-import { ApiHelper, UserHelper } from "@churchapps/apphelper";
+import { UserHelper } from "@churchapps/apphelper";
 import { LoginPage } from "@churchapps/apphelper-login";
 import { Layout } from "@/components";
 import { useUser } from "../context/UserContext";
 
-export default function Login() {
+function LoginContent() {
   const [cookies] = useCookies();
   const router = useRouter();
   const searchParams = useSearchParams();
@@ -36,16 +36,24 @@ export default function Login() {
   console.log("Return Url is", returnUrl);
 
   return (
+    <LoginPage
+      auth={auth}
+      context={context}
+      jwt={jwt}
+      appName="Lessons.church"
+      appUrl={typeof window !== "undefined" ? window.location.href : ""}
+      returnUrl={returnUrl}
+      handleRedirect={handleRedirect}
+    />
+  );
+}
+
+export default function Login() {
+  return (
     <Layout withoutNavbar withoutFooter>
-      <LoginPage
-        auth={auth}
-        context={context}
-        jwt={jwt}
-        appName="Lessons.church"
-        appUrl={typeof window !== "undefined" ? window.location.href : ""}
-        returnUrl={returnUrl}
-        handleRedirect={handleRedirect}
-      />
+      <Suspense fallback={<div>Loading...</div>}>
+        <LoginContent />
+      </Suspense>
     </Layout>
   );
 }
