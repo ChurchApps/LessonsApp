@@ -62,18 +62,15 @@ export function Header(props: Props) {
         {adminItems}
         {cpItems}
 
-        <Link href="/logout">
+        <Link href="/login?action=logout">
           <Icon sx={{ marginRight: "5px" }}>logout</Icon> Logout
         </Link>
       </Menu>
     </>
   ) : (
     <>
-      <Link href={"/login"} className="cta alt">
+      <Link href={"/login"} style={{ paddingRight: 15 }} className="cta">
         Login
-      </Link>
-      <Link href="/register" style={{ paddingRight: 15 }} className="cta">
-        Register
       </Link>
     </>
   );

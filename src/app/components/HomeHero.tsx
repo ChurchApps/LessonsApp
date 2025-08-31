@@ -35,7 +35,7 @@ export function HomeHero(props: Props) {
             We believe that limited church budgets should never stand in the way of teaching both children and adults
             the word of God in the most effective way possible.
           </p>
-          <Link href="/register" className="cta" underline="none" style={{ color: "#FFF" }}>
+          <Link href="/login?action=register" className="cta" underline="none" style={{ color: "#FFF" }}>
             Join for <b>FREE</b> Curriculum
           </Link>
           <Stats stats={props.stats} />
