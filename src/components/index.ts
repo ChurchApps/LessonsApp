@@ -1,6 +1,7 @@
 export { HomeAbout } from "../app/components/HomeAbout";
 export { HomeConnect } from "../app/components/HomeConnect";
 export { Layout } from "./Layout";
+export { Login } from "./Login";
 export { Lessons } from "./Lessons";
 export { Programs } from "../app/components/Programs";
 export { Stats } from "../app/components/Stats";

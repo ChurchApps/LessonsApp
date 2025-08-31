@@ -33,7 +33,7 @@ export default async function ArkHome() {
               color="primary"
               variant="contained"
               size="large"
-              href="/register"
+              href="/login?action=register"
               target="_blank"
               sx={{ padding: "12px 32px", fontSize: "1.1rem" }}>
               Start for Free
