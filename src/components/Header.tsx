@@ -69,8 +69,11 @@ export function Header(props: Props) {
     </>
   ) : (
     <>
-      <Link href={"/login"} style={{ paddingRight: 15 }} className="cta">
+      <Link href={"/login"} className="cta alt">
         Login
+      </Link>
+      <Link href="/login?action=register" style={{ paddingRight: 15 }} className="cta">
+        Register
       </Link>
     </>
   );
