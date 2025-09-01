@@ -43,7 +43,7 @@ export function LoginClient({ showLogo, redirectAfterLogin, loginContainerCssPro
   ) => {
     console.log("Redirecting to:", url);
     console.log("Auth data received:", { user, person, currentUserChurch, userChurches });
-    
+
     // Update UserHelper values to ensure they're available immediately
     UserHelper.user = user;
     UserHelper.person = person;
@@ -55,7 +55,7 @@ export function LoginClient({ showLogo, redirectAfterLogin, loginContainerCssPro
     context.setPerson(person);
     context.setUserChurch(currentUserChurch);
     context.setUserChurches(userChurches);
-    
+
     redirect(url);
   };
 
@@ -79,6 +79,7 @@ export function LoginClient({ showLogo, redirectAfterLogin, loginContainerCssPro
         handleRedirect={handleRedirect}
         defaultEmail={process.env.NEXT_PUBLIC_STAGE === "demo" ? "demo@lessons.church" : undefined}
         defaultPassword={process.env.NEXT_PUBLIC_STAGE === "demo" ? "password" : undefined}
+        showFooter={true}
       />
     </Layout>
   );
