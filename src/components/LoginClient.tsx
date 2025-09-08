@@ -1,6 +1,6 @@
 "use client";
 
-import { useContext, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { Alert } from "@mui/material";
 import { Layout } from "@/components";
 import { LoginPage } from "@churchapps/apphelper-login";

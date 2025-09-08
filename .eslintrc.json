@@ -46,7 +46,7 @@
       "ObjectExpression": 1,
       "ImportDeclaration": 1,
       "flatTernaryExpressions": false,
-      "ignoredNodes": ["ConditionalExpression"]
+      "ignoredNodes": ["ConditionalExpression", "JSXElement", "JSXElement > *", "JSXAttribute", "JSXIdentifier", "JSXNamespacedName", "JSXMemberExpression", "JSXSpreadAttribute", "JSXExpressionContainer", "JSXOpeningElement", "JSXClosingElement", "JSXFragment", "JSXOpeningFragment", "JSXClosingFragment", "JSXText", "JSXEmptyExpression", "JSXSpreadChild"]
     }],
     "no-multi-spaces": ["warn", { "ignoreEOLComments": false }]
   }
