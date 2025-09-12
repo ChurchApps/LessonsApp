@@ -76,7 +76,7 @@ export const ContentCard: React.FC<ContentCardProps> = ({
           alt={title}
           sx={{
             objectFit: "cover",
-            backgroundColor: "#f5f5f5"
+            backgroundColor: "var(--admin-bg)"
           }}
         />
       )}
