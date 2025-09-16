@@ -96,6 +96,13 @@ export const BundleList: React.FC<Props> = props => {
                   e.preventDefault();
                   clearEdits();
                   setEditResource(resource);
+                }}
+                style={{
+                  color: "var(--c1)",
+                  textDecoration: "none",
+                  display: "inline-flex",
+                  alignItems: "center",
+                  gap: "4px"
                 }}>
                 <Icon>insert_drive_file</Icon> {r.name}
               </a>
@@ -122,6 +129,13 @@ export const BundleList: React.FC<Props> = props => {
               e.preventDefault();
               clearEdits();
               setEditVariant(v);
+            }}
+            style={{
+              color: "var(--c1)",
+              textDecoration: "none",
+              display: "inline-flex",
+              alignItems: "center",
+              gap: "4px"
             }}>
             <Icon>file_copy</Icon> {v.name}
           </a>
@@ -142,6 +156,13 @@ export const BundleList: React.FC<Props> = props => {
               e.preventDefault();
               clearEdits();
               setEditAsset(a);
+            }}
+            style={{
+              color: "var(--c1)",
+              textDecoration: "none",
+              display: "inline-flex",
+              alignItems: "center",
+              gap: "4px"
             }}>
             <Icon>format_list_numbered</Icon> {a.name}
           </a>
@@ -179,7 +200,13 @@ export const BundleList: React.FC<Props> = props => {
                 clearEdits();
                 setEditBundle(b);
               }}
-              color="error">
+              style={{
+                color: "var(--c1)",
+                textDecoration: "none",
+                display: "inline-flex",
+                alignItems: "center",
+                gap: "4px"
+              }}>
               <Icon style={{ paddingTop: 4 }}>folder_zip</Icon> {b.name}
             </a>
           </div>
@@ -204,6 +231,13 @@ export const BundleList: React.FC<Props> = props => {
             e.preventDefault();
             clearEdits();
             setEditVideo(video);
+          }}
+          style={{
+            color: "var(--c1)",
+            textDecoration: "none",
+            display: "inline-flex",
+            alignItems: "center",
+            gap: "4px"
           }}>
           <Icon style={{ paddingTop: 4 }}>videocam</Icon> {video.name}
         </a>

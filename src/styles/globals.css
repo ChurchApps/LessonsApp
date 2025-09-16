@@ -1263,7 +1263,7 @@ dropdown-menu a {
 }
 
 .toggle-button {
-  color: #24b8ff;
+  color: var(--c1);
 }
 
 .toggle-button:hover {
@@ -1291,13 +1291,13 @@ dropdown-menu a {
 
 .dropdown-item:hover {
   text-decoration: none;
-  background-color: #03a9f4;
+  background-color: var(--c1);
   color: #fff;
 }
 
 .dropdown-item:active {
   text-decoration: none;
-  background-color: #03a9f4;
+  background-color: var(--c1d1);
   color: #fff;
 }
 
@@ -1329,7 +1329,7 @@ dropdown-menu a {
 .downloadAccordion .card > button {
   border: none;
   text-align: left;
-  background-color: #03a9f4;
+  background-color: var(--c1);
   color: #fff;
   padding-left: 5px;
   padding-top: 8px;
@@ -1491,6 +1491,29 @@ a.dropdown-toggle::after {
   border-top: 1px solid #eee;
   padding-top: 2px;
   padding-bottom: 2px;
+}
+
+/* Admin component link colors */
+.adminAccordion a,
+.resourceAccordion a,
+.assetDiv a,
+.variantDiv a,
+.lessonDiv a {
+  color: var(--c1) !important;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  transition: color 0.2s ease;
+}
+
+.adminAccordion a:hover,
+.resourceAccordion a:hover,
+.assetDiv a:hover,
+.variantDiv a:hover,
+.lessonDiv a:hover {
+  color: var(--c1d1) !important;
+  text-decoration: none;
 }
 
 .lessonDiv {

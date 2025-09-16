@@ -1,7 +1,8 @@
 import axios from "axios";
 import type { AxiosProgressEvent } from "axios";
 import { useEffect, useState } from "react";
-import { LinearProgress } from "@mui/material";
+import { Box, LinearProgress, Typography, Paper, Button } from "@mui/material";
+import { UploadFile as UploadFileIcon } from "@mui/icons-material";
 import { ApiHelper, FileInterface, PresignedUploadInterface } from "@/helpers";
 
 interface Props {
@@ -118,21 +119,92 @@ export function FileUpload(props: Props) {
 
   const getFileLink = () => {
     if (uploadProgress > -1) {
-      return <LinearProgress value={uploadProgress} />;
-    } else if (file) {
       return (
-        <div>
-          <a href={file.contentPath}>{file.fileName}</a>
-        </div>
+        <Box sx={{ width: "100%", mt: 1 }}>
+          <LinearProgress
+            variant="determinate"
+            value={uploadProgress}
+            sx={{
+              backgroundColor: "var(--c1l6)",
+              "& .MuiLinearProgress-bar": {
+                backgroundColor: "var(--c1)"
+              }
+            }}
+          />
+          <Typography variant="caption" sx={{ color: "var(--c1d2)", mt: 0.5 }}>
+            Uploading... {uploadProgress}%
+          </Typography>
+        </Box>
+      );
+    } else if (file?.fileName) {
+      return (
+        <Paper
+          sx={{
+            p: 1.5,
+            mt: 1,
+            backgroundColor: "var(--c1l7)",
+            border: "1px solid var(--admin-border)",
+            borderRadius: 1
+          }}
+        >
+          <Typography variant="body2">
+            <a
+              href={file.contentPath}
+              style={{
+                color: "var(--c1)",
+                textDecoration: "none",
+                fontWeight: 500
+              }}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              {file.fileName}
+            </a>
+          </Typography>
+        </Paper>
       );
     }
   };
 
   return (
-    <>
-      <label>File</label>
+    <Box sx={{ mt: 2 }}>
+      <Typography
+        variant="subtitle2"
+        sx={{
+          color: "var(--c1d2)",
+          fontWeight: 600,
+          mb: 1,
+          display: "flex",
+          alignItems: "center",
+          gap: 0.5
+        }}
+      >
+        <UploadFileIcon sx={{ fontSize: "1.2rem" }} />
+        File Upload
+      </Typography>
       {getFileLink()}
-      <input id="fileUpload" type="file" onChange={handleChange} />
-    </>
+      <Button
+        variant="outlined"
+        component="label"
+        sx={{
+          mt: 1,
+          color: "var(--c1)",
+          borderColor: "var(--c1)",
+          backgroundColor: "var(--admin-surface)",
+          "&:hover": {
+            borderColor: "var(--c1d1)",
+            backgroundColor: "var(--c1l7)"
+          }
+        }}
+      >
+        Choose File
+        <input
+          id="fileUpload"
+          type="file"
+          onChange={handleChange}
+          style={{ display: "none" }}
+        />
+      </Button>
+    </Box>
   );
 }

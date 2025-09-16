@@ -29,7 +29,7 @@ export const Map: React.FC<Props> = props => {
       result.push(<Marker coordinates={[ip.lon, ip.lat]}>
         <circle
           r={2}
-          fill="#1976d2"
+          fill="var(--c1)"
           onMouseOver={() => {
             setTooltipIp(ip);
           }}
