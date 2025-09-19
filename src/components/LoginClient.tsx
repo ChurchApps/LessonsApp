@@ -72,6 +72,7 @@ export function LoginClient({ showLogo, redirectAfterLogin, loginContainerCssPro
         context={context}
         jwt={jwt}
         appName="Lessons.church"
+        appUrl="https://lessons.church"
         showLogo={showLogo}
         loginContainerCssProps={loginContainerCssProps}
         keyName={keyName}
