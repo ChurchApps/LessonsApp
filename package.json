@@ -20,10 +20,10 @@
     "node": ">=20.0.0"
   },
   "dependencies": {
-    "@churchapps/apphelper": "^0.4.50",
-    "@churchapps/apphelper-login": "^0.4.50",
-    "@churchapps/apphelper-markdown": "^0.4.50",
-    "@churchapps/helpers": "^1.1.8",
+    "@churchapps/apphelper": "^0.5.0",
+    "@churchapps/apphelper-login": "^0.5.0",
+    "@churchapps/apphelper-markdown": "^0.5.0",
+    "@churchapps/helpers": "^1.2.3",
     "@mui/icons-material": "^7.3.1",
     "@mui/lab": "^7.0.0-beta.16",
     "@mui/material": "^7.3.1",
