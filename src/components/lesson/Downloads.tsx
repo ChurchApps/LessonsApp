@@ -9,10 +9,14 @@ interface Props {
 
 export function Downloads(props: Props) {
   const trackDownload = (download: FeedDownloadInterface) => {
-    if (CommonEnvironmentHelper.GoogleAnalyticsTag) {
+    if (CommonEnvironmentHelper.GoogleAnalyticsTag && CommonEnvironmentHelper.GoogleAnalyticsTag !== "") {
       const action = download.name;
       const label = window.location.pathname;
-      AnalyticsHelper.logEvent("Download", action, label);
+      try {
+        AnalyticsHelper.logEvent("Download", action, label);
+      } catch (error) {
+        console.warn('Analytics logging failed:', error);
+      }
     }
     const d = {
       lessonId: props.lessonId,

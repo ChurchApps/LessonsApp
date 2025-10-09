@@ -167,7 +167,11 @@ export function Action(props: Props) {
   const handlePreviewClick = (file: FeedFileInterface) => {
     const action = file.name;
     const label = window.location.pathname;
-    AnalyticsHelper.logEvent("Preview", action, label);
+    try {
+      AnalyticsHelper.logEvent("Preview", action, label);
+    } catch (error) {
+      console.warn('Analytics logging failed:', error);
+    }
     const download = {
       lessonId: props.lessonId,
       fileId: file.id,
