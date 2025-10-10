@@ -1,9 +1,9 @@
 "use client";
 
 import { useParams, useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
-import { Box, CircularProgress, IconButton, List, ListItem, ListItemButton, ListItemIcon, ListItemText, Menu, MenuItem, Paper, Stack, Typography } from "@mui/material";
-import { Add as AddIcon, ContentCopy as CopyIcon, List as ListIcon, Person as PersonIcon, Check as CheckIcon, LocationOn as LocationIcon } from "@mui/icons-material";
+import { startTransition, useEffect, useState } from "react";
+import { Box, Button, CircularProgress, IconButton, List, ListItem, ListItemButton, ListItemIcon, ListItemText, Menu, MenuItem, Paper, Stack, Typography } from "@mui/material";
+import { Add as AddIcon, Clear as ClearIcon, ContentCopy as CopyIcon, List as ListIcon, Person as PersonIcon, Check as CheckIcon, LocationOn as LocationIcon } from "@mui/icons-material";
 import { ActionEdit, RoleEdit, SectionCopy, SectionEdit } from "@/components";
 import { PageHeader } from "@churchapps/apphelper";
 import { Wrapper } from "@/components/Wrapper";
@@ -20,6 +20,7 @@ import { ActionInterface,
   SectionInterface,
   StudyInterface,
   VenueInterface } from "@/helpers";
+import { revalidate } from "../../../actions";
 
 type PageParams = { id: string };
 
@@ -395,6 +396,12 @@ export default function Venue() {
     setMenuAnchor(null);
   };
 
+  const clearCache = () => {
+    startTransition(async () => {
+      revalidate("all");
+    });
+  };
+
   return (
     <Wrapper>
       <Box sx={{ p: 0 }}>
@@ -415,6 +422,20 @@ export default function Venue() {
             }}>
             <AddIcon />
           </IconButton>
+          <Button
+            variant="outlined"
+            startIcon={<ClearIcon />}
+            onClick={clearCache}
+            sx={{
+              color: "white",
+              borderColor: "rgba(255,255,255,0.5)",
+              "&:hover": {
+                borderColor: "white",
+                backgroundColor: "rgba(255,255,255,0.1)"
+              }
+            }}>
+            Clear Cache
+          </Button>
         </PageHeader>
 
         <Paper
