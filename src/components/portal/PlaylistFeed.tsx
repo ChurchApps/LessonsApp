@@ -65,7 +65,7 @@ export function PlaylistFeed(props: Props) {
           </a>{" "}
           to easily share with your students (or parents) what was studied each week. You can customize the look by
           uploading a church logo{" "}
-          <a href="https://app.chums.org/settings" target="_blank" rel="noreferrer nooppener">
+          <a href="https://admin.b1.church/settings" target="_blank" rel="noreferrer nooppener">
             here
           </a>
           .
