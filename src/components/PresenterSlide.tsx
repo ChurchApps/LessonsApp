@@ -6,6 +6,7 @@ interface Props {
 }
 
 export function PresenterSlide(props: Props) {
+  if (!props.file) return null;
   const videoRef = useRef<HTMLVideoElement>(null);
 
   useEffect(() => {

@@ -23,7 +23,6 @@ export const viewport = {
 
 export default async function RootLayout({ children }: { children: React.ReactNode }) {
   EnvironmentHelper.init();
-  await EnvironmentHelper.initLocale();
 
   return (
     <html lang="en" className={roboto.className}>

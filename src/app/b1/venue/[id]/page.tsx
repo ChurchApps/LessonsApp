@@ -31,7 +31,7 @@ export default function B1Venue() {
 
   const loadData = async () => {
     EnvironmentHelper.init();
-    let search = new URLSearchParams(process.browser ? window.location.search : "");
+    let search = new URLSearchParams(typeof window !== "undefined" ? window.location.search : "");
     const externalProviderId = search.get("externalProviderId");
     let venue: FeedVenueInterface = null;
     if (externalProviderId) venue = await loadExternal(externalProviderId, params.id.toString());

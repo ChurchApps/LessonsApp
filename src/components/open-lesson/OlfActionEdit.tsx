@@ -85,6 +85,7 @@ export function OlfActionEdit(props: Props) {
 
     const rows: JSX.Element[] = [];
     action.files?.forEach((f, i) => {
+      if (!f) return;
       rows.push(<TableRow key={i}>
         <TableCell colSpan={2}>
           <a
