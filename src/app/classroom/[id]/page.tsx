@@ -119,7 +119,7 @@ export default function Venue() {
   };
 
   const getRows = () => {
-    const result: JSX.Element[] = [];
+    const result: React.JSX.Element[] = [];
     schedules?.forEach(s => {
       const { lesson, study, program } = getRowData(s);
       if (program) {

@@ -25,7 +25,7 @@ export default async function Classroom({ params }: { params: Promise<PageParams
   const { classroom, schedules } = await loadData();
 
   const getRows = () => {
-    const result: JSX.Element[] = [];
+    const result: React.JSX.Element[] = [];
     schedules?.forEach(s => {
       result.push(<Link href={"/b1/venue/" + s.venueId + "?classroomId=" + classroom?.id} className="bigLink">
         {DateHelper.getShortDate(DateHelper.toDate(s.scheduledDate))}

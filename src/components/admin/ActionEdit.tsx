@@ -138,7 +138,7 @@ export function ActionEdit(props: Props) {
     if (props.allAssets && action?.resourceId) {
       const assets = ArrayHelper.getAll(props.allAssets, "resourceId", action.resourceId);
       if (assets.length > 0) {
-        const assetItems: JSX.Element[] = [];
+        const assetItems: React.JSX.Element[] = [];
         assets.forEach((a: AssetInterface) => assetItems.push(<MenuItem value={a.id}>{a.name}</MenuItem>));
 
         return (
@@ -179,7 +179,7 @@ export function ActionEdit(props: Props) {
 
   const getResourceGroup = (groupName: string, resources: ResourceInterface[], videos: ExternalVideoInterface[]) => {
     if (resources.length > 0 || videos.length > 0) {
-      const items: JSX.Element[] = [];
+      const items: React.JSX.Element[] = [];
       items.push(<ListSubheader>{groupName}</ListSubheader>);
       resources.forEach(r => {
         items.push(<MenuItem value={r.id}>{r.name}</MenuItem>);

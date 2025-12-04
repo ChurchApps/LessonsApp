@@ -18,7 +18,7 @@ export default async function Venue({ params }: { params: Promise<PageParams> })
   const classrooms = await ApiHelper.get("/classrooms/public/church/" + churchId, "LessonsApi");
 
   const getRows = () => {
-    const result: JSX.Element[] = [];
+    const result: React.JSX.Element[] = [];
     classrooms?.forEach((c: any) => {
       let url = "/b1/classroom/" + c.id;
       result.push(<Link href={url} className="bigLink">

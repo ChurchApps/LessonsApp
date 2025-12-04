@@ -8,7 +8,7 @@ interface Props {
 
 export function OlfScriptPrint(props: Props) {
   const getActions = (actions: FeedActionInterface[]) => {
-    const result: JSX.Element[] = [];
+    const result: React.JSX.Element[] = [];
     actions.forEach(a => {
       result.push(<li className={"olfAction " + a.actionType}>
         <MarkdownPreviewLight value={a.content} />
@@ -18,7 +18,7 @@ export function OlfScriptPrint(props: Props) {
   };
 
   const getSections = () => {
-    const result: JSX.Element[] = [];
+    const result: React.JSX.Element[] = [];
     props.feed?.sections?.forEach((s, sectionIndex) => {
       result.push(<div className="olfScriptSection" key={"section" + sectionIndex}>
         <h2>{s.name}</h2>

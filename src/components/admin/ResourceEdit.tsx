@@ -95,7 +95,7 @@ export function ResourceEdit(props: Props) {
   }, [props.resource]);
 
   const getBundleOptions = () => {
-    const result: JSX.Element[] = [];
+    const result: React.JSX.Element[] = [];
     bundles?.forEach(b => {
       let displayType = "Lesson";
       if (b.contentType === "study") displayType = "Study";

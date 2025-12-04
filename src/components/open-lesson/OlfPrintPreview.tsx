@@ -18,7 +18,7 @@ export const OlfPrintPreview: React.FC<Props> = (props: Props) => {
   const [format, setFormat] = useState("colorCoded");
 
   const getPrintSections = () => {
-    const sections: JSX.Element[] = [];
+    const sections: React.JSX.Element[] = [];
 
     if (props.feed.sections) {
       //const customSections = CustomizationHelper.applyCustomSort(props.customizations, props.venue?.sections, "section");
