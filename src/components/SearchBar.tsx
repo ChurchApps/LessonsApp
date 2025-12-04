@@ -4,7 +4,7 @@ import { useRouter } from "next/navigation";
 import { useCallback, useEffect, useRef, useState } from "react";
 import ClearIcon from "@mui/icons-material/Clear";
 import SearchIcon from "@mui/icons-material/Search";
-import { Avatar, Box, Chip, CircularProgress, ClickAwayListener, IconButton, InputAdornment, List, ListItem, ListItemAvatar, ListItemText, Paper, TextField, Typography } from "@mui/material";
+import { Box, Chip, CircularProgress, ClickAwayListener, IconButton, InputAdornment, List, ListItem, ListItemAvatar, ListItemText, Paper, TextField, Typography } from "@mui/material";
 import { SearchResult } from "@/helpers/SearchHelper";
 
 interface Props {
@@ -14,14 +14,16 @@ interface Props {
   onSearch?: (query: string) => void;
   variant?: "outlined" | "filled" | "standard";
   size?: "small" | "medium";
+  expandable?: boolean;
 }
 
-export function SearchBar({ placeholder = "Search curriculum (e.g., 'peace', 'advent', 'preschool')...", autoFocus = false, fullWidth = true, variant = "outlined", size = "medium" }: Props) {
+export function SearchBar({ placeholder = "Search curriculum (e.g., 'peace', 'advent', 'preschool')...", autoFocus = false, fullWidth = true, variant = "outlined", size = "medium", expandable = false }: Props) {
   const router = useRouter();
   const [query, setQuery] = useState("");
   const [results, setResults] = useState<SearchResult[]>([]);
   const [loading, setLoading] = useState(false);
   const [showDropdown, setShowDropdown] = useState(false);
+  const [expanded, setExpanded] = useState(false);
   const debounceTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
   const inputRef = useRef<HTMLInputElement>(null);
 
@@ -81,6 +83,8 @@ export function SearchBar({ placeholder = "Search curriculum (e.g., 'peace', 'ad
 
     if (result.type === "program") {
       router.push(`/${result.programSlug}`);
+    } else if (result.type === "lesson") {
+      router.push(`/${result.programSlug}/${result.studySlug}/${result.lessonSlug}`);
     } else {
       router.push(`/${result.programSlug}/${result.studySlug}`);
     }
@@ -91,7 +95,25 @@ export function SearchBar({ placeholder = "Search curriculum (e.g., 'peace', 'ad
     setQuery("");
     setResults([]);
     setShowDropdown(false);
-    inputRef.current?.focus();
+    if (expandable) {
+      setExpanded(false);
+    } else {
+      inputRef.current?.focus();
+    }
+  };
+
+  // Handle click away - collapse if expandable
+  const handleClickAway = () => {
+    setShowDropdown(false);
+    if (expandable && !query) {
+      setExpanded(false);
+    }
+  };
+
+  // Handle expand
+  const handleExpand = () => {
+    setExpanded(true);
+    setTimeout(() => inputRef.current?.focus(), 100);
   };
 
   // Cleanup timer on unmount
@@ -103,20 +125,52 @@ export function SearchBar({ placeholder = "Search curriculum (e.g., 'peace', 'ad
     };
   }, []);
 
+  // Expandable mode - show compact search bar when collapsed
+  if (expandable && !expanded) {
+    return (
+      <Box
+        onClick={handleExpand}
+        sx={{
+          display: "flex",
+          alignItems: "center",
+          backgroundColor: "rgba(255, 255, 255, 0.15)",
+          borderRadius: 2,
+          px: 1.5,
+          height: 40,
+          cursor: "pointer",
+          transition: "background-color 0.2s",
+          "&:hover": {
+            backgroundColor: "rgba(255, 255, 255, 0.25)"
+          }
+        }}>
+        <SearchIcon sx={{ color: "inherit", mr: 1, fontSize: 20 }} />
+        <Typography variant="body2" sx={{ color: "inherit", opacity: 0.9 }}>
+          Search...
+        </Typography>
+      </Box>
+    );
+  }
+
   return (
-    <ClickAwayListener onClickAway={() => setShowDropdown(false)}>
-      <Box sx={{ position: "relative", width: fullWidth ? "100%" : "auto" }}>
+    <ClickAwayListener onClickAway={handleClickAway}>
+      <Box
+        sx={{
+          position: "relative",
+          width: expandable ? 300 : fullWidth ? "100%" : "auto",
+          transition: "width 0.2s ease-in-out",
+          "& .MuiOutlinedInput-root": expandable ? { height: 40 } : {}
+        }}>
         <form onSubmit={handleSubmit}>
           <TextField
             inputRef={inputRef}
-            fullWidth={fullWidth}
+            fullWidth
             variant={variant}
             size={size}
             placeholder={placeholder}
             value={query}
             onChange={handleChange}
             onFocus={() => query && setShowDropdown(true)}
-            autoFocus={autoFocus}
+            autoFocus={autoFocus || expandable}
             slotProps={{
               input: {
                 startAdornment: (

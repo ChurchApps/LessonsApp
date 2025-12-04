@@ -60,6 +60,9 @@ export function SearchResults({ initialQuery }: Props) {
     if (result.type === "program") {
       return `/${result.programSlug}`;
     }
+    if (result.type === "lesson") {
+      return `/${result.programSlug}/${result.studySlug}/${result.lessonSlug}`;
+    }
     return `/${result.programSlug}/${result.studySlug}`;
   };
 
@@ -124,7 +127,12 @@ export function SearchResults({ initialQuery }: Props) {
                     )}
                     <CardContent sx={{ flexGrow: 1 }}>
                       <Stack direction="row" spacing={1} alignItems="center" sx={{ mb: 1 }}>
-                        <Chip label={result.type} size="small" color={result.type === "program" ? "primary" : "secondary"} sx={{ textTransform: "capitalize" }} />
+                        <Chip
+                          label={result.type}
+                          size="small"
+                          color={result.type === "program" ? "primary" : result.type === "study" ? "secondary" : "info"}
+                          sx={{ textTransform: "capitalize" }}
+                        />
                         {result.age && <Chip label={result.age} size="small" variant="outlined" />}
                       </Stack>
 
@@ -135,6 +143,12 @@ export function SearchResults({ initialQuery }: Props) {
                       {result.type === "study" && result.programName && (
                         <Typography variant="caption" color="text.secondary" display="block" sx={{ mb: 1 }}>
                           {result.programName}
+                        </Typography>
+                      )}
+
+                      {result.type === "lesson" && (result.studyName || result.programName) && (
+                        <Typography variant="caption" color="text.secondary" display="block" sx={{ mb: 1 }}>
+                          {result.studyName && result.programName ? `${result.programName} › ${result.studyName}` : result.studyName || result.programName}
                         </Typography>
                       )}
 

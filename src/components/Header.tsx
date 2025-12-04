@@ -7,6 +7,7 @@ import { AppBar, Box, ClickAwayListener, Icon, Menu, Stack } from "@mui/material
 import { SupportModal } from "@churchapps/apphelper";
 import { ApiHelper, UserHelper } from "@churchapps/apphelper";
 import { Permissions } from "../helpers/Permissions";
+import { SearchBar } from "./SearchBar";
 
 interface Props {
   position?: "fixed" | "sticky" | "static" | "relative" | "absolute";
@@ -90,6 +91,9 @@ export function Header(props: Props) {
               className="img-fluid"
             />
           </Link>
+          <Box sx={{ display: { xs: "none", md: "flex" }, alignItems: "center", mx: 2 }}>
+            <SearchBar placeholder="Search curriculum..." size="small" expandable />
+          </Box>
           <Box sx={{ display: "flex", alignItems: "center", whiteSpace: "nowrap" }}>{userAction}</Box>
         </Stack>
       </AppBar>

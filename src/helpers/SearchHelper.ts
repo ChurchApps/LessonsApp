@@ -2,7 +2,7 @@ import { type Orama, create, load, search } from "@orama/orama";
 
 export interface SearchResult {
   id: string;
-  type: "program" | "study";
+  type: "program" | "study" | "lesson";
   name: string;
   description: string;
   slug: string;
@@ -12,6 +12,7 @@ export interface SearchResult {
   programSlug: string;
   studyName: string;
   studySlug: string;
+  lessonSlug: string;
   categories: string;
   lessonCount?: number;
   score: number;
@@ -21,6 +22,25 @@ export interface SearchResponse {
   results: SearchResult[];
   elapsed: number;
   count: number;
+}
+
+// Type boost multipliers: programs > studies > lessons
+const TYPE_BOOST: Record<string, number> = {
+  program: 1.5,
+  study: 1.2,
+  lesson: 1.0
+};
+
+/**
+ * Apply type-based score boosting and re-sort results
+ */
+function applyTypeBoost(results: SearchResult[]): SearchResult[] {
+  return results
+    .map(r => ({
+      ...r,
+      score: r.score * (TYPE_BOOST[r.type] || 1.0)
+    }))
+    .sort((a, b) => b.score - a.score);
 }
 
 // Singleton for the search database
@@ -64,6 +84,7 @@ async function loadSearchIndex(): Promise<Orama<any>> {
         programSlug: "string",
         studyName: "string",
         studySlug: "string",
+        lessonSlug: "string",
         categories: "string",
         lessonCount: "number",
         embedding: "vector[384]"
@@ -100,7 +121,7 @@ export async function textSearch(query: string, limit: number = 20): Promise<Sea
 
   const searchResults: SearchResult[] = results.hits.map(hit => ({
     id: hit.document.id as string,
-    type: hit.document.type as "program" | "study",
+    type: hit.document.type as "program" | "study" | "lesson",
     name: hit.document.name as string,
     description: hit.document.description as string,
     slug: hit.document.slug as string,
@@ -110,13 +131,14 @@ export async function textSearch(query: string, limit: number = 20): Promise<Sea
     programSlug: hit.document.programSlug as string,
     studyName: hit.document.studyName as string,
     studySlug: hit.document.studySlug as string,
+    lessonSlug: hit.document.lessonSlug as string,
     categories: hit.document.categories as string,
     lessonCount: hit.document.lessonCount as number,
     score: hit.score
   }));
 
   return {
-    results: searchResults,
+    results: applyTypeBoost(searchResults),
     elapsed: Date.now() - startTime,
     count: results.count
   };
@@ -142,7 +164,7 @@ export async function semanticSearch(queryEmbedding: number[], limit: number = 2
 
   const searchResults: SearchResult[] = results.hits.map(hit => ({
     id: hit.document.id as string,
-    type: hit.document.type as "program" | "study",
+    type: hit.document.type as "program" | "study" | "lesson",
     name: hit.document.name as string,
     description: hit.document.description as string,
     slug: hit.document.slug as string,
@@ -152,13 +174,14 @@ export async function semanticSearch(queryEmbedding: number[], limit: number = 2
     programSlug: hit.document.programSlug as string,
     studyName: hit.document.studyName as string,
     studySlug: hit.document.studySlug as string,
+    lessonSlug: hit.document.lessonSlug as string,
     categories: hit.document.categories as string,
     lessonCount: hit.document.lessonCount as number,
     score: hit.score
   }));
 
   return {
-    results: searchResults,
+    results: applyTypeBoost(searchResults),
     elapsed: Date.now() - startTime,
     count: results.count
   };
@@ -186,7 +209,7 @@ export async function hybridSearch(query: string, queryEmbedding: number[], limi
 
   const searchResults: SearchResult[] = results.hits.map(hit => ({
     id: hit.document.id as string,
-    type: hit.document.type as "program" | "study",
+    type: hit.document.type as "program" | "study" | "lesson",
     name: hit.document.name as string,
     description: hit.document.description as string,
     slug: hit.document.slug as string,
@@ -196,13 +219,14 @@ export async function hybridSearch(query: string, queryEmbedding: number[], limi
     programSlug: hit.document.programSlug as string,
     studyName: hit.document.studyName as string,
     studySlug: hit.document.studySlug as string,
+    lessonSlug: hit.document.lessonSlug as string,
     categories: hit.document.categories as string,
     lessonCount: hit.document.lessonCount as number,
     score: hit.score
   }));
 
   return {
-    results: searchResults,
+    results: applyTypeBoost(searchResults),
     elapsed: Date.now() - startTime,
     count: results.count
   };

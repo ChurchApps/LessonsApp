@@ -61,6 +61,19 @@ async function loadAllContent() {
   }
   console.log(`  Found ${allCategories.length} study categories`);
 
+  // Fetch all lessons for each study
+  const allLessons = [];
+  console.log('  Fetching lessons for each study...');
+  for (const study of studies) {
+    try {
+      const lessons = await fetchFromApi(`/lessons/public/study/${study.id}`);
+      allLessons.push(...lessons.map(l => ({ ...l, studyId: study.id })));
+    } catch (e) {
+      // Some studies may not have lessons
+    }
+  }
+  console.log(`  Found ${allLessons.length} lessons`);
+
   // Create a map of studyId -> categories
   const studyCategoryMap = new Map();
   for (const cat of allCategories) {
@@ -73,13 +86,16 @@ async function loadAllContent() {
   // Create a map of programId -> program
   const programMap = new Map(programs.map(p => [p.id, p]));
 
-  return { programs, studies, programMap, studyCategoryMap };
+  // Create a map of studyId -> study
+  const studyMap = new Map(studies.map(s => [s.id, s]));
+
+  return { programs, studies, lessons: allLessons, programMap, studyMap, studyCategoryMap };
 }
 
 /**
  * Build searchable documents from content
  */
-function buildDocuments(programs, studies, programMap, studyCategoryMap) {
+function buildDocuments(programs, studies, lessons, programMap, studyMap, studyCategoryMap) {
   console.log('\n📝 Building searchable documents...\n');
 
   const documents = [];
@@ -98,6 +114,7 @@ function buildDocuments(programs, studies, programMap, studyCategoryMap) {
       programSlug: program.slug || '',
       studyName: '',
       studySlug: '',
+      lessonSlug: '',
       categories: '',
       // Text to embed - combine all relevant fields
       searchText: [
@@ -126,6 +143,7 @@ function buildDocuments(programs, studies, programMap, studyCategoryMap) {
       programSlug: program?.slug || '',
       studyName: study.name || '',
       studySlug: study.slug || '',
+      lessonSlug: '',
       categories: categories.join(', '),
       lessonCount: study.lessonCount || 0,
       // Text to embed - combine all relevant fields
@@ -140,7 +158,41 @@ function buildDocuments(programs, studies, programMap, studyCategoryMap) {
     });
   }
 
-  console.log(`  Created ${documents.length} searchable documents`);
+  // Add lessons as searchable documents
+  for (const lesson of lessons) {
+    const study = studyMap.get(lesson.studyId);
+    const program = study ? programMap.get(study.programId) : null;
+    const categories = study ? (studyCategoryMap.get(study.id) || []) : [];
+
+    documents.push({
+      id: `lesson-${lesson.id}`,
+      type: 'lesson',
+      name: lesson.title || lesson.name || '',
+      description: lesson.description || '',
+      slug: lesson.slug || '',
+      image: lesson.image || study?.image || '',
+      age: program?.age || '',
+      programName: program?.name || '',
+      programSlug: program?.slug || '',
+      studyName: study?.name || '',
+      studySlug: study?.slug || '',
+      lessonSlug: lesson.slug || '',
+      categories: categories.join(', '),
+      lessonCount: 0,
+      // Text to embed - combine all relevant fields
+      searchText: [
+        lesson.name,
+        lesson.title,
+        lesson.description,
+        study?.name,
+        program?.name,
+        program?.age,
+        ...categories
+      ].filter(Boolean).join(' ')
+    });
+  }
+
+  console.log(`  Created ${documents.length} searchable documents (${programs.length} programs, ${studies.length} studies, ${lessons.length} lessons)`);
   return documents;
 }
 
@@ -197,6 +249,7 @@ async function createSearchIndex(documents, embeddings) {
       programSlug: 'string',
       studyName: 'string',
       studySlug: 'string',
+      lessonSlug: 'string',
       categories: 'string',
       lessonCount: 'number',
       embedding: 'vector[384]' // all-MiniLM-L6-v2 produces 384-dim vectors
@@ -253,10 +306,10 @@ async function main() {
 
   try {
     // Load content
-    const { programs, studies, programMap, studyCategoryMap } = await loadAllContent();
+    const { programs, studies, lessons, programMap, studyMap, studyCategoryMap } = await loadAllContent();
 
     // Build documents
-    const documents = buildDocuments(programs, studies, programMap, studyCategoryMap);
+    const documents = buildDocuments(programs, studies, lessons, programMap, studyMap, studyCategoryMap);
 
     // Generate embeddings
     const embeddings = await generateEmbeddings(documents);
