@@ -24,7 +24,7 @@ export const Map: React.FC<Props> = props => {
   };
 
   const getMarkers = () => {
-    const result: JSX.Element[] = [];
+    const result: React.JSX.Element[] = [];
     ipData.forEach(ip => {
       result.push(<Marker coordinates={[ip.lon, ip.lat]}>
         <circle

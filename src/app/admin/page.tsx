@@ -98,7 +98,7 @@ export default function Admin() {
   }
 
   function getPrograms() {
-    const result: JSX.Element[] = [];
+    const result: React.JSX.Element[] = [];
     programs.forEach(p => {
       if (typeof p.id !== "string") p.id = "";
       if (typeof p.providerId !== "string") p.providerId = "";
@@ -224,7 +224,7 @@ export default function Admin() {
   }
 
   function getStudies(programId: string) {
-    const result: JSX.Element[] = [];
+    const result: React.JSX.Element[] = [];
     if (studies) {
       ArrayHelper.getAll(studies, "programId", programId).forEach(s => {
         const isExpanded = expandedStudyId === s.id;
@@ -326,7 +326,7 @@ export default function Admin() {
   }
 
   function getLessons(studyId: string) {
-    const result: JSX.Element[] = [];
+    const result: React.JSX.Element[] = [];
     if (lessons) {
       const studyLessons = ArrayHelper.getAll(lessons, "studyId", studyId);
 
@@ -449,7 +449,7 @@ export default function Admin() {
   }
 
   function getSidebar() {
-    const result: JSX.Element[] = [];
+    const result: React.JSX.Element[] = [];
     if (editProgram) {
       result.push(<ProgramEdit program={editProgram} updatedCallback={handleUpdated} key="programEdit" />);
     } else if (editStudy) {

@@ -71,7 +71,7 @@ export function SectionCopy(props: Props) {
   };
 
   const getVenueOptions = () => {
-    const result: JSX.Element[] = [];
+    const result: React.JSX.Element[] = [];
     venues.forEach(v => {
       result.push(<MenuItem value={v.id}>{v.name}</MenuItem>);
     });
@@ -79,7 +79,7 @@ export function SectionCopy(props: Props) {
   };
 
   const getSectionOptions = () => {
-    const result: JSX.Element[] = [];
+    const result: React.JSX.Element[] = [];
     sections.forEach(s => {
       result.push(<MenuItem value={s.id}>{s.name}</MenuItem>);
     });

@@ -16,7 +16,7 @@ interface Props {
 
 export function Section(props: Props) {
   const getActions = (action: ActionInterface) => {
-    let result: JSX.Element = <></>;
+    let result: React.JSX.Element = <></>;
 
     if (!shouldHide(action.id)) result = <Action action={action} lessonId={props.lessonId} key={action.id} />;
 
@@ -33,7 +33,7 @@ export function Section(props: Props) {
   };
 
   const getParts = () => {
-    const result: JSX.Element[] = [];
+    const result: React.JSX.Element[] = [];
     if (props.section?.actions) {
       const customRoles = CustomizationHelper.applyCustomSort(props.customizations, props.section.actions, "role");
       customRoles.forEach(r => {

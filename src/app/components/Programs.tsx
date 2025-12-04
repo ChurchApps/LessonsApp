@@ -14,7 +14,7 @@ interface Props {
 const Programs = React.memo((props: Props) => {
   const getStudies = React.useCallback((program: ProgramInterface) => {
     const studies = ArrayHelper.getAll(props.studies, "programId", program.id);
-    const result: JSX.Element[] = [];
+    const result: React.JSX.Element[] = [];
     for (let i = 0; i < 6; i++) {
       const link = studies.length > i ? (
             <Link href={"/" + program.slug + "/" + studies[i].slug}>
@@ -66,7 +66,7 @@ const Programs = React.memo((props: Props) => {
   }, [getStudies]);
 
   const programDivs = React.useMemo(() => {
-    const divs: JSX.Element[] = [];
+    const divs: React.JSX.Element[] = [];
     props.programs.forEach(program => {
       //temp hack to exclude west ridge kids for now.
       if (program.id !== "CjDN3VrEm3s") divs.push(getProgramDiv(program));

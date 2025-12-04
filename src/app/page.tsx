@@ -40,7 +40,7 @@ export default async function Home(props: { params: Promise<{}>; searchParams: P
 
   if (clearCache) {
     console.log("CLEARING CACHE");
-    revalidateTag("all");
+    revalidateTag("all", "max");
   }
 
   if (errorMessage) return <Error message={errorMessage} />;

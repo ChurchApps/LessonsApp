@@ -363,7 +363,7 @@ export default function Venue() {
   };
 
   const getSidebar = () => {
-    const result: JSX.Element[] = [];
+    const result: React.JSX.Element[] = [];
     if (editSection) {
       result.push(<SectionEdit section={editSection} updatedCallback={handleSectionUpdated} key="sectionEdit" />);
     } else if (editRole) {

@@ -31,7 +31,7 @@ export function Downloads(props: Props) {
   };
 
   const getDownloads = () => {
-    const result: JSX.Element[] = [];
+    const result: React.JSX.Element[] = [];
     props.downloads?.forEach((d, idx) => {
       result.push(<li key={"download-" + idx}>
         <a
