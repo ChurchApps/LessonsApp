@@ -110,7 +110,7 @@ export default function OlfInner() {
   };
 
   const getActions = (s: FeedSectionInterface, sectionIndex: number) => {
-    let result: JSX.Element[] = [];
+    let result: React.JSX.Element[] = [];
     s.actions?.forEach((a, j) => {
       result.push(<TableRow key={"action-" + sectionIndex + "-" + j}>
         <TableCell></TableCell>
@@ -153,7 +153,7 @@ export default function OlfInner() {
   };
 
   const getSections = () => {
-    let result: JSX.Element[] = [];
+    let result: React.JSX.Element[] = [];
     data?.sections?.forEach((s, i) => {
       result.push(<TableRow key={"section-" + s.name}>
         <TableCell>

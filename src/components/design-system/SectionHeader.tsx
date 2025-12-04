@@ -11,7 +11,7 @@ export function SectionHeader({ icon, title, actions }: SectionHeaderProps) {
   return (
     <Stack direction="row" alignItems="center" justifyContent="space-between" sx={{ width: "100%" }}>
       <Stack direction="row" alignItems="center" spacing={1}>
-        {React.cloneElement(icon as React.ReactElement, {
+        {React.cloneElement(icon as React.ReactElement<any>, {
           sx: { color: "var(--c1d2)", fontSize: "1.5rem" }
         })}
         <Typography

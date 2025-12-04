@@ -92,7 +92,7 @@ export default function Admin() {
   );
 
   const getStudyCategories = () => {
-    let result: JSX.Element[] = [];
+    let result: React.JSX.Element[] = [];
     let i = 0;
     studyCategories.forEach(sc => {
       const study = ArrayHelper.getOne(studies, "id", sc.studyId);

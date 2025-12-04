@@ -37,7 +37,7 @@ export function PersonInner() {
   };
 
   const getRows = () => {
-    const result: JSX.Element[] = [];
+    const result: React.JSX.Element[] = [];
     classrooms?.forEach(c => {
       let url = "/b1/classroom/" + c.id;
       if (ArrayHelper.getOne(context.userChurch.groups, "id", c.recentGroupId)) url += "?recent=1";
