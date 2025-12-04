@@ -128,25 +128,27 @@ export function SearchBar({ placeholder = "Search curriculum (e.g., 'peace', 'ad
   // Expandable mode - show compact search bar when collapsed
   if (expandable && !expanded) {
     return (
-      <Box
-        onClick={handleExpand}
-        sx={{
-          display: "flex",
-          alignItems: "center",
-          backgroundColor: "rgba(255, 255, 255, 0.15)",
-          borderRadius: 2,
-          px: 1.5,
-          height: 40,
-          cursor: "pointer",
-          transition: "background-color 0.2s",
-          "&:hover": {
-            backgroundColor: "rgba(255, 255, 255, 0.25)"
-          }
-        }}>
-        <SearchIcon sx={{ color: "inherit", mr: 1, fontSize: 20 }} />
-        <Typography variant="body2" sx={{ color: "inherit", opacity: 0.9 }}>
-          Search...
-        </Typography>
+      <Box sx={{ height: 40, display: "flex", alignItems: "center" }}>
+        <Box
+          onClick={handleExpand}
+          sx={{
+            display: "flex",
+            alignItems: "center",
+            backgroundColor: "rgba(255, 255, 255, 0.15)",
+            borderRadius: 2,
+            px: 1.5,
+            height: 40,
+            cursor: "pointer",
+            transition: "background-color 0.2s",
+            "&:hover": {
+              backgroundColor: "rgba(255, 255, 255, 0.25)"
+            }
+          }}>
+          <SearchIcon sx={{ color: "inherit", fontSize: 20 }} />
+          <Typography variant="body2" sx={{ color: "inherit", opacity: 0.9, display: { xs: "none", md: "block" }, ml: 1 }}>
+            Search...
+          </Typography>
+        </Box>
       </Box>
     );
   }
@@ -157,10 +159,12 @@ export function SearchBar({ placeholder = "Search curriculum (e.g., 'peace', 'ad
         sx={{
           position: "relative",
           width: expandable ? 300 : fullWidth ? "100%" : "auto",
-          transition: "width 0.2s ease-in-out",
-          "& .MuiOutlinedInput-root": expandable ? { height: 40 } : {}
+          height: expandable ? 40 : "auto",
+          display: "flex",
+          alignItems: "center",
+          transition: "width 0.2s ease-in-out"
         }}>
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={handleSubmit} style={{ width: "100%", margin: 0 }}>
           <TextField
             inputRef={inputRef}
             fullWidth
@@ -195,6 +199,7 @@ export function SearchBar({ placeholder = "Search curriculum (e.g., 'peace', 'ad
               "& .MuiOutlinedInput-root": {
                 backgroundColor: "rgba(255, 255, 255, 0.95)",
                 borderRadius: 2,
+                ...(expandable && { height: 40 }),
                 "&:hover": {
                   backgroundColor: "white"
                 },
