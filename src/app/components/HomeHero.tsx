@@ -1,6 +1,7 @@
-import { Container, Fade, Grid, Link, Slide, Stack } from "@mui/material";
+import { Container, Fade, Grid, Link, Slide, Stack, Box } from "@mui/material";
 import { Header } from "../../components/Header";
 import { Stats } from "./Stats";
+import { SearchBar } from "../../components/SearchBar";
 
 interface Props {
   stats: any;
@@ -35,6 +36,12 @@ export function HomeHero(props: Props) {
             We believe that limited church budgets should never stand in the way of teaching both children and adults
             the word of God in the most effective way possible.
           </p>
+          <Box sx={{ my: 3, maxWidth: 500 }}>
+            <SearchBar
+              placeholder="Search curriculum (e.g., 'peace', 'advent', 'Christmas')..."
+              size="medium"
+            />
+          </Box>
           <Link href="/login?action=register" className="cta" underline="none" style={{ color: "#FFF" }}>
             Join for <b>FREE</b> Curriculum
           </Link>

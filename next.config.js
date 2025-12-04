@@ -6,7 +6,6 @@ const config = {
     NEXT_PUBLIC_ACCESS_API: process.env.NEXT_PUBLIC_ACCESS_API,
     NEXT_PUBLIC_LESSONS_API: process.env.NEXT_PUBLIC_LESSONS_API,
     NEXT_PUBLIC_CONTENT_ROOT: process.env.NEXT_PUBLIC_CONTENT_ROOT,
-    NEXT_PUBLIC_ACCOUNTS_APP_URL: process.env.NEXT_PUBLIC_ACCOUNTS_APP_URL,
     NEXT_PUBLIC_CHURCH_APPS_URL: process.env.NEXT_PUBLIC_CHURCH_APPS_URL,
     NEXT_PUBLIC_GOOGLE_ANALYTICS: process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS,
   },
@@ -19,7 +18,18 @@ const config = {
       { protocol: "https", hostname: "files.churchpdf.com" }
     ]
   },
-  transpilePackages: ["@churchapps/apphelper", "@churchapps/apphelper-markdown", "mui-tel-input", "react-ga4", "@mui/material", "@mui/styled-engine"]
+  transpilePackages: ["@churchapps/apphelper", "@churchapps/apphelper-markdown", "mui-tel-input", "react-ga4", "@mui/material", "@mui/styled-engine"],
+  // Configuration for Transformers.js (ONNX runtime)
+  serverExternalPackages: ["@xenova/transformers"],
+  webpack: (config, { isServer }) => {
+    // Handle .node files for ONNX runtime
+    config.resolve.alias = {
+      ...config.resolve.alias,
+      "sharp$": false,
+      "onnxruntime-node$": false,
+    };
+    return config;
+  },
 }
 
 module.exports = process.env.ANALYZE === 'true' 
