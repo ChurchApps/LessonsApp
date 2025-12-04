@@ -37,7 +37,7 @@ export function SearchBar({ placeholder = "Search curriculum (e.g., 'peace', 'ad
 
     setLoading(true);
     try {
-      const response = await fetch(`/api/search?q=${encodeURIComponent(searchQuery)}&limit=8`);
+      const response = await fetch(`/api/search?q=${encodeURIComponent(searchQuery)}&limit=8&mode=text`);
       const data = await response.json();
       if (data.results) {
         setResults(data.results);
@@ -173,7 +173,9 @@ export function SearchBar({ placeholder = "Search curriculum (e.g., 'peace', 'ad
             placeholder={placeholder}
             value={query}
             onChange={handleChange}
-            onFocus={() => query && setShowDropdown(true)}
+            onFocus={() => {
+              if (query) setShowDropdown(true);
+            }}
             autoFocus={autoFocus || expandable}
             slotProps={{
               input: {
