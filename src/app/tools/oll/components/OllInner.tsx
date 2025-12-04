@@ -115,7 +115,7 @@ export default function OllInner() {
   };
 
   const getVenues = (l: FeedLessonInterface, programIndex: number, studyIndex: number, lessonIndex: number) => {
-    let result: JSX.Element[] = [];
+    let result: React.JSX.Element[] = [];
     l.venues?.forEach((v, j) => {
       result.push(<TableRow key={l.id + "-" + v.id}>
         <TableCell></TableCell>
@@ -156,7 +156,7 @@ export default function OllInner() {
   };
 
   const getLessons = (s: FeedStudyInterface, programIndex: number, studyIndex: number) => {
-    let result: JSX.Element[] = [];
+    let result: React.JSX.Element[] = [];
     s.lessons?.forEach((l, j) => {
       result.push(<TableRow key={l.id}>
         <TableCell></TableCell>
@@ -210,7 +210,7 @@ export default function OllInner() {
   };
 
   const getStudies = (p: FeedProgramInterface, programIndex: number) => {
-    let result: JSX.Element[] = [];
+    let result: React.JSX.Element[] = [];
     p.studies?.forEach((s, j) => {
       result.push(<TableRow key={s.id}>
         <TableCell></TableCell>
@@ -262,7 +262,7 @@ export default function OllInner() {
   };
 
   const getPrograms = () => {
-    let result: JSX.Element[] = [];
+    let result: React.JSX.Element[] = [];
 
     data?.programs?.forEach((p, i) => {
       result.push(<TableRow key={p.id}>

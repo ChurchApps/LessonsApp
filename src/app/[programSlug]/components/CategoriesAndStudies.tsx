@@ -19,7 +19,7 @@ export function CategoriesAndStudies(props: Props) {
 
   const getCategoryList = () => {
     const categories = ArrayHelper.getUniqueValues(props.studyCategories, "categoryName").sort();
-    const tabs: JSX.Element[] = [];
+    const tabs: React.JSX.Element[] = [];
     categories.forEach(name => {
       tabs.push(<Tab label={name} value={name} key={name} />);
     });

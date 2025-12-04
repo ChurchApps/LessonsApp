@@ -179,7 +179,7 @@ export default function Venue() {
   };
 
   const getRows = () => {
-    const result: JSX.Element[] = [];
+    const result: React.JSX.Element[] = [];
     const sorted: SectionInterface[] = CustomizationHelper.applyCustomSort(customizations, sections, "section");
     let idx = 0;
     sorted.forEach(s => {
@@ -200,7 +200,7 @@ export default function Venue() {
   };
 
   const getRoles = (sectionId: string, parentRemoved: boolean) => {
-    const result: JSX.Element[] = [];
+    const result: React.JSX.Element[] = [];
     if (roles) {
       let idx = 0;
       const filtered = ArrayHelper.getAll(roles, "sectionId", sectionId);
@@ -233,7 +233,7 @@ export default function Venue() {
   };
 
   const getActions = (roleId: string, parentRemoved: boolean) => {
-    const result: JSX.Element[] = [];
+    const result: React.JSX.Element[] = [];
     if (actions) {
       let idx = 0;
       const filtered = ArrayHelper.getAll(actions, "roleId", roleId);
@@ -314,7 +314,7 @@ export default function Venue() {
   );
 
   const getLinks = (contentType: string, contentId: string, parentRemoved: boolean, index: number, array: any[]) => {
-    const result: JSX.Element[] = [];
+    const result: React.JSX.Element[] = [];
     if (index > 0) result.push(getUpLink(contentType, array[index], array[index - 1]));
     if (index < array.length - 1) result.push(getDownLink(contentType, array[index], array[index + 1]));
     if (!parentRemoved) result.push(getDeleteLink(contentType, contentId));

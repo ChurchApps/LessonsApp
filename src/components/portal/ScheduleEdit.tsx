@@ -150,26 +150,26 @@ export function ScheduleEdit(props: Props) {
   };
 
   const getProviderOptions = () => {
-    const result: JSX.Element[] = [];
+    const result: React.JSX.Element[] = [];
     result.push(<MenuItem value="lessons.church">Lessons.church</MenuItem>);
     externalProviders.forEach(p => result.push(<MenuItem value={p.id}>{p.name}</MenuItem>));
     return result;
   };
 
   const getProgramOptions = () => {
-    const result: JSX.Element[] = [];
+    const result: React.JSX.Element[] = [];
     lessonTree?.programs?.forEach((p: any) => result.push(<MenuItem value={p.id}>{p.name}</MenuItem>));
     return result;
   };
 
   const getStudyOptions = () => {
-    const result: JSX.Element[] = [];
+    const result: React.JSX.Element[] = [];
     currentProgram?.studies?.forEach((s: any) => result.push(<MenuItem value={s.id}>{s.name}</MenuItem>));
     return result;
   };
 
   const getLessonOptions = () => {
-    const result: JSX.Element[] = [];
+    const result: React.JSX.Element[] = [];
     currentStudy?.lessons?.forEach((l: any) => {
       let sx: any = {};
       const existing: ScheduleInterface = ArrayHelper.getOne(props.schedules, "lessonId", l.id);
@@ -182,7 +182,7 @@ export function ScheduleEdit(props: Props) {
   };
 
   const getVenueOptions = () => {
-    const result: JSX.Element[] = [];
+    const result: React.JSX.Element[] = [];
     currentLesson?.venues.forEach((v: any) => result.push(<MenuItem value={v.id}>{v.name}</MenuItem>));
     return result;
   };

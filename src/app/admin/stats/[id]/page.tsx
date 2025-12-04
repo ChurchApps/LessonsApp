@@ -69,7 +69,7 @@ export default function Admin() {
   };
 
   const getStudyRows = () => {
-    const result: JSX.Element[] = [];
+    const result: React.JSX.Element[] = [];
     studies.forEach((s, index) => {
       result.push(<tr key={index} style={{ borderBottom: '1px solid var(--admin-border)' }}>
         <td style={{ padding: '12px' }}>{s.studyName}</td>
@@ -80,7 +80,7 @@ export default function Admin() {
   };
 
   const getChurchRows = () => {
-    const result: JSX.Element[] = [];
+    const result: React.JSX.Element[] = [];
     churches.forEach((c, index) => {
       result.push(<tr key={index} style={{ borderBottom: '1px solid var(--admin-border)' }}>
         <td style={{ padding: '12px' }}>{c.name}</td>

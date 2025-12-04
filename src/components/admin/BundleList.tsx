@@ -74,7 +74,7 @@ export const BundleList: React.FC<Props> = props => {
   };
 
   const getResources = (bundleId: string) => {
-    const result: JSX.Element[] = [];
+    const result: React.JSX.Element[] = [];
     if (resources) {
       ArrayHelper.getAll(resources, "bundleId", bundleId).forEach(r => {
         const resource = r;
@@ -119,7 +119,7 @@ export const BundleList: React.FC<Props> = props => {
   };
 
   const getVariants = (resourceId: string) => {
-    const result: JSX.Element[] = [];
+    const result: React.JSX.Element[] = [];
     if (variants) {
       ArrayHelper.getAll(variants, "resourceId", resourceId).forEach(v => {
         result.push(<div className="variantDiv" key={`v-${v.id}`}>
@@ -146,7 +146,7 @@ export const BundleList: React.FC<Props> = props => {
   };
 
   const getAssets = (resourceId: string) => {
-    const result: JSX.Element[] = [];
+    const result: React.JSX.Element[] = [];
     if (assets) {
       ArrayHelper.getAll(assets, "resourceId", resourceId).forEach(a => {
         result.push(<div className="assetDiv" key={`a-${a.id}`}>
@@ -173,7 +173,7 @@ export const BundleList: React.FC<Props> = props => {
   };
 
   const getBundles = () => {
-    const result: JSX.Element[] = [];
+    const result: React.JSX.Element[] = [];
     bundles.forEach(b => {
       const bundle = b;
       result.push(<Accordion
@@ -221,7 +221,7 @@ export const BundleList: React.FC<Props> = props => {
   };
 
   const getVideos = () => {
-    const result: JSX.Element[] = [];
+    const result: React.JSX.Element[] = [];
     externalVideos.forEach(v => {
       const video = v;
       result.push(<div style={{ paddingLeft: 16 }}>

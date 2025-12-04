@@ -83,8 +83,9 @@ export function OlfActionEdit(props: Props) {
   const getFiles = () => {
     if (action.actionType !== "play") return;
 
-    const rows: JSX.Element[] = [];
+    const rows: React.JSX.Element[] = [];
     action.files?.forEach((f, i) => {
+      if (!f) return;
       rows.push(<TableRow key={i}>
         <TableCell colSpan={2}>
           <a

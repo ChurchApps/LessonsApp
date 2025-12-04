@@ -51,7 +51,7 @@ const Venue = React.memo(({ hidePrint = true, ...props }: Props) => {
   const customSections = React.useMemo(() => CustomizationHelper.applyCustomSort(props.customizations, props.venue?.sections, "section"), [props.customizations, props.venue?.sections]);
 
   const getSections = React.useCallback(() => {
-    const sections: JSX.Element[] = [];
+    const sections: React.JSX.Element[] = [];
 
     if (props.venue?.sections) {
       customSections.forEach(s => {
@@ -71,7 +71,7 @@ const Venue = React.memo(({ hidePrint = true, ...props }: Props) => {
   }, [customSections, shouldHide, handleToggle, activeSectionId, props.customizations, props.venue?.sections]);
 
   const getPrintSections = React.useCallback(() => {
-    const sections: JSX.Element[] = [];
+    const sections: React.JSX.Element[] = [];
 
     if (props.venue?.sections) {
       customSections.forEach(s => {
