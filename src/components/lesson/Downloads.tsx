@@ -18,6 +18,7 @@ export function Downloads(props: Props) {
         console.warn('Analytics logging failed:', error);
       }
     }
+    if (!download.files || !download.files[0]) return;
     const d = {
       lessonId: props.lessonId,
       fileId: download.files[0].id,
@@ -33,6 +34,7 @@ export function Downloads(props: Props) {
   const getDownloads = () => {
     const result: React.JSX.Element[] = [];
     props.downloads?.forEach((d, idx) => {
+      if (!d.files || !d.files[0]) return;
       result.push(<li key={"download-" + idx}>
         <a
           href={d.files[0].url}

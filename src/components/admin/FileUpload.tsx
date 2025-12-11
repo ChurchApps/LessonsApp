@@ -96,11 +96,19 @@ export function FileUpload(props: Props) {
 
   //This will throw a CORS error if ran from localhost
   const postPresignedFile = (presigned: PresignedUploadInterface) => {
+    if (!presigned?.url) {
+      console.error("Invalid presigned response - missing URL");
+      return Promise.reject(new Error("Invalid presigned response"));
+    }
     const formData = new FormData();
     formData.append("acl", "public-read");
     formData.append("Content-Type", uploadedFile.type);
     for (const property in presigned.fields) formData.append(property, presigned.fields[property]);
     const f = document.getElementById("fileUpload") as HTMLInputElement;
+    if (!f || !f.files || !f.files[0]) {
+      console.error("File input not found or no file selected");
+      return Promise.reject(new Error("No file selected"));
+    }
     formData.append("file", f.files[0]);
     //const requestOptions: RequestInit = { method: "POST", body: formData };
 

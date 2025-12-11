@@ -24,6 +24,7 @@ export function Stats(props: Props) {
 
   const setNewVal = (id: string, percent: number) => {
     const div = document.getElementById(id) as HTMLElement;
+    if (!div) return;
     const val = parseInt(div.dataset.val || "0");
     const newCount = Math.floor(val * percent);
     div.innerText = newCount.toString();
