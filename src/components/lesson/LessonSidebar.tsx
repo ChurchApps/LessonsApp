@@ -23,6 +23,8 @@ const LessonSidebar = React.memo((props: Props) => {
     const inner = document.getElementById("lessonSidebarInner");
     const footer = document.getElementById("footer");
 
+    if (!sidebar || !inner || !footer) return;
+
     const shouldAffix = window.scrollY > sidebar.offsetTop + 100 &&
       window.scrollY < document.documentElement.offsetHeight - footer.offsetHeight - window.innerHeight;
     if (shouldAffix) {
