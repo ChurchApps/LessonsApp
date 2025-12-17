@@ -10,6 +10,7 @@ import type { FeedSectionInterface, FeedActionInterface } from "@/helpers/interf
 
 interface SectionFeedResponse {
   section: FeedSectionInterface & { id?: string };
+  lessonId: string;
   lessonName: string;
   lessonDescription: string;
   lessonImage: string;
@@ -46,7 +47,7 @@ export default function EmbedSection() {
   const getActions = () => {
     if (!data?.section?.actions) return null;
     return data.section.actions.map((action: FeedActionInterface & { id?: string }) => (
-      <Action action={action} key={action.id} />
+      <Action action={action} lessonId={data.lessonId} key={action.id} />
     ));
   };
 
