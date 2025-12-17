@@ -71,13 +71,13 @@ export function ActionEdit(props: Props) {
         a.assetId = null;
         a.externalVideoId = e.target.value.replace("ev/", "");
         const video = ArrayHelper.getOne(getCombinedVideos(), "id", a.externalVideoId);
-        a.content = video.name;
+        a.content = video?.name || "";
       } else {
         a.resourceId = e.target.value;
         a.assetId = null;
         a.externalVideoId = null;
         const resource = ArrayHelper.getOne(getCombinedResources(), "id", a.resourceId);
-        a.content = resource.name;
+        a.content = resource?.name || "";
       }
       break;
     case "asset":
@@ -85,13 +85,13 @@ export function ActionEdit(props: Props) {
       if (a.assetId === "") a.assetId = null;
       const assetResource = ArrayHelper.getOne(getCombinedResources(), "id", a.resourceId);
       const asset = ArrayHelper.getOne(props.allAssets, "id", a.assetId);
-      a.content = asset ? assetResource.name + " - " + asset.name : assetResource?.name;
+      a.content = asset ? (assetResource?.name || "") + " - " + asset.name : assetResource?.name || "";
       break;
     case "addOn":
       a.addOnId = e.target.value;
       if (a.addOnId === "") a.addOnId = null;
       const addOn = ArrayHelper.getOne(props.addOns, "id", a.addOnId);
-      a.content = addOn.name;
+      a.content = addOn?.name || "";
       break;
     }
     setAction(a);

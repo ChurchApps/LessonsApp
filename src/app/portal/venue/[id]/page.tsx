@@ -167,6 +167,7 @@ export default function Venue() {
   };
 
   const handleSave = (type: string) => {
+    if (!anchorEl) return;
     const contentType = anchorEl.dataset.contentType;
     if (anchorEl.id === "delete-button") {
       toggleTrash(contentType, anchorEl.dataset.contentId, type);

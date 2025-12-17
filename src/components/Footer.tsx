@@ -1,6 +1,15 @@
+"use client";
+
 import { Container, Grid } from "@mui/material";
+import { useState, useEffect } from "react";
 
 export function Footer() {
+  const [year, setYear] = useState<number | null>(null);
+
+  useEffect(() => {
+    setYear(new Date().getFullYear());
+  }, []);
+
   return (
     <div id="footer">
       <Container fixed>
@@ -19,7 +28,7 @@ export function Footer() {
           </Grid>
         </Grid>
         <p className="copyright">
-          {new Date().getFullYear()} © <span style={{ color: "#FFF" }}>Live Church Solutions</span>. All rights
+          {year} © <span style={{ color: "#FFF" }}>Live Church Solutions</span>. All rights
           reserved.
         </p>
       </Container>

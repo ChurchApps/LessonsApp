@@ -119,7 +119,7 @@ export function Action(props: Props) {
     result = <div>{props.action.content}</div>;
     break;
   case "play":
-    const f = props.action.files[0];
+    const f = props.action.files?.[0];
     if (!f) {
       result = (
         <div className="playAction">

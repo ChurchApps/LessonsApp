@@ -85,7 +85,8 @@ export default function OlfInner() {
   };
 
   const handleFileChange = () => {
-    const f: any = document.getElementById("fileUpload");
+    const f = document.getElementById("fileUpload") as HTMLInputElement;
+    if (!f || !f.files || !f.files[0]) return;
     const reader = new FileReader();
     reader.onload = (e: any) => {
       setData(null);

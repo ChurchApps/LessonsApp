@@ -22,7 +22,12 @@ interface Props {
 }
 function Error({ message, statusCode }: Props) {
   const [showError, setShowError] = React.useState(false);
+  const [year, setYear] = React.useState<number | null>(null);
   const onClose = () => setShowError(!showError);
+
+  React.useEffect(() => {
+    setYear(new Date().getFullYear());
+  }, []);
 
   const Footer = () => (
     <div id="footer">
@@ -66,7 +71,7 @@ function Error({ message, statusCode }: Props) {
                 https://support.churchapps.org
               </a>
             </Stack>
-            <p>{new Date().getFullYear()} © Live Church Solutions. All rights reserved.</p>
+            <p>{year} © Live Church Solutions. All rights reserved.</p>
           </Grid>
         </Grid>
       </Box>
