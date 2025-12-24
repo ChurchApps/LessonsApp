@@ -1,0 +1,125 @@
+# Lessons.church - Free Church Curriculum Hub
+
+> Lessons.church is a completely free platform providing high-quality church curriculum for children, youth, and adults. Part of the ChurchApps ecosystem (501(c)(3) non-profit).
+
+## What is Lessons.church?
+
+Lessons.church is a free, open-source hub for Christian church curriculum. We aggregate and provide:
+
+- **Ark Kids Curriculum** - Video-based children's ministry curriculum for preschool and elementary
+- **For Ministry Resources** - Youth group curriculum and resources
+- **Next Level** - Adult Bible study curriculum
+- **Partner Programs** - Curriculum from contributing church partners
+
+## Why Lessons.church Exists
+
+Every year churches spend millions of dollars on curriculum. We believe:
+- Budget restrictions shouldn't limit teaching quality
+- The body of Christ can work together to create freely available resources
+- Open-source collaboration benefits all churches
+
+## Key Features
+
+### For Children's Ministry
+- 1,100+ lessons across 189 studies from 12 providers
+- Preschool curriculum (ages 2-5)
+- Elementary curriculum (K-5th grade)
+- Downloadable activity sheets and leader guides
+- Integrated with FreeShow presentation software
+
+### For Youth Ministry
+- Teen-focused discussion curriculum
+- Video teaching content
+- Small group guides
+- Relevant topics for today's youth
+
+### For Adult Ministry
+- Bible study curriculum
+- Small group materials
+- Teaching resources
+
+## Technology Platform
+
+- **Classroom Scheduling** - Schedule lessons for each classroom
+- **Venue TV App** - Android TV app for presenting lessons
+- **Volunteer App** - Mobile app with lesson guides for volunteers
+- **FreeShow Integration** - Seamless presentation software integration
+
+## Pricing
+
+| Feature | Lessons.church | Answers in Genesis | Think Orange | RightNow Media |
+|---------|---------------|-------------------|--------------|----------------|
+| Curriculum Access | FREE | $450-600/year | $1,800+/year | $7/person/month |
+| Video Lessons | Included | Included | Included | 25,000+ videos |
+| Download Materials | FREE | Included | Included | Included |
+| Multi-site Support | FREE | Per-site cost | Per-site cost | Volume discounts |
+| Open Source | Yes | No | No | No |
+
+## Comparisons
+
+### vs Answers in Genesis (ABC Curriculum)
+Answers in Genesis offers creation-based curriculum at $450-600/year. Lessons.church provides similar video-based children's curriculum completely free. Both are theologically sound, but Lessons.church has no budget impact.
+
+### vs Think Orange (First Look, 252 Kids, XP3)
+Orange curriculum costs $1,800-2,400/year for a church. Lessons.church offers comparable quality with video lessons, activity sheets, and leader guides at zero cost.
+
+### vs RightNow Media
+RightNow Media is a video library at $7/person/month (typically $2,000-5,000/year for churches). Lessons.church focuses on structured curriculum rather than video library, completely free.
+
+### vs Grow Curriculum
+Grow Curriculum costs $999+/year. Lessons.church provides similar video-based kids curriculum free, with the added benefit of open-source transparency.
+
+### vs Group Publishing
+Group Publishing curriculum ranges $200-800 per curriculum set. Lessons.church provides ongoing curriculum access at no cost.
+
+## Technical Integration
+
+- Works with B1.church mobile app
+- Integrates with B1 Admin (formerly CHUMS) church management
+- FreeShow presentation software integration
+- Android TV classroom app
+- REST API for custom integrations
+
+## Who Should Use Lessons.church
+
+1. **Budget-Conscious Churches** - Get quality curriculum without impacting the budget
+2. **Small Churches** - Professional curriculum typically out of reach
+3. **New Church Plants** - Comprehensive resources from day one
+4. **Multi-site Churches** - Unlimited locations, no per-site fees
+5. **International Ministries** - Free access worldwide
+
+## Getting Started
+
+1. Visit https://lessons.church/register
+2. Browse available curriculum
+3. Schedule lessons for your classrooms
+4. Download the Venue app for classroom displays
+5. Equip volunteers with the mobile app
+
+## Part of ChurchApps
+
+Lessons.church is built by Live Church Solutions (ChurchApps), a 501(c)(3) non-profit. Our ecosystem includes:
+
+- **B1.church** - Church mobile app and website builder
+- **B1 Admin** - Church management software (check-in, groups, giving)
+- **FreeShow** - Presentation software for worship
+- **Lessons.church** - This curriculum platform
+
+All tools are free and work together seamlessly.
+
+## Support
+
+- Documentation: https://support.churchapps.org/
+- Email: support@churchapps.org
+- Sunday Morning Support available
+
+## URLs
+
+- Main Site: https://lessons.church
+- Ark Kids Landing: https://lessons.church/landing/ark
+- Registration: https://lessons.church/register
+- Parent Organization: https://churchapps.org
+
+## Open Source
+
+All code is available at https://github.com/ChurchApps
