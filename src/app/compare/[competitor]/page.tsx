@@ -215,7 +215,7 @@ export default function ComparePage() {
               </p>
               <Grid container spacing={3} justifyContent="center">
                 {Object.keys(comparisons).map(key => (
-                  <Grid item key={key}>
+                  <Grid key={key}>
                     <Link href={`/compare/${key}`} style={{ textDecoration: "none" }}>
                       <Chip
                         label={`vs ${comparisons[key].competitor}`}
@@ -259,7 +259,7 @@ export default function ComparePage() {
 
           {/* Pricing Comparison */}
           <Grid container spacing={4} sx={{ marginBottom: 6 }}>
-            <Grid item md={6} xs={12}>
+            <Grid size={{ md: 6, xs: 12 }}>
               <Paper sx={{ padding: 4, textAlign: "center", border: "3px solid #1976d2", borderRadius: 3 }}>
                 <h3 style={{ marginBottom: 8 }}>Lessons.church</h3>
                 <div style={{ fontSize: "2.5rem", fontWeight: "bold", color: "#1976d2", marginBottom: 8 }}>
@@ -268,7 +268,7 @@ export default function ComparePage() {
                 <p style={{ color: "#666" }}>No hidden fees, forever</p>
               </Paper>
             </Grid>
-            <Grid item md={6} xs={12}>
+            <Grid size={{ md: 6, xs: 12 }}>
               <Paper sx={{ padding: 4, textAlign: "center", borderRadius: 3, backgroundColor: "#f5f5f5" }}>
                 <h3 style={{ marginBottom: 8 }}>{data.competitor}</h3>
                 <div style={{ fontSize: "1.8rem", fontWeight: "bold", color: "#666", marginBottom: 8 }}>
@@ -336,7 +336,7 @@ export default function ComparePage() {
               {Object.keys(comparisons)
                 .filter(key => key !== competitor)
                 .map(key => (
-                  <Grid item key={key}>
+                  <Grid key={key}>
                     <Link href={`/compare/${key}`} style={{ textDecoration: "none" }}>
                       <Chip
                         label={`vs ${comparisons[key].competitor}`}
