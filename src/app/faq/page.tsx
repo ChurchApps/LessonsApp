@@ -107,8 +107,8 @@ export default function FAQPage() {
           </div>
 
           <Grid container spacing={3}>
-            <Grid item md={2} sm={0} />
-            <Grid item md={8} sm={12}>
+            <Grid size={{ md: 2, sm: 0 }} />
+            <Grid size={{ md: 8, sm: 12 }}>
               {faqs.map((faq, index) => (
                 <Accordion key={index} sx={{ mb: 1, boxShadow: "0 2px 8px rgba(0,0,0,0.1)", borderRadius: "8px !important", "&:before": { display: "none" } }}>
                   <AccordionSummary
