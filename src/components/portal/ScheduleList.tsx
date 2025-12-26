@@ -76,7 +76,7 @@ export function ScheduleList(props: Props) {
                 <Typography variant="body2" sx={{ fontWeight: 500 }}>
                   {s.displayName}
                 </Typography>
-                {s.venueId && (
+                {s.venueId && !s.externalProviderId && (
                   <Link href={`/portal/venue/${s.venueId}?classroomId=${props.classroomId}`}>
                     <Typography
                       variant="caption"
@@ -90,6 +90,23 @@ export function ScheduleList(props: Props) {
                       }}>
                       <PsychologyIcon fontSize="inherit" />
                       Customize
+                    </Typography>
+                  </Link>
+                )}
+                {s.externalProviderId && s.lessonId && (
+                  <Link href={`/external/${s.externalProviderId}/${s.programId}/${s.studyId}/${s.lessonId}`}>
+                    <Typography
+                      variant="caption"
+                      sx={{
+                        color: "var(--c1)",
+                        textDecoration: "none",
+                        display: "flex",
+                        alignItems: "center",
+                        gap: 0.5,
+                        "&:hover": { textDecoration: "underline" }
+                      }}>
+                      <VideoIcon fontSize="inherit" />
+                      View Lesson
                     </Typography>
                   </Link>
                 )}
