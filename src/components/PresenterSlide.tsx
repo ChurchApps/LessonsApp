@@ -13,17 +13,17 @@ export function PresenterSlide(props: Props) {
     if (!videoRef.current) return;
     videoRef.current.load();
     videoRef.current.play().catch(() => null);
-  }, [props.file.url]);
+  }, [props.file?.url]);
 
   let result = (
     <img
       src={props.file.url || ""}
-      alt={props.file.name}
+      alt={props.file.name || "Slide"}
       className="img-fluid"
       style={{ maxWidth: "100%", maxHeight: "100%" }}
     />
   );
-  const url = props.file.url;
+  const url = props.file.url || "";
   if (url.startsWith("vimeo:")) {
     const vimeoId = url.replace("vimeo:", "");
     result = (
