@@ -44,6 +44,8 @@ export const VideoModal: React.FC<Props> = (props: Props) => {
 
   const getVideoElement = () => {
     let result = <></>;
+    if (!props.url) return result;
+
     if (props.url.indexOf("vimeo.com") > -1) {
       const idx = props.url.lastIndexOf("/");
       const vimeoId = props.url.substring(idx + 1);
