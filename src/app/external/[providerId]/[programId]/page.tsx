@@ -15,7 +15,7 @@ type PageParams = { providerId: string; programId: string };
 export default function ProgramPage() {
   const params = useParams<PageParams>();
   const [filteredStudies, setFilteredStudies] = useState([]);
-  const [category, setCategory] = useState("");
+  const [category, _setCategory] = useState("");
   const [program, setProgram] = useState<ProgramInterface>(null);
   const [showVideo, setShowVideo] = useState(false);
 

@@ -12,10 +12,12 @@ import { useTheme } from "@mui/material/styles";
 import { DateHelper } from "@churchapps/apphelper";
 import { Layout } from "@/components/Layout";
 import { Venue } from "@/components/lesson/Venue";
-import { ClassroomInterface,
+import {
+  ClassroomInterface,
   CustomizationInterface,
   FeedVenueInterface,
-  ScheduleInterface } from "@/helpers/interfaces";
+  ScheduleInterface
+} from "@/helpers/interfaces";
 
 interface Props {
   classroom: ClassroomInterface;
@@ -30,7 +32,7 @@ interface Props {
 export function VenueClient(props: Props) {
   const [selectedTab, setSelectedTab] = useState<string>("");
   const theme = useTheme();
-  const isMobile = useMediaQuery(theme.breakpoints.down('md'));
+  const isMobile = useMediaQuery(theme.breakpoints.down("md"));
 
   const getVenue = () => {
     if (props.venue) {
@@ -56,19 +58,19 @@ export function VenueClient(props: Props) {
     } else {
       return (
         <Box sx={{
-          position: 'sticky',
+          position: "sticky",
           top: 0,
           zIndex: 1000,
-          backgroundColor: '#28235d',
+          backgroundColor: "#28235d",
           borderBottom: 1,
-          borderColor: 'divider',
-          width: '100%',
-          maxWidth: '100vw',
-          overflow: 'hidden'
+          borderColor: "divider",
+          width: "100%",
+          maxWidth: "100vw",
+          overflow: "hidden"
         }}>
           <Tabs
             value={selectedTab}
-            onChange={(e, newVal) => {
+            onChange={(_e, newVal) => {
               handleChange(newVal);
             }}
             variant="scrollable"
@@ -76,24 +78,20 @@ export function VenueClient(props: Props) {
             allowScrollButtonsMobile
             sx={{
               minHeight: isMobile ? 36 : 48,
-              '& .MuiTab-root': {
+              "& .MuiTab-root": {
                 minHeight: isMobile ? 36 : 48,
-                fontSize: isMobile ? '0.75rem' : '0.875rem',
-                padding: isMobile ? '6px 8px' : '12px 16px',
-                color: '#fff',
-                '&.Mui-selected': {
-                  backgroundColor: '#fff',
-                  color: '#1c75bc'
+                fontSize: isMobile ? "0.75rem" : "0.875rem",
+                padding: isMobile ? "6px 8px" : "12px 16px",
+                color: "#fff",
+                "&.Mui-selected": {
+                  backgroundColor: "#fff",
+                  color: "#1c75bc"
                 }
               },
-              '& .MuiTabs-indicator': {
-                display: 'none'
-              },
-              '& .MuiTabs-scrollButtons': {
-                color: '#fff',
-                '&.Mui-disabled': {
-                  opacity: 0.3
-                }
+              "& .MuiTabs-indicator": { display: "none" },
+              "& .MuiTabs-scrollButtons": {
+                color: "#fff",
+                "&.Mui-disabled": { opacity: 0.3 }
               }
             }}>
             {result}
@@ -150,9 +148,9 @@ export function VenueClient(props: Props) {
           minHeight: "100vh",
           position: "relative",
           // Force all child elements to respect container width
-          '& *': {
-            maxWidth: '100% !important',
-            boxSizing: 'border-box'
+          "& *": {
+            maxWidth: "100% !important",
+            boxSizing: "border-box"
           }
         }}>
           <div id="b1Tabs">{getTabs()}</div>
@@ -160,25 +158,25 @@ export function VenueClient(props: Props) {
             mt: isMobile ? 7 : 8,
             mb: 2,
             px: isMobile ? 1 : 3,
-            width: '100%',
-            maxWidth: '100%',
-            overflow: 'hidden'
+            width: "100%",
+            maxWidth: "100%",
+            overflow: "hidden"
           }}>
             <Box sx={{
-              display: 'flex',
-              flexDirection: isMobile ? 'column' : 'row',
-              alignItems: isMobile ? 'flex-start' : 'center',
+              display: "flex",
+              flexDirection: isMobile ? "column" : "row",
+              alignItems: isMobile ? "flex-start" : "center",
               gap: 2,
               mb: 3
             }}>
               <Link
                 href={"/b1/" + props.classroom?.churchId}
                 style={{
-                  textDecoration: 'none',
-                  color: '#1c75bc',
-                  fontSize: isMobile ? '0.875rem' : '1rem',
-                  display: 'inline-flex',
-                  alignItems: 'center'
+                  textDecoration: "none",
+                  color: "#1c75bc",
+                  fontSize: isMobile ? "0.875rem" : "1rem",
+                  display: "inline-flex",
+                  alignItems: "center"
                 }}
               >
               ← Back to Classrooms
@@ -189,12 +187,12 @@ export function VenueClient(props: Props) {
               <Grid size={{ xs: 12, sm: 4 }}>
                 {props.prevSchedule && (
                   <Box sx={{
-                    textAlign: isMobile ? 'left' : 'left',
-                    fontSize: isMobile ? '0.875rem' : '1rem'
+                    textAlign: isMobile ? "left" : "left",
+                    fontSize: isMobile ? "0.875rem" : "1rem"
                   }}>
                     <Link
                       href={"/b1/venue/" + props.prevSchedule?.venueId + "?classroomId=" + props.classroom?.id}
-                      style={{ textDecoration: 'none' }}
+                      style={{ textDecoration: "none" }}
                     >
                     ← {DateHelper.prettyDate(DateHelper.toDate(props.prevSchedule.scheduledDate))}
                     </Link>
@@ -204,9 +202,9 @@ export function VenueClient(props: Props) {
               <Grid size={{ xs: 12, sm: 4 }}>
                 {props.currentSchedule && (
                   <Box sx={{
-                    textAlign: 'center',
-                    fontWeight: 'bold',
-                    fontSize: isMobile ? '1rem' : '1.125rem'
+                    textAlign: "center",
+                    fontWeight: "bold",
+                    fontSize: isMobile ? "1rem" : "1.125rem"
                   }}>
                     {DateHelper.prettyDate(DateHelper.toDate(props.currentSchedule.scheduledDate))}
                   </Box>
@@ -215,12 +213,12 @@ export function VenueClient(props: Props) {
               <Grid size={{ xs: 12, sm: 4 }}>
                 {props.nextSchedule && (
                   <Box sx={{
-                    textAlign: isMobile ? 'left' : 'right',
-                    fontSize: isMobile ? '0.875rem' : '1rem'
+                    textAlign: isMobile ? "left" : "right",
+                    fontSize: isMobile ? "0.875rem" : "1rem"
                   }}>
                     <Link
                       href={"/b1/venue/" + props.nextSchedule?.venueId + "?classroomId=" + props.classroom?.id}
-                      style={{ textDecoration: 'none' }}
+                      style={{ textDecoration: "none" }}
                     >
                       {DateHelper.prettyDate(DateHelper.toDate(props.nextSchedule.scheduledDate))} →
                     </Link>
@@ -231,13 +229,13 @@ export function VenueClient(props: Props) {
 
             <Box sx={{
               mb: 3,
-              textAlign: isMobile ? 'left' : 'center'
+              textAlign: isMobile ? "left" : "center"
             }}>
               <h1 style={{
                 margin: 0,
-                fontSize: isMobile ? '1.5rem' : '2rem',
+                fontSize: isMobile ? "1.5rem" : "2rem",
                 lineHeight: 1.2,
-                wordBreak: 'break-word'
+                wordBreak: "break-word"
               }}>
                 {props.venue?.lessonName}
               </h1>
@@ -246,125 +244,121 @@ export function VenueClient(props: Props) {
 
           <Container maxWidth="lg" sx={{
             px: isMobile ? 1 : 3,
-            width: '100%',
-            maxWidth: '100%',
-            overflow: 'hidden'
+            width: "100%",
+            maxWidth: "100%",
+            overflow: "hidden"
           }}>
             <Box className="b1" sx={{
               width: "100%",
               maxWidth: "100%",
               overflow: "hidden",
-              '& .MuiCard-root': {
+              "& .MuiCard-root": {
                 mb: 2,
                 width: "100%",
                 maxWidth: "100%"
               },
-              '& .sectionCard': {
+              "& .sectionCard": {
                 width: "100%",
                 maxWidth: "100%",
                 overflow: "hidden"
               },
-              '& .sectionCard .MuiCardHeader-title': {
-                display: isMobile ? 'block' : 'inline-block',
-                width: isMobile ? '100%' : 'auto',
-                fontSize: isMobile ? '18px' : '20px',
-                marginBottom: isMobile ? '8px' : '0'
+              "& .sectionCard .MuiCardHeader-title": {
+                display: isMobile ? "block" : "inline-block",
+                width: isMobile ? "100%" : "auto",
+                fontSize: isMobile ? "18px" : "20px",
+                marginBottom: isMobile ? "8px" : "0"
               },
-              '& .sectionCard .MuiCardHeader-subheader': {
-                display: isMobile ? 'block' : 'inline-block',
-                paddingLeft: isMobile ? '0' : '20px',
-                fontSize: isMobile ? '12px' : '13px',
-                wordBreak: 'break-word'
+              "& .sectionCard .MuiCardHeader-subheader": {
+                display: isMobile ? "block" : "inline-block",
+                paddingLeft: isMobile ? "0" : "20px",
+                fontSize: isMobile ? "12px" : "13px",
+                wordBreak: "break-word"
               },
-              '& .MuiCardContent-root': {
+              "& .MuiCardContent-root": {
                 width: "100%",
                 maxWidth: "100%",
                 overflow: "hidden"
               },
-              '& .part': {
+              "& .part": {
                 width: "100%",
                 maxWidth: "100%",
                 overflow: "hidden"
               },
               // Fix mobile-specific layout issues
-              '& pre': {
-                whiteSpace: 'pre-wrap',
-                wordBreak: 'break-word',
-                overflowX: 'auto',
-                maxWidth: '100%'
+              "& pre": {
+                whiteSpace: "pre-wrap",
+                wordBreak: "break-word",
+                overflowX: "auto",
+                maxWidth: "100%"
               },
-              '& code': {
-                wordBreak: 'break-word',
-                whiteSpace: 'pre-wrap'
+              "& code": {
+                wordBreak: "break-word",
+                whiteSpace: "pre-wrap"
               },
-              '& table': {
-                width: '100%',
-                maxWidth: '100%',
-                overflowX: 'auto',
-                display: 'block',
-                whiteSpace: 'nowrap'
+              "& table": {
+                width: "100%",
+                maxWidth: "100%",
+                overflowX: "auto",
+                display: "block",
+                whiteSpace: "nowrap"
               },
-              '& p, & div, & span': {
-                wordBreak: 'break-word',
-                overflowWrap: 'break-word',
-                hyphens: 'auto'
+              "& p, & div, & span": {
+                wordBreak: "break-word",
+                overflowWrap: "break-word",
+                hyphens: "auto"
               },
               ...(isMobile && {
-                '& .playAction': {
-                  height: 'auto !important',
-                  minHeight: '60px',
-                  display: 'flex',
-                  flexDirection: 'row',
-                  alignItems: 'center',
-                  padding: '8px',
-                  gap: '8px'
+                "& .playAction": {
+                  height: "auto !important",
+                  minHeight: "60px",
+                  display: "flex",
+                  flexDirection: "row",
+                  alignItems: "center",
+                  padding: "8px",
+                  gap: "8px"
                 },
-                '& .playAction img': {
-                  float: 'none !important',
-                  width: '64px !important',
-                  height: '36px !important',
-                  borderRadius: '4px',
+                "& .playAction img": {
+                  float: "none !important",
+                  width: "64px !important",
+                  height: "36px !important",
+                  borderRadius: "4px",
                   flexShrink: 0
                 },
-                '& .playAction .text': {
-                  display: 'block !important',
-                  padding: '0 !important',
-                  fontSize: '14px !important',
+                "& .playAction .text": {
+                  display: "block !important",
+                  padding: "0 !important",
+                  fontSize: "14px !important",
                   lineHeight: 1.3,
                   flex: 1,
-                  overflow: 'hidden',
-                  textOverflow: 'ellipsis'
+                  overflow: "hidden",
+                  textOverflow: "ellipsis"
                 },
-                '& .playAction .duration': {
-                  float: 'none !important',
-                  padding: '0 !important',
-                  fontSize: '12px',
+                "& .playAction .duration": {
+                  float: "none !important",
+                  padding: "0 !important",
+                  fontSize: "12px",
                   flexShrink: 0
                 },
-                '& .part .note': {
-                  paddingLeft: '8px !important',
-                  backgroundSize: '24px',
-                  backgroundPosition: '8px 8px',
-                  minHeight: '40px !important'
+                "& .part .note": {
+                  paddingLeft: "8px !important",
+                  backgroundSize: "24px",
+                  backgroundPosition: "8px 8px",
+                  minHeight: "40px !important"
                 },
-                '& .say p': {
-                  width: '90% !important',
-                  maxWidth: '100% !important',
-                  marginLeft: '0 !important',
-                  marginRight: '0 !important',
-                  fontSize: '14px',
-                  padding: '8px 12px !important'
+                "& .say p": {
+                  width: "90% !important",
+                  maxWidth: "100% !important",
+                  marginLeft: "0 !important",
+                  marginRight: "0 !important",
+                  fontSize: "14px",
+                  padding: "8px 12px !important"
                 },
-                '& .say p:nth-of-type(even)': {
-                  float: 'none !important',
-                  marginLeft: 'auto !important'
+                "& .say p:nth-of-type(even)": {
+                  float: "none !important",
+                  marginLeft: "auto !important"
                 },
-                '& .actions': {
-                  paddingLeft: '8px !important'
-                },
-                '& .actions li': {
-                  fontSize: '14px !important'
-                }
+                "& .actions": { paddingLeft: "8px !important" },
+                "& .actions li": { fontSize: "14px !important" }
               })
             }}>
               {getVenue()}

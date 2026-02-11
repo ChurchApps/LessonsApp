@@ -32,7 +32,7 @@ export default function Admin() {
   useEffect(() => {
     if (!isAuthenticated) router.push("/login");
 
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+
   }, []);
 
   useEffect(() => {
@@ -76,9 +76,9 @@ export default function Admin() {
 
   const scrollToEdit = () => {
     setTimeout(() => {
-      const editPanel = document.getElementById('edit-panel');
+      const editPanel = document.getElementById("edit-panel");
       if (editPanel) {
-        editPanel.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        editPanel.scrollIntoView({ behavior: "smooth", block: "start" });
       }
     }, 100);
   };
@@ -475,7 +475,8 @@ export default function Admin() {
     });
   }
 
-  const headerActions = [<Button
+  const headerActions = [
+<Button
     key="add-program"
     variant="outlined"
     startIcon={<AddIcon />}
@@ -507,7 +508,8 @@ export default function Admin() {
       }
     }}>
       Clear Cache
-  </Button>];
+  </Button>
+  ];
 
   return (
     <Wrapper>

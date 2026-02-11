@@ -1,9 +1,11 @@
 import { Card, CardContent, CardHeader } from "@mui/material";
-import { ActionInterface,
+import {
+  ActionInterface,
   ArrayHelper,
   CustomizationHelper,
   CustomizationInterface,
-  FeedSectionInterface } from "@/helpers";
+  FeedSectionInterface
+} from "@/helpers";
 import { Action } from "./Action";
 
 interface Props {

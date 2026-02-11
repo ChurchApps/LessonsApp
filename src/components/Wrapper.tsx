@@ -119,7 +119,7 @@ export const Wrapper: React.FC<Props> = props => {
     setTabs(newTabs);
   }, [isClient, selectedTab]);
 
-  const navContent = (
+  const _navContent = (
     <>
       <List component="nav" sx={Themes.NavBarStyle}>
         {tabs}

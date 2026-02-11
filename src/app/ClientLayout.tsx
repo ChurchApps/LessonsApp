@@ -21,18 +21,18 @@ function ClientLayout({ children }: { children: React.ReactNode }) {
     try {
       AnalyticsHelper.init();
     } catch (error) {
-      console.warn('Analytics initialization failed:', error);
+      console.warn("Analytics initialization failed:", error);
     }
 
     ErrorHelper.init(getErrorAppData, customErrorHandler);
 
     // Load HubSpot script after hydration to prevent hydration mismatch
-    const script = document.createElement('script');
-    script.type = 'text/javascript';
-    script.id = 'hs-script-loader';
+    const script = document.createElement("script");
+    script.type = "text/javascript";
+    script.id = "hs-script-loader";
     script.async = true;
     script.defer = true;
-    script.src = '//js.hs-scripts.com/20077299.js';
+    script.src = "//js.hs-scripts.com/20077299.js";
     document.body.appendChild(script);
   }, []);
 
@@ -41,7 +41,7 @@ function ClientLayout({ children }: { children: React.ReactNode }) {
       try {
         AnalyticsHelper.logPageView();
       } catch (error) {
-        console.warn('Analytics page view logging failed:', error);
+        console.warn("Analytics page view logging failed:", error);
       }
     }
   }, [isClient]);
@@ -58,21 +58,13 @@ function ClientLayout({ children }: { children: React.ReactNode }) {
 
   const customErrorHandler = (error: ErrorLogInterface) => {
     switch (error.errorType) {
-    case "401":
-      setErrors(["Access denied when loading " + error.message]);
-      break;
-    case "500":
-      setErrors(["Server error when loading " + error.message]);
-      break;
+      case "401": setErrors(["Access denied when loading " + error.message]); break;
+      case "500": setErrors(["Server error when loading " + error.message]); break;
     }
   };
 
   const mdTheme = createTheme({
-    palette: {
-      secondary: {
-        main: "#444444"
-      }
-    },
+    palette: { secondary: { main: "#444444" } },
     components: {
       MuiTextField: { defaultProps: { margin: "normal" } },
       MuiFormControl: { defaultProps: { margin: "normal" } }

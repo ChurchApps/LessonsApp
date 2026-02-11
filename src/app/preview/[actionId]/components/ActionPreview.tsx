@@ -136,9 +136,7 @@ export function ActionPreview({ action }: ActionPreviewProps) {
           src={imageUrl}
           alt={action.content || "Preview"}
           fill
-          style={{
-            objectFit: "contain"
-          }}
+          style={{ objectFit: "contain" }}
           onError={() => setError("Failed to load image")}
         />
       </div>

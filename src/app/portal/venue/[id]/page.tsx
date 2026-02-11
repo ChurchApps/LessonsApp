@@ -2,7 +2,8 @@
 
 import { useParams, useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
-import { Box,
+import {
+  Box,
   Button,
   Container,
   FormControl,
@@ -12,10 +13,12 @@ import { Box,
   Menu,
   MenuItem,
   Radio,
-  RadioGroup } from "@mui/material";
+  RadioGroup
+} from "@mui/material";
 import { DisplayBox, Loading } from "@churchapps/apphelper";
 import { Layout } from "@/components";
-import { ActionInterface,
+import {
+  ActionInterface,
   ApiHelper,
   ArrayHelper,
   CustomizationHelper,
@@ -24,7 +27,8 @@ import { ActionInterface,
   RoleInterface,
   SectionInterface,
   StudyInterface,
-  VenueInterface } from "@/helpers";
+  VenueInterface
+} from "@/helpers";
 
 type PageParams = { id: string };
 
@@ -47,7 +51,7 @@ export default function Venue() {
   const classroomId = searchParams.get("classroomId");
   const open = Boolean(anchorEl);
 
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+
   useEffect(() => {
     if (!isAuthenticated) router.push("/login");
   }, []);
@@ -106,13 +110,13 @@ export default function Venue() {
       if (type === "none") {
         await ApiHelper.delete("/customizations/" + ITEM.id, "LessonsApi");
       } else {
-        let id = type === "specific" ? classroomId : null;
+        const id = type === "specific" ? classroomId : null;
         const c: CustomizationInterface = { ...ITEM };
         c.classroomId = id;
         await ApiHelper.post("/customizations", [c], "LessonsApi");
       }
     } else {
-      let id = type === "specific" ? classroomId : null;
+      const id = type === "specific" ? classroomId : null;
       const c: CustomizationInterface = {
         contentType,
         contentId,
@@ -338,9 +342,7 @@ export default function Venue() {
           anchorEl={anchorEl}
           open={open}
           onClose={handleClose}
-          MenuListProps={{
-            "aria-labelledby": "delete-button up-button down-button"
-          }}>
+          MenuListProps={{ "aria-labelledby": "delete-button up-button down-button" }}>
           <FormControl fullWidth>
             <FormLabel sx={{ paddingLeft: 2, paddingRight: 2 }} id="customization-menu-heading">
               Apply selected customization to:

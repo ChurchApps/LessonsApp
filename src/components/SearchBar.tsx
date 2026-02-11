@@ -167,9 +167,7 @@ export function SearchBar({ placeholder = "Search curriculum (e.g., 'peace', 'ad
             height: 40,
             cursor: "pointer",
             transition: "background-color 0.2s",
-            "&:hover": {
-              backgroundColor: "rgba(255, 255, 255, 0.25)"
-            }
+            "&:hover": { backgroundColor: "rgba(255, 255, 255, 0.25)" }
           }}>
           <SearchIcon sx={{ color: "inherit", fontSize: 20 }} />
           <Typography variant="body2" sx={{ color: "inherit", opacity: 0.9, display: { xs: "none", md: "block" }, ml: 1 }}>
@@ -229,12 +227,8 @@ export function SearchBar({ placeholder = "Search curriculum (e.g., 'peace', 'ad
                 backgroundColor: "rgba(255, 255, 255, 0.95)",
                 borderRadius: 2,
                 ...(expandable && { height: 40 }),
-                "&:hover": {
-                  backgroundColor: "white"
-                },
-                "&.Mui-focused": {
-                  backgroundColor: "white"
-                }
+                "&:hover": { backgroundColor: "white" },
+                "&.Mui-focused": { backgroundColor: "white" }
               }
             }}
           />
@@ -257,9 +251,7 @@ export function SearchBar({ placeholder = "Search curriculum (e.g., 'peace', 'ad
               backgroundColor: "#fff",
               color: "#000",
               textShadow: "none",
-              "& *": {
-                textShadow: "none !important"
-              },
+              "& *": { textShadow: "none !important" },
               "& p, & span, & .MuiTypography-root": {
                 color: "#333 !important",
                 textShadow: "none !important"
@@ -274,9 +266,7 @@ export function SearchBar({ placeholder = "Search curriculum (e.g., 'peace', 'ad
                       onClick={() => handleResultClick(result)}
                       sx={{
                         cursor: "pointer",
-                        "&:hover": {
-                          backgroundColor: "action.hover"
-                        }
+                        "&:hover": { backgroundColor: "action.hover" }
                       }}>
                       <ListItemAvatar sx={{ mr: 2 }}>
                         <Box

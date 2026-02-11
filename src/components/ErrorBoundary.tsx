@@ -71,11 +71,11 @@ function DefaultErrorFallback({ error, reset }: { error?: Error; reset: () => vo
             </Typography>
             {error.stack && (
               <Box sx={{ bgcolor: "grey.900", p: 2, borderRadius: 1, overflow: "auto", maxHeight: 400 }}>
-                <Typography 
-                  variant="body2" 
-                  component="pre" 
-                  sx={{ 
-                    fontSize: 12, 
+                <Typography
+                  variant="body2"
+                  component="pre"
+                  sx={{
+                    fontSize: 12,
                     color: "common.white",
                     fontFamily: "monospace",
                     whiteSpace: "pre-wrap",

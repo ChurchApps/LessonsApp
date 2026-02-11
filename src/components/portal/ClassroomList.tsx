@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { Add as AddIcon, Edit as EditIcon, RssFeed as RssFeedIcon, School as SchoolIcon } from "@mui/icons-material";
-import { Box,
+import {
+  Box,
   Button,
   IconButton,
   Paper,
@@ -9,7 +10,8 @@ import { Box,
   TableBody,
   TableCell,
   TableRow,
-  Typography } from "@mui/material";
+  Typography
+} from "@mui/material";
 import { Loading } from "@churchapps/apphelper";
 import { ApiHelper, ClassroomInterface } from "@/helpers";
 import { ClassroomEdit } from "../index";
@@ -33,11 +35,7 @@ export function ClassroomList(props: Props) {
     return classrooms.map(c => (
       <TableRow
         key={c.id}
-        sx={{
-          "&:hover": {
-            backgroundColor: "rgba(0,0,0,0.04)"
-          }
-        }}>
+        sx={{ "&:hover": { backgroundColor: "rgba(0,0,0,0.04)" } }}>
         <TableCell>
           <Stack direction="row" alignItems="center" spacing={1}>
             <SchoolIcon sx={{ color: "var(--c1)", fontSize: "1.2rem" }} />
@@ -51,9 +49,7 @@ export function ClassroomList(props: Props) {
                 cursor: "pointer",
                 textDecoration: "none",
                 fontWeight: 500,
-                "&:hover": {
-                  textDecoration: "underline"
-                }
+                "&:hover": { textDecoration: "underline" }
               }}
               onClick={() => props.classroomSelected(c.id)}>
               {c.name}

@@ -53,7 +53,7 @@ export function HomeHero(props: Props) {
   );
 
   const getAges = () => {
-    let result = [getAge("Preschool", "ark-preschool"), getAge("Elementary", "ark"), getAge("Teen", "forministryresources"), getAge("Adult", "next-level")];
+    const result = [getAge("Preschool", "ark-preschool"), getAge("Elementary", "ark"), getAge("Teen", "forministryresources"), getAge("Adult", "next-level")];
 
     return (
       <Fade in={true} timeout={2000}>

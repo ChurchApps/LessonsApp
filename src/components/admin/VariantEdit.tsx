@@ -23,20 +23,20 @@ export function VariantEdit(props: Props) {
   };
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement> | SelectChangeEvent<string>) => {
     e.preventDefault();
-    let v = { ...variant };
+    const v = { ...variant };
     switch (e.target.name) {
-    case "hidden":
-      v.hidden = e.target.value === "true";
-      break;
-    case "name":
-      v.name = e.target.value;
-      break;
+      case "hidden":
+        v.hidden = e.target.value === "true";
+        break;
+      case "name":
+        v.name = e.target.value;
+        break;
     }
     setVariant(v);
   };
 
   const validate = () => {
-    let errors = [];
+    const errors = [];
     if (variant.name === "") errors.push("Please enter a variant name.");
     setErrors(errors);
     return errors.length === 0;

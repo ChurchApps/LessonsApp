@@ -27,7 +27,7 @@ export function CategoriesAndStudies(props: Props) {
       <Tabs
         id="studyCategoryTabs"
         value={category}
-        onChange={(e, newValue) => setCategory(newValue)}
+        onChange={(_e, newValue) => setCategory(newValue)}
         TabIndicatorProps={{ style: { background: "transparent" } }}>
         <Tab value="" label="All" />
         {tabs}
@@ -42,7 +42,7 @@ export function CategoriesAndStudies(props: Props) {
       const filteredCategories = props.studyCategories
         .filter(sc => sc.categoryName === category)
         .sort((a, b) => a.sort - b.sort);
-      let result: StudyInterface[] = [];
+      const result: StudyInterface[] = [];
       filteredCategories.forEach(sc => {
         const study = ArrayHelper.getOne(props.studies, "id", sc.studyId);
         if (study) result.push(study);

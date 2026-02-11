@@ -134,9 +134,7 @@ export function FileUpload(props: Props) {
             value={uploadProgress}
             sx={{
               backgroundColor: "var(--c1l6)",
-              "& .MuiLinearProgress-bar": {
-                backgroundColor: "var(--c1)"
-              }
+              "& .MuiLinearProgress-bar": { backgroundColor: "var(--c1)" }
             }}
           />
           <Typography variant="caption" sx={{ color: "var(--c1d2)", mt: 0.5 }}>

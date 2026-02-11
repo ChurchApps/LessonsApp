@@ -5,9 +5,7 @@ import { Box, Button, FormControl, Grid, IconButton, InputLabel, MenuItem, Paper
 import { ErrorMessages, SlugHelper } from "@churchapps/apphelper";
 import { ApiHelper, LessonInterface, ProgramInterface, StudyInterface } from "@/helpers";
 
-const ImageEditor = dynamic(() => import("../index").then(mod => ({ default: mod.ImageEditor })), {
-  loading: () => <div>Loading image editor...</div>
-});
+const ImageEditor = dynamic(() => import("../index").then(mod => ({ default: mod.ImageEditor })), { loading: () => <div>Loading image editor...</div> });
 
 interface Props {
   lesson: LessonInterface;
@@ -27,30 +25,30 @@ const LessonEdit = React.memo((props: Props) => {
 
   const handleChange = React.useCallback((e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement> | SelectChangeEvent<string>) => {
     e.preventDefault();
-    let p = { ...lesson };
+    const p = { ...lesson };
     const val = e.target.value;
     switch (e.target.name) {
-    case "name":
-      p.name = val;
-      break;
-    case "title":
-      p.title = val;
-      break;
-    case "slug":
-      p.slug = val;
-      break;
-    case "description":
-      p.description = val;
-      break;
-    case "live":
-      p.live = val === "true";
-      break;
-    case "sort":
-      p.sort = parseInt(val);
-      break;
-    case "videoEmbedUrl":
-      p.videoEmbedUrl = val;
-      break;
+      case "name":
+        p.name = val;
+        break;
+      case "title":
+        p.title = val;
+        break;
+      case "slug":
+        p.slug = val;
+        break;
+      case "description":
+        p.description = val;
+        break;
+      case "live":
+        p.live = val === "true";
+        break;
+      case "sort":
+        p.sort = parseInt(val);
+        break;
+      case "videoEmbedUrl":
+        p.videoEmbedUrl = val;
+        break;
     }
     setLesson(p);
   }, [lesson]);
@@ -72,7 +70,7 @@ const LessonEdit = React.memo((props: Props) => {
   };
 
   const validate = () => {
-    let errors = [];
+    const errors = [];
     if (!lesson.name || lesson.name === "" || null) errors.push("Please enter a lesson name.");
     if (!checked) errors.push("Please check Url Slug");
     setErrors(errors);
@@ -184,7 +182,7 @@ const LessonEdit = React.memo((props: Props) => {
             {/* Left Column - Form Fields */}
             <Grid size={{ xs: 12, md: 8 }}>
               <Stack spacing={3}>
-                <Box sx={{ display: 'flex', gap: 2 }}>
+                <Box sx={{ display: "flex", gap: 2 }}>
                   <FormControl fullWidth>
                     <InputLabel>Live</InputLabel>
                     <Select label="Live" name="live" value={lesson.live?.toString()} onChange={handleChange}>

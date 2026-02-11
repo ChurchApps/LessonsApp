@@ -8,7 +8,7 @@ import { EnvironmentHelper } from "@/helpers/EnvironmentHelper";
 import { Action } from "@/components/lesson/Action";
 import type { FeedActionInterface } from "@/helpers/interfaces";
 
-interface ExternalSectionData {
+interface _ExternalSectionData {
   id: string;
   name: string;
   actions?: (FeedActionInterface & { id?: string })[];
@@ -143,9 +143,7 @@ export default function EmbedExternalAction() {
             sx={{
               backgroundColor: "#28235d",
               color: "#fff",
-              "& .MuiCardHeader-subheader": {
-                color: "rgba(255,255,255,0.8)"
-              }
+              "& .MuiCardHeader-subheader": { color: "rgba(255,255,255,0.8)" }
             }}
           />
           <CardContent>

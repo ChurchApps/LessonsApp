@@ -6,9 +6,7 @@ import { ErrorMessages } from "@churchapps/apphelper";
 import { AddOnInterface, ApiHelper, ExternalVideoInterface, FileInterface } from "@/helpers";
 import { FileUpload } from "./FileUpload";
 
-const ImageEditor = dynamic(() => import("../index").then(mod => ({ default: mod.ImageEditor })), {
-  loading: () => <div>Loading image editor...</div>
-});
+const ImageEditor = dynamic(() => import("../index").then(mod => ({ default: mod.ImageEditor })), { loading: () => <div>Loading image editor...</div> });
 
 interface Props {
   addOn: AddOnInterface;
@@ -32,22 +30,22 @@ export function AddOnEdit(props: Props) {
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement> | SelectChangeEvent<string>) => {
     let reloadContent = false;
     e.preventDefault();
-    let a = { ...addOn };
+    const a = { ...addOn };
     const val = e.target.value;
     switch (e.target.name) {
-    case "category":
-      a.category = val;
-      break;
-    case "name":
-      a.name = val;
-      break;
-    case "image":
-      a.image = val;
-      break;
-    case "addOnType":
-      a.addOnType = val;
-      reloadContent = true;
-      break;
+      case "category":
+        a.category = val;
+        break;
+      case "name":
+        a.name = val;
+        break;
+      case "image":
+        a.image = val;
+        break;
+      case "addOnType":
+        a.addOnType = val;
+        reloadContent = true;
+        break;
     }
     console.log(a);
     setAddOn(a);
@@ -56,12 +54,12 @@ export function AddOnEdit(props: Props) {
 
   const handleExternalVideoChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement> | SelectChangeEvent<string>) => {
     e.preventDefault();
-    let ex = { ...externalVideo };
+    const ex = { ...externalVideo };
     const val = e.target.value;
     switch (e.target.name) {
-    case "videoId":
-      ex.videoId = val;
-      break;
+      case "videoId":
+        ex.videoId = val;
+        break;
     }
     setExternalVideo(ex);
   };
@@ -74,7 +72,7 @@ export function AddOnEdit(props: Props) {
   };
 
   const validate = () => {
-    let errors = [];
+    const errors = [];
     if (addOn.name === "") errors.push("Please enter a name.");
     if (addOn.addOnType === "externalVideo") if (!externalVideo.videoId) errors.push("Please enter a video id.");
 
@@ -144,7 +142,7 @@ export function AddOnEdit(props: Props) {
   const getExternalVideoFields = () => {
     if (!externalVideo) {
       return (
-        <Box sx={{ display: 'flex', justifyContent: 'center', p: 2 }}>
+        <Box sx={{ display: "flex", justifyContent: "center", p: 2 }}>
           <CircularProgress size={24} />
         </Box>
       );
@@ -190,10 +188,10 @@ export function AddOnEdit(props: Props) {
 
   const getTypeFields = () => {
     switch (addOn.addOnType) {
-    case "file":
-      return getFileFields();
-    default:
-      return getExternalVideoFields();
+      case "file":
+        return getFileFields();
+      default:
+        return getExternalVideoFields();
     }
   };
 
@@ -225,24 +223,24 @@ export function AddOnEdit(props: Props) {
         <Paper
           sx={{
             borderRadius: 2,
-            border: '1px solid var(--admin-border)',
-            boxShadow: 'var(--admin-shadow-sm)',
-            overflow: 'hidden'
+            border: "1px solid var(--admin-border)",
+            boxShadow: "var(--admin-shadow-sm)",
+            overflow: "hidden"
           }}>
           {/* HEADER */}
           <Box
             sx={{
               p: 2,
-              borderBottom: '1px solid var(--admin-border)',
-              backgroundColor: 'var(--c1l7)'
+              borderBottom: "1px solid var(--admin-border)",
+              backgroundColor: "var(--c1l7)"
             }}>
             <Stack direction="row" alignItems="center" spacing={1}>
-              <MovieIcon sx={{ color: 'var(--c1d2)', fontSize: '1.5rem' }} />
+              <MovieIcon sx={{ color: "var(--c1d2)", fontSize: "1.5rem" }} />
               <Typography variant="h6" sx={{
-                color: 'var(--c1d2)',
+                color: "var(--c1d2)",
                 fontWeight: 600,
                 lineHeight: 1,
-                fontSize: '1.25rem'
+                fontSize: "1.25rem"
               }}>
                 Edit Add-on
               </Typography>
@@ -291,7 +289,7 @@ export function AddOnEdit(props: Props) {
                   </FormControl>
 
                   {/* Type-specific Fields */}
-                  <Box sx={{ pt: 2, borderTop: '1px solid var(--admin-border)' }}>
+                  <Box sx={{ pt: 2, borderTop: "1px solid var(--admin-border)" }}>
                     {getTypeFields()}
                   </Box>
                 </Stack>
@@ -357,12 +355,12 @@ export function AddOnEdit(props: Props) {
           <Box
             sx={{
               p: 2,
-              borderTop: '1px solid var(--admin-border)',
-              backgroundColor: 'var(--admin-bg)',
-              display: 'flex',
-              justifyContent: 'flex-end',
+              borderTop: "1px solid var(--admin-border)",
+              backgroundColor: "var(--admin-bg)",
+              display: "flex",
+              justifyContent: "flex-end",
               gap: 1,
-              flexWrap: 'wrap'
+              flexWrap: "wrap"
             }}>
             <Button startIcon={<SaveIcon />} variant="contained" onClick={handleSave}>
               Save

@@ -41,7 +41,7 @@ const comparisons: Record<string, ComparisonData> = {
       { name: "Classroom Scheduling", lessonsChurch: true, competitor: false },
       { name: "TV/Display App", lessonsChurch: true, competitor: false },
       { name: "Mobile Volunteer App", lessonsChurch: true, competitor: false },
-      { name: "Open Source", lessonsChurch: true, competitor: false },
+      { name: "Open Source", lessonsChurch: true, competitor: false }
     ],
     pricing: {
       lessonsChurch: "100% Free",
@@ -66,7 +66,7 @@ const comparisons: Record<string, ComparisonData> = {
       { name: "TV/Display App", lessonsChurch: true, competitor: true },
       { name: "ChMS Integration", lessonsChurch: "Full (B1 Admin)", competitor: "Limited" },
       { name: "FreeShow Integration", lessonsChurch: "Free", competitor: "Paid subscription" },
-      { name: "Open Source", lessonsChurch: true, competitor: false },
+      { name: "Open Source", lessonsChurch: true, competitor: false }
     ],
     pricing: {
       lessonsChurch: "100% Free",
@@ -89,7 +89,7 @@ const comparisons: Record<string, ComparisonData> = {
       { name: "Classroom Scheduling", lessonsChurch: true, competitor: false },
       { name: "TV/Display App", lessonsChurch: true, competitor: true },
       { name: "Per-Member Pricing", lessonsChurch: "None", competitor: "$7/person/month" },
-      { name: "Open Source", lessonsChurch: true, competitor: false },
+      { name: "Open Source", lessonsChurch: true, competitor: false }
     ],
     pricing: {
       lessonsChurch: "100% Free",
@@ -112,7 +112,7 @@ const comparisons: Record<string, ComparisonData> = {
       { name: "Multi-Campus Use", lessonsChurch: "Unlimited free", competitor: "Included" },
       { name: "Classroom Scheduling", lessonsChurch: true, competitor: false },
       { name: "TV/Display App", lessonsChurch: true, competitor: false },
-      { name: "Open Source", lessonsChurch: true, competitor: false },
+      { name: "Open Source", lessonsChurch: true, competitor: false }
     ],
     pricing: {
       lessonsChurch: "100% Free",
@@ -135,7 +135,7 @@ const comparisons: Record<string, ComparisonData> = {
       { name: "Quarterly Updates", lessonsChurch: "Ongoing", competitor: "Per quarter purchase" },
       { name: "Classroom Scheduling", lessonsChurch: true, competitor: false },
       { name: "TV/Display App", lessonsChurch: true, competitor: false },
-      { name: "Open Source", lessonsChurch: true, competitor: false },
+      { name: "Open Source", lessonsChurch: true, competitor: false }
     ],
     pricing: {
       lessonsChurch: "100% Free",

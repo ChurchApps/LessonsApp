@@ -29,9 +29,7 @@ export function FormCard({ icon, title, children, actions, loading }: FormCardPr
           justifyContent: "space-between"
         }}>
         <Stack direction="row" alignItems="center" spacing={1}>
-          {React.cloneElement(icon as React.ReactElement<any>, {
-            sx: { color: "var(--c1d2)", fontSize: "1.5rem" }
-          })}
+          {React.cloneElement(icon as React.ReactElement<any>, { sx: { color: "var(--c1d2)", fontSize: "1.5rem" } })}
           <Typography
             variant="h6"
             sx={{

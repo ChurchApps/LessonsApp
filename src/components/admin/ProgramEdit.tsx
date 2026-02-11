@@ -6,9 +6,7 @@ import { Box, Button, FormControl, Grid, IconButton, InputLabel, MenuItem, Paper
 import { ErrorMessages } from "@churchapps/apphelper";
 import { ApiHelper, ProgramInterface } from "@/helpers";
 
-const ImageEditor = dynamic(() => import("../index").then(mod => ({ default: mod.ImageEditor })), {
-  loading: () => <div>Loading image editor...</div>
-});
+const ImageEditor = dynamic(() => import("../index").then(mod => ({ default: mod.ImageEditor })), { loading: () => <div>Loading image editor...</div> });
 
 interface Props {
   program: ProgramInterface;
@@ -29,30 +27,30 @@ export function ProgramEdit(props: Props) {
   };
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement> | SelectChangeEvent<string>) => {
     e.preventDefault();
-    let p = { ...program };
+    const p = { ...program };
     const val = e.target.value;
     switch (e.target.name) {
-    case "live":
-      p.live = val === "true";
-      break;
-    case "name":
-      p.name = val;
-      break;
-    case "slug":
-      p.slug = val;
-      break;
-    case "shortDescription":
-      p.shortDescription = val;
-      break;
-    case "description":
-      p.description = val;
-      break;
-    case "aboutSection":
-      p.aboutSection = val;
-      break;
-    case "videoEmbedUrl":
-      p.videoEmbedUrl = val;
-      break;
+      case "live":
+        p.live = val === "true";
+        break;
+      case "name":
+        p.name = val;
+        break;
+      case "slug":
+        p.slug = val;
+        break;
+      case "shortDescription":
+        p.shortDescription = val;
+        break;
+      case "description":
+        p.description = val;
+        break;
+      case "aboutSection":
+        p.aboutSection = val;
+        break;
+      case "videoEmbedUrl":
+        p.videoEmbedUrl = val;
+        break;
     }
     setProgram(p);
   };
@@ -65,7 +63,7 @@ export function ProgramEdit(props: Props) {
   };
 
   const validate = () => {
-    let errors = [];
+    const errors = [];
     if (program.name === "") errors.push("Please enter a program name.");
     setErrors(errors);
     return errors.length === 0;

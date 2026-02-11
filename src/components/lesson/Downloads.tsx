@@ -15,7 +15,7 @@ export function Downloads(props: Props) {
       try {
         AnalyticsHelper.logEvent("Download", action, label);
       } catch (error) {
-        console.warn('Analytics logging failed:', error);
+        console.warn("Analytics logging failed:", error);
       }
     }
     if (!download.files || !download.files[0]) return;
@@ -38,7 +38,7 @@ export function Downloads(props: Props) {
       result.push(<li key={"download-" + idx}>
         <a
           href={d.files[0].url}
-          onClick={e => {
+          onClick={_e => {
             trackDownload(d);
           }}
           download={true}>

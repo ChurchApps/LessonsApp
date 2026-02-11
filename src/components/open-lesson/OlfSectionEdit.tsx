@@ -16,17 +16,17 @@ export function OlfSectionEdit(props: Props) {
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement> | SelectChangeEvent<string>) => {
     e.preventDefault();
-    let s = { ...section };
+    const s = { ...section };
     switch (e.target.name) {
-    case "name":
-      s.name = e.target.value;
-      break;
+      case "name":
+        s.name = e.target.value;
+        break;
     }
     setSection(s);
   };
 
   const validate = () => {
-    let errors = [];
+    const errors = [];
     if (section.name === "") errors.push("Please enter a name.");
     setErrors(errors);
     return errors.length === 0;

@@ -167,9 +167,7 @@ export default function EmbedAddOn() {
             sx={{
               backgroundColor: "#28235d",
               color: "#fff",
-              "& .MuiCardHeader-subheader": {
-                color: "rgba(255,255,255,0.8)"
-              }
+              "& .MuiCardHeader-subheader": { color: "rgba(255,255,255,0.8)" }
             }}
           />
           <CardContent sx={{ p: 0 }}>

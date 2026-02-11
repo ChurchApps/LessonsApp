@@ -24,26 +24,26 @@ export function ExternalVideoEdit(props: Props) {
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement> | SelectChangeEvent<string>) => {
     e.preventDefault();
-    let v = { ...externalVideo };
+    const v = { ...externalVideo };
     switch (e.target.name) {
-    case "name":
-      v.name = e.target.value;
-      break;
-    case "provider":
-      v.videoProvider = e.target.value;
-      break;
-    case "videoId":
-      v.videoId = e.target.value;
-      break;
-    case "loopVideo":
-      v.loopVideo = e.target.value === "true";
-      break;
+      case "name":
+        v.name = e.target.value;
+        break;
+      case "provider":
+        v.videoProvider = e.target.value;
+        break;
+      case "videoId":
+        v.videoId = e.target.value;
+        break;
+      case "loopVideo":
+        v.loopVideo = e.target.value === "true";
+        break;
     }
     setExternalVideo(v);
   };
 
   const validate = () => {
-    let errors = [];
+    const errors = [];
     if (externalVideo.name === "") errors.push("Please enter a video name.");
     setErrors(errors);
     return errors.length === 0;

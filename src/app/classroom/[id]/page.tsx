@@ -69,7 +69,7 @@ export default function Venue() {
     const studyArray: StudyInterface[] = [];
 
     schedules.forEach(s => {
-      const { lesson, study, program } = ExternalProviderHelper.getLesson(data, s.programId, s.studyId, s.lessonId);
+      const { lesson, study, program: _program } = ExternalProviderHelper.getLesson(data, s.programId, s.studyId, s.lessonId);
       if (lesson) {
         lessonArray.push(lesson);
         if (!ArrayHelper.getOne(studyArray, "id", lesson.studyId)) studyArray.push(study);
@@ -149,7 +149,7 @@ export default function Venue() {
   };
 
   const getRowData = (schedule: ScheduleInterface) => {
-    let result: { lesson: LessonInterface; study: StudyInterface; program: ProgramInterface } = {
+    const result: { lesson: LessonInterface; study: StudyInterface; program: ProgramInterface } = {
       lesson: null,
       study: null,
       program: null

@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
-import { Box,
+import {
+  Box,
   Button,
   FormControl,
   IconButton,
@@ -14,7 +15,8 @@ import { Box,
   TableCell,
   TableRow,
   TextField,
-  Typography } from "@mui/material";
+  Typography
+} from "@mui/material";
 import { Edit as EditIcon, Save as SaveIcon, Delete as DeleteIcon, Cancel as CancelIcon, Add as AddIcon } from "@mui/icons-material";
 import { ErrorMessages } from "@churchapps/apphelper";
 import { MarkdownEditor } from "@churchapps/apphelper-markdown";
@@ -33,31 +35,27 @@ export function OlfActionEdit(props: Props) {
   const [editFileIndex, setEditFileIndex] = useState(null);
 
   const handleMarkdownChange = (newValue: string) => {
-    let a = { ...action };
+    const a = { ...action };
     a.content = newValue;
     setAction(a);
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement> | SelectChangeEvent<string>) => {
     e.preventDefault();
-    let a = { ...action };
+    const a = { ...action };
     switch (e.target.name) {
-    case "actionType":
-      a.actionType = e.target.value;
-      if (a.actionType === "play" && !a.files) a.files = [];
-      break;
-    case "role":
-      a.role = e.target.value;
-      break;
-    case "content":
-      a.content = e.target.value;
-      break;
+      case "actionType":
+        a.actionType = e.target.value;
+        if (a.actionType === "play" && !a.files) a.files = [];
+        break;
+      case "role": a.role = e.target.value; break;
+      case "content": a.content = e.target.value; break;
     }
     setAction(a);
   };
 
   const validate = () => {
-    let errors = [];
+    const errors = [];
     if (action.content === "") errors.push("Please enter content text.");
     setErrors(errors);
     return errors.length === 0;

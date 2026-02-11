@@ -41,7 +41,7 @@ export default function Admin() {
   };
 
   const handleAdd = (studyId: string) => {
-    let sc: StudyCategoryInterface = {
+    const sc: StudyCategoryInterface = {
       programId: programId,
       studyId: studyId,
       categoryName: categoryName,
@@ -92,31 +92,31 @@ export default function Admin() {
   );
 
   const getStudyCategories = () => {
-    let result: React.JSX.Element[] = [];
+    const result: React.JSX.Element[] = [];
     let i = 0;
     studyCategories.forEach(sc => {
       const study = ArrayHelper.getOne(studies, "id", sc.studyId);
       const index = i;
       const upLink = i === 0 ? (
           <span style={{ paddingLeft: 14 }}>&nbsp;</span>
-        ) : (
+      ) : (
           <SmallButton
             icon="arrow_upward"
             onClick={() => {
               moveUp(index);
             }}
           />
-        );
+      );
       const downLink = i === studyCategories.length - 1 ? (
           <></>
-        ) : (
+      ) : (
           <SmallButton
             icon="arrow_downward"
             onClick={() => {
               moveDown(index);
             }}
           />
-        );
+      );
       i++;
       result.push(<tr>
         <td>

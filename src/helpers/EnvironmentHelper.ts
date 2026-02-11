@@ -10,17 +10,11 @@ export class EnvironmentHelper {
   static init = () => {
     if (this.hasInit) return;
 
-    let stage = process.env.STAGE;
+    const stage = process.env.STAGE;
     switch (stage) {
-    case "staging":
-      EnvironmentHelper.initStaging();
-      break;
-    case "prod":
-      EnvironmentHelper.initProd();
-      break;
-    default:
-      EnvironmentHelper.initDev();
-      break;
+      case "staging": EnvironmentHelper.initStaging(); break;
+      case "prod": EnvironmentHelper.initProd(); break;
+      default: EnvironmentHelper.initDev(); break;
     }
     EnvironmentHelper.Common.init(stage);
 

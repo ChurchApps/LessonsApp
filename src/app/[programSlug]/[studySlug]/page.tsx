@@ -44,7 +44,7 @@ const loadSharedData = async (params: Promise<PageParams>) => {
 
 export async function generateMetadata({ params }: { params: Promise<PageParams> }): Promise<Metadata> {
   const props = await loadSharedData(params);
-  let title = props.program.name + ": " + props.study?.name + " - Free Church Curriculum";
+  const title = props.program.name + ": " + props.study?.name + " - Free Church Curriculum";
   if (!props.errorMessage) return MetaHelper.getMetaData(title, props.study.description, props.study.image);
 }
 

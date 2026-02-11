@@ -12,7 +12,7 @@ interface Props {
   position?: "fixed" | "sticky" | "static" | "relative" | "absolute";
 }
 
-export function PortalHeader(props: Props) {
+export function PortalHeader(_props: Props) {
   const context = React.useContext(UserContext);
   const router = useRouter();
   const [secondaryMenu, setSecondaryMenu] = React.useState({ menuItems: [], label: "" });

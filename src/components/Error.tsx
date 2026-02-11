@@ -3,7 +3,8 @@
 //todo remove
 import { NextPageContext } from "next";
 import React from "react";
-import { Box,
+import {
+  Box,
   Button,
   Container,
   Dialog,
@@ -13,14 +14,15 @@ import { Box,
   Grid,
   Icon,
   Stack,
-  Typography } from "@mui/material";
+  Typography
+} from "@mui/material";
 import { Layout } from "@/components";
 
 interface Props {
   statusCode?: number;
   message: string;
 }
-function Error({ message, statusCode }: Props) {
+function Error({ message, statusCode: _statusCode }: Props) {
   const [showError, setShowError] = React.useState(false);
   const [year, setYear] = React.useState<number | null>(null);
   const onClose = () => setShowError(!showError);

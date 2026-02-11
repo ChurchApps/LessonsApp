@@ -14,7 +14,7 @@ export function BulkAssetAdd(props: Props) {
   const handleCancel = () => props.updatedCallback();
 
   const handleFilesSaved = (files: FileInterface[]) => {
-    let assets: AssetInterface[] = [];
+    const assets: AssetInterface[] = [];
     let i = 1;
     files.forEach(f => {
       assets.push({

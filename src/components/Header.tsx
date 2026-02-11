@@ -34,7 +34,7 @@ export function Header(props: Props) {
     </Link>
   );
 
-  const pathName = usePathname();
+  const _pathName = usePathname();
   //const returnUrl = (router.pathname === "/") ? "" : `?returnUrl=${encodeURIComponent(pathName)}`;
 
   const userAction = isClient && ApiHelper.isAuthenticated ? (
@@ -47,7 +47,7 @@ export function Header(props: Props) {
             e.preventDefault();
             setMenuAnchor(Boolean(menuAnchor) ? null : e.target);
           }}>
-          {UserHelper.user ? `${UserHelper.user.firstName} ${UserHelper.user.lastName}` : 'User'}
+          {UserHelper.user ? `${UserHelper.user.firstName} ${UserHelper.user.lastName}` : "User"}
           <Icon style={{ paddingTop: 6 }}>expand_more</Icon>
         </a>
       </ClickAwayListener>

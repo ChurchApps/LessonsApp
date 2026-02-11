@@ -28,7 +28,7 @@ const Programs = React.memo((props: Props) => {
                 className="img-fluid"
               />
             </Link>
-          ) : null;
+      ) : null;
       result.push(<Grid size={{ md: 2, sm: 4, xs: 4 }} key={i}>
         {link}
       </Grid>);

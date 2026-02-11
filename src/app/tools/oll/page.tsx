@@ -7,9 +7,7 @@ import { Box, Paper } from "@mui/material";
 import { Wrapper } from "@/components/Wrapper";
 import { PageHeader } from "@churchapps/apphelper";
 
-const OllInner = dynamic(() => import("./components/OllInner"), {
-  loading: () => <div>Loading lesson builder...</div>
-});
+const OllInner = dynamic(() => import("./components/OllInner"), { loading: () => <div>Loading lesson builder...</div> });
 
 export default function CP() {
   return (

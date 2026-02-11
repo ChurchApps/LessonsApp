@@ -16,33 +16,33 @@ export function OllProgramEdit(props: Props) {
   const handleCancel = () => props.updatedCallback(null, true);
 
   const handleMarkdownChange = (newValue: string) => {
-    let p = { ...program };
+    const p = { ...program };
     p.description = newValue;
     setProgram(p);
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement> | SelectChangeEvent<string>) => {
     e.preventDefault();
-    let p = { ...program };
+    const p = { ...program };
     switch (e.target.name) {
-    case "id":
-      p.id = e.target.value;
-      break;
-    case "name":
-      p.name = e.target.value;
-      break;
-    case "image":
-      p.image = e.target.value;
-      break;
-    case "description":
-      p.description = e.target.value;
-      break;
+      case "id":
+        p.id = e.target.value;
+        break;
+      case "name":
+        p.name = e.target.value;
+        break;
+      case "image":
+        p.image = e.target.value;
+        break;
+      case "description":
+        p.description = e.target.value;
+        break;
     }
     setProgram(p);
   };
 
   const validate = () => {
-    let errors = [];
+    const errors = [];
     if (program.name === "") errors.push("Please enter a name.");
     if (program.id === "") errors.push("Please enter an id.");
     setErrors(errors);

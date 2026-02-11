@@ -3,7 +3,6 @@ import { Container, Grid, Accordion, AccordionSummary, AccordionDetails, Typogra
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import { Metadata } from "next";
 import { MetaHelper } from "@/helpers/MetaHelper";
-import Link from "next/link";
 
 const faqs = [
   {

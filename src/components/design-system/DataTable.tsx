@@ -91,9 +91,7 @@ export function DataTable<T extends Record<string, any>>({
                         action.onClick(item);
                       }}
                       title={action.title}
-                      sx={{
-                        color: action.color || "action.active"
-                      }}>
+                      sx={{ color: action.color || "action.active" }}>
                       {action.icon}
                     </IconButton>
                   ))}

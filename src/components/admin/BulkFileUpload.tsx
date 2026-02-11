@@ -52,7 +52,7 @@ export function BulkFileUpload(props: Props) {
     formData.append("Content-Type", uploadedFile.type);
 
     for (const property in presigned.fields) formData.append(property, presigned.fields[property]);
-    const f = document.getElementById("fileUpload") as HTMLInputElement;
+    const _f = document.getElementById("fileUpload") as HTMLInputElement;
     formData.append("file", uploadedFile);
 
     const completedPercent = Math.round((index / uploadedFiles.length) * 100);
@@ -61,7 +61,7 @@ export function BulkFileUpload(props: Props) {
       headers: { "Content-Type": "multipart/form-data" },
       onUploadProgress: (data: AxiosProgressEvent) => {
         const currentFilePercent = Math.round((100 * data.loaded) / (data.total || 1));
-        let overallPercent = completedPercent + Math.round(currentFilePercent / uploadedFiles.length);
+        const overallPercent = completedPercent + Math.round(currentFilePercent / uploadedFiles.length);
         setUploadProgress(overallPercent);
       }
     };
@@ -69,7 +69,7 @@ export function BulkFileUpload(props: Props) {
     return axios.post(presigned.url, formData, axiosConfig);
   };
 
-  useEffect(checkSave, [props.pendingSave]); //eslint-disable-line
+  useEffect(checkSave, [props.pendingSave]);
 
   const getFileLink = () => {
     if (uploadProgress > -1) {
@@ -80,9 +80,7 @@ export function BulkFileUpload(props: Props) {
             value={uploadProgress}
             sx={{
               backgroundColor: "var(--c1l6)",
-              "& .MuiLinearProgress-bar": {
-                backgroundColor: "var(--c1)"
-              }
+              "& .MuiLinearProgress-bar": { backgroundColor: "var(--c1)" }
             }}
           />
           <Typography variant="caption" sx={{ color: "var(--c1d2)", mt: 0.5 }}>

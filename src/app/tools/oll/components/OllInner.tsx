@@ -9,11 +9,13 @@ import { OllLessonEdit } from "@/components/open-lesson/OllLessonEdit";
 import { OllProgramEdit } from "@/components/open-lesson/OllProgramEdit";
 import { OllStudyEdit } from "@/components/open-lesson/OllStudyEdit";
 import { OllVenueEdit } from "@/components/open-lesson/OllVenueEdit";
-import { FeedLessonInterface,
+import {
+  FeedLessonInterface,
   FeedListInterface,
   FeedProgramInterface,
   FeedStudyInterface,
-  FeedVenueLinkInterface } from "@/helpers";
+  FeedVenueLinkInterface
+} from "@/helpers";
 
 export default function OllInner() {
   const [data, setData] = useState<FeedListInterface>({} as FeedListInterface);
@@ -48,7 +50,7 @@ export default function OllInner() {
   };
 
   const moveProgram = (index: number, direction: "up" | "down") => {
-    let d = { ...data };
+    const d = { ...data };
     if (direction === "up") {
       const item = d.programs.splice(index - 1, 1)[0];
       d.programs.splice(index, 0, item);
@@ -73,8 +75,8 @@ export default function OllInner() {
   };
 
   const moveStudy = (programIndex: number, index: number, direction: "up" | "down") => {
-    let d = { ...data };
-    let p = d.programs[programIndex];
+    const d = { ...data };
+    const p = d.programs[programIndex];
     if (direction === "up") {
       const item = p.studies.splice(index - 1, 1)[0];
       p.studies.splice(index, 0, item);
@@ -86,8 +88,8 @@ export default function OllInner() {
   };
 
   const moveLesson = (programIndex: number, studyIndex: number, index: number, direction: "up" | "down") => {
-    let d = { ...data };
-    let s = d.programs[programIndex].studies[studyIndex];
+    const d = { ...data };
+    const s = d.programs[programIndex].studies[studyIndex];
     if (direction === "up") {
       const item = s.lessons.splice(index - 1, 1)[0];
       s.lessons.splice(index, 0, item);
@@ -103,8 +105,8 @@ export default function OllInner() {
     lessonIndex: number,
     index: number,
     direction: "up" | "down") => {
-    let d = { ...data };
-    let l = d.programs[programIndex].studies[studyIndex].lessons[lessonIndex];
+    const d = { ...data };
+    const l = d.programs[programIndex].studies[studyIndex].lessons[lessonIndex];
     if (direction === "up") {
       const item = l.venues.splice(index - 1, 1)[0];
       l.venues.splice(index, 0, item);
@@ -116,7 +118,7 @@ export default function OllInner() {
   };
 
   const getVenues = (l: FeedLessonInterface, programIndex: number, studyIndex: number, lessonIndex: number) => {
-    let result: React.JSX.Element[] = [];
+    const result: React.JSX.Element[] = [];
     l.venues?.forEach((v, j) => {
       result.push(<TableRow key={l.id + "-" + v.id}>
         <TableCell></TableCell>

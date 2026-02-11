@@ -24,20 +24,20 @@ export function RoleEdit(props: Props) {
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     e.preventDefault();
-    let r = { ...role };
+    const r = { ...role };
     switch (e.currentTarget.name) {
-    case "name":
-      r.name = e.currentTarget.value;
-      break;
-    case "sort":
-      r.sort = parseInt(e.currentTarget.value);
-      break;
+      case "name":
+        r.name = e.currentTarget.value;
+        break;
+      case "sort":
+        r.sort = parseInt(e.currentTarget.value);
+        break;
     }
     setRole(r);
   };
 
   const validate = () => {
-    let errors = [];
+    const errors = [];
     if (role.name === "") errors.push("Please enter a role name.");
     setErrors(errors);
     return errors.length === 0;
@@ -64,24 +64,24 @@ export function RoleEdit(props: Props) {
     <Paper
       sx={{
         borderRadius: 2,
-        border: '1px solid var(--admin-border)',
-        boxShadow: 'var(--admin-shadow-sm)',
-        overflow: 'hidden'
+        border: "1px solid var(--admin-border)",
+        boxShadow: "var(--admin-shadow-sm)",
+        overflow: "hidden"
       }}>
       {/* HEADER */}
       <Box
         sx={{
           p: 2,
-          borderBottom: '1px solid var(--admin-border)',
-          backgroundColor: 'var(--c1l7)'
+          borderBottom: "1px solid var(--admin-border)",
+          backgroundColor: "var(--c1l7)"
         }}>
         <Stack direction="row" alignItems="center" spacing={1}>
-          <PersonIcon sx={{ color: 'var(--c1d2)', fontSize: '1.5rem' }} />
+          <PersonIcon sx={{ color: "var(--c1d2)", fontSize: "1.5rem" }} />
           <Typography variant="h6" sx={{
-            color: 'var(--c1d2)',
+            color: "var(--c1d2)",
             fontWeight: 600,
             lineHeight: 1,
-            fontSize: '1.25rem'
+            fontSize: "1.25rem"
           }}>
             {role?.id ? "Edit Role" : "Create Role"}
           </Typography>
@@ -98,7 +98,7 @@ export function RoleEdit(props: Props) {
             label="Order"
             type="number"
             name="sort"
-            value={role.sort || ''}
+            value={role.sort || ""}
             onChange={handleChange}
             onKeyDown={handleKeyDown}
             placeholder="1"
@@ -109,7 +109,7 @@ export function RoleEdit(props: Props) {
             fullWidth
             label="Role Name"
             name="name"
-            value={role.name || ''}
+            value={role.name || ""}
             onChange={handleChange}
             onKeyDown={handleKeyDown}
             placeholder="Leader"
@@ -122,12 +122,12 @@ export function RoleEdit(props: Props) {
       <Box
         sx={{
           p: 2,
-          borderTop: '1px solid var(--admin-border)',
-          backgroundColor: 'var(--admin-bg)',
-          display: 'flex',
-          justifyContent: 'flex-end',
+          borderTop: "1px solid var(--admin-border)",
+          backgroundColor: "var(--admin-bg)",
+          display: "flex",
+          justifyContent: "flex-end",
           gap: 1,
-          flexWrap: 'wrap'
+          flexWrap: "wrap"
         }}>
         <Button startIcon={<SaveIcon />} variant="contained" onClick={handleSave}>
           Save

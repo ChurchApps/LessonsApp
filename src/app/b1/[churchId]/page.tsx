@@ -20,7 +20,7 @@ export default async function Venue({ params }: { params: Promise<PageParams> })
   const getRows = () => {
     const result: React.JSX.Element[] = [];
     classrooms?.forEach((c: any) => {
-      let url = "/b1/classroom/" + c.id;
+      const url = "/b1/classroom/" + c.id;
       result.push(<Link href={url} className="bigLink">
         {c.name}
       </Link>);
@@ -31,7 +31,7 @@ export default async function Venue({ params }: { params: Promise<PageParams> })
   if (classrooms?.length === 1) {
     redirect("/b1/classroom/" + classrooms[0].id);
   }
-  
+
   return (
     <Layout withoutNavbar={true} withoutFooter={true}>
       <Container fixed>

@@ -28,7 +28,7 @@ export function PersonInner() {
     const person = context?.person || UserHelper.person;
     console.log("PersonInner loadData", person);
     if (context.person) {
-      let url = "/classrooms/person";
+      const url = "/classrooms/person";
       ApiHelper.get(url, "LessonsApi").then((c: ClassroomInterface[]) => {
         if (c.length === 0) redirect("/b1/" + (params.get("churchId") || context.userChurch.church.id));
         else setClassrooms(c);

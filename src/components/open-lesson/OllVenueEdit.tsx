@@ -16,23 +16,23 @@ export function OllVenueEdit(props: Props) {
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement> | SelectChangeEvent<string>) => {
     e.preventDefault();
-    let v = { ...venue };
+    const v = { ...venue };
     switch (e.target.name) {
-    case "id":
-      v.id = e.target.value;
-      break;
-    case "name":
-      v.name = e.target.value;
-      break;
-    case "apiUrl":
-      v.apiUrl = e.target.value;
-      break;
+      case "id":
+        v.id = e.target.value;
+        break;
+      case "name":
+        v.name = e.target.value;
+        break;
+      case "apiUrl":
+        v.apiUrl = e.target.value;
+        break;
     }
     setVenue(v);
   };
 
   const validate = () => {
-    let errors = [];
+    const errors = [];
     if (venue.name === "") errors.push("Please enter a name.");
     if (venue.id === "") errors.push("Please enter an id.");
     if (venue.apiUrl === "") errors.push("Please enter an api url.");

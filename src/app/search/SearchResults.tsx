@@ -4,7 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useCallback, useEffect, useState } from "react";
-import { Alert, Box, Card, CardContent, CardMedia, Chip, CircularProgress, Grid, Stack, Typography } from "@mui/material";
+import { Alert, Box, Card, CardContent, Chip, CircularProgress, Grid, Stack, Typography } from "@mui/material";
 import { SearchBar } from "@/components/SearchBar";
 import { SearchResult } from "@/helpers/SearchHelper";
 
@@ -13,7 +13,7 @@ interface Props {
 }
 
 export function SearchResults({ initialQuery }: Props) {
-  const router = useRouter();
+  const _router = useRouter();
   const searchParams = useSearchParams();
   const [results, setResults] = useState<SearchResult[]>([]);
   const [loading, setLoading] = useState(false);
@@ -42,7 +42,7 @@ export function SearchResults({ initialQuery }: Props) {
         setResults(data.results || []);
         setSearchTime(data.elapsed);
       }
-    } catch (err) {
+    } catch (_err) {
       setError("Failed to perform search. Please try again.");
       setResults([]);
     } finally {

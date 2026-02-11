@@ -1,9 +1,12 @@
 import { useEffect, useState } from "react";
-import { Cancel as CancelIcon,
+import {
+  Cancel as CancelIcon,
   Delete as DeleteIcon,
   Save as SaveIcon,
-  School as SchoolIcon } from "@mui/icons-material";
-import { Box,
+  School as SchoolIcon
+} from "@mui/icons-material";
+import {
+  Box,
   Button,
   FormControl,
   IconButton,
@@ -14,7 +17,8 @@ import { Box,
   SelectChangeEvent,
   Stack,
   TextField,
-  Typography } from "@mui/material";
+  Typography
+} from "@mui/material";
 import { ErrorMessages } from "@churchapps/apphelper";
 import { GroupInterface } from "@churchapps/helpers";
 import { ApiHelper, ClassroomInterface } from "@/helpers";
@@ -41,17 +45,17 @@ export function ClassroomEdit(props: Props) {
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement> | SelectChangeEvent<string>) => {
     e.preventDefault();
-    let c = { ...classroom };
+    const c = { ...classroom };
     switch (e.target.name) {
-    case "name": c.name = e.target.value; break;
-    case "upcomingGroupId": c.upcomingGroupId = e.target.value; break;
-    case "recentGroupId": c.recentGroupId = e.target.value; break;
+      case "name": c.name = e.target.value; break;
+      case "upcomingGroupId": c.upcomingGroupId = e.target.value; break;
+      case "recentGroupId": c.recentGroupId = e.target.value; break;
     }
     setClassroom(c);
   };
 
   const validate = () => {
-    let errors = [];
+    const errors = [];
     if (classroom.name === "") errors.push("Please enter a classroom name.");
     setErrors(errors);
     return errors.length === 0;

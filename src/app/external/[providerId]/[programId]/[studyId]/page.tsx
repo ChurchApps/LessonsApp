@@ -36,7 +36,7 @@ export default function StudyPage() {
   }, []);
 
   if (!study || !program) return <></>;
-  let title = program.name + ": " + study?.name + " - Free Church Curriculum";
+  const title = program.name + ": " + study?.name + " - Free Church Curriculum";
   return (
     <Layout pageTitle={title} metaDescription={study.description} image={study.image} withoutNavbar>
       <div id="studyHero">

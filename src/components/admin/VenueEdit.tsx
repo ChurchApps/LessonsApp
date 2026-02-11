@@ -24,20 +24,20 @@ export function VenueEdit(props: Props) {
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     e.preventDefault();
-    let v = { ...venue };
+    const v = { ...venue };
     switch (e.currentTarget.name) {
-    case "name":
-      v.name = e.currentTarget.value;
-      break;
-    case "sort":
-      v.sort = parseInt(e.currentTarget.value);
-      break;
+      case "name":
+        v.name = e.currentTarget.value;
+        break;
+      case "sort":
+        v.sort = parseInt(e.currentTarget.value);
+        break;
     }
     setVenue(v);
   };
 
   const validate = () => {
-    let errors = [];
+    const errors = [];
     if (venue.name === "") errors.push("Please enter a venue name.");
     setErrors(errors);
     return errors.length === 0;
@@ -64,24 +64,24 @@ export function VenueEdit(props: Props) {
     <Paper
       sx={{
         borderRadius: 2,
-        border: '1px solid var(--admin-border)',
-        boxShadow: 'var(--admin-shadow-sm)',
-        overflow: 'hidden'
+        border: "1px solid var(--admin-border)",
+        boxShadow: "var(--admin-shadow-sm)",
+        overflow: "hidden"
       }}>
       {/* HEADER */}
       <Box
         sx={{
           p: 2,
-          borderBottom: '1px solid var(--admin-border)',
-          backgroundColor: 'var(--c1l7)'
+          borderBottom: "1px solid var(--admin-border)",
+          backgroundColor: "var(--c1l7)"
         }}>
         <Stack direction="row" alignItems="center" spacing={1}>
-          <LocationIcon sx={{ color: 'var(--c1d2)', fontSize: '1.5rem' }} />
+          <LocationIcon sx={{ color: "var(--c1d2)", fontSize: "1.5rem" }} />
           <Typography variant="h6" sx={{
-            color: 'var(--c1d2)',
+            color: "var(--c1d2)",
             fontWeight: 600,
             lineHeight: 1,
-            fontSize: '1.25rem'
+            fontSize: "1.25rem"
           }}>
             Edit Venue
           </Typography>
@@ -98,7 +98,7 @@ export function VenueEdit(props: Props) {
             label="Order"
             type="number"
             name="sort"
-            value={venue.sort || ''}
+            value={venue.sort || ""}
             onChange={handleChange}
             onKeyDown={handleKeyDown}
             placeholder="1"
@@ -109,7 +109,7 @@ export function VenueEdit(props: Props) {
             fullWidth
             label="Venue Name"
             name="name"
-            value={venue.name || ''}
+            value={venue.name || ""}
             onChange={handleChange}
             onKeyDown={handleKeyDown}
             placeholder="Small Group"
@@ -122,12 +122,12 @@ export function VenueEdit(props: Props) {
       <Box
         sx={{
           p: 2,
-          borderTop: '1px solid var(--admin-border)',
-          backgroundColor: 'var(--admin-bg)',
-          display: 'flex',
-          justifyContent: 'flex-end',
+          borderTop: "1px solid var(--admin-border)",
+          backgroundColor: "var(--admin-bg)",
+          display: "flex",
+          justifyContent: "flex-end",
           gap: 1,
-          flexWrap: 'wrap'
+          flexWrap: "wrap"
         }}>
         <Button startIcon={<SaveIcon />} variant="contained" onClick={handleSave}>
           Save

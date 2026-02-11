@@ -18,7 +18,7 @@ export default function CP() {
   useEffect(() => {
     if (!isAuthenticated) redirect("/login");
 
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+
   }, []);
 
   const handleShowFeed = (classroomId: string) => {
@@ -27,7 +27,7 @@ export default function CP() {
 
   const getScheduleSection = () => {
     if (classroomId === "") {
-      let html = '<lite-vimeo videoid="985348183" videotitle="Setup Instructions"></lite-vimeo>';
+      const html = '<lite-vimeo videoid="985348183" videotitle="Setup Instructions"></lite-vimeo>';
       return (
         <>
           <div>

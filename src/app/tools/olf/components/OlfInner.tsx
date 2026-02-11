@@ -26,7 +26,7 @@ export default function OlfInner() {
     data?.sections.forEach(s => {
       s.actions?.forEach(a => {
         a.files?.forEach(f => {
-          let file: PlaylistFileInterface = {
+          const file: PlaylistFileInterface = {
             name: f.name,
             url: f.url,
             seconds: f.seconds || 3600,
@@ -41,30 +41,30 @@ export default function OlfInner() {
   };
 
   const handleMarkdownChange = (newValue: string) => {
-    let d = { ...data };
+    const d = { ...data };
     d.lessonDescription = newValue;
     setData(d);
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     e.preventDefault();
-    let d = { ...data };
+    const d = { ...data };
     switch (e.currentTarget.name) {
-    case "name":
-      d.name = e.currentTarget.value;
-      break;
-    case "lessonName":
-      d.lessonName = e.currentTarget.value;
-      break;
-    case "lessonImage":
-      d.lessonImage = e.currentTarget.value;
-      break;
-    case "studyName":
-      d.studyName = e.currentTarget.value;
-      break;
-    case "programName":
-      d.programName = e.currentTarget.value;
-      break;
+      case "name":
+        d.name = e.currentTarget.value;
+        break;
+      case "lessonName":
+        d.lessonName = e.currentTarget.value;
+        break;
+      case "lessonImage":
+        d.lessonImage = e.currentTarget.value;
+        break;
+      case "studyName":
+        d.studyName = e.currentTarget.value;
+        break;
+      case "programName":
+        d.programName = e.currentTarget.value;
+        break;
     }
     setData(d);
   };
@@ -111,7 +111,7 @@ export default function OlfInner() {
   };
 
   const getActions = (s: FeedSectionInterface, sectionIndex: number) => {
-    let result: React.JSX.Element[] = [];
+    const result: React.JSX.Element[] = [];
     s.actions?.forEach((a, j) => {
       result.push(<TableRow key={"action-" + sectionIndex + "-" + j}>
         <TableCell></TableCell>
@@ -202,7 +202,7 @@ export default function OlfInner() {
   };
 
   const moveSection = (index: number, direction: "up" | "down") => {
-    let d = { ...data };
+    const d = { ...data };
     if (direction === "up") {
       const item = d.sections.splice(index - 1, 1)[0];
       d.sections.splice(index, 0, item);
@@ -214,8 +214,8 @@ export default function OlfInner() {
   };
 
   const moveAction = (sectionIndex: number, index: number, direction: "up" | "down") => {
-    let d = { ...data };
-    let s = d.sections[sectionIndex];
+    const d = { ...data };
+    const s = d.sections[sectionIndex];
     if (direction === "up") {
       const item = s.actions.splice(index - 1, 1)[0];
       s.actions.splice(index, 0, item);

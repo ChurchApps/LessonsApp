@@ -24,17 +24,17 @@ export function BundleEdit(props: Props) {
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     e.preventDefault();
-    let v = { ...bundle };
+    const v = { ...bundle };
     switch (e.currentTarget.name) {
-    case "name":
-      v.name = e.currentTarget.value;
-      break;
+      case "name":
+        v.name = e.currentTarget.value;
+        break;
     }
     setBundle(v);
   };
 
   const validate = () => {
-    let errors = [];
+    const errors = [];
     if (bundle.name === "") errors.push("Please enter a bundle name.");
     setErrors(errors);
     return errors.length === 0;

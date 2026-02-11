@@ -16,7 +16,7 @@ interface Props {
 const LessonSidebar = React.memo((props: Props) => {
   const [showPrintPreview, setShowPrintPreview] = useState(false);
   const [shareAnchor, setShareAnchor] = React.useState<null | HTMLElement>(null);
-  const [showB1Share, setShowB1Share] = React.useState(false);
+  const [_showB1Share, setShowB1Share] = React.useState(false);
 
   const handleAffix = React.useCallback(() => {
     const sidebar = document.getElementById("lessonSidebar");
@@ -72,7 +72,7 @@ const LessonSidebar = React.memo((props: Props) => {
     };
   }, [handleScroll]);
 
-  const handleB1Share = React.useCallback((e: React.MouseEvent) => {
+  const handleB1Share = React.useCallback((_e: React.MouseEvent) => {
     setShareAnchor(null);
     setShowB1Share(true);
   }, []);

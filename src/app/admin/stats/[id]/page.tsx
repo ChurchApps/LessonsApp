@@ -10,16 +10,14 @@ import { Wrapper } from "@/components/Wrapper";
 import { PageHeader } from "@churchapps/apphelper";
 import { ApiHelper, ProgramInterface, StudyStatsInterface } from "@/helpers";
 
-const Map = dynamic(() => import("@/components/admin/Map").then(mod => ({ default: mod.Map })), {
-  loading: () => <div>Loading map...</div>
-});
+const Map = dynamic(() => import("@/components/admin/Map").then(mod => ({ default: mod.Map })), { loading: () => <div>Loading map...</div> });
 
 type PageParams = { id: string };
 export default function Admin() {
   const params = useParams<PageParams>();
 
-  let initialStartDate = new Date(new Date().getFullYear(), new Date().getMonth(), 1);
-  let initialEndDate = new Date(initialStartDate.toDateString());
+  const initialStartDate = new Date(new Date().getFullYear(), new Date().getMonth(), 1);
+  const initialEndDate = new Date(initialStartDate.toDateString());
   initialEndDate.setMonth(initialEndDate.getMonth() + 1);
   initialEndDate.setDate(initialEndDate.getDate() - 1);
 
@@ -35,7 +33,7 @@ export default function Admin() {
 
   useEffect(() => {
     if (!isAuthenticated) router.push("/login");
-  }, []); // eslint-disable-line react-hooks/exhaustive-deps
+  }, []);
   useEffect(() => {
     if (isAuthenticated) loadData();
   }, [isAuthenticated]);
@@ -59,21 +57,17 @@ export default function Admin() {
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const val = e.target.value;
     switch (e.target.name) {
-    case "startDate":
-      setStartDate(new Date(val));
-      break;
-    case "endDate":
-      setEndDate(new Date(val));
-      break;
+      case "startDate": setStartDate(new Date(val)); break;
+      case "endDate": setEndDate(new Date(val)); break;
     }
   };
 
   const getStudyRows = () => {
     const result: React.JSX.Element[] = [];
     studies.forEach((s, index) => {
-      result.push(<tr key={index} style={{ borderBottom: '1px solid var(--admin-border)' }}>
-        <td style={{ padding: '12px' }}>{s.studyName}</td>
-        <td style={{ padding: '12px', fontWeight: 500 }}>{s.downloadCount}</td>
+      result.push(<tr key={index} style={{ borderBottom: "1px solid var(--admin-border)" }}>
+        <td style={{ padding: "12px" }}>{s.studyName}</td>
+        <td style={{ padding: "12px", fontWeight: 500 }}>{s.downloadCount}</td>
       </tr>);
     });
     return result;
@@ -82,9 +76,9 @@ export default function Admin() {
   const getChurchRows = () => {
     const result: React.JSX.Element[] = [];
     churches.forEach((c, index) => {
-      result.push(<tr key={index} style={{ borderBottom: '1px solid var(--admin-border)' }}>
-        <td style={{ padding: '12px' }}>{c.name}</td>
-        <td style={{ padding: '12px', color: 'var(--c1d2)' }}>
+      result.push(<tr key={index} style={{ borderBottom: "1px solid var(--admin-border)" }}>
+        <td style={{ padding: "12px" }}>{c.name}</td>
+        <td style={{ padding: "12px", color: "var(--c1d2)" }}>
           {c.city}, {c.state}
         </td>
       </tr>);
@@ -97,7 +91,7 @@ export default function Admin() {
       <Box sx={{ p: 0 }}>
         <PageHeader
           icon={<BarChartIcon />}
-          title={`Stats for ${program?.name || 'Program'}`}
+          title={`Stats for ${program?.name || "Program"}`}
           subtitle="Download statistics and church engagement metrics"
         />
 
@@ -112,43 +106,43 @@ export default function Admin() {
               <Paper
                 sx={{
                   borderRadius: 2,
-                  border: '1px solid var(--admin-border)',
-                  boxShadow: 'var(--admin-shadow-sm)',
-                  overflow: 'hidden',
+                  border: "1px solid var(--admin-border)",
+                  boxShadow: "var(--admin-shadow-sm)",
+                  overflow: "hidden",
                   mb: 3
                 }}>
                 <Box
                   sx={{
                     p: 2,
-                    borderBottom: '1px solid var(--admin-border)',
-                    backgroundColor: 'var(--c1l7)'
+                    borderBottom: "1px solid var(--admin-border)",
+                    backgroundColor: "var(--c1l7)"
                   }}>
                   <Stack direction="row" alignItems="center" spacing={1}>
-                    <BarChartIcon sx={{ color: 'var(--c1d2)', fontSize: '1.5rem' }} />
+                    <BarChartIcon sx={{ color: "var(--c1d2)", fontSize: "1.5rem" }} />
                     <Typography variant="h6" sx={{
-                      color: 'var(--c1d2)',
+                      color: "var(--c1d2)",
                       fontWeight: 600,
                       lineHeight: 1,
-                      fontSize: '1.25rem',
-                      display: 'flex',
-                      alignItems: 'center'
+                      fontSize: "1.25rem",
+                      display: "flex",
+                      alignItems: "center"
                     }}>
                       Unique Downloads by Study
                     </Typography>
                   </Stack>
                 </Box>
                 <Box sx={{ p: 3 }}>
-                  <Typography variant="body2" sx={{ mb: 2, color: 'text.secondary' }}>
+                  <Typography variant="body2" sx={{ mb: 2, color: "text.secondary" }}>
                     Note: These are <strong>unique</strong> counts. A person may download multiple files within a lesson, download a
                     lesson multiple times, or download multiple lessons within a series. All of these scenarios count as a
                     single record on this report.
                   </Typography>
-                  <Box sx={{ overflowX: 'auto' }}>
-                    <table className="table" style={{ width: '100%', borderCollapse: 'collapse' }}>
+                  <Box sx={{ overflowX: "auto" }}>
+                    <table className="table" style={{ width: "100%", borderCollapse: "collapse" }}>
                       <thead>
-                        <tr style={{ backgroundColor: 'var(--c1l7)' }}>
-                          <th style={{ padding: '12px', textAlign: 'left', fontWeight: 600, color: 'var(--c1d2)' }}>Study</th>
-                          <th style={{ padding: '12px', textAlign: 'left', fontWeight: 600, color: 'var(--c1d2)' }}>Unique Downloads</th>
+                        <tr style={{ backgroundColor: "var(--c1l7)" }}>
+                          <th style={{ padding: "12px", textAlign: "left", fontWeight: 600, color: "var(--c1d2)" }}>Study</th>
+                          <th style={{ padding: "12px", textAlign: "left", fontWeight: 600, color: "var(--c1d2)" }}>Unique Downloads</th>
                         </tr>
                       </thead>
                       <tbody>
@@ -162,25 +156,25 @@ export default function Admin() {
               <Paper
                 sx={{
                   borderRadius: 2,
-                  border: '1px solid var(--admin-border)',
-                  boxShadow: 'var(--admin-shadow-sm)',
-                  overflow: 'hidden'
+                  border: "1px solid var(--admin-border)",
+                  boxShadow: "var(--admin-shadow-sm)",
+                  overflow: "hidden"
                 }}>
                 <Box
                   sx={{
                     p: 2,
-                    borderBottom: '1px solid var(--admin-border)',
-                    backgroundColor: 'var(--c1l7)'
+                    borderBottom: "1px solid var(--admin-border)",
+                    backgroundColor: "var(--c1l7)"
                   }}>
                   <Stack direction="row" alignItems="center" spacing={1}>
-                    <MapIcon sx={{ color: 'var(--c1d2)', fontSize: '1.5rem' }} />
+                    <MapIcon sx={{ color: "var(--c1d2)", fontSize: "1.5rem" }} />
                     <Typography variant="h6" sx={{
-                      color: 'var(--c1d2)',
+                      color: "var(--c1d2)",
                       fontWeight: 600,
                       lineHeight: 1,
-                      fontSize: '1.25rem',
-                      display: 'flex',
-                      alignItems: 'center'
+                      fontSize: "1.25rem",
+                      display: "flex",
+                      alignItems: "center"
                     }}>
                       Geographic Distribution
                     </Typography>
@@ -196,26 +190,26 @@ export default function Admin() {
               <Paper
                 sx={{
                   borderRadius: 2,
-                  border: '1px solid var(--admin-border)',
-                  boxShadow: 'var(--admin-shadow-sm)',
-                  overflow: 'hidden',
+                  border: "1px solid var(--admin-border)",
+                  boxShadow: "var(--admin-shadow-sm)",
+                  overflow: "hidden",
                   mb: 3
                 }}>
                 <Box
                   sx={{
                     p: 2,
-                    borderBottom: '1px solid var(--admin-border)',
-                    backgroundColor: 'var(--c1l7)'
+                    borderBottom: "1px solid var(--admin-border)",
+                    backgroundColor: "var(--c1l7)"
                   }}>
                   <Stack direction="row" alignItems="center" spacing={1}>
-                    <FilterIcon sx={{ color: 'var(--c1d2)', fontSize: '1.5rem' }} />
+                    <FilterIcon sx={{ color: "var(--c1d2)", fontSize: "1.5rem" }} />
                     <Typography variant="h6" sx={{
-                      color: 'var(--c1d2)',
+                      color: "var(--c1d2)",
                       fontWeight: 600,
                       lineHeight: 1,
-                      fontSize: '1.25rem',
-                      display: 'flex',
-                      alignItems: 'center'
+                      fontSize: "1.25rem",
+                      display: "flex",
+                      alignItems: "center"
                     }}>
                       Date Filter
                     </Typography>
@@ -230,9 +224,7 @@ export default function Admin() {
                       type="date"
                       value={DateHelper.formatHtml5Date(startDate)}
                       onChange={handleChange}
-                      InputLabelProps={{
-                        shrink: true,
-                      }}
+                      InputLabelProps={{ shrink: true }}
                     />
                     <TextField
                       fullWidth
@@ -241,19 +233,17 @@ export default function Admin() {
                       type="date"
                       value={DateHelper.formatHtml5Date(endDate)}
                       onChange={handleChange}
-                      InputLabelProps={{
-                        shrink: true,
-                      }}
+                      InputLabelProps={{ shrink: true }}
                     />
                   </Stack>
                 </Box>
                 <Box
                   sx={{
                     p: 2,
-                    borderTop: '1px solid var(--admin-border)',
-                    backgroundColor: 'var(--admin-bg)',
-                    display: 'flex',
-                    justifyContent: 'flex-end'
+                    borderTop: "1px solid var(--admin-border)",
+                    backgroundColor: "var(--admin-bg)",
+                    display: "flex",
+                    justifyContent: "flex-end"
                   }}>
                   <Button
                     variant="contained"
@@ -267,41 +257,41 @@ export default function Admin() {
               <Paper
                 sx={{
                   borderRadius: 2,
-                  border: '1px solid var(--admin-border)',
-                  boxShadow: 'var(--admin-shadow-sm)',
-                  overflow: 'hidden'
+                  border: "1px solid var(--admin-border)",
+                  boxShadow: "var(--admin-shadow-sm)",
+                  overflow: "hidden"
                 }}>
                 <Box
                   sx={{
                     p: 2,
-                    borderBottom: '1px solid var(--admin-border)',
-                    backgroundColor: 'var(--c1l7)'
+                    borderBottom: "1px solid var(--admin-border)",
+                    backgroundColor: "var(--c1l7)"
                   }}>
                   <Stack direction="row" alignItems="center" spacing={1}>
-                    <BusinessIcon sx={{ color: 'var(--c1d2)', fontSize: '1.5rem' }} />
+                    <BusinessIcon sx={{ color: "var(--c1d2)", fontSize: "1.5rem" }} />
                     <Typography variant="h6" sx={{
-                      color: 'var(--c1d2)',
+                      color: "var(--c1d2)",
                       fontWeight: 600,
                       lineHeight: 1,
-                      fontSize: '1.25rem',
-                      display: 'flex',
-                      alignItems: 'center'
+                      fontSize: "1.25rem",
+                      display: "flex",
+                      alignItems: "center"
                     }}>
                       Church List
                     </Typography>
                   </Stack>
                 </Box>
                 <Box sx={{ p: 3 }}>
-                  <Typography variant="body2" sx={{ mb: 2, color: 'text.secondary' }}>
+                  <Typography variant="body2" sx={{ mb: 2, color: "text.secondary" }}>
                     Note: Login is not required to download items, so many churches will download the files anonymously.
                     This is a list of churches who were logged in when downloading resources.
                   </Typography>
-                  <Box sx={{ overflowX: 'auto' }}>
-                    <table className="table" style={{ width: '100%', borderCollapse: 'collapse' }}>
+                  <Box sx={{ overflowX: "auto" }}>
+                    <table className="table" style={{ width: "100%", borderCollapse: "collapse" }}>
                       <thead>
-                        <tr style={{ backgroundColor: 'var(--c1l7)' }}>
-                          <th style={{ padding: '12px', textAlign: 'left', fontWeight: 600, color: 'var(--c1d2)' }}>Church</th>
-                          <th style={{ padding: '12px', textAlign: 'left', fontWeight: 600, color: 'var(--c1d2)' }}>Location</th>
+                        <tr style={{ backgroundColor: "var(--c1l7)" }}>
+                          <th style={{ padding: "12px", textAlign: "left", fontWeight: 600, color: "var(--c1d2)" }}>Church</th>
+                          <th style={{ padding: "12px", textAlign: "left", fontWeight: 600, color: "var(--c1d2)" }}>Location</th>
                         </tr>
                       </thead>
                       <tbody>

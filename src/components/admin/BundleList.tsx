@@ -2,13 +2,15 @@ import React, { useState } from "react";
 import { Accordion, AccordionDetails, AccordionSummary, Box, Icon, Menu, MenuItem, Paper, Stack, Typography } from "@mui/material";
 import { FileUpload as FilesIcon } from "@mui/icons-material";
 import { Loading, SmallButton } from "@churchapps/apphelper";
-import { ApiHelper,
+import {
+  ApiHelper,
   ArrayHelper,
   AssetInterface,
   BundleInterface,
   ExternalVideoInterface,
   ResourceInterface,
-  VariantInterface } from "@/helpers";
+  VariantInterface
+} from "@/helpers";
 import { AssetEdit } from "./AssetEdit";
 import { BulkAssetAdd } from "./BulkAssetAdd";
 import { BundleEdit } from "./BundleEdit";
@@ -267,7 +269,7 @@ export const BundleList: React.FC<Props> = props => {
   };
 
   const bulkCreateAsset = (resourceId: string) => {
-    const resourceAssets = ArrayHelper.getAll(assets || [], "resourceId", resourceId);
+    const _resourceAssets = ArrayHelper.getAll(assets || [], "resourceId", resourceId);
     setBulkResourceId(resourceId);
   };
 

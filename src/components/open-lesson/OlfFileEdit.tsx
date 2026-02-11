@@ -15,34 +15,24 @@ export function OlfFileEdit(props: Props) {
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement> | SelectChangeEvent<string>) => {
     e.preventDefault();
-    let f = { ...file };
+    const f = { ...file };
     switch (e.target.name) {
-    case "name":
-      f.name = e.target.value;
-      break;
-    case "url":
-      f.url = e.target.value;
-      break;
-    case "thumbnail":
-      f.thumbnail = e.target.value;
-      break;
-    case "streamUrl":
-      f.streamUrl = e.target.value;
-      break;
-    case "seconds":
-      f.seconds = parseInt(e.target.value);
-      break;
-    case "loop":
-      f.loop = e.target.value === "true";
-      if (!f.loop) f.seconds = 0;
-      else f.seconds = null;
-      break;
+      case "name": f.name = e.target.value; break;
+      case "url": f.url = e.target.value; break;
+      case "thumbnail": f.thumbnail = e.target.value; break;
+      case "streamUrl": f.streamUrl = e.target.value; break;
+      case "seconds": f.seconds = parseInt(e.target.value); break;
+      case "loop":
+        f.loop = e.target.value === "true";
+        if (!f.loop) f.seconds = 0;
+        else f.seconds = null;
+        break;
     }
     setFile(f);
   };
 
   const validate = () => {
-    let errors = [];
+    const errors = [];
     if (file.name === "") errors.push("Please enter file name");
     if (file.url === "") errors.push("Please enter url");
     setErrors(errors);

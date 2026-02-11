@@ -5,9 +5,7 @@ import { Box, Button, FormControl, Grid, IconButton, InputLabel, MenuItem, Paper
 import { ErrorMessages, SlugHelper } from "@churchapps/apphelper";
 import { ApiHelper, ProgramInterface, StudyInterface } from "@/helpers";
 
-const ImageEditor = dynamic(() => import("../index").then(mod => ({ default: mod.ImageEditor })), {
-  loading: () => <div>Loading image editor...</div>
-});
+const ImageEditor = dynamic(() => import("../index").then(mod => ({ default: mod.ImageEditor })), { loading: () => <div>Loading image editor...</div> });
 
 interface Props {
   study: StudyInterface;
@@ -31,16 +29,16 @@ export function StudyEdit(props: Props) {
   };
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement> | SelectChangeEvent<string>) => {
     e.preventDefault();
-    let p = { ...study };
+    const p = { ...study };
     const val = e.target.value;
     switch (e.target.name) {
-    case "name": p.name = val; break;
-    case "slug": p.slug = val; break;
-    case "shortDescription": p.shortDescription = val; break;
-    case "description": p.description = val; break;
-    case "videoEmbedUrl": p.videoEmbedUrl = val; break;
-    case "live": p.live = val === "true"; break;
-    case "sort": p.sort = parseInt(val); break;
+      case "name": p.name = val; break;
+      case "slug": p.slug = val; break;
+      case "shortDescription": p.shortDescription = val; break;
+      case "description": p.description = val; break;
+      case "videoEmbedUrl": p.videoEmbedUrl = val; break;
+      case "live": p.live = val === "true"; break;
+      case "sort": p.sort = parseInt(val); break;
     }
     setStudy(p);
   };
@@ -59,7 +57,7 @@ export function StudyEdit(props: Props) {
   };
 
   const validate = () => {
-    let errors = [];
+    const errors = [];
     if (!study.name || study.name === "" || null) errors.push("Please enter a study name.");
     if (!checked) errors.push("Please check Url Slug");
     setErrors(errors);
@@ -163,7 +161,7 @@ export function StudyEdit(props: Props) {
             {/* Left Column - Form Fields */}
             <Grid size={{ xs: 12, md: 8 }}>
               <Stack spacing={3}>
-                <Box sx={{ display: 'flex', gap: 2 }}>
+                <Box sx={{ display: "flex", gap: 2 }}>
                   <FormControl fullWidth>
                     <InputLabel>Live</InputLabel>
                     <Select label="Live" name="live" value={study.live?.toString()} onChange={handleChange}>

@@ -46,7 +46,7 @@ export default function LessonsPage() {
     try {
       AnalyticsHelper.logEvent("Presenter", "Start", selectedVenue.name);
     } catch (error) {
-      console.warn('Analytics logging failed:', error);
+      console.warn("Analytics logging failed:", error);
     }
     const url = `/externalProviders/playlist/${lessonData.providerId}/${lessonData.programId}/${lessonData.studyId}/${lessonData.lessonId}/${lessonData.venueId}`;
     ApiHelper.get(url, "LessonsApi").then((data: any) => {

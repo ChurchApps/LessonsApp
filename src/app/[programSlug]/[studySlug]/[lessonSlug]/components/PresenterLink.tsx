@@ -4,10 +4,12 @@ import { useState } from "react";
 import Icon from "@mui/material/Icon";
 import { AnalyticsHelper, ApiHelper } from "@churchapps/apphelper";
 import { Presenter } from "@/components/Presenter";
-import { PlaylistFileInterface,
+import {
+  PlaylistFileInterface,
   PlaylistMessageInterface,
   PlaylistResponseInterface,
-  VenueInterface } from "@/helpers/interfaces";
+  VenueInterface
+} from "@/helpers/interfaces";
 
 interface Props {
   selectedVenue: VenueInterface;
@@ -20,7 +22,7 @@ export function PresenterLink(props: Props) {
     try {
       AnalyticsHelper.logEvent("Presenter", "Start", props.selectedVenue.name);
     } catch (error) {
-      console.warn('Analytics logging failed:', error);
+      console.warn("Analytics logging failed:", error);
     }
     ApiHelper.get("/venues/playlist/" + props.selectedVenue.id + "?mode=web", "LessonsApi").then((data: PlaylistResponseInterface) => {
       const result: PlaylistFileInterface[] = [];

@@ -20,7 +20,7 @@ export function ImageEditor(props: Props) {
     if (e.target) files = e.target.files;
     const reader = new FileReader();
     reader.onload = () => {
-      let url = reader.result.toString();
+      const url = reader.result.toString();
       setCurrentUrl(url);
       setDataUrl(url);
       setTimeout(selectDefaultCropZone, 500);
@@ -45,29 +45,29 @@ export function ImageEditor(props: Props) {
 
   const selectDefaultCropZone = () => {
     const imageElement: any = cropperRef?.current;
-    let cropper: any = imageElement?.cropper;
+    const cropper: any = imageElement?.cropper;
     const aspectRatio = 16 / 9;
 
-    let desiredAspect = aspectRatio;
-    let containerData = cropper.getContainerData();
-    let imgAspect = cropper.getImageData().aspectRatio;
-    let scale = imgAspect / desiredAspect;
+    const desiredAspect = aspectRatio;
+    const containerData = cropper.getContainerData();
+    const imgAspect = cropper.getImageData().aspectRatio;
+    const scale = imgAspect / desiredAspect;
     if (scale < 1) {
       const imgWidth = cropper.getImageData().width;
-      let l = (containerData.width - imgWidth) / 2.0;
-      let t = (containerData.height - containerData.height * scale) / 2.0;
+      const l = (containerData.width - imgWidth) / 2.0;
+      const t = (containerData.height - containerData.height * scale) / 2.0;
       cropper.setCropBoxData({ width: imgWidth, height: imgWidth / desiredAspect, left: l, top: t });
     } else {
       const imgHeight = cropper.getImageData().height;
-      let l = (containerData.width - imgHeight * desiredAspect) / 2.0;
-      let t = cropper.canvasData.top;
+      const l = (containerData.width - imgHeight * desiredAspect) / 2.0;
+      const t = cropper.canvasData.top;
       cropper.setCropBoxData({ width: imgHeight * desiredAspect, height: imgHeight, left: l, top: t });
     }
   };
 
   const cropCallback = () => {
     if (cropperRef.current !== null) {
-      let url = cropperRef.current.cropper.getCroppedCanvas({ width: 1280, height: 720 }).toDataURL();
+      const url = cropperRef.current.cropper.getCroppedCanvas({ width: 1280, height: 720 }).toDataURL();
       setDataUrl(url);
     }
   };

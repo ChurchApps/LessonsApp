@@ -16,33 +16,25 @@ export function OllLessonEdit(props: Props) {
   const handleCancel = () => props.updatedCallback(null, true);
 
   const handleMarkdownChange = (newValue: string) => {
-    let l = { ...lesson };
+    const l = { ...lesson };
     l.description = newValue;
     setLesson(l);
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement> | SelectChangeEvent<string>) => {
     e.preventDefault();
-    let l = { ...lesson };
+    const l = { ...lesson };
     switch (e.target.name) {
-    case "id":
-      l.id = e.target.value;
-      break;
-    case "name":
-      l.name = e.target.value;
-      break;
-    case "image":
-      l.image = e.target.value;
-      break;
-    case "description":
-      l.description = e.target.value;
-      break;
+      case "id": l.id = e.target.value; break;
+      case "name": l.name = e.target.value; break;
+      case "image": l.image = e.target.value; break;
+      case "description": l.description = e.target.value; break;
     }
     setLesson(l);
   };
 
   const validate = () => {
-    let errors = [];
+    const errors = [];
     if (lesson.name === "") errors.push("Please enter a name.");
     if (lesson.id === "") errors.push("Please enter an id.");
     setErrors(errors);

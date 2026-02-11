@@ -24,9 +24,7 @@ export class MetaHelper {
         description: ogDescription,
         images: [ogImage]
       },
-      alternates: {
-        canonical: "https://lessons.church"
-      }
+      alternates: { canonical: "https://lessons.church" }
     };
   };
 }

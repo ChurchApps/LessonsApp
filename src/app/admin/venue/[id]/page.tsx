@@ -7,7 +7,8 @@ import { Add as AddIcon, Clear as ClearIcon, ContentCopy as CopyIcon, List as Li
 import { ActionEdit, RoleEdit, SectionCopy, SectionEdit } from "@/components";
 import { PageHeader } from "@churchapps/apphelper";
 import { Wrapper } from "@/components/Wrapper";
-import { ActionInterface,
+import {
+  ActionInterface,
   AddOnInterface,
   ApiHelper,
   ArrayHelper,
@@ -19,7 +20,8 @@ import { ActionInterface,
   RoleInterface,
   SectionInterface,
   StudyInterface,
-  VenueInterface } from "@/helpers";
+  VenueInterface
+} from "@/helpers";
 import { revalidate } from "../../../actions";
 
 type PageParams = { id: string };
@@ -52,7 +54,7 @@ export default function Venue() {
   const router = useRouter();
   const pathId = params.id;
 
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+
   useEffect(() => {
     if (!isAuthenticated) router.push("/login");
   }, []);
@@ -65,7 +67,7 @@ export default function Venue() {
       loadVideos();
     }
   }, [lesson, study, isAuthenticated]);
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+
   useEffect(() => {
     if (isAuthenticated) loadAssets();
   }, [lessonResources, studyResources, programResources, isAuthenticated]);
@@ -189,7 +191,7 @@ export default function Venue() {
   const getSectionsTree = () => {
     if (sections === null) {
       return (
-        <Box sx={{ display: 'flex', justifyContent: 'center', p: 4 }}>
+        <Box sx={{ display: "flex", justifyContent: "center", p: 4 }}>
           <CircularProgress />
         </Box>
       );
@@ -197,7 +199,7 @@ export default function Venue() {
 
     if (sections.length === 0) {
       return (
-        <Box sx={{ textAlign: 'center', p: 4, color: 'text.secondary' }}>
+        <Box sx={{ textAlign: "center", p: 4, color: "text.secondary" }}>
           <ListIcon sx={{ fontSize: 48, mb: 2, opacity: 0.5 }} />
           <Typography variant="body1">No sections found</Typography>
           <Typography variant="body2">Create your first section to get started.</Typography>
@@ -207,14 +209,12 @@ export default function Venue() {
 
     return (
       <List sx={{ p: 0 }}>
-        {sections.map((s, sectionIndex) => (
+        {sections.map((s, _sectionIndex) => (
           <Box key={s.id}>
             {/* Section */}
             <ListItem
               disablePadding
-              sx={{
-                borderBottom: '1px solid var(--admin-border)'
-              }}>
+              sx={{ borderBottom: "1px solid var(--admin-border)" }}>
               <ListItemButton
                 onClick={() => {
                   clearEdits();
@@ -223,16 +223,14 @@ export default function Venue() {
                 sx={{
                   py: 1,
                   minHeight: 48,
-                  '&:hover': {
-                    backgroundColor: 'var(--c1l7)'
-                  }
+                  "&:hover": { backgroundColor: "var(--c1l7)" }
                 }}>
                 <ListItemIcon sx={{ minWidth: 32 }}>
-                  <ListIcon sx={{ color: 'var(--c1d2)', fontSize: '1.25rem' }} />
+                  <ListIcon sx={{ color: "var(--c1d2)", fontSize: "1.25rem" }} />
                 </ListItemIcon>
                 <ListItemText
                   primary={
-                    <Typography variant="subtitle2" sx={{ fontWeight: 600, fontSize: '0.95rem' }}>
+                    <Typography variant="subtitle2" sx={{ fontWeight: 600, fontSize: "0.95rem" }}>
                       {s.name}
                     </Typography>
                   }
@@ -246,10 +244,8 @@ export default function Venue() {
                     createRole(s.id);
                   }}
                   sx={{
-                    color: 'var(--c1d2)',
-                    '&:hover': {
-                      backgroundColor: 'rgba(21, 101, 192, 0.1)'
-                    }
+                    color: "var(--c1d2)",
+                    "&:hover": { backgroundColor: "rgba(21, 101, 192, 0.1)" }
                   }}
                   title="Add Role">
                   <AddIcon fontSize="small" />
@@ -273,9 +269,7 @@ export default function Venue() {
         {/* Role */}
         <ListItem
           disablePadding
-          sx={{
-            borderBottom: '1px solid var(--admin-border-light)'
-          }}>
+          sx={{ borderBottom: "1px solid var(--admin-border-light)" }}>
           <ListItemButton
             onClick={() => {
               clearEdits();
@@ -284,16 +278,14 @@ export default function Venue() {
             sx={{
               py: 0.75,
               minHeight: 40,
-              '&:hover': {
-                backgroundColor: 'var(--admin-bg-light)'
-              }
+              "&:hover": { backgroundColor: "var(--admin-bg-light)" }
             }}>
             <ListItemIcon sx={{ minWidth: 28 }}>
-              <PersonIcon sx={{ color: 'var(--c1d1)', fontSize: '1.1rem' }} />
+              <PersonIcon sx={{ color: "var(--c1d1)", fontSize: "1.1rem" }} />
             </ListItemIcon>
             <ListItemText
               primary={
-                <Typography variant="body2" sx={{ fontWeight: 500, color: 'var(--c1d1)', fontSize: '0.875rem' }}>
+                <Typography variant="body2" sx={{ fontWeight: 500, color: "var(--c1d1)", fontSize: "0.875rem" }}>
                   {r.name}
                 </Typography>
               }
@@ -307,10 +299,8 @@ export default function Venue() {
                 createAction(r.id);
               }}
               sx={{
-                color: 'var(--c1d1)',
-                '&:hover': {
-                  backgroundColor: 'rgba(21, 101, 192, 0.1)'
-                }
+                color: "var(--c1d1)",
+                "&:hover": { backgroundColor: "rgba(21, 101, 192, 0.1)" }
               }}
               title="Add Action">
               <AddIcon fontSize="small" />
@@ -333,7 +323,7 @@ export default function Venue() {
         disablePadding
         sx={{
           ml: 4,
-          borderBottom: '1px solid var(--admin-border-light)'
+          borderBottom: "1px solid var(--admin-border-light)"
         }}>
         <ListItemButton
           onClick={() => {
@@ -343,17 +333,15 @@ export default function Venue() {
           sx={{
             py: 0.5,
             minHeight: 32,
-            '&:hover': {
-              backgroundColor: 'var(--admin-bg-lighter)'
-            }
+            "&:hover": { backgroundColor: "var(--admin-bg-lighter)" }
           }}>
           <ListItemIcon sx={{ minWidth: 24 }}>
-            <CheckIcon sx={{ color: 'var(--c1)', fontSize: '0.875rem' }} />
+            <CheckIcon sx={{ color: "var(--c1)", fontSize: "0.875rem" }} />
           </ListItemIcon>
           <ListItemText
             primary={
-              <Typography variant="caption" sx={{ color: 'var(--c1)', fontSize: '0.8rem', lineHeight: 1.2 }}>
-                <strong>{a.actionType}:</strong> {a.content?.substring(0, 80)}{a.content?.length > 80 ? '...' : ''}
+              <Typography variant="caption" sx={{ color: "var(--c1)", fontSize: "0.8rem", lineHeight: 1.2 }}>
+                <strong>{a.actionType}:</strong> {a.content?.substring(0, 80)}{a.content?.length > 80 ? "..." : ""}
               </Typography>
             }
           />
@@ -407,17 +395,17 @@ export default function Venue() {
       <Box sx={{ p: 0 }}>
         <PageHeader
           icon={<LocationIcon />}
-          title={`${lesson?.name || 'Lesson'}: ${venue?.name || 'Venue'}`}
+          title={`${lesson?.name || "Lesson"}: ${venue?.name || "Venue"}`}
           subtitle="Manage sections, roles, and actions for this venue"
         >
           <IconButton
             onClick={handleAddMenuClick}
             sx={{
-              color: 'white',
-              border: '1px solid rgba(255,255,255,0.5)',
-              '&:hover': {
-                borderColor: 'white',
-                backgroundColor: 'rgba(255,255,255,0.1)'
+              color: "white",
+              border: "1px solid rgba(255,255,255,0.5)",
+              "&:hover": {
+                borderColor: "white",
+                backgroundColor: "rgba(255,255,255,0.1)"
               }
             }}>
             <AddIcon />
@@ -485,7 +473,7 @@ export default function Venue() {
               </Stack>
             </Box>
 
-            <Box sx={{ maxHeight: '70vh', overflow: 'auto' }}>
+            <Box sx={{ maxHeight: "70vh", overflow: "auto" }}>
               {getSectionsTree()}
             </Box>
           </Paper>
@@ -500,7 +488,7 @@ export default function Venue() {
             sx: {
               mt: 1,
               borderRadius: 2,
-              boxShadow: 'var(--admin-shadow-md)'
+              boxShadow: "var(--admin-shadow-md)"
             }
           }}>
           <MenuItem
@@ -509,7 +497,7 @@ export default function Venue() {
               handleAddMenuClose();
             }}
             sx={{ py: 1.5 }}>
-            <AddIcon sx={{ mr: 2, color: 'var(--c1d2)' }} />
+            <AddIcon sx={{ mr: 2, color: "var(--c1d2)" }} />
             Create New Section
           </MenuItem>
           <MenuItem
@@ -518,7 +506,7 @@ export default function Venue() {
               handleAddMenuClose();
             }}
             sx={{ py: 1.5 }}>
-            <CopyIcon sx={{ mr: 2, color: 'var(--c1d2)' }} />
+            <CopyIcon sx={{ mr: 2, color: "var(--c1d2)" }} />
             Copy Existing Section
           </MenuItem>
         </Menu>

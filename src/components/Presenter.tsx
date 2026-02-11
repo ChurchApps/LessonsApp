@@ -28,7 +28,7 @@ export function Presenter(props: Props) {
     if (element && window) {
       try {
         element.requestFullscreen();
-      } catch (ex) {
+      } catch (_ex) {
         props.onClose();
       }
       element.addEventListener("fullscreenchange", handleFullScreenChanged);

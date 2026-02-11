@@ -24,23 +24,23 @@ export function SectionEdit(props: Props) {
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     e.preventDefault();
-    let s = { ...section };
+    const s = { ...section };
     switch (e.currentTarget.name) {
-    case "name":
-      s.name = e.currentTarget.value;
-      break;
-    case "materials":
-      s.materials = e.currentTarget.value;
-      break;
-    case "sort":
-      s.sort = parseInt(e.currentTarget.value);
-      break;
+      case "name":
+        s.name = e.currentTarget.value;
+        break;
+      case "materials":
+        s.materials = e.currentTarget.value;
+        break;
+      case "sort":
+        s.sort = parseInt(e.currentTarget.value);
+        break;
     }
     setSection(s);
   };
 
   const validate = () => {
-    let errors = [];
+    const errors = [];
     if (section.name === "") errors.push("Please enter a section name.");
     setErrors(errors);
     return errors.length === 0;
@@ -70,24 +70,24 @@ export function SectionEdit(props: Props) {
     <Paper
       sx={{
         borderRadius: 2,
-        border: '1px solid var(--admin-border)',
-        boxShadow: 'var(--admin-shadow-sm)',
-        overflow: 'hidden'
+        border: "1px solid var(--admin-border)",
+        boxShadow: "var(--admin-shadow-sm)",
+        overflow: "hidden"
       }}>
       {/* HEADER */}
       <Box
         sx={{
           p: 2,
-          borderBottom: '1px solid var(--admin-border)',
-          backgroundColor: 'var(--c1l7)'
+          borderBottom: "1px solid var(--admin-border)",
+          backgroundColor: "var(--c1l7)"
         }}>
         <Stack direction="row" alignItems="center" spacing={1}>
-          <ListIcon sx={{ color: 'var(--c1d2)', fontSize: '1.5rem' }} />
+          <ListIcon sx={{ color: "var(--c1d2)", fontSize: "1.5rem" }} />
           <Typography variant="h6" sx={{
-            color: 'var(--c1d2)',
+            color: "var(--c1d2)",
             fontWeight: 600,
             lineHeight: 1,
-            fontSize: '1.25rem'
+            fontSize: "1.25rem"
           }}>
             {section?.id ? "Edit Section" : "Create Section"}
           </Typography>
@@ -104,7 +104,7 @@ export function SectionEdit(props: Props) {
             fullWidth
             type="number"
             name="sort"
-            value={section.sort || ''}
+            value={section.sort || ""}
             onChange={handleChange}
             onKeyDown={handleKeyDown}
             placeholder="1"
@@ -115,7 +115,7 @@ export function SectionEdit(props: Props) {
             label="Section Name"
             fullWidth
             name="name"
-            value={section.name || ''}
+            value={section.name || ""}
             onChange={handleChange}
             onKeyDown={handleKeyDown}
             placeholder="Section 1"
@@ -128,7 +128,7 @@ export function SectionEdit(props: Props) {
             multiline
             rows={2}
             name="materials"
-            value={section.materials || ''}
+            value={section.materials || ""}
             onChange={handleChange}
             onKeyDown={handleKeyDown}
             placeholder="List any materials needed for this section"
@@ -140,12 +140,12 @@ export function SectionEdit(props: Props) {
       <Box
         sx={{
           p: 2,
-          borderTop: '1px solid var(--admin-border)',
-          backgroundColor: 'var(--admin-bg)',
-          display: 'flex',
-          justifyContent: 'flex-end',
+          borderTop: "1px solid var(--admin-border)",
+          backgroundColor: "var(--admin-bg)",
+          display: "flex",
+          justifyContent: "flex-end",
           gap: 1,
-          flexWrap: 'wrap'
+          flexWrap: "wrap"
         }}>
         <Button startIcon={<SaveIcon />} variant="contained" onClick={handleSave}>
           Save
