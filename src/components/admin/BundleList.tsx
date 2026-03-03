@@ -42,9 +42,7 @@ export const BundleList: React.FC<Props> = props => {
   const [expandedBundleId, setExpandedBundleId] = useState<string>("");
   const [expandedResourceId, setExpandedResourceId] = useState<string>("");
 
-  const clearEdits = () => {
-    setEditResource(null);
-  };
+  const clearEdits = () => { setEditResource(null); };
 
   const loadData = async () => {
     if (props.contentType && props.contentId) {
@@ -63,12 +61,8 @@ export const BundleList: React.FC<Props> = props => {
             setAssets([]);
             setVariants([]);
           } else {
-            ApiHelper.get("/assets/content/" + props.contentType + "/" + props.contentId, "LessonsApi").then((data: any) => {
-              setAssets(data);
-            });
-            ApiHelper.get("/variants/content/" + props.contentType + "/" + props.contentId, "LessonsApi").then((data: any) => {
-              setVariants(data);
-            });
+            ApiHelper.get("/assets/content/" + props.contentType + "/" + props.contentId, "LessonsApi").then((data: any) => { setAssets(data); });
+            ApiHelper.get("/variants/content/" + props.contentType + "/" + props.contentId, "LessonsApi").then((data: any) => { setVariants(data); });
           }
         });
       }
@@ -82,9 +76,7 @@ export const BundleList: React.FC<Props> = props => {
         const resource = r;
         result.push(<Accordion
           expanded={expandedResourceId === r.id}
-          onChange={() => {
-            setExpandedResourceId(expandedResourceId === resource.id ? "" : resource.id);
-          }}
+          onChange={() => { setExpandedResourceId(expandedResourceId === resource.id ? "" : resource.id); }}
           elevation={0}>
           <AccordionSummary
             expandIcon={<Icon>expand_more</Icon>}
@@ -180,9 +172,7 @@ export const BundleList: React.FC<Props> = props => {
       const bundle = b;
       result.push(<Accordion
         expanded={expandedBundleId === b.id}
-        onChange={() => {
-          setExpandedBundleId(expandedBundleId === b.id ? "" : b.id);
-        }}
+        onChange={() => { setExpandedBundleId(expandedBundleId === b.id ? "" : b.id); }}
         elevation={0}>
         <AccordionSummary expandIcon={<Icon>expand_more</Icon>} aria-controls="panel1bh-content" id="panel1bh-header">
           <div style={{ width: "100%", paddingRight: 20 }}>
@@ -263,15 +253,9 @@ export const BundleList: React.FC<Props> = props => {
     }
   };
 
-  const createAsset = (resourceId: string) => {
-    const resourceAssets = ArrayHelper.getAll(assets || [], "resourceId", resourceId);
-    setEditAsset({ resourceId: resourceId, sort: resourceAssets?.length + 1 || 1 });
-  };
+  const createAsset = (resourceId: string) => { const resourceAssets = ArrayHelper.getAll(assets || [], "resourceId", resourceId); setEditAsset({ resourceId: resourceId, sort: resourceAssets?.length + 1 || 1 }); };
 
-  const bulkCreateAsset = (resourceId: string) => {
-    const _resourceAssets = ArrayHelper.getAll(assets || [], "resourceId", resourceId);
-    setBulkResourceId(resourceId);
-  };
+  const bulkCreateAsset = (resourceId: string) => { const _resourceAssets = ArrayHelper.getAll(assets || [], "resourceId", resourceId); setBulkResourceId(resourceId); };
 
   const handleAssetCallback = (asset: AssetInterface) => {
     if (asset && asset.id && !editAsset.id) {
@@ -294,19 +278,14 @@ export const BundleList: React.FC<Props> = props => {
       <SmallButton
         icon="add"
         text="Add"
-        onClick={e => {
-          setMenuResourceId(resourceId);
-          setMenuAnchor(e.currentTarget);
-        }}
+        onClick={e => { setMenuResourceId(resourceId); setMenuAnchor(e.currentTarget); }}
       />
       {menuResourceId === resourceId && (
         <Menu
           id={"addMenu" + resourceId}
           anchorEl={menuAnchor}
           open={Boolean(menuAnchor)}
-          onClose={() => {
-            setMenuAnchor(null);
-          }}
+          onClose={() => { setMenuAnchor(null); }}
           MenuListProps={{ "aria-labelledby": "addMenuButton" }}>
           <MenuItem
             onClick={() => {
@@ -315,15 +294,11 @@ export const BundleList: React.FC<Props> = props => {
             <Icon>file_copy</Icon> Add Variant (for download/player)
           </MenuItem>
           <MenuItem
-            onClick={() => {
-              createAsset(resourceId);
-            }}>
+            onClick={() => { createAsset(resourceId); }}>
             <Icon>format_list_numbered</Icon> Add Asset (for player only)
           </MenuItem>
           <MenuItem
-            onClick={() => {
-              bulkCreateAsset(resourceId);
-            }}>
+            onClick={() => { bulkCreateAsset(resourceId); }}>
             <Icon>format_list_numbered</Icon> Bulk Add Asset
           </MenuItem>
         </Menu>
@@ -338,9 +313,7 @@ export const BundleList: React.FC<Props> = props => {
         id="addMenu"
         anchorEl={videoMenuAnchor}
         open={Boolean(videoMenuAnchor)}
-        onClose={() => {
-          setVideoMenuAnchor(null);
-        }}
+        onClose={() => { setVideoMenuAnchor(null); }}
         MenuListProps={{ "aria-labelledby": "addMenuButton" }}>
         <MenuItem
           onClick={() => {
@@ -361,9 +334,7 @@ export const BundleList: React.FC<Props> = props => {
   const getEditContent = () =>
     //return (<SmallButton icon="add" onClick={() => { setEditBundle({ contentType: props.contentType, contentId: props.contentId }); }} />);
     getBundleVideoMenu();
-  React.useEffect(() => {
-    loadData();
-  }, [props.contentType, props.contentId]);
+  React.useEffect(() => { loadData(); }, [props.contentType, props.contentId]);
 
   if (editVariant) {
     return (
@@ -384,10 +355,7 @@ export const BundleList: React.FC<Props> = props => {
       <ResourceEdit
         resource={editResource}
         contentDisplayName={props.contentDisplayName}
-        updatedCallback={() => {
-          setEditResource(null);
-          loadData();
-        }}
+        updatedCallback={() => { setEditResource(null); loadData(); }}
       />
     );
   }
@@ -396,10 +364,7 @@ export const BundleList: React.FC<Props> = props => {
       <BundleEdit
         bundle={editBundle}
         contentDisplayName={props.contentDisplayName}
-        updatedCallback={() => {
-          setEditBundle(null);
-          loadData();
-        }}
+        updatedCallback={() => { setEditBundle(null); loadData(); }}
       />
     );
   }
@@ -408,10 +373,7 @@ export const BundleList: React.FC<Props> = props => {
       <ExternalVideoEdit
         externalVideo={editVideo}
         contentDisplayName={props.contentDisplayName}
-        updatedCallback={() => {
-          setEditVideo(null);
-          loadData();
-        }}
+        updatedCallback={() => { setEditVideo(null); loadData(); }}
       />
     );
   } else {

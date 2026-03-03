@@ -52,12 +52,8 @@ export default function Venue() {
   const open = Boolean(anchorEl);
 
 
-  useEffect(() => {
-    if (!isAuthenticated) router.push("/login");
-  }, []);
-  useEffect(() => {
-    if (isAuthenticated) loadData();
-  }, [pathId, isAuthenticated]);
+  useEffect(() => { if (!isAuthenticated) router.push("/login"); }, []);
+  useEffect(() => { if (isAuthenticated) loadData(); }, [pathId, isAuthenticated]);
 
   const getInitialCustomizationState = (contentType: string, contentId: string) => {
     const contentItems = ArrayHelper.getAll(customizations, "contentType", contentType);
@@ -75,28 +71,18 @@ export default function Venue() {
     setCustomizationFor(initialState);
   };
 
-  const handleClose = () => {
-    setAnchorEl(null);
-  };
+  const handleClose = () => { setAnchorEl(null); };
 
   function loadData() {
     ApiHelper.get("/venues/public/" + pathId, "LessonsApi").then((v: VenueInterface) => {
       setVenue(v);
       ApiHelper.get("/lessons/public/" + v.lessonId, "LessonsApi").then((data: any) => {
         setLesson(data);
-        ApiHelper.get("/studies/public/" + data.studyId, "LessonsApi").then((d: any) => {
-          setStudy(d);
-        });
+        ApiHelper.get("/studies/public/" + data.studyId, "LessonsApi").then((d: any) => { setStudy(d); });
       });
-      ApiHelper.get("/sections/public/venue/" + v.id, "LessonsApi").then((data: any) => {
-        setSections(data);
-      });
-      ApiHelper.get("/roles/public/lesson/" + v.lessonId, "LessonsApi").then((data: any) => {
-        setRoles(data);
-      });
-      ApiHelper.get("/actions/public/lesson/" + v.lessonId, "LessonsApi").then((data: any) => {
-        setActions(data);
-      });
+      ApiHelper.get("/sections/public/venue/" + v.id, "LessonsApi").then((data: any) => { setSections(data); });
+      ApiHelper.get("/roles/public/lesson/" + v.lessonId, "LessonsApi").then((data: any) => { setRoles(data); });
+      ApiHelper.get("/actions/public/lesson/" + v.lessonId, "LessonsApi").then((data: any) => { setActions(data); });
       ApiHelper.get("/customizations/venue/" + v.id + "?classroomId=" + classroomId, "LessonsApi").then((data: CustomizationInterface[]) =>
         setCustomizations(data));
     });

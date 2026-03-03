@@ -5,10 +5,7 @@ import { ErrorMessages } from "@churchapps/apphelper";
 import { MarkdownEditor } from "@churchapps/apphelper-markdown";
 import { FeedStudyInterface } from "@/helpers";
 
-interface Props {
-  study: FeedStudyInterface;
-  updatedCallback: (study: FeedStudyInterface, cancelled: boolean) => void;
-}
+interface Props { study: FeedStudyInterface; updatedCallback: (study: FeedStudyInterface, cancelled: boolean) => void; }
 
 export function OllStudyEdit(props: Props) {
   const [study, setStudy] = useState<FeedStudyInterface>(null);
@@ -25,18 +22,10 @@ export function OllStudyEdit(props: Props) {
     e.preventDefault();
     const s = { ...study };
     switch (e.target.name) {
-      case "id":
-        s.id = e.target.value;
-        break;
-      case "name":
-        s.name = e.target.value;
-        break;
-      case "image":
-        s.image = e.target.value;
-        break;
-      case "description":
-        s.description = e.target.value;
-        break;
+      case "id": s.id = e.target.value; break;
+      case "name": s.name = e.target.value; break;
+      case "image": s.image = e.target.value; break;
+      case "description": s.description = e.target.value; break;
     }
     setStudy(s);
   };
@@ -49,17 +38,11 @@ export function OllStudyEdit(props: Props) {
     return errors.length === 0;
   };
 
-  const handleSave = () => {
-    if (validate()) props.updatedCallback(study, false);
-  };
+  const handleSave = () => { if (validate()) props.updatedCallback(study, false); };
 
-  const handleDelete = () => {
-    if (window.confirm("Are you sure you wish to delete this study?")) props.updatedCallback(null, false);
-  };
+  const handleDelete = () => { if (window.confirm("Are you sure you wish to delete this study?")) props.updatedCallback(null, false); };
 
-  useEffect(() => {
-    setStudy(props.study);
-  }, [props.study]);
+  useEffect(() => { setStudy(props.study); }, [props.study]);
 
   if (!study) {
     return <></>;
@@ -135,10 +118,7 @@ export function OllStudyEdit(props: Props) {
             startIcon={<CancelIcon />}
             variant="outlined"
             onClick={handleCancel}
-            sx={{
-              color: "var(--c1d2)",
-              borderColor: "var(--c1d2)"
-            }}>
+            sx={{ color: "var(--c1d2)", borderColor: "var(--c1d2)" }}>
             Cancel
           </Button>
           {props.study.id && (

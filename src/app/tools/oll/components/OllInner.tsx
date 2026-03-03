@@ -44,10 +44,7 @@ export default function OllInner() {
     URL.revokeObjectURL(link.href);
   };
 
-  const handleUpload = () => {
-    const f: any = document.getElementById("fileUpload");
-    f.click();
-  };
+  const handleUpload = () => { const f: any = document.getElementById("fileUpload"); f.click(); };
 
   const moveProgram = (index: number, direction: "up" | "down") => {
     const d = { ...data };
@@ -67,9 +64,7 @@ export default function OllInner() {
     const reader = new FileReader();
     reader.onload = (e: any) => {
       setData(null);
-      setTimeout(() => {
-        setData(JSON.parse(e.target.result));
-      }, 50);
+      setTimeout(() => { setData(JSON.parse(e.target.result)); }, 50);
     };
     reader.readAsText(f.files[0]);
   };
@@ -128,17 +123,13 @@ export default function OllInner() {
           {j !== 0 && (
             <SmallButton
               icon="arrow_upward"
-              onClick={() => {
-                moveVenue(programIndex, studyIndex, lessonIndex, j, "up");
-              }}
+              onClick={() => { moveVenue(programIndex, studyIndex, lessonIndex, j, "up"); }}
             />
           )}
           {j !== l.venues.length - 1 && (
             <SmallButton
               icon="arrow_downward"
-              onClick={() => {
-                moveVenue(programIndex, studyIndex, lessonIndex, j, "down");
-              }}
+              onClick={() => { moveVenue(programIndex, studyIndex, lessonIndex, j, "down"); }}
             />
           )}
         </TableCell>
@@ -146,10 +137,7 @@ export default function OllInner() {
         <TableCell>
           <a
             href="about:blank"
-            onClick={e => {
-              e.preventDefault();
-              handleEditVenue(programIndex, studyIndex, lessonIndex, j);
-            }}>
+            onClick={e => { e.preventDefault(); handleEditVenue(programIndex, studyIndex, lessonIndex, j); }}>
             {v.name}
           </a>
         </TableCell>
@@ -168,17 +156,13 @@ export default function OllInner() {
           {j !== 0 && (
             <SmallButton
               icon="arrow_upward"
-              onClick={() => {
-                moveLesson(programIndex, studyIndex, j, "up");
-              }}
+              onClick={() => { moveLesson(programIndex, studyIndex, j, "up"); }}
             />
           )}
           {j !== s.lessons.length - 1 && (
             <SmallButton
               icon="arrow_downward"
-              onClick={() => {
-                moveLesson(programIndex, studyIndex, j, "down");
-              }}
+              onClick={() => { moveLesson(programIndex, studyIndex, j, "down"); }}
             />
           )}
         </TableCell>
@@ -186,10 +170,7 @@ export default function OllInner() {
         <TableCell>
           <a
             href="about:blank"
-            onClick={e => {
-              e.preventDefault();
-              handleEditLesson(programIndex, studyIndex, j);
-            }}>
+            onClick={e => { e.preventDefault(); handleEditLesson(programIndex, studyIndex, j); }}>
             {l.name}
           </a>
         </TableCell>
@@ -221,17 +202,13 @@ export default function OllInner() {
           {j !== 0 && (
             <SmallButton
               icon="arrow_upward"
-              onClick={() => {
-                moveStudy(programIndex, j, "up");
-              }}
+              onClick={() => { moveStudy(programIndex, j, "up"); }}
             />
           )}
           {j !== p.studies.length - 1 && (
             <SmallButton
               icon="arrow_downward"
-              onClick={() => {
-                moveStudy(programIndex, j, "down");
-              }}
+              onClick={() => { moveStudy(programIndex, j, "down"); }}
             />
           )}
         </TableCell>
@@ -239,10 +216,7 @@ export default function OllInner() {
         <TableCell>
           <a
             href="about:blank"
-            onClick={e => {
-              e.preventDefault();
-              handleEditStudy(programIndex, j);
-            }}>
+            onClick={e => { e.preventDefault(); handleEditStudy(programIndex, j); }}>
             {s.name}
           </a>
         </TableCell>
@@ -273,27 +247,20 @@ export default function OllInner() {
           {i !== 0 && (
             <SmallButton
               icon="arrow_upward"
-              onClick={() => {
-                moveProgram(i, "up");
-              }}
+              onClick={() => { moveProgram(i, "up"); }}
             />
           )}
           {i < data.programs.length - 1 && (
             <SmallButton
               icon="arrow_downward"
-              onClick={() => {
-                moveProgram(i, "down");
-              }}
+              onClick={() => { moveProgram(i, "down"); }}
             />
           )}
         </TableCell>
         <TableCell colSpan={2}>
           <a
             href="about:blank"
-            onClick={e => {
-              e.preventDefault();
-              setEditProgramIndex(i);
-            }}>
+            onClick={e => { e.preventDefault(); setEditProgramIndex(i); }}>
             {p.name}
           </a>
         </TableCell>
@@ -301,10 +268,7 @@ export default function OllInner() {
           <SmallButton
             icon="add"
             text="Study"
-            onClick={() => {
-              setEditProgramIndex(i);
-              setEditStudyIndex(-1);
-            }}
+            onClick={() => { setEditProgramIndex(i); setEditStudyIndex(-1); }}
           />
         </TableCell>
       </TableRow>);
@@ -314,10 +278,7 @@ export default function OllInner() {
     return result;
   };
 
-  const handleEditStudy = (programIndex: number, index: number) => {
-    setEditProgramIndex(programIndex);
-    setEditStudyIndex(index);
-  };
+  const handleEditStudy = (programIndex: number, index: number) => { setEditProgramIndex(programIndex); setEditStudyIndex(index); };
 
   const handleEditLesson = (programIndex: number, studyIndex: number, index: number) => {
     setEditProgramIndex(programIndex);
@@ -419,16 +380,9 @@ export default function OllInner() {
   useEffect(() => {
     if (feedUrl) {
       fetch(feedUrl, { method: "GET", headers: { "Content-Type": "application/json" } })
-        .then(res => {
-          if (res.ok) return res.json();
-          else throw new Error(res.statusText);
-        })
-        .then(data => {
-          setData(data);
-        })
-        .catch(err => {
-          console.log(err);
-        });
+        .then(res => { if (res.ok) return res.json(); else throw new Error(res.statusText); })
+        .then(data => { setData(data); })
+        .catch(err => { console.log(err); });
     }
   }, [feedUrl]);
 
@@ -497,9 +451,7 @@ export default function OllInner() {
                 <SmallButton
                   icon="add"
                   text="Program"
-                  onClick={() => {
-                    setEditProgramIndex(-1);
-                  }}
+                  onClick={() => { setEditProgramIndex(-1); }}
                 />
               </Box>
 

@@ -21,9 +21,7 @@ export default function CP() {
 
   }, []);
 
-  const handleShowFeed = (classroomId: string) => {
-    setFeedClassroomId(classroomId);
-  };
+  const handleShowFeed = (classroomId: string) => { setFeedClassroomId(classroomId); };
 
   const getScheduleSection = () => {
     if (classroomId === "") {
@@ -47,9 +45,7 @@ export default function CP() {
       return (
         <PlaylistFeed
           classroomId={feedClassroomId}
-          hideFeed={() => {
-            setFeedClassroomId("");
-          }}
+          hideFeed={() => { setFeedClassroomId(""); }}
         />
       );
     }

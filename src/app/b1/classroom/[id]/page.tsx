@@ -10,9 +10,7 @@ import { ClassroomInterface, ScheduleInterface } from "@/helpers/interfaces";
 
 type PageParams = { id: string };
 
-export async function generateMetadata(): Promise<Metadata> {
-  return MetaHelper.getMetaData();
-}
+export async function generateMetadata(): Promise<Metadata> { return MetaHelper.getMetaData(); }
 
 export default async function Classroom({ params }: { params: Promise<PageParams> }) {
   const loadData = async () => {
@@ -41,9 +39,7 @@ export default async function Classroom({ params }: { params: Promise<PageParams
       let notExpired: ScheduleInterface[] = [];
       const cutOff = new Date();
       cutOff.setDate(cutOff.getDate() - 5);
-      schedules.forEach(s => {
-        if (DateHelper.toDate(s.scheduledDate) >= cutOff) notExpired.push(s);
-      });
+      schedules.forEach(s => { if (DateHelper.toDate(s.scheduledDate) >= cutOff) notExpired.push(s); });
 
       if (notExpired.length > 0) {
         notExpired = notExpired.sort((a, b) => {

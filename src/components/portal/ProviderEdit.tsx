@@ -4,10 +4,7 @@ import { Extension as ExtensionIcon, Save as SaveIcon, Cancel as CancelIcon, Del
 import { ErrorMessages } from "@churchapps/apphelper";
 import { ApiHelper, ExternalProviderInterface } from "@/helpers";
 
-interface Props {
-  provider: ExternalProviderInterface;
-  updatedCallback: (provider: ExternalProviderInterface) => void;
-}
+interface Props { provider: ExternalProviderInterface; updatedCallback: (provider: ExternalProviderInterface) => void; }
 
 export function ProviderEdit(props: Props) {
   const [provider, setProvider] = useState<ExternalProviderInterface>(props.provider);
@@ -18,10 +15,7 @@ export function ProviderEdit(props: Props) {
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement> | SelectChangeEvent<string>) => {
     e.preventDefault();
     const p = { ...provider };
-    switch (e.target.name) {
-      case "name": p.name = e.target.value; break;
-      case "apiUrl": p.apiUrl = e.target.value; break;
-    }
+    switch (e.target.name) { case "name": p.name = e.target.value; break; case "apiUrl": p.apiUrl = e.target.value; break; }
     setProvider(p);
   };
 
@@ -35,23 +29,15 @@ export function ProviderEdit(props: Props) {
 
   const handleSave = () => {
     if (validate()) {
-      ApiHelper.post("/externalProviders", [provider], "LessonsApi").then(data => {
-        setProvider(data);
-        props.updatedCallback(data);
-      });
+      ApiHelper.post("/externalProviders", [provider], "LessonsApi").then(data => { setProvider(data); props.updatedCallback(data); });
     }
   };
 
   const handleDelete = () => {
-    if (window.confirm("Are you sure you wish to permanently delete this provider?")) {
-      ApiHelper.delete("/externalProviders/" + provider.id.toString(), "LessonsApi").then(() =>
-        props.updatedCallback(null));
-    }
+    if (window.confirm("Are you sure you wish to permanently delete this provider?")) { ApiHelper.delete("/externalProviders/" + provider.id.toString(), "LessonsApi").then(() => props.updatedCallback(null)); }
   };
 
-  useEffect(() => {
-    setProvider(props.provider);
-  }, [props.provider]);
+  useEffect(() => { setProvider(props.provider); }, [props.provider]);
 
   if (!provider) {
     return <></>;

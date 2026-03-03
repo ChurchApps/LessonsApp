@@ -11,9 +11,7 @@ import {
   VenueInterface
 } from "@/helpers/interfaces";
 
-interface Props {
-  selectedVenue: VenueInterface;
-}
+interface Props { selectedVenue: VenueInterface; }
 
 export function PresenterLink(props: Props) {
   const [presenterFiles, setPresenterFiles] = useState<PlaylistFileInterface[]>(null);
@@ -27,9 +25,7 @@ export function PresenterLink(props: Props) {
     ApiHelper.get("/venues/playlist/" + props.selectedVenue.id + "?mode=web", "LessonsApi").then((data: PlaylistResponseInterface) => {
       const result: PlaylistFileInterface[] = [];
       data?.messages?.forEach((m: PlaylistMessageInterface) => {
-        m.files?.forEach((f: PlaylistFileInterface) => {
-          result.push(f);
-        });
+        m.files?.forEach((f: PlaylistFileInterface) => { result.push(f); });
       });
       setPresenterFiles(result);
     });
@@ -39,19 +35,14 @@ export function PresenterLink(props: Props) {
     <>
       <a
         href="#"
-        onClick={e => {
-          e.preventDefault();
-          loadPresenterData();
-        }}
+        onClick={e => { e.preventDefault(); loadPresenterData(); }}
         className="cta">
         <Icon style={{ float: "left", marginRight: 10 }}>play_circle</Icon>Start Lesson
       </a>
       {presenterFiles && (
         <Presenter
           files={presenterFiles}
-          onClose={() => {
-            setPresenterFiles(null);
-          }}
+          onClose={() => { setPresenterFiles(null); }}
         />
       )}
     </>

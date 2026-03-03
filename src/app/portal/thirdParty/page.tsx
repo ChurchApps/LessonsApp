@@ -33,9 +33,7 @@ export default function ThirdParty() {
   const [editProvider, setEditProvider] = useState<ExternalProviderInterface>(null);
 
   const loadData = () => {
-    ApiHelper.get("/externalProviders", "LessonsApi").then((data: any) => {
-      setProviders(data);
-    });
+    ApiHelper.get("/externalProviders", "LessonsApi").then((data: any) => { setProviders(data); });
   };
 
   useEffect(() => {
@@ -125,10 +123,7 @@ export default function ThirdParty() {
             <Box sx={{ mb: 3 }}>
               <ProviderEdit
                 provider={editProvider}
-                updatedCallback={() => {
-                  setEditProvider(null);
-                  loadData();
-                }}
+                updatedCallback={() => { setEditProvider(null); loadData(); }}
               />
             </Box>
           )}

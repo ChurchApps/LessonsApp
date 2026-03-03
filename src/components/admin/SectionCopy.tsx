@@ -21,14 +21,7 @@ export function SectionCopy(props: Props) {
   const handleChange = (e: SelectChangeEvent<string>) => {
     e.preventDefault();
     const s = { ...copySection };
-    switch (e.target.name) {
-      case "venue":
-        s.sourceVenueId = e.target.value;
-        break;
-      case "section":
-        s.sourceSectionId = e.target.value;
-        break;
-    }
+    switch (e.target.name) { case "venue": s.sourceVenueId = e.target.value; break; case "section": s.sourceSectionId = e.target.value; break; }
     setCopySection(s);
   };
 
@@ -41,9 +34,7 @@ export function SectionCopy(props: Props) {
 
   const handleSave = () => {
     if (validate()) {
-      ApiHelper.get("/sections/copy/" + copySection.sourceSectionId + "/" + props.venueId, "LessonsApi").then(_data => {
-        props.updatedCallback();
-      });
+      ApiHelper.get("/sections/copy/" + copySection.sourceSectionId + "/" + props.venueId, "LessonsApi").then(_data => { props.updatedCallback(); });
     }
   };
 

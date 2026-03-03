@@ -31,21 +31,12 @@ export function ActionEdit(props: Props) {
   const [errors, setErrors] = useState([]);
   const handleCancel = () => props.updatedCallback(action, false);
 
-  const getCombinedResources = () => {
-    const result: ResourceInterface[] = [...props.lessonResources, ...props.studyResources, ...props.programResources];
-    return result;
-  };
+  const getCombinedResources = () => { const result: ResourceInterface[] = [...props.lessonResources, ...props.studyResources, ...props.programResources]; return result; };
 
-  const getCombinedVideos = () => {
-    const result: ExternalVideoInterface[] = [...props.lessonVideos, ...props.studyVideos, ...props.programVideos];
-    return result;
-  };
+  const getCombinedVideos = () => { const result: ExternalVideoInterface[] = [...props.lessonVideos, ...props.studyVideos, ...props.programVideos]; return result; };
 
   const handleKeyDown = (e: React.KeyboardEvent<any>) => {
-    if (e.key === "Enter") {
-      e.preventDefault();
-      handleSave();
-    }
+    if (e.key === "Enter") { e.preventDefault(); handleSave(); }
   };
 
   const handleMarkdownChange = (newValue: string) => {
@@ -58,15 +49,9 @@ export function ActionEdit(props: Props) {
     e.preventDefault();
     const a = { ...action };
     switch (e.target.name) {
-      case "sort":
-        a.sort = parseInt(e.target.value);
-        break;
-      case "actionType":
-        a.actionType = e.target.value;
-        break;
-      case "content":
-        a.content = e.target.value;
-        break;
+      case "sort": a.sort = parseInt(e.target.value); break;
+      case "actionType": a.actionType = e.target.value; break;
+      case "content": a.content = e.target.value; break;
       case "resource":
         if (e.target.value.startsWith("ev/")) {
           a.resourceId = null;
@@ -121,16 +106,11 @@ export function ActionEdit(props: Props) {
         }
       }
 
-      ApiHelper.post("/actions", [a], "LessonsApi").then((data: ActionInterface[]) => {
-        setAction(data[0]);
-        props.updatedCallback(data[0], !props.action.id);
-      });
+      ApiHelper.post("/actions", [a], "LessonsApi").then((data: ActionInterface[]) => { setAction(data[0]); props.updatedCallback(data[0], !props.action.id); });
     }
   };
 
-  const handleDelete = () => {
-    if (window.confirm("Are you sure you wish to permanently delete this action?")) ApiHelper.delete("/actions/" + action.id.toString(), "LessonsApi").then(() => props.updatedCallback(null, false));
-  };
+  const handleDelete = () => { if (window.confirm("Are you sure you wish to permanently delete this action?")) ApiHelper.delete("/actions/" + action.id.toString(), "LessonsApi").then(() => props.updatedCallback(null, false)); };
 
   const getContent = () => {
     if (action.actionType !== "Play" && action.actionType !== "Download" && action.actionType !== "Add-on") return <MarkdownEditor value={action.content} onChange={handleMarkdownChange} />;
@@ -252,10 +232,7 @@ export function ActionEdit(props: Props) {
 
   useEffect(() => {
     setAction(props.action);
-    setTimeout(() => {
-      updateResource();
-      updateAddOn();
-    }, 500);
+    setTimeout(() => { updateResource(); updateAddOn(); }, 500);
   }, [props.action]);
 
   if (!action) {

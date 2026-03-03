@@ -3,10 +3,7 @@ import { FormControl, InputLabel, MenuItem, Select, SelectChangeEvent, TextField
 import { ErrorMessages, InputBox } from "@churchapps/apphelper";
 import { FeedFileInterface } from "@/helpers";
 
-interface Props {
-  file: FeedFileInterface;
-  updatedCallback: (file: FeedFileInterface, cancelled: boolean) => void;
-}
+interface Props { file: FeedFileInterface; updatedCallback: (file: FeedFileInterface, cancelled: boolean) => void; }
 
 export function OlfFileEdit(props: Props) {
   const [file, setFile] = useState<FeedFileInterface>(null);
@@ -39,17 +36,11 @@ export function OlfFileEdit(props: Props) {
     return errors.length === 0;
   };
 
-  const handleSave = () => {
-    if (validate()) props.updatedCallback(file, false);
-  };
+  const handleSave = () => { if (validate()) props.updatedCallback(file, false); };
 
-  const handleDelete = () => {
-    if (window.confirm("Are you sure you wish to delete this action?")) props.updatedCallback(null, false);
-  };
+  const handleDelete = () => { if (window.confirm("Are you sure you wish to delete this action?")) props.updatedCallback(null, false); };
 
-  useEffect(() => {
-    setFile(props.file);
-  }, [props.file]);
+  useEffect(() => { setFile(props.file); }, [props.file]);
 
   if (!file) {
     return <></>;

@@ -9,10 +9,7 @@ const roboto = Roboto({
   display: "swap"
 });
 
-export const metadata = {
-  title: "Lessons.church",
-  description: "Free church curriculum for children, youth, and adults."
-};
+export const metadata = { title: "Lessons.church", description: "Free church curriculum for children, youth, and adults." };
 
 export const viewport = {
   width: "device-width",

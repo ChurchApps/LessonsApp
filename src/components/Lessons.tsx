@@ -4,10 +4,7 @@ import React from "react";
 import { Card, Grid } from "@mui/material";
 import { LessonInterface } from "@/helpers";
 
-interface Props {
-  slug: string;
-  lessons: LessonInterface[];
-}
+interface Props { slug: string; lessons: LessonInterface[]; }
 
 const Lessons = React.memo(({ lessons, slug }: Props) => {
   const createLesson = React.useCallback((lesson: LessonInterface) => {

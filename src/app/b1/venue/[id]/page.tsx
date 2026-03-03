@@ -21,15 +21,9 @@ export default function B1Venue() {
   const autoPrint = searchParams.get("autoPrint") === "1";
   const [data, setData] = React.useState<any>(null);
 
-  const loadInternal = async () => {
-    const venue: FeedVenueInterface = await ApiHelper.get("/venues/public/feed/" + params.id, "LessonsApi");
-    return venue;
-  };
+  const loadInternal = async () => { const venue: FeedVenueInterface = await ApiHelper.get("/venues/public/feed/" + params.id, "LessonsApi"); return venue; };
 
-  const loadExternal = async (externalProviderId: string, venueId: string) => {
-    const venue = await ApiHelper.get("/externalProviders/" + externalProviderId + "/venue/" + venueId, "LessonsApi");
-    return venue;
-  };
+  const loadExternal = async (externalProviderId: string, venueId: string) => { const venue = await ApiHelper.get("/externalProviders/" + externalProviderId + "/venue/" + venueId, "LessonsApi"); return venue; };
 
   const loadData = async () => {
     EnvironmentHelper.init();
@@ -61,9 +55,7 @@ export default function B1Venue() {
   };
 
   //const {classroom, customizations, currentSchedule, prevSchedule, nextSchedule, venue } = await loadData();
-  useEffect(() => {
-    loadData();
-  }, []);
+  useEffect(() => { loadData(); }, []);
 
   return (
     <VenueClient

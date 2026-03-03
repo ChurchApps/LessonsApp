@@ -4,10 +4,7 @@ export interface ExternalProviderInterface {
   apiUrl?: string;
 }
 
-export interface ProviderInterface {
-  id?: string;
-  name?: string;
-}
+export interface ProviderInterface { id?: string; name?: string; }
 export interface ProgramInterface {
   id?: string;
   providerId?: string;
@@ -231,10 +228,7 @@ export interface FeedActionInterface {
   role?: string;
   files?: FeedFileInterface[];
 }
-export interface FeedDownloadInterface {
-  name?: string;
-  files?: FeedFileInterface[];
-}
+export interface FeedDownloadInterface { name?: string; files?: FeedFileInterface[]; }
 export interface FeedFileInterface {
   name?: string;
   url?: string;
@@ -297,9 +291,7 @@ export interface FeedProgramInterface {
   description?: string;
   studies: FeedStudyInterface[];
 }
-export interface FeedListInterface {
-  programs?: FeedProgramInterface[];
-}
+export interface FeedListInterface { programs?: FeedProgramInterface[]; }
 
 // Additional interfaces for strong typing
 export interface PresignedUploadInterface {
@@ -308,10 +300,7 @@ export interface PresignedUploadInterface {
   fields: Record<string, string>;
 }
 
-export interface UploadProgressInterface {
-  loaded: number;
-  total?: number;
-}
+export interface UploadProgressInterface { loaded: number; total?: number; }
 
 export interface LessonTreeInterface {
   programs?: Array<{
@@ -323,24 +312,14 @@ export interface LessonTreeInterface {
       lessons?: Array<{
         id: string;
         name: string;
-        venues?: Array<{
-          id: string;
-          name: string;
-        }>;
+        venues?: Array<{ id: string; name: string; }>;
       }>;
     }>;
   }>;
 }
 
-export interface PlaylistMessageInterface {
-  files?: PlaylistFileInterface[];
-}
+export interface PlaylistMessageInterface { files?: PlaylistFileInterface[]; }
 
-export interface PlaylistResponseInterface {
-  messages?: PlaylistMessageInterface[];
-}
+export interface PlaylistResponseInterface { messages?: PlaylistMessageInterface[]; }
 
-export interface StudyStatsInterface {
-  studyName: string;
-  downloadCount: number;
-}
+export interface StudyStatsInterface { studyName: string; downloadCount: number; }

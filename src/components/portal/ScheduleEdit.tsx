@@ -96,10 +96,7 @@ export function ScheduleEdit(props: Props) {
   const handleCancel = () => props.updatedCallback(schedule);
 
   const handleKeyDown = (e: React.KeyboardEvent<any>) => {
-    if (e.key === "Enter") {
-      e.preventDefault();
-      handleSave();
-    }
+    if (e.key === "Enter") { e.preventDefault(); handleSave(); }
   };
 
   const handleProviderChange = (e: SelectChangeEvent<string>) => {
@@ -142,16 +139,11 @@ export function ScheduleEdit(props: Props) {
       const s = { ...schedule };
       s.displayName = getDisplayName();
 
-      ApiHelper.post("/schedules", [s], "LessonsApi").then(data => {
-        setSchedule(data);
-        props.updatedCallback(data);
-      });
+      ApiHelper.post("/schedules", [s], "LessonsApi").then(data => { setSchedule(data); props.updatedCallback(data); });
     }
   };
 
-  const handleDelete = () => {
-    if (window.confirm("Are you sure you wish to permanently delete this schedule?")) ApiHelper.delete("/schedules/" + schedule.id.toString(), "LessonsApi").then(() => props.updatedCallback(null));
-  };
+  const handleDelete = () => { if (window.confirm("Are you sure you wish to permanently delete this schedule?")) ApiHelper.delete("/schedules/" + schedule.id.toString(), "LessonsApi").then(() => props.updatedCallback(null)); };
 
   const getProviderOptions = () => {
     const result: React.JSX.Element[] = [];
@@ -202,15 +194,9 @@ export function ScheduleEdit(props: Props) {
         size="small"
         startIcon={<OpenInNewIcon />}
         endIcon={<PrintIcon />}
-        onClick={e => {
-          e.preventDefault();
-          window.open("/tools/olf?feedUrl=" + encodeURIComponent(currentVenue.apiUrl), "_blank");
-        }}
+        onClick={e => { e.preventDefault(); window.open("/tools/olf?feedUrl=" + encodeURIComponent(currentVenue.apiUrl), "_blank"); }}
         variant="outlined"
-        sx={{
-          color: "var(--c1d2)",
-          borderColor: "var(--c1d2)"
-        }}>
+        sx={{ color: "var(--c1d2)", borderColor: "var(--c1d2)" }}>
           Preview / Print
       </Button>);
     }
@@ -235,10 +221,7 @@ export function ScheduleEdit(props: Props) {
       startIcon={<CancelIcon />}
       onClick={handleCancel}
       variant="outlined"
-      sx={{
-        color: "var(--c1d2)",
-        borderColor: "var(--c1d2)"
-      }}>
+      sx={{ color: "var(--c1d2)", borderColor: "var(--c1d2)" }}>
         Cancel
     </Button>);
 
@@ -269,9 +252,7 @@ export function ScheduleEdit(props: Props) {
     }
   };
 
-  useEffect(() => {
-    loadData();
-  }, [props.schedule]);
+  useEffect(() => { loadData(); }, [props.schedule]);
 
   if (!schedule) return <></>;
 

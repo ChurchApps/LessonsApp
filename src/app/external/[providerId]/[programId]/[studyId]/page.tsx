@@ -31,9 +31,7 @@ export default function StudyPage() {
     setLessons(study.lessons);
   };
 
-  useEffect(() => {
-    loadData();
-  }, []);
+  useEffect(() => { loadData(); }, []);
 
   if (!study || !program) return <></>;
   const title = program.name + ": " + study?.name + " - Free Church Curriculum";

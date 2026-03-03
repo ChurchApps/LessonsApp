@@ -8,9 +8,7 @@ import UserContext from "@/app/context/UserContext";
 import { Permissions } from "@/helpers";
 import { SecondaryMenuHelper } from "@/helpers/SecondaryMenuHelper";
 
-interface Props {
-  position?: "fixed" | "sticky" | "static" | "relative" | "absolute";
-}
+interface Props { position?: "fixed" | "sticky" | "static" | "relative" | "absolute"; }
 
 export function PortalHeader(_props: Props) {
   const context = React.useContext(UserContext);
@@ -30,9 +28,7 @@ export function PortalHeader(_props: Props) {
     }
   }, [isClient, context, context.user]);
 
-  useEffect(() => {
-    setIsClient(true);
-  }, []);
+  useEffect(() => { setIsClient(true); }, []);
 
   useEffect(() => {
     if (!isClient) return;
@@ -40,16 +36,12 @@ export function PortalHeader(_props: Props) {
     const menuItems: { url: string; icon: string; label: string }[] = [];
     menuItems.push({ url: "/", icon: "home", label: "Home" });
     menuItems.push({ url: "/portal", icon: "calendar_month", label: "Schedules" });
-    if (UserHelper.checkAccess?.(Permissions.lessonsApi.lessons.edit)) {
-      menuItems.push({ url: "/admin", label: "Admin", icon: "admin_panel_settings" });
-    }
+    if (UserHelper.checkAccess?.(Permissions.lessonsApi.lessons.edit)) { menuItems.push({ url: "/admin", label: "Admin", icon: "admin_panel_settings" }); }
 
     setPrimaryMenu(menuItems);
   }, [isClient]);
 
-  const getPrimaryMenu = () => {
-    return primaryMenu;
-  };
+  const getPrimaryMenu = () => { return primaryMenu; };
 
   const getPrimaryLabel = () => {
     const path = pathname;
@@ -59,14 +51,9 @@ export function PortalHeader(_props: Props) {
     return result;
   };
 
-  const handleNavigate = (url: string) => {
-    router.push(url);
-  };
+  const handleNavigate = (url: string) => { router.push(url); };
 
-  useEffect(() => {
-    const items = SecondaryMenuHelper.getSecondaryMenu(window.location.pathname, {});
-    setSecondaryMenu(items);
-  }, [pathname]);
+  useEffect(() => { const items = SecondaryMenuHelper.getSecondaryMenu(window.location.pathname, {}); setSecondaryMenu(items); }, [pathname]);
 
   /*<Typography variant="h6" noWrap>{UserHelper.currentUserChurch?.church?.name || ""}</Typography>*/
   return (

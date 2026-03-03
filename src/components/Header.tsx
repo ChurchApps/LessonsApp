@@ -9,18 +9,14 @@ import { ApiHelper, UserHelper } from "@churchapps/apphelper";
 import { Permissions } from "../helpers/Permissions";
 import { SearchBar } from "./SearchBar";
 
-interface Props {
-  position?: "fixed" | "sticky" | "static" | "relative" | "absolute";
-}
+interface Props { position?: "fixed" | "sticky" | "static" | "relative" | "absolute"; }
 
 export function Header(props: Props) {
   const [menuAnchor, setMenuAnchor] = useState<any>(null);
   const [showSupport, setShowSupport] = useState(false);
   const [isClient, setIsClient] = useState(false);
 
-  useEffect(() => {
-    setIsClient(true);
-  }, []);
+  useEffect(() => { setIsClient(true); }, []);
 
   const adminItems = isClient && UserHelper.checkAccess?.(Permissions.lessonsApi.lessons.edit) && (
     <Link href="/admin">
@@ -43,10 +39,7 @@ export function Header(props: Props) {
         <a
           id="userMenuLink"
           href="about:blank"
-          onClick={e => {
-            e.preventDefault();
-            setMenuAnchor(Boolean(menuAnchor) ? null : e.target);
-          }}>
+          onClick={e => { e.preventDefault(); setMenuAnchor(Boolean(menuAnchor) ? null : e.target); }}>
           {UserHelper.user ? `${UserHelper.user.firstName} ${UserHelper.user.lastName}` : "User"}
           <Icon style={{ paddingTop: 6 }}>expand_more</Icon>
         </a>
@@ -55,9 +48,7 @@ export function Header(props: Props) {
         id="userMenu"
         anchorEl={menuAnchor}
         open={Boolean(menuAnchor)}
-        onClose={() => {
-          setMenuAnchor(null);
-        }}
+        onClose={() => { setMenuAnchor(null); }}
         MenuListProps={{ "aria-labelledby": "userMenuLink" }}
         style={{ top: "0", width: "min-content" }}>
         {adminItems}

@@ -3,9 +3,7 @@ import { Chip, ChipProps } from "@mui/material";
 
 type StatusType = "published" | "draft" | "scheduled" | "archived" | "active" | "pending" | "staff" | "featured";
 
-export interface StatusChipProps extends Omit<ChipProps, "color"> {
-  status: StatusType;
-}
+export interface StatusChipProps extends Omit<ChipProps, "color"> { status: StatusType; }
 
 const statusConfig: Record<StatusType, { label: string; color: string; backgroundColor: string }> = {
   published: {

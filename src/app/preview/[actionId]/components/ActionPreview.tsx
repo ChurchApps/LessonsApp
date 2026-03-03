@@ -4,10 +4,7 @@ import React, { useState } from "react";
 import Image from "next/image";
 import { FeedActionInterface, FeedFileInterface } from "@/helpers";
 
-interface ActionPreviewProps {
-  action: FeedActionInterface;
-  actionId: string;
-}
+interface ActionPreviewProps { action: FeedActionInterface; actionId: string; }
 
 export function ActionPreview({ action }: ActionPreviewProps) {
   const [error, setError] = useState<string | null>(null);

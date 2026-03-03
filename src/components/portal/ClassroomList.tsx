@@ -16,19 +16,14 @@ import { Loading } from "@churchapps/apphelper";
 import { ApiHelper, ClassroomInterface } from "@/helpers";
 import { ClassroomEdit } from "../index";
 
-interface Props {
-  classroomSelected: (classroomId: string) => void;
-  showFeed: (classroomId: string) => void;
-}
+interface Props { classroomSelected: (classroomId: string) => void; showFeed: (classroomId: string) => void; }
 
 export function ClassroomList(props: Props) {
   const [classrooms, setClassrooms] = useState<ClassroomInterface[]>(null);
   const [editClassroom, setEditClassroom] = useState<ClassroomInterface>(null);
 
   const loadData = () => {
-    ApiHelper.get("/classrooms", "LessonsApi").then((data: any) => {
-      setClassrooms(data);
-    });
+    ApiHelper.get("/classrooms", "LessonsApi").then((data: any) => { setClassrooms(data); });
   };
 
   const getRows = () => {
@@ -113,10 +108,7 @@ export function ClassroomList(props: Props) {
     return (
       <ClassroomEdit
         classroom={editClassroom}
-        updatedCallback={() => {
-          setEditClassroom(null);
-          loadData();
-        }}
+        updatedCallback={() => { setEditClassroom(null); loadData(); }}
       />
     );
   }

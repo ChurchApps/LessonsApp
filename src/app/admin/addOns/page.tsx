@@ -23,27 +23,16 @@ export default function Admin() {
 
   }, []);
 
-  useEffect(() => {
-    if (isAuthenticated) loadData();
-  }, [isAuthenticated]);
+  useEffect(() => { if (isAuthenticated) loadData(); }, [isAuthenticated]);
 
   async function loadData() {
-    ApiHelper.get("/providers", "LessonsApi").then((data: any) => {
-      setProviders(data);
-    });
-    ApiHelper.get("/addOns", "LessonsApi").then((data: any) => {
-      setAddOns(data);
-    });
+    ApiHelper.get("/providers", "LessonsApi").then((data: any) => { setProviders(data); });
+    ApiHelper.get("/addOns", "LessonsApi").then((data: any) => { setAddOns(data); });
   }
 
-  function clearEdits() {
-    setEditAddOn(null);
-  }
+  function clearEdits() { setEditAddOn(null); }
 
-  const handleUpdated = () => {
-    loadData();
-    setEditAddOn(null);
-  };
+  const handleUpdated = () => { loadData(); setEditAddOn(null); };
 
   function getAddOnAccordion() {
     if (addOns === null) {
@@ -74,10 +63,7 @@ export default function Admin() {
             disablePadding
             sx={{ borderBottom: index < addOns.length - 1 ? "1px solid var(--admin-border)" : "none" }}>
             <ListItemButton
-              onClick={() => {
-                clearEdits();
-                setEditAddOn(a);
-              }}
+              onClick={() => { clearEdits(); setEditAddOn(a); }}
               sx={{
                 py: 2,
                 "&:hover": { backgroundColor: "var(--c1l7)" }

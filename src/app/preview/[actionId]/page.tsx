@@ -45,9 +45,7 @@ export default function PreviewPage() {
       }
     };
 
-    if (actionId) {
-      fetchAction();
-    }
+    if (actionId) { fetchAction(); }
   }, [actionId, lessonId]);
 
   if (loading) {

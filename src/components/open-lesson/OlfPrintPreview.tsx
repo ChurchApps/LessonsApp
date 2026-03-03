@@ -7,10 +7,7 @@ import { Section } from "../lesson/Section";
 import { OlfPrint } from "./OlfPrint";
 import { OlfScriptPrint } from "./OlfScriptPrint";
 
-interface Props {
-  onClose: () => void;
-  feed: FeedVenueInterface;
-}
+interface Props { onClose: () => void; feed: FeedVenueInterface; }
 
 export const OlfPrintPreview: React.FC<Props> = (props: Props) => {
   const contentRef = useRef<HTMLDivElement>(null);
@@ -42,9 +39,7 @@ export const OlfPrintPreview: React.FC<Props> = (props: Props) => {
       <Box sx={{ borderBottom: 1, borderColor: "divider" }} style={{ marginRight: 30 }}>
         <Tabs
           value={format}
-          onChange={(e, newValue) => {
-            setFormat(newValue);
-          }}
+          onChange={(e, newValue) => { setFormat(newValue); }}
           aria-label="basic tabs example">
           <Tab label="Lessons.church" value="lessons.church" />
           <Tab label="Color Coded" value="colorCoded" />
@@ -68,9 +63,7 @@ export const OlfPrintPreview: React.FC<Props> = (props: Props) => {
               <SmallButton
                 icon="print"
                 text="Print"
-                onClick={() => {
-                  handlePrint();
-                }}
+                onClick={() => { handlePrint(); }}
               />{" "}
               &nbsp;
               <SmallButton icon="close" text="Close" onClick={props.onClose} />

@@ -31,17 +31,11 @@ export default function Admin() {
   const { isAuthenticated } = ApiHelper;
   const programId = params.id;
 
-  useEffect(() => {
-    if (!isAuthenticated) router.push("/login");
-  }, []);
-  useEffect(() => {
-    if (isAuthenticated) loadData();
-  }, [isAuthenticated]);
+  useEffect(() => { if (!isAuthenticated) router.push("/login"); }, []);
+  useEffect(() => { if (isAuthenticated) loadData(); }, [isAuthenticated]);
 
   function loadData() {
-    ApiHelper.get("/programs/" + programId, "LessonsApi").then((data: ProgramInterface) => {
-      setProgram(data);
-    });
+    ApiHelper.get("/programs/" + programId, "LessonsApi").then((data: ProgramInterface) => { setProgram(data); });
     filterResults();
   }
 
@@ -56,10 +50,7 @@ export default function Admin() {
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const val = e.target.value;
-    switch (e.target.name) {
-      case "startDate": setStartDate(new Date(val)); break;
-      case "endDate": setEndDate(new Date(val)); break;
-    }
+    switch (e.target.name) { case "startDate": setStartDate(new Date(val)); break; case "endDate": setEndDate(new Date(val)); break; }
   };
 
   const getStudyRows = () => {

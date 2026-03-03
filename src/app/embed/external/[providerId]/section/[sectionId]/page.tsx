@@ -89,10 +89,7 @@ export default function EmbedExternalSection() {
 
   useEffect(() => {
     // Send height to parent window for iframe resizing
-    const sendHeight = () => {
-      const height = document.body.scrollHeight;
-      window.parent.postMessage({ type: "lessonSectionHeight", height }, "*");
-    };
+    const sendHeight = () => { const height = document.body.scrollHeight; window.parent.postMessage({ type: "lessonSectionHeight", height }, "*"); };
 
     sendHeight();
     const resizeObserver = new ResizeObserver(sendHeight);

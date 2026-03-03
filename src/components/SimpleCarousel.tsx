@@ -21,15 +21,9 @@ export function SimpleCarousel({
   navButtonsAlwaysVisible = false,
   next
 }: SimpleCarouselProps) {
-  const handlePrevious = () => {
-    const newIndex = index > 0 ? index - 1 : children.length - 1;
-    next?.(newIndex);
-  };
+  const handlePrevious = () => { const newIndex = index > 0 ? index - 1 : children.length - 1; next?.(newIndex); };
 
-  const handleNext = () => {
-    const newIndex = index < children.length - 1 ? index + 1 : 0;
-    next?.(newIndex);
-  };
+  const handleNext = () => { const newIndex = index < children.length - 1 ? index + 1 : 0; next?.(newIndex); };
 
   return (
     <Box

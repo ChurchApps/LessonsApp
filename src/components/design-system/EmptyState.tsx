@@ -37,10 +37,7 @@ export function EmptyState({ icon, title, description, action, actions = [] }: E
       <Typography
         variant="h6"
         color="text.secondary"
-        sx={{
-          fontWeight: 500,
-          maxWidth: 400
-        }}>
+        sx={{ fontWeight: 500, maxWidth: 400 }}>
         {title}
       </Typography>
 
@@ -48,10 +45,7 @@ export function EmptyState({ icon, title, description, action, actions = [] }: E
         <Typography
           variant="body2"
           color="text.secondary"
-          sx={{
-            maxWidth: 500,
-            lineHeight: 1.5
-          }}>
+          sx={{ maxWidth: 500, lineHeight: 1.5 }}>
           {description}
         </Typography>
       )}

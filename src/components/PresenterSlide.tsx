@@ -1,9 +1,7 @@
 import { useEffect, useRef } from "react";
 import { PlaylistFileInterface } from "@/helpers";
 
-interface Props {
-  file: PlaylistFileInterface;
-}
+interface Props { file: PlaylistFileInterface; }
 
 export function PresenterSlide(props: Props) {
   if (!props.file) return null;

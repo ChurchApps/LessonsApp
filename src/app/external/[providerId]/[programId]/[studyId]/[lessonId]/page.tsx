@@ -52,17 +52,13 @@ export default function LessonsPage() {
     ApiHelper.get(url, "LessonsApi").then((data: any) => {
       const result: PlaylistFileInterface[] = [];
       data?.messages?.forEach((m: any) => {
-        m.files?.forEach((f: PlaylistFileInterface) => {
-          result.push(f);
-        });
+        m.files?.forEach((f: PlaylistFileInterface) => { result.push(f); });
       });
       setPresenterFiles(result);
     });
   };
 
-  useEffect(() => {
-    loadData();
-  }, []);
+  useEffect(() => { loadData(); }, []);
 
   if (!lessonData) return <></>;
   const title = selectedVenue.programName + ": " + selectedVenue.lessonName + " - Free Church Curriculum";
@@ -81,9 +77,7 @@ export default function LessonsPage() {
                 <div className="breadcrumb">
                   <Link href={"/" + selectedVenue.programSlug}>{selectedVenue.programName}</Link>:{" "}
                   <Link
-                    href={
-                      "/external/" + lessonData?.providerId + "/" + lessonData?.programId + "/" + lessonData?.studyId
-                    }>
+                    href={ "/external/" + lessonData?.providerId + "/" + lessonData?.programId + "/" + lessonData?.studyId }>
                     {selectedVenue.studyName}
                   </Link>
                 </div>
@@ -93,10 +87,7 @@ export default function LessonsPage() {
                 )}
                 <a
                   href="about:blank"
-                  onClick={e => {
-                    e.preventDefault();
-                    loadPresenterData();
-                  }}
+                  onClick={e => { e.preventDefault(); loadPresenterData(); }}
                   className="cta">
                   <Icon style={{ float: "left", marginRight: 10 }}>play_circle</Icon>Start Lesson
                 </a>
@@ -120,12 +111,8 @@ export default function LessonsPage() {
           <LessonSidebar
             venues={lessonData?.venues}
             selectedVenue={selectedVenue}
-            onVenueChange={v => {
-              setSelectedVenue(v);
-            }}
-            onPrint={() => {
-              setPrint(Math.random());
-            }}
+            onVenueChange={v => { setSelectedVenue(v); }}
+            onPrint={() => { setPrint(Math.random()); }}
           />
         </Grid>
         <Grid size={{ md: 9, sm: 12 }}>
@@ -140,9 +127,7 @@ export default function LessonsPage() {
       {presenterFiles && (
         <Presenter
           files={presenterFiles}
-          onClose={() => {
-            setPresenterFiles(null);
-          }}
+          onClose={() => { setPresenterFiles(null); }}
         />
       )}
     </Layout>

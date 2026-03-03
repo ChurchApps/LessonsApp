@@ -49,10 +49,7 @@ export default function EmbedAction() {
 
   useEffect(() => {
     // Send height to parent window for iframe resizing
-    const sendHeight = () => {
-      const height = document.body.scrollHeight;
-      window.parent.postMessage({ type: "lessonActionHeight", height }, "*");
-    };
+    const sendHeight = () => { const height = document.body.scrollHeight; window.parent.postMessage({ type: "lessonActionHeight", height }, "*"); };
 
     // Send initial height and on resize
     sendHeight();

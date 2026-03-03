@@ -16,20 +16,13 @@ export function BundleEdit(props: Props) {
   const handleCancel = () => props.updatedCallback(bundle);
 
   const handleKeyDown = (e: React.KeyboardEvent<any>) => {
-    if (e.key === "Enter") {
-      e.preventDefault();
-      handleSave();
-    }
+    if (e.key === "Enter") { e.preventDefault(); handleSave(); }
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     e.preventDefault();
     const v = { ...bundle };
-    switch (e.currentTarget.name) {
-      case "name":
-        v.name = e.currentTarget.value;
-        break;
-    }
+    switch (e.currentTarget.name) { case "name": v.name = e.currentTarget.value; break; }
     setBundle(v);
   };
 
@@ -42,10 +35,7 @@ export function BundleEdit(props: Props) {
 
   const handleSave = () => {
     if (validate()) {
-      ApiHelper.post("/bundles", [bundle], "LessonsApi").then(data => {
-        setBundle(data);
-        props.updatedCallback(data);
-      });
+      ApiHelper.post("/bundles", [bundle], "LessonsApi").then(data => { setBundle(data); props.updatedCallback(data); });
     }
   };
 
@@ -57,9 +47,7 @@ export function BundleEdit(props: Props) {
     ) ApiHelper.delete("/bundles/" + bundle.id.toString(), "LessonsApi").then(() => props.updatedCallback(null));
   };
 
-  useEffect(() => {
-    setBundle(props.bundle);
-  }, [props.bundle]);
+  useEffect(() => { setBundle(props.bundle); }, [props.bundle]);
 
   return (
     <>

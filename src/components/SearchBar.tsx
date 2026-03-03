@@ -9,10 +9,7 @@ import { OramaClient } from "@oramacloud/client";
 import { SearchResult } from "@/helpers/SearchHelper";
 
 // Direct client-side Orama Cloud client for faster searches
-const oramaClient = new OramaClient({
-  endpoint: "https://cloud.orama.run/v1/indexes/lessons-v0ztnp",
-  api_key: "WhbbkClNXUSLZfgeJIz7TRBOl2RfkHeW"
-});
+const oramaClient = new OramaClient({ endpoint: "https://cloud.orama.run/v1/indexes/lessons-v0ztnp", api_key: "WhbbkClNXUSLZfgeJIz7TRBOl2RfkHeW" });
 
 interface Props {
   placeholder?: string;
@@ -84,23 +81,16 @@ export function SearchBar({ placeholder = "Search curriculum (e.g., 'peace', 'ad
     setShowDropdown(true);
 
     // Clear existing timer
-    if (debounceTimer.current) {
-      clearTimeout(debounceTimer.current);
-    }
+    if (debounceTimer.current) { clearTimeout(debounceTimer.current); }
 
     // Set new debounce timer
-    debounceTimer.current = setTimeout(() => {
-      performSearch(value);
-    }, 300);
+    debounceTimer.current = setTimeout(() => { performSearch(value); }, 300);
   };
 
   // Handle form submission
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    if (query.trim()) {
-      setShowDropdown(false);
-      router.push(`/search?q=${encodeURIComponent(query)}`);
-    }
+    if (query.trim()) { setShowDropdown(false); router.push(`/search?q=${encodeURIComponent(query)}`); }
   };
 
   // Handle result click
@@ -132,23 +122,16 @@ export function SearchBar({ placeholder = "Search curriculum (e.g., 'peace', 'ad
   // Handle click away - collapse if expandable
   const handleClickAway = () => {
     setShowDropdown(false);
-    if (expandable && !query) {
-      setExpanded(false);
-    }
+    if (expandable && !query) { setExpanded(false); }
   };
 
   // Handle expand
-  const handleExpand = () => {
-    setExpanded(true);
-    setTimeout(() => inputRef.current?.focus(), 100);
-  };
+  const handleExpand = () => { setExpanded(true); setTimeout(() => inputRef.current?.focus(), 100); };
 
   // Cleanup timer on unmount
   useEffect(() => {
     return () => {
-      if (debounceTimer.current) {
-        clearTimeout(debounceTimer.current);
-      }
+      if (debounceTimer.current) { clearTimeout(debounceTimer.current); }
     };
   }, []);
 
@@ -198,9 +181,7 @@ export function SearchBar({ placeholder = "Search curriculum (e.g., 'peace', 'ad
             placeholder={placeholder}
             value={query}
             onChange={handleChange}
-            onFocus={() => {
-              if (query) setShowDropdown(true);
-            }}
+            onFocus={() => { if (query) setShowDropdown(true); }}
             autoFocus={autoFocus || expandable}
             slotProps={{
               input: {
@@ -252,10 +233,7 @@ export function SearchBar({ placeholder = "Search curriculum (e.g., 'peace', 'ad
               color: "#000",
               textShadow: "none",
               "& *": { textShadow: "none !important" },
-              "& p, & span, & .MuiTypography-root": {
-                color: "#333 !important",
-                textShadow: "none !important"
-              }
+              "& p, & span, & .MuiTypography-root": { color: "#333 !important", textShadow: "none !important" }
             }}>
             {results.length > 0 ? (
               <>

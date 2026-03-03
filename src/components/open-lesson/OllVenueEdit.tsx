@@ -4,10 +4,7 @@ import { Edit as EditIcon, Save as SaveIcon, Delete as DeleteIcon, Cancel as Can
 import { ErrorMessages } from "@churchapps/apphelper";
 import { FeedVenueLinkInterface } from "@/helpers";
 
-interface Props {
-  venue: FeedVenueLinkInterface;
-  updatedCallback: (venue: FeedVenueLinkInterface, cancelled: boolean) => void;
-}
+interface Props { venue: FeedVenueLinkInterface; updatedCallback: (venue: FeedVenueLinkInterface, cancelled: boolean) => void; }
 
 export function OllVenueEdit(props: Props) {
   const [venue, setVenue] = useState<FeedVenueLinkInterface>(null);
@@ -18,15 +15,9 @@ export function OllVenueEdit(props: Props) {
     e.preventDefault();
     const v = { ...venue };
     switch (e.target.name) {
-      case "id":
-        v.id = e.target.value;
-        break;
-      case "name":
-        v.name = e.target.value;
-        break;
-      case "apiUrl":
-        v.apiUrl = e.target.value;
-        break;
+      case "id": v.id = e.target.value; break;
+      case "name": v.name = e.target.value; break;
+      case "apiUrl": v.apiUrl = e.target.value; break;
     }
     setVenue(v);
   };
@@ -40,17 +31,11 @@ export function OllVenueEdit(props: Props) {
     return errors.length === 0;
   };
 
-  const handleSave = () => {
-    if (validate()) props.updatedCallback(venue, false);
-  };
+  const handleSave = () => { if (validate()) props.updatedCallback(venue, false); };
 
-  const handleDelete = () => {
-    if (window.confirm("Are you sure you wish to delete this venue?")) props.updatedCallback(null, false);
-  };
+  const handleDelete = () => { if (window.confirm("Are you sure you wish to delete this venue?")) props.updatedCallback(null, false); };
 
-  useEffect(() => {
-    setVenue(props.venue);
-  }, [props.venue]);
+  useEffect(() => { setVenue(props.venue); }, [props.venue]);
 
   if (!venue) {
     return <></>;
@@ -121,10 +106,7 @@ export function OllVenueEdit(props: Props) {
               startIcon={<CancelIcon />}
               variant="outlined"
               onClick={handleCancel}
-              sx={{
-                color: "var(--c1d2)",
-                borderColor: "var(--c1d2)"
-              }}>
+              sx={{ color: "var(--c1d2)", borderColor: "var(--c1d2)" }}>
             Cancel
             </Button>
             {props.venue.id && (

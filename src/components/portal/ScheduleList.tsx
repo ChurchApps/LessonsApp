@@ -24,19 +24,14 @@ import { ArrayHelper, DateHelper, Loading } from "@churchapps/apphelper";
 import { ApiHelper, ScheduleInterface } from "@/helpers";
 import { ScheduleEdit } from "../index";
 
-interface Props {
-  classroomId: string;
-}
+interface Props { classroomId: string; }
 
 export function ScheduleList(props: Props) {
   const [schedules, setSchedules] = useState<ScheduleInterface[]>(null);
   const [editSchedule, setEditSchedule] = useState<ScheduleInterface>(null);
 
   const loadData = () => {
-    ApiHelper.get("/schedules/classroom/" + props.classroomId, "LessonsApi").then((data: any) => {
-      ArrayHelper.sortBy(data, "scheduledDate", true);
-      setSchedules(data);
-    });
+    ApiHelper.get("/schedules/classroom/" + props.classroomId, "LessonsApi").then((data: any) => { ArrayHelper.sortBy(data, "scheduledDate", true); setSchedules(data); });
   };
 
   const getRows = () => {
@@ -181,10 +176,7 @@ export function ScheduleList(props: Props) {
       <ScheduleEdit
         schedule={editSchedule}
         schedules={schedules}
-        updatedCallback={() => {
-          setEditSchedule(null);
-          loadData();
-        }}
+        updatedCallback={() => { setEditSchedule(null); loadData(); }}
       />
     );
   }

@@ -33,9 +33,7 @@ export function ImageEditor(props: Props) {
       <input type="file" onChange={handleUpload} id="fileUpload" accept="image/*" style={{ display: "none" }} />
       <SmallButton
         text="Upload"
-        onClick={() => {
-          document.getElementById("fileUpload").click();
-        }}
+        onClick={() => { document.getElementById("fileUpload").click(); }}
         icon="upload"
       />
     </div>
@@ -66,26 +64,18 @@ export function ImageEditor(props: Props) {
   };
 
   const cropCallback = () => {
-    if (cropperRef.current !== null) {
-      const url = cropperRef.current.cropper.getCroppedCanvas({ width: 1280, height: 720 }).toDataURL();
-      setDataUrl(url);
-    }
+    if (cropperRef.current !== null) { const url = cropperRef.current.cropper.getCroppedCanvas({ width: 1280, height: 720 }).toDataURL(); setDataUrl(url); }
   };
 
   const handleCrop = () => {
-    if (timeout !== null) {
-      window.clearTimeout(timeout);
-      timeout = null;
-    }
+    if (timeout !== null) { window.clearTimeout(timeout); timeout = null; }
     timeout = window.setTimeout(cropCallback, 200);
   };
 
   const handleSave = () => props.updatedFunction(dataUrl);
   const handleDelete = () => props.updatedFunction("");
 
-  useEffect(() => {
-    setCurrentUrl(props.imageUrl || "/images/blank.png");
-  }, [props.imageUrl]);
+  useEffect(() => { setCurrentUrl(props.imageUrl || "/images/blank.png"); }, [props.imageUrl]);
 
   return (
     <InputBox

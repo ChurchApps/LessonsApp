@@ -8,10 +8,7 @@ import { ApiHelper, ProgramInterface } from "@/helpers";
 
 const ImageEditor = dynamic(() => import("../index").then(mod => ({ default: mod.ImageEditor })), { loading: () => <div>Loading image editor...</div> });
 
-interface Props {
-  program: ProgramInterface;
-  updatedCallback: (program: ProgramInterface) => void;
-}
+interface Props { program: ProgramInterface; updatedCallback: (program: ProgramInterface) => void; }
 
 export function ProgramEdit(props: Props) {
   const [program, setProgram] = useState<ProgramInterface>(null);
@@ -20,37 +17,20 @@ export function ProgramEdit(props: Props) {
 
   const handleCancel = () => props.updatedCallback(program);
   const handleKeyDown = (e: React.KeyboardEvent<any>) => {
-    if (e.key === "Enter") {
-      e.preventDefault();
-      handleSave();
-    }
+    if (e.key === "Enter") { e.preventDefault(); handleSave(); }
   };
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement> | SelectChangeEvent<string>) => {
     e.preventDefault();
     const p = { ...program };
     const val = e.target.value;
     switch (e.target.name) {
-      case "live":
-        p.live = val === "true";
-        break;
-      case "name":
-        p.name = val;
-        break;
-      case "slug":
-        p.slug = val;
-        break;
-      case "shortDescription":
-        p.shortDescription = val;
-        break;
-      case "description":
-        p.description = val;
-        break;
-      case "aboutSection":
-        p.aboutSection = val;
-        break;
-      case "videoEmbedUrl":
-        p.videoEmbedUrl = val;
-        break;
+      case "live": p.live = val === "true"; break;
+      case "name": p.name = val; break;
+      case "slug": p.slug = val; break;
+      case "shortDescription": p.shortDescription = val; break;
+      case "description": p.description = val; break;
+      case "aboutSection": p.aboutSection = val; break;
+      case "videoEmbedUrl": p.videoEmbedUrl = val; break;
     }
     setProgram(p);
   };
@@ -71,25 +51,15 @@ export function ProgramEdit(props: Props) {
 
   const handleSave = () => {
     if (validate()) {
-      ApiHelper.post("/programs", [program], "LessonsApi").then(data => {
-        setProgram(data);
-        props.updatedCallback(data);
-      });
+      ApiHelper.post("/programs", [program], "LessonsApi").then(data => { setProgram(data); props.updatedCallback(data); });
     }
   };
 
-  const handleDelete = () => {
-    if (window.confirm("Are you sure you wish to permanently delete this program?")) ApiHelper.delete("/programs/" + program.id.toString(), "LessonsApi").then(() => props.updatedCallback(null));
-  };
+  const handleDelete = () => { if (window.confirm("Are you sure you wish to permanently delete this program?")) ApiHelper.delete("/programs/" + program.id.toString(), "LessonsApi").then(() => props.updatedCallback(null)); };
 
-  const handleImageClick = (e: React.MouseEvent) => {
-    e.preventDefault();
-    setShowImageEditor(true);
-  };
+  const handleImageClick = (e: React.MouseEvent) => { e.preventDefault(); setShowImageEditor(true); };
 
-  useEffect(() => {
-    setProgram(props.program);
-  }, [props.program]);
+  useEffect(() => { setProgram(props.program); }, [props.program]);
 
   const getImageEditor = () => {
     if (showImageEditor) {
@@ -147,10 +117,7 @@ export function ProgramEdit(props: Props) {
               sx={{
                 color: "var(--c1d2)",
                 borderColor: "var(--c1d2)",
-                "&:hover": {
-                  borderColor: "var(--c1d1)",
-                  backgroundColor: "rgba(21, 101, 192, 0.1)"
-                }
+                "&:hover": { borderColor: "var(--c1d1)", backgroundColor: "rgba(21, 101, 192, 0.1)" }
               }}>
               Edit Categories
             </Button>
@@ -338,10 +305,7 @@ export function ProgramEdit(props: Props) {
             startIcon={<CancelIcon />}
             onClick={handleCancel}
             variant="outlined"
-            sx={{
-              color: "var(--c1d2)",
-              borderColor: "var(--c1d2)"
-            }}>
+            sx={{ color: "var(--c1d2)", borderColor: "var(--c1d2)" }}>
             Cancel
           </Button>
           {program.id && (

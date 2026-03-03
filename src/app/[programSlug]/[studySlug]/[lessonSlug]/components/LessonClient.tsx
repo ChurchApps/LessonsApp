@@ -11,21 +11,15 @@ import { Venue } from "@/components/lesson/Venue";
 import { FeedVenueInterface } from "@/helpers/interfaces";
 import { PresenterLink } from "./PresenterLink";
 
-interface Props {
-  lessonData: any;
-}
+interface Props { lessonData: any; }
 
 export default function LessonClient(props: Props) {
   const [selectedVenue, setSelectedVenue] = React.useState<FeedVenueInterface>(props.lessonData?.venues?.[0]);
   const [print, setPrint] = React.useState<number>(0);
 
-  const handleVenueChange = React.useCallback((v: FeedVenueInterface) => {
-    setSelectedVenue(v);
-  }, []);
+  const handleVenueChange = React.useCallback((v: FeedVenueInterface) => { setSelectedVenue(v); }, []);
 
-  const handlePrint = React.useCallback(() => {
-    setPrint(Math.random());
-  }, []);
+  const handlePrint = React.useCallback(() => { setPrint(Math.random()); }, []);
 
   return (
     <Layout withoutNavbar>

@@ -28,10 +28,7 @@ const LessonSidebar = React.memo((props: Props) => {
     const shouldAffix = window.scrollY > sidebar.offsetTop + 100 &&
       window.scrollY < document.documentElement.offsetHeight - footer.offsetHeight - window.innerHeight;
     if (shouldAffix) {
-      if (!inner.classList.contains("affix")) {
-        inner.classList.add("affix");
-        inner.style.maxWidth = sidebar.offsetWidth.toString() + "px";
-      }
+      if (!inner.classList.contains("affix")) { inner.classList.add("affix"); inner.style.maxWidth = sidebar.offsetWidth.toString() + "px"; }
     } else {
       if (inner.classList.contains("affix")) inner.classList.remove("affix");
     }
@@ -44,10 +41,7 @@ const LessonSidebar = React.memo((props: Props) => {
     for (let i = 0; i < elements.length; i++) {
       const el: any = elements[i];
       if (window.scrollY >= el.offsetTop - 20 && el.offsetTop > 0) {
-        if (el.offsetTop > maxTop) {
-          maxTop = el.offsetTop;
-          result = el.id.replace("section-", "sectionLink-");
-        }
+        if (el.offsetTop > maxTop) { maxTop = el.offsetTop; result = el.id.replace("section-", "sectionLink-"); }
       }
     }
 
@@ -60,22 +54,14 @@ const LessonSidebar = React.memo((props: Props) => {
     });
   }, []);
 
-  const handleScroll = React.useCallback(() => {
-    handleAffix();
-    handleHighlight();
-  }, [handleAffix, handleHighlight]);
+  const handleScroll = React.useCallback(() => { handleAffix(); handleHighlight(); }, [handleAffix, handleHighlight]);
 
   useEffect(() => {
     window.addEventListener("scroll", handleScroll);
-    return () => {
-      window.removeEventListener("scroll", handleScroll);
-    };
+    return () => { window.removeEventListener("scroll", handleScroll); };
   }, [handleScroll]);
 
-  const handleB1Share = React.useCallback((_e: React.MouseEvent) => {
-    setShareAnchor(null);
-    setShowB1Share(true);
-  }, []);
+  const handleB1Share = React.useCallback((_e: React.MouseEvent) => { setShareAnchor(null); setShowB1Share(true); }, []);
 
   const handleExport = React.useCallback((e: React.MouseEvent) => {
     e.preventDefault();
@@ -110,9 +96,7 @@ const LessonSidebar = React.memo((props: Props) => {
             fullWidth
             size="small"
             value={props.selectedVenue?.name}
-            onChange={e => {
-              props.onVenueChange(ArrayHelper.getOne(props.venues, "name", e.target.value));
-            }}>
+            onChange={e => { props.onVenueChange(ArrayHelper.getOne(props.venues, "name", e.target.value)); }}>
             {venueOptions}
           </Select>
         </Container>
@@ -123,10 +107,7 @@ const LessonSidebar = React.memo((props: Props) => {
               href="about:blank"
               style={{ color: "#28235d" }}
               title="Share"
-              onClick={e => {
-                e.preventDefault();
-                setShareAnchor(e.currentTarget);
-              }}>
+              onClick={e => { e.preventDefault(); setShareAnchor(e.currentTarget); }}>
               <Icon style={{ fontSize: 20 }}>share</Icon>
             </a>{" "}
             &nbsp;
@@ -134,10 +115,7 @@ const LessonSidebar = React.memo((props: Props) => {
               href="about:blank"
               style={{ color: "#28235d" }}
               title="Print"
-              onClick={e => {
-                e.preventDefault();
-                setShowPrintPreview(true);
-              }}>
+              onClick={e => { e.preventDefault(); setShowPrintPreview(true); }}>
               <Icon style={{ fontSize: 20 }}>print</Icon>
             </a>
           </span>
@@ -151,9 +129,7 @@ const LessonSidebar = React.memo((props: Props) => {
               contentDisplayName={props.selectedVenue.name}
               contentType="venue"
               contentId={props.selectedVenue.id}
-              onClose={() => {
-                setShowB1Share(false);
-              }}
+              onClose={() => { setShowB1Share(false); }}
             />
           )} */}
 
@@ -185,9 +161,7 @@ const LessonSidebar = React.memo((props: Props) => {
       {showPrintPreview && (
         <OlfPrintPreview
           feed={props.selectedVenue}
-          onClose={() => {
-            setShowPrintPreview(false);
-          }}
+          onClose={() => { setShowPrintPreview(false); }}
         />
       )}
     </div>

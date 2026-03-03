@@ -70,9 +70,7 @@ export function VenueClient(props: Props) {
         }}>
           <Tabs
             value={selectedTab}
-            onChange={(_e, newVal) => {
-              handleChange(newVal);
-            }}
+            onChange={(_e, newVal) => { handleChange(newVal); }}
             variant="scrollable"
             scrollButtons="auto"
             allowScrollButtonsMobile
@@ -83,16 +81,10 @@ export function VenueClient(props: Props) {
                 fontSize: isMobile ? "0.75rem" : "0.875rem",
                 padding: isMobile ? "6px 8px" : "12px 16px",
                 color: "#fff",
-                "&.Mui-selected": {
-                  backgroundColor: "#fff",
-                  color: "#1c75bc"
-                }
+                "&.Mui-selected": { backgroundColor: "#fff", color: "#1c75bc" }
               },
               "& .MuiTabs-indicator": { display: "none" },
-              "& .MuiTabs-scrollButtons": {
-                color: "#fff",
-                "&.Mui-disabled": { opacity: 0.3 }
-              }
+              "& .MuiTabs-scrollButtons": { color: "#fff", "&.Mui-disabled": { opacity: 0.3 } }
             }}>
             {result}
           </Tabs>
@@ -104,10 +96,7 @@ export function VenueClient(props: Props) {
   const handleChange = (newValue: string) => {
     setSelectedTab(newValue);
     const element = document.getElementById("section-" + newValue);
-    if (element) {
-      const scrollTop = element.offsetTop - (isMobile ? 80 : 100);
-      window.scrollTo({ top: scrollTop, behavior: "smooth" });
-    }
+    if (element) { const scrollTop = element.offsetTop - (isMobile ? 80 : 100); window.scrollTo({ top: scrollTop, behavior: "smooth" }); }
   };
 
   const handleHighlight = () => {
@@ -118,10 +107,7 @@ export function VenueClient(props: Props) {
     for (let i = 0; i < elements.length; i++) {
       const el: any = elements[i];
       if (window.scrollY >= el.offsetTop - offset && el.offsetTop > 0) {
-        if (el.offsetTop > maxTop) {
-          maxTop = el.offsetTop;
-          result = el.id.replace("section-", "");
-        }
+        if (el.offsetTop > maxTop) { maxTop = el.offsetTop; result = el.id.replace("section-", ""); }
       }
     }
 
@@ -131,9 +117,7 @@ export function VenueClient(props: Props) {
   useEffect(() => {
     window.addEventListener("scroll", handleHighlight);
 
-    return () => {
-      window.removeEventListener("scroll", handleHighlight);
-    };
+    return () => { window.removeEventListener("scroll", handleHighlight); };
   }, []);
 
   if (props.venue === null) {
@@ -148,10 +132,7 @@ export function VenueClient(props: Props) {
           minHeight: "100vh",
           position: "relative",
           // Force all child elements to respect container width
-          "& *": {
-            maxWidth: "100% !important",
-            boxSizing: "border-box"
-          }
+          "& *": { maxWidth: "100% !important", boxSizing: "border-box" }
         }}>
           <div id="b1Tabs">{getTabs()}</div>
           <Container maxWidth="lg" sx={{
@@ -186,10 +167,7 @@ export function VenueClient(props: Props) {
             <Grid container spacing={isMobile ? 1 : 2} sx={{ mb: 3 }}>
               <Grid size={{ xs: 12, sm: 4 }}>
                 {props.prevSchedule && (
-                  <Box sx={{
-                    textAlign: isMobile ? "left" : "left",
-                    fontSize: isMobile ? "0.875rem" : "1rem"
-                  }}>
+                  <Box sx={{ textAlign: isMobile ? "left" : "left", fontSize: isMobile ? "0.875rem" : "1rem" }}>
                     <Link
                       href={"/b1/venue/" + props.prevSchedule?.venueId + "?classroomId=" + props.classroom?.id}
                       style={{ textDecoration: "none" }}
@@ -212,10 +190,7 @@ export function VenueClient(props: Props) {
               </Grid>
               <Grid size={{ xs: 12, sm: 4 }}>
                 {props.nextSchedule && (
-                  <Box sx={{
-                    textAlign: isMobile ? "left" : "right",
-                    fontSize: isMobile ? "0.875rem" : "1rem"
-                  }}>
+                  <Box sx={{ textAlign: isMobile ? "left" : "right", fontSize: isMobile ? "0.875rem" : "1rem" }}>
                     <Link
                       href={"/b1/venue/" + props.nextSchedule?.venueId + "?classroomId=" + props.classroom?.id}
                       style={{ textDecoration: "none" }}
@@ -227,10 +202,7 @@ export function VenueClient(props: Props) {
               </Grid>
             </Grid>
 
-            <Box sx={{
-              mb: 3,
-              textAlign: isMobile ? "left" : "center"
-            }}>
+            <Box sx={{ mb: 3, textAlign: isMobile ? "left" : "center" }}>
               <h1 style={{
                 margin: 0,
                 fontSize: isMobile ? "1.5rem" : "2rem",
@@ -291,10 +263,7 @@ export function VenueClient(props: Props) {
                 overflowX: "auto",
                 maxWidth: "100%"
               },
-              "& code": {
-                wordBreak: "break-word",
-                whiteSpace: "pre-wrap"
-              },
+              "& code": { wordBreak: "break-word", whiteSpace: "pre-wrap" },
               "& table": {
                 width: "100%",
                 maxWidth: "100%",
@@ -353,10 +322,7 @@ export function VenueClient(props: Props) {
                   fontSize: "14px",
                   padding: "8px 12px !important"
                 },
-                "& .say p:nth-of-type(even)": {
-                  float: "none !important",
-                  marginLeft: "auto !important"
-                },
+                "& .say p:nth-of-type(even)": { float: "none !important", marginLeft: "auto !important" },
                 "& .actions": { paddingLeft: "8px !important" },
                 "& .actions li": { fontSize: "14px !important" }
               })

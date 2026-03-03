@@ -33,19 +33,11 @@ export class EnvironmentHelper {
     }
   };
 
-  static initDev = () => {
-    this.initStaging();
-    EnvironmentHelper.LessonsApi = process.env.NEXT_PUBLIC_LESSONS_API || EnvironmentHelper.LessonsApi;
-  };
+  static initDev = () => { this.initStaging(); EnvironmentHelper.LessonsApi = process.env.NEXT_PUBLIC_LESSONS_API || EnvironmentHelper.LessonsApi; };
 
   //NOTE: None of these values are secret.
-  static initStaging = () => {
-    EnvironmentHelper.LessonsApi = "https://api.staging.lessons.church";
-  };
+  static initStaging = () => { EnvironmentHelper.LessonsApi = "https://api.staging.lessons.church"; };
 
   //NOTE: None of these values are secret.
-  static initProd = () => {
-    EnvironmentHelper.LessonsApi = "https://api.lessons.church";
-    EnvironmentHelper.Common.GoogleAnalyticsTag = "G-JQWWX8YS7F";
-  };
+  static initProd = () => { EnvironmentHelper.LessonsApi = "https://api.lessons.church"; EnvironmentHelper.Common.GoogleAnalyticsTag = "G-JQWWX8YS7F"; };
 }

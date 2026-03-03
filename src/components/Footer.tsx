@@ -7,9 +7,7 @@ import Link from "next/link";
 export function Footer() {
   const [year, setYear] = useState<number | null>(null);
 
-  useEffect(() => {
-    setYear(new Date().getFullYear());
-  }, []);
+  useEffect(() => { setYear(new Date().getFullYear()); }, []);
 
   return (
     <div id="footer">

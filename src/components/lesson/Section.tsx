@@ -27,10 +27,7 @@ export function Section(props: Props) {
 
   const shouldHide = (id: string) => {
     let result = false;
-    if (props.customizations?.length > 0) {
-      const removeItems = ArrayHelper.getAll(props.customizations, "action", "remove");
-      result = ArrayHelper.getAll(removeItems, "contentId", id).length > 0;
-    }
+    if (props.customizations?.length > 0) { const removeItems = ArrayHelper.getAll(props.customizations, "action", "remove"); result = ArrayHelper.getAll(removeItems, "contentId", id).length > 0; }
     return result;
   };
 

@@ -66,12 +66,7 @@ export function DataTable<T extends Record<string, any>>({
         {data.map(item => (
           <TableRow
             key={item[keyField]?.toString() || Math.random()}
-            sx={{
-              "&:hover": {
-                backgroundColor: "rgba(0,0,0,0.04)",
-                cursor: onRowClick ? "pointer" : "default"
-              }
-            }}
+            sx={{ "&:hover": { backgroundColor: "rgba(0,0,0,0.04)", cursor: onRowClick ? "pointer" : "default" } }}
             onClick={onRowClick ? () => onRowClick(item) : undefined}>
             {columns.map((column, index) => (
               <TableCell key={index} align={column.align || "left"} sx={{ width: column.width }}>
@@ -86,10 +81,7 @@ export function DataTable<T extends Record<string, any>>({
                     <IconButton
                       key={index}
                       size="small"
-                      onClick={e => {
-                        e.stopPropagation();
-                        action.onClick(item);
-                      }}
+                      onClick={e => { e.stopPropagation(); action.onClick(item); }}
                       title={action.title}
                       sx={{ color: action.color || "action.active" }}>
                       {action.icon}

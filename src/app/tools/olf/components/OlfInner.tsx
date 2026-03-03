@@ -50,21 +50,11 @@ export default function OlfInner() {
     e.preventDefault();
     const d = { ...data };
     switch (e.currentTarget.name) {
-      case "name":
-        d.name = e.currentTarget.value;
-        break;
-      case "lessonName":
-        d.lessonName = e.currentTarget.value;
-        break;
-      case "lessonImage":
-        d.lessonImage = e.currentTarget.value;
-        break;
-      case "studyName":
-        d.studyName = e.currentTarget.value;
-        break;
-      case "programName":
-        d.programName = e.currentTarget.value;
-        break;
+      case "name": d.name = e.currentTarget.value; break;
+      case "lessonName": d.lessonName = e.currentTarget.value; break;
+      case "lessonImage": d.lessonImage = e.currentTarget.value; break;
+      case "studyName": d.studyName = e.currentTarget.value; break;
+      case "programName": d.programName = e.currentTarget.value; break;
     }
     setData(d);
   };
@@ -79,10 +69,7 @@ export default function OlfInner() {
     URL.revokeObjectURL(link.href);
   };
 
-  const handleUpload = () => {
-    const f: any = document.getElementById("fileUpload");
-    f.click();
-  };
+  const handleUpload = () => { const f: any = document.getElementById("fileUpload"); f.click(); };
 
   const handleFileChange = () => {
     const f = document.getElementById("fileUpload") as HTMLInputElement;
@@ -90,9 +77,7 @@ export default function OlfInner() {
     const reader = new FileReader();
     reader.onload = (e: any) => {
       setData(null);
-      setTimeout(() => {
-        setData(JSON.parse(e.target.result));
-      }, 50);
+      setTimeout(() => { setData(JSON.parse(e.target.result)); }, 50);
     };
     reader.readAsText(f.files[0]);
   };
@@ -119,17 +104,13 @@ export default function OlfInner() {
           {j !== 0 && (
             <SmallButton
               icon="arrow_upward"
-              onClick={() => {
-                moveAction(sectionIndex, j, "up");
-              }}
+              onClick={() => { moveAction(sectionIndex, j, "up"); }}
             />
           )}
           {j !== s.actions.length - 1 && (
             <SmallButton
               icon="arrow_downward"
-              onClick={() => {
-                moveAction(sectionIndex, j, "down");
-              }}
+              onClick={() => { moveAction(sectionIndex, j, "down"); }}
             />
           )}
         </TableCell>
@@ -137,10 +118,7 @@ export default function OlfInner() {
         <TableCell>
           <a
             href="about:blank"
-            onClick={e => {
-              e.preventDefault();
-              handleEditAction(sectionIndex, j);
-            }}>
+            onClick={e => { e.preventDefault(); handleEditAction(sectionIndex, j); }}>
             {a.actionType}
           </a>
         </TableCell>
@@ -161,27 +139,20 @@ export default function OlfInner() {
           {i !== 0 && (
             <SmallButton
               icon="arrow_upward"
-              onClick={() => {
-                moveSection(i, "up");
-              }}
+              onClick={() => { moveSection(i, "up"); }}
             />
           )}
           {i < data.sections.length - 1 && (
             <SmallButton
               icon="arrow_downward"
-              onClick={() => {
-                moveSection(i, "down");
-              }}
+              onClick={() => { moveSection(i, "down"); }}
             />
           )}
         </TableCell>
         <TableCell colSpan={2}>
           <a
             href="about:blank"
-            onClick={e => {
-              e.preventDefault();
-              setEditSectionIndex(i);
-            }}>
+            onClick={e => { e.preventDefault(); setEditSectionIndex(i); }}>
             {s.name}
           </a>
         </TableCell>
@@ -189,10 +160,7 @@ export default function OlfInner() {
           <SmallButton
             icon="add"
             text="Action"
-            onClick={() => {
-              setEditSectionIndex(i);
-              setEditActionIndex(-1);
-            }}
+            onClick={() => { setEditSectionIndex(i); setEditActionIndex(-1); }}
           />
         </TableCell>
       </TableRow>);
@@ -226,10 +194,7 @@ export default function OlfInner() {
     setData(d);
   };
 
-  const handleEditAction = (sectionIndex: number, index: number) => {
-    setEditSectionIndex(sectionIndex);
-    setEditActionIndex(index);
-  };
+  const handleEditAction = (sectionIndex: number, index: number) => { setEditSectionIndex(sectionIndex); setEditActionIndex(index); };
 
   let editAction = null;
   let editSection = null;
@@ -286,16 +251,9 @@ export default function OlfInner() {
   useEffect(() => {
     if (feedUrl) {
       fetch(feedUrl, { method: "GET", headers: { "Content-Type": "application/json" } })
-        .then(res => {
-          if (res.ok) return res.json();
-          else throw new Error(res.statusText);
-        })
-        .then(data => {
-          setData(data);
-        })
-        .catch(err => {
-          console.log(err);
-        });
+        .then(res => { if (res.ok) return res.json(); else throw new Error(res.statusText); })
+        .then(data => { setData(data); })
+        .catch(err => { console.log(err); });
     }
   }, [feedUrl]);
 
@@ -444,9 +402,7 @@ export default function OlfInner() {
                   <SmallButton
                     icon="print"
                     text="Print Preview"
-                    onClick={() => {
-                      setShowPrintPreview(true);
-                    }}
+                    onClick={() => { setShowPrintPreview(true); }}
                   />
                   <SmallButton icon="play_arrow" text="Play Media" onClick={loadPresenterData} />
                 </Stack>
@@ -505,9 +461,7 @@ export default function OlfInner() {
                   <SmallButton
                     icon="add"
                     text="Section"
-                    onClick={() => {
-                      setEditSectionIndex(-1);
-                    }}
+                    onClick={() => { setEditSectionIndex(-1); }}
                   />
                 </Box>
 
@@ -536,17 +490,13 @@ export default function OlfInner() {
         {showPrintPreview && (
           <OlfPrintPreview
             feed={data}
-            onClose={() => {
-              setShowPrintPreview(false);
-            }}
+            onClose={() => { setShowPrintPreview(false); }}
           />
         )}
         {presenterFiles && (
           <Presenter
             files={presenterFiles}
-            onClose={() => {
-              setPresenterFiles(null);
-            }}
+            onClose={() => { setPresenterFiles(null); }}
           />
         )}
       </>

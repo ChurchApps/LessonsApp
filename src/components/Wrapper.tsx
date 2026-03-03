@@ -11,10 +11,7 @@ import { Permissions, UserHelper } from "@/helpers";
 import { Themes } from "@/helpers/Themes";
 import { PortalHeader } from "./PortalHeader";
 
-interface Props {
-  pageTitle?: string;
-  children: React.ReactNode;
-}
+interface Props { pageTitle?: string; children: React.ReactNode; }
 
 export const Wrapper: React.FC<Props> = props => {
   const context = useUser();
@@ -23,9 +20,7 @@ export const Wrapper: React.FC<Props> = props => {
 
   const router = useRouter();
 
-  useEffect(() => {
-    setIsClient(true);
-  }, []);
+  useEffect(() => { setIsClient(true); }, []);
 
   // Protect portal routes - redirect to login if not authenticated
   useEffect(() => {
@@ -33,10 +28,7 @@ export const Wrapper: React.FC<Props> = props => {
       const path = window.location.pathname;
       const isPortalRoute = path.startsWith("/portal") || path.startsWith("/admin");
 
-      if (isPortalRoute && !ApiHelper.isAuthenticated) {
-        const returnUrl = encodeURIComponent(path);
-        router.push(`/login?returnUrl=${returnUrl}`);
-      }
+      if (isPortalRoute && !ApiHelper.isAuthenticated) { const returnUrl = encodeURIComponent(path); router.push(`/login?returnUrl=${returnUrl}`); }
     }
   }, [isClient, router]);
 
@@ -53,9 +45,7 @@ export const Wrapper: React.FC<Props> = props => {
 
   const selectedTab = getSelectedTab();
   //const dummyRouter = {}
-  const handleNavigate = (url: string) => {
-    router.push(url);
-  };
+  const handleNavigate = (url: string) => { router.push(url); };
 
   useEffect(() => {
     if (!isClient) return;
@@ -67,9 +57,7 @@ export const Wrapper: React.FC<Props> = props => {
       label="Home"
       icon="home"
       onNavigate={handleNavigate}
-      onClick={() => {
-        redirect("/");
-      }}
+      onClick={() => { redirect("/"); }}
       key="home"
     />);
 
@@ -79,9 +67,7 @@ export const Wrapper: React.FC<Props> = props => {
         label="Admin"
         icon="admin_panel_settings"
         onNavigate={handleNavigate}
-        onClick={() => {
-          router.push("/admin");
-        }}
+        onClick={() => { router.push("/admin"); }}
         selected={selectedTab === "admin"}
         key="admin"
       />);
@@ -93,9 +79,7 @@ export const Wrapper: React.FC<Props> = props => {
         label="Schedules"
         icon="calendar_month"
         onNavigate={handleNavigate}
-        onClick={() => {
-          router.push("/portal");
-        }}
+        onClick={() => { router.push("/portal"); }}
         selected={selectedTab === "cp"}
         key="cp"
       />);
@@ -107,10 +91,7 @@ export const Wrapper: React.FC<Props> = props => {
         label="External Providers"
         icon="groups"
         onNavigate={handleNavigate}
-        onClick={() => {
-          console.log("THIRD PARTY");
-          router.push("/portal/thirdParty");
-        }}
+        onClick={() => { console.log("THIRD PARTY"); router.push("/portal/thirdParty"); }}
         selected={selectedTab === "external"}
         key="external"
       />);

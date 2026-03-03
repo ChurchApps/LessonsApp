@@ -6,10 +6,7 @@ import { ApiHelper, FeedActionInterface, FeedFileInterface, UserHelper } from "@
 import { ImageModal } from "../ImageModal";
 import { VideoModal } from "../VideoModal";
 
-interface Props {
-  action: FeedActionInterface;
-  lessonId: string;
-}
+interface Props { action: FeedActionInterface; lessonId: string; }
 
 export function Action(props: Props) {
   const [showPreview, setShowPreview] = React.useState(false);
@@ -115,9 +112,7 @@ export function Action(props: Props) {
       </div>
       );
       break;
-    case "add-on":
-      result = <div>{props.action.content}</div>;
-      break;
+    case "add-on": result = <div>{props.action.content}</div>; break;
     case "play":
       const f = props.action.files?.[0];
       if (!f) {
@@ -147,10 +142,7 @@ export function Action(props: Props) {
           <a
             href={f.url}
             rel="noopener noreferrer"
-            onClick={e => {
-              e.preventDefault();
-              handlePreviewClick(f);
-            }}
+            onClick={e => { e.preventDefault(); handlePreviewClick(f); }}
             className="text">
             {props.action.content}
           </a>

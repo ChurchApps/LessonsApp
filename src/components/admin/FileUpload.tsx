@@ -19,17 +19,11 @@ export function FileUpload(props: Props) {
   const [uploadedFile, setUploadedFile] = useState<File>({} as File);
   const [uploadProgress, setUploadProgress] = useState(-1);
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    e.preventDefault();
-    setUploadedFile(e.target.files[0]);
-  };
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => { e.preventDefault(); setUploadedFile(e.target.files[0]); };
 
   const loadData = () => {
     if (props.fileId) {
-      ApiHelper.get("/files/" + props.fileId, "LessonsApi").then((data: FileInterface) => {
-        data.resourceId = props.resourceId;
-        setFile(data);
-      });
+      ApiHelper.get("/files/" + props.fileId, "LessonsApi").then((data: FileInterface) => { data.resourceId = props.resourceId; setFile(data); });
     } else {
       setFile({ resourceId: props.resourceId });
     }
@@ -39,12 +33,8 @@ export function FileUpload(props: Props) {
     new Promise((resolve, reject) => {
       const fileReader = new FileReader();
       fileReader.readAsDataURL(uploadedFile);
-      fileReader.onload = () => {
-        resolve(fileReader.result);
-      };
-      fileReader.onerror = error => {
-        reject(error);
-      };
+      fileReader.onload = () => { resolve(fileReader.result); };
+      fileReader.onerror = error => { reject(error); };
     });
 
   const handleSave = async () => {
@@ -58,10 +48,7 @@ export function FileUpload(props: Props) {
     console.log("Handling file save", f);
     const preUploaded: boolean = await preUpload();
     console.log("Preuploaded", preUploaded);
-    if (!preUploaded) {
-      const base64 = await convertBase64();
-      f.fileContents = base64 as string;
-    }
+    if (!preUploaded) { const base64 = await convertBase64(); f.fileContents = base64 as string; }
     const data: FileInterface[] = await ApiHelper.post("/files", [f], "LessonsApi");
     setFile(data[0]);
     props.saveCallback(data[0]);
@@ -69,10 +56,7 @@ export function FileUpload(props: Props) {
 
   const checkSave = () => {
     console.log("CHECK SAVE", props.pendingSave);
-    if (props.pendingSave) {
-      if (uploadedFile.size > 0) handleSave();
-      else props.saveCallback(file);
-    }
+    if (props.pendingSave) { if (uploadedFile.size > 0) handleSave(); else props.saveCallback(file); }
   };
 
   const getResourcePresigned = async () => {
@@ -96,27 +80,19 @@ export function FileUpload(props: Props) {
 
   //This will throw a CORS error if ran from localhost
   const postPresignedFile = (presigned: PresignedUploadInterface) => {
-    if (!presigned?.url) {
-      console.error("Invalid presigned response - missing URL");
-      return Promise.reject(new Error("Invalid presigned response"));
-    }
+    if (!presigned?.url) { console.error("Invalid presigned response - missing URL"); return Promise.reject(new Error("Invalid presigned response")); }
     const formData = new FormData();
     formData.append("acl", "public-read");
     formData.append("Content-Type", uploadedFile.type);
     for (const property in presigned.fields) formData.append(property, presigned.fields[property]);
     const f = document.getElementById("fileUpload") as HTMLInputElement;
-    if (!f || !f.files || !f.files[0]) {
-      console.error("File input not found or no file selected");
-      return Promise.reject(new Error("No file selected"));
-    }
+    if (!f || !f.files || !f.files[0]) { console.error("File input not found or no file selected"); return Promise.reject(new Error("No file selected")); }
     formData.append("file", f.files[0]);
     //const requestOptions: RequestInit = { method: "POST", body: formData };
 
     const axiosConfig = {
       headers: { "Content-Type": "multipart/form-data" },
-      onUploadProgress: (data: AxiosProgressEvent) => {
-        setUploadProgress(Math.round((100 * data.loaded) / (data.total || 1)));
-      }
+      onUploadProgress: (data: AxiosProgressEvent) => { setUploadProgress(Math.round((100 * data.loaded) / (data.total || 1))); }
     };
 
     return axios.post(presigned.url, formData, axiosConfig);
@@ -197,10 +173,7 @@ export function FileUpload(props: Props) {
           color: "var(--c1)",
           borderColor: "var(--c1)",
           backgroundColor: "var(--admin-surface)",
-          "&:hover": {
-            borderColor: "var(--c1d1)",
-            backgroundColor: "var(--c1l7)"
-          }
+          "&:hover": { borderColor: "var(--c1d1)", backgroundColor: "var(--c1l7)" }
         }}
       >
         Choose File

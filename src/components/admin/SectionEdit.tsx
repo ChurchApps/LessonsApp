@@ -4,10 +4,7 @@ import { List as ListIcon, Save as SaveIcon, Cancel as CancelIcon, Delete as Del
 import { ErrorMessages } from "@churchapps/apphelper";
 import { ApiHelper, SectionInterface } from "@/helpers";
 
-interface Props {
-  section: SectionInterface;
-  updatedCallback: (section: SectionInterface, created: boolean) => void;
-}
+interface Props { section: SectionInterface; updatedCallback: (section: SectionInterface, created: boolean) => void; }
 
 export function SectionEdit(props: Props) {
   const [section, setSection] = useState<SectionInterface>({} as SectionInterface);
@@ -16,25 +13,16 @@ export function SectionEdit(props: Props) {
   const handleCancel = () => props.updatedCallback(section, false);
 
   const handleKeyDown = (e: React.KeyboardEvent<any>) => {
-    if (e.key === "Enter") {
-      e.preventDefault();
-      handleSave();
-    }
+    if (e.key === "Enter") { e.preventDefault(); handleSave(); }
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     e.preventDefault();
     const s = { ...section };
     switch (e.currentTarget.name) {
-      case "name":
-        s.name = e.currentTarget.value;
-        break;
-      case "materials":
-        s.materials = e.currentTarget.value;
-        break;
-      case "sort":
-        s.sort = parseInt(e.currentTarget.value);
-        break;
+      case "name": s.name = e.currentTarget.value; break;
+      case "materials": s.materials = e.currentTarget.value; break;
+      case "sort": s.sort = parseInt(e.currentTarget.value); break;
     }
     setSection(s);
   };
@@ -48,23 +36,15 @@ export function SectionEdit(props: Props) {
 
   const handleSave = () => {
     if (validate()) {
-      ApiHelper.post("/sections", [section], "LessonsApi").then(data => {
-        setSection(data);
-        props.updatedCallback(data[0], !props.section.id);
-      });
+      ApiHelper.post("/sections", [section], "LessonsApi").then(data => { setSection(data); props.updatedCallback(data[0], !props.section.id); });
     }
   };
 
   const handleDelete = () => {
-    if (window.confirm("Are you sure you wish to permanently delete this section?")) {
-      ApiHelper.delete("/sections/" + section.id.toString(), "LessonsApi").then(() =>
-        props.updatedCallback(null, false));
-    }
+    if (window.confirm("Are you sure you wish to permanently delete this section?")) { ApiHelper.delete("/sections/" + section.id.toString(), "LessonsApi").then(() => props.updatedCallback(null, false)); }
   };
 
-  useEffect(() => {
-    setSection(props.section);
-  }, [props.section]);
+  useEffect(() => { setSection(props.section); }, [props.section]);
 
   return (
     <Paper

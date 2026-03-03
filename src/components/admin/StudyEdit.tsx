@@ -7,10 +7,7 @@ import { ApiHelper, ProgramInterface, StudyInterface } from "@/helpers";
 
 const ImageEditor = dynamic(() => import("../index").then(mod => ({ default: mod.ImageEditor })), { loading: () => <div>Loading image editor...</div> });
 
-interface Props {
-  study: StudyInterface;
-  updatedCallback: (study: StudyInterface) => void;
-}
+interface Props { study: StudyInterface; updatedCallback: (study: StudyInterface) => void; }
 
 export function StudyEdit(props: Props) {
   const [study, setStudy] = useState<StudyInterface>(null);
@@ -22,10 +19,7 @@ export function StudyEdit(props: Props) {
   const handleCancel = () => props.updatedCallback(study);
 
   const handleKeyDown = (e: React.KeyboardEvent<any>) => {
-    if (e.key === "Enter") {
-      e.preventDefault();
-      handleSave();
-    }
+    if (e.key === "Enter") { e.preventDefault(); handleSave(); }
   };
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement> | SelectChangeEvent<string>) => {
     e.preventDefault();
@@ -44,9 +38,7 @@ export function StudyEdit(props: Props) {
   };
 
   const loadProgram = (programId: string) => {
-    ApiHelper.get("/programs/" + programId, "LessonsApi").then((data: ProgramInterface) => {
-      setProgram(data);
-    });
+    ApiHelper.get("/programs/" + programId, "LessonsApi").then((data: ProgramInterface) => { setProgram(data); });
   };
 
   const handleImageUpdated = (dataUrl: string) => {
@@ -66,21 +58,13 @@ export function StudyEdit(props: Props) {
 
   const handleSave = () => {
     if (validate()) {
-      ApiHelper.post("/studies", [study], "LessonsApi").then(data => {
-        setStudy(data);
-        props.updatedCallback(data);
-      });
+      ApiHelper.post("/studies", [study], "LessonsApi").then(data => { setStudy(data); props.updatedCallback(data); });
     }
   };
 
-  const handleDelete = () => {
-    if (window.confirm("Are you sure you wish to permanently delete this study?")) ApiHelper.delete("/studies/" + study.id.toString(), "LessonsApi").then(() => props.updatedCallback(null));
-  };
+  const handleDelete = () => { if (window.confirm("Are you sure you wish to permanently delete this study?")) ApiHelper.delete("/studies/" + study.id.toString(), "LessonsApi").then(() => props.updatedCallback(null)); };
 
-  const handleImageClick = (e: React.MouseEvent) => {
-    e.preventDefault();
-    setShowImageEditor(true);
-  };
+  const handleImageClick = (e: React.MouseEvent) => { e.preventDefault(); setShowImageEditor(true); };
   const handleSlugValidation = () => {
     const s = { ...study };
     s.slug = SlugHelper.slugifyString(s.slug, "urlSlug");
@@ -346,10 +330,7 @@ export function StudyEdit(props: Props) {
             startIcon={<CancelIcon />}
             onClick={handleCancel}
             variant="outlined"
-            sx={{
-              color: "var(--c1d2)",
-              borderColor: "var(--c1d2)"
-            }}>
+            sx={{ color: "var(--c1d2)", borderColor: "var(--c1d2)" }}>
             Cancel
           </Button>
           {study.id && (

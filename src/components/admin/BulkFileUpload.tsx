@@ -15,25 +15,17 @@ export function BulkFileUpload(props: Props) {
   const [uploadedFiles, setUploadedFiles] = useState<FileList>(null);
   const [uploadProgress, setUploadProgress] = useState(-1);
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    e.preventDefault();
-    setUploadedFiles(e.target.files);
-  };
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => { e.preventDefault(); setUploadedFiles(e.target.files); };
 
   const handleSave = async () => {
     const files: FileInterface[] = [];
-    for (let i = 0; i < uploadedFiles.length; i++) {
-      const uf = uploadedFiles[i];
-      files.push({ size: uf.size, fileType: uf.type, fileName: uf.name, resourceId: props.resourceId });
-    }
+    for (let i = 0; i < uploadedFiles.length; i++) { const uf = uploadedFiles[i]; files.push({ size: uf.size, fileType: uf.type, fileName: uf.name, resourceId: props.resourceId }); }
     await preUpload();
     const data: FileInterface[] = await ApiHelper.post("/files", files, "LessonsApi");
     props.saveCallback(data);
   };
 
-  const checkSave = () => {
-    if (props.pendingSave) handleSave();
-  };
+  const checkSave = () => { if (props.pendingSave) handleSave(); };
 
   const preUpload = async () => {
     for (let i = 0; i < uploadedFiles.length; i++) {
@@ -125,10 +117,7 @@ export function BulkFileUpload(props: Props) {
           color: "var(--c1)",
           borderColor: "var(--c1)",
           backgroundColor: "var(--admin-surface)",
-          "&:hover": {
-            borderColor: "var(--c1d1)",
-            backgroundColor: "var(--c1l7)"
-          }
+          "&:hover": { borderColor: "var(--c1d1)", backgroundColor: "var(--c1l7)" }
         }}
       >
         Choose Files

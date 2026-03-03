@@ -5,10 +5,7 @@ import { ErrorMessages } from "@churchapps/apphelper";
 import { MarkdownEditor } from "@churchapps/apphelper-markdown";
 import { FeedLessonInterface } from "@/helpers";
 
-interface Props {
-  lesson: FeedLessonInterface;
-  updatedCallback: (lesson: FeedLessonInterface, cancelled: boolean) => void;
-}
+interface Props { lesson: FeedLessonInterface; updatedCallback: (lesson: FeedLessonInterface, cancelled: boolean) => void; }
 
 export function OllLessonEdit(props: Props) {
   const [lesson, setLesson] = useState<FeedLessonInterface>(null);
@@ -41,17 +38,11 @@ export function OllLessonEdit(props: Props) {
     return errors.length === 0;
   };
 
-  const handleSave = () => {
-    if (validate()) props.updatedCallback(lesson, false);
-  };
+  const handleSave = () => { if (validate()) props.updatedCallback(lesson, false); };
 
-  const handleDelete = () => {
-    if (window.confirm("Are you sure you wish to delete this lesson?")) props.updatedCallback(null, false);
-  };
+  const handleDelete = () => { if (window.confirm("Are you sure you wish to delete this lesson?")) props.updatedCallback(null, false); };
 
-  useEffect(() => {
-    setLesson(props.lesson);
-  }, [props.lesson]);
+  useEffect(() => { setLesson(props.lesson); }, [props.lesson]);
 
   if (!lesson) {
     return <></>;
@@ -128,10 +119,7 @@ export function OllLessonEdit(props: Props) {
               startIcon={<CancelIcon />}
               variant="outlined"
               onClick={handleCancel}
-              sx={{
-                color: "var(--c1d2)",
-                borderColor: "var(--c1d2)"
-              }}>
+              sx={{ color: "var(--c1d2)", borderColor: "var(--c1d2)" }}>
             Cancel
             </Button>
             {props.lesson.id && (

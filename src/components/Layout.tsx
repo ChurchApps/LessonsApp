@@ -27,9 +27,7 @@ export function Layout(props: Props) {
     }
   };
 
-  const getImage = () => {
-    if (props.image) return <meta property="og:image" content={props.image}></meta>;
-  };
+  const getImage = () => { if (props.image) return <meta property="og:image" content={props.image}></meta>; };
 
   return (
     <>

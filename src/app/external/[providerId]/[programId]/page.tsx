@@ -26,9 +26,7 @@ export default function ProgramPage() {
     setFilteredStudies(program.studies);
   };
 
-  useEffect(() => {
-    loadData();
-  }, [category]);
+  useEffect(() => { loadData(); }, [category]);
 
   const video = program.videoEmbedUrl && <EmbeddedVideo videoEmbedUrl={program.videoEmbedUrl} title={program.name} />;
 
@@ -48,10 +46,7 @@ export default function ProgramPage() {
             {video && (
               <a
                 href="about:blank"
-                onClick={e => {
-                  e.preventDefault();
-                  setShowVideo(true);
-                }}
+                onClick={e => { e.preventDefault(); setShowVideo(true); }}
                 className="cta">
                 <Icon style={{ float: "left", marginRight: 10 }}>play_circle</Icon>Watch Trailer
               </a>

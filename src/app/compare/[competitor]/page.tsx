@@ -17,10 +17,7 @@ interface ComparisonData {
     lessonsChurch: boolean | string;
     competitor: boolean | string;
   }[];
-  pricing: {
-    lessonsChurch: string;
-    competitor: string;
-  };
+  pricing: { lessonsChurch: string; competitor: string; };
   verdict: string;
   ageGroups?: string;
 }
@@ -43,10 +40,7 @@ const comparisons: Record<string, ComparisonData> = {
       { name: "Mobile Volunteer App", lessonsChurch: true, competitor: false },
       { name: "Open Source", lessonsChurch: true, competitor: false }
     ],
-    pricing: {
-      lessonsChurch: "100% Free",
-      competitor: "$450-600/year"
-    },
+    pricing: { lessonsChurch: "100% Free", competitor: "$450-600/year" },
     verdict: "Both offer quality biblical curriculum for children. Answers in Genesis focuses on creation science, while Lessons.church offers broader topics - completely free. For budget-conscious churches, Lessons.church is the clear choice."
   },
   "think-orange": {
@@ -68,10 +62,7 @@ const comparisons: Record<string, ComparisonData> = {
       { name: "FreeShow Integration", lessonsChurch: "Free", competitor: "Paid subscription" },
       { name: "Open Source", lessonsChurch: true, competitor: false }
     ],
-    pricing: {
-      lessonsChurch: "100% Free",
-      competitor: "$1,800-2,400/year"
-    },
+    pricing: { lessonsChurch: "100% Free", competitor: "$1,800-2,400/year" },
     verdict: "Orange curriculum is highly polished with extensive parent resources. However, at $1,800+/year, it's out of reach for many churches. Lessons.church offers similar video-based curriculum with full ChMS integration and free FreeShow support at zero cost."
   },
   "rightnow-media": {
@@ -91,10 +82,7 @@ const comparisons: Record<string, ComparisonData> = {
       { name: "Per-Member Pricing", lessonsChurch: "None", competitor: "$7/person/month" },
       { name: "Open Source", lessonsChurch: true, competitor: false }
     ],
-    pricing: {
-      lessonsChurch: "100% Free",
-      competitor: "$7/person/month (~$2,000-5,000/year)"
-    },
+    pricing: { lessonsChurch: "100% Free", competitor: "$7/person/month (~$2,000-5,000/year)" },
     verdict: "RightNow Media excels as a video library for personal devotions and small groups. Lessons.church focuses on structured classroom curriculum with scheduling tools. If you need classroom curriculum, Lessons.church is free and purpose-built."
   },
   "grow-curriculum": {
@@ -114,10 +102,7 @@ const comparisons: Record<string, ComparisonData> = {
       { name: "TV/Display App", lessonsChurch: true, competitor: false },
       { name: "Open Source", lessonsChurch: true, competitor: false }
     ],
-    pricing: {
-      lessonsChurch: "100% Free",
-      competitor: "$999+/year"
-    },
+    pricing: { lessonsChurch: "100% Free", competitor: "$999+/year" },
     verdict: "Grow Curriculum offers quality content with strong graphics packages. At $999/year, it's a significant investment. Lessons.church provides comparable video curriculum plus classroom technology tools at no cost."
   },
   "group-publishing": {
@@ -137,10 +122,7 @@ const comparisons: Record<string, ComparisonData> = {
       { name: "TV/Display App", lessonsChurch: true, competitor: false },
       { name: "Open Source", lessonsChurch: true, competitor: false }
     ],
-    pricing: {
-      lessonsChurch: "100% Free",
-      competitor: "$200-800/quarter"
-    },
+    pricing: { lessonsChurch: "100% Free", competitor: "$200-800/quarter" },
     verdict: "Group Publishing has decades of experience with hands-on, experiential curriculum. The quarterly purchase model adds up quickly. Lessons.church offers video-based curriculum with digital tools at no ongoing cost."
   }
 };
@@ -186,10 +168,7 @@ export default function ComparePage() {
       script.text = JSON.stringify(schema);
       document.head.appendChild(script);
 
-      return () => {
-        const el = document.getElementById("compare-schema");
-        if (el) el.remove();
-      };
+      return () => { const el = document.getElementById("compare-schema"); if (el) el.remove(); };
     }
   }, [data]);
 

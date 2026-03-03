@@ -55,34 +55,19 @@ export default function Venue() {
   const pathId = params.id;
 
 
+  useEffect(() => { if (!isAuthenticated) router.push("/login"); }, []);
+  useEffect(() => { if (isAuthenticated) loadData(); }, [pathId, isAuthenticated]);
   useEffect(() => {
-    if (!isAuthenticated) router.push("/login");
-  }, []);
-  useEffect(() => {
-    if (isAuthenticated) loadData();
-  }, [pathId, isAuthenticated]);
-  useEffect(() => {
-    if (isAuthenticated) {
-      loadResources();
-      loadVideos();
-    }
+    if (isAuthenticated) { loadResources(); loadVideos(); }
   }, [lesson, study, isAuthenticated]);
 
-  useEffect(() => {
-    if (isAuthenticated) loadAssets();
-  }, [lessonResources, studyResources, programResources, isAuthenticated]);
+  useEffect(() => { if (isAuthenticated) loadAssets(); }, [lessonResources, studyResources, programResources, isAuthenticated]);
 
   function loadResources() {
     if (lesson && study) {
-      ApiHelper.get("/resources/content/lesson/" + lesson.id, "LessonsApi").then((data: any) => {
-        setLessonResources(data);
-      });
-      ApiHelper.get("/resources/content/study/" + study.id, "LessonsApi").then((data: any) => {
-        setStudyResources(data);
-      });
-      ApiHelper.get("/resources/content/program/" + study.programId, "LessonsApi").then((data: any) => {
-        setProgramResources(data);
-      });
+      ApiHelper.get("/resources/content/lesson/" + lesson.id, "LessonsApi").then((data: any) => { setLessonResources(data); });
+      ApiHelper.get("/resources/content/study/" + study.id, "LessonsApi").then((data: any) => { setStudyResources(data); });
+      ApiHelper.get("/resources/content/program/" + study.programId, "LessonsApi").then((data: any) => { setProgramResources(data); });
     }
   }
 
@@ -100,9 +85,7 @@ export default function Venue() {
         const allResources = [].concat(lessonResources).concat(studyResources).concat(programResources);
         if (allResources.length > 0) {
           const resourceIds: string[] = ArrayHelper.getUniqueValues(allResources, "id");
-          ApiHelper.get("/assets/resourceIds?resourceIds=" + resourceIds.join(","), "LessonsApi").then((data: any) => {
-            setAllAssets(data);
-          });
+          ApiHelper.get("/assets/resourceIds?resourceIds=" + resourceIds.join(","), "LessonsApi").then((data: any) => { setAllAssets(data); });
         }
       }
     }
@@ -113,22 +96,12 @@ export default function Venue() {
       setVenue(v);
       ApiHelper.get("/lessons/" + v.lessonId, "LessonsApi").then((data: any) => {
         setLesson(data);
-        ApiHelper.get("/studies/" + data.studyId, "LessonsApi").then((d: any) => {
-          setStudy(d);
-        });
+        ApiHelper.get("/studies/" + data.studyId, "LessonsApi").then((d: any) => { setStudy(d); });
       });
-      ApiHelper.get("/sections/venue/" + v.id, "LessonsApi").then((data: any) => {
-        setSections(data);
-      });
-      ApiHelper.get("/roles/public/lesson/" + v.lessonId, "LessonsApi").then((data: any) => {
-        setRoles(data);
-      });
-      ApiHelper.get("/actions/public/lesson/" + v.lessonId, "LessonsApi").then((data: any) => {
-        setActions(data);
-      });
-      ApiHelper.get("/addOns/public", "LessonsApi").then((data: any) => {
-        setAddOns(data);
-      });
+      ApiHelper.get("/sections/venue/" + v.id, "LessonsApi").then((data: any) => { setSections(data); });
+      ApiHelper.get("/roles/public/lesson/" + v.lessonId, "LessonsApi").then((data: any) => { setRoles(data); });
+      ApiHelper.get("/actions/public/lesson/" + v.lessonId, "LessonsApi").then((data: any) => { setActions(data); });
+      ApiHelper.get("/addOns/public", "LessonsApi").then((data: any) => { setAddOns(data); });
     });
   }
 
@@ -139,25 +112,13 @@ export default function Venue() {
     setCopySection(null);
   };
 
-  const handleUpdated = () => {
-    loadData();
-    clearEdits();
-  };
+  const handleUpdated = () => { loadData(); clearEdits(); };
 
-  const handleSectionUpdated = (section: SectionInterface, created: boolean) => {
-    handleUpdated();
-    if (created) createRole(section.id);
-  };
+  const handleSectionUpdated = (section: SectionInterface, created: boolean) => { handleUpdated(); if (created) createRole(section.id); };
 
-  const handleRoleUpdated = (role: RoleInterface, created: boolean) => {
-    handleUpdated();
-    if (created) createAction(role.id);
-  };
+  const handleRoleUpdated = (role: RoleInterface, created: boolean) => { handleUpdated(); if (created) createAction(role.id); };
 
-  const handleActionUpdated = (action: ActionInterface, created: boolean) => {
-    handleUpdated();
-    if (created) createAction(action.roleId, action.sort + 1);
-  };
+  const handleActionUpdated = (action: ActionInterface, created: boolean) => { handleUpdated(); if (created) createAction(action.roleId, action.sort + 1); };
 
   const createSection = () => {
     clearEdits();
@@ -168,10 +129,7 @@ export default function Venue() {
     });
   };
 
-  const duplicateSection = () => {
-    clearEdits();
-    setCopySection({ sourceLessonId: lesson.id });
-  };
+  const duplicateSection = () => { clearEdits(); setCopySection({ sourceLessonId: lesson.id }); };
 
   const createRole = (sectionId: string) => {
     const sort = ArrayHelper.getAll(roles, "sectionId", sectionId).length + 1;
@@ -183,9 +141,7 @@ export default function Venue() {
     if (!sort) sort = ArrayHelper.getAll(actions, "roleId", roleId).length + 1;
     clearEdits();
     // The markdown editor won't refresh if you simple send it new content.  This delay is to force a full re-render.
-    setTimeout(() => {
-      setEditAction({ lessonId: venue.lessonId, roleId: roleId, sort: sort, actionType: "Say", content: "" });
-    }, 50);
+    setTimeout(() => { setEditAction({ lessonId: venue.lessonId, roleId: roleId, sort: sort, actionType: "Say", content: "" }); }, 50);
   };
 
   const getSectionsTree = () => {
@@ -216,10 +172,7 @@ export default function Venue() {
               disablePadding
               sx={{ borderBottom: "1px solid var(--admin-border)" }}>
               <ListItemButton
-                onClick={() => {
-                  clearEdits();
-                  setEditSection(s);
-                }}
+                onClick={() => { clearEdits(); setEditSection(s); }}
                 sx={{
                   py: 1,
                   minHeight: 48,
@@ -239,10 +192,7 @@ export default function Venue() {
               <Box sx={{ pr: 1 }}>
                 <IconButton
                   size="small"
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    createRole(s.id);
-                  }}
+                  onClick={(e) => { e.stopPropagation(); createRole(s.id); }}
                   sx={{
                     color: "var(--c1d2)",
                     "&:hover": { backgroundColor: "rgba(21, 101, 192, 0.1)" }
@@ -271,10 +221,7 @@ export default function Venue() {
           disablePadding
           sx={{ borderBottom: "1px solid var(--admin-border-light)" }}>
           <ListItemButton
-            onClick={() => {
-              clearEdits();
-              setEditRole(r);
-            }}
+            onClick={() => { clearEdits(); setEditRole(r); }}
             sx={{
               py: 0.75,
               minHeight: 40,
@@ -294,10 +241,7 @@ export default function Venue() {
           <Box sx={{ pr: 1 }}>
             <IconButton
               size="small"
-              onClick={(e) => {
-                e.stopPropagation();
-                createAction(r.id);
-              }}
+              onClick={(e) => { e.stopPropagation(); createAction(r.id); }}
               sx={{
                 color: "var(--c1d1)",
                 "&:hover": { backgroundColor: "rgba(21, 101, 192, 0.1)" }
@@ -321,15 +265,9 @@ export default function Venue() {
       <ListItem
         key={a.id}
         disablePadding
-        sx={{
-          ml: 4,
-          borderBottom: "1px solid var(--admin-border-light)"
-        }}>
+        sx={{ ml: 4, borderBottom: "1px solid var(--admin-border-light)" }}>
         <ListItemButton
-          onClick={() => {
-            clearEdits();
-            setEditAction(a);
-          }}
+          onClick={() => { clearEdits(); setEditAction(a); }}
           sx={{
             py: 0.5,
             minHeight: 32,
@@ -376,18 +314,12 @@ export default function Venue() {
     return result;
   };
 
-  const handleAddMenuClick = (event: React.MouseEvent<HTMLElement>) => {
-    setMenuAnchor(event.currentTarget);
-  };
+  const handleAddMenuClick = (event: React.MouseEvent<HTMLElement>) => { setMenuAnchor(event.currentTarget); };
 
-  const handleAddMenuClose = () => {
-    setMenuAnchor(null);
-  };
+  const handleAddMenuClose = () => { setMenuAnchor(null); };
 
   const clearCache = () => {
-    startTransition(async () => {
-      revalidate("all");
-    });
+    startTransition(async () => { revalidate("all"); });
   };
 
   return (
@@ -403,10 +335,7 @@ export default function Venue() {
             sx={{
               color: "white",
               border: "1px solid rgba(255,255,255,0.5)",
-              "&:hover": {
-                borderColor: "white",
-                backgroundColor: "rgba(255,255,255,0.1)"
-              }
+              "&:hover": { borderColor: "white", backgroundColor: "rgba(255,255,255,0.1)" }
             }}>
             <AddIcon />
           </IconButton>
@@ -417,10 +346,7 @@ export default function Venue() {
             sx={{
               color: "white",
               borderColor: "rgba(255,255,255,0.5)",
-              "&:hover": {
-                borderColor: "white",
-                backgroundColor: "rgba(255,255,255,0.1)"
-              }
+              "&:hover": { borderColor: "white", backgroundColor: "rgba(255,255,255,0.1)" }
             }}>
             Clear Cache
           </Button>
@@ -492,19 +418,13 @@ export default function Venue() {
             }
           }}>
           <MenuItem
-            onClick={() => {
-              createSection();
-              handleAddMenuClose();
-            }}
+            onClick={() => { createSection(); handleAddMenuClose(); }}
             sx={{ py: 1.5 }}>
             <AddIcon sx={{ mr: 2, color: "var(--c1d2)" }} />
             Create New Section
           </MenuItem>
           <MenuItem
-            onClick={() => {
-              duplicateSection();
-              handleAddMenuClose();
-            }}
+            onClick={() => { duplicateSection(); handleAddMenuClose(); }}
             sx={{ py: 1.5 }}>
             <CopyIcon sx={{ mr: 2, color: "var(--c1d2)" }} />
             Copy Existing Section

@@ -57,10 +57,7 @@ function ClientLayout({ children }: { children: React.ReactNode }) {
   };
 
   const customErrorHandler = (error: ErrorLogInterface) => {
-    switch (error.errorType) {
-      case "401": setErrors(["Access denied when loading " + error.message]); break;
-      case "500": setErrors(["Server error when loading " + error.message]); break;
-    }
+    switch (error.errorType) { case "401": setErrors(["Access denied when loading " + error.message]); break; case "500": setErrors(["Server error when loading " + error.message]); break; }
   };
 
   const mdTheme = createTheme({

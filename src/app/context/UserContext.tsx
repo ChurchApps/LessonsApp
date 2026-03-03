@@ -10,9 +10,7 @@ import {
 
 const UserContext = React.createContext<UserContextInterface | undefined>(undefined);
 
-interface Props {
-  children: React.ReactNode;
-}
+interface Props { children: React.ReactNode; }
 
 export const UserProvider = ({ children }: Props) => {
   const [user, setUser] = React.useState<UserInterface>(null);

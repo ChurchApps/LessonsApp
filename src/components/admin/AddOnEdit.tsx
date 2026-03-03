@@ -8,10 +8,7 @@ import { FileUpload } from "./FileUpload";
 
 const ImageEditor = dynamic(() => import("../index").then(mod => ({ default: mod.ImageEditor })), { loading: () => <div>Loading image editor...</div> });
 
-interface Props {
-  addOn: AddOnInterface;
-  updatedCallback: (addOn: AddOnInterface) => void;
-}
+interface Props { addOn: AddOnInterface; updatedCallback: (addOn: AddOnInterface) => void; }
 
 export function AddOnEdit(props: Props) {
   const [addOn, setAddOn] = useState<AddOnInterface>(null);
@@ -22,10 +19,7 @@ export function AddOnEdit(props: Props) {
 
   const handleCancel = () => props.updatedCallback(addOn);
   const handleKeyDown = (e: React.KeyboardEvent<any>) => {
-    if (e.key === "Enter") {
-      e.preventDefault();
-      handleSave();
-    }
+    if (e.key === "Enter") { e.preventDefault(); handleSave(); }
   };
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement> | SelectChangeEvent<string>) => {
     let reloadContent = false;
@@ -33,15 +27,9 @@ export function AddOnEdit(props: Props) {
     const a = { ...addOn };
     const val = e.target.value;
     switch (e.target.name) {
-      case "category":
-        a.category = val;
-        break;
-      case "name":
-        a.name = val;
-        break;
-      case "image":
-        a.image = val;
-        break;
+      case "category": a.category = val; break;
+      case "name": a.name = val; break;
+      case "image": a.image = val; break;
       case "addOnType":
         a.addOnType = val;
         reloadContent = true;
@@ -56,11 +44,7 @@ export function AddOnEdit(props: Props) {
     e.preventDefault();
     const ex = { ...externalVideo };
     const val = e.target.value;
-    switch (e.target.name) {
-      case "videoId":
-        ex.videoId = val;
-        break;
-    }
+    switch (e.target.name) { case "videoId": ex.videoId = val; break; }
     setExternalVideo(ex);
   };
 
@@ -93,9 +77,7 @@ export function AddOnEdit(props: Props) {
           ev.contentType = "addOn";
           ev.contentId = data[0].id;
           ev.name = data[0].name;
-          ApiHelper.post("/externalVideos", [ev], "LessonsApi").then(() => {
-            props.updatedCallback(data[0]);
-          });
+          ApiHelper.post("/externalVideos", [ev], "LessonsApi").then(() => { props.updatedCallback(data[0]); });
         }
       });
     }
@@ -113,19 +95,11 @@ export function AddOnEdit(props: Props) {
     />
   );
 
-  const handleDelete = () => {
-    if (window.confirm("Are you sure you wish to permanently delete this add-on?")) ApiHelper.delete("/addOns/" + addOn.id.toString(), "LessonsApi").then(() => props.updatedCallback(null));
-  };
+  const handleDelete = () => { if (window.confirm("Are you sure you wish to permanently delete this add-on?")) ApiHelper.delete("/addOns/" + addOn.id.toString(), "LessonsApi").then(() => props.updatedCallback(null)); };
 
-  const handleImageClick = (e: React.MouseEvent) => {
-    e.preventDefault();
-    setShowImageEditor(true);
-  };
+  const handleImageClick = (e: React.MouseEvent) => { e.preventDefault(); setShowImageEditor(true); };
 
-  useEffect(() => {
-    setAddOn(props.addOn);
-    loadContent(props.addOn);
-  }, [props.addOn]);
+  useEffect(() => { setAddOn(props.addOn); loadContent(props.addOn); }, [props.addOn]);
 
   const getImageEditor = () => {
     if (showImageEditor) {
@@ -187,12 +161,7 @@ export function AddOnEdit(props: Props) {
   };
 
   const getTypeFields = () => {
-    switch (addOn.addOnType) {
-      case "file":
-        return getFileFields();
-      default:
-        return getExternalVideoFields();
-    }
+    switch (addOn.addOnType) { case "file": return getFileFields(); default: return getExternalVideoFields(); }
   };
 
   const loadContent = async (a: AddOnInterface) => {

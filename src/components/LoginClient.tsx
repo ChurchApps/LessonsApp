@@ -27,9 +27,7 @@ export function LoginClient({ showLogo, redirectAfterLogin, loginContainerCssPro
     const cookieObj: any = {};
     cookieString.split(";").forEach(cookie => {
       const [key, value] = cookie.trim().split("=");
-      if (key && value) {
-        cookieObj[key] = value;
-      }
+      if (key && value) { cookieObj[key] = value; }
     });
     setCookies(cookieObj);
   }, []);

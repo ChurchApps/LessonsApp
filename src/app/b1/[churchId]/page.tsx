@@ -9,9 +9,7 @@ import { MetaHelper } from "@/helpers/MetaHelper";
 
 type PageParams = { churchId: string };
 
-export async function generateMetadata(): Promise<Metadata> {
-  return MetaHelper.getMetaData();
-}
+export async function generateMetadata(): Promise<Metadata> { return MetaHelper.getMetaData(); }
 
 export default async function Venue({ params }: { params: Promise<PageParams> }) {
   const { churchId } = await params;
@@ -28,9 +26,7 @@ export default async function Venue({ params }: { params: Promise<PageParams> })
     return result;
   };
 
-  if (classrooms?.length === 1) {
-    redirect("/b1/classroom/" + classrooms[0].id);
-  }
+  if (classrooms?.length === 1) { redirect("/b1/classroom/" + classrooms[0].id); }
 
   return (
     <Layout withoutNavbar={true} withoutFooter={true}>

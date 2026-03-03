@@ -5,9 +5,7 @@ import { LocationOn as LocationIcon, Add as AddIcon, Edit as EditIcon } from "@m
 import { ApiHelper, VenueInterface } from "@/helpers";
 import { VenueEdit } from "../index";
 
-interface Props {
-  lessonId: string;
-}
+interface Props { lessonId: string; }
 
 export function VenueList(props: Props) {
   const [venues, setVenues] = useState<VenueInterface[]>(null);
@@ -15,9 +13,7 @@ export function VenueList(props: Props) {
 
   const loadData = () => {
     if (props.lessonId) {
-      ApiHelper.get("/venues/lesson/" + props.lessonId, "LessonsApi").then((data: any) => {
-        setVenues(data);
-      });
+      ApiHelper.get("/venues/lesson/" + props.lessonId, "LessonsApi").then((data: any) => { setVenues(data); });
     }
   };
 
@@ -84,9 +80,7 @@ export function VenueList(props: Props) {
     );
   };
 
-  const handleAddNew = () => {
-    setEditVenue({ lessonId: props.lessonId });
-  };
+  const handleAddNew = () => { setEditVenue({ lessonId: props.lessonId }); };
 
   useEffect(loadData, [props.lessonId]);
 
@@ -94,10 +88,7 @@ export function VenueList(props: Props) {
     return (
       <VenueEdit
         venue={editVenue}
-        updatedCallback={() => {
-          setEditVenue(null);
-          loadData();
-        }}
+        updatedCallback={() => { setEditVenue(null); loadData(); }}
       />
     );
   } else {
@@ -139,10 +130,7 @@ export function VenueList(props: Props) {
             sx={{
               color: "var(--c1d2)",
               borderColor: "var(--c1d2)",
-              "&:hover": {
-                borderColor: "var(--c1d1)",
-                backgroundColor: "rgba(21, 101, 192, 0.1)"
-              }
+              "&:hover": { borderColor: "var(--c1d1)", backgroundColor: "rgba(21, 101, 192, 0.1)" }
             }}>
             Add Venue
           </Button>

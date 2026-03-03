@@ -17,25 +17,16 @@ export function ResourceEdit(props: Props) {
   const handleCancel = () => props.updatedCallback(resource);
 
   const handleKeyDown = (e: React.KeyboardEvent<any>) => {
-    if (e.key === "Enter") {
-      e.preventDefault();
-      handleSave();
-    }
+    if (e.key === "Enter") { e.preventDefault(); handleSave(); }
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement> | SelectChangeEvent<string>) => {
     e.preventDefault();
     const r = { ...resource };
     switch (e.target.name) {
-      case "name":
-        r.name = e.target.value;
-        break;
-      case "bundleId":
-        r.bundleId = e.target.value;
-        break;
-      case "loopVideo":
-        r.loopVideo = e.target.value === "true";
-        break;
+      case "name": r.name = e.target.value; break;
+      case "bundleId": r.bundleId = e.target.value; break;
+      case "loopVideo": r.loopVideo = e.target.value === "true"; break;
     }
     setResource(r);
   };
@@ -49,10 +40,7 @@ export function ResourceEdit(props: Props) {
 
   const handleSave = () => {
     if (validate()) {
-      ApiHelper.post("/resources", [resource], "LessonsApi").then(data => {
-        setResource(data);
-        props.updatedCallback(data);
-      });
+      ApiHelper.post("/resources", [resource], "LessonsApi").then(data => { setResource(data); props.updatedCallback(data); });
     }
   };
 
@@ -68,9 +56,7 @@ export function ResourceEdit(props: Props) {
     let programId = "";
     let studyId = "";
     switch (currentBundle.contentType) {
-      case "program":
-        programId = currentBundle.contentId;
-        break;
+      case "program": programId = currentBundle.contentId; break;
       case "study":
         studyId = currentBundle.contentId;
         let study: StudyInterface = await ApiHelper.get("/studies/" + studyId, "LessonsApi");
@@ -89,9 +75,7 @@ export function ResourceEdit(props: Props) {
 
   useEffect(() => {
     setResource(props.resource);
-    ApiHelper.get("/bundles/" + props.resource.bundleId, "LessonsApi").then(bundle => {
-      loadBundles(bundle);
-    });
+    ApiHelper.get("/bundles/" + props.resource.bundleId, "LessonsApi").then(bundle => { loadBundles(bundle); });
   }, [props.resource]);
 
   const getBundleOptions = () => {
