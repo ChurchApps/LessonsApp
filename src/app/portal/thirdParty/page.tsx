@@ -97,7 +97,6 @@ export default function ThirdParty() {
     <Wrapper>
       <Box sx={{ p: 0 }}>
         <PageHeader
-          icon={<ExtensionIcon />}
           title="External Lesson Providers"
           subtitle="Integrate third-party content sources"
         >

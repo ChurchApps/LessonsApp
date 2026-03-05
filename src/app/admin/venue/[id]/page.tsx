@@ -3,7 +3,7 @@
 import { useParams, useRouter } from "next/navigation";
 import { startTransition, useEffect, useState } from "react";
 import { Box, Button, CircularProgress, IconButton, List, ListItem, ListItemButton, ListItemIcon, ListItemText, Menu, MenuItem, Paper, Stack, Typography } from "@mui/material";
-import { Add as AddIcon, Clear as ClearIcon, ContentCopy as CopyIcon, List as ListIcon, Person as PersonIcon, Check as CheckIcon, LocationOn as LocationIcon } from "@mui/icons-material";
+import { Add as AddIcon, Clear as ClearIcon, ContentCopy as CopyIcon, List as ListIcon, Person as PersonIcon, Check as CheckIcon } from "@mui/icons-material";
 import { ActionEdit, RoleEdit, SectionCopy, SectionEdit } from "@/components";
 import { PageHeader } from "@churchapps/apphelper";
 import { Wrapper } from "@/components/Wrapper";
@@ -326,7 +326,6 @@ export default function Venue() {
     <Wrapper>
       <Box sx={{ p: 0 }}>
         <PageHeader
-          icon={<LocationIcon />}
           title={`${lesson?.name || "Lesson"}: ${venue?.name || "Venue"}`}
           subtitle="Manage sections, roles, and actions for this venue"
         >

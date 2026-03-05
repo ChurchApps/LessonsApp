@@ -81,7 +81,6 @@ export default function Admin() {
     <Wrapper>
       <Box sx={{ p: 0 }}>
         <PageHeader
-          icon={<BarChartIcon />}
           title={`Stats for ${program?.name || "Program"}`}
           subtitle="Download statistics and church engagement metrics"
         />

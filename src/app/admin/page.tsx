@@ -488,7 +488,6 @@ export default function Admin() {
   return (
     <Wrapper>
       <PageHeader
-        icon={<SchoolIcon />}
         title="Program Management"
         subtitle="Manage programs, studies, and lessons for your curriculum"
       >

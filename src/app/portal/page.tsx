@@ -2,7 +2,6 @@
 
 import { redirect } from "next/navigation";
 import { useEffect, useState } from "react";
-import { School as SchoolIcon } from "@mui/icons-material";
 import { Box, Grid, Paper } from "@mui/material";
 import { ClassroomList, HomeConnect, ScheduleList } from "@/components";
 import { Wrapper } from "@/components/Wrapper";
@@ -55,7 +54,6 @@ export default function CP() {
     <Wrapper>
       <Box sx={{ p: 0 }}>
         <PageHeader
-          icon={<SchoolIcon />}
           title="Classroom Management"
           subtitle="Schedule lessons and manage classroom content"
         />

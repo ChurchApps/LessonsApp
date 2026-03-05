@@ -103,7 +103,6 @@ export default function Admin() {
     <Wrapper>
       <Box sx={{ p: 0 }}>
         <PageHeader
-          icon={<ExtensionIcon />}
           title="Add-ons"
           subtitle="Manage additional content and media resources"
         >
