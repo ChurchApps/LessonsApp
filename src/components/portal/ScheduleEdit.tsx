@@ -1,11 +1,14 @@
 import { useEffect, useState } from "react";
-import { CalendarMonth as CalendarIcon,
+import {
+  CalendarMonth as CalendarIcon,
   Cancel as CancelIcon,
   Delete as DeleteIcon,
   OpenInNew as OpenInNewIcon,
   Print as PrintIcon,
-  Save as SaveIcon } from "@mui/icons-material";
-import { Box,
+  Save as SaveIcon
+} from "@mui/icons-material";
+import {
+  Box,
   Button,
   FormControl,
   IconButton,
@@ -16,7 +19,8 @@ import { Box,
   SelectChangeEvent,
   Stack,
   TextField,
-  Typography } from "@mui/material";
+  Typography
+} from "@mui/material";
 import { ArrayHelper, DateHelper, ErrorMessages } from "@churchapps/apphelper";
 import { ApiHelper, ExternalProviderInterface, LessonTreeInterface, ScheduleInterface } from "@/helpers";
 
@@ -92,15 +96,12 @@ export function ScheduleEdit(props: Props) {
   const handleCancel = () => props.updatedCallback(schedule);
 
   const handleKeyDown = (e: React.KeyboardEvent<any>) => {
-    if (e.key === "Enter") {
-      e.preventDefault();
-      handleSave();
-    }
+    if (e.key === "Enter") { e.preventDefault(); handleSave(); }
   };
 
   const handleProviderChange = (e: SelectChangeEvent<string>) => {
     e.preventDefault();
-    let s = { ...schedule };
+    const s = { ...schedule };
     s.externalProviderId = e.target.value.replace("lessons.church", "");
     if (s.externalProviderId === "") loadInternal();
     else loadExternalProviderData(externalProviders, e.target.value);
@@ -109,19 +110,19 @@ export function ScheduleEdit(props: Props) {
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement> | SelectChangeEvent<string>) => {
     e.preventDefault();
-    let s = { ...schedule };
+    const s = { ...schedule };
     switch (e.target.name) {
-    case "scheduledDate": s.scheduledDate = new Date(e.target.value); break;
-    case "program": s.programId = e.target.value; break;
-    case "study": s.studyId = e.target.value; break;
-    case "lesson": s.lessonId = e.target.value; break;
-    case "venue": s.venueId = e.target.value; break;
+      case "scheduledDate": s.scheduledDate = new Date(e.target.value); break;
+      case "program": s.programId = e.target.value; break;
+      case "study": s.studyId = e.target.value; break;
+      case "lesson": s.lessonId = e.target.value; break;
+      case "venue": s.venueId = e.target.value; break;
     }
     setSchedule(s);
   };
 
   const validate = () => {
-    let errors = [];
+    const errors = [];
     if (schedule.scheduledDate === null) errors.push("Please enter a schedule name.");
     setErrors(errors);
     return errors.length === 0;
@@ -138,16 +139,11 @@ export function ScheduleEdit(props: Props) {
       const s = { ...schedule };
       s.displayName = getDisplayName();
 
-      ApiHelper.post("/schedules", [s], "LessonsApi").then(data => {
-        setSchedule(data);
-        props.updatedCallback(data);
-      });
+      ApiHelper.post("/schedules", [s], "LessonsApi").then(data => { setSchedule(data); props.updatedCallback(data); });
     }
   };
 
-  const handleDelete = () => {
-    if (window.confirm("Are you sure you wish to permanently delete this schedule?")) ApiHelper.delete("/schedules/" + schedule.id.toString(), "LessonsApi").then(() => props.updatedCallback(null));
-  };
+  const handleDelete = () => { if (window.confirm("Are you sure you wish to permanently delete this schedule?")) ApiHelper.delete("/schedules/" + schedule.id.toString(), "LessonsApi").then(() => props.updatedCallback(null)); };
 
   const getProviderOptions = () => {
     const result: React.JSX.Element[] = [];
@@ -171,7 +167,7 @@ export function ScheduleEdit(props: Props) {
   const getLessonOptions = () => {
     const result: React.JSX.Element[] = [];
     currentStudy?.lessons?.forEach((l: any) => {
-      let sx: any = {};
+      const sx: any = {};
       const existing: ScheduleInterface = ArrayHelper.getOne(props.schedules, "lessonId", l.id);
       if (existing && existing?.scheduledDate !== schedule.scheduledDate) sx.color = "#999";
       result.push(<MenuItem value={l.id} sx={sx}>
@@ -198,15 +194,9 @@ export function ScheduleEdit(props: Props) {
         size="small"
         startIcon={<OpenInNewIcon />}
         endIcon={<PrintIcon />}
-        onClick={e => {
-          e.preventDefault();
-          window.open("/tools/olf?feedUrl=" + encodeURIComponent(currentVenue.apiUrl), "_blank");
-        }}
+        onClick={e => { e.preventDefault(); window.open("/tools/olf?feedUrl=" + encodeURIComponent(currentVenue.apiUrl), "_blank"); }}
         variant="outlined"
-        sx={{
-          color: "var(--c1d2)",
-          borderColor: "var(--c1d2)"
-        }}>
+        sx={{ color: "var(--c1d2)", borderColor: "var(--c1d2)" }}>
           Preview / Print
       </Button>);
     }
@@ -231,10 +221,7 @@ export function ScheduleEdit(props: Props) {
       startIcon={<CancelIcon />}
       onClick={handleCancel}
       variant="outlined"
-      sx={{
-        color: "var(--c1d2)",
-        borderColor: "var(--c1d2)"
-      }}>
+      sx={{ color: "var(--c1d2)", borderColor: "var(--c1d2)" }}>
         Cancel
     </Button>);
 
@@ -265,9 +252,7 @@ export function ScheduleEdit(props: Props) {
     }
   };
 
-  useEffect(() => {
-    loadData();
-  }, [props.schedule]);
+  useEffect(() => { loadData(); }, [props.schedule]);
 
   if (!schedule) return <></>;
 

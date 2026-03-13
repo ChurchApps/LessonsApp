@@ -20,19 +20,14 @@ export function PersonInner() {
 
   const person = context?.person || UserHelper.person;
   console.log("Person", person);
-  useEffect(() => {
-    loadData();
-  }, [person]);
+  useEffect(() => { loadData(); }, [person]);
 
   const loadData = () => {
     const person = context?.person || UserHelper.person;
     console.log("PersonInner loadData", person);
     if (context.person) {
-      let url = "/classrooms/person";
-      ApiHelper.get(url, "LessonsApi").then((c: ClassroomInterface[]) => {
-        if (c.length === 0) redirect("/b1/" + (params.get("churchId") || context.userChurch.church.id));
-        else setClassrooms(c);
-      });
+      const url = "/classrooms/person";
+      ApiHelper.get(url, "LessonsApi").then((c: ClassroomInterface[]) => { if (c.length === 0) redirect("/b1/" + (params.get("churchId") || context.userChurch.church.id)); else setClassrooms(c); });
     }
   };
 

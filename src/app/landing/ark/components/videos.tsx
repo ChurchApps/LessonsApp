@@ -15,30 +15,21 @@ export function Videos() {
           <Grid size={{ md: 4, xs: 12 }}>
             <a
               href="about:blank"
-              onClick={e => {
-                e.preventDefault();
-                setVimeoPreviewId("750138454");
-              }}>
+              onClick={e => { e.preventDefault(); setVimeoPreviewId("750138454"); }}>
               <img src="/images/landing/ark-video-1.png" alt="Ark Kids Junior" className="img-fluid" />
             </a>
           </Grid>
           <Grid size={{ md: 4, xs: 12 }}>
             <a
               href="about:blank"
-              onClick={e => {
-                e.preventDefault();
-                setVimeoPreviewId("754251052");
-              }}>
+              onClick={e => { e.preventDefault(); setVimeoPreviewId("754251052"); }}>
               <img src="/images/landing/ark-video-2.png" alt="Ark Kids" className="img-fluid" />
             </a>
           </Grid>
           <Grid size={{ md: 4, xs: 12 }}>
             <a
               href="about:blank"
-              onClick={e => {
-                e.preventDefault();
-                setVimeoPreviewId("750131877");
-              }}>
+              onClick={e => { e.preventDefault(); setVimeoPreviewId("750131877"); }}>
               <img src="/images/landing/ark-video-3.png" alt="Ark Kids" className="img-fluid" />
             </a>
           </Grid>

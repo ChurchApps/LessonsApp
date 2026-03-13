@@ -2,10 +2,7 @@ import Image from "next/image";
 import React from "react";
 import { Button, Dialog, DialogActions, DialogContent, DialogTitle } from "@mui/material";
 
-interface Props {
-  onClose: () => void;
-  url?: string;
-}
+interface Props { onClose: () => void; url?: string; }
 
 export const ImageModal: React.FC<Props> = (props: Props) => {
   const getImageElement = () => {

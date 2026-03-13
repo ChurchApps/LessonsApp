@@ -36,10 +36,7 @@ let client: OramaClient | null = null;
 
 function getClient(): OramaClient {
   if (!client) {
-    client = new OramaClient({
-      endpoint: "https://cloud.orama.run/v1/indexes/lessons-v0ztnp",
-      api_key: "WhbbkClNXUSLZfgeJIz7TRBOl2RfkHeW"
-    });
+    client = new OramaClient({ endpoint: "https://cloud.orama.run/v1/indexes/lessons-v0ztnp", api_key: "WhbbkClNXUSLZfgeJIz7TRBOl2RfkHeW" });
   }
   return client;
 }
@@ -49,10 +46,7 @@ function getClient(): OramaClient {
  */
 function applyTypeBoost(results: SearchResult[]): SearchResult[] {
   return results
-    .map(r => ({
-      ...r,
-      score: r.score * (TYPE_BOOST[r.type] || 1.0)
-    }))
+    .map(r => ({ ...r, score: r.score * (TYPE_BOOST[r.type] || 1.0) }))
     .sort((a, b) => b.score - a.score);
 }
 

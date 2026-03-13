@@ -3,9 +3,7 @@ import { Box, Container, Typography } from "@mui/material";
 import { Layout } from "@/components/Layout";
 import { SearchResults } from "./SearchResults";
 
-interface Props {
-  searchParams: Promise<{ q?: string }>;
-}
+interface Props { searchParams: Promise<{ q?: string }>; }
 
 export async function generateMetadata(props: Props): Promise<Metadata> {
   const { q } = await props.searchParams;

@@ -6,10 +6,7 @@ import { ApiHelper, FeedActionInterface, FeedFileInterface, UserHelper } from "@
 import { ImageModal } from "../ImageModal";
 import { VideoModal } from "../VideoModal";
 
-interface Props {
-  action: FeedActionInterface;
-  lessonId: string;
-}
+interface Props { action: FeedActionInterface; lessonId: string; }
 
 export function Action(props: Props) {
   const [showPreview, setShowPreview] = React.useState(false);
@@ -94,51 +91,49 @@ export function Action(props: Props) {
   let result = <></>;
 
   switch (props.action.actionType) {
-  case "note":
-    result = (
+    case "note":
+      result = (
       <div className="note">
         <MarkdownPreviewLight value={props.action.content} />
       </div>
-    );
-    break;
-  case "do":
-    result = (
+      );
+      break;
+    case "do":
+      result = (
       <div className="actions">
         <MarkdownPreviewLight value={props.action.content} />
       </div>
-    );
-    break;
-  case "say":
-    result = (
+      );
+      break;
+    case "say":
+      result = (
       <div className="say">
         <MarkdownPreviewLight value={props.action.content} />
       </div>
-    );
-    break;
-  case "add-on":
-    result = <div>{props.action.content}</div>;
-    break;
-  case "play":
-    const f = props.action.files?.[0];
-    if (!f) {
-      result = (
+      );
+      break;
+    case "add-on": result = <div>{props.action.content}</div>; break;
+    case "play":
+      const f = props.action.files?.[0];
+      if (!f) {
+        result = (
         <div className="playAction">
           <a href="#" className="text">
             {props.action.content}
           </a>
         </div>
-      );
-    } else {
-      let duration = null;
-      if (f?.seconds > 0) {
-        const min = Math.floor(f.seconds / 60);
-        const sec = f.seconds % 60;
-        duration = <span className="duration">{min.toString() + ":" + sec.toString().padStart(2, "0")}</span>;
-      }
-      let thumbnail = f.thumbnail || f.url || "";
-      if (thumbnail.indexOf(".mp4") > -1 || thumbnail.indexOf(".webm") > -1) thumbnail = "";
+        );
+      } else {
+        let duration = null;
+        if (f?.seconds > 0) {
+          const min = Math.floor(f.seconds / 60);
+          const sec = f.seconds % 60;
+          duration = <span className="duration">{min.toString() + ":" + sec.toString().padStart(2, "0")}</span>;
+        }
+        let thumbnail = f.thumbnail || f.url || "";
+        if (thumbnail.indexOf(".mp4") > -1 || thumbnail.indexOf(".webm") > -1) thumbnail = "";
 
-      result = (
+        result = (
         <div className="playAction">
           {duration}
           {thumbnail && (
@@ -147,10 +142,7 @@ export function Action(props: Props) {
           <a
             href={f.url}
             rel="noopener noreferrer"
-            onClick={e => {
-              e.preventDefault();
-              handlePreviewClick(f);
-            }}
+            onClick={e => { e.preventDefault(); handlePreviewClick(f); }}
             className="text">
             {props.action.content}
           </a>
@@ -159,9 +151,9 @@ export function Action(props: Props) {
           )}
           {!f.streamUrl && showPreview && <ImageModal onClose={() => setShowPreview(false)} url={f.url} />}
         </div>
-      );
-    }
-    break;
+        );
+      }
+      break;
   }
 
   const handlePreviewClick = (file: FeedFileInterface) => {
@@ -170,7 +162,7 @@ export function Action(props: Props) {
     try {
       AnalyticsHelper.logEvent("Preview", action, label);
     } catch (error) {
-      console.warn('Analytics logging failed:', error);
+      console.warn("Analytics logging failed:", error);
     }
     const download = {
       lessonId: props.lessonId,

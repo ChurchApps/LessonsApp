@@ -3,7 +3,6 @@ import { Container, Grid, Accordion, AccordionSummary, AccordionDetails, Typogra
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import { Metadata } from "next";
 import { MetaHelper } from "@/helpers/MetaHelper";
-import Link from "next/link";
 
 const faqs = [
   {
@@ -22,10 +21,7 @@ const faqs = [
     question: "How many video lessons are available?",
     answer: "We currently have over 1,100 lessons available across 189 studies from 12 curriculum providers. New content is added regularly as partner churches and curriculum companies contribute."
   },
-  {
-    question: "Can I use Lessons.church for multiple campuses?",
-    answer: "Yes, there are no limits on the number of campuses or classrooms. Use Lessons.church across all your locations at no additional cost."
-  },
+  { question: "Can I use Lessons.church for multiple campuses?", answer: "Yes, there are no limits on the number of campuses or classrooms. Use Lessons.church across all your locations at no additional cost." },
   {
     question: "How does the classroom scheduling work?",
     answer: "Our portal allows you to schedule which lessons play in each classroom. You can plan weeks or months in advance, and the Venue TV app will automatically display the scheduled content."
@@ -62,10 +58,7 @@ const faqs = [
     question: "How do I get started with Lessons.church?",
     answer: "Simply register for a free account at lessons.church/register, browse the available curriculum, schedule lessons for your classrooms, and download the Venue app. You can be up and running in minutes."
   },
-  {
-    question: "Is Lessons.church open source?",
-    answer: "Yes, all our code is open source and available on GitHub at github.com/ChurchApps. Churches can contribute improvements, and developers can see exactly how the platform works."
-  }
+  { question: "Is Lessons.church open source?", answer: "Yes, all our code is open source and available on GitHub at github.com/ChurchApps. Churches can contribute improvements, and developers can see exactly how the platform works." }
 ];
 
 export async function generateMetadata(): Promise<Metadata> {
@@ -80,10 +73,7 @@ export default function FAQPage() {
     "mainEntity": faqs.map(faq => ({
       "@type": "Question",
       "name": faq.question,
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": faq.answer
-      }
+      "acceptedAnswer": { "@type": "Answer", "text": faq.answer }
     }))
   };
 

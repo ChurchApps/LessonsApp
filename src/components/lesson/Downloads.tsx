@@ -2,10 +2,7 @@ import { Icon } from "@mui/material";
 import { AnalyticsHelper, CommonEnvironmentHelper } from "@churchapps/apphelper";
 import { ApiHelper, FeedDownloadInterface, UserHelper } from "@/helpers";
 
-interface Props {
-  downloads: FeedDownloadInterface[];
-  lessonId: string;
-}
+interface Props { downloads: FeedDownloadInterface[]; lessonId: string; }
 
 export function Downloads(props: Props) {
   const trackDownload = (download: FeedDownloadInterface) => {
@@ -15,7 +12,7 @@ export function Downloads(props: Props) {
       try {
         AnalyticsHelper.logEvent("Download", action, label);
       } catch (error) {
-        console.warn('Analytics logging failed:', error);
+        console.warn("Analytics logging failed:", error);
       }
     }
     if (!download.files || !download.files[0]) return;
@@ -38,9 +35,7 @@ export function Downloads(props: Props) {
       result.push(<li key={"download-" + idx}>
         <a
           href={d.files[0].url}
-          onClick={e => {
-            trackDownload(d);
-          }}
+          onClick={_e => { trackDownload(d); }}
           download={true}>
           <Icon>download</Icon>
           {d?.name}

@@ -4,10 +4,12 @@ import { useParams, useSearchParams } from "next/navigation";
 import React, { useEffect } from "react";
 import { ApiHelper } from "@churchapps/apphelper";
 import { EnvironmentHelper } from "@/helpers/EnvironmentHelper";
-import { ClassroomInterface,
+import {
+  ClassroomInterface,
   CustomizationInterface,
   FeedVenueInterface,
-  ScheduleInterface } from "@/helpers/interfaces";
+  ScheduleInterface
+} from "@/helpers/interfaces";
 import { VenueClient } from "./components/VenueClient";
 
 type PageParams = { id: string };
@@ -19,19 +21,13 @@ export default function B1Venue() {
   const autoPrint = searchParams.get("autoPrint") === "1";
   const [data, setData] = React.useState<any>(null);
 
-  const loadInternal = async () => {
-    const venue: FeedVenueInterface = await ApiHelper.get("/venues/public/feed/" + params.id, "LessonsApi");
-    return venue;
-  };
+  const loadInternal = async () => { const venue: FeedVenueInterface = await ApiHelper.get("/venues/public/feed/" + params.id, "LessonsApi"); return venue; };
 
-  const loadExternal = async (externalProviderId: string, venueId: string) => {
-    const venue = await ApiHelper.get("/externalProviders/" + externalProviderId + "/venue/" + venueId, "LessonsApi");
-    return venue;
-  };
+  const loadExternal = async (externalProviderId: string, venueId: string) => { const venue = await ApiHelper.get("/externalProviders/" + externalProviderId + "/venue/" + venueId, "LessonsApi"); return venue; };
 
   const loadData = async () => {
     EnvironmentHelper.init();
-    let search = new URLSearchParams(typeof window !== "undefined" ? window.location.search : "");
+    const search = new URLSearchParams(typeof window !== "undefined" ? window.location.search : "");
     const externalProviderId = search.get("externalProviderId");
     let venue: FeedVenueInterface = null;
     if (externalProviderId) venue = await loadExternal(externalProviderId, params.id.toString());
@@ -59,9 +55,7 @@ export default function B1Venue() {
   };
 
   //const {classroom, customizations, currentSchedule, prevSchedule, nextSchedule, venue } = await loadData();
-  useEffect(() => {
-    loadData();
-  }, []);
+  useEffect(() => { loadData(); }, []);
 
   return (
     <VenueClient

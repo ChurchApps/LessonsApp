@@ -5,14 +5,9 @@ import { Box, Button, FormControl, Grid, IconButton, InputLabel, MenuItem, Paper
 import { ErrorMessages, SlugHelper } from "@churchapps/apphelper";
 import { ApiHelper, ProgramInterface, StudyInterface } from "@/helpers";
 
-const ImageEditor = dynamic(() => import("../index").then(mod => ({ default: mod.ImageEditor })), {
-  loading: () => <div>Loading image editor...</div>
-});
+const ImageEditor = dynamic(() => import("../index").then(mod => ({ default: mod.ImageEditor })), { loading: () => <div>Loading image editor...</div> });
 
-interface Props {
-  study: StudyInterface;
-  updatedCallback: (study: StudyInterface) => void;
-}
+interface Props { study: StudyInterface; updatedCallback: (study: StudyInterface) => void; }
 
 export function StudyEdit(props: Props) {
   const [study, setStudy] = useState<StudyInterface>(null);
@@ -24,31 +19,26 @@ export function StudyEdit(props: Props) {
   const handleCancel = () => props.updatedCallback(study);
 
   const handleKeyDown = (e: React.KeyboardEvent<any>) => {
-    if (e.key === "Enter") {
-      e.preventDefault();
-      handleSave();
-    }
+    if (e.key === "Enter") { e.preventDefault(); handleSave(); }
   };
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement> | SelectChangeEvent<string>) => {
     e.preventDefault();
-    let p = { ...study };
+    const p = { ...study };
     const val = e.target.value;
     switch (e.target.name) {
-    case "name": p.name = val; break;
-    case "slug": p.slug = val; break;
-    case "shortDescription": p.shortDescription = val; break;
-    case "description": p.description = val; break;
-    case "videoEmbedUrl": p.videoEmbedUrl = val; break;
-    case "live": p.live = val === "true"; break;
-    case "sort": p.sort = parseInt(val); break;
+      case "name": p.name = val; break;
+      case "slug": p.slug = val; break;
+      case "shortDescription": p.shortDescription = val; break;
+      case "description": p.description = val; break;
+      case "videoEmbedUrl": p.videoEmbedUrl = val; break;
+      case "live": p.live = val === "true"; break;
+      case "sort": p.sort = parseInt(val); break;
     }
     setStudy(p);
   };
 
   const loadProgram = (programId: string) => {
-    ApiHelper.get("/programs/" + programId, "LessonsApi").then((data: ProgramInterface) => {
-      setProgram(data);
-    });
+    ApiHelper.get("/programs/" + programId, "LessonsApi").then((data: ProgramInterface) => { setProgram(data); });
   };
 
   const handleImageUpdated = (dataUrl: string) => {
@@ -59,7 +49,7 @@ export function StudyEdit(props: Props) {
   };
 
   const validate = () => {
-    let errors = [];
+    const errors = [];
     if (!study.name || study.name === "" || null) errors.push("Please enter a study name.");
     if (!checked) errors.push("Please check Url Slug");
     setErrors(errors);
@@ -68,21 +58,13 @@ export function StudyEdit(props: Props) {
 
   const handleSave = () => {
     if (validate()) {
-      ApiHelper.post("/studies", [study], "LessonsApi").then(data => {
-        setStudy(data);
-        props.updatedCallback(data);
-      });
+      ApiHelper.post("/studies", [study], "LessonsApi").then(data => { setStudy(data); props.updatedCallback(data); });
     }
   };
 
-  const handleDelete = () => {
-    if (window.confirm("Are you sure you wish to permanently delete this study?")) ApiHelper.delete("/studies/" + study.id.toString(), "LessonsApi").then(() => props.updatedCallback(null));
-  };
+  const handleDelete = () => { if (window.confirm("Are you sure you wish to permanently delete this study?")) ApiHelper.delete("/studies/" + study.id.toString(), "LessonsApi").then(() => props.updatedCallback(null)); };
 
-  const handleImageClick = (e: React.MouseEvent) => {
-    e.preventDefault();
-    setShowImageEditor(true);
-  };
+  const handleImageClick = (e: React.MouseEvent) => { e.preventDefault(); setShowImageEditor(true); };
   const handleSlugValidation = () => {
     const s = { ...study };
     s.slug = SlugHelper.slugifyString(s.slug, "urlSlug");
@@ -163,7 +145,7 @@ export function StudyEdit(props: Props) {
             {/* Left Column - Form Fields */}
             <Grid size={{ xs: 12, md: 8 }}>
               <Stack spacing={3}>
-                <Box sx={{ display: 'flex', gap: 2 }}>
+                <Box sx={{ display: "flex", gap: 2 }}>
                   <FormControl fullWidth>
                     <InputLabel>Live</InputLabel>
                     <Select label="Live" name="live" value={study.live?.toString()} onChange={handleChange}>
@@ -348,10 +330,7 @@ export function StudyEdit(props: Props) {
             startIcon={<CancelIcon />}
             onClick={handleCancel}
             variant="outlined"
-            sx={{
-              color: "var(--c1d2)",
-              borderColor: "var(--c1d2)"
-            }}>
+            sx={{ color: "var(--c1d2)", borderColor: "var(--c1d2)" }}>
             Cancel
           </Button>
           {study.id && (

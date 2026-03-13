@@ -4,10 +4,7 @@ import { ErrorMessages, InputBox } from "@churchapps/apphelper";
 import { ApiHelper, FileInterface, VariantInterface } from "@/helpers";
 import { FileUpload } from "./FileUpload";
 
-interface Props {
-  variant: VariantInterface;
-  updatedCallback: (variant: VariantInterface) => void;
-}
+interface Props { variant: VariantInterface; updatedCallback: (variant: VariantInterface) => void; }
 
 export function VariantEdit(props: Props) {
   const [variant, setVariant] = React.useState<VariantInterface>(null);
@@ -16,27 +13,17 @@ export function VariantEdit(props: Props) {
 
   const handleCancel = () => props.updatedCallback(variant);
   const handleKeyDown = (e: React.KeyboardEvent<any>) => {
-    if (e.key === "Enter") {
-      e.preventDefault();
-      handleSave();
-    }
+    if (e.key === "Enter") { e.preventDefault(); handleSave(); }
   };
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement> | SelectChangeEvent<string>) => {
     e.preventDefault();
-    let v = { ...variant };
-    switch (e.target.name) {
-    case "hidden":
-      v.hidden = e.target.value === "true";
-      break;
-    case "name":
-      v.name = e.target.value;
-      break;
-    }
+    const v = { ...variant };
+    switch (e.target.name) { case "hidden": v.hidden = e.target.value === "true"; break; case "name": v.name = e.target.value; break; }
     setVariant(v);
   };
 
   const validate = () => {
-    let errors = [];
+    const errors = [];
     if (variant.name === "") errors.push("Please enter a variant name.");
     setErrors(errors);
     return errors.length === 0;
@@ -52,19 +39,13 @@ export function VariantEdit(props: Props) {
     });
   };
 
-  const handleSave = () => {
-    if (validate()) setPendingFileSave(true);
-  };
+  const handleSave = () => { if (validate()) setPendingFileSave(true); };
 
   const getDeleteFunction = () => (props.variant?.id ? handleDelete : undefined);
 
-  const handleDelete = () => {
-    if (window.confirm("Are you sure you wish to permanently delete this variant?")) ApiHelper.delete("/variants/" + variant.id.toString(), "LessonsApi").then(() => props.updatedCallback(null));
-  };
+  const handleDelete = () => { if (window.confirm("Are you sure you wish to permanently delete this variant?")) ApiHelper.delete("/variants/" + variant.id.toString(), "LessonsApi").then(() => props.updatedCallback(null)); };
 
-  React.useEffect(() => {
-    setVariant(props.variant);
-  }, [props.variant]);
+  React.useEffect(() => { setVariant(props.variant); }, [props.variant]);
 
   if (!variant) {
     return <></>;

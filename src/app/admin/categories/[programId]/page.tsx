@@ -23,108 +23,79 @@ export default function Admin() {
   const programId = params.programId as string;
 
   const loadData = () => {
-    ApiHelper.get("/programs/" + programId, "LessonsApi").then((data: any) => {
-      setProgram(data);
-    });
-    ApiHelper.get("/studyCategories/categoryNames/" + programId, "LessonsApi").then((data: any) => {
-      setCategoryNames(data);
-    });
+    ApiHelper.get("/programs/" + programId, "LessonsApi").then((data: any) => { setProgram(data); });
+    ApiHelper.get("/studyCategories/categoryNames/" + programId, "LessonsApi").then((data: any) => { setCategoryNames(data); });
   };
 
   const loadCategory = () => {
-    ApiHelper.get("/studyCategories/" + programId + "?categoryName=" + escape(categoryName), "LessonsApi").then((data: any) => {
-      setStudyCategories(data);
-    });
-    ApiHelper.get("/studies/program/" + programId, "LessonsApi").then((data: any) => {
-      setStudies(data);
-    });
+    ApiHelper.get("/studyCategories/" + programId + "?categoryName=" + escape(categoryName), "LessonsApi").then((data: any) => { setStudyCategories(data); });
+    ApiHelper.get("/studies/program/" + programId, "LessonsApi").then((data: any) => { setStudies(data); });
   };
 
   const handleAdd = (studyId: string) => {
-    let sc: StudyCategoryInterface = {
+    const sc: StudyCategoryInterface = {
       programId: programId,
       studyId: studyId,
       categoryName: categoryName,
       sort: studyCategories.length + 1
     };
-    ApiHelper.post("/studyCategories", [sc], "LessonsApi").then(() => {
-      loadCategory();
-    });
+    ApiHelper.post("/studyCategories", [sc], "LessonsApi").then(() => { loadCategory(); });
   };
 
   const handleRemove = (id: string) => {
-    ApiHelper.delete("/studyCategories/" + id, "LessonsApi").then(() => {
-      loadCategory();
-    });
+    ApiHelper.delete("/studyCategories/" + id, "LessonsApi").then(() => { loadCategory(); });
   };
 
   const moveUp = (index: number) => {
     const sc = studyCategories[index];
     sc.sort = sc.sort - 1.1;
-    ApiHelper.post("/studyCategories", [sc], "LessonsApi").then(() => {
-      loadCategory();
-    });
+    ApiHelper.post("/studyCategories", [sc], "LessonsApi").then(() => { loadCategory(); });
   };
 
   const moveDown = (index: number) => {
     const sc = studyCategories[index];
     sc.sort = sc.sort + 1.1;
-    ApiHelper.post("/studyCategories", [sc], "LessonsApi").then(() => {
-      loadCategory();
-    });
+    ApiHelper.post("/studyCategories", [sc], "LessonsApi").then(() => { loadCategory(); });
   };
 
-  useEffect(() => {
-    if (isAuthenticated) loadData();
-    else router.push("/login");
-  }, [isAuthenticated]);
-  useEffect(() => {
-    if (categoryName) loadCategory();
-  }, [categoryName]);
+  useEffect(() => { if (isAuthenticated) loadData(); else router.push("/login"); }, [isAuthenticated]);
+  useEffect(() => { if (categoryName) loadCategory(); }, [categoryName]);
 
   const getEditContent = () => (
     <SmallButton
       icon="add"
-      onClick={() => {
-        setCategoryName(prompt("Category Name"));
-      }}
+      onClick={() => { setCategoryName(prompt("Category Name")); }}
     />
   );
 
   const getStudyCategories = () => {
-    let result: React.JSX.Element[] = [];
+    const result: React.JSX.Element[] = [];
     let i = 0;
     studyCategories.forEach(sc => {
       const study = ArrayHelper.getOne(studies, "id", sc.studyId);
       const index = i;
       const upLink = i === 0 ? (
           <span style={{ paddingLeft: 14 }}>&nbsp;</span>
-        ) : (
+      ) : (
           <SmallButton
             icon="arrow_upward"
-            onClick={() => {
-              moveUp(index);
-            }}
+            onClick={() => { moveUp(index); }}
           />
-        );
+      );
       const downLink = i === studyCategories.length - 1 ? (
           <></>
-        ) : (
+      ) : (
           <SmallButton
             icon="arrow_downward"
-            onClick={() => {
-              moveDown(index);
-            }}
+            onClick={() => { moveDown(index); }}
           />
-        );
+      );
       i++;
       result.push(<tr>
         <td>
           <SmallButton
             icon="remove"
-            onClick={() => {
-              handleRemove(sc.id);
-            }}
+            onClick={() => { handleRemove(sc.id); }}
           />
         </td>
         <td>{study?.name}</td>
@@ -155,9 +126,7 @@ export default function Admin() {
                   <td>
                     <SmallButton
                       icon="add"
-                      onClick={() => {
-                        handleAdd(s.id);
-                      }}
+                      onClick={() => { handleAdd(s.id); }}
                     />
                   </td>
                   <td>{s.name}</td>
@@ -192,10 +161,7 @@ export default function Admin() {
                       <td>
                         <a
                           href="about:blank"
-                          onClick={e => {
-                            e.preventDefault();
-                            setCategoryName(c);
-                          }}>
+                          onClick={e => { e.preventDefault(); setCategoryName(c); }}>
                           {c}
                         </a>
                       </td>

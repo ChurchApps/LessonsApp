@@ -62,10 +62,7 @@ export const ContentCard: React.FC<ContentCardProps> = ({
         boxShadow: "var(--admin-shadow-sm)",
         cursor: onClick ? "pointer" : "default",
         transition: "box-shadow 0.2s ease, transform 0.1s ease",
-        "&:hover": {
-          boxShadow: onClick ? "var(--admin-shadow-md)" : "var(--admin-shadow-sm)",
-          transform: onClick ? "translateY(-1px)" : "none"
-        }
+        "&:hover": { boxShadow: onClick ? "var(--admin-shadow-md)" : "var(--admin-shadow-sm)", transform: onClick ? "translateY(-1px)" : "none" }
       }}
       onClick={onClick}>
       {thumbnail && (
@@ -74,10 +71,7 @@ export const ContentCard: React.FC<ContentCardProps> = ({
           height="160"
           image={thumbnail}
           alt={title}
-          sx={{
-            objectFit: "cover",
-            backgroundColor: "var(--admin-bg)"
-          }}
+          sx={{ objectFit: "cover", backgroundColor: "var(--admin-bg)" }}
         />
       )}
 
@@ -136,10 +130,7 @@ export const ContentCard: React.FC<ContentCardProps> = ({
           {lastModified && (
             <Typography
               variant="caption"
-              sx={{
-                color: "rgba(0,0,0,0.6)",
-                fontSize: "0.75rem"
-              }}>
+              sx={{ color: "rgba(0,0,0,0.6)", fontSize: "0.75rem" }}>
               {formatDistanceToNow(lastModified, { addSuffix: true })}
             </Typography>
           )}

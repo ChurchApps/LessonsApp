@@ -6,9 +6,7 @@ import { FloatingSupport } from "@churchapps/apphelper";
 export function FloatingSupportWrapper() {
   const [isClient, setIsClient] = useState(false);
 
-  useEffect(() => {
-    setIsClient(true);
-  }, []);
+  useEffect(() => { setIsClient(true); }, []);
 
   if (!isClient) return null;
 

@@ -1,11 +1,14 @@
 import Link from "next/link";
 import { useEffect, useState } from "react";
-import { Add as AddIcon,
+import {
+  Add as AddIcon,
   CalendarMonth as CalendarIcon,
   Edit as EditIcon,
   Psychology as PsychologyIcon,
-  VideoLibrary as VideoIcon } from "@mui/icons-material";
-import { Box,
+  VideoLibrary as VideoIcon
+} from "@mui/icons-material";
+import {
+  Box,
   Button,
   Chip,
   IconButton,
@@ -15,24 +18,20 @@ import { Box,
   TableBody,
   TableCell,
   TableRow,
-  Typography } from "@mui/material";
+  Typography
+} from "@mui/material";
 import { ArrayHelper, DateHelper, Loading } from "@churchapps/apphelper";
 import { ApiHelper, ScheduleInterface } from "@/helpers";
 import { ScheduleEdit } from "../index";
 
-interface Props {
-  classroomId: string;
-}
+interface Props { classroomId: string; }
 
 export function ScheduleList(props: Props) {
   const [schedules, setSchedules] = useState<ScheduleInterface[]>(null);
   const [editSchedule, setEditSchedule] = useState<ScheduleInterface>(null);
 
   const loadData = () => {
-    ApiHelper.get("/schedules/classroom/" + props.classroomId, "LessonsApi").then((data: any) => {
-      ArrayHelper.sortBy(data, "scheduledDate", true);
-      setSchedules(data);
-    });
+    ApiHelper.get("/schedules/classroom/" + props.classroomId, "LessonsApi").then((data: any) => { ArrayHelper.sortBy(data, "scheduledDate", true); setSchedules(data); });
   };
 
   const getRows = () => {
@@ -44,11 +43,7 @@ export function ScheduleList(props: Props) {
       return (
         <TableRow
           key={s.id}
-          sx={{
-            "&:hover": {
-              backgroundColor: "rgba(0,0,0,0.04)"
-            }
-          }}>
+          sx={{ "&:hover": { backgroundColor: "rgba(0,0,0,0.04)" } }}>
           <TableCell>
             <Stack direction="row" alignItems="center" spacing={1}>
               <CalendarIcon sx={{ color: "var(--c1)", fontSize: "1.2rem" }} />
@@ -181,10 +176,7 @@ export function ScheduleList(props: Props) {
       <ScheduleEdit
         schedule={editSchedule}
         schedules={schedules}
-        updatedCallback={() => {
-          setEditSchedule(null);
-          loadData();
-        }}
+        updatedCallback={() => { setEditSchedule(null); loadData(); }}
       />
     );
   }

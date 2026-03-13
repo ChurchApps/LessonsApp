@@ -1,9 +1,6 @@
 import { Locale } from "@churchapps/apphelper";
 
-interface MenuItem {
-  url: string;
-  label: string;
-}
+interface MenuItem { url: string; label: string; }
 
 export class SecondaryMenuHelper {
   static getSecondaryMenu = (path: string, data?: unknown) => {

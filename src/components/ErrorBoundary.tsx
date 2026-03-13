@@ -9,20 +9,12 @@ interface ErrorBoundaryState {
   errorInfo?: React.ErrorInfo;
 }
 
-interface ErrorBoundaryProps {
-  children: React.ReactNode;
-  fallback?: React.ComponentType<{ error?: Error; reset: () => void }>;
-}
+interface ErrorBoundaryProps { children: React.ReactNode; fallback?: React.ComponentType<{ error?: Error; reset: () => void }>; }
 
 class ErrorBoundary extends React.Component<ErrorBoundaryProps, ErrorBoundaryState> {
-  constructor(props: ErrorBoundaryProps) {
-    super(props);
-    this.state = { hasError: false };
-  }
+  constructor(props: ErrorBoundaryProps) { super(props); this.state = { hasError: false }; }
 
-  static getDerivedStateFromError(error: Error): ErrorBoundaryState {
-    return { hasError: true, error };
-  }
+  static getDerivedStateFromError(error: Error): ErrorBoundaryState { return { hasError: true, error }; }
 
   componentDidCatch(error: Error, errorInfo: React.ErrorInfo) {
     this.setState({ error, errorInfo });
@@ -31,9 +23,7 @@ class ErrorBoundary extends React.Component<ErrorBoundaryProps, ErrorBoundarySta
     if (process.env.NODE_ENV === "development") console.error("ErrorBoundary caught an error:", error, errorInfo);
   }
 
-  reset = () => {
-    this.setState({ hasError: false, error: undefined, errorInfo: undefined });
-  };
+  reset = () => { this.setState({ hasError: false, error: undefined, errorInfo: undefined }); };
 
   render() {
     if (this.state.hasError) {
@@ -71,11 +61,11 @@ function DefaultErrorFallback({ error, reset }: { error?: Error; reset: () => vo
             </Typography>
             {error.stack && (
               <Box sx={{ bgcolor: "grey.900", p: 2, borderRadius: 1, overflow: "auto", maxHeight: 400 }}>
-                <Typography 
-                  variant="body2" 
-                  component="pre" 
-                  sx={{ 
-                    fontSize: 12, 
+                <Typography
+                  variant="body2"
+                  component="pre"
+                  sx={{
+                    fontSize: 12,
                     color: "common.white",
                     fontFamily: "monospace",
                     whiteSpace: "pre-wrap",

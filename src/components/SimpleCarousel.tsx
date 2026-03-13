@@ -1,6 +1,6 @@
-import React, { ReactNode } from 'react';
-import { Box, IconButton } from '@mui/material';
-import { ArrowBack, ArrowForward } from '@mui/icons-material';
+import React, { ReactNode } from "react";
+import { Box, IconButton } from "@mui/material";
+import { ArrowBack, ArrowForward } from "@mui/icons-material";
 
 interface SimpleCarouselProps {
   children: ReactNode[];
@@ -15,51 +15,45 @@ interface SimpleCarouselProps {
 export function SimpleCarousel({
   children,
   index,
-  height = '400px',
-  autoPlay = false,
-  fullHeightHover = false,
+  height = "400px",
+  autoPlay: _autoPlay = false,
+  fullHeightHover: _fullHeightHover = false,
   navButtonsAlwaysVisible = false,
   next
 }: SimpleCarouselProps) {
-  const handlePrevious = () => {
-    const newIndex = index > 0 ? index - 1 : children.length - 1;
-    next?.(newIndex);
-  };
+  const handlePrevious = () => { const newIndex = index > 0 ? index - 1 : children.length - 1; next?.(newIndex); };
 
-  const handleNext = () => {
-    const newIndex = index < children.length - 1 ? index + 1 : 0;
-    next?.(newIndex);
-  };
+  const handleNext = () => { const newIndex = index < children.length - 1 ? index + 1 : 0; next?.(newIndex); };
 
   return (
     <Box
       sx={{
-        position: 'relative',
+        position: "relative",
         height,
-        overflow: 'hidden',
-        display: 'flex',
-        alignItems: 'center'
+        overflow: "hidden",
+        display: "flex",
+        alignItems: "center"
       }}
     >
       {/* Content */}
       <Box
         sx={{
-          width: '100%',
-          height: '100%',
-          display: 'flex',
+          width: "100%",
+          height: "100%",
+          display: "flex",
           transform: `translateX(-${index * 100}%)`,
-          transition: 'transform 0.3s ease-in-out'
+          transition: "transform 0.3s ease-in-out"
         }}
       >
         {children.map((child, i) => (
           <Box
             key={i}
             sx={{
-              minWidth: '100%',
-              height: '100%',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center'
+              minWidth: "100%",
+              height: "100%",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center"
             }}
           >
             {child}
@@ -73,15 +67,13 @@ export function SimpleCarousel({
           <IconButton
             onClick={handlePrevious}
             sx={{
-              position: 'absolute',
+              position: "absolute",
               left: 8,
-              top: '50%',
-              transform: 'translateY(-50%)',
-              backgroundColor: 'rgba(0, 0, 0, 0.5)',
-              color: 'white',
-              '&:hover': {
-                backgroundColor: 'rgba(0, 0, 0, 0.7)'
-              }
+              top: "50%",
+              transform: "translateY(-50%)",
+              backgroundColor: "rgba(0, 0, 0, 0.5)",
+              color: "white",
+              "&:hover": { backgroundColor: "rgba(0, 0, 0, 0.7)" }
             }}
           >
             <ArrowBack />
@@ -90,15 +82,13 @@ export function SimpleCarousel({
           <IconButton
             onClick={handleNext}
             sx={{
-              position: 'absolute',
+              position: "absolute",
               right: 8,
-              top: '50%',
-              transform: 'translateY(-50%)',
-              backgroundColor: 'rgba(0, 0, 0, 0.5)',
-              color: 'white',
-              '&:hover': {
-                backgroundColor: 'rgba(0, 0, 0, 0.7)'
-              }
+              top: "50%",
+              transform: "translateY(-50%)",
+              backgroundColor: "rgba(0, 0, 0, 0.5)",
+              color: "white",
+              "&:hover": { backgroundColor: "rgba(0, 0, 0, 0.7)" }
             }}
           >
             <ArrowForward />

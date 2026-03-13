@@ -16,34 +16,23 @@ export function ExternalVideoEdit(props: Props) {
   const handleCancel = () => props.updatedCallback(externalVideo);
 
   const handleKeyDown = (e: React.KeyboardEvent<any>) => {
-    if (e.key === "Enter") {
-      e.preventDefault();
-      handleSave();
-    }
+    if (e.key === "Enter") { e.preventDefault(); handleSave(); }
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement> | SelectChangeEvent<string>) => {
     e.preventDefault();
-    let v = { ...externalVideo };
+    const v = { ...externalVideo };
     switch (e.target.name) {
-    case "name":
-      v.name = e.target.value;
-      break;
-    case "provider":
-      v.videoProvider = e.target.value;
-      break;
-    case "videoId":
-      v.videoId = e.target.value;
-      break;
-    case "loopVideo":
-      v.loopVideo = e.target.value === "true";
-      break;
+      case "name": v.name = e.target.value; break;
+      case "provider": v.videoProvider = e.target.value; break;
+      case "videoId": v.videoId = e.target.value; break;
+      case "loopVideo": v.loopVideo = e.target.value === "true"; break;
     }
     setExternalVideo(v);
   };
 
   const validate = () => {
-    let errors = [];
+    const errors = [];
     if (externalVideo.name === "") errors.push("Please enter a video name.");
     setErrors(errors);
     return errors.length === 0;
@@ -51,25 +40,17 @@ export function ExternalVideoEdit(props: Props) {
 
   const handleSave = () => {
     if (validate()) {
-      ApiHelper.post("/externalVideos", [externalVideo], "LessonsApi").then(data => {
-        setExternalVideo(data);
-        props.updatedCallback(data);
-      });
+      ApiHelper.post("/externalVideos", [externalVideo], "LessonsApi").then(data => { setExternalVideo(data); props.updatedCallback(data); });
     }
   };
 
   const getDeleteFunction = () => (props.externalVideo?.id ? handleDelete : undefined);
 
   const handleDelete = () => {
-    if (window.confirm("Are you sure you wish to permanently delete this video?")) {
-      ApiHelper.delete("/externalVideos/" + externalVideo.id.toString(), "LessonsApi").then(() =>
-        props.updatedCallback(null));
-    }
+    if (window.confirm("Are you sure you wish to permanently delete this video?")) { ApiHelper.delete("/externalVideos/" + externalVideo.id.toString(), "LessonsApi").then(() => props.updatedCallback(null)); }
   };
 
-  useEffect(() => {
-    setExternalVideo(props.externalVideo);
-  }, [props.externalVideo]);
+  useEffect(() => { setExternalVideo(props.externalVideo); }, [props.externalVideo]);
 
   if (!externalVideo) {
     return <></>;

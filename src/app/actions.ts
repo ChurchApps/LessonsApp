@@ -2,6 +2,4 @@
 
 import { revalidateTag } from "next/cache";
 
-export async function revalidate(tag: string) {
-  revalidateTag(tag, "max");
-}
+export async function revalidate(tag: string) { revalidateTag(tag, "max"); }

@@ -30,10 +30,7 @@ const loadData = async (params: PageParams) => {
 /*
 let loadDataPromise:ReturnType<typeof loadData>;
 
-const loadSharedData = async (params:PageParams) => {
-  if (!loadDataPromise) loadDataPromise = loadData(params);
-  return loadDataPromise;
-}*/
+const loadSharedData = async (params:PageParams) => { if (!loadDataPromise) loadDataPromise = loadData(params); return loadDataPromise; }*/
 
 const loadSharedData = async (params: Promise<PageParams>) => {
   const { programSlug, studySlug } = await params;
@@ -44,7 +41,7 @@ const loadSharedData = async (params: Promise<PageParams>) => {
 
 export async function generateMetadata({ params }: { params: Promise<PageParams> }): Promise<Metadata> {
   const props = await loadSharedData(params);
-  let title = props.program.name + ": " + props.study?.name + " - Free Church Curriculum";
+  const title = props.program.name + ": " + props.study?.name + " - Free Church Curriculum";
   if (!props.errorMessage) return MetaHelper.getMetaData(title, props.study.description, props.study.image);
 }
 
@@ -108,10 +105,7 @@ export default async function StudyPage({ params }: { params: Promise<PageParams
                 name: "Lessons.church",
                 sameAs: "https://lessons.church"
               },
-              isPartOf: {
-                "@type": "Course",
-                name: program.name
-              }
+              isPartOf: { "@type": "Course", name: program.name }
             })
           }}
         />

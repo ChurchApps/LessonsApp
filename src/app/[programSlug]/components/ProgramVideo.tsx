@@ -6,9 +6,7 @@ import { EmbeddedVideo } from "@/components/EmbeddedVideo";
 import { VideoModal } from "@/components/VideoModal";
 import { ProgramInterface } from "@/helpers/interfaces";
 
-interface Props {
-  program: ProgramInterface;
-}
+interface Props { program: ProgramInterface; }
 
 export function ProgramVideo(props: Props) {
   const [showVideo, setShowVideo] = useState(false);
@@ -22,10 +20,7 @@ export function ProgramVideo(props: Props) {
       {video && (
         <a
           href="about:blank"
-          onClick={e => {
-            e.preventDefault();
-            setShowVideo(true);
-          }}
+          onClick={e => { e.preventDefault(); setShowVideo(true); }}
           className="cta">
           <Icon style={{ float: "left", marginRight: 10 }}>play_circle</Icon>Watch Trailer
         </a>

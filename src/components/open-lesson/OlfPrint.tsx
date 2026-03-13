@@ -2,9 +2,7 @@ import Image from "next/image";
 import { MarkdownPreviewLight } from "@churchapps/apphelper-markdown";
 import { FeedActionInterface, FeedSectionInterface, FeedVenueInterface } from "@/helpers";
 
-interface Props {
-  feed: FeedVenueInterface;
-}
+interface Props { feed: FeedVenueInterface; }
 
 export function OlfPrint(props: Props) {
   const getActionGroups = (section: FeedSectionInterface) => {

@@ -9,16 +9,13 @@ const roboto = Roboto({
   display: "swap"
 });
 
-export const metadata = {
-  title: "Lessons.church",
-  description: "Free church curriculum for children, youth, and adults."
-};
+export const metadata = { title: "Lessons.church", description: "Free church curriculum for children, youth, and adults." };
 
 export const viewport = {
-  width: 'device-width',
+  width: "device-width",
   initialScale: 1,
   maximumScale: 1,
-  userScalable: false,
+  userScalable: false
 };
 
 export default async function RootLayout({ children }: { children: React.ReactNode }) {

@@ -5,10 +5,7 @@ import { ErrorMessages } from "@churchapps/apphelper";
 import { MarkdownEditor } from "@churchapps/apphelper-markdown";
 import { FeedProgramInterface } from "@/helpers";
 
-interface Props {
-  program: FeedProgramInterface;
-  updatedCallback: (program: FeedProgramInterface, cancelled: boolean) => void;
-}
+interface Props { program: FeedProgramInterface; updatedCallback: (program: FeedProgramInterface, cancelled: boolean) => void; }
 
 export function OllProgramEdit(props: Props) {
   const [program, setProgram] = useState<FeedProgramInterface>(null);
@@ -16,50 +13,36 @@ export function OllProgramEdit(props: Props) {
   const handleCancel = () => props.updatedCallback(null, true);
 
   const handleMarkdownChange = (newValue: string) => {
-    let p = { ...program };
+    const p = { ...program };
     p.description = newValue;
     setProgram(p);
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement> | SelectChangeEvent<string>) => {
     e.preventDefault();
-    let p = { ...program };
+    const p = { ...program };
     switch (e.target.name) {
-    case "id":
-      p.id = e.target.value;
-      break;
-    case "name":
-      p.name = e.target.value;
-      break;
-    case "image":
-      p.image = e.target.value;
-      break;
-    case "description":
-      p.description = e.target.value;
-      break;
+      case "id": p.id = e.target.value; break;
+      case "name": p.name = e.target.value; break;
+      case "image": p.image = e.target.value; break;
+      case "description": p.description = e.target.value; break;
     }
     setProgram(p);
   };
 
   const validate = () => {
-    let errors = [];
+    const errors = [];
     if (program.name === "") errors.push("Please enter a name.");
     if (program.id === "") errors.push("Please enter an id.");
     setErrors(errors);
     return errors.length === 0;
   };
 
-  const handleSave = () => {
-    if (validate()) props.updatedCallback(program, false);
-  };
+  const handleSave = () => { if (validate()) props.updatedCallback(program, false); };
 
-  const handleDelete = () => {
-    if (window.confirm("Are you sure you wish to delete this program?")) props.updatedCallback(null, false);
-  };
+  const handleDelete = () => { if (window.confirm("Are you sure you wish to delete this program?")) props.updatedCallback(null, false); };
 
-  useEffect(() => {
-    setProgram(props.program);
-  }, [props.program]);
+  useEffect(() => { setProgram(props.program); }, [props.program]);
 
   if (!program) {
     return <></>;
@@ -135,10 +118,7 @@ export function OllProgramEdit(props: Props) {
             startIcon={<CancelIcon />}
             variant="outlined"
             onClick={handleCancel}
-            sx={{
-              color: "var(--c1d2)",
-              borderColor: "var(--c1d2)"
-            }}>
+            sx={{ color: "var(--c1d2)", borderColor: "var(--c1d2)" }}>
             Cancel
           </Button>
           {props.program.id && (

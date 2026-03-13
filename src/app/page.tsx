@@ -27,9 +27,7 @@ const loadData = async () => {
   return { programs, providers, studies, stats, errorMessage: "" };
 };
 
-export async function generateMetadata(): Promise<Metadata> {
-  return MetaHelper.getMetaData();
-}
+export async function generateMetadata(): Promise<Metadata> { return MetaHelper.getMetaData(); }
 
 export default async function Home(props: { params: Promise<{}>; searchParams: Promise<{ clearCache?: string }> }) {
   const { searchParams } = props;
@@ -38,10 +36,7 @@ export default async function Home(props: { params: Promise<{}>; searchParams: P
   const pageProps = await loadData();
   const { programs, providers, studies, stats, errorMessage } = pageProps;
 
-  if (clearCache) {
-    console.log("CLEARING CACHE");
-    revalidateTag("all", "max");
-  }
+  if (clearCache) { console.log("CLEARING CACHE"); revalidateTag("all", "max"); }
 
   if (errorMessage) return <Error message={errorMessage} />;
 

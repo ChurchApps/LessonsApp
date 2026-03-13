@@ -4,16 +4,14 @@ import Image from "next/image";
 import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useCallback, useEffect, useState } from "react";
-import { Alert, Box, Card, CardContent, CardMedia, Chip, CircularProgress, Grid, Stack, Typography } from "@mui/material";
+import { Alert, Box, Card, CardContent, Chip, CircularProgress, Grid, Stack, Typography } from "@mui/material";
 import { SearchBar } from "@/components/SearchBar";
 import { SearchResult } from "@/helpers/SearchHelper";
 
-interface Props {
-  initialQuery: string;
-}
+interface Props { initialQuery: string; }
 
 export function SearchResults({ initialQuery }: Props) {
-  const router = useRouter();
+  const _router = useRouter();
   const searchParams = useSearchParams();
   const [results, setResults] = useState<SearchResult[]>([]);
   const [loading, setLoading] = useState(false);
@@ -23,10 +21,7 @@ export function SearchResults({ initialQuery }: Props) {
   const query = searchParams.get("q") || initialQuery;
 
   const performSearch = useCallback(async (searchQuery: string) => {
-    if (!searchQuery.trim()) {
-      setResults([]);
-      return;
-    }
+    if (!searchQuery.trim()) { setResults([]); return; }
 
     setLoading(true);
     setError(null);
@@ -42,7 +37,7 @@ export function SearchResults({ initialQuery }: Props) {
         setResults(data.results || []);
         setSearchTime(data.elapsed);
       }
-    } catch (err) {
+    } catch (_err) {
       setError("Failed to perform search. Please try again.");
       setResults([]);
     } finally {
@@ -51,15 +46,11 @@ export function SearchResults({ initialQuery }: Props) {
   }, []);
 
   useEffect(() => {
-    if (query) {
-      performSearch(query);
-    }
+    if (query) { performSearch(query); }
   }, [query, performSearch]);
 
   const getResultLink = (result: SearchResult) => {
-    if (result.type === "program") {
-      return `/${result.programSlug}`;
-    }
+    if (result.type === "program") { return `/${result.programSlug}`; }
     if (result.type === "lesson") {
       return `/${result.programSlug}/${result.studySlug}/${result.lessonSlug}`;
     }
@@ -106,14 +97,8 @@ export function SearchResults({ initialQuery }: Props) {
                       flexDirection: "column",
                       transition: "transform 0.2s, box-shadow 0.2s",
                       backgroundColor: "#fff",
-                      "&:hover": {
-                        transform: "translateY(-4px)",
-                        boxShadow: 4
-                      },
-                      "& h2, & h6, & p, & .MuiTypography-root": {
-                        color: "#333 !important",
-                        textShadow: "none !important"
-                      }
+                      "&:hover": { transform: "translateY(-4px)", boxShadow: 4 },
+                      "& h2, & h6, & p, & .MuiTypography-root": { color: "#333 !important", textShadow: "none !important" }
                     }}>
                     {result.image && (
                       <Box sx={{ position: "relative", width: "100%", paddingTop: "56.25%", backgroundColor: "grey.200", overflow: "hidden" }}>

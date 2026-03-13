@@ -5,14 +5,9 @@ import { Box, Button, FormControl, Grid, IconButton, InputLabel, MenuItem, Paper
 import { ErrorMessages, SlugHelper } from "@churchapps/apphelper";
 import { ApiHelper, LessonInterface, ProgramInterface, StudyInterface } from "@/helpers";
 
-const ImageEditor = dynamic(() => import("../index").then(mod => ({ default: mod.ImageEditor })), {
-  loading: () => <div>Loading image editor...</div>
-});
+const ImageEditor = dynamic(() => import("../index").then(mod => ({ default: mod.ImageEditor })), { loading: () => <div>Loading image editor...</div> });
 
-interface Props {
-  lesson: LessonInterface;
-  updatedCallback: (lesson: LessonInterface) => void;
-}
+interface Props { lesson: LessonInterface; updatedCallback: (lesson: LessonInterface) => void; }
 
 const LessonEdit = React.memo((props: Props) => {
   const [lesson, setLesson] = useState<LessonInterface>(null);
@@ -27,30 +22,16 @@ const LessonEdit = React.memo((props: Props) => {
 
   const handleChange = React.useCallback((e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement> | SelectChangeEvent<string>) => {
     e.preventDefault();
-    let p = { ...lesson };
+    const p = { ...lesson };
     const val = e.target.value;
     switch (e.target.name) {
-    case "name":
-      p.name = val;
-      break;
-    case "title":
-      p.title = val;
-      break;
-    case "slug":
-      p.slug = val;
-      break;
-    case "description":
-      p.description = val;
-      break;
-    case "live":
-      p.live = val === "true";
-      break;
-    case "sort":
-      p.sort = parseInt(val);
-      break;
-    case "videoEmbedUrl":
-      p.videoEmbedUrl = val;
-      break;
+      case "name": p.name = val; break;
+      case "title": p.title = val; break;
+      case "slug": p.slug = val; break;
+      case "description": p.description = val; break;
+      case "live": p.live = val === "true"; break;
+      case "sort": p.sort = parseInt(val); break;
+      case "videoEmbedUrl": p.videoEmbedUrl = val; break;
     }
     setLesson(p);
   }, [lesson]);
@@ -58,9 +39,7 @@ const LessonEdit = React.memo((props: Props) => {
   const loadStudy = (studyId: string) => {
     ApiHelper.get("/studies/" + studyId, "LessonsApi").then((s: StudyInterface) => {
       setStudy(s);
-      ApiHelper.get("/programs/" + s.programId, "LessonsApi").then((data: ProgramInterface) => {
-        setProgram(data);
-      });
+      ApiHelper.get("/programs/" + s.programId, "LessonsApi").then((data: ProgramInterface) => { setProgram(data); });
     });
   };
 
@@ -72,7 +51,7 @@ const LessonEdit = React.memo((props: Props) => {
   };
 
   const validate = () => {
-    let errors = [];
+    const errors = [];
     if (!lesson.name || lesson.name === "" || null) errors.push("Please enter a lesson name.");
     if (!checked) errors.push("Please check Url Slug");
     setErrors(errors);
@@ -81,28 +60,19 @@ const LessonEdit = React.memo((props: Props) => {
 
   const handleSave = React.useCallback(() => {
     if (validate()) {
-      ApiHelper.post("/lessons", [lesson], "LessonsApi").then(data => {
-        setLesson(data);
-        props.updatedCallback(data);
-      });
+      ApiHelper.post("/lessons", [lesson], "LessonsApi").then(data => { setLesson(data); props.updatedCallback(data); });
     }
   }, [lesson, props]);
 
   const handleKeyDown = React.useCallback((e: React.KeyboardEvent<any>) => {
-    if (e.key === "Enter") {
-      e.preventDefault();
-      handleSave();
-    }
+    if (e.key === "Enter") { e.preventDefault(); handleSave(); }
   }, [handleSave]);
 
   const handleDelete = React.useCallback(() => {
     if (window.confirm("Are you sure you wish to permanently delete this lesson?")) ApiHelper.delete("/lessons/" + lesson.id.toString(), "LessonsApi").then(() => props.updatedCallback(null));
   }, [lesson, props]);
 
-  const handleImageClick = React.useCallback((e: React.MouseEvent) => {
-    e.preventDefault();
-    setShowImageEditor(true);
-  }, []);
+  const handleImageClick = React.useCallback((e: React.MouseEvent) => { e.preventDefault(); setShowImageEditor(true); }, []);
 
   const handleSlugValidation = () => {
     const l = { ...lesson };
@@ -184,7 +154,7 @@ const LessonEdit = React.memo((props: Props) => {
             {/* Left Column - Form Fields */}
             <Grid size={{ xs: 12, md: 8 }}>
               <Stack spacing={3}>
-                <Box sx={{ display: 'flex', gap: 2 }}>
+                <Box sx={{ display: "flex", gap: 2 }}>
                   <FormControl fullWidth>
                     <InputLabel>Live</InputLabel>
                     <Select label="Live" name="live" value={lesson.live?.toString()} onChange={handleChange}>
@@ -369,10 +339,7 @@ const LessonEdit = React.memo((props: Props) => {
             startIcon={<CancelIcon />}
             onClick={handleCancel}
             variant="outlined"
-            sx={{
-              color: "var(--c1d2)",
-              borderColor: "var(--c1d2)"
-            }}>
+            sx={{ color: "var(--c1d2)", borderColor: "var(--c1d2)" }}>
             Cancel
           </Button>
           {lesson.id && (

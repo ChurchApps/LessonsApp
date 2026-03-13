@@ -3,9 +3,7 @@
 import { useEffect } from "react";
 import { Grid } from "@mui/material";
 
-interface Props {
-  stats: any;
-}
+interface Props { stats: any; }
 
 export function Stats(props: Props) {
   const countDuration = 5000;
@@ -30,9 +28,7 @@ export function Stats(props: Props) {
     div.innerText = newCount.toString();
   };
 
-  useEffect(() => {
-    increaseCount(0);
-  }, []);
+  useEffect(() => { increaseCount(0); }, []);
 
   return (
     <div style={{ marginTop: 60 }}>

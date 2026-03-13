@@ -2,7 +2,6 @@
 
 import { redirect } from "next/navigation";
 import { useEffect, useState } from "react";
-import { School as SchoolIcon } from "@mui/icons-material";
 import { Box, Grid, Paper } from "@mui/material";
 import { ClassroomList, HomeConnect, ScheduleList } from "@/components";
 import { Wrapper } from "@/components/Wrapper";
@@ -18,16 +17,14 @@ export default function CP() {
   useEffect(() => {
     if (!isAuthenticated) redirect("/login");
 
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+
   }, []);
 
-  const handleShowFeed = (classroomId: string) => {
-    setFeedClassroomId(classroomId);
-  };
+  const handleShowFeed = (classroomId: string) => { setFeedClassroomId(classroomId); };
 
   const getScheduleSection = () => {
     if (classroomId === "") {
-      let html = '<lite-vimeo videoid="985348183" videotitle="Setup Instructions"></lite-vimeo>';
+      const html = '<lite-vimeo videoid="985348183" videotitle="Setup Instructions"></lite-vimeo>';
       return (
         <>
           <div>
@@ -47,9 +44,7 @@ export default function CP() {
       return (
         <PlaylistFeed
           classroomId={feedClassroomId}
-          hideFeed={() => {
-            setFeedClassroomId("");
-          }}
+          hideFeed={() => { setFeedClassroomId(""); }}
         />
       );
     }
@@ -59,7 +54,6 @@ export default function CP() {
     <Wrapper>
       <Box sx={{ p: 0 }}>
         <PageHeader
-          icon={<SchoolIcon />}
           title="Classroom Management"
           subtitle="Schedule lessons and manage classroom content"
         />

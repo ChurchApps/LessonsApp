@@ -3,10 +3,7 @@ import { InputBox } from "@churchapps/apphelper";
 import { ApiHelper, AssetInterface, FileInterface } from "@/helpers";
 import { BulkFileUpload } from "./BulkFileUpload";
 
-interface Props {
-  resourceId: string;
-  updatedCallback: () => void;
-}
+interface Props { resourceId: string; updatedCallback: () => void; }
 
 export function BulkAssetAdd(props: Props) {
   const [pendingFileSave, setPendingFileSave] = useState(false);
@@ -14,7 +11,7 @@ export function BulkAssetAdd(props: Props) {
   const handleCancel = () => props.updatedCallback();
 
   const handleFilesSaved = (files: FileInterface[]) => {
-    let assets: AssetInterface[] = [];
+    const assets: AssetInterface[] = [];
     let i = 1;
     files.forEach(f => {
       assets.push({
@@ -26,15 +23,10 @@ export function BulkAssetAdd(props: Props) {
       i++;
     });
 
-    ApiHelper.post("/assets", assets, "LessonsApi").then(() => {
-      setPendingFileSave(false);
-      props.updatedCallback();
-    });
+    ApiHelper.post("/assets", assets, "LessonsApi").then(() => { setPendingFileSave(false); props.updatedCallback(); });
   };
 
-  const handleSave = () => {
-    setPendingFileSave(true);
-  };
+  const handleSave = () => { setPendingFileSave(true); };
 
   return (
     <>

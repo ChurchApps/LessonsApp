@@ -2,9 +2,7 @@ import { Container, Fade, Grid, Link, Slide, Stack } from "@mui/material";
 import { Header } from "../../components/Header";
 import { Stats } from "./Stats";
 
-interface Props {
-  stats: any;
-}
+interface Props { stats: any; }
 
 export function HomeHero(props: Props) {
   const getAppBar = () => <Header position="static" />;
@@ -53,7 +51,7 @@ export function HomeHero(props: Props) {
   );
 
   const getAges = () => {
-    let result = [getAge("Preschool", "ark-preschool"), getAge("Elementary", "ark"), getAge("Teen", "forministryresources"), getAge("Adult", "next-level")];
+    const result = [getAge("Preschool", "ark-preschool"), getAge("Elementary", "ark"), getAge("Teen", "forministryresources"), getAge("Adult", "next-level")];
 
     return (
       <Fade in={true} timeout={2000}>

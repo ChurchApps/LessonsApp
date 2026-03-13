@@ -25,9 +25,7 @@ export function ActionFooter({
   deleteConfirmMessage = "Are you sure you wish to permanently delete this item?",
   additionalActions = []
 }: ActionFooterProps) {
-  const handleDelete = () => {
-    if (onDelete && window.confirm(deleteConfirmMessage)) onDelete();
-  };
+  const handleDelete = () => { if (onDelete && window.confirm(deleteConfirmMessage)) onDelete(); };
 
   return (
     <>
@@ -54,10 +52,7 @@ export function ActionFooter({
         onClick={onCancel}
         variant="outlined"
         disabled={saving}
-        sx={{
-          color: "var(--c1d2)",
-          borderColor: "var(--c1d2)"
-        }}>
+        sx={{ color: "var(--c1d2)", borderColor: "var(--c1d2)" }}>
         {cancelText}
       </Button>
 

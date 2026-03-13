@@ -35,9 +35,7 @@ export default function Venue() {
   const id = params.id;
   const upcoming = searchParams.get("upcoming") === "1";
 
-  useEffect(() => {
-    loadData();
-  }, [params.id]);
+  useEffect(() => { loadData(); }, [params.id]);
 
   const loadData = async () => {
     EnvironmentHelper.init();
@@ -47,19 +45,13 @@ export default function Venue() {
       const c = await ApiHelper.get("/classrooms/" + id, "LessonsApi");
       setClassroom(c);
 
-      ApiHelper.get("/churches/" + c.churchId, "MembershipApi").then((ch: ChurchInterface) => {
-        setChurch(ch);
-        ApiHelper.get("/settings/public/" + ch.id, "MembershipApi").then((set: any[]) => setChurchSettings(set));
-      });
+      ApiHelper.get("/churches/" + c.churchId, "MembershipApi").then((ch: ChurchInterface) => { setChurch(ch); ApiHelper.get("/settings/public/" + ch.id, "MembershipApi").then((set: any[]) => setChurchSettings(set)); });
 
       const s = await ApiHelper.get("/schedules/public/classroom/" + c.id, "LessonsApi");
       const filteredSchedules = filterSchedules(s);
       setSchedules(filteredSchedules);
       const lessonIds = ArrayHelper.getIds(filteredSchedules, "lessonId");
-      if (lessonIds.length > 0) {
-        if (filteredSchedules[0].externalProviderId) await loadExternalLessons(filteredSchedules[0].externalProviderId, filteredSchedules);
-        else await loadLessons(lessonIds);
-      }
+      if (lessonIds.length > 0) { if (filteredSchedules[0].externalProviderId) await loadExternalLessons(filteredSchedules[0].externalProviderId, filteredSchedules); else await loadLessons(lessonIds); }
     }
   };
 
@@ -69,11 +61,8 @@ export default function Venue() {
     const studyArray: StudyInterface[] = [];
 
     schedules.forEach(s => {
-      const { lesson, study, program } = ExternalProviderHelper.getLesson(data, s.programId, s.studyId, s.lessonId);
-      if (lesson) {
-        lessonArray.push(lesson);
-        if (!ArrayHelper.getOne(studyArray, "id", lesson.studyId)) studyArray.push(study);
-      }
+      const { lesson, study, program: _program } = ExternalProviderHelper.getLesson(data, s.programId, s.studyId, s.lessonId);
+      if (lesson) { lessonArray.push(lesson); if (!ArrayHelper.getOne(studyArray, "id", lesson.studyId)) studyArray.push(study); }
     });
     console.log("Lessons are: ", lessonArray);
     console.log("Studies are: ", studyArray);
@@ -86,20 +75,14 @@ export default function Venue() {
     /*
     setLessons(l);
     const studyIds = ArrayHelper.getIds(l, "studyId");
-    if (studyIds.length > 0) {
-      const st = await ApiHelper.get("/studies/public/ids?ids=" + studyIds, "LessonsApi");
-      setStudies(st);
-    }*/
+    if (studyIds.length > 0) { const st = await ApiHelper.get("/studies/public/ids?ids=" + studyIds, "LessonsApi"); setStudies(st); }*/
   };
 
   const loadLessons = async (lessonIds: string[]) => {
     const l = await ApiHelper.get("/lessons/public/ids?ids=" + lessonIds, "LessonsApi");
     setLessons(l);
     const studyIds = ArrayHelper.getIds(l, "studyId");
-    if (studyIds.length > 0) {
-      const st = await ApiHelper.get("/studies/public/ids?ids=" + studyIds, "LessonsApi");
-      setStudies(st);
-    }
+    if (studyIds.length > 0) { const st = await ApiHelper.get("/studies/public/ids?ids=" + studyIds, "LessonsApi"); setStudies(st); }
   };
 
   const filterSchedules = (s: ScheduleInterface[]) => {
@@ -149,16 +132,13 @@ export default function Venue() {
   };
 
   const getRowData = (schedule: ScheduleInterface) => {
-    let result: { lesson: LessonInterface; study: StudyInterface; program: ProgramInterface } = {
+    const result: { lesson: LessonInterface; study: StudyInterface; program: ProgramInterface } = {
       lesson: null,
       study: null,
       program: null
     };
     result.lesson = ArrayHelper.getOne(lessons, "id", schedule.lessonId);
-    if (result.lesson) {
-      result.study = ArrayHelper.getOne(studies, "id", schedule.studyId);
-      if (result.study) result.program = ArrayHelper.getOne(programs, "id", schedule.programId);
-    }
+    if (result.lesson) { result.study = ArrayHelper.getOne(studies, "id", schedule.studyId); if (result.study) result.program = ArrayHelper.getOne(programs, "id", schedule.programId); }
     console.log("ROW DATA is: ", result);
     return result;
   };

@@ -4,10 +4,7 @@ import { Edit as EditIcon, Save as SaveIcon, Delete as DeleteIcon, Cancel as Can
 import { ErrorMessages } from "@churchapps/apphelper";
 import { FeedSectionInterface } from "@/helpers";
 
-interface Props {
-  section: FeedSectionInterface;
-  updatedCallback: (section: FeedSectionInterface, cancelled: boolean) => void;
-}
+interface Props { section: FeedSectionInterface; updatedCallback: (section: FeedSectionInterface, cancelled: boolean) => void; }
 
 export function OlfSectionEdit(props: Props) {
   const [section, setSection] = useState<FeedSectionInterface>(null);
@@ -16,33 +13,23 @@ export function OlfSectionEdit(props: Props) {
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement> | SelectChangeEvent<string>) => {
     e.preventDefault();
-    let s = { ...section };
-    switch (e.target.name) {
-    case "name":
-      s.name = e.target.value;
-      break;
-    }
+    const s = { ...section };
+    switch (e.target.name) { case "name": s.name = e.target.value; break; }
     setSection(s);
   };
 
   const validate = () => {
-    let errors = [];
+    const errors = [];
     if (section.name === "") errors.push("Please enter a name.");
     setErrors(errors);
     return errors.length === 0;
   };
 
-  const handleSave = () => {
-    if (validate()) props.updatedCallback(section, false);
-  };
+  const handleSave = () => { if (validate()) props.updatedCallback(section, false); };
 
-  const handleDelete = () => {
-    if (window.confirm("Are you sure you wish to delete this section?")) props.updatedCallback(null, false);
-  };
+  const handleDelete = () => { if (window.confirm("Are you sure you wish to delete this section?")) props.updatedCallback(null, false); };
 
-  useEffect(() => {
-    setSection(props.section);
-  }, [props.section]);
+  useEffect(() => { setSection(props.section); }, [props.section]);
 
   if (!section) {
     return <></>;
@@ -115,10 +102,7 @@ export function OlfSectionEdit(props: Props) {
             startIcon={<CancelIcon />}
             variant="outlined"
             onClick={handleCancel}
-            sx={{
-              color: "var(--c1d2)",
-              borderColor: "var(--c1d2)"
-            }}>
+            sx={{ color: "var(--c1d2)", borderColor: "var(--c1d2)" }}>
             Cancel
           </Button>
           {props.section.name?.trim() && (

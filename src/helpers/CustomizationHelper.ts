@@ -9,15 +9,9 @@ export class CustomizationHelper {
       return array;
     } else {
       const result = [...array];
-      result.forEach((item: any) => {
-        const cust = ArrayHelper.getOne(sortItems, "contentId", item.id);
-        if (cust) item.sort = parseFloat(cust.actionContent);
-      });
+      result.forEach((item: any) => { const cust = ArrayHelper.getOne(sortItems, "contentId", item.id); if (cust) item.sort = parseFloat(cust.actionContent); });
 
-      return result.sort((a: any, b: any) => {
-        if (a.sort < b.sort) return -1;
-        else return 1;
-      });
+      return result.sort((a: any, b: any) => { if (a.sort < b.sort) return -1; else return 1; });
     }
   };
 }

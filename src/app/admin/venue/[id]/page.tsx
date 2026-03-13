@@ -3,11 +3,12 @@
 import { useParams, useRouter } from "next/navigation";
 import { startTransition, useEffect, useState } from "react";
 import { Box, Button, CircularProgress, IconButton, List, ListItem, ListItemButton, ListItemIcon, ListItemText, Menu, MenuItem, Paper, Stack, Typography } from "@mui/material";
-import { Add as AddIcon, Clear as ClearIcon, ContentCopy as CopyIcon, List as ListIcon, Person as PersonIcon, Check as CheckIcon, LocationOn as LocationIcon } from "@mui/icons-material";
+import { Add as AddIcon, Clear as ClearIcon, ContentCopy as CopyIcon, List as ListIcon, Person as PersonIcon, Check as CheckIcon } from "@mui/icons-material";
 import { ActionEdit, RoleEdit, SectionCopy, SectionEdit } from "@/components";
 import { PageHeader } from "@churchapps/apphelper";
 import { Wrapper } from "@/components/Wrapper";
-import { ActionInterface,
+import {
+  ActionInterface,
   AddOnInterface,
   ApiHelper,
   ArrayHelper,
@@ -19,7 +20,8 @@ import { ActionInterface,
   RoleInterface,
   SectionInterface,
   StudyInterface,
-  VenueInterface } from "@/helpers";
+  VenueInterface
+} from "@/helpers";
 import { revalidate } from "../../../actions";
 
 type PageParams = { id: string };
@@ -52,35 +54,20 @@ export default function Venue() {
   const router = useRouter();
   const pathId = params.id;
 
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+
+  useEffect(() => { if (!isAuthenticated) router.push("/login"); }, []);
+  useEffect(() => { if (isAuthenticated) loadData(); }, [pathId, isAuthenticated]);
   useEffect(() => {
-    if (!isAuthenticated) router.push("/login");
-  }, []);
-  useEffect(() => {
-    if (isAuthenticated) loadData();
-  }, [pathId, isAuthenticated]);
-  useEffect(() => {
-    if (isAuthenticated) {
-      loadResources();
-      loadVideos();
-    }
+    if (isAuthenticated) { loadResources(); loadVideos(); }
   }, [lesson, study, isAuthenticated]);
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  useEffect(() => {
-    if (isAuthenticated) loadAssets();
-  }, [lessonResources, studyResources, programResources, isAuthenticated]);
+
+  useEffect(() => { if (isAuthenticated) loadAssets(); }, [lessonResources, studyResources, programResources, isAuthenticated]);
 
   function loadResources() {
     if (lesson && study) {
-      ApiHelper.get("/resources/content/lesson/" + lesson.id, "LessonsApi").then((data: any) => {
-        setLessonResources(data);
-      });
-      ApiHelper.get("/resources/content/study/" + study.id, "LessonsApi").then((data: any) => {
-        setStudyResources(data);
-      });
-      ApiHelper.get("/resources/content/program/" + study.programId, "LessonsApi").then((data: any) => {
-        setProgramResources(data);
-      });
+      ApiHelper.get("/resources/content/lesson/" + lesson.id, "LessonsApi").then((data: any) => { setLessonResources(data); });
+      ApiHelper.get("/resources/content/study/" + study.id, "LessonsApi").then((data: any) => { setStudyResources(data); });
+      ApiHelper.get("/resources/content/program/" + study.programId, "LessonsApi").then((data: any) => { setProgramResources(data); });
     }
   }
 
@@ -98,9 +85,7 @@ export default function Venue() {
         const allResources = [].concat(lessonResources).concat(studyResources).concat(programResources);
         if (allResources.length > 0) {
           const resourceIds: string[] = ArrayHelper.getUniqueValues(allResources, "id");
-          ApiHelper.get("/assets/resourceIds?resourceIds=" + resourceIds.join(","), "LessonsApi").then((data: any) => {
-            setAllAssets(data);
-          });
+          ApiHelper.get("/assets/resourceIds?resourceIds=" + resourceIds.join(","), "LessonsApi").then((data: any) => { setAllAssets(data); });
         }
       }
     }
@@ -111,22 +96,12 @@ export default function Venue() {
       setVenue(v);
       ApiHelper.get("/lessons/" + v.lessonId, "LessonsApi").then((data: any) => {
         setLesson(data);
-        ApiHelper.get("/studies/" + data.studyId, "LessonsApi").then((d: any) => {
-          setStudy(d);
-        });
+        ApiHelper.get("/studies/" + data.studyId, "LessonsApi").then((d: any) => { setStudy(d); });
       });
-      ApiHelper.get("/sections/venue/" + v.id, "LessonsApi").then((data: any) => {
-        setSections(data);
-      });
-      ApiHelper.get("/roles/public/lesson/" + v.lessonId, "LessonsApi").then((data: any) => {
-        setRoles(data);
-      });
-      ApiHelper.get("/actions/public/lesson/" + v.lessonId, "LessonsApi").then((data: any) => {
-        setActions(data);
-      });
-      ApiHelper.get("/addOns/public", "LessonsApi").then((data: any) => {
-        setAddOns(data);
-      });
+      ApiHelper.get("/sections/venue/" + v.id, "LessonsApi").then((data: any) => { setSections(data); });
+      ApiHelper.get("/roles/public/lesson/" + v.lessonId, "LessonsApi").then((data: any) => { setRoles(data); });
+      ApiHelper.get("/actions/public/lesson/" + v.lessonId, "LessonsApi").then((data: any) => { setActions(data); });
+      ApiHelper.get("/addOns/public", "LessonsApi").then((data: any) => { setAddOns(data); });
     });
   }
 
@@ -137,25 +112,13 @@ export default function Venue() {
     setCopySection(null);
   };
 
-  const handleUpdated = () => {
-    loadData();
-    clearEdits();
-  };
+  const handleUpdated = () => { loadData(); clearEdits(); };
 
-  const handleSectionUpdated = (section: SectionInterface, created: boolean) => {
-    handleUpdated();
-    if (created) createRole(section.id);
-  };
+  const handleSectionUpdated = (section: SectionInterface, created: boolean) => { handleUpdated(); if (created) createRole(section.id); };
 
-  const handleRoleUpdated = (role: RoleInterface, created: boolean) => {
-    handleUpdated();
-    if (created) createAction(role.id);
-  };
+  const handleRoleUpdated = (role: RoleInterface, created: boolean) => { handleUpdated(); if (created) createAction(role.id); };
 
-  const handleActionUpdated = (action: ActionInterface, created: boolean) => {
-    handleUpdated();
-    if (created) createAction(action.roleId, action.sort + 1);
-  };
+  const handleActionUpdated = (action: ActionInterface, created: boolean) => { handleUpdated(); if (created) createAction(action.roleId, action.sort + 1); };
 
   const createSection = () => {
     clearEdits();
@@ -166,10 +129,7 @@ export default function Venue() {
     });
   };
 
-  const duplicateSection = () => {
-    clearEdits();
-    setCopySection({ sourceLessonId: lesson.id });
-  };
+  const duplicateSection = () => { clearEdits(); setCopySection({ sourceLessonId: lesson.id }); };
 
   const createRole = (sectionId: string) => {
     const sort = ArrayHelper.getAll(roles, "sectionId", sectionId).length + 1;
@@ -181,15 +141,13 @@ export default function Venue() {
     if (!sort) sort = ArrayHelper.getAll(actions, "roleId", roleId).length + 1;
     clearEdits();
     // The markdown editor won't refresh if you simple send it new content.  This delay is to force a full re-render.
-    setTimeout(() => {
-      setEditAction({ lessonId: venue.lessonId, roleId: roleId, sort: sort, actionType: "Say", content: "" });
-    }, 50);
+    setTimeout(() => { setEditAction({ lessonId: venue.lessonId, roleId: roleId, sort: sort, actionType: "Say", content: "" }); }, 50);
   };
 
   const getSectionsTree = () => {
     if (sections === null) {
       return (
-        <Box sx={{ display: 'flex', justifyContent: 'center', p: 4 }}>
+        <Box sx={{ display: "flex", justifyContent: "center", p: 4 }}>
           <CircularProgress />
         </Box>
       );
@@ -197,7 +155,7 @@ export default function Venue() {
 
     if (sections.length === 0) {
       return (
-        <Box sx={{ textAlign: 'center', p: 4, color: 'text.secondary' }}>
+        <Box sx={{ textAlign: "center", p: 4, color: "text.secondary" }}>
           <ListIcon sx={{ fontSize: 48, mb: 2, opacity: 0.5 }} />
           <Typography variant="body1">No sections found</Typography>
           <Typography variant="body2">Create your first section to get started.</Typography>
@@ -207,32 +165,25 @@ export default function Venue() {
 
     return (
       <List sx={{ p: 0 }}>
-        {sections.map((s, sectionIndex) => (
+        {sections.map((s, _sectionIndex) => (
           <Box key={s.id}>
             {/* Section */}
             <ListItem
               disablePadding
-              sx={{
-                borderBottom: '1px solid var(--admin-border)'
-              }}>
+              sx={{ borderBottom: "1px solid var(--admin-border)" }}>
               <ListItemButton
-                onClick={() => {
-                  clearEdits();
-                  setEditSection(s);
-                }}
+                onClick={() => { clearEdits(); setEditSection(s); }}
                 sx={{
                   py: 1,
                   minHeight: 48,
-                  '&:hover': {
-                    backgroundColor: 'var(--c1l7)'
-                  }
+                  "&:hover": { backgroundColor: "var(--c1l7)" }
                 }}>
                 <ListItemIcon sx={{ minWidth: 32 }}>
-                  <ListIcon sx={{ color: 'var(--c1d2)', fontSize: '1.25rem' }} />
+                  <ListIcon sx={{ color: "var(--c1d2)", fontSize: "1.25rem" }} />
                 </ListItemIcon>
                 <ListItemText
                   primary={
-                    <Typography variant="subtitle2" sx={{ fontWeight: 600, fontSize: '0.95rem' }}>
+                    <Typography variant="subtitle2" sx={{ fontWeight: 600, fontSize: "0.95rem" }}>
                       {s.name}
                     </Typography>
                   }
@@ -241,15 +192,10 @@ export default function Venue() {
               <Box sx={{ pr: 1 }}>
                 <IconButton
                   size="small"
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    createRole(s.id);
-                  }}
+                  onClick={(e) => { e.stopPropagation(); createRole(s.id); }}
                   sx={{
-                    color: 'var(--c1d2)',
-                    '&:hover': {
-                      backgroundColor: 'rgba(21, 101, 192, 0.1)'
-                    }
+                    color: "var(--c1d2)",
+                    "&:hover": { backgroundColor: "rgba(21, 101, 192, 0.1)" }
                   }}
                   title="Add Role">
                   <AddIcon fontSize="small" />
@@ -273,27 +219,20 @@ export default function Venue() {
         {/* Role */}
         <ListItem
           disablePadding
-          sx={{
-            borderBottom: '1px solid var(--admin-border-light)'
-          }}>
+          sx={{ borderBottom: "1px solid var(--admin-border-light)" }}>
           <ListItemButton
-            onClick={() => {
-              clearEdits();
-              setEditRole(r);
-            }}
+            onClick={() => { clearEdits(); setEditRole(r); }}
             sx={{
               py: 0.75,
               minHeight: 40,
-              '&:hover': {
-                backgroundColor: 'var(--admin-bg-light)'
-              }
+              "&:hover": { backgroundColor: "var(--admin-bg-light)" }
             }}>
             <ListItemIcon sx={{ minWidth: 28 }}>
-              <PersonIcon sx={{ color: 'var(--c1d1)', fontSize: '1.1rem' }} />
+              <PersonIcon sx={{ color: "var(--c1d1)", fontSize: "1.1rem" }} />
             </ListItemIcon>
             <ListItemText
               primary={
-                <Typography variant="body2" sx={{ fontWeight: 500, color: 'var(--c1d1)', fontSize: '0.875rem' }}>
+                <Typography variant="body2" sx={{ fontWeight: 500, color: "var(--c1d1)", fontSize: "0.875rem" }}>
                   {r.name}
                 </Typography>
               }
@@ -302,15 +241,10 @@ export default function Venue() {
           <Box sx={{ pr: 1 }}>
             <IconButton
               size="small"
-              onClick={(e) => {
-                e.stopPropagation();
-                createAction(r.id);
-              }}
+              onClick={(e) => { e.stopPropagation(); createAction(r.id); }}
               sx={{
-                color: 'var(--c1d1)',
-                '&:hover': {
-                  backgroundColor: 'rgba(21, 101, 192, 0.1)'
-                }
+                color: "var(--c1d1)",
+                "&:hover": { backgroundColor: "rgba(21, 101, 192, 0.1)" }
               }}
               title="Add Action">
               <AddIcon fontSize="small" />
@@ -331,29 +265,21 @@ export default function Venue() {
       <ListItem
         key={a.id}
         disablePadding
-        sx={{
-          ml: 4,
-          borderBottom: '1px solid var(--admin-border-light)'
-        }}>
+        sx={{ ml: 4, borderBottom: "1px solid var(--admin-border-light)" }}>
         <ListItemButton
-          onClick={() => {
-            clearEdits();
-            setEditAction(a);
-          }}
+          onClick={() => { clearEdits(); setEditAction(a); }}
           sx={{
             py: 0.5,
             minHeight: 32,
-            '&:hover': {
-              backgroundColor: 'var(--admin-bg-lighter)'
-            }
+            "&:hover": { backgroundColor: "var(--admin-bg-lighter)" }
           }}>
           <ListItemIcon sx={{ minWidth: 24 }}>
-            <CheckIcon sx={{ color: 'var(--c1)', fontSize: '0.875rem' }} />
+            <CheckIcon sx={{ color: "var(--c1)", fontSize: "0.875rem" }} />
           </ListItemIcon>
           <ListItemText
             primary={
-              <Typography variant="caption" sx={{ color: 'var(--c1)', fontSize: '0.8rem', lineHeight: 1.2 }}>
-                <strong>{a.actionType}:</strong> {a.content?.substring(0, 80)}{a.content?.length > 80 ? '...' : ''}
+              <Typography variant="caption" sx={{ color: "var(--c1)", fontSize: "0.8rem", lineHeight: 1.2 }}>
+                <strong>{a.actionType}:</strong> {a.content?.substring(0, 80)}{a.content?.length > 80 ? "..." : ""}
               </Typography>
             }
           />
@@ -388,37 +314,27 @@ export default function Venue() {
     return result;
   };
 
-  const handleAddMenuClick = (event: React.MouseEvent<HTMLElement>) => {
-    setMenuAnchor(event.currentTarget);
-  };
+  const handleAddMenuClick = (event: React.MouseEvent<HTMLElement>) => { setMenuAnchor(event.currentTarget); };
 
-  const handleAddMenuClose = () => {
-    setMenuAnchor(null);
-  };
+  const handleAddMenuClose = () => { setMenuAnchor(null); };
 
   const clearCache = () => {
-    startTransition(async () => {
-      revalidate("all");
-    });
+    startTransition(async () => { revalidate("all"); });
   };
 
   return (
     <Wrapper>
       <Box sx={{ p: 0 }}>
         <PageHeader
-          icon={<LocationIcon />}
-          title={`${lesson?.name || 'Lesson'}: ${venue?.name || 'Venue'}`}
+          title={`${lesson?.name || "Lesson"}: ${venue?.name || "Venue"}`}
           subtitle="Manage sections, roles, and actions for this venue"
         >
           <IconButton
             onClick={handleAddMenuClick}
             sx={{
-              color: 'white',
-              border: '1px solid rgba(255,255,255,0.5)',
-              '&:hover': {
-                borderColor: 'white',
-                backgroundColor: 'rgba(255,255,255,0.1)'
-              }
+              color: "white",
+              border: "1px solid rgba(255,255,255,0.5)",
+              "&:hover": { borderColor: "white", backgroundColor: "rgba(255,255,255,0.1)" }
             }}>
             <AddIcon />
           </IconButton>
@@ -429,10 +345,7 @@ export default function Venue() {
             sx={{
               color: "white",
               borderColor: "rgba(255,255,255,0.5)",
-              "&:hover": {
-                borderColor: "white",
-                backgroundColor: "rgba(255,255,255,0.1)"
-              }
+              "&:hover": { borderColor: "white", backgroundColor: "rgba(255,255,255,0.1)" }
             }}>
             Clear Cache
           </Button>
@@ -485,7 +398,7 @@ export default function Venue() {
               </Stack>
             </Box>
 
-            <Box sx={{ maxHeight: '70vh', overflow: 'auto' }}>
+            <Box sx={{ maxHeight: "70vh", overflow: "auto" }}>
               {getSectionsTree()}
             </Box>
           </Paper>
@@ -500,25 +413,19 @@ export default function Venue() {
             sx: {
               mt: 1,
               borderRadius: 2,
-              boxShadow: 'var(--admin-shadow-md)'
+              boxShadow: "var(--admin-shadow-md)"
             }
           }}>
           <MenuItem
-            onClick={() => {
-              createSection();
-              handleAddMenuClose();
-            }}
+            onClick={() => { createSection(); handleAddMenuClose(); }}
             sx={{ py: 1.5 }}>
-            <AddIcon sx={{ mr: 2, color: 'var(--c1d2)' }} />
+            <AddIcon sx={{ mr: 2, color: "var(--c1d2)" }} />
             Create New Section
           </MenuItem>
           <MenuItem
-            onClick={() => {
-              duplicateSection();
-              handleAddMenuClose();
-            }}
+            onClick={() => { duplicateSection(); handleAddMenuClose(); }}
             sx={{ py: 1.5 }}>
-            <CopyIcon sx={{ mr: 2, color: 'var(--c1d2)' }} />
+            <CopyIcon sx={{ mr: 2, color: "var(--c1d2)" }} />
             Copy Existing Section
           </MenuItem>
         </Menu>

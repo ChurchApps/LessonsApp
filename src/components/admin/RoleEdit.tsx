@@ -4,10 +4,7 @@ import { Person as PersonIcon, Save as SaveIcon, Cancel as CancelIcon, Delete as
 import { ErrorMessages } from "@churchapps/apphelper";
 import { ApiHelper, RoleInterface } from "@/helpers";
 
-interface Props {
-  role: RoleInterface;
-  updatedCallback: (role: RoleInterface, created: boolean) => void;
-}
+interface Props { role: RoleInterface; updatedCallback: (role: RoleInterface, created: boolean) => void; }
 
 export function RoleEdit(props: Props) {
   const [role, setRole] = useState<RoleInterface>({} as RoleInterface);
@@ -16,28 +13,18 @@ export function RoleEdit(props: Props) {
   const handleCancel = () => props.updatedCallback(role, false);
 
   const handleKeyDown = (e: React.KeyboardEvent<any>) => {
-    if (e.key === "Enter") {
-      e.preventDefault();
-      handleSave();
-    }
+    if (e.key === "Enter") { e.preventDefault(); handleSave(); }
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     e.preventDefault();
-    let r = { ...role };
-    switch (e.currentTarget.name) {
-    case "name":
-      r.name = e.currentTarget.value;
-      break;
-    case "sort":
-      r.sort = parseInt(e.currentTarget.value);
-      break;
-    }
+    const r = { ...role };
+    switch (e.currentTarget.name) { case "name": r.name = e.currentTarget.value; break; case "sort": r.sort = parseInt(e.currentTarget.value); break; }
     setRole(r);
   };
 
   const validate = () => {
-    let errors = [];
+    const errors = [];
     if (role.name === "") errors.push("Please enter a role name.");
     setErrors(errors);
     return errors.length === 0;
@@ -45,43 +32,36 @@ export function RoleEdit(props: Props) {
 
   const handleSave = () => {
     if (validate()) {
-      ApiHelper.post("/roles", [role], "LessonsApi").then(data => {
-        setRole(data);
-        props.updatedCallback(data[0], !props.role.id);
-      });
+      ApiHelper.post("/roles", [role], "LessonsApi").then(data => { setRole(data); props.updatedCallback(data[0], !props.role.id); });
     }
   };
 
-  const handleDelete = () => {
-    if (window.confirm("Are you sure you wish to permanently delete this role?")) ApiHelper.delete("/roles/" + role.id.toString(), "LessonsApi").then(() => props.updatedCallback(null, false));
-  };
+  const handleDelete = () => { if (window.confirm("Are you sure you wish to permanently delete this role?")) ApiHelper.delete("/roles/" + role.id.toString(), "LessonsApi").then(() => props.updatedCallback(null, false)); };
 
-  useEffect(() => {
-    setRole(props.role);
-  }, [props.role]);
+  useEffect(() => { setRole(props.role); }, [props.role]);
 
   return (
     <Paper
       sx={{
         borderRadius: 2,
-        border: '1px solid var(--admin-border)',
-        boxShadow: 'var(--admin-shadow-sm)',
-        overflow: 'hidden'
+        border: "1px solid var(--admin-border)",
+        boxShadow: "var(--admin-shadow-sm)",
+        overflow: "hidden"
       }}>
       {/* HEADER */}
       <Box
         sx={{
           p: 2,
-          borderBottom: '1px solid var(--admin-border)',
-          backgroundColor: 'var(--c1l7)'
+          borderBottom: "1px solid var(--admin-border)",
+          backgroundColor: "var(--c1l7)"
         }}>
         <Stack direction="row" alignItems="center" spacing={1}>
-          <PersonIcon sx={{ color: 'var(--c1d2)', fontSize: '1.5rem' }} />
+          <PersonIcon sx={{ color: "var(--c1d2)", fontSize: "1.5rem" }} />
           <Typography variant="h6" sx={{
-            color: 'var(--c1d2)',
+            color: "var(--c1d2)",
             fontWeight: 600,
             lineHeight: 1,
-            fontSize: '1.25rem'
+            fontSize: "1.25rem"
           }}>
             {role?.id ? "Edit Role" : "Create Role"}
           </Typography>
@@ -98,7 +78,7 @@ export function RoleEdit(props: Props) {
             label="Order"
             type="number"
             name="sort"
-            value={role.sort || ''}
+            value={role.sort || ""}
             onChange={handleChange}
             onKeyDown={handleKeyDown}
             placeholder="1"
@@ -109,7 +89,7 @@ export function RoleEdit(props: Props) {
             fullWidth
             label="Role Name"
             name="name"
-            value={role.name || ''}
+            value={role.name || ""}
             onChange={handleChange}
             onKeyDown={handleKeyDown}
             placeholder="Leader"
@@ -122,12 +102,12 @@ export function RoleEdit(props: Props) {
       <Box
         sx={{
           p: 2,
-          borderTop: '1px solid var(--admin-border)',
-          backgroundColor: 'var(--admin-bg)',
-          display: 'flex',
-          justifyContent: 'flex-end',
+          borderTop: "1px solid var(--admin-border)",
+          backgroundColor: "var(--admin-bg)",
+          display: "flex",
+          justifyContent: "flex-end",
           gap: 1,
-          flexWrap: 'wrap'
+          flexWrap: "wrap"
         }}>
         <Button startIcon={<SaveIcon />} variant="contained" onClick={handleSave}>
           Save

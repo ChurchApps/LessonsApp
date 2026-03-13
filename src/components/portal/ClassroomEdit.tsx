@@ -1,9 +1,12 @@
 import { useEffect, useState } from "react";
-import { Cancel as CancelIcon,
+import {
+  Cancel as CancelIcon,
   Delete as DeleteIcon,
   Save as SaveIcon,
-  School as SchoolIcon } from "@mui/icons-material";
-import { Box,
+  School as SchoolIcon
+} from "@mui/icons-material";
+import {
+  Box,
   Button,
   FormControl,
   IconButton,
@@ -14,15 +17,13 @@ import { Box,
   SelectChangeEvent,
   Stack,
   TextField,
-  Typography } from "@mui/material";
+  Typography
+} from "@mui/material";
 import { ErrorMessages } from "@churchapps/apphelper";
 import { GroupInterface } from "@churchapps/helpers";
 import { ApiHelper, ClassroomInterface } from "@/helpers";
 
-interface Props {
-  classroom: ClassroomInterface;
-  updatedCallback: (classroom: ClassroomInterface) => void;
-}
+interface Props { classroom: ClassroomInterface; updatedCallback: (classroom: ClassroomInterface) => void; }
 
 export function ClassroomEdit(props: Props) {
   const [classroom, setClassroom] = useState<ClassroomInterface>({} as ClassroomInterface);
@@ -33,25 +34,22 @@ export function ClassroomEdit(props: Props) {
   const handleCancel = () => props.updatedCallback(classroom);
 
   const handleKeyDown = (e: React.KeyboardEvent<any>) => {
-    if (e.key === "Enter") {
-      e.preventDefault();
-      handleSave();
-    }
+    if (e.key === "Enter") { e.preventDefault(); handleSave(); }
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement> | SelectChangeEvent<string>) => {
     e.preventDefault();
-    let c = { ...classroom };
+    const c = { ...classroom };
     switch (e.target.name) {
-    case "name": c.name = e.target.value; break;
-    case "upcomingGroupId": c.upcomingGroupId = e.target.value; break;
-    case "recentGroupId": c.recentGroupId = e.target.value; break;
+      case "name": c.name = e.target.value; break;
+      case "upcomingGroupId": c.upcomingGroupId = e.target.value; break;
+      case "recentGroupId": c.recentGroupId = e.target.value; break;
     }
     setClassroom(c);
   };
 
   const validate = () => {
-    let errors = [];
+    const errors = [];
     if (classroom.name === "") errors.push("Please enter a classroom name.");
     setErrors(errors);
     return errors.length === 0;
@@ -59,30 +57,18 @@ export function ClassroomEdit(props: Props) {
 
   const handleSave = () => {
     if (validate()) {
-      ApiHelper.post("/classrooms", [classroom], "LessonsApi").then(data => {
-        setClassroom(data);
-        props.updatedCallback(data);
-      });
+      ApiHelper.post("/classrooms", [classroom], "LessonsApi").then(data => { setClassroom(data); props.updatedCallback(data); });
     }
   };
 
-  const handleDelete = () => {
-    if (window.confirm("Are you sure you wish to permanently delete this classroom?")) ApiHelper.delete("/classrooms/" + classroom.id.toString(), "LessonsApi").then(() => props.updatedCallback(null));
-  };
+  const handleDelete = () => { if (window.confirm("Are you sure you wish to permanently delete this classroom?")) ApiHelper.delete("/classrooms/" + classroom.id.toString(), "LessonsApi").then(() => props.updatedCallback(null)); };
 
   const loadData = () => {
-    ApiHelper.get("/groups/tag/standard", "MembershipApi").then(data => {
-      setGroups(data);
-    });
-    ApiHelper.get("/groups/tag/team", "MembershipApi").then(data => {
-      setTeams(data);
-    });
+    ApiHelper.get("/groups/tag/standard", "MembershipApi").then(data => { setGroups(data); });
+    ApiHelper.get("/groups/tag/team", "MembershipApi").then(data => { setTeams(data); });
   };
 
-  useEffect(() => {
-    setClassroom(props.classroom);
-    loadData();
-  }, [props.classroom]);
+  useEffect(() => { setClassroom(props.classroom); loadData(); }, [props.classroom]);
 
   return (
     <Paper
@@ -196,10 +182,7 @@ export function ClassroomEdit(props: Props) {
           startIcon={<CancelIcon />}
           onClick={handleCancel}
           variant="outlined"
-          sx={{
-            color: "var(--c1d2)",
-            borderColor: "var(--c1d2)"
-          }}>
+          sx={{ color: "var(--c1d2)", borderColor: "var(--c1d2)" }}>
           Cancel
         </Button>
         {classroom.id && (

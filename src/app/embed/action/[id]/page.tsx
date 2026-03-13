@@ -49,10 +49,7 @@ export default function EmbedAction() {
 
   useEffect(() => {
     // Send height to parent window for iframe resizing
-    const sendHeight = () => {
-      const height = document.body.scrollHeight;
-      window.parent.postMessage({ type: "lessonActionHeight", height }, "*");
-    };
+    const sendHeight = () => { const height = document.body.scrollHeight; window.parent.postMessage({ type: "lessonActionHeight", height }, "*"); };
 
     // Send initial height and on resize
     sendHeight();
@@ -103,9 +100,7 @@ export default function EmbedAction() {
             sx={{
               backgroundColor: "#28235d",
               color: "#fff",
-              "& .MuiCardHeader-subheader": {
-                color: "rgba(255,255,255,0.8)"
-              }
+              "& .MuiCardHeader-subheader": { color: "rgba(255,255,255,0.8)" }
             }}
           />
           <CardContent>

@@ -2,11 +2,14 @@
 
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
-import { Add as AddIcon,
+import {
+  Add as AddIcon,
   Edit as EditIcon,
   Extension as ExtensionIcon,
-  Groups as GroupsIcon } from "@mui/icons-material";
-import { Box,
+  Groups as GroupsIcon
+} from "@mui/icons-material";
+import {
+  Box,
   Button,
   IconButton,
   Link,
@@ -16,7 +19,8 @@ import { Box,
   TableBody,
   TableCell,
   TableRow,
-  Typography } from "@mui/material";
+  Typography
+} from "@mui/material";
 import { Wrapper } from "@/components/Wrapper";
 import { PageHeader } from "@churchapps/apphelper";
 import { ProviderEdit } from "@/components/portal/ProviderEdit";
@@ -29,15 +33,13 @@ export default function ThirdParty() {
   const [editProvider, setEditProvider] = useState<ExternalProviderInterface>(null);
 
   const loadData = () => {
-    ApiHelper.get("/externalProviders", "LessonsApi").then((data: any) => {
-      setProviders(data);
-    });
+    ApiHelper.get("/externalProviders", "LessonsApi").then((data: any) => { setProviders(data); });
   };
 
   useEffect(() => {
     if (!isAuthenticated) router.push("/login");
     else loadData();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+
   }, []);
 
   const getProviders = () => {
@@ -66,11 +68,7 @@ export default function ThirdParty() {
     return providers.map(p => (
       <TableRow
         key={p.id}
-        sx={{
-          "&:hover": {
-            backgroundColor: "rgba(0,0,0,0.04)"
-          }
-        }}>
+        sx={{ "&:hover": { backgroundColor: "rgba(0,0,0,0.04)" } }}>
         <TableCell>
           <Stack direction="row" alignItems="center" spacing={1}>
             <ExtensionIcon sx={{ color: "var(--c1)", fontSize: "1.2rem" }} />
@@ -99,7 +97,6 @@ export default function ThirdParty() {
     <Wrapper>
       <Box sx={{ p: 0 }}>
         <PageHeader
-          icon={<ExtensionIcon />}
           title="External Lesson Providers"
           subtitle="Integrate third-party content sources"
         >
@@ -125,10 +122,7 @@ export default function ThirdParty() {
             <Box sx={{ mb: 3 }}>
               <ProviderEdit
                 provider={editProvider}
-                updatedCallback={() => {
-                  setEditProvider(null);
-                  loadData();
-                }}
+                updatedCallback={() => { setEditProvider(null); loadData(); }}
               />
             </Box>
           )}

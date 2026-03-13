@@ -20,35 +20,24 @@ export default function Admin() {
   useEffect(() => {
     if (!isAuthenticated) router.push("/login");
 
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+
   }, []);
 
-  useEffect(() => {
-    if (isAuthenticated) loadData();
-  }, [isAuthenticated]);
+  useEffect(() => { if (isAuthenticated) loadData(); }, [isAuthenticated]);
 
   async function loadData() {
-    ApiHelper.get("/providers", "LessonsApi").then((data: any) => {
-      setProviders(data);
-    });
-    ApiHelper.get("/addOns", "LessonsApi").then((data: any) => {
-      setAddOns(data);
-    });
+    ApiHelper.get("/providers", "LessonsApi").then((data: any) => { setProviders(data); });
+    ApiHelper.get("/addOns", "LessonsApi").then((data: any) => { setAddOns(data); });
   }
 
-  function clearEdits() {
-    setEditAddOn(null);
-  }
+  function clearEdits() { setEditAddOn(null); }
 
-  const handleUpdated = () => {
-    loadData();
-    setEditAddOn(null);
-  };
+  const handleUpdated = () => { loadData(); setEditAddOn(null); };
 
   function getAddOnAccordion() {
     if (addOns === null) {
       return (
-        <Box sx={{ display: 'flex', justifyContent: 'center', p: 4 }}>
+        <Box sx={{ display: "flex", justifyContent: "center", p: 4 }}>
           <CircularProgress />
         </Box>
       );
@@ -58,7 +47,7 @@ export default function Admin() {
   function getAddOns() {
     if (addOns.length === 0) {
       return (
-        <Box sx={{ textAlign: 'center', p: 4, color: 'text.secondary' }}>
+        <Box sx={{ textAlign: "center", p: 4, color: "text.secondary" }}>
           <ExtensionIcon sx={{ fontSize: 48, mb: 2, opacity: 0.5 }} />
           <Typography variant="body1">No add-ons found</Typography>
           <Typography variant="body2">Click the "Add New Add-on" button to create your first add-on.</Typography>
@@ -72,22 +61,15 @@ export default function Admin() {
           <ListItem
             key={a.id}
             disablePadding
-            sx={{
-              borderBottom: index < addOns.length - 1 ? '1px solid var(--admin-border)' : 'none'
-            }}>
+            sx={{ borderBottom: index < addOns.length - 1 ? "1px solid var(--admin-border)" : "none" }}>
             <ListItemButton
-              onClick={() => {
-                clearEdits();
-                setEditAddOn(a);
-              }}
+              onClick={() => { clearEdits(); setEditAddOn(a); }}
               sx={{
                 py: 2,
-                '&:hover': {
-                  backgroundColor: 'var(--c1l7)'
-                }
+                "&:hover": { backgroundColor: "var(--c1l7)" }
               }}>
               <ListItemIcon>
-                <MovieIcon sx={{ color: 'var(--c1d2)' }} />
+                <MovieIcon sx={{ color: "var(--c1d2)" }} />
               </ListItemIcon>
               <ListItemText
                 primary={
@@ -96,7 +78,7 @@ export default function Admin() {
                   </Typography>
                 }
                 secondary={
-                  <Typography variant="body2" sx={{ color: 'text.secondary' }}>
+                  <Typography variant="body2" sx={{ color: "text.secondary" }}>
                     Category: {a.category}
                   </Typography>
                 }
@@ -121,7 +103,6 @@ export default function Admin() {
     <Wrapper>
       <Box sx={{ p: 0 }}>
         <PageHeader
-          icon={<ExtensionIcon />}
           title="Add-ons"
           subtitle="Manage additional content and media resources"
         >
@@ -149,25 +130,25 @@ export default function Admin() {
           <Paper
             sx={{
               borderRadius: 2,
-              border: '1px solid var(--admin-border)',
-              boxShadow: 'var(--admin-shadow-sm)',
-              overflow: 'hidden'
+              border: "1px solid var(--admin-border)",
+              boxShadow: "var(--admin-shadow-sm)",
+              overflow: "hidden"
             }}>
             <Box
               sx={{
                 p: 2,
-                borderBottom: '1px solid var(--admin-border)',
-                backgroundColor: 'var(--c1l7)'
+                borderBottom: "1px solid var(--admin-border)",
+                backgroundColor: "var(--c1l7)"
               }}>
               <Stack direction="row" alignItems="center" spacing={1}>
-                <MovieIcon sx={{ color: 'var(--c1d2)', fontSize: '1.5rem' }} />
+                <MovieIcon sx={{ color: "var(--c1d2)", fontSize: "1.5rem" }} />
                 <Typography variant="h6" sx={{
-                  color: 'var(--c1d2)',
+                  color: "var(--c1d2)",
                   fontWeight: 600,
                   lineHeight: 1,
-                  fontSize: '1.25rem',
-                  display: 'flex',
-                  alignItems: 'center'
+                  fontSize: "1.25rem",
+                  display: "flex",
+                  alignItems: "center"
                 }}>
                   Add-ons Library
                 </Typography>

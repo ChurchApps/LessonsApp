@@ -3,9 +3,7 @@ import { Chip, ChipProps } from "@mui/material";
 
 type StatusType = "published" | "draft" | "scheduled" | "archived" | "active" | "pending" | "staff" | "featured";
 
-export interface StatusChipProps extends Omit<ChipProps, "color"> {
-  status: StatusType;
-}
+export interface StatusChipProps extends Omit<ChipProps, "color"> { status: StatusType; }
 
 const statusConfig: Record<StatusType, { label: string; color: string; backgroundColor: string }> = {
   published: {
@@ -63,9 +61,7 @@ export const StatusChip: React.FC<StatusChipProps> = ({ status, size = "small", 
         fontWeight: 500,
         fontSize: size === "small" ? "0.75rem" : "0.875rem",
         height: size === "small" ? 24 : 32,
-        "& .MuiChip-label": {
-          px: size === "small" ? 1 : 1.5
-        },
+        "& .MuiChip-label": { px: size === "small" ? 1 : 1.5 },
         border: "none"
       }}
       {...props}

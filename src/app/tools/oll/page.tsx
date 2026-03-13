@@ -2,21 +2,17 @@
 
 import dynamic from "next/dynamic";
 import { Suspense } from "react";
-import { FormatListBulleted as ListIcon } from "@mui/icons-material";
 import { Box, Paper } from "@mui/material";
 import { Wrapper } from "@/components/Wrapper";
 import { PageHeader } from "@churchapps/apphelper";
 
-const OllInner = dynamic(() => import("./components/OllInner"), {
-  loading: () => <div>Loading lesson builder...</div>
-});
+const OllInner = dynamic(() => import("./components/OllInner"), { loading: () => <div>Loading lesson builder...</div> });
 
 export default function CP() {
   return (
     <Wrapper>
       <Box sx={{ p: 0 }}>
         <PageHeader
-          icon={<ListIcon />}
           title="Open Lesson List Builder"
           subtitle="Create and manage lesson curriculum lists"
         />

@@ -32,26 +32,16 @@ export default function Admin() {
   useEffect(() => {
     if (!isAuthenticated) router.push("/login");
 
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+
   }, []);
 
-  useEffect(() => {
-    if (isAuthenticated) loadData();
-  }, [isAuthenticated]);
+  useEffect(() => { if (isAuthenticated) loadData(); }, [isAuthenticated]);
 
   async function loadData() {
-    ApiHelper.get("/providers", "LessonsApi").then((data: any) => {
-      setProviders(data);
-    });
-    ApiHelper.get("/programs", "LessonsApi").then((data: any) => {
-      setPrograms(data);
-    });
-    ApiHelper.get("/studies", "LessonsApi").then((data: any) => {
-      setStudies(data);
-    });
-    ApiHelper.get("/lessons", "LessonsApi").then((data: any) => {
-      setLessons(data);
-    });
+    ApiHelper.get("/providers", "LessonsApi").then((data: any) => { setProviders(data); });
+    ApiHelper.get("/programs", "LessonsApi").then((data: any) => { setPrograms(data); });
+    ApiHelper.get("/studies", "LessonsApi").then((data: any) => { setStudies(data); });
+    ApiHelper.get("/lessons", "LessonsApi").then((data: any) => { setLessons(data); });
   }
 
   function clearEdits() {
@@ -76,10 +66,8 @@ export default function Admin() {
 
   const scrollToEdit = () => {
     setTimeout(() => {
-      const editPanel = document.getElementById('edit-panel');
-      if (editPanel) {
-        editPanel.scrollIntoView({ behavior: 'smooth', block: 'start' });
-      }
+      const editPanel = document.getElementById("edit-panel");
+      if (editPanel) { editPanel.scrollIntoView({ behavior: "smooth", block: "start" }); }
     }, 100);
   };
 
@@ -162,10 +150,7 @@ export default function Admin() {
           <Stack direction="row" alignItems="center" spacing={1}>
             <IconButton
               size="small"
-              onClick={(e) => {
-                e.stopPropagation();
-                router.push("/admin/stats/" + p.id);
-              }}
+              onClick={(e) => { e.stopPropagation(); router.push("/admin/stats/" + p.id); }}
               sx={{ color: "var(--c1d2)" }}
               title="View Stats">
               <StatsIcon fontSize="small" />
@@ -392,10 +377,7 @@ export default function Admin() {
 
               <IconButton
                 size="small"
-                onClick={() => {
-                  clearEdits();
-                  showResources("lesson", l.id, l.name);
-                }}
+                onClick={() => { clearEdits(); showResources("lesson", l.id, l.name); }}
                 sx={{ color: "var(--c1)" }}
                 title="Manage Files">
                 <FilesIcon fontSize="small" />
@@ -470,12 +452,11 @@ export default function Admin() {
   }
 
   function clearCache() {
-    startTransition(async () => {
-      revalidate("all");
-    });
+    startTransition(async () => { revalidate("all"); });
   }
 
-  const headerActions = [<Button
+  const headerActions = [
+<Button
     key="add-program"
     variant="outlined"
     startIcon={<AddIcon />}
@@ -487,10 +468,7 @@ export default function Admin() {
     sx={{
       color: "white",
       borderColor: "rgba(255,255,255,0.5)",
-      "&:hover": {
-        borderColor: "white",
-        backgroundColor: "rgba(255,255,255,0.1)"
-      }
+      "&:hover": { borderColor: "white", backgroundColor: "rgba(255,255,255,0.1)" }
     }}>
       Add Program
   </Button>, <Button
@@ -501,18 +479,15 @@ export default function Admin() {
     sx={{
       color: "white",
       borderColor: "rgba(255,255,255,0.5)",
-      "&:hover": {
-        borderColor: "white",
-        backgroundColor: "rgba(255,255,255,0.1)"
-      }
+      "&:hover": { borderColor: "white", backgroundColor: "rgba(255,255,255,0.1)" }
     }}>
       Clear Cache
-  </Button>];
+  </Button>
+  ];
 
   return (
     <Wrapper>
       <PageHeader
-        icon={<SchoolIcon />}
         title="Program Management"
         subtitle="Manage programs, studies, and lessons for your curriculum"
       >

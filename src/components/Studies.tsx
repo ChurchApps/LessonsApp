@@ -4,10 +4,7 @@ import React from "react";
 import { Card, Grid } from "@mui/material";
 import { StudyInterface } from "@/helpers";
 
-interface Props {
-  studies: StudyInterface[];
-  slug: string;
-}
+interface Props { studies: StudyInterface[]; slug: string; }
 
 const Studies = React.memo(({ studies, slug }: Props) => {
   const createStudyCard = React.useCallback((study: StudyInterface) => {

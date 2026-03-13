@@ -89,10 +89,7 @@ export default function EmbedExternalSection() {
 
   useEffect(() => {
     // Send height to parent window for iframe resizing
-    const sendHeight = () => {
-      const height = document.body.scrollHeight;
-      window.parent.postMessage({ type: "lessonSectionHeight", height }, "*");
-    };
+    const sendHeight = () => { const height = document.body.scrollHeight; window.parent.postMessage({ type: "lessonSectionHeight", height }, "*"); };
 
     sendHeight();
     const resizeObserver = new ResizeObserver(sendHeight);
@@ -140,9 +137,7 @@ export default function EmbedExternalSection() {
             sx={{
               backgroundColor: "#28235d",
               color: "#fff",
-              "& .MuiCardHeader-subheader": {
-                color: "rgba(255,255,255,0.8)"
-              }
+              "& .MuiCardHeader-subheader": { color: "rgba(255,255,255,0.8)" }
             }}
           />
           <CardContent>

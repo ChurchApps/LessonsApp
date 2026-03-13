@@ -4,14 +4,14 @@ import { useState } from "react";
 import Icon from "@mui/material/Icon";
 import { AnalyticsHelper, ApiHelper } from "@churchapps/apphelper";
 import { Presenter } from "@/components/Presenter";
-import { PlaylistFileInterface,
+import {
+  PlaylistFileInterface,
   PlaylistMessageInterface,
   PlaylistResponseInterface,
-  VenueInterface } from "@/helpers/interfaces";
+  VenueInterface
+} from "@/helpers/interfaces";
 
-interface Props {
-  selectedVenue: VenueInterface;
-}
+interface Props { selectedVenue: VenueInterface; }
 
 export function PresenterLink(props: Props) {
   const [presenterFiles, setPresenterFiles] = useState<PlaylistFileInterface[]>(null);
@@ -20,14 +20,12 @@ export function PresenterLink(props: Props) {
     try {
       AnalyticsHelper.logEvent("Presenter", "Start", props.selectedVenue.name);
     } catch (error) {
-      console.warn('Analytics logging failed:', error);
+      console.warn("Analytics logging failed:", error);
     }
     ApiHelper.get("/venues/playlist/" + props.selectedVenue.id + "?mode=web", "LessonsApi").then((data: PlaylistResponseInterface) => {
       const result: PlaylistFileInterface[] = [];
       data?.messages?.forEach((m: PlaylistMessageInterface) => {
-        m.files?.forEach((f: PlaylistFileInterface) => {
-          result.push(f);
-        });
+        m.files?.forEach((f: PlaylistFileInterface) => { result.push(f); });
       });
       setPresenterFiles(result);
     });
@@ -37,19 +35,14 @@ export function PresenterLink(props: Props) {
     <>
       <a
         href="#"
-        onClick={e => {
-          e.preventDefault();
-          loadPresenterData();
-        }}
+        onClick={e => { e.preventDefault(); loadPresenterData(); }}
         className="cta">
         <Icon style={{ float: "left", marginRight: 10 }}>play_circle</Icon>Start Lesson
       </a>
       {presenterFiles && (
         <Presenter
           files={presenterFiles}
-          onClose={() => {
-            setPresenterFiles(null);
-          }}
+          onClose={() => { setPresenterFiles(null); }}
         />
       )}
     </>

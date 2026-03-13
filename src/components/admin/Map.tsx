@@ -30,12 +30,8 @@ export const Map: React.FC<Props> = props => {
         <circle
           r={2}
           fill="var(--c1)"
-          onMouseOver={() => {
-            setTooltipIp(ip);
-          }}
-          onMouseLeave={() => {
-            setTooltipIp(null);
-          }}
+          onMouseOver={() => { setTooltipIp(ip); }}
+          onMouseLeave={() => { setTooltipIp(null); }}
         />
       </Marker>);
     });
@@ -59,9 +55,7 @@ export const Map: React.FC<Props> = props => {
     }
   };
 
-  useEffect(() => {
-    if (props.programId) loadData();
-  }, [props.startDate, props.endDate, props.programId]);
+  useEffect(() => { if (props.programId) loadData(); }, [props.startDate, props.endDate, props.programId]);
 
   return (
     <DisplayBox headerText="Map of Downloads" headerIcon="map">

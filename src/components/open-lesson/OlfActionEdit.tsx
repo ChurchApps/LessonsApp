@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
-import { Box,
+import {
+  Box,
   Button,
   FormControl,
   IconButton,
@@ -14,17 +15,15 @@ import { Box,
   TableCell,
   TableRow,
   TextField,
-  Typography } from "@mui/material";
+  Typography
+} from "@mui/material";
 import { Edit as EditIcon, Save as SaveIcon, Delete as DeleteIcon, Cancel as CancelIcon, Add as AddIcon } from "@mui/icons-material";
 import { ErrorMessages } from "@churchapps/apphelper";
 import { MarkdownEditor } from "@churchapps/apphelper-markdown";
 import { FeedActionInterface, FeedFileInterface } from "@/helpers";
 import { OlfFileEdit } from "./OlfFileEdit";
 
-interface Props {
-  action: FeedActionInterface;
-  updatedCallback: (action: FeedActionInterface, cancelled: boolean) => void;
-}
+interface Props { action: FeedActionInterface; updatedCallback: (action: FeedActionInterface, cancelled: boolean) => void; }
 
 export function OlfActionEdit(props: Props) {
   const [action, setAction] = useState<FeedActionInterface>(null);
@@ -33,31 +32,27 @@ export function OlfActionEdit(props: Props) {
   const [editFileIndex, setEditFileIndex] = useState(null);
 
   const handleMarkdownChange = (newValue: string) => {
-    let a = { ...action };
+    const a = { ...action };
     a.content = newValue;
     setAction(a);
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement> | SelectChangeEvent<string>) => {
     e.preventDefault();
-    let a = { ...action };
+    const a = { ...action };
     switch (e.target.name) {
-    case "actionType":
-      a.actionType = e.target.value;
-      if (a.actionType === "play" && !a.files) a.files = [];
-      break;
-    case "role":
-      a.role = e.target.value;
-      break;
-    case "content":
-      a.content = e.target.value;
-      break;
+      case "actionType":
+        a.actionType = e.target.value;
+        if (a.actionType === "play" && !a.files) a.files = [];
+        break;
+      case "role": a.role = e.target.value; break;
+      case "content": a.content = e.target.value; break;
     }
     setAction(a);
   };
 
   const validate = () => {
-    let errors = [];
+    const errors = [];
     if (action.content === "") errors.push("Please enter content text.");
     setErrors(errors);
     return errors.length === 0;
@@ -71,9 +66,7 @@ export function OlfActionEdit(props: Props) {
     }
   };
 
-  const handleDelete = () => {
-    if (window.confirm("Are you sure you wish to delete this action?")) props.updatedCallback(null, false);
-  };
+  const handleDelete = () => { if (window.confirm("Are you sure you wish to delete this action?")) props.updatedCallback(null, false); };
 
   const getContent = () => {
     if (action.actionType !== "play" && action.actionType !== "download") return <MarkdownEditor value={action.content} onChange={handleMarkdownChange} />;
@@ -90,10 +83,7 @@ export function OlfActionEdit(props: Props) {
         <TableCell colSpan={2}>
           <a
             href="about:blank"
-            onClick={e => {
-              e.preventDefault();
-              setEditFileIndex(i);
-            }}>
+            onClick={e => { e.preventDefault(); setEditFileIndex(i); }}>
             {f.name}
           </a>
         </TableCell>
@@ -107,9 +97,7 @@ export function OlfActionEdit(props: Props) {
           <Button
             size="small"
             startIcon={<AddIcon />}
-            onClick={() => {
-              setEditFileIndex(-1);
-            }}
+            onClick={() => { setEditFileIndex(-1); }}
             sx={{ color: "var(--c1)" }}>
             Add File
           </Button>
@@ -138,16 +126,11 @@ export function OlfActionEdit(props: Props) {
 
   useEffect(() => {
     setAction(null);
-    setTimeout(() => {
-      setAction(props.action);
-    }, 100);
+    setTimeout(() => { setAction(props.action); }, 100);
   }, [props.action]);
 
   let editFile: FeedFileInterface = null;
-  if (editFileIndex !== null) {
-    if (editFileIndex === -1) editFile = { name: "", url: "" };
-    else if (action.files) editFile = action.files[editFileIndex];
-  }
+  if (editFileIndex !== null) { if (editFileIndex === -1) editFile = { name: "", url: "" }; else if (action.files) editFile = action.files[editFileIndex]; }
 
   if (!action) {
     return <></>;
@@ -248,10 +231,7 @@ export function OlfActionEdit(props: Props) {
             startIcon={<CancelIcon />}
             variant="outlined"
             onClick={handleCancel}
-            sx={{
-              color: "var(--c1d2)",
-              borderColor: "var(--c1d2)"
-            }}>
+            sx={{ color: "var(--c1d2)", borderColor: "var(--c1d2)" }}>
             Cancel
           </Button>
           {props.action.content?.trim() && (

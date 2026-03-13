@@ -36,10 +36,7 @@ const loadData = async (programSlug: string): Promise<LoadDataResult> => {
   }
 };
 
-const loadSharedData = (programSlug: string) => {
-  const result = unstable_cache(loadData, ["/[programSlug]", programSlug], { tags: ["all"] });
-  return result(programSlug);
-};
+const loadSharedData = (programSlug: string) => { const result = unstable_cache(loadData, ["/[programSlug]", programSlug], { tags: ["all"] }); return result(programSlug); };
 
 export async function generateMetadata({ params }: { params: Promise<PageParams> }): Promise<Metadata> {
   const { programSlug } = await params;

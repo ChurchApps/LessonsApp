@@ -4,10 +4,7 @@ import { ErrorMessages, InputBox } from "@churchapps/apphelper";
 import { ApiHelper, AssetInterface, FileInterface } from "@/helpers";
 import { FileUpload } from "./FileUpload";
 
-interface Props {
-  asset: AssetInterface;
-  updatedCallback: (asset: AssetInterface) => void;
-}
+interface Props { asset: AssetInterface; updatedCallback: (asset: AssetInterface) => void; }
 
 export function AssetEdit(props: Props) {
   const [asset, setAsset] = useState<AssetInterface>({} as AssetInterface);
@@ -16,27 +13,17 @@ export function AssetEdit(props: Props) {
 
   const handleCancel = () => props.updatedCallback(asset);
   const handleKeyDown = (e: React.KeyboardEvent<any>) => {
-    if (e.key === "Enter") {
-      e.preventDefault();
-      handleSave();
-    }
+    if (e.key === "Enter") { e.preventDefault(); handleSave(); }
   };
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     e.preventDefault();
-    let a = { ...asset };
-    switch (e.currentTarget.name) {
-    case "name":
-      a.name = e.currentTarget.value;
-      break;
-    case "sort":
-      a.sort = parseInt(e.currentTarget.value);
-      break;
-    }
+    const a = { ...asset };
+    switch (e.currentTarget.name) { case "name": a.name = e.currentTarget.value; break; case "sort": a.sort = parseInt(e.currentTarget.value); break; }
     setAsset(a);
   };
 
   const validate = () => {
-    let errors = [];
+    const errors = [];
     if (asset.name === "") errors.push("Please enter a asset name.");
     setErrors(errors);
     return errors.length === 0;
@@ -52,19 +39,13 @@ export function AssetEdit(props: Props) {
     });
   };
 
-  const handleSave = () => {
-    if (validate()) setPendingFileSave(true);
-  };
+  const handleSave = () => { if (validate()) setPendingFileSave(true); };
 
   const getDeleteFunction = () => (props.asset?.id ? handleDelete : undefined);
 
-  const handleDelete = () => {
-    if (window.confirm("Are you sure you wish to permanently delete this asset?")) ApiHelper.delete("/assets/" + asset.id.toString(), "LessonsApi").then(() => props.updatedCallback(null));
-  };
+  const handleDelete = () => { if (window.confirm("Are you sure you wish to permanently delete this asset?")) ApiHelper.delete("/assets/" + asset.id.toString(), "LessonsApi").then(() => props.updatedCallback(null)); };
 
-  useEffect(() => {
-    setAsset(props.asset);
-  }, [props.asset]);
+  useEffect(() => { setAsset(props.asset); }, [props.asset]);
 
   return (
     <>

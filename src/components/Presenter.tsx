@@ -3,19 +3,14 @@ import { SimpleCarousel } from "./SimpleCarousel";
 import { PlaylistFileInterface } from "@/helpers";
 import { PresenterSlide } from "./PresenterSlide";
 
-interface Props {
-  files: PlaylistFileInterface[];
-  onClose: () => void;
-}
+interface Props { files: PlaylistFileInterface[]; onClose: () => void; }
 
 export function Presenter(props: Props) {
   const [index, setIndex] = useState<number>(0);
   const [pendingGoBack, setPendingGoBack] = useState<number>(0);
   const [pendingGoForward, setPendingGoForward] = useState<number>(0);
 
-  const handleFullScreenChanged = () => {
-    if (!document.fullscreenElement) props.onClose();
-  };
+  const handleFullScreenChanged = () => { if (!document.fullscreenElement) props.onClose(); };
 
   const upHandler = (data: KeyboardEvent) => {
     if (data.key.toString() === "ArrowLeft") setPendingGoBack(Math.random());
@@ -28,24 +23,17 @@ export function Presenter(props: Props) {
     if (element && window) {
       try {
         element.requestFullscreen();
-      } catch (ex) {
+      } catch (_ex) {
         props.onClose();
       }
       element.addEventListener("fullscreenchange", handleFullScreenChanged);
     }
     window.addEventListener("keyup", upHandler);
-    return () => {
-      window.removeEventListener("keyup", upHandler);
-      element?.removeEventListener("fullscreenchange", handleFullScreenChanged);
-    };
+    return () => { window.removeEventListener("keyup", upHandler); element?.removeEventListener("fullscreenchange", handleFullScreenChanged); };
   }, []);
 
-  useEffect(() => {
-    if (pendingGoBack !== 0 && index > 0) setIndex(index - 1);
-  }, [pendingGoBack]);
-  useEffect(() => {
-    if (pendingGoForward !== 0 && index < props.files?.length - 1) setIndex(index + 1);
-  }, [pendingGoForward]);
+  useEffect(() => { if (pendingGoBack !== 0 && index > 0) setIndex(index - 1); }, [pendingGoBack]);
+  useEffect(() => { if (pendingGoForward !== 0 && index < props.files?.length - 1) setIndex(index + 1); }, [pendingGoForward]);
 
   return (
     <div id="presenter">
@@ -54,9 +42,7 @@ export function Presenter(props: Props) {
         autoPlay={false}
         fullHeightHover={true}
         navButtonsAlwaysVisible={false}
-        next={next => {
-          setIndex(next);
-        }}
+        next={next => { setIndex(next); }}
         index={index}>
         {props.files.map((f, i) => (
           <div key={i}>{i === index ? <PresenterSlide file={f} /> : <div></div>}</div>

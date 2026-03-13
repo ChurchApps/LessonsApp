@@ -25,11 +25,9 @@ export function LoginClient({ showLogo, redirectAfterLogin, loginContainerCssPro
     // Get cookies manually to avoid react-cookie SSR issues
     const cookieString = document.cookie;
     const cookieObj: any = {};
-    cookieString.split(';').forEach(cookie => {
-      const [key, value] = cookie.trim().split('=');
-      if (key && value) {
-        cookieObj[key] = value;
-      }
+    cookieString.split(";").forEach(cookie => {
+      const [key, value] = cookie.trim().split("=");
+      if (key && value) { cookieObj[key] = value; }
     });
     setCookies(cookieObj);
   }, []);

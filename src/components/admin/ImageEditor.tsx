@@ -20,7 +20,7 @@ export function ImageEditor(props: Props) {
     if (e.target) files = e.target.files;
     const reader = new FileReader();
     reader.onload = () => {
-      let url = reader.result.toString();
+      const url = reader.result.toString();
       setCurrentUrl(url);
       setDataUrl(url);
       setTimeout(selectDefaultCropZone, 500);
@@ -33,9 +33,7 @@ export function ImageEditor(props: Props) {
       <input type="file" onChange={handleUpload} id="fileUpload" accept="image/*" style={{ display: "none" }} />
       <SmallButton
         text="Upload"
-        onClick={() => {
-          document.getElementById("fileUpload").click();
-        }}
+        onClick={() => { document.getElementById("fileUpload").click(); }}
         icon="upload"
       />
     </div>
@@ -45,47 +43,39 @@ export function ImageEditor(props: Props) {
 
   const selectDefaultCropZone = () => {
     const imageElement: any = cropperRef?.current;
-    let cropper: any = imageElement?.cropper;
+    const cropper: any = imageElement?.cropper;
     const aspectRatio = 16 / 9;
 
-    let desiredAspect = aspectRatio;
-    let containerData = cropper.getContainerData();
-    let imgAspect = cropper.getImageData().aspectRatio;
-    let scale = imgAspect / desiredAspect;
+    const desiredAspect = aspectRatio;
+    const containerData = cropper.getContainerData();
+    const imgAspect = cropper.getImageData().aspectRatio;
+    const scale = imgAspect / desiredAspect;
     if (scale < 1) {
       const imgWidth = cropper.getImageData().width;
-      let l = (containerData.width - imgWidth) / 2.0;
-      let t = (containerData.height - containerData.height * scale) / 2.0;
+      const l = (containerData.width - imgWidth) / 2.0;
+      const t = (containerData.height - containerData.height * scale) / 2.0;
       cropper.setCropBoxData({ width: imgWidth, height: imgWidth / desiredAspect, left: l, top: t });
     } else {
       const imgHeight = cropper.getImageData().height;
-      let l = (containerData.width - imgHeight * desiredAspect) / 2.0;
-      let t = cropper.canvasData.top;
+      const l = (containerData.width - imgHeight * desiredAspect) / 2.0;
+      const t = cropper.canvasData.top;
       cropper.setCropBoxData({ width: imgHeight * desiredAspect, height: imgHeight, left: l, top: t });
     }
   };
 
   const cropCallback = () => {
-    if (cropperRef.current !== null) {
-      let url = cropperRef.current.cropper.getCroppedCanvas({ width: 1280, height: 720 }).toDataURL();
-      setDataUrl(url);
-    }
+    if (cropperRef.current !== null) { const url = cropperRef.current.cropper.getCroppedCanvas({ width: 1280, height: 720 }).toDataURL(); setDataUrl(url); }
   };
 
   const handleCrop = () => {
-    if (timeout !== null) {
-      window.clearTimeout(timeout);
-      timeout = null;
-    }
+    if (timeout !== null) { window.clearTimeout(timeout); timeout = null; }
     timeout = window.setTimeout(cropCallback, 200);
   };
 
   const handleSave = () => props.updatedFunction(dataUrl);
   const handleDelete = () => props.updatedFunction("");
 
-  useEffect(() => {
-    setCurrentUrl(props.imageUrl || "/images/blank.png");
-  }, [props.imageUrl]);
+  useEffect(() => { setCurrentUrl(props.imageUrl || "/images/blank.png"); }, [props.imageUrl]);
 
   return (
     <InputBox

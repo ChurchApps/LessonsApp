@@ -15,7 +15,7 @@ type PageParams = { providerId: string; programId: string };
 export default function ProgramPage() {
   const params = useParams<PageParams>();
   const [filteredStudies, setFilteredStudies] = useState([]);
-  const [category, setCategory] = useState("");
+  const [category, _setCategory] = useState("");
   const [program, setProgram] = useState<ProgramInterface>(null);
   const [showVideo, setShowVideo] = useState(false);
 
@@ -26,9 +26,7 @@ export default function ProgramPage() {
     setFilteredStudies(program.studies);
   };
 
-  useEffect(() => {
-    loadData();
-  }, [category]);
+  useEffect(() => { loadData(); }, [category]);
 
   const video = program.videoEmbedUrl && <EmbeddedVideo videoEmbedUrl={program.videoEmbedUrl} title={program.name} />;
 
@@ -48,10 +46,7 @@ export default function ProgramPage() {
             {video && (
               <a
                 href="about:blank"
-                onClick={e => {
-                  e.preventDefault();
-                  setShowVideo(true);
-                }}
+                onClick={e => { e.preventDefault(); setShowVideo(true); }}
                 className="cta">
                 <Icon style={{ float: "left", marginRight: 10 }}>play_circle</Icon>Watch Trailer
               </a>

@@ -8,9 +8,7 @@ Sentry.init({
   dsn: "https://6e29ed2781f29262aca838e13cb76bea@o4510432524107776.ingest.us.sentry.io/4510435252568064",
 
   // Add optional integrations for additional features
-  integrations: [
-    Sentry.replayIntegration(),
-  ],
+  integrations: [Sentry.replayIntegration()],
 
   // Define how likely traces are sampled. Adjust this value in production, or use tracesSampler for greater control.
   tracesSampleRate: 1,
@@ -27,7 +25,7 @@ Sentry.init({
 
   // Enable sending user PII (Personally Identifiable Information)
   // https://docs.sentry.io/platforms/javascript/guides/nextjs/configuration/options/#sendDefaultPii
-  sendDefaultPii: true,
+  sendDefaultPii: true
 });
 
 export const onRouterTransitionStart = Sentry.captureRouterTransitionStart;

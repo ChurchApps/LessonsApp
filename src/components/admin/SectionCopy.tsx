@@ -20,20 +20,13 @@ export function SectionCopy(props: Props) {
 
   const handleChange = (e: SelectChangeEvent<string>) => {
     e.preventDefault();
-    let s = { ...copySection };
-    switch (e.target.name) {
-    case "venue":
-      s.sourceVenueId = e.target.value;
-      break;
-    case "section":
-      s.sourceSectionId = e.target.value;
-      break;
-    }
+    const s = { ...copySection };
+    switch (e.target.name) { case "venue": s.sourceVenueId = e.target.value; break; case "section": s.sourceSectionId = e.target.value; break; }
     setCopySection(s);
   };
 
   const validate = () => {
-    let errors = [];
+    const errors = [];
     if (!copySection.sourceSectionId) errors.push("No section to copy from");
     setErrors(errors);
     return errors.length === 0;
@@ -41,9 +34,7 @@ export function SectionCopy(props: Props) {
 
   const handleSave = () => {
     if (validate()) {
-      ApiHelper.get("/sections/copy/" + copySection.sourceSectionId + "/" + props.venueId, "LessonsApi").then(data => {
-        props.updatedCallback();
-      });
+      ApiHelper.get("/sections/copy/" + copySection.sourceSectionId + "/" + props.venueId, "LessonsApi").then(_data => { props.updatedCallback(); });
     }
   };
 
@@ -95,24 +86,24 @@ export function SectionCopy(props: Props) {
     <Paper
       sx={{
         borderRadius: 2,
-        border: '1px solid var(--admin-border)',
-        boxShadow: 'var(--admin-shadow-sm)',
-        overflow: 'hidden'
+        border: "1px solid var(--admin-border)",
+        boxShadow: "var(--admin-shadow-sm)",
+        overflow: "hidden"
       }}>
       {/* HEADER */}
       <Box
         sx={{
           p: 2,
-          borderBottom: '1px solid var(--admin-border)',
-          backgroundColor: 'var(--c1l7)'
+          borderBottom: "1px solid var(--admin-border)",
+          backgroundColor: "var(--c1l7)"
         }}>
         <Stack direction="row" alignItems="center" spacing={1}>
-          <CopyIcon sx={{ color: 'var(--c1d2)', fontSize: '1.5rem' }} />
+          <CopyIcon sx={{ color: "var(--c1d2)", fontSize: "1.5rem" }} />
           <Typography variant="h6" sx={{
-            color: 'var(--c1d2)',
+            color: "var(--c1d2)",
             fontWeight: 600,
             lineHeight: 1,
-            fontSize: '1.25rem'
+            fontSize: "1.25rem"
           }}>
             Copy Section From
           </Typography>
@@ -129,7 +120,7 @@ export function SectionCopy(props: Props) {
             <Select
               label="Venue"
               name="venue"
-              value={copySection.sourceVenueId || ''}
+              value={copySection.sourceVenueId || ""}
               onChange={handleChange}>
               {getVenueOptions()}
             </Select>
@@ -140,7 +131,7 @@ export function SectionCopy(props: Props) {
             <Select
               label="Section"
               name="section"
-              value={copySection.sourceSectionId || ''}
+              value={copySection.sourceSectionId || ""}
               onChange={handleChange}>
               {getSectionOptions()}
             </Select>
@@ -152,12 +143,12 @@ export function SectionCopy(props: Props) {
       <Box
         sx={{
           p: 2,
-          borderTop: '1px solid var(--admin-border)',
-          backgroundColor: 'var(--admin-bg)',
-          display: 'flex',
-          justifyContent: 'flex-end',
+          borderTop: "1px solid var(--admin-border)",
+          backgroundColor: "var(--admin-bg)",
+          display: "flex",
+          justifyContent: "flex-end",
           gap: 1,
-          flexWrap: 'wrap'
+          flexWrap: "wrap"
         }}>
         <Button startIcon={<CopyIcon />} variant="contained" onClick={handleSave}>
           Copy Section

@@ -17,9 +17,7 @@ const Venue = React.memo(({ hidePrint = true, ...props }: Props) => {
   const [activeSectionId, setActiveSectionId] = React.useState<string>(props.venue?.sections[0]?.name || "");
   const [displaySection, setDisplaySection] = React.useState<boolean>(false);
 
-  const handleToggle = React.useCallback((sectionId: string) => {
-    setActiveSectionId(sectionId);
-  }, []);
+  const handleToggle = React.useCallback((sectionId: string) => { setActiveSectionId(sectionId); }, []);
 
   const handlePrint = useReactToPrint({ contentRef });
 
@@ -33,18 +31,12 @@ const Venue = React.memo(({ hidePrint = true, ...props }: Props) => {
   }, [handlePrint]);
 
   React.useEffect(() => {
-    if (displaySection) {
-      checkPrint();
-      setDisplaySection(false);
-    }
+    if (displaySection) { checkPrint(); setDisplaySection(false); }
   }, [displaySection, checkPrint]);
 
   const shouldHide = React.useCallback((id: string) => {
     let result = false;
-    if (props.customizations?.length > 0) {
-      const removeItems = ArrayHelper.getAll(props.customizations, "action", "remove");
-      if (removeItems.length > 0) result = ArrayHelper.getOne(removeItems, "contentId", id) !== null;
-    }
+    if (props.customizations?.length > 0) { const removeItems = ArrayHelper.getAll(props.customizations, "action", "remove"); if (removeItems.length > 0) result = ArrayHelper.getOne(removeItems, "contentId", id) !== null; }
     return result;
   }, [props.customizations]);
 
@@ -98,9 +90,7 @@ const Venue = React.memo(({ hidePrint = true, ...props }: Props) => {
           variant="outlined"
           key={"print" + props.venue.name}
           sx={{ float: "right", marginBottom: "20px" }}
-          onClick={() => {
-            setDisplaySection(true);
-          }}
+          onClick={() => { setDisplaySection(true); }}
           title="print"
           startIcon={<Icon>print</Icon>}>
           print
@@ -109,9 +99,7 @@ const Venue = React.memo(({ hidePrint = true, ...props }: Props) => {
     }
   }, [hidePrint, props.venue.name]);
 
-  React.useEffect(() => {
-    if (props.print > 0) setDisplaySection(true);
-  }, [props.print]);
+  React.useEffect(() => { if (props.print > 0) setDisplaySection(true); }, [props.print]);
 
   const sections = React.useMemo(() => getSections(), [getSections]);
   const printSections = React.useMemo(() => getPrintSections(), [getPrintSections]);
