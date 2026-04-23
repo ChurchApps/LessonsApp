@@ -44,6 +44,16 @@ export const BundleList: React.FC<Props> = props => {
 
   const clearEdits = () => { setEditResource(null); };
 
+  const handleRebuildZip = async (bundleId: string) => {
+    try {
+      await ApiHelper.post("/bundles/" + bundleId + "/rezip", {}, "LessonsApi");
+      alert("Zip rebuild queued. It may take a few minutes to complete.");
+    } catch (err) {
+      alert("Failed to queue zip rebuild.");
+      console.error(err);
+    }
+  };
+
   const loadData = async () => {
     if (props.contentType && props.contentId) {
       ApiHelper.get("/externalVideos/content/" + props.contentType + "/" + props.contentId, "LessonsApi").then(data =>
@@ -176,7 +186,12 @@ export const BundleList: React.FC<Props> = props => {
         elevation={0}>
         <AccordionSummary expandIcon={<Icon>expand_more</Icon>} aria-controls="panel1bh-content" id="panel1bh-header">
           <div style={{ width: "100%", paddingRight: 20 }}>
-            <span style={{ float: "right" }}>
+            <span style={{ float: "right", display: "inline-flex", gap: 4 }}>
+              <SmallButton
+                icon="refresh"
+                onClick={() => { handleRebuildZip(bundle.id); }}
+                text="Rebuild Zip"
+              />
               <SmallButton
                 icon="add"
                 onClick={() => {
