@@ -1,0 +1,143 @@
+{
+  "cookies": [
+    {
+      "name": "__hstc",
+      "value": "181257784.3a619fa0b5d261070a532f692287df35.1777165807981.1777165807981.1777165807981.1",
+      "domain": "localhost",
+      "path": "/",
+      "expires": 1792717807,
+      "httpOnly": false,
+      "secure": false,
+      "sameSite": "Lax"
+    },
+    {
+      "name": "hubspotutk",
+      "value": "3a619fa0b5d261070a532f692287df35",
+      "domain": "localhost",
+      "path": "/",
+      "expires": 1792717807,
+      "httpOnly": false,
+      "secure": false,
+      "sameSite": "Lax"
+    },
+    {
+      "name": "__hssrc",
+      "value": "1",
+      "domain": "localhost",
+      "path": "/",
+      "expires": -1,
+      "httpOnly": false,
+      "secure": false,
+      "sameSite": "Lax"
+    },
+    {
+      "name": "__hssc",
+      "value": "181257784.1.1777165807981",
+      "domain": "localhost",
+      "path": "/",
+      "expires": 1777167607,
+      "httpOnly": false,
+      "secure": false,
+      "sameSite": "Lax"
+    },
+    {
+      "name": "__cf_bm",
+      "value": "e44XPQ4ETl8xBPNbdgw6r8Wtyzp9apZ1nb3IVFqmCk8-1777165808-1.0.1.1-gzpbsQ1NYhy62HMUMuTvdHy3hbiBDsnrctYsXMVnLaWqV32p45qdOzwbRYmeCaln9nJbYZCekEeb3tVWGpihd9NLPcVZ71cogSga9pHwBps",
+      "domain": ".hubspot.com",
+      "path": "/",
+      "expires": 1777167608.070128,
+      "httpOnly": true,
+      "secure": true,
+      "sameSite": "None"
+    },
+    {
+      "name": "_cfuvid",
+      "value": "0VR3asfYgz_di2BUj4zNuMmQdrQ3aSI7FM6T661TxAU-1777165808280-0.0.1.1-604800000",
+      "domain": ".hubspot.com",
+      "path": "/",
+      "expires": -1,
+      "httpOnly": true,
+      "secure": true,
+      "sameSite": "None"
+    },
+    {
+      "name": "_gcl_au",
+      "value": "1.1.2136260140.1777165808",
+      "domain": "localhost",
+      "path": "/",
+      "expires": 1784941808,
+      "httpOnly": false,
+      "secure": false,
+      "sameSite": "Lax"
+    },
+    {
+      "name": "name",
+      "value": "Lessons%20Admin",
+      "domain": "localhost",
+      "path": "/",
+      "expires": 1792717808.232808,
+      "httpOnly": false,
+      "secure": false,
+      "sameSite": "Lax"
+    },
+    {
+      "name": "email",
+      "value": "lessons-admin%40demo.churchapps.org",
+      "domain": "localhost",
+      "path": "/",
+      "expires": 1792717808.23298,
+      "httpOnly": false,
+      "secure": false,
+      "sameSite": "Lax"
+    },
+    {
+      "name": "test_cookie",
+      "value": "CheckForPermission",
+      "domain": ".doubleclick.net",
+      "path": "/",
+      "expires": 1777166708.299119,
+      "httpOnly": false,
+      "secure": true,
+      "sameSite": "None"
+    },
+    {
+      "name": "lastChurchId",
+      "value": "CHU00000099",
+      "domain": "localhost",
+      "path": "/",
+      "expires": 1792717808.307085,
+      "httpOnly": false,
+      "secure": false,
+      "sameSite": "Lax"
+    },
+    {
+      "name": "jwt",
+      "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IlVTUjAwMDAwMDAyIiwiZW1haWwiOiJsZXNzb25zLWFkbWluQGRlbW8uY2h1cmNoYXBwcy5vcmciLCJmaXJzdE5hbWUiOiJMZXNzb25zIiwibGFzdE5hbWUiOiJBZG1pbiIsImlhdCI6MTc3NzE2NTgwOCwiZXhwIjoxNzkyNzE3ODA4fQ.wqkJ3UpU2cqfgf5UjnHpdv1Oi9sVPNRM4hPJcWBCrKM",
+      "domain": "localhost",
+      "path": "/",
+      "expires": 1792717808.324488,
+      "httpOnly": false,
+      "secure": false,
+      "sameSite": "Lax"
+    }
+  ],
+  "origins": [
+    {
+      "origin": "http://localhost:3501",
+      "localStorage": [
+        {
+          "name": "i18nextLng",
+          "value": "en-US"
+        },
+        {
+          "name": "_gcl_ls",
+          "value": "{\"schema\":\"gcl\",\"version\":1,\"gcl_ctr\":{\"value\":{\"value\":0,\"timeouts\":0,\"errors\":0,\"eopCount\":0,\"creationTimeMs\":1777165808213},\"expires\":1784941808213}}"
+        },
+        {
+          "name": "orama_user_id",
+          "value": "t8qcttudm9zj5apb2qgp4j93"
+        }
+      ]
+    }
+  ]
+}

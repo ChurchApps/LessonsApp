@@ -1,0 +1,143 @@
+{
+  "cookies": [
+    {
+      "name": "__hstc",
+      "value": "181257784.c0ef2a0283f6dbe8c9dea49eb9e337ef.1777165809171.1777165809171.1777165809171.1",
+      "domain": "localhost",
+      "path": "/",
+      "expires": 1792717809,
+      "httpOnly": false,
+      "secure": false,
+      "sameSite": "Lax"
+    },
+    {
+      "name": "hubspotutk",
+      "value": "c0ef2a0283f6dbe8c9dea49eb9e337ef",
+      "domain": "localhost",
+      "path": "/",
+      "expires": 1792717809,
+      "httpOnly": false,
+      "secure": false,
+      "sameSite": "Lax"
+    },
+    {
+      "name": "__hssrc",
+      "value": "1",
+      "domain": "localhost",
+      "path": "/",
+      "expires": -1,
+      "httpOnly": false,
+      "secure": false,
+      "sameSite": "Lax"
+    },
+    {
+      "name": "__hssc",
+      "value": "181257784.1.1777165809171",
+      "domain": "localhost",
+      "path": "/",
+      "expires": 1777167609,
+      "httpOnly": false,
+      "secure": false,
+      "sameSite": "Lax"
+    },
+    {
+      "name": "__cf_bm",
+      "value": "NIVY6TJL2aROzcYuHr4wSrfmC.Vc3twTuJdpNnKrLw8-1777165809-1.0.1.1-dsNCnWPjPbIJJdEzwzLs0pKVmFHdDXJdcljftVqwMLdOfttHvqUK4eoUU1pMjugUZ_3AJ1brQWMLtCxQQCRfV.V6Sq9SUWI7TDt1rc95IHc",
+      "domain": ".hubspot.com",
+      "path": "/",
+      "expires": 1777167609.274162,
+      "httpOnly": true,
+      "secure": true,
+      "sameSite": "None"
+    },
+    {
+      "name": "_cfuvid",
+      "value": "nWXaQsL3VxN5CE2bciR1WmsBO3SIFqlBz3hHXOHrinM-1777165809485-0.0.1.1-604800000",
+      "domain": ".hubspot.com",
+      "path": "/",
+      "expires": -1,
+      "httpOnly": true,
+      "secure": true,
+      "sameSite": "None"
+    },
+    {
+      "name": "name",
+      "value": "Demo%20User",
+      "domain": "localhost",
+      "path": "/",
+      "expires": 1792717809.413524,
+      "httpOnly": false,
+      "secure": false,
+      "sameSite": "Lax"
+    },
+    {
+      "name": "email",
+      "value": "demo%40b1.church",
+      "domain": "localhost",
+      "path": "/",
+      "expires": 1792717809.413689,
+      "httpOnly": false,
+      "secure": false,
+      "sameSite": "Lax"
+    },
+    {
+      "name": "_gcl_au",
+      "value": "1.1.270655794.1777165809",
+      "domain": "localhost",
+      "path": "/",
+      "expires": 1784941809,
+      "httpOnly": false,
+      "secure": false,
+      "sameSite": "Lax"
+    },
+    {
+      "name": "lastChurchId",
+      "value": "CHU00000001",
+      "domain": "localhost",
+      "path": "/",
+      "expires": 1792717809.523749,
+      "httpOnly": false,
+      "secure": false,
+      "sameSite": "Lax"
+    },
+    {
+      "name": "jwt",
+      "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IlVTUjAwMDAwMDAxIiwiZW1haWwiOiJkZW1vQGIxLmNodXJjaCIsImZpcnN0TmFtZSI6IkRlbW8iLCJsYXN0TmFtZSI6IlVzZXIiLCJpYXQiOjE3NzcxNjU4MDksImV4cCI6MTc5MjcxNzgwOX0.OmFcGNmOfekSOe6yxrn9lNMx3eko-yNALDYpiGR0hNA",
+      "domain": "localhost",
+      "path": "/",
+      "expires": 1792717809.541333,
+      "httpOnly": false,
+      "secure": false,
+      "sameSite": "Lax"
+    },
+    {
+      "name": "test_cookie",
+      "value": "CheckForPermission",
+      "domain": ".doubleclick.net",
+      "path": "/",
+      "expires": 1777166709.558328,
+      "httpOnly": false,
+      "secure": true,
+      "sameSite": "None"
+    }
+  ],
+  "origins": [
+    {
+      "origin": "http://localhost:3501",
+      "localStorage": [
+        {
+          "name": "i18nextLng",
+          "value": "en-US"
+        },
+        {
+          "name": "_gcl_ls",
+          "value": "{\"schema\":\"gcl\",\"version\":1,\"gcl_ctr\":{\"value\":{\"value\":0,\"timeouts\":0,\"errors\":0,\"eopCount\":0,\"creationTimeMs\":1777165809484},\"expires\":1784941809484}}"
+        },
+        {
+          "name": "orama_user_id",
+          "value": "hnuxw9mra0p3v8wzngyqcre9"
+        }
+      ]
+    }
+  ]
+}
