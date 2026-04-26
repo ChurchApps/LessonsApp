@@ -18,7 +18,7 @@ const config = {
       { protocol: "https", hostname: "files.churchpdf.com" }
     ]
   },
-  transpilePackages: ["@churchapps/apphelper", "@churchapps/apphelper-markdown", "mui-tel-input", "react-ga4", "@mui/material", "@mui/styled-engine"],
+  transpilePackages: ["@churchapps/apphelper", "mui-tel-input", "react-ga4", "@mui/material", "@mui/styled-engine"],
   // Configuration for Transformers.js (ONNX runtime)
   serverExternalPackages: ["@xenova/transformers"],
   webpack: (config, { isServer }) => {

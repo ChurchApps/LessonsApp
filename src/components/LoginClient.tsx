@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { Alert } from "@mui/material";
 import { Layout } from "@/components";
-import { LoginPage } from "@churchapps/apphelper-login";
+import { LoginPage } from "@churchapps/apphelper/login";
 import { UserHelper } from "@churchapps/apphelper";
 import { useSearchParams } from "next/navigation";
 import { redirect } from "next/navigation";

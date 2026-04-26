@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { MarkdownPreviewLight } from "@churchapps/apphelper-markdown";
+import { MarkdownPreviewLight } from "@churchapps/apphelper/markdown";
 import { FeedActionInterface, FeedVenueInterface } from "@/helpers";
 
 interface Props { feed: FeedVenueInterface; }

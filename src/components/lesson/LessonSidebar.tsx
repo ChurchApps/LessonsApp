@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Container, Icon, Menu, MenuItem, Select } from "@mui/material";
 // import { B1ShareModal } from "@churchapps/apphelper"; // B1ShareModal has been removed from the split packages
-import { MarkdownPreviewLight } from "@churchapps/apphelper-markdown";
+import { MarkdownPreviewLight } from "@churchapps/apphelper/markdown";
 import { ArrayHelper, FeedVenueInterface } from "@/helpers";
 import { OlfPrintPreview } from "../open-lesson/OlfPrintPreview";
 import { Downloads } from "./Downloads";

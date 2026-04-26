@@ -5,7 +5,7 @@ import Link from "next/link";
 import { useParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import { Container, Grid } from "@mui/material";
-import { MarkdownPreviewLight } from "@churchapps/apphelper-markdown";
+import { MarkdownPreviewLight } from "@churchapps/apphelper/markdown";
 import { ApiHelper } from "@churchapps/apphelper";
 import { Layout, Lessons } from "@/components";
 import { Header } from "@/components/Header";
