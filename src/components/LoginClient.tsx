@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { Alert } from "@mui/material";
 import { Layout } from "@/components";
 import { LoginPage } from "@churchapps/apphelper-login";
@@ -19,18 +19,18 @@ interface Props {
 export function LoginClient({ showLogo, redirectAfterLogin, loginContainerCssProps, keyName }: Props) {
   const searchParams = useSearchParams();
   const context = useUser();
-  const [cookies, setCookies] = useState<any>({});
-
-  useEffect(() => {
-    // Get cookies manually to avoid react-cookie SSR issues
-    const cookieString = document.cookie;
+  // Read cookies synchronously on first client render so the jwt is available
+  // before LoginPage's init() runs — otherwise auto-login from an existing
+  // session cookie misses its window. SSR returns an empty object.
+  const [cookies] = useState<any>(() => {
+    if (typeof document === "undefined") return {};
     const cookieObj: any = {};
-    cookieString.split(";").forEach(cookie => {
+    document.cookie.split(";").forEach(cookie => {
       const [key, value] = cookie.trim().split("=");
       if (key && value) { cookieObj[key] = value; }
     });
-    setCookies(cookieObj);
-  }, []);
+    return cookieObj;
+  });
 
   const handleRedirect = (
     url: string,

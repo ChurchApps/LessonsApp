@@ -1,3 +1,5 @@
+"use client";
+
 import { Container, Fade, Grid, Link, Slide, Stack } from "@mui/material";
 import { Header } from "../../components/Header";
 import { Stats } from "./Stats";
