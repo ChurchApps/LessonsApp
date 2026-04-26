@@ -78,7 +78,21 @@ async function warmRoutes(baseURL: string) {
   try {
     const ctx = await browser.newContext();
     const p = await ctx.newPage();
-    for (const url of ["/login", "/admin", "/portal", "/old-testament-heroes"]) {
+    const urls = [
+      "/",
+      "/login",
+      "/admin",
+      "/admin/stats/PGM00000001",
+      "/admin/venue/VEN00000001",
+      "/portal",
+      "/portal/thirdParty",
+      "/portal/venue/VEN00000001",
+      "/classroom/CLS00000001",
+      "/old-testament-heroes",
+      "/old-testament-heroes/genesis-stories",
+      "/old-testament-heroes/genesis-stories/creation",
+    ];
+    for (const url of urls) {
       await p.goto(baseURL + url, { waitUntil: "domcontentloaded", timeout: 60000 }).catch(() => { });
     }
     console.log("global-setup: warm-up done.");
