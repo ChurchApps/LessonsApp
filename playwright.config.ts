@@ -12,7 +12,9 @@ export default defineConfig({
   testMatch: /.*\.spec\.ts/,
   fullyParallel: false,
   forbidOnly: !!process.env.CI,
-  retries: 0,
+  // One retry covers the occasional Next.js dev-server compilation hiccup
+  // when many parallel workers warm up routes simultaneously.
+  retries: 1,
   // 18+ concurrent Next.js dev compilations overwhelm the dev server. Cap workers
   // at 4 so /login compiles once, becomes hot-cached, and individual tests can
   // complete their auto-login round-trip within the 30s navigation budget.

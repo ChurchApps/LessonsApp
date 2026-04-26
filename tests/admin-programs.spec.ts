@@ -5,13 +5,12 @@
 import { adminTest as test, expect } from "./helpers/test-fixtures";
 import { SEED } from "./helpers/fixtures";
 
-const DISPOSABLE_PROGRAM_NAME = "Zacchaeus Test Program";
-const DISPOSABLE_PROGRAM_SLUG = "zacchaeus-test-program";
+const NEW_PROGRAM_NAME = "Zacchaeus Test Program";
+const NEW_PROGRAM_SLUG = "zacchaeus-test-program";
+const RENAMED_PROGRAM_NAME = "Zacchaeus Renamed Program";
 
 test.describe("Programs admin", () => {
   test("renders the seeded programs list", async ({ page }) => {
-    // Two h6 headings on /admin contain "Programs" — the section heading and the
-    // page subtitle "Manage programs, studies and lessons...". Match the section heading by exact text.
     await expect(page.getByRole("heading", { name: "Programs", exact: true })).toBeVisible();
     await expect(page.getByText(SEED.PROGRAMS.OT.name).first()).toBeVisible();
     await expect(page.getByText(SEED.PROGRAMS.NT.name).first()).toBeVisible();
@@ -20,24 +19,50 @@ test.describe("Programs admin", () => {
   test("opens the Add Program drawer from the header", async ({ page }) => {
     await page.getByRole("button", { name: "Add Program" }).first().click();
     await expect(page.getByRole("heading", { name: "Add Program" })).toBeVisible();
-    // The form should be primed with the empty-state defaults (no name yet).
     await expect(page.locator('input[name="name"]')).toHaveValue("");
     await page.getByRole("button", { name: "Cancel" }).click();
     await expect(page.getByRole("heading", { name: "Add Program" })).toBeHidden();
   });
 
-  // Cleanup: pretest resets the lessons DB before every run, so the Zacchaeus
-  // program created here gets wiped without an explicit delete step.
-  test("creates a new program", async ({ page }) => {
-    await page.getByRole("button", { name: "Add Program" }).first().click();
-    await expect(page.getByRole("heading", { name: "Add Program" })).toBeVisible();
+  // Full CRUD lifecycle in a single serial chain so create -> read -> update -> delete
+  // share the same disposable record. pretest resets the lessons DB before each
+  // run, so a partial failure can't poison the next run.
+  test.describe.serial("program CRUD lifecycle", () => {
+    test("create: adds a new program", async ({ page }) => {
+      await page.getByRole("button", { name: "Add Program" }).first().click();
+      await expect(page.getByRole("heading", { name: "Add Program" })).toBeVisible();
 
-    await page.locator('input[name="name"]').fill(DISPOSABLE_PROGRAM_NAME);
-    await page.locator('input[name="slug"]').fill(DISPOSABLE_PROGRAM_SLUG);
-    await page.locator('input[name="shortDescription"]').fill("Test program for Playwright");
-    await page.getByRole("button", { name: "Save" }).click();
+      await page.locator('input[name="name"]').fill(NEW_PROGRAM_NAME);
+      await page.locator('input[name="slug"]').fill(NEW_PROGRAM_SLUG);
+      await page.locator('input[name="shortDescription"]').fill("Test program for Playwright");
+      await page.getByRole("button", { name: "Save" }).click();
 
-    // After save, the new program appears in the list.
-    await expect(page.getByText(DISPOSABLE_PROGRAM_NAME).first()).toBeVisible({ timeout: 15000 });
+      await expect(page.locator(`h6:has-text("${NEW_PROGRAM_NAME}")`)).toBeVisible({ timeout: 15000 });
+    });
+
+    test("update: renames the program via the Edit drawer", async ({ page }) => {
+      const heading = page.locator(`h6:has-text("${NEW_PROGRAM_NAME}")`).first();
+      const row = heading.locator('xpath=ancestor::div[.//button[@title="Edit Program"]][1]');
+      await row.locator('button[title="Edit Program"]').first().click();
+
+      await expect(page.getByRole("heading", { name: "Edit Program" })).toBeVisible();
+      await page.locator('input[name="name"]').fill(RENAMED_PROGRAM_NAME);
+      await page.getByRole("button", { name: "Save" }).click();
+
+      await expect(page.locator(`h6:has-text("${RENAMED_PROGRAM_NAME}")`)).toBeVisible({ timeout: 15000 });
+      await expect(page.locator(`h6:has-text("${NEW_PROGRAM_NAME}")`)).toBeHidden();
+    });
+
+    test("delete: removes the program", async ({ page }) => {
+      page.on("dialog", (d) => d.accept());
+
+      const heading = page.locator(`h6:has-text("${RENAMED_PROGRAM_NAME}")`).first();
+      const row = heading.locator('xpath=ancestor::div[.//button[@title="Edit Program"]][1]');
+      await row.locator('button[title="Edit Program"]').first().click();
+      await expect(page.getByRole("heading", { name: "Edit Program" })).toBeVisible();
+
+      await page.locator('button[title="Delete program"]').click();
+      await expect(page.locator(`h6:has-text("${RENAMED_PROGRAM_NAME}")`)).toBeHidden({ timeout: 15000 });
+    });
   });
 });

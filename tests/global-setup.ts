@@ -100,4 +100,13 @@ async function globalSetup(config: FullConfig) {
   }
 }
 
+// Hide the Next.js dev overlay/portal in saved storage states so it doesn't
+// intercept pointer events during tests. We add a stylesheet that disables it.
+// (This is applied at test time via a fixture-level addInitScript.)
+export const HIDE_NEXTJS_OVERLAY_SCRIPT = `
+  const style = document.createElement('style');
+  style.textContent = 'nextjs-portal { display: none !important; }';
+  document.documentElement.appendChild(style);
+`;
+
 export default globalSetup;

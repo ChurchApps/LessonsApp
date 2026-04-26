@@ -5,17 +5,20 @@ import { Page, expect } from "@playwright/test";
 // auto-login from the jwt cookie (set during the global-setup flow) but only
 // honors a returnUrl query param. So we go through /login?returnUrl=/<dest>
 // to preserve the destination across the auto-login round-trip.
-async function gotoViaLogin(page: Page, dest: string, expectedUrl: RegExp) {
+export async function gotoAuthenticated(page: Page, dest: string) {
   await page.goto(`/login?returnUrl=${encodeURIComponent(dest)}`);
-  await expect(page).toHaveURL(expectedUrl, { timeout: 30000 });
+  // Wait until we land somewhere that isn't /login.
+  await expect(page).not.toHaveURL(/\/login(\?|$)/, { timeout: 30000 });
 }
 
 export async function navigateToAdmin(page: Page) {
-  await gotoViaLogin(page, "/admin", /\/admin(\/|$)/);
+  await page.goto(`/login?returnUrl=${encodeURIComponent("/admin")}`);
+  await expect(page).toHaveURL(/\/admin(\/|$)/, { timeout: 30000 });
 }
 
 export async function navigateToPortal(page: Page) {
-  await gotoViaLogin(page, "/portal", /\/portal(\/|$)/);
+  await page.goto(`/login?returnUrl=${encodeURIComponent("/portal")}`);
+  await expect(page).toHaveURL(/\/portal(\/|$)/, { timeout: 30000 });
 }
 
 export async function navigateToBrowse(page: Page) {
