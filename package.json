@@ -23,8 +23,8 @@
     "node": ">=20.0.0"
   },
   "dependencies": {
-    "@churchapps/apphelper": "0.7.0",
-    "@churchapps/helpers": "1.2.32",
+    "@churchapps/apphelper": "0.7.1",
+    "@churchapps/helpers": "1.3.0",
     "@mui/icons-material": "^7.3.10",
     "@mui/lab": "^7.0.1-beta.24",
     "@mui/material": "^7.3.10",
