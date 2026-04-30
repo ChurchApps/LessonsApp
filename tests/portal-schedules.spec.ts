@@ -19,13 +19,47 @@ test.describe("Portal schedules", () => {
   test.describe.serial("schedule CRUD lifecycle", () => {
     test("create: opens Add Schedule and saves with default cascade", async ({ page }) => {
       await page.getByRole("button", { name: SEED.CLASSROOMS.PRESCHOOL.name }).click();
-      await page.getByRole("button", { name: /Add Schedule/i }).click();
 
+      // The form pre-fills program/study/lesson/venue from the previous schedule
+      // and only resolves them after /lessons/public/tree returns. Saving before
+      // the cascade settles leaves currentLesson null and crashes
+      // ScheduleEdit.getDisplayName, so wait for the lesson combobox to display
+      // a resolved label (lesson display names contain ": ").
+      const treeLoaded = page.waitForResponse(
+        (r) => r.url().includes("/lessons/public/tree") && r.status() === 200,
+        { timeout: 30000 }
+      );
+      await page.getByRole("button", { name: /Add Schedule/i }).click();
       await expect(page.getByRole("heading", { name: "Edit Schedule" })).toBeVisible();
-      // The form pre-fills date + cascading selects with valid defaults.
+      await treeLoaded;
+      await expect(page.locator("#mui-component-select-lesson")).toContainText(":", { timeout: 15000 });
+
       await page.getByRole("button", { name: /^Save$/ }).first().click();
-      // After save, the drawer closes (heading disappears).
       await expect(page.getByRole("heading", { name: "Edit Schedule" })).toBeHidden({ timeout: 15000 });
+    });
+
+    test("edit: reschedules an existing lesson to a new date", async ({ page }) => {
+      // Locate the seeded 2026-06-07 row (Creation) by date; handleSave rewrites
+      // displayName on save, so the seeded "Creation (Elementary)" string isn't a
+      // stable selector once any earlier test (or earlier run) has saved a row.
+      await page.getByRole("button", { name: SEED.CLASSROOMS.ELEMENTARY.name }).click();
+
+      const treeLoaded = page.waitForResponse(
+        (r) => r.url().includes("/lessons/public/tree") && r.status() === 200,
+        { timeout: 30000 }
+      );
+      const row = page.locator("tr").filter({ hasText: "2026-06-07" }).first();
+      await row.locator('button[title="Edit schedule"]').click();
+      await expect(page.getByRole("heading", { name: "Edit Schedule" })).toBeVisible();
+      await treeLoaded;
+      await expect(page.locator("#mui-component-select-lesson")).toContainText(":", { timeout: 15000 });
+
+      const newDate = "2026-12-25";
+      await page.locator('input[name="scheduledDate"]').fill(newDate);
+      await page.getByRole("button", { name: /^Save$/ }).first().click();
+      await expect(page.getByRole("heading", { name: "Edit Schedule" })).toBeHidden({ timeout: 15000 });
+
+      await expect(page.locator("tr").filter({ hasText: newDate })).toBeVisible({ timeout: 15000 });
     });
 
     test("delete: removes the seeded Noah's Ark schedule from Elementary Room", async ({ page }) => {
