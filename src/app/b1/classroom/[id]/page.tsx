@@ -5,6 +5,7 @@ import React from "react";
 import { Container } from "@mui/material";
 import { ApiHelper, DateHelper } from "@churchapps/apphelper";
 import { Layout } from "@/components/Layout";
+import { EnvironmentHelper } from "@/helpers/EnvironmentHelper";
 import { MetaHelper } from "@/helpers/MetaHelper";
 import { ClassroomInterface, ScheduleInterface } from "@/helpers/interfaces";
 
@@ -13,6 +14,7 @@ type PageParams = { id: string };
 export async function generateMetadata(): Promise<Metadata> { return MetaHelper.getMetaData(); }
 
 export default async function Classroom({ params }: { params: Promise<PageParams> }) {
+  EnvironmentHelper.init();
   const loadData = async () => {
     const { id } = await params;
     const classroom: ClassroomInterface = await ApiHelper.get("/classrooms/" + id, "LessonsApi");

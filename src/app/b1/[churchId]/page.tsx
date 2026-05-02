@@ -5,6 +5,7 @@ import React from "react";
 import { Container } from "@mui/material";
 import { ApiHelper } from "@churchapps/apphelper";
 import { Layout } from "@/components/Layout";
+import { EnvironmentHelper } from "@/helpers/EnvironmentHelper";
 import { MetaHelper } from "@/helpers/MetaHelper";
 
 type PageParams = { churchId: string };
@@ -12,6 +13,7 @@ type PageParams = { churchId: string };
 export async function generateMetadata(): Promise<Metadata> { return MetaHelper.getMetaData(); }
 
 export default async function Venue({ params }: { params: Promise<PageParams> }) {
+  EnvironmentHelper.init();
   const { churchId } = await params;
   const classrooms = await ApiHelper.get("/classrooms/public/church/" + churchId, "LessonsApi");
 

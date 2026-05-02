@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { redirect, useSearchParams } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import { Container } from "@mui/material";
 import { ApiHelper, ArrayHelper, UserHelper } from "@churchapps/apphelper";
@@ -7,13 +7,9 @@ import { useUser } from "@/app/context/UserContext";
 import { Layout } from "@/components/Layout";
 import { ClassroomInterface } from "@/helpers/interfaces";
 
-//import { useRouter } from "next/router";
-
 export function PersonInner() {
 
-  //const router = useRouter();
-
-  //const [church, setChurch] = useState<ChurchInterface>(null);
+  const router = useRouter();
   const [classrooms, setClassrooms] = useState<ClassroomInterface[]>([]);
   const context = useUser();
   const params = useSearchParams();
@@ -27,7 +23,7 @@ export function PersonInner() {
     console.log("PersonInner loadData", person);
     if (context.person) {
       const url = "/classrooms/person";
-      ApiHelper.get(url, "LessonsApi").then((c: ClassroomInterface[]) => { if (c.length === 0) redirect("/b1/" + (params.get("churchId") || context.userChurch.church.id)); else setClassrooms(c); });
+      ApiHelper.get(url, "LessonsApi").then((c: ClassroomInterface[]) => { if (c.length === 0) router.replace("/b1/" + (params.get("churchId") || context.userChurch.church.id)); else setClassrooms(c); });
     }
   };
 
