@@ -5,8 +5,7 @@ import { Alert } from "@mui/material";
 import { Layout } from "@/components";
 import { LoginPage } from "@churchapps/apphelper/login";
 import { UserHelper } from "@churchapps/apphelper";
-import { useSearchParams } from "next/navigation";
-import { redirect } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { useUser } from "@/app/context/UserContext";
 
 interface Props {
@@ -17,6 +16,7 @@ interface Props {
 }
 
 export function LoginClient({ showLogo, redirectAfterLogin, loginContainerCssProps, keyName }: Props) {
+  const router = useRouter();
   const searchParams = useSearchParams();
   const context = useUser();
   // Read cookies synchronously on first client render so the jwt is available
@@ -54,7 +54,7 @@ export function LoginClient({ showLogo, redirectAfterLogin, loginContainerCssPro
     context.setUserChurch(currentUserChurch);
     context.setUserChurches(userChurches);
 
-    redirect(url);
+    router.replace(url);
   };
 
   const jwt = searchParams.get("jwt") || cookies.jwt;
