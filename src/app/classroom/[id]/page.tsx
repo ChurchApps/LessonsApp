@@ -5,7 +5,7 @@ import { useParams, useSearchParams } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import { AppBar, Container, Grid, Stack } from "@mui/material";
 import { ArrayHelper, ChurchInterface, DateHelper } from "@churchapps/apphelper";
-import { MarkdownPreviewLight } from "@churchapps/apphelper-markdown";
+import { MarkdownPreviewLight } from "@churchapps/apphelper/markdown";
 import { Layout } from "@/components";
 import {
   ApiHelper,
@@ -87,13 +87,17 @@ export default function Venue() {
 
   const filterSchedules = (s: ScheduleInterface[]) => {
     let result: ScheduleInterface[] = [];
+    const todayStart = new Date();
+    todayStart.setHours(0, 0, 0, 0);
+    const todayEnd = new Date();
+    todayEnd.setHours(23, 59, 59, 999);
     if (upcoming) {
-      for (let i = s.length - 1; i >= 0; i--) if (DateHelper.toDate(s[i].scheduledDate) < new Date()) s.splice(i, 1);
+      for (let i = s.length - 1; i >= 0; i--) if (DateHelper.toDate(s[i].scheduledDate) < todayStart) s.splice(i, 1);
 
       result = s.sort((a, b) => (DateHelper.toDate(a.scheduledDate) > DateHelper.toDate(b.scheduledDate) ? 1 : -1));
       if (result.length > 4) result.splice(4, result.length - 4);
     } else {
-      for (let i = s.length - 1; i >= 0; i--) if (DateHelper.toDate(s[i].scheduledDate) > new Date()) s.splice(i, 1);
+      for (let i = s.length - 1; i >= 0; i--) if (DateHelper.toDate(s[i].scheduledDate) > todayEnd) s.splice(i, 1);
 
       if (s.length > 4) s.splice(0, s.length - 4);
       result = s.sort((a, b) => (DateHelper.toDate(a.scheduledDate) < DateHelper.toDate(b.scheduledDate) ? 1 : -1));

@@ -19,7 +19,7 @@ import {
 } from "@mui/material";
 import { Edit as EditIcon, Save as SaveIcon, Delete as DeleteIcon, Cancel as CancelIcon, Add as AddIcon } from "@mui/icons-material";
 import { ErrorMessages } from "@churchapps/apphelper";
-import { MarkdownEditor } from "@churchapps/apphelper-markdown";
+import { MarkdownEditor } from "@churchapps/apphelper/markdown";
 import { FeedActionInterface, FeedFileInterface } from "@/helpers";
 import { OlfFileEdit } from "./OlfFileEdit";
 

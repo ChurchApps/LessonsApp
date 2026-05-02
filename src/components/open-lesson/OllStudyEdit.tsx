@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { Box, Button, IconButton, Paper, SelectChangeEvent, Stack, TextField, Typography } from "@mui/material";
 import { Edit as EditIcon, Save as SaveIcon, Delete as DeleteIcon, Cancel as CancelIcon } from "@mui/icons-material";
 import { ErrorMessages } from "@churchapps/apphelper";
-import { MarkdownEditor } from "@churchapps/apphelper-markdown";
+import { MarkdownEditor } from "@churchapps/apphelper/markdown";
 import { FeedStudyInterface } from "@/helpers";
 
 interface Props { study: FeedStudyInterface; updatedCallback: (study: FeedStudyInterface, cancelled: boolean) => void; }

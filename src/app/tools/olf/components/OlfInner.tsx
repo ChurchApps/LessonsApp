@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 import { Box, Grid, Paper, Stack, Table, TableBody, TableCell, TableHead, TableRow, TextField, Typography } from "@mui/material";
 import { Description as DescriptionIcon, Storage as StorageIcon, List as ListIcon } from "@mui/icons-material";
 import { SmallButton } from "@churchapps/apphelper";
-import { MarkdownEditor, MarkdownPreviewLight } from "@churchapps/apphelper-markdown";
+import { MarkdownEditor, MarkdownPreviewLight } from "@churchapps/apphelper/markdown";
 import { Presenter } from "@/components/Presenter";
 import { OlfActionEdit } from "@/components/open-lesson/OlfActionEdit";
 import { OlfPrintPreview } from "@/components/open-lesson/OlfPrintPreview";

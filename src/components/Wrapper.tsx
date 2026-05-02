@@ -5,7 +5,7 @@ import { useRouter } from "next/navigation";
 import React, { useState, useEffect } from "react";
 import { List, ThemeProvider } from "@mui/material";
 import { NavItem, ApiHelper } from "@churchapps/apphelper";
-import "@churchapps/apphelper-markdown/dist/components/markdownEditor/editor.css";
+import "@churchapps/apphelper/dist/markdown/components/markdownEditor/editor.css";
 import { useUser } from "@/app/context/UserContext";
 import { Permissions, UserHelper } from "@/helpers";
 import { Themes } from "@/helpers/Themes";
