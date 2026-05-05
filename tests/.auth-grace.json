@@ -2,20 +2,20 @@
   "cookies": [
     {
       "name": "__hstc",
-      "value": "181257784.bad554f7c12120291f06656bedfa95fb.1777585927268.1777585927268.1777585927268.1",
+      "value": "181257784.d812b723053da9afafe298ee05005b1b.1778006963878.1778006963878.1778006963878.1",
       "domain": "localhost",
       "path": "/",
-      "expires": 1793137927,
+      "expires": 1793558963,
       "httpOnly": false,
       "secure": false,
       "sameSite": "Lax"
     },
     {
       "name": "hubspotutk",
-      "value": "bad554f7c12120291f06656bedfa95fb",
+      "value": "d812b723053da9afafe298ee05005b1b",
       "domain": "localhost",
       "path": "/",
-      "expires": 1793137927,
+      "expires": 1793558963,
       "httpOnly": false,
       "secure": false,
       "sameSite": "Lax"
@@ -32,27 +32,27 @@
     },
     {
       "name": "__hssc",
-      "value": "181257784.1.1777585927268",
+      "value": "181257784.1.1778006963878",
       "domain": "localhost",
       "path": "/",
-      "expires": 1777587727,
+      "expires": 1778008763,
       "httpOnly": false,
       "secure": false,
       "sameSite": "Lax"
     },
     {
       "name": "__cf_bm",
-      "value": "AAGVDHTFz8ItsTHKl4h22gc.QTGntrj0TP4HLGERoY0-1777585928-1.0.1.1-6O3H.2kKFyyVU5d8WeB_VdCUF385NFcmn7MPt1DAhGJUBcKgs1eAEstFut1N5oG5pg5rGR3lxGmdBivS2X0d.6ESdy8cAthY7qVxo4e7xDY",
+      "value": "Ac2Qz1J88tToa7_3qMC1Shwvla03s9WNcvc5KABegD0-1778006962-1.0.1.1-Oh6ULsa6IJlxlCrGHKixN2AH6mbapb2YxDjGenF6Wa7VCBrYLuPx8TehYQW1WXwPpJdpTpFghOyGAF966bbC5mVLtlkOZqPVamwaqzS0wBg",
       "domain": ".hubspot.com",
       "path": "/",
-      "expires": 1777587727.359238,
+      "expires": 1778008763.993238,
       "httpOnly": true,
       "secure": true,
       "sameSite": "None"
     },
     {
       "name": "_cfuvid",
-      "value": "5tDWuHU9VlNUMSYPTUdCbGT6kknNnZuISqpWy0cGd30-1777585928214-0.0.1.1-604800000",
+      "value": "a5YCwcCqeu7jP.6CuSt8f9vcQF_g2pHL2o7blM4W52o-1778006962773-0.0.1.1-604800000",
       "domain": ".hubspot.com",
       "path": "/",
       "expires": -1,
@@ -65,7 +65,7 @@
       "value": "Demo%20User",
       "domain": "localhost",
       "path": "/",
-      "expires": 1793137927.486684,
+      "expires": 1793558964.071166,
       "httpOnly": false,
       "secure": false,
       "sameSite": "Lax"
@@ -75,17 +75,7 @@
       "value": "demo%40b1.church",
       "domain": "localhost",
       "path": "/",
-      "expires": 1793137927.486856,
-      "httpOnly": false,
-      "secure": false,
-      "sameSite": "Lax"
-    },
-    {
-      "name": "_gcl_au",
-      "value": "1.1.928420792.1777585928",
-      "domain": "localhost",
-      "path": "/",
-      "expires": 1785361927,
+      "expires": 1793558964.071323,
       "httpOnly": false,
       "secure": false,
       "sameSite": "Lax"
@@ -95,30 +85,20 @@
       "value": "CHU00000001",
       "domain": "localhost",
       "path": "/",
-      "expires": 1793137927.607761,
+      "expires": 1793558964.161425,
       "httpOnly": false,
       "secure": false,
       "sameSite": "Lax"
     },
     {
       "name": "jwt",
-      "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IlVTUjAwMDAwMDAxIiwiZW1haWwiOiJkZW1vQGIxLmNodXJjaCIsImZpcnN0TmFtZSI6IkRlbW8iLCJsYXN0TmFtZSI6IlVzZXIiLCJpYXQiOjE3Nzc1ODU5MjcsImV4cCI6MTc5MzEzNzkyN30.DlcTA_JDkcUSTLMJOWkNVgd3J9_Zhdalp_-PsuFZvBg",
+      "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IlVTUjAwMDAwMDAxIiwiZW1haWwiOiJkZW1vQGIxLmNodXJjaCIsImZpcnN0TmFtZSI6IkRlbW8iLCJsYXN0TmFtZSI6IlVzZXIiLCJpYXQiOjE3NzgwMDY5NjQsImV4cCI6MTc5MzU1ODk2NH0.HlGPYRtusumGjXFc5QOe5aY2LkwSCAC2jtEGklLSmJM",
       "domain": "localhost",
       "path": "/",
-      "expires": 1793137927.628541,
+      "expires": 1793558964.18335,
       "httpOnly": false,
       "secure": false,
       "sameSite": "Lax"
-    },
-    {
-      "name": "test_cookie",
-      "value": "CheckForPermission",
-      "domain": ".doubleclick.net",
-      "path": "/",
-      "expires": 1777586827.669973,
-      "httpOnly": false,
-      "secure": true,
-      "sameSite": "None"
     }
   ],
   "origins": [
@@ -130,12 +110,8 @@
           "value": "en-US"
         },
         {
-          "name": "_gcl_ls",
-          "value": "{\"schema\":\"gcl\",\"version\":1,\"gcl_ctr\":{\"value\":{\"value\":0,\"timeouts\":0,\"errors\":0,\"eopCount\":0,\"creationTimeMs\":1777585927566},\"expires\":1785361927566}}"
-        },
-        {
           "name": "orama_user_id",
-          "value": "w6pnkoieihbsdteaaywb9v9u"
+          "value": "tab9j9t5zg9i8m22rcnlb9dy"
         }
       ]
     }
