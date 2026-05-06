@@ -1,21 +1,31 @@
 {
   "cookies": [
     {
-      "name": "__hstc",
-      "value": "181257784.4128c2971ee05b947c2f8f6bb8fdd78f.1777585925783.1777585925783.1777585925783.1",
+      "name": "_ga",
+      "value": "GA1.1.1720351110.1778027142",
       "domain": "localhost",
       "path": "/",
-      "expires": 1793137925,
+      "expires": 1812587142.309588,
+      "httpOnly": false,
+      "secure": false,
+      "sameSite": "Lax"
+    },
+    {
+      "name": "__hstc",
+      "value": "181257784.38b28366cf78051a60deefb69bc9e0cd.1778027142344.1778027142344.1778027142344.1",
+      "domain": "localhost",
+      "path": "/",
+      "expires": 1793579142,
       "httpOnly": false,
       "secure": false,
       "sameSite": "Lax"
     },
     {
       "name": "hubspotutk",
-      "value": "4128c2971ee05b947c2f8f6bb8fdd78f",
+      "value": "38b28366cf78051a60deefb69bc9e0cd",
       "domain": "localhost",
       "path": "/",
-      "expires": 1793137925,
+      "expires": 1793579142,
       "httpOnly": false,
       "secure": false,
       "sameSite": "Lax"
@@ -32,27 +42,27 @@
     },
     {
       "name": "__hssc",
-      "value": "181257784.1.1777585925783",
+      "value": "181257784.1.1778027142344",
       "domain": "localhost",
       "path": "/",
-      "expires": 1777587725,
+      "expires": 1778028942,
       "httpOnly": false,
       "secure": false,
       "sameSite": "Lax"
     },
     {
       "name": "__cf_bm",
-      "value": "i5HKdhvEcQHBurBdWbUXErgAXo0XSlHzlyB64_wkL94-1777585926-1.0.1.1-avZGF3Tb31UlMMn6WaGExVdTLsBvxHDqOhi643YnqSqU21zREYQhA9eV34JNt5F4uYjxwkhD.vt6iftMm4JcJGAVZ47uyo7Vfs9h4Ls88Ps",
+      "value": "Mj1APsn7tiefJEkGlf_d_A2_2dUAHw0DUs8I64Es3As-1778027141-1.0.1.1-K5op8anDsYWBR.VeLCD8uXTeFGLjDkED9eEXdwBkVUbxEzRaPFLzkXoZYWLaMxqqdsZUUtGPTaC3GUk70ZdsKZcJYe4HuQCEYo3TjsJRRMM",
       "domain": ".hubspot.com",
       "path": "/",
-      "expires": 1777587725.878701,
+      "expires": 1778028942.444959,
       "httpOnly": true,
       "secure": true,
       "sameSite": "None"
     },
     {
       "name": "_cfuvid",
-      "value": "T3vsh3mbf.xygjGhl_wqntBRmxuh1hBAfVOsW7.CF_s-1777585926734-0.0.1.1-604800000",
+      "value": "degbU9DRgk0mWI4WvpSInfbyvR5bmWhEkUorECf2i98-1778027141463-0.0.1.1-604800000",
       "domain": ".hubspot.com",
       "path": "/",
       "expires": -1,
@@ -61,51 +71,21 @@
       "sameSite": "None"
     },
     {
-      "name": "name",
-      "value": "Lessons%20Admin",
+      "name": "_ga_JQWWX8YS7F",
+      "value": "GS2.1.s1778027142$o1$g1$t1778027142$j60$l0$h0",
       "domain": "localhost",
       "path": "/",
-      "expires": 1793137926.021183,
-      "httpOnly": false,
-      "secure": false,
-      "sameSite": "Lax"
-    },
-    {
-      "name": "email",
-      "value": "lessons-admin%40demo.churchapps.org",
-      "domain": "localhost",
-      "path": "/",
-      "expires": 1793137926.021346,
+      "expires": 1812587142.472544,
       "httpOnly": false,
       "secure": false,
       "sameSite": "Lax"
     },
     {
       "name": "_gcl_au",
-      "value": "1.1.951941954.1777585926",
+      "value": "1.1.533357584.1778027143",
       "domain": "localhost",
       "path": "/",
-      "expires": 1785361926,
-      "httpOnly": false,
-      "secure": false,
-      "sameSite": "Lax"
-    },
-    {
-      "name": "lastChurchId",
-      "value": "CHU00000099",
-      "domain": "localhost",
-      "path": "/",
-      "expires": 1793137926.159877,
-      "httpOnly": false,
-      "secure": false,
-      "sameSite": "Lax"
-    },
-    {
-      "name": "jwt",
-      "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IlVTUjAwMDAwMDAyIiwiZW1haWwiOiJsZXNzb25zLWFkbWluQGRlbW8uY2h1cmNoYXBwcy5vcmciLCJmaXJzdE5hbWUiOiJMZXNzb25zIiwibGFzdE5hbWUiOiJBZG1pbiIsImlhdCI6MTc3NzU4NTkyNiwiZXhwIjoxNzkzMTM3OTI2fQ.Qj2Vv8sLqiy_EtxMK0a7XhNuPoNIcynfYqvfTyGxTQ4",
-      "domain": "localhost",
-      "path": "/",
-      "expires": 1793137926.180119,
+      "expires": 1785803142,
       "httpOnly": false,
       "secure": false,
       "sameSite": "Lax"
@@ -115,7 +95,7 @@
       "value": "CheckForPermission",
       "domain": ".doubleclick.net",
       "path": "/",
-      "expires": 1777586826.20418,
+      "expires": 1778028042.660288,
       "httpOnly": false,
       "secure": true,
       "sameSite": "None"
@@ -131,11 +111,11 @@
         },
         {
           "name": "_gcl_ls",
-          "value": "{\"schema\":\"gcl\",\"version\":1,\"gcl_ctr\":{\"value\":{\"value\":0,\"timeouts\":0,\"errors\":0,\"eopCount\":0,\"creationTimeMs\":1777585926109},\"expires\":1785361926109}}"
+          "value": "{\"schema\":\"gcl\",\"version\":1,\"gcl_ctr\":{\"value\":{\"value\":0,\"timeouts\":0,\"errors\":0,\"eopCount\":0,\"creationTimeMs\":1778027142578},\"expires\":1785803142578}}"
         },
         {
           "name": "orama_user_id",
-          "value": "q67esenopvzu7g34qt27magk"
+          "value": "jbzfipkun05s6nua5vo46l9o"
         }
       ]
     }

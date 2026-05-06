@@ -126,6 +126,9 @@ export interface BundleInterface {
   contentType?: string;
   contentId?: string;
   name?: string;
+  fileId?: string;
+  pendingUpdate?: boolean;
+  dateModified?: Date | string;
   resources?: ResourceInterface[];
   file?: FileInterface;
   contentName?: string;

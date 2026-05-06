@@ -37,32 +37,29 @@ test.describe("Programs admin", () => {
       await page.locator('input[name="shortDescription"]').fill("Test program for Playwright");
       await page.getByRole("button", { name: "Save" }).click();
 
-      await expect(page.locator(`h6:has-text("${NEW_PROGRAM_NAME}")`)).toBeVisible({ timeout: 15000 });
+      await expect(page.locator(`h6:has-text("${NEW_PROGRAM_NAME}")`).first()).toBeVisible({ timeout: 15000 });
     });
 
     test("update: renames the program via the Edit drawer", async ({ page }) => {
-      const heading = page.locator(`h6:has-text("${NEW_PROGRAM_NAME}")`).first();
-      const row = heading.locator('xpath=ancestor::div[.//button[@title="Edit Program"]][1]');
-      await row.locator('button[title="Edit Program"]').first().click();
+      // Clicking the program row in the left nav opens the right panel with its Edit form.
+      await page.getByTestId("admin-nav").getByText(NEW_PROGRAM_NAME).click();
 
       await expect(page.getByRole("heading", { name: "Edit Program" })).toBeVisible();
       await page.locator('input[name="name"]').fill(RENAMED_PROGRAM_NAME);
       await page.getByRole("button", { name: "Save" }).click();
 
-      await expect(page.locator(`h6:has-text("${RENAMED_PROGRAM_NAME}")`)).toBeVisible({ timeout: 15000 });
-      await expect(page.locator(`h6:has-text("${NEW_PROGRAM_NAME}")`)).toBeHidden();
+      await expect(page.locator(`h6:has-text("${RENAMED_PROGRAM_NAME}")`).first()).toBeVisible({ timeout: 15000 });
+      await expect(page.getByText(NEW_PROGRAM_NAME)).toHaveCount(0);
     });
 
     test("delete: removes the program", async ({ page }) => {
       page.on("dialog", (d) => d.accept());
 
-      const heading = page.locator(`h6:has-text("${RENAMED_PROGRAM_NAME}")`).first();
-      const row = heading.locator('xpath=ancestor::div[.//button[@title="Edit Program"]][1]');
-      await row.locator('button[title="Edit Program"]').first().click();
+      await page.getByTestId("admin-nav").getByText(RENAMED_PROGRAM_NAME).click();
       await expect(page.getByRole("heading", { name: "Edit Program" })).toBeVisible();
 
       await page.locator('button[title="Delete program"]').click();
-      await expect(page.locator(`h6:has-text("${RENAMED_PROGRAM_NAME}")`)).toBeHidden({ timeout: 15000 });
+      await expect(page.getByText(RENAMED_PROGRAM_NAME)).toHaveCount(0, { timeout: 15000 });
     });
   });
 });

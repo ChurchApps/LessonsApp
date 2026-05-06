@@ -20,14 +20,16 @@ test.describe("Lessons admin", () => {
   test("opens the venues panel for a seeded lesson", async ({ page }) => {
     await page.getByText(SEED.PROGRAMS.OT.name).first().click();
     await page.getByText(SEED.STUDIES.GENESIS.name).first().click();
-    await page.locator('button[title="Manage Venues"]').first().click();
+    // Click any seeded lesson row to open the panel, then switch to the Venues tab.
+    await page.getByTestId("admin-main").getByText(/Creation: |Noah's Ark: /).first().click();
+    await page.getByTestId("admin-panel").getByRole("button", { name: /Venues/ }).click();
     await expect(page.getByRole("heading", { name: /Venues/i }).first()).toBeVisible({ timeout: 15000 });
   });
 
   test("opens the edit drawer for an existing lesson", async ({ page }) => {
     await page.getByText(SEED.PROGRAMS.OT.name).first().click();
     await page.getByText(SEED.STUDIES.GENESIS.name).first().click();
-    await page.locator('button[title="Edit Lesson"]').first().click();
+    await page.getByTestId("admin-main").getByText(/Creation: /).first().click();
     await expect(page.getByRole("heading", { name: "Edit Lesson" })).toBeVisible();
     await expect(page.locator('input[name="name"]')).toHaveValue(SEED.LESSONS.CREATION.name);
   });
@@ -37,10 +39,8 @@ test.describe("Lessons admin", () => {
       await page.getByText(SEED.PROGRAMS.OT.name).first().click();
       await page.getByText(SEED.STUDIES.GENESIS.name).first().click();
 
-      // Find the Add Lesson icon in the Genesis study row.
-      const studyHeading = page.locator(`p:has-text("${SEED.STUDIES.GENESIS.name}"), :is(h6, .MuiTypography-subtitle1):has-text("${SEED.STUDIES.GENESIS.name}")`).first();
-      const studyRow = studyHeading.locator('xpath=ancestor::div[.//button[@title="Add Lesson"]][1]');
-      await studyRow.locator('button[title="Add Lesson"]').first().click();
+      // The expanded study now has an "Add lesson to this study" CTA at the bottom.
+      await page.getByRole("button", { name: /Add lesson to this study/i }).click();
 
       await expect(page.getByRole("heading", { name: "Add Lesson" })).toBeVisible();
       await page.locator('input[name="name"]').fill(NEW_LESSON_NAME);
@@ -49,25 +49,21 @@ test.describe("Lessons admin", () => {
       await page.getByRole("button", { name: "Check" }).click();
       await page.getByRole("button", { name: "Save" }).click();
 
-      await expect(page.getByText(`${NEW_LESSON_NAME}: ${NEW_LESSON_TITLE}`)).toBeVisible({ timeout: 15000 });
+      await expect(page.getByTestId("admin-main").getByText(`${NEW_LESSON_NAME}: ${NEW_LESSON_TITLE}`)).toBeVisible({ timeout: 15000 });
     });
 
     test("update: renames the lesson", async ({ page }) => {
       await page.getByText(SEED.PROGRAMS.OT.name).first().click();
       await page.getByText(SEED.STUDIES.GENESIS.name).first().click();
 
-      const lessonRow = page.locator("div").filter({
-        has: page.getByText(`${NEW_LESSON_NAME}: ${NEW_LESSON_TITLE}`),
-      }).filter({
-        has: page.locator('button[title="Edit Lesson"]'),
-      }).first();
-      await lessonRow.locator('button[title="Edit Lesson"]').first().click();
+      // Click the lesson row in the main pane to open its Edit form in the panel.
+      await page.getByTestId("admin-main").getByText(`${NEW_LESSON_NAME}: ${NEW_LESSON_TITLE}`).click();
 
       await expect(page.getByRole("heading", { name: "Edit Lesson" })).toBeVisible();
       await page.locator('input[name="name"]').fill(RENAMED_LESSON_NAME);
       await page.getByRole("button", { name: "Save" }).click();
 
-      await expect(page.getByText(`${RENAMED_LESSON_NAME}: ${NEW_LESSON_TITLE}`)).toBeVisible({ timeout: 15000 });
+      await expect(page.getByTestId("admin-main").getByText(`${RENAMED_LESSON_NAME}: ${NEW_LESSON_TITLE}`)).toBeVisible({ timeout: 15000 });
     });
 
     test("delete: removes the lesson", async ({ page }) => {
@@ -75,16 +71,11 @@ test.describe("Lessons admin", () => {
       await page.getByText(SEED.PROGRAMS.OT.name).first().click();
       await page.getByText(SEED.STUDIES.GENESIS.name).first().click();
 
-      const lessonRow = page.locator("div").filter({
-        has: page.getByText(`${RENAMED_LESSON_NAME}: ${NEW_LESSON_TITLE}`),
-      }).filter({
-        has: page.locator('button[title="Edit Lesson"]'),
-      }).first();
-      await lessonRow.locator('button[title="Edit Lesson"]').first().click();
+      await page.getByTestId("admin-main").getByText(`${RENAMED_LESSON_NAME}: ${NEW_LESSON_TITLE}`).click();
       await expect(page.getByRole("heading", { name: "Edit Lesson" })).toBeVisible();
       await page.locator('button[title="Delete lesson"]').click();
 
-      await expect(page.getByText(`${RENAMED_LESSON_NAME}: ${NEW_LESSON_TITLE}`)).toBeHidden({ timeout: 15000 });
+      await expect(page.getByTestId("admin-main").getByText(`${RENAMED_LESSON_NAME}: ${NEW_LESSON_TITLE}`)).toHaveCount(0, { timeout: 15000 });
     });
   });
 });

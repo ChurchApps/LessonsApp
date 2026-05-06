@@ -6,6 +6,7 @@
 /public/sitemap*
 /analyze
 .serena
+/test-results
 
 # dependencies
 /node_modules
