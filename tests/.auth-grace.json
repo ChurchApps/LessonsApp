@@ -2,30 +2,40 @@
   "cookies": [
     {
       "name": "_ga",
-      "value": "GA1.1.186889617.1778027193",
+      "value": "GA1.1.562113317.1778098285",
       "domain": "localhost",
       "path": "/",
-      "expires": 1812587193.268617,
+      "expires": 1812658285.120294,
+      "httpOnly": false,
+      "secure": false,
+      "sameSite": "Lax"
+    },
+    {
+      "name": "_ga_JQWWX8YS7F",
+      "value": "GS2.1.s1778098285$o1$g1$t1778098285$j60$l0$h0",
+      "domain": "localhost",
+      "path": "/",
+      "expires": 1812658285.151209,
       "httpOnly": false,
       "secure": false,
       "sameSite": "Lax"
     },
     {
       "name": "__hstc",
-      "value": "181257784.899f49274362395f0dbf68538e127287.1778027193287.1778027193287.1778027193287.1",
+      "value": "181257784.d994572abbd3ca958439c1dfeb977e8d.1778098285188.1778098285188.1778098285188.1",
       "domain": "localhost",
       "path": "/",
-      "expires": 1793579193,
+      "expires": 1793650285,
       "httpOnly": false,
       "secure": false,
       "sameSite": "Lax"
     },
     {
       "name": "hubspotutk",
-      "value": "899f49274362395f0dbf68538e127287",
+      "value": "d994572abbd3ca958439c1dfeb977e8d",
       "domain": "localhost",
       "path": "/",
-      "expires": 1793579193,
+      "expires": 1793650285,
       "httpOnly": false,
       "secure": false,
       "sameSite": "Lax"
@@ -42,37 +52,27 @@
     },
     {
       "name": "__hssc",
-      "value": "181257784.1.1778027193287",
+      "value": "181257784.1.1778098285188",
       "domain": "localhost",
       "path": "/",
-      "expires": 1778028993,
-      "httpOnly": false,
-      "secure": false,
-      "sameSite": "Lax"
-    },
-    {
-      "name": "_ga_JQWWX8YS7F",
-      "value": "GS2.1.s1778027193$o1$g1$t1778027193$j60$l0$h0",
-      "domain": "localhost",
-      "path": "/",
-      "expires": 1812587193.377295,
+      "expires": 1778100085,
       "httpOnly": false,
       "secure": false,
       "sameSite": "Lax"
     },
     {
       "name": "__cf_bm",
-      "value": "lfDf8uonZaWflcXsu9sQpwxwRcrVznX7QE9AbnlKYgM-1778027192-1.0.1.1-YctWd5cANJa9lUR2c3mwqPZfyBCm1MbaLNvUstwynT8UXwTJ54994d_QqesLhh.kzOys9J.z1SN3Ze5b6hrK_1EfKyt5FfD.svNB6F.5_Yg",
+      "value": "oYUTGHSATO8lffworIoC10PohACbQWItJmTGGq6ByEk-1778098284-1.0.1.1-p.BWy8ZWsuiE8NEyxG81Gi8Z89nJkNfCj4_cXFwve.NOdT3FWUyLFs5HLXn.Lkv2d0M17F.eTdDoMC5v_FGEjO8_v7RTgM8aQI6NCWYMDfM",
       "domain": ".hubspot.com",
       "path": "/",
-      "expires": 1778028993.482527,
+      "expires": 1778100085.299755,
       "httpOnly": true,
       "secure": true,
       "sameSite": "None"
     },
     {
       "name": "_cfuvid",
-      "value": "8lN8sOd9BoF3s1p0SG0DJoh.4SPnfTwvg_OQj2SbE58-1778027192499-0.0.1.1-604800000",
+      "value": "26EFAP1ibMprIG7zuMWneR9V.AyxGlX1GQtU450LuDE-1778098284063-0.0.1.1-604800000",
       "domain": ".hubspot.com",
       "path": "/",
       "expires": -1,
@@ -82,10 +82,10 @@
     },
     {
       "name": "_gcl_au",
-      "value": "1.1.1833906119.1778027194",
+      "value": "1.1.525119413.1778098285",
       "domain": "localhost",
       "path": "/",
-      "expires": 1785803193,
+      "expires": 1785874285,
       "httpOnly": false,
       "secure": false,
       "sameSite": "Lax"
@@ -95,7 +95,7 @@
       "value": "CheckForPermission",
       "domain": ".doubleclick.net",
       "path": "/",
-      "expires": 1778028093.601237,
+      "expires": 1778099185.535749,
       "httpOnly": false,
       "secure": true,
       "sameSite": "None"
@@ -111,11 +111,11 @@
         },
         {
           "name": "_gcl_ls",
-          "value": "{\"schema\":\"gcl\",\"version\":1,\"gcl_ctr\":{\"value\":{\"value\":0,\"timeouts\":0,\"errors\":0,\"eopCount\":0,\"creationTimeMs\":1778027193520},\"expires\":1785803193520}}"
+          "value": "{\"schema\":\"gcl\",\"version\":1,\"gcl_ctr\":{\"value\":{\"value\":0,\"timeouts\":0,\"errors\":0,\"eopCount\":0,\"creationTimeMs\":1778098285467},\"expires\":1785874285467}}"
         },
         {
           "name": "orama_user_id",
-          "value": "ofsi8jnqf7q2er0ajmu4uem0"
+          "value": "jq6jnm9ga8max92izhmqd2r6"
         }
       ]
     }
