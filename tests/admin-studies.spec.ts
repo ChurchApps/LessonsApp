@@ -36,9 +36,8 @@ test.describe("Studies admin", () => {
     test("update: renames the study", async ({ page }) => {
       await page.getByText(SEED.PROGRAMS.OT.name).first().click();
 
-      const heading = page.getByText(NEW_STUDY_NAME, { exact: false }).first();
-      const row = heading.locator('xpath=ancestor::div[.//button[@title="Edit Study"]][1]');
-      await row.locator('button[title="Edit Study"]').first().click();
+      // Click the study row to open the side panel with its Edit form.
+      await page.getByTestId("admin-main").getByText(NEW_STUDY_NAME, { exact: false }).first().click();
 
       await expect(page.getByRole("heading", { name: "Edit Study" })).toBeVisible();
       await page.locator('input[name="name"]').fill(RENAMED_STUDY_NAME);
@@ -51,13 +50,11 @@ test.describe("Studies admin", () => {
       page.on("dialog", (d) => d.accept());
       await page.getByText(SEED.PROGRAMS.OT.name).first().click();
 
-      const heading = page.getByText(RENAMED_STUDY_NAME, { exact: false }).first();
-      const row = heading.locator('xpath=ancestor::div[.//button[@title="Edit Study"]][1]');
-      await row.locator('button[title="Edit Study"]').first().click();
+      await page.getByTestId("admin-main").getByText(RENAMED_STUDY_NAME, { exact: false }).first().click();
       await expect(page.getByRole("heading", { name: "Edit Study" })).toBeVisible();
 
       await page.locator('button[title="Delete study"]').click();
-      await expect(page.getByText(RENAMED_STUDY_NAME)).toBeHidden({ timeout: 15000 });
+      await expect(page.getByTestId("admin-main").getByText(RENAMED_STUDY_NAME)).toHaveCount(0, { timeout: 15000 });
     });
   });
 });

@@ -1,13 +1,13 @@
 import dynamic from "next/dynamic";
 import { useEffect, useState } from "react";
 import { Cancel as CancelIcon, Delete as DeleteIcon, Edit as EditIcon, Image as ImageIcon, Layers as LayersIcon, Save as SaveIcon } from "@mui/icons-material";
-import { Box, Button, FormControl, Grid, IconButton, InputLabel, MenuItem, Paper, Select, SelectChangeEvent, Stack, TextField, Typography } from "@mui/material";
+import { Box, Button, FormControl, IconButton, InputLabel, MenuItem, Paper, Select, SelectChangeEvent, Stack, TextField, Typography } from "@mui/material";
 import { ErrorMessages, SlugHelper } from "@churchapps/apphelper";
 import { ApiHelper, ProgramInterface, StudyInterface } from "@/helpers";
 
 const ImageEditor = dynamic(() => import("../index").then(mod => ({ default: mod.ImageEditor })), { loading: () => <div>Loading image editor...</div> });
 
-interface Props { study: StudyInterface; updatedCallback: (study: StudyInterface) => void; }
+interface Props { study: StudyInterface; updatedCallback: (study: StudyInterface) => void; onClose?: () => void; }
 
 export function StudyEdit(props: Props) {
   const [study, setStudy] = useState<StudyInterface>(null);
@@ -62,7 +62,14 @@ export function StudyEdit(props: Props) {
     }
   };
 
-  const handleDelete = () => { if (window.confirm("Are you sure you wish to permanently delete this study?")) ApiHelper.delete("/studies/" + study.id.toString(), "LessonsApi").then(() => props.updatedCallback(null)); };
+  const handleDelete = () => {
+    if (!window.confirm("Are you sure you wish to permanently delete this study?")) return;
+    // Close the host panel synchronously so the entity stops rendering in two
+    // places at once during the network round-trip; updatedCallback below
+    // triggers the reload after the delete completes.
+    props.onClose?.();
+    ApiHelper.delete("/studies/" + study.id.toString(), "LessonsApi").then(() => props.updatedCallback(null));
+  };
 
   const handleImageClick = (e: React.MouseEvent) => { e.preventDefault(); setShowImageEditor(true); };
   const handleSlugValidation = () => {
@@ -141,167 +148,159 @@ export function StudyEdit(props: Props) {
         <Box sx={{ p: 3 }}>
           <ErrorMessages errors={errors} />
 
-          <Grid container spacing={3}>
-            {/* Left Column - Form Fields */}
-            <Grid size={{ xs: 12, md: 8 }}>
-              <Stack spacing={3}>
-                <Box sx={{ display: "flex", gap: 2 }}>
-                  <FormControl fullWidth>
-                    <InputLabel>Live</InputLabel>
-                    <Select label="Live" name="live" value={study.live?.toString()} onChange={handleChange}>
-                      <MenuItem value="false">No</MenuItem>
-                      <MenuItem value="true">Yes</MenuItem>
-                    </Select>
-                  </FormControl>
-                  <TextField
-                    fullWidth
-                    label="Order"
-                    type="number"
-                    name="sort"
-                    value={study.sort}
-                    onChange={handleChange}
-                    onKeyDown={handleKeyDown}
-                    placeholder="1"
+          <Stack spacing={3}>
+            <Box>
+              <Typography variant="subtitle2" color="text.secondary" sx={{ mb: 1 }}>Study Image</Typography>
+              {showImageEditor ? (
+                <Box sx={{ minHeight: 200 }}>
+                  <ImageEditor
+                    updatedFunction={handleImageUpdated}
+                    imageUrl={study.image}
+                    onCancel={() => setShowImageEditor(false)}
                   />
                 </Box>
-
-                <TextField
-                  fullWidth
-                  label="Study Name"
-                  name="name"
-                  value={study.name}
-                  onChange={handleChange}
-                  onKeyDown={handleKeyDown}
-                  placeholder="Foundations of Faith"
-                />
-
-                {/* URL Slug Section */}
-                {checked ? (
-                  <Paper
-                    variant="outlined"
-                    sx={{ p: 2, backgroundColor: "var(--admin-bg-light)" }}>
-                    <Stack direction="row" alignItems="center" justifyContent="space-between" sx={{ mb: 1 }}>
-                      <Typography variant="subtitle2" color="text.secondary">URL Slug</Typography>
-                      <IconButton size="small" onClick={() => setChecked(false)} color="primary">
-                        <EditIcon fontSize="small" />
-                      </IconButton>
-                    </Stack>
-                    <Typography variant="body1" sx={{ fontFamily: "monospace", mb: 1 }}>{study.slug}</Typography>
-                    <Typography
-                      variant="body2"
-                      component="a"
-                      href={`https://lessons.church/${program?.slug}/${study.slug}/`}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      sx={{
-                        color: "var(--c1)",
-                        textDecoration: "none",
-                        "&:hover": { textDecoration: "underline" }
-                      }}>
-                      https://lessons.church/{program?.slug}/{study.slug}/
-                    </Typography>
-                  </Paper>
-                ) : (
-                  <TextField
-                    fullWidth
-                    label="URL Slug"
-                    name="slug"
-                    value={study.slug}
-                    onChange={handleChange}
-                    helperText="Make sure to check before saving"
-                    InputProps={{
-                      endAdornment: (
-                        <Button variant="contained" size="small" onClick={handleSlugValidation}>
-                          Check
-                        </Button>
-                      )
-                    }}
-                  />
-                )}
-
-                <TextField
-                  fullWidth
-                  label="One-Line Description"
-                  name="shortDescription"
-                  value={study.shortDescription}
-                  onChange={handleChange}
-                  onKeyDown={handleKeyDown}
-                  placeholder="A brief description for listings"
-                />
-
-                <TextField
-                  fullWidth
-                  multiline
-                  rows={3}
-                  label="Description"
-                  name="description"
-                  value={study.description}
-                  onChange={handleChange}
-                  onKeyDown={handleKeyDown}
-                />
-
-                <TextField
-                  fullWidth
-                  label="Video Embed URL"
-                  name="videoEmbedUrl"
-                  value={study.videoEmbedUrl}
-                  onChange={handleChange}
-                  onKeyDown={handleKeyDown}
-                  placeholder="https://www.youtube.com/embed/..."
-                />
-              </Stack>
-            </Grid>
-
-            {/* Right Column - Image */}
-            <Grid size={{ xs: 12, md: 4 }}>
-              <Box>
-                <Typography variant="subtitle2" color="text.secondary" sx={{ mb: 1 }}>Study Image</Typography>
-                {showImageEditor ? (
-                  <Box sx={{ minHeight: 200 }}>
-                    <ImageEditor
-                      updatedFunction={handleImageUpdated}
-                      imageUrl={study.image}
-                      onCancel={() => setShowImageEditor(false)}
+              ) : (
+                <Paper
+                  variant="outlined"
+                  sx={{
+                    p: 2,
+                    textAlign: "center",
+                    cursor: "pointer",
+                    backgroundColor: "var(--admin-bg-light)",
+                    "&:hover": { backgroundColor: "var(--admin-bg)" },
+                    minHeight: 160,
+                    display: "flex",
+                    flexDirection: "column",
+                    alignItems: "center",
+                    justifyContent: "center"
+                  }}
+                  onClick={handleImageClick}>
+                  {study.image ? (
+                    <img
+                      src={study.image}
+                      alt="Study"
+                      style={{
+                        maxWidth: "100%",
+                        maxHeight: "180px",
+                        objectFit: "cover",
+                        borderRadius: "4px"
+                      }}
                     />
-                  </Box>
-                ) : (
-                  <Paper
-                    variant="outlined"
-                    sx={{
-                      p: 2,
-                      textAlign: "center",
-                      cursor: "pointer",
-                      backgroundColor: "var(--admin-bg-light)",
-                      "&:hover": { backgroundColor: "var(--admin-bg)" },
-                      minHeight: 200,
-                      display: "flex",
-                      flexDirection: "column",
-                      alignItems: "center",
-                      justifyContent: "center"
-                    }}
-                    onClick={handleImageClick}>
-                    {study.image ? (
-                      <img
-                        src={study.image}
-                        alt="Study"
-                        style={{
-                          maxWidth: "100%",
-                          maxHeight: "180px",
-                          objectFit: "cover",
-                          borderRadius: "4px"
-                        }}
-                      />
-                    ) : (
-                      <>
-                        <ImageIcon sx={{ fontSize: "3rem", color: "var(--text-secondary)", mb: 1 }} />
-                        <Typography variant="body2" color="text.secondary">Click to add image</Typography>
-                      </>
-                    )}
-                  </Paper>
-                )}
-              </Box>
-            </Grid>
-          </Grid>
+                  ) : (
+                    <>
+                      <ImageIcon sx={{ fontSize: "3rem", color: "var(--text-secondary)", mb: 1 }} />
+                      <Typography variant="body2" color="text.secondary">Click to add image</Typography>
+                    </>
+                  )}
+                </Paper>
+              )}
+            </Box>
+
+            <Box sx={{ display: "flex", gap: 2 }}>
+              <FormControl fullWidth>
+                <InputLabel>Live</InputLabel>
+                <Select label="Live" name="live" value={study.live?.toString()} onChange={handleChange}>
+                  <MenuItem value="false">No</MenuItem>
+                  <MenuItem value="true">Yes</MenuItem>
+                </Select>
+              </FormControl>
+              <TextField
+                fullWidth
+                label="Order"
+                type="number"
+                name="sort"
+                value={study.sort}
+                onChange={handleChange}
+                onKeyDown={handleKeyDown}
+                placeholder="1"
+              />
+            </Box>
+
+            <TextField
+              fullWidth
+              label="Study Name"
+              name="name"
+              value={study.name}
+              onChange={handleChange}
+              onKeyDown={handleKeyDown}
+              placeholder="Foundations of Faith"
+            />
+
+            {/* URL Slug Section */}
+            {checked ? (
+              <Paper
+                variant="outlined"
+                sx={{ p: 2, backgroundColor: "var(--admin-bg-light)" }}>
+                <Stack direction="row" alignItems="center" justifyContent="space-between" sx={{ mb: 1 }}>
+                  <Typography variant="subtitle2" color="text.secondary">URL Slug</Typography>
+                  <IconButton size="small" onClick={() => setChecked(false)} color="primary">
+                    <EditIcon fontSize="small" />
+                  </IconButton>
+                </Stack>
+                <Typography variant="body1" sx={{ fontFamily: "monospace", mb: 1 }}>{study.slug}</Typography>
+                <Typography
+                  variant="body2"
+                  component="a"
+                  href={`https://lessons.church/${program?.slug}/${study.slug}/`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  sx={{
+                    color: "var(--c1)",
+                    textDecoration: "none",
+                    "&:hover": { textDecoration: "underline" }
+                  }}>
+                  https://lessons.church/{program?.slug}/{study.slug}/
+                </Typography>
+              </Paper>
+            ) : (
+              <TextField
+                fullWidth
+                label="URL Slug"
+                name="slug"
+                value={study.slug}
+                onChange={handleChange}
+                helperText="Make sure to check before saving"
+                InputProps={{
+                  endAdornment: (
+                    <Button variant="contained" size="small" onClick={handleSlugValidation}>
+                      Check
+                    </Button>
+                  )
+                }}
+              />
+            )}
+
+            <TextField
+              fullWidth
+              label="One-Line Description"
+              name="shortDescription"
+              value={study.shortDescription}
+              onChange={handleChange}
+              onKeyDown={handleKeyDown}
+              placeholder="A brief description for listings"
+            />
+
+            <TextField
+              fullWidth
+              multiline
+              rows={3}
+              label="Description"
+              name="description"
+              value={study.description}
+              onChange={handleChange}
+              onKeyDown={handleKeyDown}
+            />
+
+            <TextField
+              fullWidth
+              label="Video Embed URL"
+              name="videoEmbedUrl"
+              value={study.videoEmbedUrl}
+              onChange={handleChange}
+              onKeyDown={handleKeyDown}
+              placeholder="https://www.youtube.com/embed/..."
+            />
+          </Stack>
         </Box>
 
         {/* Footer */}
