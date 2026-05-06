@@ -32,19 +32,6 @@ test.describe("Admin workspace layout", () => {
     await expect(main.getByText(SEED.STUDIES.GENESIS.name)).toBeVisible();
   });
 
-  test("nav search filters programs", async ({ page }) => {
-    const nav = page.getByTestId("admin-nav");
-    const search = nav.getByPlaceholder("Search programs...");
-
-    await search.fill("New Testament");
-    await expect(nav.getByText(SEED.PROGRAMS.NT.name)).toBeVisible();
-    await expect(nav.getByText(SEED.PROGRAMS.OT.name)).toHaveCount(0);
-
-    await search.fill("");
-    await expect(nav.getByText(SEED.PROGRAMS.OT.name)).toBeVisible();
-    await expect(nav.getByText(SEED.PROGRAMS.NT.name)).toBeVisible();
-  });
-
   test("empty panel hint shows when nothing is opened", async ({ page }) => {
     const panel = page.getByTestId("admin-panel");
     await expect(panel.getByText(/Select an item/i)).toBeVisible();

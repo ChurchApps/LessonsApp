@@ -1,7 +1,8 @@
 import React, { useState } from "react";
-import { Accordion, AccordionDetails, AccordionSummary, Box, Icon, Menu, MenuItem, Paper, Stack, Typography } from "@mui/material";
-import { FileUpload as FilesIcon } from "@mui/icons-material";
-import { Loading, SmallButton } from "@churchapps/apphelper";
+import { formatDistanceToNow } from "date-fns";
+import { Accordion, AccordionDetails, AccordionSummary, Box, Icon, IconButton, Menu, MenuItem, Paper, Stack, Tooltip, Typography } from "@mui/material";
+import { FileUpload as FilesIcon, Videocam as VideoIcon } from "@mui/icons-material";
+import { Loading } from "@churchapps/apphelper";
 import {
   ApiHelper,
   ArrayHelper,
@@ -11,6 +12,13 @@ import {
   ResourceInterface,
   VariantInterface
 } from "@/helpers";
+
+function formatBytes(bytes?: number): string {
+  if (!bytes || bytes < 0) return "";
+  if (bytes < 1024) return `${bytes} B`;
+  if (bytes < 1024 * 1024) return `${Math.round(bytes / 1024)} KB`;
+  return `${(bytes / 1024 / 1024).toFixed(1)} MB`;
+}
 import { AssetEdit } from "./AssetEdit";
 import { BulkAssetAdd } from "./BulkAssetAdd";
 import { BundleEdit } from "./BundleEdit";
@@ -59,6 +67,17 @@ export const BundleList: React.FC<Props> = props => {
       ApiHelper.get("/externalVideos/content/" + props.contentType + "/" + props.contentId, "LessonsApi").then(data =>
         setExternalVideos(data));
       const bundleData: BundleInterface[] = await ApiHelper.get("/bundles/content/" + props.contentType + "/" + props.contentId, "LessonsApi");
+      // Hydrate each bundle's zip file so we can show dateModified, size, and a download link.
+      // The bundle endpoint doesn't join the file row, so we fetch them in parallel by id.
+      await Promise.all(bundleData.map(async b => {
+        if (b.fileId) {
+          try {
+            b.file = await ApiHelper.get("/files/" + b.fileId, "LessonsApi");
+          } catch {
+            // Missing file rows shouldn't block the rest of the list.
+          }
+        }
+      }));
       setBundles(bundleData);
       if (bundleData.length === 0) {
         setResources([]);
@@ -176,62 +195,201 @@ export const BundleList: React.FC<Props> = props => {
     return result;
   };
 
-  const getBundles = () => {
-    const result: React.JSX.Element[] = [];
-    bundles.forEach(b => {
-      const bundle = b;
-      result.push(<Accordion
-        expanded={expandedBundleId === b.id}
-        onChange={() => { setExpandedBundleId(expandedBundleId === b.id ? "" : b.id); }}
-        elevation={0}>
-        <AccordionSummary expandIcon={<Icon>expand_more</Icon>} aria-controls="panel1bh-content" id="panel1bh-header">
-          <div style={{ width: "100%", paddingRight: 20 }}>
-            <span style={{ float: "right", display: "inline-flex", gap: 4 }}>
-              <SmallButton
-                icon="refresh"
-                onClick={() => { handleRebuildZip(bundle.id); }}
-                text="Rebuild Zip"
-              />
-              <SmallButton
-                icon="add"
-                onClick={() => {
-                  setEditResource({ category: bundle.name, bundleId: bundle.id, loopVideo: false });
-                }}
-                text="Resource"
-              />
-            </span>
-            <a
-              href="about:blank"
-              onClick={e => {
-                e.preventDefault();
-                clearEdits();
-                setEditBundle(b);
-              }}
-              style={{
-                color: "var(--c1)",
-                textDecoration: "none",
+  const renderSectionHeader = (label: string, count: number) => (
+    <Stack
+      direction="row"
+      alignItems="center"
+      justifyContent="space-between"
+      sx={{
+        mb: 1.5,
+        pb: 0.75,
+        borderBottom: "1px solid var(--admin-border-light)",
+      }}>
+      <Typography
+        component="h3"
+        sx={{
+          fontSize: "0.6875rem",
+          fontWeight: 600,
+          letterSpacing: "0.08em",
+          textTransform: "uppercase",
+          color: "var(--text-secondary)",
+          margin: 0,
+        }}>
+        {label}
+      </Typography>
+      <Typography
+        component="span"
+        sx={{
+          fontSize: "0.6875rem",
+          fontWeight: 600,
+          color: "var(--c1d1)",
+          background: "var(--c1l6)",
+          borderRadius: 10,
+          padding: "1px 8px",
+        }}>
+        {count}
+      </Typography>
+    </Stack>
+  );
+
+  const renderBundleStatus = (bundle: BundleInterface) => {
+    const pending = !!bundle.pendingUpdate;
+    const hasZip = !!bundle.fileId;
+    const file = bundle.file;
+    const zipBuiltAt = file?.dateModified ? new Date(file.dateModified) : null;
+    const downloadUrl = file?.contentPath || null;
+    const sizeBytes = file?.size;
+
+    return (
+      <Stack
+        direction="row"
+        alignItems="center"
+        gap={1.25}
+        flexWrap="wrap"
+        sx={{ mt: 0.5, fontSize: "0.75rem", color: "var(--text-secondary)" }}>
+        {pending && (
+          <Tooltip title="Queued for zip rebuild — usually completes within a few minutes." arrow>
+            <Box
+              component="span"
+              sx={{
                 display: "inline-flex",
                 alignItems: "center",
-                gap: "4px"
+                gap: 0.5,
+                padding: "1px 8px",
+                borderRadius: 10,
+                background: "#fff3e0",
+                color: "#b26500",
+                fontWeight: 600,
               }}>
-              <Icon style={{ paddingTop: 4 }}>folder_zip</Icon> {b.name}
-            </a>
-          </div>
-        </AccordionSummary>
-        <AccordionDetails>
-          <div className="adminAccordion resourceAccordion">{getResources(b.id)}</div>
-        </AccordionDetails>
-      </Accordion>);
-    });
-
-    return result;
+              <Box component="span" sx={{ width: 6, height: 6, borderRadius: "50%", background: "#ed6c02" }} />
+              Rebuild queued
+            </Box>
+          </Tooltip>
+        )}
+        {!pending && hasZip && (
+          <Box
+            component="span"
+            sx={{
+              display: "inline-flex",
+              alignItems: "center",
+              gap: 0.5,
+              padding: "1px 8px",
+              borderRadius: 10,
+              background: "#e8f5e9",
+              color: "#2e7d32",
+              fontWeight: 600,
+            }}>
+            <Box component="span" sx={{ width: 6, height: 6, borderRadius: "50%", background: "#2e7d32" }} />
+            Zip ready
+          </Box>
+        )}
+        {!pending && !hasZip && <span>No zip yet</span>}
+        {zipBuiltAt && (
+          <Tooltip title={zipBuiltAt.toLocaleString()} arrow>
+            <span>Built {formatDistanceToNow(zipBuiltAt, { addSuffix: true })}</span>
+          </Tooltip>
+        )}
+        {!!sizeBytes && <span>· {formatBytes(sizeBytes)}</span>}
+        {downloadUrl && (
+          <a
+            href={downloadUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            onClick={e => e.stopPropagation()}
+            style={{
+              color: "var(--c1)",
+              textDecoration: "none",
+              display: "inline-flex",
+              alignItems: "center",
+              gap: 4,
+            }}>
+            <Icon fontSize="small" sx={{ fontSize: "0.95rem" }}>download</Icon>
+            Download
+          </a>
+        )}
+      </Stack>
+    );
   };
 
-  const getVideos = () => {
-    const result: React.JSX.Element[] = [];
-    externalVideos.forEach(v => {
-      const video = v;
-      result.push(<div style={{ paddingLeft: 16 }}>
+  const getBundles = () => bundles.map(b => {
+    const bundle = b;
+    return (
+      <Paper
+        key={b.id}
+        variant="outlined"
+        sx={{
+          borderRadius: 1.5,
+          overflow: "hidden",
+          background: "var(--admin-surface)",
+        }}>
+        <Accordion
+          expanded={expandedBundleId === b.id}
+          onChange={() => { setExpandedBundleId(expandedBundleId === b.id ? "" : b.id); }}
+          elevation={0}
+          disableGutters
+          sx={{ "&:before": { display: "none" } }}>
+          <AccordionSummary expandIcon={<Icon>expand_more</Icon>} aria-controls="panel1bh-content" id="panel1bh-header">
+            <div style={{ width: "100%", paddingRight: 20 }}>
+              <span style={{ float: "right", display: "inline-flex", gap: 2 }}>
+                <Tooltip title="Rebuild Zip" arrow>
+                  <IconButton
+                    size="small"
+                    onClick={(e) => { e.stopPropagation(); handleRebuildZip(bundle.id); }}
+                    sx={{ color: "var(--text-secondary)", "&:hover": { color: "var(--c1)" } }}>
+                    <Icon fontSize="small">refresh</Icon>
+                  </IconButton>
+                </Tooltip>
+                <Tooltip title="Add Resource" arrow>
+                  <IconButton
+                    size="small"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      setEditResource({ category: bundle.name, bundleId: bundle.id, loopVideo: false });
+                    }}
+                    sx={{ color: "var(--text-secondary)", "&:hover": { color: "var(--c1)" } }}>
+                    <Icon fontSize="small">add</Icon>
+                  </IconButton>
+                </Tooltip>
+              </span>
+              <a
+                href="about:blank"
+                onClick={e => {
+                  e.preventDefault();
+                  e.stopPropagation();
+                  clearEdits();
+                  setEditBundle(b);
+                }}
+                style={{
+                  color: "var(--c1)",
+                  textDecoration: "none",
+                  display: "inline-flex",
+                  alignItems: "center",
+                  gap: "4px"
+                }}>
+                <Icon style={{ paddingTop: 4 }}>folder_zip</Icon> {b.name}
+              </a>
+              {renderBundleStatus(b)}
+            </div>
+          </AccordionSummary>
+          <AccordionDetails sx={{ borderTop: "1px solid var(--admin-border-light)", background: "var(--admin-bg-lighter)" }}>
+            <div className="adminAccordion resourceAccordion">{getResources(b.id)}</div>
+          </AccordionDetails>
+        </Accordion>
+      </Paper>
+    );
+  });
+
+  const getVideos = () => externalVideos.map(v => {
+    const video = v;
+    return (
+      <Paper
+        key={v.id}
+        variant="outlined"
+        sx={{
+          borderRadius: 1.5,
+          padding: "10px 14px",
+          background: "var(--admin-surface)",
+        }}>
         <a
           href="about:blank"
           onClick={e => {
@@ -244,28 +402,41 @@ export const BundleList: React.FC<Props> = props => {
             textDecoration: "none",
             display: "inline-flex",
             alignItems: "center",
-            gap: "4px"
+            gap: "8px"
           }}>
-          <Icon style={{ paddingTop: 4 }}>videocam</Icon> {video.name}
+          <VideoIcon fontSize="small" /> {video.name}
         </a>
-      </div>);
-    });
-    return result;
-  };
+      </Paper>
+    );
+  });
 
   const getAccordion = () => {
-    if (resources === null) {
-      return <Loading />;
-    } else if (bundles?.length > 0 || externalVideos?.length > 0) {
+    if (resources === null) return <Loading />;
+    if (!bundles?.length && !externalVideos?.length) {
       return (
-        <>
-          <div className="adminAccordion">
-            {getBundles()}
-            {getVideos()}
-          </div>
-        </>
+        <Box sx={{ p: 3, textAlign: "center", color: "var(--text-secondary)" }}>
+          <Typography sx={{ fontSize: "0.875rem", mb: 0 }}>
+            No bundles or videos yet.
+          </Typography>
+        </Box>
       );
     }
+    return (
+      <Stack spacing={3} className="adminAccordion">
+        {bundles?.length > 0 && (
+          <Box>
+            {renderSectionHeader("Bundles", bundles.length)}
+            <Stack spacing={1}>{getBundles()}</Stack>
+          </Box>
+        )}
+        {externalVideos?.length > 0 && (
+          <Box>
+            {renderSectionHeader("External Videos", externalVideos.length)}
+            <Stack spacing={1}>{getVideos()}</Stack>
+          </Box>
+        )}
+      </Stack>
+    );
   };
 
   const createAsset = (resourceId: string) => { const resourceAssets = ArrayHelper.getAll(assets || [], "resourceId", resourceId); setEditAsset({ resourceId: resourceId, sort: resourceAssets?.length + 1 || 1 }); };
@@ -290,11 +461,14 @@ export const BundleList: React.FC<Props> = props => {
 
   const getDropDownMenu = (resourceId: string) => (
     <>
-      <SmallButton
-        icon="add"
-        text="Add"
-        onClick={e => { setMenuResourceId(resourceId); setMenuAnchor(e.currentTarget); }}
-      />
+      <Tooltip title="Add Variant or Asset" arrow>
+        <IconButton
+          size="small"
+          onClick={e => { e.stopPropagation(); setMenuResourceId(resourceId); setMenuAnchor(e.currentTarget); }}
+          sx={{ color: "var(--text-secondary)", "&:hover": { color: "var(--c1)" } }}>
+          <Icon fontSize="small">add</Icon>
+        </IconButton>
+      </Tooltip>
       {menuResourceId === resourceId && (
         <Menu
           id={"addMenu" + resourceId}
@@ -323,7 +497,14 @@ export const BundleList: React.FC<Props> = props => {
 
   const getBundleVideoMenu = () => (
     <>
-      <SmallButton icon="add" onClick={e => setVideoMenuAnchor(e.currentTarget)} />
+      <Tooltip title="Add Bundle or External Video" arrow>
+        <IconButton
+          size="small"
+          onClick={e => setVideoMenuAnchor(e.currentTarget)}
+          sx={{ color: "var(--c1d2)", "&:hover": { color: "var(--c1)" } }}>
+          <Icon fontSize="small">add</Icon>
+        </IconButton>
+      </Tooltip>
       <Menu
         id="addMenu"
         anchorEl={videoMenuAnchor}

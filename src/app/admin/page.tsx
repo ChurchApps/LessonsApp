@@ -12,10 +12,9 @@ import {
   FileUpload as FilesIcon,
   Layers as LayersIcon,
   LocationOn as VenueIcon,
-  Search as SearchIcon,
   School as SchoolIcon,
 } from "@mui/icons-material";
-import { Box, Button, IconButton, InputBase, Stack, Typography } from "@mui/material";
+import { Box, Button, IconButton, Stack, Typography } from "@mui/material";
 import { Loading, PageHeader } from "@churchapps/apphelper";
 import { BundleList, ErrorBoundary, LessonEdit, ProgramEdit, StudyEdit, VenueList } from "@/components";
 import { Wrapper } from "@/components/Wrapper";
@@ -38,7 +37,6 @@ export default function Admin() {
 
   const [selectedProgramId, setSelectedProgramId] = useState<string>("");
   const [expandedStudyId, setExpandedStudyId] = useState<string>("");
-  const [searchQuery, setSearchQuery] = useState<string>("");
   const [panel, setPanel] = useState<PanelState | null>(null);
 
   useEffect(() => { if (!isAuthenticated) router.push("/login"); }, []);
@@ -90,8 +88,6 @@ export default function Admin() {
 
   // Selection helpers
   const selectedProgram = programs?.find(p => p.id === selectedProgramId) || null;
-  const filteredPrograms = (programs || []).filter(p =>
-    !searchQuery || p.name?.toLowerCase().includes(searchQuery.toLowerCase()));
   const studyCountFor = (programId: string) => (studies || []).filter(s => s.programId === programId).length;
   const lessonCountFor = (programId: string) => {
     const sids = (studies || []).filter(s => s.programId === programId).map(s => s.id);
@@ -519,37 +515,14 @@ export default function Admin() {
             </IconButton>
           </Stack>
 
-          <Box sx={{ padding: "10px 16px", borderBottom: "1px solid var(--admin-border-light)" }}>
-            <Box
-              sx={{
-                display: "flex",
-                alignItems: "center",
-                gap: 1,
-                padding: "6px 10px",
-                background: "var(--admin-bg-light)",
-                border: "1px solid var(--admin-border-light)",
-                borderRadius: 1,
-                "&:focus-within": { borderColor: "var(--c1)" },
-              }}>
-              <SearchIcon sx={{ fontSize: "1rem", color: "var(--text-secondary)" }} />
-              <InputBase
-                placeholder="Search programs..."
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-                inputProps={{ "aria-label": "Search programs" }}
-                sx={{ flex: 1, fontSize: "0.8125rem" }}
-              />
-            </Box>
-          </Box>
-
           <Box sx={{ flex: 1, overflowY: "auto", padding: "8px 0" }}>
             {programs === null ? (
               <Box sx={{ p: 2 }}><Loading /></Box>
-            ) : filteredPrograms.length === 0 ? (
+            ) : programs.length === 0 ? (
               <Typography sx={{ padding: "20px 16px", textAlign: "center", fontSize: "0.8125rem", color: "var(--text-secondary)" }}>
-                {searchQuery ? "No programs match your search." : "No programs yet."}
+                No programs yet.
               </Typography>
-            ) : filteredPrograms.map(renderProgramItem)}
+            ) : programs.map(renderProgramItem)}
           </Box>
         </Box>
 
