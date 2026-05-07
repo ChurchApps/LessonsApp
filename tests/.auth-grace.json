@@ -1,41 +1,21 @@
 {
   "cookies": [
     {
-      "name": "_ga",
-      "value": "GA1.1.562113317.1778098285",
-      "domain": "localhost",
-      "path": "/",
-      "expires": 1812658285.120294,
-      "httpOnly": false,
-      "secure": false,
-      "sameSite": "Lax"
-    },
-    {
-      "name": "_ga_JQWWX8YS7F",
-      "value": "GS2.1.s1778098285$o1$g1$t1778098285$j60$l0$h0",
-      "domain": "localhost",
-      "path": "/",
-      "expires": 1812658285.151209,
-      "httpOnly": false,
-      "secure": false,
-      "sameSite": "Lax"
-    },
-    {
       "name": "__hstc",
-      "value": "181257784.d994572abbd3ca958439c1dfeb977e8d.1778098285188.1778098285188.1778098285188.1",
+      "value": "181257784.70b3c89137bd3411cfff082399ce197a.1778125499018.1778125499018.1778125499018.1",
       "domain": "localhost",
       "path": "/",
-      "expires": 1793650285,
+      "expires": 1793677499,
       "httpOnly": false,
       "secure": false,
       "sameSite": "Lax"
     },
     {
       "name": "hubspotutk",
-      "value": "d994572abbd3ca958439c1dfeb977e8d",
+      "value": "70b3c89137bd3411cfff082399ce197a",
       "domain": "localhost",
       "path": "/",
-      "expires": 1793650285,
+      "expires": 1793677499,
       "httpOnly": false,
       "secure": false,
       "sameSite": "Lax"
@@ -52,27 +32,27 @@
     },
     {
       "name": "__hssc",
-      "value": "181257784.1.1778098285188",
+      "value": "181257784.1.1778125499018",
       "domain": "localhost",
       "path": "/",
-      "expires": 1778100085,
+      "expires": 1778127299,
       "httpOnly": false,
       "secure": false,
       "sameSite": "Lax"
     },
     {
       "name": "__cf_bm",
-      "value": "oYUTGHSATO8lffworIoC10PohACbQWItJmTGGq6ByEk-1778098284-1.0.1.1-p.BWy8ZWsuiE8NEyxG81Gi8Z89nJkNfCj4_cXFwve.NOdT3FWUyLFs5HLXn.Lkv2d0M17F.eTdDoMC5v_FGEjO8_v7RTgM8aQI6NCWYMDfM",
+      "value": "CYc9lJBGeCfu9ThDhRbjCoHMFNSUgTNoM1j4Ff7Go_I-1778125498-1.0.1.1-_mo0huJGSRmg0Lgyk5eiDlBdVQ21vVQlFZJYXZU2EncWmS5F7dKqNJw_cw2vbSsVIn322cSgBOlwvNE6Z.KbgA.csIOeYhjD3YqcmSkjYqM",
       "domain": ".hubspot.com",
       "path": "/",
-      "expires": 1778100085.299755,
+      "expires": 1778127299.115835,
       "httpOnly": true,
       "secure": true,
       "sameSite": "None"
     },
     {
       "name": "_cfuvid",
-      "value": "26EFAP1ibMprIG7zuMWneR9V.AyxGlX1GQtU450LuDE-1778098284063-0.0.1.1-604800000",
+      "value": "w2x1rAudArjq7VeedsCaJoDKyyQPWtQ8uyhlKapHFXM-1778125498249-0.0.1.1-604800000",
       "domain": ".hubspot.com",
       "path": "/",
       "expires": -1,
@@ -81,11 +61,51 @@
       "sameSite": "None"
     },
     {
-      "name": "_gcl_au",
-      "value": "1.1.525119413.1778098285",
+      "name": "name",
+      "value": "Demo%20User",
       "domain": "localhost",
       "path": "/",
-      "expires": 1785874285,
+      "expires": 1793677499.205388,
+      "httpOnly": false,
+      "secure": false,
+      "sameSite": "Lax"
+    },
+    {
+      "name": "email",
+      "value": "demo%40b1.church",
+      "domain": "localhost",
+      "path": "/",
+      "expires": 1793677499.205575,
+      "httpOnly": false,
+      "secure": false,
+      "sameSite": "Lax"
+    },
+    {
+      "name": "_gcl_au",
+      "value": "1.1.1051550123.1778125499",
+      "domain": "localhost",
+      "path": "/",
+      "expires": 1785901499,
+      "httpOnly": false,
+      "secure": false,
+      "sameSite": "Lax"
+    },
+    {
+      "name": "lastChurchId",
+      "value": "CHU00000001",
+      "domain": "localhost",
+      "path": "/",
+      "expires": 1793677499.330621,
+      "httpOnly": false,
+      "secure": false,
+      "sameSite": "Lax"
+    },
+    {
+      "name": "jwt",
+      "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IlVTUjAwMDAwMDAxIiwiZW1haWwiOiJkZW1vQGIxLmNodXJjaCIsImZpcnN0TmFtZSI6IkRlbW8iLCJsYXN0TmFtZSI6IlVzZXIiLCJpYXQiOjE3NzgxMjU0OTksImV4cCI6MTc5MzY3NzQ5OX0.DeyECRt9R3pWEzn1UhWUIJHi0XdPD9Tgsb6X9qJy2Rw",
+      "domain": "localhost",
+      "path": "/",
+      "expires": 1793677499.348807,
       "httpOnly": false,
       "secure": false,
       "sameSite": "Lax"
@@ -95,7 +115,7 @@
       "value": "CheckForPermission",
       "domain": ".doubleclick.net",
       "path": "/",
-      "expires": 1778099185.535749,
+      "expires": 1778126399.355595,
       "httpOnly": false,
       "secure": true,
       "sameSite": "None"
@@ -111,11 +131,11 @@
         },
         {
           "name": "_gcl_ls",
-          "value": "{\"schema\":\"gcl\",\"version\":1,\"gcl_ctr\":{\"value\":{\"value\":0,\"timeouts\":0,\"errors\":0,\"eopCount\":0,\"creationTimeMs\":1778098285467},\"expires\":1785874285467}}"
+          "value": "{\"schema\":\"gcl\",\"version\":1,\"gcl_ctr\":{\"value\":{\"value\":0,\"timeouts\":0,\"errors\":0,\"eopCount\":0,\"creationTimeMs\":1778125499277},\"expires\":1785901499277}}"
         },
         {
           "name": "orama_user_id",
-          "value": "jq6jnm9ga8max92izhmqd2r6"
+          "value": "l18n4g5t07vx5957dobwh5kj"
         }
       ]
     }
