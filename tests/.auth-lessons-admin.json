@@ -2,20 +2,20 @@
   "cookies": [
     {
       "name": "__hstc",
-      "value": "181257784.926747dd122a051172487f9da3587f97.1778215518817.1778215518817.1778215518817.1",
+      "value": "181257784.42950828f3c9d03a483e55a67a2971b9.1778263449014.1778263449014.1778263449014.1",
       "domain": "localhost",
       "path": "/",
-      "expires": 1793767518,
+      "expires": 1793815449,
       "httpOnly": false,
       "secure": false,
       "sameSite": "Lax"
     },
     {
       "name": "hubspotutk",
-      "value": "926747dd122a051172487f9da3587f97",
+      "value": "42950828f3c9d03a483e55a67a2971b9",
       "domain": "localhost",
       "path": "/",
-      "expires": 1793767518,
+      "expires": 1793815449,
       "httpOnly": false,
       "secure": false,
       "sameSite": "Lax"
@@ -32,27 +32,27 @@
     },
     {
       "name": "__hssc",
-      "value": "181257784.1.1778215518817",
+      "value": "181257784.1.1778263449014",
       "domain": "localhost",
       "path": "/",
-      "expires": 1778217318,
+      "expires": 1778265249,
       "httpOnly": false,
       "secure": false,
       "sameSite": "Lax"
     },
     {
       "name": "__cf_bm",
-      "value": "EizLLKURW6J1f28huEdeHZi4qucDJVR0U76SD1Be3hE-1778215519-1.0.1.1-LfomXiEQi0SsuqBed4NY_0MsFuDRJuJ.RJhv8V0bt_F4sIqyn2OmTsrdxvoSxnKySn7hKrouEiCeSROg.naQ7Oxq52pGqyXFFexjhX3.Jto",
+      "value": "W45PozkKa.szNksgFppcRVPglzRZnuPKvk9_iDZ4cxg-1778263450-1.0.1.1-TD47CBo4oi3I8O3AgrQ62kpFta5cAd3VcbMwRWWT2XhjegvKZ9SHsAUd9TabFhus88Ud1pj3zQh0mABYFiIaIVu8jCtBj3mGcSm4ldUd6s4",
       "domain": ".hubspot.com",
       "path": "/",
-      "expires": 1778217318.926522,
+      "expires": 1778265249.114565,
       "httpOnly": true,
       "secure": true,
       "sameSite": "None"
     },
     {
       "name": "_cfuvid",
-      "value": "8i8yTaMXrxAZdaBUFfXWvyy3p8rKDnUZPKKS3riGl_M-1778215519233-0.0.1.1-604800000",
+      "value": "T9_SBgGLC5d1VWFZfVYp1CFe_QCg6.fcgFvNHnOi.XE-1778263450053-0.0.1.1-604800000",
       "domain": ".hubspot.com",
       "path": "/",
       "expires": -1,
@@ -61,51 +61,11 @@
       "sameSite": "None"
     },
     {
-      "name": "name",
-      "value": "Lessons%20Admin",
-      "domain": "localhost",
-      "path": "/",
-      "expires": 1793767519.00304,
-      "httpOnly": false,
-      "secure": false,
-      "sameSite": "Lax"
-    },
-    {
-      "name": "email",
-      "value": "lessons-admin%40demo.churchapps.org",
-      "domain": "localhost",
-      "path": "/",
-      "expires": 1793767519.003232,
-      "httpOnly": false,
-      "secure": false,
-      "sameSite": "Lax"
-    },
-    {
       "name": "_gcl_au",
-      "value": "1.1.1885427258.1778215519",
+      "value": "1.1.1932463299.1778263449",
       "domain": "localhost",
       "path": "/",
-      "expires": 1785991519,
-      "httpOnly": false,
-      "secure": false,
-      "sameSite": "Lax"
-    },
-    {
-      "name": "lastChurchId",
-      "value": "CHU00000099",
-      "domain": "localhost",
-      "path": "/",
-      "expires": 1793767519.128088,
-      "httpOnly": false,
-      "secure": false,
-      "sameSite": "Lax"
-    },
-    {
-      "name": "jwt",
-      "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IlVTUjAwMDAwMDAyIiwiZW1haWwiOiJsZXNzb25zLWFkbWluQGRlbW8uY2h1cmNoYXBwcy5vcmciLCJmaXJzdE5hbWUiOiJMZXNzb25zIiwibGFzdE5hbWUiOiJBZG1pbiIsImlhdCI6MTc3ODIxNTUxOSwiZXhwIjoxNzkzNzY3NTE5fQ.4w9tNPNvBRLMdl__ywYWGKAZNvm5lEtnCyMIgAxhAxE",
-      "domain": "localhost",
-      "path": "/",
-      "expires": 1793767519.145842,
+      "expires": 1786039449,
       "httpOnly": false,
       "secure": false,
       "sameSite": "Lax"
@@ -115,10 +75,50 @@
       "value": "CheckForPermission",
       "domain": ".doubleclick.net",
       "path": "/",
-      "expires": 1778216419.19413,
+      "expires": 1778264349.362548,
       "httpOnly": false,
       "secure": true,
       "sameSite": "None"
+    },
+    {
+      "name": "name",
+      "value": "Lessons%20Admin",
+      "domain": "localhost",
+      "path": "/",
+      "expires": 1793815449.529879,
+      "httpOnly": false,
+      "secure": false,
+      "sameSite": "Lax"
+    },
+    {
+      "name": "email",
+      "value": "lessons-admin%40demo.churchapps.org",
+      "domain": "localhost",
+      "path": "/",
+      "expires": 1793815449.530149,
+      "httpOnly": false,
+      "secure": false,
+      "sameSite": "Lax"
+    },
+    {
+      "name": "lastChurchId",
+      "value": "CHU00000099",
+      "domain": "localhost",
+      "path": "/",
+      "expires": 1793815449.610907,
+      "httpOnly": false,
+      "secure": false,
+      "sameSite": "Lax"
+    },
+    {
+      "name": "jwt",
+      "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IlVTUjAwMDAwMDAyIiwiZW1haWwiOiJsZXNzb25zLWFkbWluQGRlbW8uY2h1cmNoYXBwcy5vcmciLCJmaXJzdE5hbWUiOiJMZXNzb25zIiwibGFzdE5hbWUiOiJBZG1pbiIsImlhdCI6MTc3ODI2MzQ0OSwiZXhwIjoxNzkzODE1NDQ5fQ.7_TH3bcnDCtMFVNyuNcxeYCIighEiWFBJp58IAexeUI",
+      "domain": "localhost",
+      "path": "/",
+      "expires": 1793815449.629343,
+      "httpOnly": false,
+      "secure": false,
+      "sameSite": "Lax"
     }
   ],
   "origins": [
@@ -131,11 +131,11 @@
         },
         {
           "name": "_gcl_ls",
-          "value": "{\"schema\":\"gcl\",\"version\":1,\"gcl_ctr\":{\"value\":{\"value\":0,\"timeouts\":0,\"errors\":0,\"eopCount\":0,\"creationTimeMs\":1778215519076},\"expires\":1785991519076}}"
+          "value": "{\"schema\":\"gcl\",\"version\":1,\"gcl_ctr\":{\"value\":{\"value\":0,\"timeouts\":0,\"errors\":0,\"eopCount\":0,\"creationTimeMs\":1778263449281},\"expires\":1786039449281}}"
         },
         {
           "name": "orama_user_id",
-          "value": "bqw7bbixcwrlqkfztdfyv867"
+          "value": "uaid11qnj6s1rmaimeigw4gm"
         }
       ]
     }

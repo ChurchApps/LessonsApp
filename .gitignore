@@ -8,6 +8,8 @@
 .serena
 /test-results
 
+/tests/.auth*
+
 # dependencies
 /node_modules
 /.pnp

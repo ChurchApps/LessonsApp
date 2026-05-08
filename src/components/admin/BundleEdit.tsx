@@ -1,7 +1,8 @@
-import { useEffect, useState } from "react";
-import { TextField } from "@mui/material";
-import { ErrorMessages, InputBox } from "@churchapps/apphelper";
+import { useEffect } from "react";
+import { Alert, TextField } from "@mui/material";
+import { InputBox } from "@churchapps/apphelper";
 import { ApiHelper, BundleInterface } from "@/helpers";
+import { useForm } from "react-hook-form";
 
 interface Props {
   bundle: BundleInterface;
@@ -9,65 +10,38 @@ interface Props {
   contentDisplayName: string;
 }
 
+type AnyRecord = Record<string, any>;
+
 export function BundleEdit(props: Props) {
-  const [bundle, setBundle] = useState<BundleInterface>({} as BundleInterface);
-  const [errors, setErrors] = useState([]);
+  const { register, handleSubmit, reset, formState } = useForm<AnyRecord>({ defaultValues: { name: "" } });
+  const e = formState.errors as any;
+  const summaryErrors: string[] = [];
+  if (e.name?.message) summaryErrors.push(e.name.message);
 
-  const handleCancel = () => props.updatedCallback(bundle);
-
-  const handleKeyDown = (e: React.KeyboardEvent<any>) => {
-    if (e.key === "Enter") { e.preventDefault(); handleSave(); }
-  };
-
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    e.preventDefault();
-    const v = { ...bundle };
-    switch (e.currentTarget.name) { case "name": v.name = e.currentTarget.value; break; }
-    setBundle(v);
-  };
-
-  const validate = () => {
-    const errors = [];
-    if (bundle.name === "") errors.push("Please enter a bundle name.");
-    setErrors(errors);
-    return errors.length === 0;
-  };
-
-  const handleSave = () => {
-    if (validate()) {
-      ApiHelper.post("/bundles", [bundle], "LessonsApi").then(data => { setBundle(data); props.updatedCallback(data); });
-    }
-  };
+  const handleCancel = () => props.updatedCallback(props.bundle);
 
   const getDeleteFunction = () => (props.bundle?.id ? handleDelete : undefined);
 
   const handleDelete = () => {
-    if (
-      window.confirm("Are you sure you wish to permanently delete this bundle?  This will delete all variants and assets.")
-    ) ApiHelper.delete("/bundles/" + bundle.id.toString(), "LessonsApi").then(() => props.updatedCallback(null));
+    if (window.confirm("Are you sure you wish to permanently delete this bundle?  This will delete all variants and assets.")) {
+      ApiHelper.delete("/bundles/" + props.bundle.id.toString(), "LessonsApi").then(() => props.updatedCallback(null));
+    }
   };
 
-  useEffect(() => { setBundle(props.bundle); }, [props.bundle]);
+  const onValid = (values: AnyRecord) => {
+    const b: BundleInterface = { ...props.bundle, name: values.name };
+    ApiHelper.post("/bundles", [b], "LessonsApi").then(data => { props.updatedCallback(data); });
+  };
+
+  useEffect(() => {
+    if (props.bundle) reset({ name: props.bundle.name ?? "" });
+  }, [props.bundle, reset]);
 
   return (
     <>
-      <InputBox
-        id="bundleDetailsBox"
-        headerText={props.contentDisplayName}
-        headerIcon="insert_drive_file"
-        saveFunction={handleSave}
-        cancelFunction={handleCancel}
-        deleteFunction={getDeleteFunction()}>
-        <ErrorMessages errors={errors} />
-        <TextField
-          fullWidth
-          label="Bundle Name"
-          name="name"
-          value={bundle.name}
-          onChange={handleChange}
-          onKeyDown={handleKeyDown}
-          placeholder="Countdown Video"
-        />
+      <InputBox id="bundleDetailsBox" headerText={props.contentDisplayName} headerIcon="insert_drive_file" saveFunction={handleSubmit(onValid)} cancelFunction={handleCancel} deleteFunction={getDeleteFunction()}>
+        {summaryErrors.length > 0 && <Alert severity="error" sx={{ mb: 2 }}>{summaryErrors.map((msg) => <div key={msg}>{msg}</div>)}</Alert>}
+        <TextField fullWidth label="Bundle Name" placeholder="Countdown Video" error={!!e.name} helperText={e.name?.message} {...register("name", { required: "Please enter a bundle name." })} />
       </InputBox>
     </>
   );

@@ -1,86 +1,63 @@
-import React from "react";
-import { FormControl, InputLabel, MenuItem, Select, SelectChangeEvent, TextField } from "@mui/material";
-import { ErrorMessages, InputBox } from "@churchapps/apphelper";
+import { useEffect, useState } from "react";
+import { Alert, FormControl, InputLabel, MenuItem, Select, TextField } from "@mui/material";
+import { InputBox } from "@churchapps/apphelper";
 import { ApiHelper, FileInterface, VariantInterface } from "@/helpers";
 import { FileUpload } from "./FileUpload";
+import { useForm, Controller } from "react-hook-form";
 
 interface Props { variant: VariantInterface; updatedCallback: (variant: VariantInterface) => void; }
 
+type AnyRecord = Record<string, any>;
+
 export function VariantEdit(props: Props) {
-  const [variant, setVariant] = React.useState<VariantInterface>(null);
-  const [errors, setErrors] = React.useState([]);
-  const [pendingFileSave, setPendingFileSave] = React.useState(false);
+  const [pendingFileSave, setPendingFileSave] = useState(false);
+  const [pendingValues, setPendingValues] = useState<AnyRecord | null>(null);
 
-  const handleCancel = () => props.updatedCallback(variant);
-  const handleKeyDown = (e: React.KeyboardEvent<any>) => {
-    if (e.key === "Enter") { e.preventDefault(); handleSave(); }
-  };
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement> | SelectChangeEvent<string>) => {
-    e.preventDefault();
-    const v = { ...variant };
-    switch (e.target.name) { case "hidden": v.hidden = e.target.value === "true"; break; case "name": v.name = e.target.value; break; }
-    setVariant(v);
-  };
+  const { control, register, handleSubmit, reset, formState } = useForm<AnyRecord>({ defaultValues: { name: "", hidden: "false" } });
+  const e = formState.errors as any;
+  const summaryErrors: string[] = [];
+  if (e.name?.message) summaryErrors.push(e.name.message);
 
-  const validate = () => {
-    const errors = [];
-    if (variant.name === "") errors.push("Please enter a variant name.");
-    setErrors(errors);
-    return errors.length === 0;
-  };
+  const handleCancel = () => props.updatedCallback(props.variant);
+  const getDeleteFunction = () => (props.variant?.id ? handleDelete : undefined);
+  const handleDelete = () => { if (window.confirm("Are you sure you wish to permanently delete this variant?")) ApiHelper.delete("/variants/" + props.variant.id.toString(), "LessonsApi").then(() => props.updatedCallback(null)); };
 
   const handleFileSaved = (file: FileInterface) => {
-    const v = { ...variant };
-    v.fileId = file.id;
+    const base = pendingValues ?? {};
+    const v: VariantInterface = { ...props.variant, name: base.name, hidden: base.hidden === "true", fileId: file.id };
     ApiHelper.post("/variants", [v], "LessonsApi").then(data => {
-      setVariant(data);
       setPendingFileSave(false);
+      setPendingValues(null);
       props.updatedCallback(data);
     });
   };
 
-  const handleSave = () => { if (validate()) setPendingFileSave(true); };
+  const onValid = (values: AnyRecord) => {
+    setPendingValues(values);
+    setPendingFileSave(true);
+  };
 
-  const getDeleteFunction = () => (props.variant?.id ? handleDelete : undefined);
+  useEffect(() => {
+    if (props.variant) reset({ name: props.variant.name ?? "", hidden: props.variant.hidden ? "true" : "false" });
+  }, [props.variant, reset]);
 
-  const handleDelete = () => { if (window.confirm("Are you sure you wish to permanently delete this variant?")) ApiHelper.delete("/variants/" + variant.id.toString(), "LessonsApi").then(() => props.updatedCallback(null)); };
-
-  React.useEffect(() => { setVariant(props.variant); }, [props.variant]);
-
-  if (!variant) {
+  if (!props.variant) {
     return <></>;
   } else {
     return (
-      <InputBox
-        id="variantDetailsBox"
-        headerText="Edit Variant"
-        headerIcon="content_copy"
-        saveFunction={handleSave}
-        cancelFunction={handleCancel}
-        deleteFunction={getDeleteFunction()}>
-        <ErrorMessages errors={errors} />
+      <InputBox id="variantDetailsBox" headerText="Edit Variant" headerIcon="content_copy" saveFunction={handleSubmit(onValid)} cancelFunction={handleCancel} deleteFunction={getDeleteFunction()}>
+        {summaryErrors.length > 0 && <Alert severity="error" sx={{ mb: 2 }}>{summaryErrors.map((msg) => <div key={msg}>{msg}</div>)}</Alert>}
         <FormControl fullWidth>
           <InputLabel>Hidden</InputLabel>
-          <Select label="Hidden" name="hidden" value={variant.hidden?.toString()} onChange={handleChange}>
-            <MenuItem value="false">No</MenuItem>
-            <MenuItem value="true">Yes</MenuItem>
-          </Select>
+          <Controller name="hidden" control={control} render={({ field }) => (
+            <Select {...field} label="Hidden">
+              <MenuItem value="false">No</MenuItem>
+              <MenuItem value="true">Yes</MenuItem>
+            </Select>
+          )} />
         </FormControl>
-        <TextField
-          fullWidth
-          label="Variant Name"
-          name="name"
-          value={variant.name}
-          onChange={handleChange}
-          onKeyDown={handleKeyDown}
-          placeholder="PDF"
-        />
-        <FileUpload
-          resourceId={props.variant?.resourceId}
-          fileId={variant?.fileId}
-          pendingSave={pendingFileSave}
-          saveCallback={handleFileSaved}
-        />
+        <TextField fullWidth label="Variant Name" placeholder="PDF" error={!!e.name} helperText={e.name?.message} {...register("name", { required: "Please enter a variant name." })} />
+        <FileUpload resourceId={props.variant?.resourceId} fileId={props.variant?.fileId} pendingSave={pendingFileSave} saveCallback={handleFileSaved} />
       </InputBox>
     );
   }

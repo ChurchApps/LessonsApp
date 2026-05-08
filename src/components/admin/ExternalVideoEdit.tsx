@@ -1,7 +1,8 @@
-import { useEffect, useState } from "react";
-import { FormControl, InputLabel, MenuItem, Select, SelectChangeEvent, TextField } from "@mui/material";
-import { ErrorMessages, InputBox } from "@churchapps/apphelper";
+import { useEffect } from "react";
+import { Alert, FormControl, InputLabel, MenuItem, Select, TextField } from "@mui/material";
+import { InputBox } from "@churchapps/apphelper";
 import { ApiHelper, ExternalVideoInterface } from "@/helpers";
+import { useForm, Controller } from "react-hook-form";
 
 interface Props {
   externalVideo: ExternalVideoInterface;
@@ -9,102 +10,59 @@ interface Props {
   contentDisplayName: string;
 }
 
+type AnyRecord = Record<string, any>;
+
 export function ExternalVideoEdit(props: Props) {
-  const [externalVideo, setExternalVideo] = useState<ExternalVideoInterface>(null);
-  const [errors, setErrors] = useState([]);
+  const { control, register, handleSubmit, reset, formState } = useForm<AnyRecord>({ defaultValues: { name: "", videoProvider: "Vimeo", videoId: "", loopVideo: "false" } });
+  const e = formState.errors as any;
+  const summaryErrors: string[] = [];
+  if (e.name?.message) summaryErrors.push(e.name.message);
 
-  const handleCancel = () => props.updatedCallback(externalVideo);
-
-  const handleKeyDown = (e: React.KeyboardEvent<any>) => {
-    if (e.key === "Enter") { e.preventDefault(); handleSave(); }
-  };
-
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement> | SelectChangeEvent<string>) => {
-    e.preventDefault();
-    const v = { ...externalVideo };
-    switch (e.target.name) {
-      case "name": v.name = e.target.value; break;
-      case "provider": v.videoProvider = e.target.value; break;
-      case "videoId": v.videoId = e.target.value; break;
-      case "loopVideo": v.loopVideo = e.target.value === "true"; break;
-    }
-    setExternalVideo(v);
-  };
-
-  const validate = () => {
-    const errors = [];
-    if (externalVideo.name === "") errors.push("Please enter a video name.");
-    setErrors(errors);
-    return errors.length === 0;
-  };
-
-  const handleSave = () => {
-    if (validate()) {
-      ApiHelper.post("/externalVideos", [externalVideo], "LessonsApi").then(data => { setExternalVideo(data); props.updatedCallback(data); });
-    }
-  };
-
+  const handleCancel = () => props.updatedCallback(props.externalVideo);
   const getDeleteFunction = () => (props.externalVideo?.id ? handleDelete : undefined);
 
   const handleDelete = () => {
-    if (window.confirm("Are you sure you wish to permanently delete this video?")) { ApiHelper.delete("/externalVideos/" + externalVideo.id.toString(), "LessonsApi").then(() => props.updatedCallback(null)); }
+    if (window.confirm("Are you sure you wish to permanently delete this video?")) {
+      ApiHelper.delete("/externalVideos/" + props.externalVideo.id.toString(), "LessonsApi").then(() => props.updatedCallback(null));
+    }
   };
 
-  useEffect(() => { setExternalVideo(props.externalVideo); }, [props.externalVideo]);
+  const onValid = (values: AnyRecord) => {
+    const v: ExternalVideoInterface = { ...props.externalVideo, name: values.name, videoProvider: values.videoProvider, videoId: values.videoId, loopVideo: values.loopVideo === "true" };
+    ApiHelper.post("/externalVideos", [v], "LessonsApi").then(data => { props.updatedCallback(data); });
+  };
 
-  if (!externalVideo) {
+  useEffect(() => {
+    if (props.externalVideo) {
+      reset({ name: props.externalVideo.name ?? "", videoProvider: props.externalVideo.videoProvider ?? "Vimeo", videoId: props.externalVideo.videoId ?? "", loopVideo: props.externalVideo.loopVideo ? "true" : "false" });
+    }
+  }, [props.externalVideo, reset]);
+
+  if (!props.externalVideo) {
     return <></>;
   } else {
     return (
       <>
-        <InputBox
-          id="externalVideoDetailsBox"
-          headerText={props.contentDisplayName}
-          headerIcon="insert_drive_file"
-          saveFunction={handleSave}
-          cancelFunction={handleCancel}
-          deleteFunction={getDeleteFunction()}>
-          <ErrorMessages errors={errors} />
-          <TextField
-            fullWidth
-            label="Video Name"
-            name="name"
-            value={externalVideo.name}
-            onChange={handleChange}
-            onKeyDown={handleKeyDown}
-            placeholder="Lesson 1"
-          />
+        <InputBox id="externalVideoDetailsBox" headerText={props.contentDisplayName} headerIcon="insert_drive_file" saveFunction={handleSubmit(onValid)} cancelFunction={handleCancel} deleteFunction={getDeleteFunction()}>
+          {summaryErrors.length > 0 && <Alert severity="error" sx={{ mb: 2 }}>{summaryErrors.map((msg) => <div key={msg}>{msg}</div>)}</Alert>}
+          <TextField fullWidth label="Video Name" placeholder="Lesson 1" error={!!e.name} helperText={e.name?.message} {...register("name", { required: "Please enter a video name." })} />
           <FormControl fullWidth>
             <InputLabel>Provider</InputLabel>
-            <Select
-              fullWidth
-              label="Provider"
-              name="provider"
-              aria-label="provider"
-              value={externalVideo.videoProvider}
-              onChange={handleChange}>
-              <MenuItem value="Vimeo">Vimeo</MenuItem>
-            </Select>
+            <Controller name="videoProvider" control={control} render={({ field }) => (
+              <Select {...field} fullWidth label="Provider" aria-label="provider">
+                <MenuItem value="Vimeo">Vimeo</MenuItem>
+              </Select>
+            )} />
           </FormControl>
-          <TextField
-            fullWidth
-            label="Video Id"
-            name="videoId"
-            value={externalVideo.videoId}
-            onChange={handleChange}
-            onKeyDown={handleKeyDown}
-            placeholder="abc123"
-          />
+          <TextField fullWidth label="Video Id" placeholder="abc123" {...register("videoId")} />
           <FormControl fullWidth>
             <InputLabel>Looping Video</InputLabel>
-            <Select
-              label="Looping Video"
-              name="loopVideo"
-              value={externalVideo.loopVideo?.toString()}
-              onChange={handleChange}>
-              <MenuItem value="false">No</MenuItem>
-              <MenuItem value="true">Yes</MenuItem>
-            </Select>
+            <Controller name="loopVideo" control={control} render={({ field }) => (
+              <Select {...field} label="Looping Video">
+                <MenuItem value="false">No</MenuItem>
+                <MenuItem value="true">Yes</MenuItem>
+              </Select>
+            )} />
           </FormControl>
         </InputBox>
       </>
