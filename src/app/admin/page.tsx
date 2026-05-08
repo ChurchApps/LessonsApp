@@ -12,7 +12,7 @@ import {
   FileUpload as FilesIcon,
   Layers as LayersIcon,
   LocationOn as VenueIcon,
-  School as SchoolIcon,
+  School as SchoolIcon
 } from "@mui/icons-material";
 import { Box, Button, IconButton, Stack, Typography } from "@mui/material";
 import { Loading, PageHeader } from "@churchapps/apphelper";
@@ -119,7 +119,7 @@ export default function Admin() {
           "&:hover": { background: isActive ? "var(--c1l7)" : "var(--admin-bg-light)" },
           display: "flex",
           flexDirection: "column",
-          gap: "4px",
+          gap: "4px"
         }}>
         <Stack direction="row" alignItems="center" spacing={1}>
           <SchoolIcon sx={{ fontSize: "1rem", color: isActive ? "var(--c1d1)" : "var(--text-secondary)" }} />
@@ -133,7 +133,7 @@ export default function Admin() {
               overflow: "hidden",
               textOverflow: "ellipsis",
               whiteSpace: "nowrap",
-              margin: 0,
+              margin: 0
             }}>
             {p.name}
           </Typography>
@@ -162,7 +162,7 @@ export default function Admin() {
           marginBottom: "10px",
           overflow: "hidden",
           transition: "box-shadow 0.15s ease",
-          "&:hover": { boxShadow: "var(--admin-shadow-sm)" },
+          "&:hover": { boxShadow: "var(--admin-shadow-sm)" }
         }}>
         <Stack
           direction="row"
@@ -176,13 +176,18 @@ export default function Admin() {
             padding: "14px 18px",
             cursor: "pointer",
             transition: "background 0.15s ease",
-            "&:hover": { background: "var(--admin-bg-light)" },
+            "&:hover": { background: "var(--admin-bg-light)" }
           }}>
           <Box sx={{
-            width: 36, height: 36, borderRadius: 1.5,
-            background: "var(--c1l7)", color: "var(--c1d1)",
-            display: "flex", alignItems: "center", justifyContent: "center",
-            flexShrink: 0,
+            width: 36,
+            height: 36,
+            borderRadius: 1.5,
+            background: "var(--c1l7)",
+            color: "var(--c1d1)",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            flexShrink: 0
           }}>
             <LayersIcon sx={{ fontSize: "1.125rem" }} />
           </Box>
@@ -194,7 +199,7 @@ export default function Admin() {
                 fontWeight: 500,
                 color: "var(--text-color)",
                 marginBottom: "2px",
-                lineHeight: 1.3,
+                lineHeight: 1.3
               }}>
               {s.name}
             </Typography>
@@ -209,7 +214,7 @@ export default function Admin() {
                   WebkitLineClamp: 1,
                   WebkitBoxOrient: "vertical",
                   overflow: "hidden",
-                  marginBottom: 0,
+                  marginBottom: 0
                 }}>
                 {s.shortDescription}
               </Typography>
@@ -222,7 +227,7 @@ export default function Admin() {
             color: "var(--text-secondary)",
             borderRadius: 12,
             fontWeight: 500,
-            flexShrink: 0,
+            flexShrink: 0
           }}>
             {studyLessons.length} {studyLessons.length === 1 ? "lesson" : "lessons"}
           </Box>
@@ -247,7 +252,7 @@ export default function Admin() {
                 fontSize: "0.8125rem",
                 fontWeight: 500,
                 textTransform: "none",
-                "&:hover": { background: "var(--c1l7)" },
+                "&:hover": { background: "var(--c1l7)" }
               }}>
               Add lesson to this study
             </Button>
@@ -270,14 +275,20 @@ export default function Admin() {
           borderBottom: idx === total - 1 ? "none" : "1px solid var(--admin-border-light)",
           cursor: "pointer",
           transition: "background 0.15s ease",
-          "&:hover": { background: "var(--admin-bg-light)" },
+          "&:hover": { background: "var(--admin-bg-light)" }
         }}>
         <Box sx={{
-          width: 24, height: 24, borderRadius: "50%",
-          background: "var(--c1l6)", color: "var(--c1d1)",
-          display: "flex", alignItems: "center", justifyContent: "center",
-          fontSize: "0.75rem", fontWeight: 600,
-          flexShrink: 0,
+          width: 24,
+          height: 24,
+          borderRadius: "50%",
+          background: "var(--c1l6)",
+          color: "var(--c1d1)",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          fontSize: "0.75rem",
+          fontWeight: 600,
+          flexShrink: 0
         }}>
           {idx + 1}
         </Box>
@@ -291,7 +302,7 @@ export default function Admin() {
               marginBottom: 0,
               overflow: "hidden",
               textOverflow: "ellipsis",
-              whiteSpace: "nowrap",
+              whiteSpace: "nowrap"
             }}>
             {l.name}: {l.title}
           </Typography>
@@ -315,13 +326,18 @@ export default function Admin() {
         sx={{
           padding: "16px 20px",
           background: "linear-gradient(135deg, var(--c1l7) 0%, var(--admin-surface) 100%)",
-          borderBottom: "1px solid var(--admin-border-light)",
+          borderBottom: "1px solid var(--admin-border-light)"
         }}>
         <Box sx={{
-          width: 40, height: 40, borderRadius: 1.25,
-          background: "var(--c1)", color: "#fff",
-          display: "flex", alignItems: "center", justifyContent: "center",
-          flexShrink: 0,
+          width: 40,
+          height: 40,
+          borderRadius: 1.25,
+          background: "var(--c1)",
+          color: "#fff",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          flexShrink: 0
         }}>
           <Icon sx={{ fontSize: "1.25rem" }} />
         </Box>
@@ -337,7 +353,7 @@ export default function Admin() {
             marginTop: "2px",
             overflow: "hidden",
             textOverflow: "ellipsis",
-            whiteSpace: "nowrap",
+            whiteSpace: "nowrap"
           }}>
             {name}
           </Typography>
@@ -353,7 +369,7 @@ export default function Admin() {
     if (!panel) return null;
     const tabs: { id: PanelTab; label: string; Icon: any }[] = [
       { id: "details", label: "Details", Icon: DescriptionIcon },
-      { id: "files", label: "Files", Icon: FilesIcon },
+      { id: "files", label: "Files", Icon: FilesIcon }
     ];
     if (panel.entityType === "lesson") tabs.push({ id: "venues", label: "Venues", Icon: VenueIcon });
     const isPersisted = !!panel.entity?.id;
@@ -363,7 +379,7 @@ export default function Admin() {
         sx={{
           borderBottom: "1px solid var(--admin-border-light)",
           background: "var(--admin-surface)",
-          padding: "0 12px",
+          padding: "0 12px"
         }}>
         {tabs.map(t => {
           const isActive = panel.tab === t.id;
@@ -393,7 +409,7 @@ export default function Admin() {
                 justifyContent: "center",
                 gap: 6,
                 fontFamily: "inherit",
-                "&:hover": isDisabled ? {} : { color: isActive ? "var(--c1)" : "var(--text-color)" },
+                "&:hover": isDisabled ? {} : { color: isActive ? "var(--c1)" : "var(--text-color)" }
               }}>
               <t.Icon sx={{ fontSize: "0.875rem" }} />
               {t.label}
@@ -455,7 +471,7 @@ export default function Admin() {
       onClick={clearCache}
       sx={{ color: "white", borderColor: "rgba(255,255,255,0.5)", "&:hover": { borderColor: "white", backgroundColor: "rgba(255,255,255,0.1)" } }}>
       Clear Cache
-    </Button>,
+    </Button>
   ];
 
   return (
@@ -472,7 +488,7 @@ export default function Admin() {
           height: { xs: "auto", md: "calc(100vh - 130px)" },
           minHeight: 600,
           backgroundColor: "var(--admin-bg)",
-          overflow: "hidden",
+          overflow: "hidden"
         }}>
         {/* === LEFT NAV === */}
         <Box
@@ -482,7 +498,7 @@ export default function Admin() {
             borderRight: "1px solid var(--admin-border)",
             display: { xs: "none", md: "flex" },
             flexDirection: "column",
-            overflow: "hidden",
+            overflow: "hidden"
           }}>
           <Stack
             direction="row"
@@ -491,7 +507,7 @@ export default function Admin() {
             sx={{
               padding: "14px 16px",
               borderBottom: "1px solid var(--admin-border-light)",
-              background: "var(--admin-bg-light)",
+              background: "var(--admin-bg-light)"
             }}>
             <Typography
               component="h2"
@@ -503,7 +519,7 @@ export default function Admin() {
                 color: "var(--text-secondary)",
                 flex: 1,
                 lineHeight: 1.2,
-                margin: 0,
+                margin: 0
               }}>
               Programs
             </Typography>
@@ -534,7 +550,7 @@ export default function Admin() {
             display: "flex",
             flexDirection: "column",
             overflowY: "auto",
-            minWidth: 0,
+            minWidth: 0
           }}>
           {selectedProgram ? (
             <>
@@ -546,7 +562,7 @@ export default function Admin() {
                 sx={{
                   padding: "20px 28px 16px",
                   background: "var(--admin-surface)",
-                  borderBottom: "1px solid var(--admin-border-light)",
+                  borderBottom: "1px solid var(--admin-border-light)"
                 }}>
                 <Box sx={{ flex: 1, minWidth: 0 }}>
                   <Typography
@@ -557,7 +573,7 @@ export default function Admin() {
                       fontWeight: 500,
                       color: "var(--text-color)",
                       marginBottom: "2px",
-                      lineHeight: 1.2,
+                      lineHeight: 1.2
                     }}>
                     {selectedProgram.name}
                   </Typography>
@@ -627,7 +643,7 @@ export default function Admin() {
             borderLeft: "1px solid var(--admin-border)",
             display: { xs: "none", md: "flex" },
             flexDirection: "column",
-            overflow: "hidden",
+            overflow: "hidden"
           }}>
           {panel ? (
             <>

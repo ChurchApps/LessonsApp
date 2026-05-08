@@ -1,90 +1,75 @@
-import { useEffect, useState } from "react";
-import { FormControl, InputLabel, MenuItem, Select, SelectChangeEvent, TextField } from "@mui/material";
-import { ErrorMessages, InputBox } from "@churchapps/apphelper";
+import { useEffect } from "react";
+import { FormControl, InputLabel, MenuItem, Select, TextField, Alert } from "@mui/material";
+import { InputBox } from "@churchapps/apphelper";
 import { FeedFileInterface } from "@/helpers";
+import { useForm, Controller } from "react-hook-form";
 
 interface Props { file: FeedFileInterface; updatedCallback: (file: FeedFileInterface, cancelled: boolean) => void; }
 
+type AnyRecord = Record<string, any>;
+
 export function OlfFileEdit(props: Props) {
-  const [file, setFile] = useState<FeedFileInterface>(null);
-  const [errors, setErrors] = useState([]);
+  const { control, register, handleSubmit, reset, watch, formState } = useForm<AnyRecord>({ defaultValues: { name: "", url: "", thumbnail: "", streamUrl: "", loop: "false", seconds: 0 } });
+  const e = formState.errors as any;
+  const summaryErrors: string[] = [];
+  if (e.name?.message) summaryErrors.push(e.name.message);
+  if (e.url?.message) summaryErrors.push(e.url.message);
+
+  const watchedLoop = watch("loop");
+
   const handleCancel = () => props.updatedCallback(null, true);
-
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement> | SelectChangeEvent<string>) => {
-    e.preventDefault();
-    const f = { ...file };
-    switch (e.target.name) {
-      case "name": f.name = e.target.value; break;
-      case "url": f.url = e.target.value; break;
-      case "thumbnail": f.thumbnail = e.target.value; break;
-      case "streamUrl": f.streamUrl = e.target.value; break;
-      case "seconds": f.seconds = parseInt(e.target.value); break;
-      case "loop":
-        f.loop = e.target.value === "true";
-        if (!f.loop) f.seconds = 0;
-        else f.seconds = null;
-        break;
-    }
-    setFile(f);
-  };
-
-  const validate = () => {
-    const errors = [];
-    if (file.name === "") errors.push("Please enter file name");
-    if (file.url === "") errors.push("Please enter url");
-    setErrors(errors);
-    return errors.length === 0;
-  };
-
-  const handleSave = () => { if (validate()) props.updatedCallback(file, false); };
 
   const handleDelete = () => { if (window.confirm("Are you sure you wish to delete this action?")) props.updatedCallback(null, false); };
 
-  useEffect(() => { setFile(props.file); }, [props.file]);
+  const onValid = (values: AnyRecord) => {
+    const f: FeedFileInterface = {
+      ...props.file,
+      name: values.name,
+      url: values.url,
+      thumbnail: values.thumbnail,
+      streamUrl: values.streamUrl,
+      loop: values.loop === "true",
+      seconds: values.loop === "true" ? null : parseInt(values.seconds) || 0
+    };
+    props.updatedCallback(f, false);
+  };
 
-  if (!file) {
+  useEffect(() => {
+    if (props.file) {
+      reset({
+        name: props.file.name ?? "",
+        url: props.file.url ?? "",
+        thumbnail: props.file.thumbnail ?? "",
+        streamUrl: props.file.streamUrl ?? "",
+        loop: props.file.loop ? "true" : "false",
+        seconds: props.file.seconds ?? 0
+      });
+    }
+  }, [props.file]);
+
+  if (!props.file) {
     return <></>;
   } else {
     return (
       <>
-        <InputBox
-          id="fileDetailsBox"
-          headerText={props.file ? "Edit File" : "Add File"}
-          headerIcon="check"
-          saveFunction={handleSave}
-          cancelFunction={handleCancel}
-          deleteFunction={handleDelete}>
-          <ErrorMessages errors={errors} />
-          <TextField fullWidth autoFocus name="name" label="Name" value={file.name} onChange={handleChange} />
-          <TextField fullWidth name="url" label="URL" value={file.url} onChange={handleChange} />
+        <InputBox id="fileDetailsBox" headerText={props.file ? "Edit File" : "Add File"} headerIcon="check" saveFunction={handleSubmit(onValid)} cancelFunction={handleCancel} deleteFunction={handleDelete}>
+          {summaryErrors.length > 0 && <Alert severity="error" sx={{ mb: 2 }}>{summaryErrors.map((msg) => <div key={msg}>{msg}</div>)}</Alert>}
+          <TextField fullWidth autoFocus label="Name" error={!!e.name} helperText={e.name?.message} {...register("name", { required: "Please enter file name" })} />
+          <TextField fullWidth label="URL" error={!!e.url} helperText={e.url?.message} {...register("url", { required: "Please enter url" })} />
           <b>Video Details</b>
-          <TextField
-            fullWidth
-            name="thumbnail"
-            label="Thumbnail (optional)"
-            value={file.thumbnail}
-            onChange={handleChange}
-          />
-          <TextField
-            fullWidth
-            name="streamUrl"
-            label="Stream URL (optional)"
-            value={file.streamUrl}
-            onChange={handleChange}
-          />
+          <TextField fullWidth label="Thumbnail (optional)" {...register("thumbnail")} />
+          <TextField fullWidth label="Stream URL (optional)" {...register("streamUrl")} />
           <FormControl fullWidth>
             <InputLabel>Loop Video</InputLabel>
-            <Select label="Loop Video" name="loop" value={file.loop ? "true" : "false"} onChange={handleChange}>
-              <MenuItem value="false" key="false">
-                No
-              </MenuItem>
-              <MenuItem value="true" key="true">
-                Yes
-              </MenuItem>
-            </Select>
+            <Controller name="loop" control={control} render={({ field }) => (
+              <Select {...field} label="Loop Video">
+                <MenuItem value="false" key="false">No</MenuItem>
+                <MenuItem value="true" key="true">Yes</MenuItem>
+              </Select>
+            )} />
           </FormControl>
-          {!file.loop && (
-            <TextField fullWidth name="seconds" label="Seconds" value={file.seconds} onChange={handleChange} />
+          {watchedLoop !== "true" && (
+            <TextField fullWidth label="Seconds" type="number" {...register("seconds")} />
           )}
         </InputBox>
       </>
