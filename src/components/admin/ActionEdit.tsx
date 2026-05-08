@@ -1,7 +1,7 @@
-import { useEffect, useState } from "react";
-import { Box, Button, FormControl, IconButton, InputLabel, ListSubheader, MenuItem, Paper, Select, SelectChangeEvent, Stack, TextField, Typography } from "@mui/material";
+import { useEffect } from "react";
+import { Alert, Box, Button, FormControl, IconButton, InputLabel, ListSubheader, MenuItem, Paper, Select, Stack, TextField, Typography } from "@mui/material";
 import { Check as CheckIcon, Save as SaveIcon, Cancel as CancelIcon, Delete as DeleteIcon } from "@mui/icons-material";
-import { ErrorMessages } from "@churchapps/apphelper";
+import { Controller, useForm } from "react-hook-form";
 import { MarkdownEditor } from "@churchapps/apphelper/markdown";
 import {
   ActionInterface,
@@ -26,109 +26,98 @@ interface Props {
   updatedCallback: (action: ActionInterface, created: boolean) => void;
 }
 
+type AnyRecord = Record<string, any>;
+
 export function ActionEdit(props: Props) {
-  const [action, setAction] = useState<ActionInterface>(null);
-  const [errors, setErrors] = useState([]);
-  const handleCancel = () => props.updatedCallback(action, false);
+  const { register, handleSubmit, reset, control, watch, setValue, getValues, formState } = useForm<AnyRecord>({ defaultValues: { sort: "", actionType: "", content: "", resourceId: "", externalVideoId: "", assetId: "", addOnId: "" } });
+  const e = formState.errors as any;
+  const actionType = watch("actionType");
+  const resourceId = watch("resourceId");
+  const externalVideoId = watch("externalVideoId");
+  const assetId = watch("assetId");
+  const addOnId = watch("addOnId");
+  const summaryErrors: string[] = [];
+  if (e.content?.message) summaryErrors.push(e.content.message);
 
-  const getCombinedResources = () => { const result: ResourceInterface[] = [...props.lessonResources, ...props.studyResources, ...props.programResources]; return result; };
+  const handleCancel = () => props.updatedCallback(props.action, false);
 
-  const getCombinedVideos = () => { const result: ExternalVideoInterface[] = [...props.lessonVideos, ...props.studyVideos, ...props.programVideos]; return result; };
+  const getCombinedResources = () => [...props.lessonResources, ...props.studyResources, ...props.programResources];
+  const getCombinedVideos = () => [...props.lessonVideos, ...props.studyVideos, ...props.programVideos];
 
-  const handleKeyDown = (e: React.KeyboardEvent<any>) => {
-    if (e.key === "Enter") { e.preventDefault(); handleSave(); }
-  };
-
-  const handleMarkdownChange = (newValue: string) => {
-    const a = { ...action };
-    a.content = newValue;
-    setAction(a);
-  };
-
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement> | SelectChangeEvent<string>) => {
-    e.preventDefault();
-    const a = { ...action };
-    switch (e.target.name) {
-      case "sort": a.sort = parseInt(e.target.value); break;
-      case "actionType": a.actionType = e.target.value; break;
-      case "content": a.content = e.target.value; break;
-      case "resource":
-        if (e.target.value.startsWith("ev/")) {
-          a.resourceId = null;
-          a.assetId = null;
-          a.externalVideoId = e.target.value.replace("ev/", "");
-          const video = ArrayHelper.getOne(getCombinedVideos(), "id", a.externalVideoId);
-          a.content = video?.name || "";
-        } else {
-          a.resourceId = e.target.value;
-          a.assetId = null;
-          a.externalVideoId = null;
-          const resource = ArrayHelper.getOne(getCombinedResources(), "id", a.resourceId);
-          a.content = resource?.name || "";
-        }
-        break;
-      case "asset":
-        a.assetId = e.target.value;
-        if (a.assetId === "") a.assetId = null;
-        const assetResource = ArrayHelper.getOne(getCombinedResources(), "id", a.resourceId);
-        const asset = ArrayHelper.getOne(props.allAssets, "id", a.assetId);
-        a.content = asset ? (assetResource?.name || "") + " - " + asset.name : assetResource?.name || "";
-        break;
-      case "addOn":
-        a.addOnId = e.target.value;
-        if (a.addOnId === "") a.addOnId = null;
-        const addOn = ArrayHelper.getOne(props.addOns, "id", a.addOnId);
-        a.content = addOn?.name || "";
-        break;
+  const onValid = (values: AnyRecord) => {
+    const a: ActionInterface = {
+      ...props.action,
+      sort: parseInt(values.sort) || 0,
+      actionType: values.actionType || "Say",
+      content: values.content,
+      resourceId: values.resourceId || null,
+      externalVideoId: values.externalVideoId || null,
+      assetId: values.assetId || null,
+      addOnId: values.addOnId || null
+    };
+    if (a.actionType !== "Play" && a.actionType !== "Download") {
+      a.resourceId = null;
+      a.assetId = null;
+    } else if (a.resourceId === null && a.externalVideoId === null) {
+      if (props.lessonResources.length > 0) a.resourceId = props.lessonResources[0].id;
+      else if (props.studyResources.length > 0) a.resourceId = props.studyResources[0].id;
+      else if (props.programResources.length > 0) a.resourceId = props.programResources[0].id;
     }
-    setAction(a);
+    ApiHelper.post("/actions", [a], "LessonsApi").then((data: ActionInterface[]) => props.updatedCallback(data[0], !props.action.id));
   };
 
-  const validate = () => {
-    const errors = [];
-    if (action.content === "") errors.push("Please enter content text.");
-    setErrors(errors);
-    return errors.length === 0;
-  };
+  const handleDelete = () => { if (window.confirm("Are you sure you wish to permanently delete this action?")) ApiHelper.delete("/actions/" + props.action.id.toString(), "LessonsApi").then(() => props.updatedCallback(null, false)); };
 
-  const handleSave = () => {
-    if (validate()) {
-      const a = action;
-      if (!a.actionType) a.actionType = "Say";
-      if (a.actionType !== "Play" && a.actionType !== "Download") {
-        a.resourceId = null;
-        a.assetId = null;
-      } else {
-        if (a.resourceId === null && a.externalVideoId === null) {
-          if (props.lessonResources.length > 0) a.resourceId = props.lessonResources[0].id;
-          else if (props.studyResources.length > 0) a.resourceId = props.studyResources[0].id;
-          else if (props.programResources.length > 0) a.resourceId = props.programResources[0].id;
-        }
-      }
-
-      ApiHelper.post("/actions", [a], "LessonsApi").then((data: ActionInterface[]) => { setAction(data[0]); props.updatedCallback(data[0], !props.action.id); });
+  const onResourceChange = (val: string) => {
+    if (val.startsWith("ev/")) {
+      const evId = val.replace("ev/", "");
+      setValue("resourceId", "");
+      setValue("assetId", "");
+      setValue("externalVideoId", evId);
+      const video = ArrayHelper.getOne(getCombinedVideos(), "id", evId);
+      setValue("content", video?.name || "");
+    } else {
+      setValue("resourceId", val);
+      setValue("assetId", "");
+      setValue("externalVideoId", "");
+      const resource = ArrayHelper.getOne(getCombinedResources(), "id", val);
+      setValue("content", resource?.name || "");
     }
   };
 
-  const handleDelete = () => { if (window.confirm("Are you sure you wish to permanently delete this action?")) ApiHelper.delete("/actions/" + action.id.toString(), "LessonsApi").then(() => props.updatedCallback(null, false)); };
+  const onAssetChange = (val: string) => {
+    setValue("assetId", val);
+    const assetResource = ArrayHelper.getOne(getCombinedResources(), "id", getValues("resourceId"));
+    const asset = ArrayHelper.getOne(props.allAssets, "id", val);
+    setValue("content", asset ? (assetResource?.name || "") + " - " + asset.name : assetResource?.name || "");
+  };
 
-  const getContent = () => {
-    if (action.actionType !== "Play" && action.actionType !== "Download" && action.actionType !== "Add-on") return <MarkdownEditor value={action.content} onChange={handleMarkdownChange} />;
+  const onAddOnChange = (val: string) => {
+    setValue("addOnId", val);
+    const addOn = ArrayHelper.getOne(props.addOns, "id", val);
+    setValue("content", addOn?.name || "");
+  };
+
+  const getResourceGroup = (groupName: string, resources: ResourceInterface[], videos: ExternalVideoInterface[]) => {
+    if (resources.length > 0 || videos.length > 0) {
+      const items: React.JSX.Element[] = [];
+      items.push(<ListSubheader key={groupName}>{groupName}</ListSubheader>);
+      resources.forEach(r => items.push(<MenuItem key={r.id} value={r.id}>{r.name}</MenuItem>));
+      videos.forEach(v => items.push(<MenuItem key={"ev/" + v.id} value={"ev/" + v.id}>{v.name}</MenuItem>));
+      return items;
+    }
   };
 
   const getAsset = () => {
-    if (props.allAssets && action?.resourceId) {
-      const assets = ArrayHelper.getAll(props.allAssets, "resourceId", action.resourceId);
+    if (props.allAssets && resourceId) {
+      const assets = ArrayHelper.getAll(props.allAssets, "resourceId", resourceId);
       if (assets.length > 0) {
-        const assetItems: React.JSX.Element[] = [];
-        assets.forEach((a: AssetInterface) => assetItems.push(<MenuItem value={a.id}>{a.name}</MenuItem>));
-
         return (
           <FormControl fullWidth>
             <InputLabel>Asset</InputLabel>
-            <Select label="Asset" name="asset" value={action.assetId || ""} onChange={handleChange}>
+            <Select label="Asset" name="asset" value={assetId || ""} onChange={(ev) => onAssetChange(ev.target.value as string)}>
               <MenuItem value="">All</MenuItem>
-              {assetItems}
+              {assets.map((a: AssetInterface) => <MenuItem key={a.id} value={a.id}>{a.name}</MenuItem>)}
             </Select>
           </FormControl>
         );
@@ -137,206 +126,138 @@ export function ActionEdit(props: Props) {
   };
 
   const getResource = () => {
-    if (action.actionType === "Play" || action.actionType === "Download") {
+    if (actionType === "Play" || actionType === "Download") {
       if (props.lessonResources && props.studyResources && props.programResources) {
-        let currentValue = action.resourceId;
-        if (!currentValue && action.externalVideoId) currentValue = "ev/" + action.externalVideoId;
+        let currentValue = resourceId || "";
+        if (!currentValue && externalVideoId) currentValue = "ev/" + externalVideoId;
         return (
           <>
             <FormControl fullWidth>
               <InputLabel>Resource</InputLabel>
-              <Select label="Resource" name="resource" id="resourceSelect" value={currentValue} onChange={handleChange}>
+              <Select label="Resource" name="resource" id="resourceSelect" value={currentValue} onChange={(ev) => onResourceChange(ev.target.value as string)}>
                 {getResourceGroup("Lesson", props.lessonResources, props.lessonVideos)}
                 {getResourceGroup("Study", props.studyResources, props.studyVideos)}
                 {getResourceGroup("Program", props.programResources, props.programVideos)}
               </Select>
             </FormControl>
-
             {getAsset()}
           </>
         );
-      }
-    }
-  };
-
-  const getResourceGroup = (groupName: string, resources: ResourceInterface[], videos: ExternalVideoInterface[]) => {
-    if (resources.length > 0 || videos.length > 0) {
-      const items: React.JSX.Element[] = [];
-      items.push(<ListSubheader>{groupName}</ListSubheader>);
-      resources.forEach(r => {
-        items.push(<MenuItem value={r.id}>{r.name}</MenuItem>);
-      });
-      videos.forEach(v => {
-        items.push(<MenuItem value={"ev/" + v.id}>{v.name}</MenuItem>);
-      });
-      return items;
-    }
-  };
-
-  const updateResource = () => {
-    if (action?.actionType === "Play" || action?.actionType === "Download") {
-      if (action.resourceId) {
-        const resources: ResourceInterface[] = getCombinedResources();
-        if (resources.length > 0) {
-          if (ArrayHelper.getOne(resources, "id", action.resourceId) === null) {
-            const a = { ...action };
-            a.resourceId = resources[0].id;
-            a.content = resources[0].name;
-            a.assetId = null;
-            a.addOnId = null;
-            setAction(a);
-          }
-        }
       }
     }
   };
 
   const getAddOn = () => {
-    if (action.actionType === "Add-on") {
-      if (props.addOns.length > 0) {
-        const currentValue = action.addOnId;
-        return (
-          <>
-            <FormControl fullWidth>
-              <InputLabel>Add-on</InputLabel>
-              <Select label="Add-on" name="addOn" value={currentValue} onChange={handleChange}>
-                {props.addOns.map(a => (
-                  <MenuItem value={a.id}>{a.name}</MenuItem>
-                ))}
-              </Select>
-            </FormControl>
-
-            {getAsset()}
-          </>
-        );
-      }
-    }
-  };
-
-  const updateAddOn = () => {
-    if (action?.actionType === "Add-on") {
-      if (action.addOnId) {
-        if (props.addOns.length > 0) {
-          if (ArrayHelper.getOne(props.addOns, "id", action.id) === null) {
-            const a = { ...action };
-            a.addOnId = props.addOns[0].id;
-            a.content = props.addOns[0].name;
-            a.assetId = null;
-            a.resourceId = null;
-            setAction(a);
-          }
-        }
-      }
+    if (actionType === "Add-on" && props.addOns.length > 0) {
+      return (
+        <>
+          <FormControl fullWidth>
+            <InputLabel>Add-on</InputLabel>
+            <Select label="Add-on" name="addOn" value={addOnId || ""} onChange={(ev) => onAddOnChange(ev.target.value as string)}>
+              {props.addOns.map(a => <MenuItem key={a.id} value={a.id}>{a.name}</MenuItem>)}
+            </Select>
+          </FormControl>
+          {getAsset()}
+        </>
+      );
     }
   };
 
   useEffect(() => {
-    setAction(props.action);
-    setTimeout(() => { updateResource(); updateAddOn(); }, 500);
-  }, [props.action]);
+    if (props.action) {
+      reset({
+        sort: props.action.sort ?? "",
+        actionType: props.action.actionType || "",
+        content: props.action.content || "",
+        resourceId: props.action.resourceId || "",
+        externalVideoId: props.action.externalVideoId || "",
+        assetId: props.action.assetId || "",
+        addOnId: props.action.addOnId || ""
+      });
+    }
+  }, [props.action, reset]);
 
-  if (!action) {
-    return <></>;
-  } else {
-    return (
-      <Paper
-        sx={{
-          borderRadius: 2,
-          border: "1px solid var(--admin-border)",
-          boxShadow: "var(--admin-shadow-sm)",
-          overflow: "hidden"
-        }}>
-        {/* HEADER */}
-        <Box
-          sx={{
-            p: 2,
-            borderBottom: "1px solid var(--admin-border)",
-            backgroundColor: "var(--c1l7)"
-          }}>
-          <Stack direction="row" alignItems="center" spacing={1}>
-            <CheckIcon sx={{ color: "var(--c1d2)", fontSize: "1.5rem" }} />
-            <Typography variant="h6" sx={{
-              color: "var(--c1d2)",
-              fontWeight: 600,
-              lineHeight: 1,
-              fontSize: "1.25rem"
-            }}>
-              {action?.id ? "Edit Action" : "Create Action"}
-            </Typography>
-          </Stack>
-        </Box>
+  useEffect(() => {
+    if (actionType === "Play" || actionType === "Download") {
+      if (resourceId) {
+        const resources = getCombinedResources();
+        if (resources.length > 0 && ArrayHelper.getOne(resources, "id", resourceId) === null) {
+          setValue("resourceId", resources[0].id);
+          setValue("content", resources[0].name);
+          setValue("assetId", "");
+          setValue("addOnId", "");
+        }
+      }
+    } else if (actionType === "Add-on") {
+      if (addOnId && props.addOns.length > 0 && ArrayHelper.getOne(props.addOns, "id", addOnId) === null) {
+        setValue("addOnId", props.addOns[0].id);
+        setValue("content", props.addOns[0].name);
+        setValue("assetId", "");
+        setValue("resourceId", "");
+      }
+    }
+  }, [actionType]);
 
-        {/* CONTENT */}
-        <Box sx={{ p: 3 }}>
-          <ErrorMessages errors={errors} />
+  if (!props.action) return <></>;
+  return (
+    <Paper sx={{ borderRadius: 2, border: "1px solid var(--admin-border)", boxShadow: "var(--admin-shadow-sm)", overflow: "hidden" }}>
+      <Box sx={{ p: 2, borderBottom: "1px solid var(--admin-border)", backgroundColor: "var(--c1l7)" }}>
+        <Stack direction="row" alignItems="center" spacing={1}>
+          <CheckIcon sx={{ color: "var(--c1d2)", fontSize: "1.5rem" }} />
+          <Typography variant="h6" sx={{ color: "var(--c1d2)", fontWeight: 600, lineHeight: 1, fontSize: "1.25rem" }}>
+            {props.action?.id ? "Edit Action" : "Create Action"}
+          </Typography>
+        </Stack>
+      </Box>
 
-          <Stack spacing={3}>
-            <TextField
-              fullWidth
-              label="Order"
-              type="number"
-              name="sort"
-              value={action.sort || ""}
-              onChange={handleChange}
-              onKeyDown={handleKeyDown}
-              placeholder="1"
-              helperText="Display order for this action within the role"
+      <Box sx={{ p: 3 }}>
+        {summaryErrors.length > 0 && <Alert severity="error" sx={{ mb: 2 }}>{summaryErrors.map((msg) => <div key={msg}>{msg}</div>)}</Alert>}
+
+        <Stack spacing={3}>
+          <TextField fullWidth label="Order" type="number" placeholder="1" helperText="Display order for this action within the role" {...register("sort")} />
+
+          <Controller
+            control={control}
+            name="actionType"
+            render={({ field }) => (
+              <FormControl fullWidth>
+                <InputLabel>Action Type</InputLabel>
+                <Select {...field} label="Action Type">
+                  <MenuItem value="Say">Say</MenuItem>
+                  <MenuItem value="Do">Do</MenuItem>
+                  <MenuItem value="Play">Play</MenuItem>
+                  <MenuItem value="Download">Download</MenuItem>
+                  <MenuItem value="Note">Note</MenuItem>
+                  <MenuItem value="Add-on">Add-on</MenuItem>
+                </Select>
+              </FormControl>
+            )}
+          />
+
+          {actionType !== "Play" && actionType !== "Download" && actionType !== "Add-on" && (
+            <Controller
+              control={control}
+              name="content"
+              rules={{ required: "Please enter content text." }}
+              render={({ field }) => (
+                <MarkdownEditor value={field.value} onChange={(v: string) => field.onChange(v)} />
+              )}
             />
-
-            <FormControl fullWidth>
-              <InputLabel>Action Type</InputLabel>
-              <Select label="Action Type" name="actionType" value={action.actionType} onChange={handleChange}>
-                <MenuItem value="Say" key="Say">
-                  Say
-                </MenuItem>
-                <MenuItem value="Do" key="Do">
-                  Do
-                </MenuItem>
-                <MenuItem value="Play" key="Play">
-                  Play
-                </MenuItem>
-                <MenuItem value="Download" key="Download">
-                  Download
-                </MenuItem>
-                <MenuItem value="Note" key="Note">
-                  Note
-                </MenuItem>
-                <MenuItem value="Add-on" key="Add-on">
-                  Add-on
-                </MenuItem>
-              </Select>
-            </FormControl>
-
-            {getContent()}
-            {getResource()}
-            {getAddOn()}
-          </Stack>
-        </Box>
-
-        {/* FOOTER */}
-        <Box
-          sx={{
-            p: 2,
-            borderTop: "1px solid var(--admin-border)",
-            backgroundColor: "var(--admin-bg)",
-            display: "flex",
-            justifyContent: "flex-end",
-            gap: 1,
-            flexWrap: "wrap"
-          }}>
-          <Button startIcon={<SaveIcon />} variant="contained" onClick={handleSave}>
-            Save
-          </Button>
-          <Button startIcon={<CancelIcon />} variant="outlined" onClick={handleCancel}>
-            Cancel
-          </Button>
-          {action.id && (
-            <IconButton color="error" onClick={handleDelete}>
-              <DeleteIcon />
-            </IconButton>
           )}
-        </Box>
-      </Paper>
-    );
-  }
+          {getResource()}
+          {getAddOn()}
+        </Stack>
+      </Box>
+
+      <Box sx={{ p: 2, borderTop: "1px solid var(--admin-border)", backgroundColor: "var(--admin-bg)", display: "flex", justifyContent: "flex-end", gap: 1, flexWrap: "wrap" }}>
+        <Button startIcon={<SaveIcon />} variant="contained" onClick={handleSubmit(onValid)}>Save</Button>
+        <Button startIcon={<CancelIcon />} variant="outlined" onClick={handleCancel}>Cancel</Button>
+        {props.action?.id && (
+          <IconButton color="error" onClick={handleDelete}>
+            <DeleteIcon />
+          </IconButton>
+        )}
+      </Box>
+    </Paper>
+  );
 }

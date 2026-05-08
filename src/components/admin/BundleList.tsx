@@ -203,7 +203,7 @@ export const BundleList: React.FC<Props> = props => {
       sx={{
         mb: 1.5,
         pb: 0.75,
-        borderBottom: "1px solid var(--admin-border-light)",
+        borderBottom: "1px solid var(--admin-border-light)"
       }}>
       <Typography
         component="h3"
@@ -213,7 +213,7 @@ export const BundleList: React.FC<Props> = props => {
           letterSpacing: "0.08em",
           textTransform: "uppercase",
           color: "var(--text-secondary)",
-          margin: 0,
+          margin: 0
         }}>
         {label}
       </Typography>
@@ -225,7 +225,7 @@ export const BundleList: React.FC<Props> = props => {
           color: "var(--c1d1)",
           background: "var(--c1l6)",
           borderRadius: 10,
-          padding: "1px 8px",
+          padding: "1px 8px"
         }}>
         {count}
       </Typography>
@@ -259,7 +259,7 @@ export const BundleList: React.FC<Props> = props => {
                 borderRadius: 10,
                 background: "#fff3e0",
                 color: "#b26500",
-                fontWeight: 600,
+                fontWeight: 600
               }}>
               <Box component="span" sx={{ width: 6, height: 6, borderRadius: "50%", background: "#ed6c02" }} />
               Rebuild queued
@@ -277,7 +277,7 @@ export const BundleList: React.FC<Props> = props => {
               borderRadius: 10,
               background: "#e8f5e9",
               color: "#2e7d32",
-              fontWeight: 600,
+              fontWeight: 600
             }}>
             <Box component="span" sx={{ width: 6, height: 6, borderRadius: "50%", background: "#2e7d32" }} />
             Zip ready
@@ -301,7 +301,7 @@ export const BundleList: React.FC<Props> = props => {
               textDecoration: "none",
               display: "inline-flex",
               alignItems: "center",
-              gap: 4,
+              gap: 4
             }}>
             <Icon fontSize="small" sx={{ fontSize: "0.95rem" }}>download</Icon>
             Download
@@ -320,7 +320,7 @@ export const BundleList: React.FC<Props> = props => {
         sx={{
           borderRadius: 1.5,
           overflow: "hidden",
-          background: "var(--admin-surface)",
+          background: "var(--admin-surface)"
         }}>
         <Accordion
           expanded={expandedBundleId === b.id}
@@ -388,7 +388,7 @@ export const BundleList: React.FC<Props> = props => {
         sx={{
           borderRadius: 1.5,
           padding: "10px 14px",
-          background: "var(--admin-surface)",
+          background: "var(--admin-surface)"
         }}>
         <a
           href="about:blank"

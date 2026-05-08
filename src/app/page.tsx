@@ -16,7 +16,6 @@ import { ProgramInterface, ProviderInterface } from "@/helpers/interfaces";
 import { FloatingSupportWrapper } from "./components/FloatingSupportWrapper";
 
 const loadData = async () => {
-  console.log("LOAD DATA");
   const excludeIds = ["CMCkovCA00e", "yBl-EUBxm17"];
   let programs: ProgramInterface[] = await ApiHelper.getAnonymous("/programs/public", "LessonsApi");
   const providers: ProviderInterface[] = await ApiHelper.getAnonymous("/providers/public", "LessonsApi");
