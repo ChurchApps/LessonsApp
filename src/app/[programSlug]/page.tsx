@@ -31,7 +31,6 @@ const loadData = async (programSlug: string): Promise<LoadDataResult> => {
     const studyCategories: StudyCategoryInterface[] = await ApiHelper.getAnonymous("/studyCategories/public/program/" + program?.id, "LessonsApi");
     return { program, studies, studyCategories, errorMessage: "" };
   } catch (error: unknown) {
-    console.log("inside catch: ", error);
     return { errorMessage: String(error) };
   }
 };

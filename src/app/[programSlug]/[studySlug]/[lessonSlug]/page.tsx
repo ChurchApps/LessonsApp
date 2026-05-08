@@ -19,7 +19,6 @@ const loadData = async (params: PageParams) => {
 
     return { lessonData, errorMessage: "" };
   } catch (error: any) {
-    console.log("inside catch: ", error);
     return { errorMessage: error.message || "Failed to load lesson data." };
   }
 };

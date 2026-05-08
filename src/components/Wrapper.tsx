@@ -108,7 +108,6 @@ export const Wrapper: React.FC<Props> = props => {
     </>
   );
 
-  console.log("CONTEXT IS", context);
   /*
   <Box sx={{ display: "flex", backgroundColor: "#EEE" }}>
       <SiteWrapper navContent={navContent} context={context} appName="Lessons.church" router={router}>{props.children}</SiteWrapper>

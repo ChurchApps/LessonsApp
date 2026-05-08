@@ -1,4 +1,5 @@
 import { Roboto } from "next/font/google";
+import { AppRouterCacheProvider } from "@mui/material-nextjs/v15-appRouter";
 import { EnvironmentHelper } from "@/helpers/EnvironmentHelper";
 import "@/styles/globals.css";
 import ClientLayout from "./ClientLayout";
@@ -22,7 +23,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
   EnvironmentHelper.init();
 
   return (
-    <html lang="en" className={roboto.className}>
+    <html lang="en" className={roboto.className} data-scroll-behavior="smooth">
       <head>
         <script
           async
@@ -43,7 +44,9 @@ export default async function RootLayout({ children }: { children: React.ReactNo
         />
       </head>
       <body>
-        <ClientLayout>{children}</ClientLayout>
+        <AppRouterCacheProvider>
+          <ClientLayout>{children}</ClientLayout>
+        </AppRouterCacheProvider>
       </body>
     </html>
   );
