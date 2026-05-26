@@ -6,9 +6,14 @@
 # Environment stage: "staging" or "prod" (defaults to dev/staging if not set)
 STAGE=staging
 
+# LessonsApi base URL. Overrides the hardcoded staging/prod URLs at build time.
 NEXT_PUBLIC_LESSONS_API=https://api.staging.lessons.church
 NEXT_PUBLIC_CONTENT_ROOT=https://api.staging.lessons.church/content
 NEXT_PUBLIC_CHURCH_APPS_URL=https://staging.churchapps.org
+
+# ChurchApps API base used for authentication via MembershipApi (only honored when STAGE is unset/dev).
+# Self-hosted Railway deployments leave STAGE=prod so this defaults to https://api.churchapps.org.
+# NEXT_PUBLIC_API_BASE=https://api.staging.churchapps.org
 
 # Optional
 NEXT_PUBLIC_ACCESS_API=

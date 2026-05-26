@@ -11,11 +11,13 @@ import { HomeTestimonials } from "@/app/components/HomeTestimonials";
 import { Programs } from "@/app/components/Programs";
 import Error from "@/components/Error";
 import { Layout } from "@/components/Layout";
+import { EnvironmentHelper } from "@/helpers/EnvironmentHelper";
 import { MetaHelper } from "@/helpers/MetaHelper";
 import { ProgramInterface, ProviderInterface } from "@/helpers/interfaces";
 import { FloatingSupportWrapper } from "./components/FloatingSupportWrapper";
 
 const loadData = async () => {
+  EnvironmentHelper.init();
   const excludeIds = ["CMCkovCA00e", "yBl-EUBxm17"];
   let programs: ProgramInterface[] = await ApiHelper.getAnonymous("/programs/public", "LessonsApi");
   const providers: ProviderInterface[] = await ApiHelper.getAnonymous("/providers/public", "LessonsApi");
