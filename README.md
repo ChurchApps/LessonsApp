@@ -38,11 +38,3 @@ If you would like to contribute in any way, head over to our [Slack Channel](htt
 If you'd like to set up the project locally, see our [development guide](https://churchapps.org/dev).  For this app:
 1. Run `npm i` to install dependencies
 2. Run `npm run dev` to launch the project.
-
-### 🚀 Self-Hosting (Beta)
-
-If you'd like to deploy your own copy of Lessons.church on Railway, you can use our template below. This is currently in beta — feedback welcome.
-
-[![Deploy on Railway](https://railway.com/button.svg)](https://railway.com/deploy/lessons-template)
-
-The template provisions LessonsApi, LessonsApp, and a MySQL database. Authentication uses your existing ChurchApps account at [app.churchapps.org](https://app.churchapps.org) — sign up there first if you don't already have one.
