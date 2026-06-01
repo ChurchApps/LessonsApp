@@ -2,12 +2,14 @@
   "name": "lesson-app",
   "version": "0.1.0",
   "private": true,
+  "packageManager": "yarn@4.15.0",
   "scripts": {
+    "preinstall": "node -e \"if(!(process.env.npm_config_user_agent||'').startsWith('yarn')){console.error('\\n[LessonsApp] This project uses Yarn (Berry). Run \\'yarn install\\' instead of npm/pnpm.\\n');process.exit(1)}\"",
     "dev": "next dev --port 3501",
     "build": "next build",
     "postbuild": "next-sitemap",
     "start": "next start",
-    "lint": "npx eslint --fix \"src/**/*.{ts,tsx,js,jsx}\"",
+    "lint": "yarn eslint --fix \"src/**/*.{ts,tsx,js,jsx}\"",
     "pretest": "node tests/setup/pretest.mjs",
     "test": "playwright test",
     "test:ui": "playwright test --ui",
@@ -21,6 +23,17 @@
   },
   "engines": {
     "node": ">=20.0.0"
+  },
+  "dependenciesMeta": {
+    "@sentry/cli": {
+      "built": true
+    },
+    "sharp": {
+      "built": true
+    },
+    "unrs-resolver": {
+      "built": true
+    }
   },
   "dependencies": {
     "@churchapps/apphelper": "^0.8.0",
