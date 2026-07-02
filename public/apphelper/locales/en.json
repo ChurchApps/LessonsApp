@@ -127,17 +127,95 @@
 		},
 		"recurring": {
 			"amount": "Amount",
+			"confirmPause": "Are you sure you want to pause this recurring donation?",
 			"every": "Every",
 			"interval": "Interval",
 			"notFound": "Payment method not found.",
+			"paused": "Paused",
+			"pausedMessage": "Recurring donation paused.",
+			"pauseFailed": "Failed to pause recurring donation. Please try again.",
+			"pauseTooltip": "Pause recurring donation",
 			"paymentMethod": "Payment Method",
+			"resumedMessage": "Recurring donation resumed.",
+			"resumeFailed": "Failed to resume recurring donation. Please try again.",
+			"resumeTooltip": "Resume recurring donation",
 			"startDate": "Start Date"
+		},
+		"kingdomFunding": {
+			"providerName": "Kingdom Funding",
+			"loadingPaymentForm": "Loading payment form...",
+			"paymentFormNotAvailable": "Payment form not available",
+			"paymentFormNotInitialized": "Payment form not initialized",
+			"failedToInitPaymentForm": "Failed to initialize payment form",
+			"failedToLoadPaymentForm": "Failed to load payment form",
+			"failedToTokenizeCard": "Failed to tokenize card",
+			"missingTokenizationKey": "Missing tokenization key",
+			"failedToProcessCard": "Failed to process card. Please check your card details and try again.",
+			"unexpectedError": "An unexpected error occurred. Please try again.",
+			"errorProcessingDonation": "Error processing donation",
+			"enterBankDetails": "Enter your bank account details",
+			"enterCardDetails": "Enter card details",
+			"payWithCard": "Card",
+			"payWithBank": "Bank (ACH)",
+			"gatewayConfigMissing": "Payment form not available. Gateway configuration missing.",
+			"paymentProvider": "Payment Provider",
+			"memo": "Memo (optional)",
+			"validate": {
+				"routingNumber": "Please enter a valid routing number",
+				"accountNumber": "Please enter a valid account number",
+				"captchaRequired": "Please complete the reCAPTCHA verification",
+				"captchaFailed": "reCAPTCHA verification failed. Please try again."
+			}
+		}
+	},
+	"eventCalendar": {
+		"recurring": {
+			"day": {
+				"friday": "Friday",
+				"monday": "Monday",
+				"saturday": "Saturday",
+				"sunday": "Sunday",
+				"thursday": "Thursday",
+				"tuesday": "Tuesday",
+				"wednesday": "Wednesday"
+			},
+			"endDate": "End Date",
+			"endDateAria": "Recurrence end date",
+			"ends": "Ends",
+			"endsAfter": "After",
+			"endsAria": "Select when recurrence ends",
+			"endsOn": "On",
+			"freqDay": "Day",
+			"freqMonth": "Month",
+			"freqWeek": "Week",
+			"frequency": "Frequency",
+			"frequencyAria": "Select recurrence frequency",
+			"interval": "Interval",
+			"intervalAria": "Recurrence interval",
+			"monthlyOnDay": "Monthly on day {}",
+			"monthlyOnNth": "Monthly on the {ordinal} {day}",
+			"monthlyOptionAria": "Select monthly recurrence option",
+			"never": "Never",
+			"occurrences": "Occurances",
+			"occurrencesAria": "Number of recurrence occurrances",
+			"on": "On",
+			"ordinal": {
+				"first": "first",
+				"fourth": "fourth",
+				"last": "last",
+				"second": "second",
+				"third": "third"
+			},
+			"toggleWeekday": "Toggle {} for weekly recurrence"
 		}
 	},
 	"fileUpload": {
 		"file": "File"
 	},
 	"formSubmissionEdit": {
+		"back": "Back",
+		"continue": "Continue",
+		"stepProgress": "{current} of {total}",
 		"confirmDelete": "Are you sure you wish to delete this form data?",
 		"editForm": "Edit Form",
 		"isRequired": "is required",
@@ -154,6 +232,8 @@
 		"search": "Search icons..."
 	},
 	"login": {
+		"continueGoogle": "Continue with Google",
+		"continueMicrosoft": "Continue with Microsoft",
 		"createAccount": "Create an Account",
 		"email": "Email",
 		"enterCode": "Enter Verification Code",
@@ -164,6 +244,7 @@
 		"login": "Login",
 		"noAcc": "Don't have an account?",
 		"noAccountFound": "No account was found with that email. Please register to continue.",
+		"or": "or",
 		"password": "Password",
 		"register": "Register",
 		"registerThankYou": "Thank you for registering! Please check your email to verify your account.",
@@ -176,6 +257,7 @@
 		"setPassword": "Set Password",
 		"signIn": "Sign In",
 		"signInTitle": "Please Sign In",
+		"ssoError": "Sign-in with that provider failed. Please try again.",
 		"validate": {
 			"code": "Please enter the 6-digit code.",
 			"email": "Please enter a valid email address.",
