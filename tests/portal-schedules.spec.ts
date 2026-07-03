@@ -1,7 +1,3 @@
-// Coverage for ChurchAppsSupport/docs/lessons-church/classrooms/scheduling-lessons.md.
-// /portal lists a church's classrooms; selecting one reveals its schedule pane
-// with Add Schedule + per-row Edit/Delete affordances.
-
 import { portalTest as test, expect } from "./helpers/test-fixtures";
 import { SEED } from "./helpers/fixtures";
 
@@ -20,11 +16,7 @@ test.describe("Portal schedules", () => {
     test("create: opens Add Schedule and saves with default cascade", async ({ page }) => {
       await page.getByRole("button", { name: SEED.CLASSROOMS.PRESCHOOL.name }).click();
 
-      // The form pre-fills program/study/lesson/venue from the previous schedule
-      // and only resolves them after /lessons/public/tree returns. Saving before
-      // the cascade settles leaves currentLesson null and crashes
-      // ScheduleEdit.getDisplayName, so wait for the lesson combobox to display
-      // a resolved label (lesson display names contain ": ").
+      // Wait for cascade to settle; saving before tree response crashes getDisplayName.
       const treeLoaded = page.waitForResponse(
         (r) => r.url().includes("/lessons/public/tree") && r.status() === 200,
         { timeout: 30000 }
@@ -39,9 +31,7 @@ test.describe("Portal schedules", () => {
     });
 
     test("edit: reschedules an existing lesson to a new date", async ({ page }) => {
-      // Locate the seeded 2026-06-07 row (Creation) by date; handleSave rewrites
-      // displayName on save, so the seeded "Creation (Elementary)" string isn't a
-      // stable selector once any earlier test (or earlier run) has saved a row.
+      // Use date to locate row; displayName rewrites on save, becoming unstable.
       await page.getByRole("button", { name: SEED.CLASSROOMS.ELEMENTARY.name }).click();
 
       const treeLoaded = page.waitForResponse(
@@ -63,9 +53,7 @@ test.describe("Portal schedules", () => {
     });
 
     test("delete: removes the seeded Noah's Ark schedule from Elementary Room", async ({ page }) => {
-      // Picking the Elementary Room's Noah's Ark schedule because no other test
-      // asserts on it; deleting Preschool's Mary's Visit would conflict with
-      // the "preschool classroom shows its scheduled lesson" test.
+      // Use Noah's Ark (not Mary's Visit) to avoid conflict with another test.
       page.on("dialog", (d) => d.accept());
       await page.getByRole("button", { name: SEED.CLASSROOMS.ELEMENTARY.name }).click();
 

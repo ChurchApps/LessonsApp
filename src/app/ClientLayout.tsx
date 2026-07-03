@@ -9,9 +9,7 @@ import { ErrorBoundary } from "@/components";
 import { EnvironmentHelper } from "@/helpers/EnvironmentHelper";
 import { UserProvider } from "./context/UserContext";
 
-// Run synchronously at module load so ApiHelper.apiConfigs is populated before
-// any descendant useEffect fires (effects run leaf-first, so a child calling
-// ApiHelper.get() in its mount effect would otherwise race the layout's init).
+// Initialize synchronously so ApiHelper.apiConfigs is populated before child useEffect fires.
 if (typeof window !== "undefined") EnvironmentHelper.init();
 
 function ClientLayout({ children }: { children: React.ReactNode }) {

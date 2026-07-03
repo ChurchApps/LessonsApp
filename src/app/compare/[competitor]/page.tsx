@@ -216,7 +216,6 @@ export default function ComparePage() {
     <Layout pageTitle={`Lessons.church vs ${data.competitor}`} metaDescription={data.description}>
       <div className="homeSection" style={{ paddingTop: 60, paddingBottom: 60 }}>
         <Container fixed>
-          {/* Header */}
           <div style={{ textAlign: "center", marginBottom: 50 }}>
             <Chip
               label={data.tagline}
@@ -236,7 +235,6 @@ export default function ComparePage() {
             )}
           </div>
 
-          {/* Pricing Comparison */}
           <Grid container spacing={4} sx={{ marginBottom: 6 }}>
             <Grid size={{ md: 6, xs: 12 }}>
               <Paper sx={{ padding: 4, textAlign: "center", border: "3px solid #1976d2", borderRadius: 3 }}>
@@ -258,7 +256,6 @@ export default function ComparePage() {
             </Grid>
           </Grid>
 
-          {/* Feature Comparison Table */}
           <TableContainer component={Paper} sx={{ marginBottom: 6, borderRadius: 3, overflow: "hidden" }}>
             <Table>
               <TableHead>
@@ -284,7 +281,6 @@ export default function ComparePage() {
             </Table>
           </TableContainer>
 
-          {/* Verdict */}
           <Paper sx={{ padding: 4, marginBottom: 6, borderRadius: 3, borderLeft: "4px solid #1976d2" }}>
             <h2 style={{ marginBottom: 16 }}>Our Take</h2>
             <p style={{ fontSize: "1.1rem", lineHeight: 1.7, color: "#444" }}>
@@ -292,7 +288,6 @@ export default function ComparePage() {
             </p>
           </Paper>
 
-          {/* CTA */}
           <div style={{ textAlign: "center", padding: 40, backgroundColor: "#f0f7ff", borderRadius: 16 }}>
             <h2 style={{ marginBottom: 16 }}>Ready to save your church money?</h2>
             <p style={{ color: "#666", marginBottom: 24 }}>
@@ -308,7 +303,6 @@ export default function ComparePage() {
             </Button>
           </div>
 
-          {/* Other Comparisons */}
           <div style={{ marginTop: 60, textAlign: "center" }}>
             <h3 style={{ marginBottom: 24 }}>Other Comparisons</h3>
             <Grid container spacing={2} justifyContent="center">

@@ -90,7 +90,6 @@ export function SectionCopy(props: Props) {
         boxShadow: "var(--admin-shadow-sm)",
         overflow: "hidden"
       }}>
-      {/* HEADER */}
       <Box
         sx={{
           p: 2,
@@ -110,7 +109,6 @@ export function SectionCopy(props: Props) {
         </Stack>
       </Box>
 
-      {/* CONTENT */}
       <Box sx={{ p: 3 }}>
         <ErrorMessages errors={errors} />
 
@@ -139,7 +137,6 @@ export function SectionCopy(props: Props) {
         </Stack>
       </Box>
 
-      {/* FOOTER */}
       <Box
         sx={{
           p: 2,

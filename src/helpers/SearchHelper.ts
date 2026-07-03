@@ -24,14 +24,12 @@ export interface SearchResponse {
   count: number;
 }
 
-// Type boost multipliers: programs > studies > lessons
 const TYPE_BOOST: Record<string, number> = {
   program: 1.5,
   study: 1.2,
   lesson: 1.0
 };
 
-// Orama Cloud client singleton
 let client: OramaClient | null = null;
 
 function getClient(): OramaClient {
@@ -41,18 +39,12 @@ function getClient(): OramaClient {
   return client;
 }
 
-/**
- * Apply type-based score boosting and re-sort results
- */
 function applyTypeBoost(results: SearchResult[]): SearchResult[] {
   return results
     .map(r => ({ ...r, score: r.score * (TYPE_BOOST[r.type] || 1.0) }))
     .sort((a, b) => b.score - a.score);
 }
 
-/**
- * Perform a text search using Orama Cloud
- */
 export async function textSearch(query: string, limit: number = 20): Promise<SearchResponse> {
   const orama = getClient();
   const startTime = Date.now();
@@ -88,9 +80,6 @@ export async function textSearch(query: string, limit: number = 20): Promise<Sea
   };
 }
 
-/**
- * Perform a hybrid search using Orama Cloud (text + vector)
- */
 export async function hybridSearch(query: string, limit: number = 20): Promise<SearchResponse> {
   const orama = getClient();
   const startTime = Date.now();

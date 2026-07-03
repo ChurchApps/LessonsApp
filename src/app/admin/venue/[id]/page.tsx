@@ -167,7 +167,6 @@ export default function Venue() {
       <List sx={{ p: 0 }}>
         {sections.map((s, _sectionIndex) => (
           <Box key={s.id}>
-            {/* Section */}
             <ListItem
               disablePadding
               sx={{ borderBottom: "1px solid var(--admin-border)" }}>
@@ -203,7 +202,6 @@ export default function Venue() {
               </Box>
             </ListItem>
 
-            {/* Roles */}
             {roles && getRolesList(s.id)}
           </Box>
         ))}
@@ -216,7 +214,6 @@ export default function Venue() {
 
     return sectionRoles.map((r) => (
       <Box key={r.id} sx={{ ml: 4 }}>
-        {/* Role */}
         <ListItem
           disablePadding
           sx={{ borderBottom: "1px solid var(--admin-border-light)" }}>
@@ -252,7 +249,6 @@ export default function Venue() {
           </Box>
         </ListItem>
 
-        {/* Actions */}
         {actions && getActionsList(r.id)}
       </Box>
     ));
@@ -357,14 +353,12 @@ export default function Venue() {
             borderRadius: "0 0 8px 8px",
             minHeight: "calc(100vh - 200px)"
           }}>
-          {/* Edit Panel - appears at top when editing */}
           {getSidebar().length > 0 && (
             <Box sx={{ mb: 3 }}>
               {getSidebar()}
             </Box>
           )}
 
-          {/* Sections List - Full Width */}
           <Paper
             sx={{
               borderRadius: 2,
@@ -404,7 +398,6 @@ export default function Venue() {
           </Paper>
         </Paper>
 
-        {/* Add Menu */}
         <Menu
           anchorEl={menuAnchor}
           open={Boolean(menuAnchor)}

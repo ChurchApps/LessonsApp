@@ -18,7 +18,6 @@ export function PortalHeader(_props: Props) {
   const [isClient, setIsClient] = useState(false);
   const pathname = usePathname();
 
-  // Populate context with user data if authenticated but context is empty
   React.useEffect(() => {
     if (isClient && !context.user && UserHelper.user) {
       context.setUser(UserHelper.user);

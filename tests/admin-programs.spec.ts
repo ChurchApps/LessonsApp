@@ -1,7 +1,3 @@
-// Coverage for ChurchAppsSupport/docs/lessons-church/admin/managing-programs.md.
-// Programs are the top-level grouping in the curriculum hierarchy.
-// /admin lists them as expandable cards; "Add Program" opens an edit drawer.
-
 import { adminTest as test, expect } from "./helpers/test-fixtures";
 import { SEED } from "./helpers/fixtures";
 
@@ -24,9 +20,6 @@ test.describe("Programs admin", () => {
     await expect(page.getByRole("heading", { name: "Add Program" })).toBeHidden();
   });
 
-  // Full CRUD lifecycle in a single serial chain so create -> read -> update -> delete
-  // share the same disposable record. pretest resets the lessons DB before each
-  // run, so a partial failure can't poison the next run.
   test.describe.serial("program CRUD lifecycle", () => {
     test("create: adds a new program", async ({ page }) => {
       await page.getByRole("button", { name: "Add Program" }).first().click();
@@ -41,7 +34,6 @@ test.describe("Programs admin", () => {
     });
 
     test("update: renames the program via the Edit drawer", async ({ page }) => {
-      // Clicking the program row in the left nav opens the right panel with its Edit form.
       await page.getByTestId("admin-nav").getByText(NEW_PROGRAM_NAME).click();
 
       await expect(page.getByRole("heading", { name: "Edit Program" })).toBeVisible();

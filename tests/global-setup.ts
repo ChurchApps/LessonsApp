@@ -16,15 +16,15 @@ const IDENTITIES: Identity[] = [
     password: "password",
     churchName: "Lessons.church Free Curriculum",
     storagePath: STORAGE_STATE_LESSONS_ADMIN,
-    label: "lessons-admin (CHU00000099)",
+    label: "lessons-admin (CHU00000099)"
   },
   {
     email: "demo@b1.church",
     password: "password",
     churchName: "Grace Community Church",
     storagePath: STORAGE_STATE_GRACE,
-    label: "demo@b1.church (Grace)",
-  },
+    label: "demo@b1.church (Grace)"
+  }
 ];
 
 async function loginAndSave(baseURL: string, identity: Identity) {
@@ -48,19 +48,17 @@ async function loginAndSave(baseURL: string, identity: Identity) {
     const churchDialog = page.locator('[role="dialog"]').filter({ hasText: /Select a Church/i });
     await Promise.race([
       churchDialog.waitFor({ state: "visible", timeout: 20000 }).catch(() => { }),
-      page.waitForURL((url) => !url.pathname.includes("/login"), { timeout: 20000 }).catch(() => { }),
+      page.waitForURL((url) => !url.pathname.includes("/login"), { timeout: 20000 }).catch(() => { })
     ]);
 
     if (await churchDialog.isVisible().catch(() => false)) {
-      // The SelectableChurch component renders the church name inside an
-      // <h3> within a clickable Paper. Click the h3 — events bubble to the Paper.
+      // Events on h3 bubble to Paper, so click the h3 to trigger selection.
       const churchHeading = page.locator(`[role="dialog"] h3:has-text("${identity.churchName}")`).first();
       await churchHeading.waitFor({ state: "visible", timeout: 10000 });
       await churchHeading.click({ timeout: 10000 });
       await page.waitForURL((url) => !url.pathname.includes("/login"), { timeout: 30000 });
     }
 
-    // Make sure we ended up authenticated
     await page.waitForURL((url) => !url.pathname.includes("/login"), { timeout: 30000 }).catch(() => { });
 
     await context.storageState({ path: identity.storagePath });
@@ -71,9 +69,7 @@ async function loginAndSave(baseURL: string, identity: Identity) {
 }
 
 async function warmRoutes(baseURL: string) {
-  // Pre-compile the routes tests will hit so the first parallel test worker
-  // doesn't pay the Turbopack first-compile tax. Auth state is irrelevant —
-  // we only need to trigger compilation.
+  // Pre-compile routes to avoid Turbopack first-compile tax on first worker.
   const browser = await chromium.launch();
   try {
     const ctx = await browser.newContext();
@@ -90,7 +86,7 @@ async function warmRoutes(baseURL: string) {
       "/classroom/CLS00000001",
       "/old-testament-heroes",
       "/old-testament-heroes/genesis-stories",
-      "/old-testament-heroes/genesis-stories/creation",
+      "/old-testament-heroes/genesis-stories/creation"
     ];
     for (const url of urls) {
       await p.goto(baseURL + url, { waitUntil: "domcontentloaded", timeout: 60000 }).catch(() => { });
@@ -114,9 +110,7 @@ async function globalSetup(config: FullConfig) {
   }
 }
 
-// Hide the Next.js dev overlay/portal in saved storage states so it doesn't
-// intercept pointer events during tests. We add a stylesheet that disables it.
-// (This is applied at test time via a fixture-level addInitScript.)
+// Hide Next.js dev overlay/portal in storage states to prevent pointer event interception.
 export const HIDE_NEXTJS_OVERLAY_SCRIPT = `
   const style = document.createElement('style');
   style.textContent = 'nextjs-portal { display: none !important; }';

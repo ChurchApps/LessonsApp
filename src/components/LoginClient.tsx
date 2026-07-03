@@ -42,13 +42,11 @@ export function LoginClient({ showLogo, redirectAfterLogin, loginContainerCssPro
     console.log("Redirecting to:", url);
     console.log("Auth data received:", { user, person, currentUserChurch, userChurches });
 
-    // Update UserHelper values to ensure they're available immediately
     UserHelper.user = user;
     UserHelper.person = person;
     UserHelper.currentUserChurch = currentUserChurch;
     UserHelper.userChurches = userChurches;
 
-    // Update context with values passed from LoginPage component
     context.setUser(user);
     context.setPerson(person);
     context.setUserChurch(currentUserChurch);

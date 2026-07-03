@@ -117,7 +117,6 @@ export default function ThirdParty() {
             borderRadius: "0 0 8px 8px",
             minHeight: "calc(100vh - 200px)"
           }}>
-          {/* Edit Panel - appears at top when editing */}
           {editProvider && (
             <Box sx={{ mb: 3 }}>
               <ProviderEdit
@@ -127,7 +126,6 @@ export default function ThirdParty() {
             </Box>
           )}
 
-          {/* Providers List - Full Width */}
           <Paper
             sx={{
               borderRadius: 2,

@@ -1,7 +1,3 @@
-// Coverage for ChurchAppsSupport/docs/lessons-church/classrooms/setting-up-classrooms.md.
-// /portal lists a church's classrooms in a side table; selecting one reveals
-// its schedule pane. Each classroom has create / rename / delete affordances.
-
 import { portalTest as test, expect } from "./helpers/test-fixtures";
 import { SEED } from "./helpers/fixtures";
 
