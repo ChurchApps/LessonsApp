@@ -51,7 +51,7 @@ function DefaultErrorFallback({ error, reset }: { error?: Error; reset: () => vo
           We encountered an unexpected error. Please try again or contact support if the problem persists.
         </Typography>
 
-        {error && (
+        {error && process.env.NODE_ENV === "development" && (
           <Box sx={{ mb: 4, p: 3, bgcolor: "error.light", borderRadius: 2, textAlign: "left" }}>
             <Typography variant="h6" color="error.dark" gutterBottom>
               Error Details:

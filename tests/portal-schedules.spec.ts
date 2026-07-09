@@ -38,7 +38,7 @@ test.describe("Portal schedules", () => {
         (r) => r.url().includes("/lessons/public/tree") && r.status() === 200,
         { timeout: 30000 }
       );
-      const row = page.locator("tr").filter({ hasText: "2026-06-07" }).first();
+      const row = page.locator("tr").filter({ hasText: "2026-12-06" }).first();
       await row.locator('button[title="Edit schedule"]').click();
       await expect(page.getByRole("heading", { name: "Edit Schedule" })).toBeVisible();
       await treeLoaded;

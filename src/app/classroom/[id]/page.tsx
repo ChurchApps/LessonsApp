@@ -40,14 +40,14 @@ export default function Venue() {
   const loadData = async () => {
     EnvironmentHelper.init();
     if (id) {
-      ApiHelper.get("/programs/public", "LessonsApi").then((p: ProgramInterface[]) => setPrograms(p));
+      ApiHelper.getAnonymous("/programs/public", "LessonsApi").then((p: ProgramInterface[]) => setPrograms(p));
 
-      const c = await ApiHelper.get("/classrooms/" + id, "LessonsApi");
+      const c = await ApiHelper.getAnonymous("/classrooms/" + id, "LessonsApi");
       setClassroom(c);
 
       ApiHelper.get("/churches/" + c.churchId, "MembershipApi").then((ch: ChurchInterface) => { setChurch(ch); ApiHelper.get("/settings/public/" + ch.id, "MembershipApi").then((set: any[]) => setChurchSettings(set)); });
 
-      const s = await ApiHelper.get("/schedules/public/classroom/" + c.id, "LessonsApi");
+      const s = await ApiHelper.getAnonymous("/schedules/public/classroom/" + c.id, "LessonsApi");
       const filteredSchedules = filterSchedules(s);
       setSchedules(filteredSchedules);
       const lessonIds = ArrayHelper.getIds(filteredSchedules, "lessonId");
@@ -75,14 +75,14 @@ export default function Venue() {
     /*
     setLessons(l);
     const studyIds = ArrayHelper.getIds(l, "studyId");
-    if (studyIds.length > 0) { const st = await ApiHelper.get("/studies/public/ids?ids=" + studyIds, "LessonsApi"); setStudies(st); }*/
+    if (studyIds.length > 0) { const st = await ApiHelper.getAnonymous("/studies/public/ids?ids=" + studyIds, "LessonsApi"); setStudies(st); }*/
   };
 
   const loadLessons = async (lessonIds: string[]) => {
-    const l = await ApiHelper.get("/lessons/public/ids?ids=" + lessonIds, "LessonsApi");
+    const l = await ApiHelper.getAnonymous("/lessons/public/ids?ids=" + lessonIds, "LessonsApi");
     setLessons(l);
     const studyIds = ArrayHelper.getIds(l, "studyId");
-    if (studyIds.length > 0) { const st = await ApiHelper.get("/studies/public/ids?ids=" + studyIds, "LessonsApi"); setStudies(st); }
+    if (studyIds.length > 0) { const st = await ApiHelper.getAnonymous("/studies/public/ids?ids=" + studyIds, "LessonsApi"); setStudies(st); }
   };
 
   const filterSchedules = (s: ScheduleInterface[]) => {

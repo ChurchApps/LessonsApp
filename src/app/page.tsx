@@ -1,6 +1,5 @@
-//import { HomeAbout, HomeConnect, Layout, Programs } from "@/components/home";
 import { Metadata } from "next";
-import { revalidateTag } from "next/cache";
+import { unstable_cache } from "next/cache";
 import Image from "next/image";
 import { Container, Grid, Link } from "@mui/material";
 import { ApiHelper } from "@churchapps/apphelper";
@@ -18,31 +17,28 @@ import { FloatingSupportWrapper } from "./components/FloatingSupportWrapper";
 
 const loadData = async () => {
   EnvironmentHelper.init();
-  const excludeIds = ["CMCkovCA00e", "yBl-EUBxm17"];
-  let programs: ProgramInterface[] = await ApiHelper.getAnonymous("/programs/public", "LessonsApi");
-  const providers: ProviderInterface[] = await ApiHelper.getAnonymous("/providers/public", "LessonsApi");
-  const studies: ProviderInterface[] = await ApiHelper.getAnonymous("/studies/public", "LessonsApi");
-  const stats: { churchCount: number; lessonCount: number; studyCount: number; programCount: number } = await ApiHelper.getAnonymous("/providers/stats", "LessonsApi");
+  try {
+    const excludeIds = ["CMCkovCA00e", "yBl-EUBxm17"];
+    let programs: ProgramInterface[] = await ApiHelper.getAnonymous("/programs/public", "LessonsApi");
+    const providers: ProviderInterface[] = await ApiHelper.getAnonymous("/providers/public", "LessonsApi");
+    const studies: ProviderInterface[] = await ApiHelper.getAnonymous("/studies/public", "LessonsApi");
+    const stats: { churchCount: number; lessonCount: number; studyCount: number; programCount: number } = await ApiHelper.getAnonymous("/providers/stats", "LessonsApi");
 
-  programs = programs.filter(p => !excludeIds.includes(p.id));
-  return { programs, providers, studies, stats, errorMessage: "" };
+    programs = programs.filter(p => !excludeIds.includes(p.id));
+    return { programs, providers, studies, stats, errorMessage: "" };
+  } catch (error: unknown) {
+    return { programs: [], providers: [], studies: [], stats: undefined, errorMessage: String(error) };
+  }
 };
+
+const loadSharedData = () => { const result = unstable_cache(loadData, ["/home"], { tags: ["all"] }); return result(); };
 
 export async function generateMetadata(): Promise<Metadata> { return MetaHelper.getMetaData(); }
 
-export default async function Home(props: { params: Promise<{}>; searchParams: Promise<{ clearCache?: string }> }) {
-  const { searchParams } = props;
-  const { clearCache } = await searchParams;
-
-  const pageProps = await loadData();
-  const { programs, providers, studies, stats, errorMessage } = pageProps;
-
-  if (clearCache) { console.log("CLEARING CACHE"); revalidateTag("all", "max"); }
+export default async function Home() {
+  const { programs, providers, studies, stats, errorMessage } = await loadSharedData();
 
   if (errorMessage) return <Error message={errorMessage} />;
-
-  //const headersList = headers();
-  //headersList.set('Cache-Control', 'public, s-maxage=5, stale-while-revalidate=2500000');
 
   const getElmPrograms = () => (
     <>

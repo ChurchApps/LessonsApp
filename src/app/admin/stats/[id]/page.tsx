@@ -8,7 +8,7 @@ import { BarChart as BarChartIcon, FilterList as FilterIcon, Map as MapIcon, Bus
 import { ArrayHelper, ChurchInterface, DateHelper } from "@churchapps/apphelper";
 import { Wrapper } from "@/components/Wrapper";
 import { PageHeader } from "@churchapps/apphelper";
-import { ApiHelper, ProgramInterface, StudyStatsInterface } from "@/helpers";
+import { ApiHelper, Permissions, ProgramInterface, StudyStatsInterface, UserHelper } from "@/helpers";
 
 const Map = dynamic(() => import("@/components/admin/Map").then(mod => ({ default: mod.Map })), { loading: () => <div>Loading map...</div> });
 
@@ -31,7 +31,10 @@ export default function Admin() {
   const { isAuthenticated } = ApiHelper;
   const programId = params.id;
 
-  useEffect(() => { if (!isAuthenticated) router.push("/login"); }, []);
+  useEffect(() => {
+    if (!isAuthenticated) router.push("/login");
+    else if (!UserHelper.checkAccess?.(Permissions.lessonsApi.lessons.edit)) router.push("/");
+  }, []);
   useEffect(() => { if (isAuthenticated) loadData(); }, [isAuthenticated]);
 
   function loadData() {

@@ -6,7 +6,7 @@ import { useEffect, useState } from "react";
 import { Grid } from "@mui/material";
 import { ArrayHelper, Banner, DisplayBox, SmallButton } from "@churchapps/apphelper";
 import { Wrapper } from "@/components/Wrapper";
-import { ApiHelper, ProgramInterface, StudyCategoryInterface, StudyInterface } from "@/helpers";
+import { ApiHelper, Permissions, ProgramInterface, StudyCategoryInterface, StudyInterface, UserHelper } from "@/helpers";
 
 type PageParams = { programId: string };
 
@@ -28,7 +28,7 @@ export default function Admin() {
   };
 
   const loadCategory = () => {
-    ApiHelper.get("/studyCategories/" + programId + "?categoryName=" + escape(categoryName), "LessonsApi").then((data: any) => { setStudyCategories(data); });
+    ApiHelper.get("/studyCategories/" + programId + "?categoryName=" + encodeURIComponent(categoryName), "LessonsApi").then((data: any) => { setStudyCategories(data); });
     ApiHelper.get("/studies/program/" + programId, "LessonsApi").then((data: any) => { setStudies(data); });
   };
 
@@ -58,7 +58,11 @@ export default function Admin() {
     ApiHelper.post("/studyCategories", [sc], "LessonsApi").then(() => { loadCategory(); });
   };
 
-  useEffect(() => { if (isAuthenticated) loadData(); else router.push("/login"); }, [isAuthenticated]);
+  useEffect(() => {
+    if (!isAuthenticated) router.push("/login");
+    else if (!UserHelper.checkAccess?.(Permissions.lessonsApi.lessons.edit)) router.push("/");
+    else loadData();
+  }, [isAuthenticated]);
   useEffect(() => { if (categoryName) loadCategory(); }, [categoryName]);
 
   const getEditContent = () => (

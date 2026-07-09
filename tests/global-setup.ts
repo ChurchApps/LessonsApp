@@ -1,6 +1,6 @@
 import { chromium, type FullConfig } from "@playwright/test";
 import { verifyEnv } from "./setup/verify-env.mjs";
-import { STORAGE_STATE_LESSONS_ADMIN, STORAGE_STATE_GRACE } from "../playwright.config";
+import { STORAGE_STATE_LESSONS_ADMIN, STORAGE_STATE_GRACE } from "./helpers/storage-paths";
 
 type Identity = {
   email: string;
@@ -60,6 +60,7 @@ async function loginAndSave(baseURL: string, identity: Identity) {
     }
 
     await page.waitForURL((url) => !url.pathname.includes("/login"), { timeout: 30000 }).catch(() => { });
+    if (page.url().includes("/login")) throw new Error(`global-setup: login FAILED for ${identity.label} — still on ${page.url()}. Check API env (NEXT_PUBLIC_API_BASE) and demo data.`);
 
     await context.storageState({ path: identity.storagePath });
     console.log(`global-setup: ${identity.label} OK -> ${identity.storagePath}`);

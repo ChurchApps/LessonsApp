@@ -1,5 +1,5 @@
 import { test as base, expect } from "@playwright/test";
-import { STORAGE_STATE_LESSONS_ADMIN, STORAGE_STATE_GRACE } from "../../playwright.config";
+import { STORAGE_STATE_LESSONS_ADMIN, STORAGE_STATE_GRACE } from "./storage-paths";
 import { navigateToAdmin, navigateToPortal } from "./navigation";
 
 // Hide Next.js dev overlay/portal to prevent pointer event interception.

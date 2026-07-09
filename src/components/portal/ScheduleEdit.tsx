@@ -58,7 +58,9 @@ export function ScheduleEdit(props: Props) {
     if (resolvedStudyId !== rawStudyId) setValue("studyId", resolvedStudyId);
     if (resolvedLessonId !== rawLessonId) setValue("lessonId", resolvedLessonId);
     if (resolvedVenueId !== rawVenueId) setValue("venueId", resolvedVenueId);
-  }, [resolvedProgramId, resolvedStudyId, resolvedLessonId, resolvedVenueId, rawProgramId, rawStudyId, rawLessonId, rawVenueId, setValue]);
+  }, [
+    resolvedProgramId, resolvedStudyId, resolvedLessonId, resolvedVenueId, rawProgramId, rawStudyId, rawLessonId, rawVenueId, setValue
+  ]);
 
   const loadExternalProviderData = async (providers: ExternalProviderInterface[], id: string) => {
     const ep: ExternalProviderInterface = ArrayHelper.getOne(providers, "id", id);

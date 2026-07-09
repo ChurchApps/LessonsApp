@@ -23,8 +23,9 @@ test.describe("Venue editor", () => {
     });
 
     test("adds a section", async ({ page }) => {
-      const titleHeading = page.getByRole("heading", { name: /Creation: Preschool/i }).first();
-      const addBtn = titleHeading.locator("xpath=following::button[1]");
+      // PageHeader titles render as <p>, not headings, since the design refresh.
+      const title = page.getByText(/Creation: Preschool/i).first();
+      const addBtn = title.locator("xpath=following::button[1]");
       await addBtn.click();
 
       await page.getByRole("menuitem", { name: /Create New Section/i }).click();

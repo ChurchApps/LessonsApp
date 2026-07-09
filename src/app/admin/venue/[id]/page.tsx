@@ -16,10 +16,12 @@ import {
   CopySectionInterface,
   ExternalVideoInterface,
   LessonInterface,
+  Permissions,
   ResourceInterface,
   RoleInterface,
   SectionInterface,
   StudyInterface,
+  UserHelper,
   VenueInterface
 } from "@/helpers";
 import { revalidate } from "../../../actions";
@@ -55,7 +57,10 @@ export default function Venue() {
   const pathId = params.id;
 
 
-  useEffect(() => { if (!isAuthenticated) router.push("/login"); }, []);
+  useEffect(() => {
+    if (!isAuthenticated) router.push("/login");
+    else if (!UserHelper.checkAccess?.(Permissions.lessonsApi.lessons.edit)) router.push("/");
+  }, []);
   useEffect(() => { if (isAuthenticated) loadData(); }, [pathId, isAuthenticated]);
   useEffect(() => {
     if (isAuthenticated) { loadResources(); loadVideos(); }

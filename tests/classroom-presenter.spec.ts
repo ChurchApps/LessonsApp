@@ -1,7 +1,7 @@
 import { browseTest as test, expect } from "./helpers/test-fixtures";
 import { SEED } from "./helpers/fixtures";
 
-// Seed dates intentionally in mid-2026 to remain "upcoming" long-term.
+// Seed dates intentionally in late-2026 to remain "upcoming" long-term (bump demo.sql + these specs together).
 // Tests use ?upcoming=1 to filter to future schedules only.
 
 test.describe("Classroom presenter mode", () => {

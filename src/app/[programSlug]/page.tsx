@@ -41,6 +41,7 @@ export async function generateMetadata({ params }: { params: Promise<PageParams>
   const { programSlug } = await params;
   const props = await loadSharedData(programSlug);
   if (!props.errorMessage) return MetaHelper.getMetaData(props.program.name + " - Free Church Curriculum", props.program.description, props.program.image);
+  return MetaHelper.getMetaData();
 }
 
 export default async function ProgramPage({ params }: { params: Promise<PageParams> }) {

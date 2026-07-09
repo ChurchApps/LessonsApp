@@ -7,7 +7,7 @@ import { Extension as ExtensionIcon, Movie as MovieIcon, Add as AddIcon } from "
 import { Wrapper } from "@/components/Wrapper";
 import { PageHeader } from "@churchapps/apphelper";
 import { AddOnEdit } from "@/components/admin/AddOnEdit";
-import { AddOnInterface, ApiHelper, ProviderInterface } from "@/helpers";
+import { AddOnInterface, ApiHelper, Permissions, ProviderInterface, UserHelper } from "@/helpers";
 
 export default function Admin() {
   const [providers, setProviders] = useState<ProviderInterface[]>(null);
@@ -19,8 +19,7 @@ export default function Admin() {
 
   useEffect(() => {
     if (!isAuthenticated) router.push("/login");
-
-
+    else if (!UserHelper.checkAccess?.(Permissions.lessonsApi.lessons.edit)) router.push("/");
   }, []);
 
   useEffect(() => { if (isAuthenticated) loadData(); }, [isAuthenticated]);

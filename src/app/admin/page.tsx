@@ -18,7 +18,7 @@ import { Box, Button, IconButton, Stack, Typography } from "@mui/material";
 import { Loading, PageHeader } from "@churchapps/apphelper";
 import { BundleList, ErrorBoundary, LessonEdit, ProgramEdit, StudyEdit, VenueList } from "@/components";
 import { Wrapper } from "@/components/Wrapper";
-import { ApiHelper, ArrayHelper, LessonInterface, ProgramInterface, ProviderInterface, StudyInterface } from "@/helpers";
+import { ApiHelper, ArrayHelper, LessonInterface, Permissions, ProgramInterface, ProviderInterface, StudyInterface, UserHelper } from "@/helpers";
 import { revalidate } from "../actions";
 
 type EntityType = "program" | "study" | "lesson";
@@ -39,7 +39,10 @@ export default function Admin() {
   const [expandedStudyId, setExpandedStudyId] = useState<string>("");
   const [panel, setPanel] = useState<PanelState | null>(null);
 
-  useEffect(() => { if (!isAuthenticated) router.push("/login"); }, []);
+  useEffect(() => {
+    if (!isAuthenticated) router.push("/login");
+    else if (!UserHelper.checkAccess?.(Permissions.lessonsApi.lessons.edit)) router.push("/");
+  }, []);
   useEffect(() => { if (isAuthenticated) loadData(); }, [isAuthenticated]);
 
   useEffect(() => {

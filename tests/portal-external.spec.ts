@@ -14,9 +14,8 @@ test.describe("External providers (portal)", () => {
   });
 
   test("renders the External Providers page", async ({ page }) => {
-    await expect(
-      page.getByRole("heading", { name: /External Providers|Third.Party/i }).first()
-    ).toBeVisible({ timeout: 15000 });
+    // PageHeader titles render as <p>, not headings, since the design refresh.
+    await expect(page.getByText("External Lesson Providers").first()).toBeVisible({ timeout: 15000 });
   });
 
   test.describe.serial("provider CRUD lifecycle", () => {
@@ -24,11 +23,16 @@ test.describe("External providers (portal)", () => {
       // Header has an Add button (icon or "Add Provider" / "Add First Provider").
       const addBtn = page.getByRole("button", { name: /Add (First )?Provider/i }).first()
         .or(page.locator('header button:has(svg[data-testid="AddIcon"])').first());
-      await addBtn.click({ timeout: 10000 });
-
       const nameInput = page.locator('input[name="name"]').first();
-      await nameInput.waitFor({ state: "visible", timeout: 10000 });
-      await nameInput.fill(NEW_PROVIDER_NAME);
+
+      // Retry the click: on a cold dev server the first click can land pre-hydration.
+      await expect(async () => {
+        await addBtn.click({ timeout: 10000 });
+        await nameInput.waitFor({ state: "visible", timeout: 3000 });
+      }).toPass({ timeout: 30000 });
+
+      // Cold dev-server renders can remount the form mid-fill; allow extra time.
+      await nameInput.fill(NEW_PROVIDER_NAME, { timeout: 30000 });
       await page.locator('input[name="apiUrl"]').fill(NEW_PROVIDER_URL);
       await page.getByRole("button", { name: /^Save$/ }).first().click();
 

@@ -17,8 +17,8 @@ export default async function Classroom({ params }: { params: Promise<PageParams
   EnvironmentHelper.init();
   const loadData = async () => {
     const { id } = await params;
-    const classroom: ClassroomInterface = await ApiHelper.get("/classrooms/" + id, "LessonsApi");
-    const schedules: ScheduleInterface[] = await ApiHelper.get("/schedules/public/classroom/" + classroom.id, "LessonsApi");
+    const classroom: ClassroomInterface = await ApiHelper.getAnonymous("/classrooms/" + id, "LessonsApi");
+    const schedules: ScheduleInterface[] = await ApiHelper.getAnonymous("/schedules/public/classroom/" + classroom.id, "LessonsApi");
     return { classroom, schedules };
   };
 
