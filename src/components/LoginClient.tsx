@@ -41,9 +41,6 @@ export function LoginClient({ showLogo, redirectAfterLogin, loginContainerCssPro
     currentUserChurch?: any,
     userChurches?: any[]
   ) => {
-    console.log("Redirecting to:", url);
-    console.log("Auth data received:", { user, person, currentUserChurch, userChurches });
-
     UserHelper.user = user;
     UserHelper.person = person;
     UserHelper.currentUserChurch = currentUserChurch;
