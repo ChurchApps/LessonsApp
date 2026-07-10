@@ -4,7 +4,7 @@ import { List as ListIcon, Save as SaveIcon, Cancel as CancelIcon, Delete as Del
 import { useForm } from "react-hook-form";
 import { ApiHelper, SectionInterface } from "@/helpers";
 
-interface Props { section: SectionInterface; updatedCallback: (section: SectionInterface, created: boolean) => void; }
+interface Props { section: SectionInterface; updatedCallback: (section: SectionInterface | null, created: boolean) => void; }
 
 type AnyRecord = Record<string, any>;
 
@@ -22,7 +22,7 @@ export function SectionEdit(props: Props) {
   };
 
   const handleDelete = () => {
-    if (window.confirm("Are you sure you wish to permanently delete this section?")) { ApiHelper.delete("/sections/" + props.section.id.toString(), "LessonsApi").then(() => props.updatedCallback(null, false)); }
+    if (window.confirm("Are you sure you wish to permanently delete this section?")) { ApiHelper.delete("/sections/" + props.section.id!.toString(), "LessonsApi").then(() => props.updatedCallback(null, false)); }
   };
 
   useEffect(() => {

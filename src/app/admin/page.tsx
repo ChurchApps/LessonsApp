@@ -30,10 +30,10 @@ export default function Admin() {
   const router = useRouter();
   const { isAuthenticated } = ApiHelper;
 
-  const [providers, setProviders] = useState<ProviderInterface[]>(null);
-  const [programs, setPrograms] = useState<ProgramInterface[]>(null);
-  const [studies, setStudies] = useState<StudyInterface[]>(null);
-  const [lessons, setLessons] = useState<LessonInterface[]>(null);
+  const [providers, setProviders] = useState<ProviderInterface[] | null>(null);
+  const [programs, setPrograms] = useState<ProgramInterface[] | null>(null);
+  const [studies, setStudies] = useState<StudyInterface[] | null>(null);
+  const [lessons, setLessons] = useState<LessonInterface[] | null>(null);
 
   const [selectedProgramId, setSelectedProgramId] = useState<string>("");
   const [expandedStudyId, setExpandedStudyId] = useState<string>("");
@@ -48,7 +48,7 @@ export default function Admin() {
   useEffect(() => {
     if (programs && programs.length > 0) {
       if (!selectedProgramId || !programs.some(p => p.id === selectedProgramId)) {
-        setSelectedProgramId(programs[0].id);
+        setSelectedProgramId(programs[0].id || "");
       }
     }
   }, [programs]);
@@ -81,7 +81,7 @@ export default function Admin() {
       if (currentPanel.entityType === "study" && obj?.programId) setSelectedProgramId(obj.programId);
       if (currentPanel.entityType === "lesson" && obj?.studyId) {
         const s = studies?.find(x => x.id === obj.studyId);
-        if (s) setSelectedProgramId(s.programId);
+        if (s) setSelectedProgramId(s.programId || "");
         setExpandedStudyId(obj.studyId);
       }
     }
@@ -101,13 +101,13 @@ export default function Admin() {
 
   function renderProgramItem(p: ProgramInterface) {
     const isActive = selectedProgramId === p.id;
-    const sCount = studyCountFor(p.id);
-    const lCount = lessonCountFor(p.id);
+    const sCount = studyCountFor(p.id || "");
+    const lCount = lessonCountFor(p.id || "");
     return (
       <Box
         key={p.id}
         className="program-item"
-        onClick={() => { setSelectedProgramId(p.id); openPanel("program", p, "details"); }}
+        onClick={() => { setSelectedProgramId(p.id || ""); openPanel("program", p, "details"); }}
         sx={{
           padding: "12px 16px",
           borderLeft: "3px solid",
@@ -167,7 +167,7 @@ export default function Admin() {
           alignItems="center"
           gap={1.5}
           onClick={() => {
-            setExpandedStudyId(isExpanded ? "" : s.id);
+            setExpandedStudyId(isExpanded ? "" : (s.id || ""));
             openPanel("study", s, "details");
           }}
           sx={{
@@ -573,8 +573,8 @@ export default function Admin() {
                   </Typography>
                   <Typography component="p" sx={{ fontSize: "0.875rem", color: "var(--text-secondary)", marginBottom: 0 }}>
                     {selectedProgram.shortDescription ? `${selectedProgram.shortDescription} · ` : ""}
-                    {studyCountFor(selectedProgram.id)} {studyCountFor(selectedProgram.id) === 1 ? "study" : "studies"}
-                    {lessonCountFor(selectedProgram.id) > 0 ? ` · ${lessonCountFor(selectedProgram.id)} lessons` : ""}
+                    {studyCountFor(selectedProgram.id || "")} {studyCountFor(selectedProgram.id || "") === 1 ? "study" : "studies"}
+                    {lessonCountFor(selectedProgram.id || "") > 0 ? ` · ${lessonCountFor(selectedProgram.id || "")} lessons` : ""}
                   </Typography>
                 </Box>
                 <Stack direction="row" alignItems="center" gap={0.5} flexShrink={0}>

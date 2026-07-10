@@ -55,7 +55,7 @@ export async function textSearch(query: string, limit: number = 20): Promise<Sea
     mode: "fulltext"
   });
 
-  const searchResults: SearchResult[] = (results.hits || []).map((hit: any) => ({
+  const searchResults: SearchResult[] = (results?.hits || []).map((hit: any) => ({
     id: hit.document.id as string,
     type: hit.document.type as "program" | "study" | "lesson",
     name: hit.document.name as string,
@@ -76,7 +76,7 @@ export async function textSearch(query: string, limit: number = 20): Promise<Sea
   return {
     results: applyTypeBoost(searchResults),
     elapsed: Date.now() - startTime,
-    count: results.count || 0
+    count: results?.count || 0
   };
 }
 
@@ -90,7 +90,7 @@ export async function hybridSearch(query: string, limit: number = 20): Promise<S
     mode: "hybrid"
   });
 
-  const searchResults: SearchResult[] = (results.hits || []).map((hit: any) => ({
+  const searchResults: SearchResult[] = (results?.hits || []).map((hit: any) => ({
     id: hit.document.id as string,
     type: hit.document.type as "program" | "study" | "lesson",
     name: hit.document.name as string,
@@ -111,6 +111,6 @@ export async function hybridSearch(query: string, limit: number = 20): Promise<S
   return {
     results: applyTypeBoost(searchResults),
     elapsed: Date.now() - startTime,
-    count: results.count || 0
+    count: results?.count || 0
   };
 }

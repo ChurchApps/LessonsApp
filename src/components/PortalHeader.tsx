@@ -13,19 +13,19 @@ interface Props { position?: "fixed" | "sticky" | "static" | "relative" | "absol
 export function PortalHeader(_props: Props) {
   const context = React.useContext(UserContext);
   const router = useRouter();
-  const [secondaryMenu, setSecondaryMenu] = React.useState({ menuItems: [], label: "" });
+  const [secondaryMenu, setSecondaryMenu] = React.useState<ReturnType<typeof SecondaryMenuHelper.getSecondaryMenu>>({ menuItems: [], label: "" });
   const [primaryMenu, setPrimaryMenu] = React.useState<{ url: string; icon: string; label: string }[]>([]);
   const [isClient, setIsClient] = useState(false);
   const pathname = usePathname();
 
   React.useEffect(() => {
-    if (isClient && !context.user && UserHelper.user) {
+    if (isClient && context && !context.user && UserHelper.user) {
       context.setUser(UserHelper.user);
       context.setPerson(UserHelper.person);
       context.setUserChurch(UserHelper.currentUserChurch);
       context.setUserChurches(UserHelper.userChurches);
     }
-  }, [isClient, context, context.user]);
+  }, [isClient, context, context?.user]);
 
   useEffect(() => { setIsClient(true); }, []);
 
@@ -61,7 +61,7 @@ export function PortalHeader(_props: Props) {
       primaryMenuLabel={getPrimaryLabel()}
       secondaryMenuItems={secondaryMenu.menuItems}
       secondaryMenuLabel={secondaryMenu.label}
-      context={context}
+      context={context!}
       appName={"Lessons"}
       onNavigate={handleNavigate}
     />

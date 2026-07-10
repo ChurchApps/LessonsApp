@@ -16,7 +16,7 @@ export default function ProgramPage() {
   const params = useParams<PageParams>();
   const [filteredStudies, setFilteredStudies] = useState([]);
   const [category, _setCategory] = useState("");
-  const [program, setProgram] = useState<ProgramInterface>(null);
+  const [program, setProgram] = useState<ProgramInterface>(null as unknown as ProgramInterface);
   const [showVideo, setShowVideo] = useState(false);
 
   const loadData = async () => {
@@ -28,7 +28,7 @@ export default function ProgramPage() {
 
   useEffect(() => { loadData(); }, [category]);
 
-  const video = program.videoEmbedUrl && <EmbeddedVideo videoEmbedUrl={program.videoEmbedUrl} title={program.name} />;
+  const video = program.videoEmbedUrl && <EmbeddedVideo videoEmbedUrl={program.videoEmbedUrl} title={program.name || ""} />;
 
   if (!program) return <></>;
   return (
@@ -52,7 +52,7 @@ export default function ProgramPage() {
               </a>
             )}
             <div style={{ height: 90 }}></div>
-            <Image src={program.image || "/not-found"} alt={program.name} width={320} height={180} className="badge" />
+            <Image src={program.image || "/not-found"} alt={program.name || ""} width={320} height={180} className="badge" />
           </Container>
         </div>
       </div>
@@ -61,7 +61,7 @@ export default function ProgramPage() {
           <div id="programIntro">
             <h2>Studies</h2>
             <div>
-              <MarkdownPreviewLight value={program.description} />
+              <MarkdownPreviewLight value={program.description || ""} />
             </div>
           </div>
 

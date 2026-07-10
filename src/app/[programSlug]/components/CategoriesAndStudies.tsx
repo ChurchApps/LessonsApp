@@ -41,7 +41,7 @@ export function CategoriesAndStudies(props: Props) {
     } else {
       const filteredCategories = props.studyCategories
         .filter(sc => sc.categoryName === category)
-        .sort((a, b) => a.sort - b.sort);
+        .sort((a, b) => (a.sort ?? 0) - (b.sort ?? 0));
       const result: StudyInterface[] = [];
       filteredCategories.forEach(sc => {
         const study = ArrayHelper.getOne(props.studies, "id", sc.studyId);

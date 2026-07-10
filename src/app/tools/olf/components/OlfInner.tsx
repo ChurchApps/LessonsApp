@@ -14,21 +14,21 @@ import { FeedActionInterface, FeedSectionInterface, FeedVenueInterface, Playlist
 
 export default function OlfInner() {
   const [data, setData] = useState<FeedVenueInterface>({} as FeedVenueInterface);
-  const [editSectionIndex, setEditSectionIndex] = useState<number>(null);
-  const [editActionIndex, setEditActionIndex] = useState<number>(null);
+  const [editSectionIndex, setEditSectionIndex] = useState<number | null>(null);
+  const [editActionIndex, setEditActionIndex] = useState<number | null>(null);
   const [showPrintPreview, setShowPrintPreview] = useState(false);
-  const [presenterFiles, setPresenterFiles] = useState<PlaylistFileInterface[]>(null);
+  const [presenterFiles, setPresenterFiles] = useState<PlaylistFileInterface[] | null>(null);
 
   const searchParams = useSearchParams();
 
   const loadPresenterData = () => {
     const result: PlaylistFileInterface[] = [];
-    data?.sections.forEach(s => {
+    data?.sections?.forEach(s => {
       s.actions?.forEach(a => {
         a.files?.forEach(f => {
           const file: PlaylistFileInterface = {
-            name: f.name,
-            url: f.url,
+            name: f.name || "",
+            url: f.url || "",
             seconds: f.seconds || 3600,
             loopVideo: f.loop || false
           };
@@ -76,7 +76,7 @@ export default function OlfInner() {
     if (!f || !f.files || !f.files[0]) return;
     const reader = new FileReader();
     reader.onload = (e: any) => {
-      setData(null);
+      setData(null as unknown as FeedVenueInterface);
       setTimeout(() => { setData(JSON.parse(e.target.result)); }, 50);
     };
     reader.readAsText(f.files[0]);
@@ -84,7 +84,7 @@ export default function OlfInner() {
 
   const getFiles = (a: FeedActionInterface) => {
     if (a.actionType === "play") {
-      const fileCount = a.files.length;
+      const fileCount = a.files?.length ?? 0;
       return (
         <i>
           {fileCount} file{fileCount !== 1 && "s"}
@@ -107,7 +107,7 @@ export default function OlfInner() {
               onClick={() => { moveAction(sectionIndex, j, "up"); }}
             />
           )}
-          {j !== s.actions.length - 1 && (
+          {j !== (s.actions?.length ?? 0) - 1 && (
             <SmallButton
               icon="arrow_downward"
               onClick={() => { moveAction(sectionIndex, j, "down"); }}
@@ -123,7 +123,7 @@ export default function OlfInner() {
           </a>
         </TableCell>
         <TableCell>
-          <MarkdownPreviewLight value={a.content} />
+          <MarkdownPreviewLight value={a.content || ""} />
         </TableCell>
         <TableCell style={{ whiteSpace: "nowrap" }}>{getFiles(a)}</TableCell>
       </TableRow>);
@@ -142,7 +142,7 @@ export default function OlfInner() {
               onClick={() => { moveSection(i, "up"); }}
             />
           )}
-          {i < data.sections.length - 1 && (
+          {i < (data.sections?.length ?? 0) - 1 && (
             <SmallButton
               icon="arrow_downward"
               onClick={() => { moveSection(i, "down"); }}
@@ -171,6 +171,7 @@ export default function OlfInner() {
 
   const moveSection = (index: number, direction: "up" | "down") => {
     const d = { ...data };
+    if (!d.sections) return;
     if (direction === "up") {
       const item = d.sections.splice(index - 1, 1)[0];
       d.sections.splice(index, 0, item);
@@ -183,7 +184,9 @@ export default function OlfInner() {
 
   const moveAction = (sectionIndex: number, index: number, direction: "up" | "down") => {
     const d = { ...data };
+    if (!d.sections) return;
     const s = d.sections[sectionIndex];
+    if (!s.actions) return;
     if (direction === "up") {
       const item = s.actions.splice(index - 1, 1)[0];
       s.actions.splice(index, 0, item);
@@ -196,29 +199,29 @@ export default function OlfInner() {
 
   const handleEditAction = (sectionIndex: number, index: number) => { setEditSectionIndex(sectionIndex); setEditActionIndex(index); };
 
-  let editAction = null;
-  let editSection = null;
+  let editAction: FeedActionInterface | null = null;
+  let editSection: FeedSectionInterface | null = null;
   if (editSectionIndex !== null && data) {
     if (editSectionIndex > -1 && editActionIndex !== null) {
-      if (editActionIndex > -1) editAction = data.sections[editSectionIndex].actions[editActionIndex];
+      if (editActionIndex > -1) editAction = data.sections?.[editSectionIndex]?.actions?.[editActionIndex] ?? null;
       else editAction = { actionType: "say", content: "" };
     } else {
-      if (editSectionIndex > -1) editSection = data.sections[editSectionIndex];
+      if (editSectionIndex > -1) editSection = data.sections?.[editSectionIndex] ?? null;
       else editSection = { name: "" };
     }
   }
 
-  const handleSectionSave = (section: FeedSectionInterface, cancelled: boolean) => {
+  const handleSectionSave = (section: FeedSectionInterface | null, cancelled: boolean) => {
     if (!cancelled) {
       const d = { ...data };
-      if (!section && editSectionIndex > -1) {
-        d.sections.splice(editSectionIndex, 1);
+      if (!d.sections) d.sections = [];
+      if (!section && editSectionIndex! > -1) {
+        d.sections.splice(editSectionIndex!, 1);
       } else {
-        if (editSectionIndex > -1) {
-          d.sections[editSectionIndex] = section;
+        if (editSectionIndex! > -1) {
+          d.sections[editSectionIndex!] = section!;
         } else {
-          if (!d.sections) d.sections = [];
-          d.sections.push(section);
+          d.sections.push(section!);
         }
       }
       setData(d);
@@ -226,18 +229,19 @@ export default function OlfInner() {
     setEditSectionIndex(null);
   };
 
-  const handleActionSave = (action: FeedActionInterface, cancelled: boolean) => {
+  const handleActionSave = (action: FeedActionInterface | null, cancelled: boolean) => {
     if (!cancelled) {
       const d = { ...data };
-      if (!action && editActionIndex > -1) {
-        d.sections[editSectionIndex].actions.splice(editActionIndex, 1);
+      if (!d.sections) d.sections = [];
+      const sect = d.sections[editSectionIndex!];
+      if (!sect.actions) sect.actions = [];
+      if (!action && editActionIndex! > -1) {
+        sect.actions.splice(editActionIndex!, 1);
       } else {
-        if (editActionIndex > -1) {
-          d.sections[editSectionIndex].actions[editActionIndex] = action;
+        if (editActionIndex! > -1) {
+          sect.actions[editActionIndex!] = action!;
         } else {
-          const sect = d.sections[editSectionIndex];
-          if (!sect.actions) sect.actions = [];
-          sect.actions.push(action);
+          sect.actions.push(action!);
         }
       }
       setData(d);

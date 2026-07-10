@@ -4,7 +4,7 @@ import { LocationOn as LocationIcon, Save as SaveIcon, Cancel as CancelIcon, Del
 import { useForm } from "react-hook-form";
 import { ApiHelper, VenueInterface } from "@/helpers";
 
-interface Props { venue: VenueInterface; updatedCallback: (venue: VenueInterface) => void; }
+interface Props { venue: VenueInterface; updatedCallback: (venue: VenueInterface | null) => void; }
 
 type AnyRecord = Record<string, any>;
 
@@ -21,7 +21,7 @@ export function VenueEdit(props: Props) {
     ApiHelper.post("/venues", [v], "LessonsApi").then((data: VenueInterface) => props.updatedCallback(data));
   };
 
-  const handleDelete = () => { if (window.confirm("Are you sure you wish to permanently delete this venue?")) ApiHelper.delete("/venues/" + props.venue.id.toString(), "LessonsApi").then(() => props.updatedCallback(null)); };
+  const handleDelete = () => { if (window.confirm("Are you sure you wish to permanently delete this venue?")) ApiHelper.delete("/venues/" + props.venue.id!.toString(), "LessonsApi").then(() => props.updatedCallback(null)); };
 
   useEffect(() => {
     if (props.venue) reset({ name: props.venue.name ?? "", sort: props.venue.sort ?? "" });

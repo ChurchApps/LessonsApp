@@ -12,12 +12,13 @@ interface Props {
 }
 
 export function BulkFileUpload(props: Props) {
-  const [uploadedFiles, setUploadedFiles] = useState<FileList>(null);
+  const [uploadedFiles, setUploadedFiles] = useState<FileList | null>(null);
   const [uploadProgress, setUploadProgress] = useState(-1);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => { e.preventDefault(); setUploadedFiles(e.target.files); };
 
   const handleSave = async () => {
+    if (!uploadedFiles) return;
     const files: FileInterface[] = [];
     for (let i = 0; i < uploadedFiles.length; i++) { const uf = uploadedFiles[i]; files.push({ size: uf.size, fileType: uf.type, fileName: uf.name, resourceId: props.resourceId }); }
     await preUpload();
@@ -28,6 +29,7 @@ export function BulkFileUpload(props: Props) {
   const checkSave = () => { if (props.pendingSave) handleSave(); };
 
   const preUpload = async () => {
+    if (!uploadedFiles) return;
     for (let i = 0; i < uploadedFiles.length; i++) {
       const uf = uploadedFiles[i];
       const params = { resourceId: props.resourceId, fileName: uf.name };
@@ -47,13 +49,13 @@ export function BulkFileUpload(props: Props) {
     const _f = document.getElementById("fileUpload") as HTMLInputElement;
     formData.append("file", uploadedFile);
 
-    const completedPercent = Math.round((index / uploadedFiles.length) * 100);
+    const completedPercent = Math.round((index / uploadedFiles!.length) * 100);
 
     const axiosConfig = {
       headers: { "Content-Type": "multipart/form-data" },
       onUploadProgress: (data: AxiosProgressEvent) => {
         const currentFilePercent = Math.round((100 * data.loaded) / (data.total || 1));
-        const overallPercent = completedPercent + Math.round(currentFilePercent / uploadedFiles.length);
+        const overallPercent = completedPercent + Math.round(currentFilePercent / uploadedFiles!.length);
         setUploadProgress(overallPercent);
       }
     };

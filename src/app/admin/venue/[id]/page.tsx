@@ -30,28 +30,28 @@ type PageParams = { id: string };
 
 export default function Venue() {
   const params = useParams<PageParams>();
-  const [venue, setVenue] = useState<VenueInterface>(null);
-  const [lesson, setLesson] = useState<LessonInterface>(null);
-  const [study, setStudy] = useState<StudyInterface>(null);
-  const [sections, setSections] = useState<SectionInterface[]>(null);
-  const [roles, setRoles] = useState<RoleInterface[]>(null);
-  const [actions, setActions] = useState<ActionInterface[]>(null);
-  const [copySection, setCopySection] = useState<CopySectionInterface>(null);
-  const [editSection, setEditSection] = useState<SectionInterface>(null);
-  const [editRole, setEditRole] = useState<RoleInterface>(null);
-  const [editAction, setEditAction] = useState<ActionInterface>(null);
+  const [venue, setVenue] = useState<VenueInterface | null>(null);
+  const [lesson, setLesson] = useState<LessonInterface | null>(null);
+  const [study, setStudy] = useState<StudyInterface | null>(null);
+  const [sections, setSections] = useState<SectionInterface[] | null>(null);
+  const [roles, setRoles] = useState<RoleInterface[] | null>(null);
+  const [actions, setActions] = useState<ActionInterface[] | null>(null);
+  const [copySection, setCopySection] = useState<CopySectionInterface | null>(null);
+  const [editSection, setEditSection] = useState<SectionInterface | null>(null);
+  const [editRole, setEditRole] = useState<RoleInterface | null>(null);
+  const [editAction, setEditAction] = useState<ActionInterface | null>(null);
   const [menuAnchor, setMenuAnchor] = useState<any>(null);
 
-  const [lessonResources, setLessonResources] = useState<ResourceInterface[]>(null);
-  const [studyResources, setStudyResources] = useState<ResourceInterface[]>(null);
-  const [programResources, setProgramResources] = useState<ResourceInterface[]>(null);
-  const [addOns, setAddOns] = useState<AddOnInterface[]>(null);
+  const [lessonResources, setLessonResources] = useState<ResourceInterface[] | null>(null);
+  const [studyResources, setStudyResources] = useState<ResourceInterface[] | null>(null);
+  const [programResources, setProgramResources] = useState<ResourceInterface[] | null>(null);
+  const [addOns, setAddOns] = useState<AddOnInterface[] | null>(null);
 
-  const [lessonVideos, setLessonVideos] = useState<ExternalVideoInterface[]>(null);
-  const [studyVideos, setStudyVideos] = useState<ExternalVideoInterface[]>(null);
-  const [programVideos, setProgramVideos] = useState<ExternalVideoInterface[]>(null);
+  const [lessonVideos, setLessonVideos] = useState<ExternalVideoInterface[] | null>(null);
+  const [studyVideos, setStudyVideos] = useState<ExternalVideoInterface[] | null>(null);
+  const [programVideos, setProgramVideos] = useState<ExternalVideoInterface[] | null>(null);
 
-  const [allAssets, setAllAssets] = useState<AssetInterface[]>(null);
+  const [allAssets, setAllAssets] = useState<AssetInterface[] | null>(null);
   const { isAuthenticated } = ApiHelper;
   const router = useRouter();
   const pathId = params.id;
@@ -87,7 +87,7 @@ export default function Venue() {
   function loadAssets() {
     if (allAssets === null) {
       if (lessonResources && studyResources && programResources) {
-        const allResources = [].concat(lessonResources).concat(studyResources).concat(programResources);
+        const allResources = ([] as ResourceInterface[]).concat(lessonResources).concat(studyResources).concat(programResources);
         if (allResources.length > 0) {
           const resourceIds: string[] = ArrayHelper.getUniqueValues(allResources, "id");
           ApiHelper.get("/assets/resourceIds?resourceIds=" + resourceIds.join(","), "LessonsApi").then((data: any) => { setAllAssets(data); });
@@ -119,34 +119,34 @@ export default function Venue() {
 
   const handleUpdated = () => { loadData(); clearEdits(); };
 
-  const handleSectionUpdated = (section: SectionInterface, created: boolean) => { handleUpdated(); if (created) createRole(section.id); };
+  const handleSectionUpdated = (section: SectionInterface | null, created: boolean) => { handleUpdated(); if (created) createRole(section?.id || ""); };
 
-  const handleRoleUpdated = (role: RoleInterface, created: boolean) => { handleUpdated(); if (created) createAction(role.id); };
+  const handleRoleUpdated = (role: RoleInterface | null, created: boolean) => { handleUpdated(); if (created) createAction(role?.id || ""); };
 
-  const handleActionUpdated = (action: ActionInterface, created: boolean) => { handleUpdated(); if (created) createAction(action.roleId, action.sort + 1); };
+  const handleActionUpdated = (action: ActionInterface, created: boolean) => { handleUpdated(); if (created) createAction(action.roleId || "", (action.sort ?? 0) + 1); };
 
   const createSection = () => {
     clearEdits();
     setEditSection({
-      lessonId: venue.lessonId,
-      venueId: venue.id,
-      sort: sections.length + 1
+      lessonId: venue!.lessonId,
+      venueId: venue!.id,
+      sort: (sections?.length || 0) + 1
     });
   };
 
-  const duplicateSection = () => { clearEdits(); setCopySection({ sourceLessonId: lesson.id }); };
+  const duplicateSection = () => { clearEdits(); setCopySection({ sourceLessonId: lesson!.id }); };
 
   const createRole = (sectionId: string) => {
-    const sort = ArrayHelper.getAll(roles, "sectionId", sectionId).length + 1;
+    const sort = ArrayHelper.getAll(roles || [], "sectionId", sectionId).length + 1;
     clearEdits();
-    setEditRole({ lessonId: venue.lessonId, sectionId: sectionId, sort: sort });
+    setEditRole({ lessonId: venue!.lessonId, sectionId: sectionId, sort: sort });
   };
 
   const createAction = (roleId: string, sort?: number) => {
-    if (!sort) sort = ArrayHelper.getAll(actions, "roleId", roleId).length + 1;
+    if (!sort) sort = ArrayHelper.getAll(actions || [], "roleId", roleId).length + 1;
     clearEdits();
     // The markdown editor won't refresh if you simple send it new content.  This delay is to force a full re-render.
-    setTimeout(() => { setEditAction({ lessonId: venue.lessonId, roleId: roleId, sort: sort, actionType: "Say", content: "" }); }, 50);
+    setTimeout(() => { setEditAction({ lessonId: venue!.lessonId, roleId: roleId, sort: sort, actionType: "Say", content: "" }); }, 50);
   };
 
   const getSectionsTree = () => {
@@ -196,7 +196,7 @@ export default function Venue() {
               <Box sx={{ pr: 1 }}>
                 <IconButton
                   size="small"
-                  onClick={(e) => { e.stopPropagation(); createRole(s.id); }}
+                  onClick={(e) => { e.stopPropagation(); createRole(s.id || ""); }}
                   sx={{
                     color: "var(--c1d2)",
                     "&:hover": { backgroundColor: "rgba(21, 101, 192, 0.1)" }
@@ -207,7 +207,7 @@ export default function Venue() {
               </Box>
             </ListItem>
 
-            {roles && getRolesList(s.id)}
+            {roles && getRolesList(s.id || "")}
           </Box>
         ))}
       </List>
@@ -215,7 +215,7 @@ export default function Venue() {
   };
 
   const getRolesList = (sectionId: string) => {
-    const sectionRoles = ArrayHelper.getAll(roles, "sectionId", sectionId);
+    const sectionRoles = ArrayHelper.getAll(roles || [], "sectionId", sectionId);
 
     return sectionRoles.map((r) => (
       <Box key={r.id} sx={{ ml: 4 }}>
@@ -243,7 +243,7 @@ export default function Venue() {
           <Box sx={{ pr: 1 }}>
             <IconButton
               size="small"
-              onClick={(e) => { e.stopPropagation(); createAction(r.id); }}
+              onClick={(e) => { e.stopPropagation(); createAction(r.id || ""); }}
               sx={{
                 color: "var(--c1d1)",
                 "&:hover": { backgroundColor: "rgba(21, 101, 192, 0.1)" }
@@ -260,7 +260,7 @@ export default function Venue() {
   };
 
   const getActionsList = (roleId: string) => {
-    const roleActions = ArrayHelper.getAll(actions, "roleId", roleId);
+    const roleActions = ArrayHelper.getAll(actions || [], "roleId", roleId);
 
     return roleActions.map((a) => (
       <ListItem
@@ -296,20 +296,20 @@ export default function Venue() {
     } else if (editRole) {
       result.push(<RoleEdit role={editRole} updatedCallback={handleRoleUpdated} />);
     } else if (copySection) {
-      result.push(<SectionCopy copySection={copySection} venueId={venue.id} updatedCallback={handleUpdated} />);
+      result.push(<SectionCopy copySection={copySection} venueId={venue!.id || ""} updatedCallback={handleUpdated} />);
     } else if (editAction) {
       result.push(<ActionEdit
         action={editAction}
         updatedCallback={handleActionUpdated}
-        lessonResources={lessonResources}
-        studyResources={studyResources}
-        programResources={programResources}
-        lessonVideos={lessonVideos}
-        studyVideos={studyVideos}
-        programVideos={programVideos}
-        allAssets={allAssets}
+        lessonResources={lessonResources || []}
+        studyResources={studyResources || []}
+        programResources={programResources || []}
+        lessonVideos={lessonVideos || []}
+        studyVideos={studyVideos || []}
+        programVideos={programVideos || []}
+        allAssets={allAssets || []}
         key="actionEdit"
-        addOns={addOns}
+        addOns={addOns || []}
       />);
     }
     return result;

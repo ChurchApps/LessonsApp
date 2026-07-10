@@ -14,7 +14,7 @@ type AnyRecord = Record<string, any>;
 
 export function AddOnEdit(props: Props) {
   const [showImageEditor, setShowImageEditor] = useState<boolean>(false);
-  const [externalVideo, setExternalVideo] = useState<ExternalVideoInterface>(null);
+  const [externalVideo, setExternalVideo] = useState<ExternalVideoInterface | null>(null);
   const [pendingFileSave, setPendingFileSave] = useState(false);
   const [pendingValues, setPendingValues] = useState<AnyRecord | null>(null);
 
@@ -48,7 +48,7 @@ export function AddOnEdit(props: Props) {
     });
   };
 
-  const handleDelete = () => { if (window.confirm("Are you sure you wish to permanently delete this add-on?")) ApiHelper.delete("/addOns/" + props.addOn.id.toString(), "LessonsApi").then(() => props.updatedCallback(null)); };
+  const handleDelete = () => { if (window.confirm("Are you sure you wish to permanently delete this add-on?")) ApiHelper.delete("/addOns/" + props.addOn.id?.toString(), "LessonsApi").then(() => props.updatedCallback(null as unknown as AddOnInterface)); };
 
   const handleImageClick = (ev: React.MouseEvent) => { ev.preventDefault(); setShowImageEditor(true); };
 
@@ -110,7 +110,7 @@ export function AddOnEdit(props: Props) {
   };
 
   const getFileFields = () => (
-    <FileUpload key="fileUpload" contentType="addOn" contentId={props.addOn.id} fileId={props.addOn?.fileId} pendingSave={pendingFileSave} saveCallback={handleFileSaved} resourceId={""} />
+    <FileUpload key="fileUpload" contentType="addOn" contentId={props.addOn.id || ""} fileId={props.addOn?.fileId || ""} pendingSave={pendingFileSave} saveCallback={handleFileSaved} resourceId={""} />
   );
 
   const getTypeFields = () => addOnType === "file" ? getFileFields() : getExternalVideoFields();

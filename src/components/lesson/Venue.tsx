@@ -14,7 +14,7 @@ interface Props {
 
 const Venue = React.memo(({ hidePrint = true, ...props }: Props) => {
   const contentRef = React.useRef<HTMLDivElement>(null);
-  const [activeSectionId, setActiveSectionId] = React.useState<string>(props.venue?.sections[0]?.name || "");
+  const [activeSectionId, setActiveSectionId] = React.useState<string>(props.venue?.sections?.[0]?.name || "");
   const [displaySection, setDisplaySection] = React.useState<boolean>(false);
 
   const handleToggle = React.useCallback((sectionId: string) => { setActiveSectionId(sectionId); }, []);
@@ -36,11 +36,11 @@ const Venue = React.memo(({ hidePrint = true, ...props }: Props) => {
 
   const shouldHide = React.useCallback((id: string) => {
     let result = false;
-    if (props.customizations?.length > 0) { const removeItems = ArrayHelper.getAll(props.customizations, "action", "remove"); if (removeItems.length > 0) result = ArrayHelper.getOne(removeItems, "contentId", id) !== null; }
+    if (props.customizations && props.customizations.length > 0) { const removeItems = ArrayHelper.getAll(props.customizations, "action", "remove"); if (removeItems.length > 0) result = ArrayHelper.getOne(removeItems, "contentId", id) !== null; }
     return result;
   }, [props.customizations]);
 
-  const customSections = React.useMemo(() => CustomizationHelper.applyCustomSort(props.customizations, props.venue?.sections, "section"), [props.customizations, props.venue?.sections]);
+  const customSections = React.useMemo(() => CustomizationHelper.applyCustomSort(props.customizations || [], props.venue?.sections || [], "section"), [props.customizations, props.venue?.sections]);
 
   const getSections = React.useCallback(() => {
     const sections: React.JSX.Element[] = [];

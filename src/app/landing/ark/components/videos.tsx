@@ -6,7 +6,7 @@ import Grid from "@mui/material/Grid";
 import { VideoModal } from "@/components/VideoModal";
 
 export function Videos() {
-  const [vimeoPreviewId, setVimeoPreviewId] = useState<string>(null);
+  const [vimeoPreviewId, setVimeoPreviewId] = useState<string | null>(null);
 
   return (
     <>

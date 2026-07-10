@@ -51,7 +51,7 @@ export function VenueClient(props: Props) {
   const getTabs = () => {
     const result: React.JSX.Element[] = [];
     props.venue?.sections?.forEach(s => {
-      if (s.actions?.length > 0) result.push(<Tab key={s.name} label={s.name} value={s.name} />);
+      if ((s.actions?.length ?? 0) > 0) result.push(<Tab key={s.name} label={s.name} value={s.name} />);
     });
     if (result.length === 0) {
       return <></>;

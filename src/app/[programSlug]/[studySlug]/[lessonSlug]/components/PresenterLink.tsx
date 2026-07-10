@@ -14,7 +14,7 @@ import {
 interface Props { selectedVenue: VenueInterface; }
 
 export function PresenterLink(props: Props) {
-  const [presenterFiles, setPresenterFiles] = useState<PlaylistFileInterface[]>(null);
+  const [presenterFiles, setPresenterFiles] = useState<PlaylistFileInterface[] | null>(null);
 
   const loadPresenterData = async () => {
     try {

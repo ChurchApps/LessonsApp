@@ -24,12 +24,12 @@ export default function Venue() {
   const params = useParams<PageParams>();
   const searchParams = useSearchParams();
 
-  const [classroom, setClassroom] = useState<ClassroomInterface>(null);
+  const [classroom, setClassroom] = useState<ClassroomInterface | null>(null);
   const [schedules, setSchedules] = useState<ScheduleInterface[]>([]);
   const [lessons, setLessons] = useState<LessonInterface[]>([]);
   const [studies, setStudies] = useState<StudyInterface[]>([]);
   const [programs, setPrograms] = useState<ProgramInterface[]>([]);
-  const [church, setChurch] = useState<ChurchInterface>(null);
+  const [church, setChurch] = useState<ChurchInterface | null>(null);
   const [churchSettings, setChurchSettings] = useState<any>({});
 
   const id = params.id;
@@ -61,7 +61,7 @@ export default function Venue() {
     const studyArray: StudyInterface[] = [];
 
     schedules.forEach(s => {
-      const { lesson, study, program: _program } = ExternalProviderHelper.getLesson(data, s.programId, s.studyId, s.lessonId);
+      const { lesson, study, program: _program } = ExternalProviderHelper.getLesson(data, s.programId || "", s.studyId || "", s.lessonId || "");
       if (lesson) { lessonArray.push(lesson); if (!ArrayHelper.getOne(studyArray, "id", lesson.studyId)) studyArray.push(study); }
     });
     console.log("Lessons are: ", lessonArray);
@@ -124,7 +124,7 @@ export default function Venue() {
               <div className="title">{lesson.name}</div>
               <h3 style={{ fontSize: "28px", fontWeight: 600, margin: "0 0 8px 0" }}>{lesson.title}</h3>
               <p style={{ margin: "0 0 16px 0" }}>
-                <MarkdownPreviewLight value={lesson.description} />
+                <MarkdownPreviewLight value={lesson.description || ""} />
               </p>
             </Grid>
           </Grid>
@@ -137,9 +137,9 @@ export default function Venue() {
 
   const getRowData = (schedule: ScheduleInterface) => {
     const result: { lesson: LessonInterface; study: StudyInterface; program: ProgramInterface } = {
-      lesson: null,
-      study: null,
-      program: null
+      lesson: null as unknown as LessonInterface,
+      study: null as unknown as StudyInterface,
+      program: null as unknown as ProgramInterface
     };
     result.lesson = ArrayHelper.getOne(lessons, "id", schedule.lessonId);
     if (result.lesson) { result.study = ArrayHelper.getOne(studies, "id", schedule.studyId); if (result.study) result.program = ArrayHelper.getOne(programs, "id", schedule.programId); }

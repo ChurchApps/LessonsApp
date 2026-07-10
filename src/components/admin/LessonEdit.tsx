@@ -8,7 +8,7 @@ import { ApiHelper, LessonInterface, ProgramInterface, StudyInterface } from "@/
 
 const ImageEditor = dynamic(() => import("../index").then(mod => ({ default: mod.ImageEditor })), { loading: () => <div>Loading image editor...</div> });
 
-interface Props { lesson: LessonInterface; updatedCallback: (lesson: LessonInterface) => void; onClose?: () => void; }
+interface Props { lesson: LessonInterface; updatedCallback: (lesson: LessonInterface | null) => void; onClose?: () => void; }
 
 type AnyRecord = Record<string, any>;
 
@@ -61,7 +61,7 @@ const LessonEdit = React.memo((props: Props) => {
   const handleDelete = () => {
     if (!window.confirm("Are you sure you wish to permanently delete this lesson?")) return;
     props.onClose?.();
-    ApiHelper.delete("/lessons/" + props.lesson.id.toString(), "LessonsApi").then(() => props.updatedCallback(null));
+    ApiHelper.delete("/lessons/" + props.lesson.id!.toString(), "LessonsApi").then(() => props.updatedCallback(null));
   };
 
   const handleImageClick = (ev: React.MouseEvent) => { ev.preventDefault(); setShowImageEditor(true); };
@@ -83,7 +83,7 @@ const LessonEdit = React.memo((props: Props) => {
         sort: props.lesson.sort ?? "",
         image: props.lesson.image || ""
       });
-      loadStudy(props.lesson.studyId);
+      loadStudy(props.lesson.studyId || "");
       if (props.lesson.slug) setChecked(true);
     }
   }, [props.lesson, reset]);

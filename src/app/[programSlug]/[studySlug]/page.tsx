@@ -38,8 +38,8 @@ const loadSharedData = async (params: Promise<PageParams>) => {
 export async function generateMetadata({ params }: { params: Promise<PageParams> }): Promise<Metadata> {
   const props = await loadSharedData(params);
   if (!props.errorMessage) {
-    const title = props.program.name + ": " + props.study?.name + " - Free Church Curriculum";
-    return MetaHelper.getMetaData(title, props.study.description, props.study.image);
+    const title = props.program?.name + ": " + props.study?.name + " - Free Church Curriculum";
+    return MetaHelper.getMetaData(title, props.study?.description, props.study?.image);
   }
   return MetaHelper.getMetaData();
 }
@@ -59,17 +59,17 @@ export default async function StudyPage({ params }: { params: Promise<PageParams
               <Grid container spacing={2}>
                 <Grid size={{ md: 7, xs: 12 }}>
                   <div className="breadcrumb">
-                    <Link href={"/" + program.slug}>{program.name}</Link>
+                    <Link href={"/" + program!.slug}>{program!.name}</Link>
                   </div>
-                  <h1>{study.name}</h1>
+                  <h1>{study!.name}</h1>
                 </Grid>
               </Grid>
 
               <div style={{ height: 50 }}></div>
               <Image
                 className="badge"
-                src={study.image ?? "/not-found"}
-                alt={`${study.name} - ${program.name} curriculum`}
+                src={study!.image ?? "/not-found"}
+                alt={`${study!.name} - ${program!.name} curriculum`}
                 width={320}
                 height={180}
                 loading="eager"
@@ -84,10 +84,10 @@ export default async function StudyPage({ params }: { params: Promise<PageParams
             <div id="studyIntro">
               <h2>Lessons</h2>
               <div>
-                <MarkdownWrapper value={study.description} />
+                <MarkdownWrapper value={study!.description ?? ""} />
               </div>
             </div>
-            {lessons?.length > 0 && <Lessons lessons={lessons} slug={`/${program.slug}/${study.slug}`} />}
+            {lessons && lessons.length > 0 && <Lessons lessons={lessons} slug={`/${program!.slug}/${study!.slug}`} />}
           </Container>
         </div>
 
@@ -97,14 +97,14 @@ export default async function StudyPage({ params }: { params: Promise<PageParams
             __html: JSON.stringify({
               "@context": "https://schema.org",
               "@type": "Course",
-              name: study.name,
-              description: study.description,
+              name: study!.name,
+              description: study!.description,
               provider: {
                 "@type": "Organization",
                 name: "Lessons.church",
                 sameAs: "https://lessons.church"
               },
-              isPartOf: { "@type": "Course", name: program.name }
+              isPartOf: { "@type": "Course", name: program!.name }
             })
           }}
         />

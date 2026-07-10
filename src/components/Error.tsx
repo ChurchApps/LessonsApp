@@ -118,9 +118,9 @@ function Error({ message, statusCode: _statusCode }: Props) {
 }
 
 Error.getInitialProps = ({ res, err }: NextPageContext) => {
-  res.setHeader("Cache-Control", "no-store, must-revalidate");
-  res.setHeader("CDN-Cache-Control", "public, s-maxage=0, must-revalidate");
-  res.setHeader("Vercel-CDN-Cache-Control", "public, s-maxage=0, must-revalidate");
+  res?.setHeader("Cache-Control", "no-store, must-revalidate");
+  res?.setHeader("CDN-Cache-Control", "public, s-maxage=0, must-revalidate");
+  res?.setHeader("Vercel-CDN-Cache-Control", "public, s-maxage=0, must-revalidate");
   const statusCode = res ? res.statusCode : err ? err.statusCode : 404;
   const message = statusCode === 404 ? "This page does't exist" : "The server encountered an internal error. Please try again";
   return { statusCode, message };

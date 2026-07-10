@@ -94,21 +94,21 @@ export function Action(props: Props) {
     case "note":
       result = (
       <div className="note">
-        <MarkdownPreviewLight value={props.action.content} />
+        <MarkdownPreviewLight value={props.action.content || ""} />
       </div>
       );
       break;
     case "do":
       result = (
       <div className="actions">
-        <MarkdownPreviewLight value={props.action.content} />
+        <MarkdownPreviewLight value={props.action.content || ""} />
       </div>
       );
       break;
     case "say":
       result = (
       <div className="say">
-        <MarkdownPreviewLight value={props.action.content} />
+        <MarkdownPreviewLight value={props.action.content || ""} />
       </div>
       );
       break;
@@ -124,8 +124,8 @@ export function Action(props: Props) {
         </div>
         );
       } else {
-        let duration = null;
-        if (f?.seconds > 0) {
+        let duration: React.JSX.Element | null = null;
+        if (f.seconds && f.seconds > 0) {
           const min = Math.floor(f.seconds / 60);
           const sec = f.seconds % 60;
           duration = <span className="duration">{min.toString() + ":" + sec.toString().padStart(2, "0")}</span>;
@@ -137,7 +137,7 @@ export function Action(props: Props) {
         <div className="playAction">
           {duration}
           {thumbnail && (
-            <Image src={thumbnail} alt={props.action.content} width={128} height={72} style={{ height: 72 }} />
+            <Image src={thumbnail} alt={props.action.content || ""} width={128} height={72} style={{ height: 72 }} />
           )}
           <a
             href={f.url}
@@ -157,7 +157,7 @@ export function Action(props: Props) {
   }
 
   const handlePreviewClick = (file: FeedFileInterface) => {
-    const action = file.name;
+    const action = file.name || "";
     const label = window.location.pathname;
     try {
       AnalyticsHelper.logEvent("Preview", action, label);

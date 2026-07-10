@@ -29,8 +29,8 @@ import { ApiHelper, ExternalProviderInterface } from "@/helpers";
 export default function ThirdParty() {
   const router = useRouter();
   const { isAuthenticated } = ApiHelper;
-  const [providers, setProviders] = useState([]);
-  const [editProvider, setEditProvider] = useState<ExternalProviderInterface>(null);
+  const [providers, setProviders] = useState<ExternalProviderInterface[]>([]);
+  const [editProvider, setEditProvider] = useState<ExternalProviderInterface | null>(null);
 
   const loadData = () => {
     ApiHelper.get("/externalProviders", "LessonsApi").then((data: any) => { setProviders(data); });

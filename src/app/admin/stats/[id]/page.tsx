@@ -21,7 +21,7 @@ export default function Admin() {
   initialEndDate.setMonth(initialEndDate.getMonth() + 1);
   initialEndDate.setDate(initialEndDate.getDate() - 1);
 
-  const [program, setProgram] = useState<ProgramInterface>(null);
+  const [program, setProgram] = useState<ProgramInterface | null>(null);
   const [studies, setStudies] = useState<StudyStatsInterface[]>([]);
   const [churches, setChurches] = useState<ChurchInterface[]>([]);
   const [startDate, setStartDate] = useState<Date>(initialStartDate);
@@ -174,7 +174,7 @@ export default function Admin() {
                   </Stack>
                 </Box>
                 <Box sx={{ p: 2 }}>
-                  <Map programId={program?.id} startDate={startDate} endDate={endDate} />
+                  <Map programId={program?.id || ""} startDate={startDate} endDate={endDate} />
                 </Box>
               </Paper>
             </Grid>

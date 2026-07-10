@@ -19,7 +19,7 @@ export function FileUpload(props: Props) {
   const [uploadedFile, setUploadedFile] = useState<File>({} as File);
   const [uploadProgress, setUploadProgress] = useState(-1);
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => { e.preventDefault(); setUploadedFile(e.target.files[0]); };
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => { e.preventDefault(); if (e.target.files) setUploadedFile(e.target.files[0]); };
 
   const loadData = () => {
     if (props.fileId) {

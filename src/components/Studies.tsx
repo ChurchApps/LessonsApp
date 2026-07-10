@@ -17,7 +17,7 @@ const Studies = React.memo(({ studies, slug }: Props) => {
               <Grid size={{ xs: 5 }}>
                 <Image
                   src={study.image || "/not-found"}
-                  alt={study.name}
+                  alt={study.name || ""}
                   width={640}
                   height={360}
                   style={{ height: "auto" }}

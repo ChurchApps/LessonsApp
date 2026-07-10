@@ -27,7 +27,7 @@ export function OlfPrint(props: Props) {
     const result: React.JSX.Element[] = [];
     actions.forEach(a => {
       result.push(<li className="olfAction">
-        <MarkdownPreviewLight value={a.content} />
+        <MarkdownPreviewLight value={a.content || ""} />
       </li>);
     });
     return result;
@@ -39,7 +39,7 @@ export function OlfPrint(props: Props) {
     actions?.forEach(a => {
       if (lastActionType !== a.actionType || result.length === 0) {
         result.push({ actions: [a] });
-        lastActionType = a.actionType;
+        lastActionType = a.actionType || "";
       } else {
         result[result.length - 1].actions.push(a);
       }
@@ -77,7 +77,7 @@ export function OlfPrint(props: Props) {
           {props.feed.lessonName} | {props.feed.name}
         </h2>
         <div>
-          <MarkdownPreviewLight value={props.feed.lessonDescription} />
+          <MarkdownPreviewLight value={props.feed.lessonDescription || ""} />
         </div>
         <div style={{ clear: "both" }}></div>
       </div>

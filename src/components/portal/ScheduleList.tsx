@@ -27,16 +27,16 @@ import { ScheduleEdit } from "../index";
 interface Props { classroomId: string; }
 
 export function ScheduleList(props: Props) {
-  const [schedules, setSchedules] = useState<ScheduleInterface[]>(null);
-  const [editSchedule, setEditSchedule] = useState<ScheduleInterface>(null);
+  const [schedules, setSchedules] = useState<ScheduleInterface[] | null>(null);
+  const [editSchedule, setEditSchedule] = useState<ScheduleInterface | null>(null);
 
   const loadData = () => {
     ApiHelper.get("/schedules/classroom/" + props.classroomId, "LessonsApi").then((data: any) => { ArrayHelper.sortBy(data, "scheduledDate", true); setSchedules(data); });
   };
 
   const getRows = () => {
-    return schedules.map(s => {
-      const scheduleDate = new Date(s.scheduledDate);
+    return (schedules || []).map(s => {
+      const scheduleDate = new Date(s.scheduledDate!);
       const isUpcoming = scheduleDate > new Date();
       const isPast = scheduleDate < new Date();
 
@@ -157,13 +157,13 @@ export function ScheduleList(props: Props) {
       venueId: ""
     };
 
-    if (schedules?.length > 0) {
+    if (schedules && schedules.length > 0) {
       const lastSchedule = schedules[0];
       newSchedule.lessonId = "next";
       newSchedule.programId = lastSchedule.programId;
       newSchedule.studyId = lastSchedule.studyId;
       newSchedule.venueId = lastSchedule.venueId;
-      newSchedule.scheduledDate = DateHelper.addDays(new Date(lastSchedule.scheduledDate), 7);
+      newSchedule.scheduledDate = DateHelper.addDays(new Date(lastSchedule.scheduledDate!), 7);
     }
 
     return newSchedule;
@@ -175,7 +175,7 @@ export function ScheduleList(props: Props) {
     return (
       <ScheduleEdit
         schedule={editSchedule}
-        schedules={schedules}
+        schedules={schedules || []}
         updatedCallback={() => { setEditSchedule(null); loadData(); }}
       />
     );

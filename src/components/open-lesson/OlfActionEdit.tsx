@@ -6,13 +6,13 @@ import { MarkdownEditor } from "@churchapps/apphelper/markdown";
 import { FeedActionInterface, FeedFileInterface } from "@/helpers";
 import { OlfFileEdit } from "./OlfFileEdit";
 
-interface Props { action: FeedActionInterface; updatedCallback: (action: FeedActionInterface, cancelled: boolean) => void; }
+interface Props { action: FeedActionInterface; updatedCallback: (action: FeedActionInterface | null, cancelled: boolean) => void; }
 
 type AnyRecord = Record<string, any>;
 
 export function OlfActionEdit(props: Props) {
   const [files, setFiles] = useState<FeedFileInterface[]>([]);
-  const [editFileIndex, setEditFileIndex] = useState(null);
+  const [editFileIndex, setEditFileIndex] = useState<number | null>(null);
   const [ready, setReady] = useState(false);
 
   const { register, handleSubmit, reset, control, watch, formState } = useForm<AnyRecord>({ defaultValues: { actionType: "", role: "", content: "" } });
@@ -36,12 +36,12 @@ export function OlfActionEdit(props: Props) {
 
   const handleDelete = () => { if (window.confirm("Are you sure you wish to delete this action?")) props.updatedCallback(null, false); };
 
-  const handleFileSave = (file: FeedFileInterface, cancelled: boolean) => {
+  const handleFileSave = (file: FeedFileInterface | null, cancelled: boolean) => {
     if (!cancelled) {
       const next = [...files];
-      if (!file && editFileIndex > -1) next.splice(editFileIndex, 1);
-      else if (editFileIndex > -1) next[editFileIndex] = file;
-      else next.push(file);
+      if (!file && editFileIndex! > -1) next.splice(editFileIndex!, 1);
+      else if (editFileIndex! > -1) next[editFileIndex!] = file!;
+      else next.push(file!);
       setFiles(next);
     }
     setEditFileIndex(null);
@@ -59,7 +59,7 @@ export function OlfActionEdit(props: Props) {
     return () => clearTimeout(timer);
   }, [props.action, reset]);
 
-  let editFile: FeedFileInterface = null;
+  let editFile: FeedFileInterface | null = null;
   if (editFileIndex !== null) { if (editFileIndex === -1) editFile = { name: "", url: "" }; else editFile = files[editFileIndex]; }
 
   if (!ready) return <></>;

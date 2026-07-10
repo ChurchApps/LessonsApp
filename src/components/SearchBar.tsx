@@ -45,7 +45,7 @@ export function SearchBar({ placeholder = "Search curriculum (e.g., 'peace', 'ad
         mode: "fulltext"
       });
 
-      const searchResults: SearchResult[] = (data.hits || []).map((hit: any) => ({
+      const searchResults: SearchResult[] = (data?.hits || []).map((hit: any) => ({
         id: hit.document.id,
         type: hit.document.type,
         name: hit.document.name,

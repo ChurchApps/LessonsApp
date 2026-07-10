@@ -19,10 +19,10 @@ import {
 
 export default function OllInner() {
   const [data, setData] = useState<FeedListInterface>({} as FeedListInterface);
-  const [editProgramIndex, setEditProgramIndex] = useState<number>(null);
-  const [editStudyIndex, setEditStudyIndex] = useState<number>(null);
-  const [editLessonIndex, setEditLessonIndex] = useState<number>(null);
-  const [editVenueIndex, setEditVenueIndex] = useState<number>(null);
+  const [editProgramIndex, setEditProgramIndex] = useState<number | null>(null);
+  const [editStudyIndex, setEditStudyIndex] = useState<number | null>(null);
+  const [editLessonIndex, setEditLessonIndex] = useState<number | null>(null);
+  const [editVenueIndex, setEditVenueIndex] = useState<number | null>(null);
 
   const searchParams = useSearchParams();
 
@@ -49,11 +49,11 @@ export default function OllInner() {
   const moveProgram = (index: number, direction: "up" | "down") => {
     const d = { ...data };
     if (direction === "up") {
-      const item = d.programs.splice(index - 1, 1)[0];
-      d.programs.splice(index, 0, item);
+      const item = d.programs!.splice(index - 1, 1)[0];
+      d.programs!.splice(index, 0, item);
     } else {
-      const item = d.programs.splice(index, 1)[0];
-      d.programs.splice(index + 1, 0, item);
+      const item = d.programs!.splice(index, 1)[0];
+      d.programs!.splice(index + 1, 0, item);
     }
     setData(d);
   };
@@ -63,7 +63,7 @@ export default function OllInner() {
     if (!f || !f.files || !f.files[0]) return;
     const reader = new FileReader();
     reader.onload = (e: any) => {
-      setData(null);
+      setData(null as unknown as FeedListInterface);
       setTimeout(() => { setData(JSON.parse(e.target.result)); }, 50);
     };
     reader.readAsText(f.files[0]);
@@ -71,7 +71,7 @@ export default function OllInner() {
 
   const moveStudy = (programIndex: number, index: number, direction: "up" | "down") => {
     const d = { ...data };
-    const p = d.programs[programIndex];
+    const p = d.programs![programIndex];
     if (direction === "up") {
       const item = p.studies.splice(index - 1, 1)[0];
       p.studies.splice(index, 0, item);
@@ -84,7 +84,7 @@ export default function OllInner() {
 
   const moveLesson = (programIndex: number, studyIndex: number, index: number, direction: "up" | "down") => {
     const d = { ...data };
-    const s = d.programs[programIndex].studies[studyIndex];
+    const s = d.programs![programIndex].studies[studyIndex];
     if (direction === "up") {
       const item = s.lessons.splice(index - 1, 1)[0];
       s.lessons.splice(index, 0, item);
@@ -101,7 +101,7 @@ export default function OllInner() {
     index: number,
     direction: "up" | "down") => {
     const d = { ...data };
-    const l = d.programs[programIndex].studies[studyIndex].lessons[lessonIndex];
+    const l = d.programs![programIndex].studies[studyIndex].lessons[lessonIndex];
     if (direction === "up") {
       const item = l.venues.splice(index - 1, 1)[0];
       l.venues.splice(index, 0, item);
@@ -250,7 +250,7 @@ export default function OllInner() {
               onClick={() => { moveProgram(i, "up"); }}
             />
           )}
-          {i < data.programs.length - 1 && (
+          {i < data.programs!.length - 1 && (
             <SmallButton
               icon="arrow_downward"
               onClick={() => { moveProgram(i, "down"); }}
@@ -300,17 +300,17 @@ export default function OllInner() {
     setEditVenueIndex(null);
   };
 
-  const handleProgramSave = (program: FeedProgramInterface, cancelled: boolean) => {
+  const handleProgramSave = (program: FeedProgramInterface | null, cancelled: boolean) => {
     if (!cancelled) {
       const d = { ...data };
-      if (!program && editProgramIndex > -1) {
-        d.programs.splice(editProgramIndex, 1);
+      if (!program && editProgramIndex! > -1) {
+        d.programs!.splice(editProgramIndex!, 1);
       } else {
-        if (editProgramIndex > -1) {
-          d.programs[editProgramIndex] = program;
+        if (editProgramIndex! > -1) {
+          d.programs![editProgramIndex!] = program!;
         } else {
           if (!d.programs) d.programs = [];
-          d.programs.push(program);
+          d.programs.push(program!);
         }
       }
       setData(d);
@@ -318,18 +318,18 @@ export default function OllInner() {
     clearIndexes();
   };
 
-  const handleStudySave = (study: FeedStudyInterface, cancelled: boolean) => {
+  const handleStudySave = (study: FeedStudyInterface | null, cancelled: boolean) => {
     if (!cancelled) {
       const d = { ...data };
-      const program = d.programs[editProgramIndex];
-      if (!study && editStudyIndex > -1) {
-        program.studies.splice(editStudyIndex, 1);
+      const program = d.programs![editProgramIndex!];
+      if (!study && editStudyIndex! > -1) {
+        program.studies.splice(editStudyIndex!, 1);
       } else {
-        if (editStudyIndex > -1) {
-          program.studies[editStudyIndex] = study;
+        if (editStudyIndex! > -1) {
+          program.studies[editStudyIndex!] = study!;
         } else {
           if (!program.studies) program.studies = [];
-          program.studies.push(study);
+          program.studies.push(study!);
         }
       }
       setData(d);
@@ -337,18 +337,18 @@ export default function OllInner() {
     clearIndexes();
   };
 
-  const handleLessonSave = (lesson: FeedLessonInterface, cancelled: boolean) => {
+  const handleLessonSave = (lesson: FeedLessonInterface | null, cancelled: boolean) => {
     if (!cancelled) {
       const d = { ...data };
-      const study = d.programs[editProgramIndex].studies[editStudyIndex];
-      if (!lesson && editLessonIndex > -1) {
-        study.lessons.splice(editLessonIndex, 1);
+      const study = d.programs![editProgramIndex!].studies[editStudyIndex!];
+      if (!lesson && editLessonIndex! > -1) {
+        study.lessons.splice(editLessonIndex!, 1);
       } else {
-        if (editLessonIndex > -1) {
-          study.lessons[editLessonIndex] = lesson;
+        if (editLessonIndex! > -1) {
+          study.lessons[editLessonIndex!] = lesson!;
         } else {
           if (!study.lessons) study.lessons = [];
-          study.lessons.push(lesson);
+          study.lessons.push(lesson!);
         }
       }
       setData(d);
@@ -356,18 +356,18 @@ export default function OllInner() {
     clearIndexes();
   };
 
-  const handleVenueSave = (venue: FeedVenueLinkInterface, cancelled: boolean) => {
+  const handleVenueSave = (venue: FeedVenueLinkInterface | null, cancelled: boolean) => {
     if (!cancelled) {
       const d = { ...data };
-      const lesson = d.programs[editProgramIndex].studies[editStudyIndex].lessons[editLessonIndex];
-      if (!venue && editVenueIndex > -1) {
-        lesson.venues.splice(editVenueIndex, 1);
+      const lesson = d.programs![editProgramIndex!].studies[editStudyIndex!].lessons[editLessonIndex!];
+      if (!venue && editVenueIndex! > -1) {
+        lesson.venues.splice(editVenueIndex!, 1);
       } else {
-        if (editVenueIndex > -1) {
-          lesson.venues[editVenueIndex] = venue;
+        if (editVenueIndex! > -1) {
+          lesson.venues[editVenueIndex!] = venue!;
         } else {
           if (!lesson.venues) lesson.venues = [];
-          lesson.venues.push(venue);
+          lesson.venues.push(venue!);
         }
       }
       setData(d);
@@ -386,27 +386,27 @@ export default function OllInner() {
     }
   }, [feedUrl]);
 
-  let editProgram = null;
-  let editStudy = null;
-  let editLesson = null;
-  let editVenue = null;
+  let editProgram: FeedProgramInterface | null = null;
+  let editStudy: FeedStudyInterface | null = null;
+  let editLesson: FeedLessonInterface | null = null;
+  let editVenue: FeedVenueLinkInterface | null = null;
 
   if (editProgramIndex !== null && data) {
     if (editProgramIndex > -1 && editStudyIndex !== null) {
       if (editStudyIndex > -1 && editLessonIndex !== null) {
         if (editLessonIndex > -1 && editVenueIndex !== null) {
-          if (editVenueIndex > -1) editVenue = data.programs[editProgramIndex].studies[editStudyIndex].lessons[editLessonIndex].venues[editVenueIndex];
+          if (editVenueIndex > -1) editVenue = data.programs![editProgramIndex].studies[editStudyIndex].lessons[editLessonIndex].venues[editVenueIndex];
           else editVenue = {} as FeedVenueLinkInterface;
         } else {
-          if (editLessonIndex > -1) editLesson = data.programs[editProgramIndex].studies[editStudyIndex].lessons[editLessonIndex];
+          if (editLessonIndex > -1) editLesson = data.programs![editProgramIndex].studies[editStudyIndex].lessons[editLessonIndex];
           else editLesson = {} as FeedLessonInterface;
         }
       } else {
-        if (editStudyIndex > -1) editStudy = data.programs[editProgramIndex].studies[editStudyIndex];
+        if (editStudyIndex > -1) editStudy = data.programs![editProgramIndex].studies[editStudyIndex];
         else editStudy = {} as FeedStudyInterface;
       }
     } else {
-      if (editProgramIndex > -1) editProgram = data.programs[editProgramIndex];
+      if (editProgramIndex > -1) editProgram = data.programs![editProgramIndex];
       else editProgram = {} as FeedProgramInterface;
     }
   }

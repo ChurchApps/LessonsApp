@@ -90,10 +90,10 @@ export default function EmbedAction() {
       <Container maxWidth="lg" sx={{ py: 2 }}>
         <Card className="actionCard" sx={{ mb: 2 }}>
           <CardHeader
-            title={data.action.content?.substring(0, 50) + (data.action.content?.length > 50 ? "..." : "") || getActionTypeLabel(data.action.actionType)}
+            title={data.action.content?.substring(0, 50) + ((data.action.content?.length ?? 0) > 50 ? "..." : "") || getActionTypeLabel(data.action.actionType || "")}
             subheader={
               <>
-                <b>{getActionTypeLabel(data.action.actionType)}</b>
+                <b>{getActionTypeLabel(data.action.actionType || "")}</b>
                 {data.roleName && <> - {data.roleName}</>}
               </>
             }

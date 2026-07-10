@@ -5,7 +5,7 @@ import { ApiHelper, FileInterface, VariantInterface } from "@/helpers";
 import { FileUpload } from "./FileUpload";
 import { useForm, Controller } from "react-hook-form";
 
-interface Props { variant: VariantInterface; updatedCallback: (variant: VariantInterface) => void; }
+interface Props { variant: VariantInterface; updatedCallback: (variant: VariantInterface | null) => void; }
 
 type AnyRecord = Record<string, any>;
 
@@ -20,7 +20,7 @@ export function VariantEdit(props: Props) {
 
   const handleCancel = () => props.updatedCallback(props.variant);
   const getDeleteFunction = () => (props.variant?.id ? handleDelete : undefined);
-  const handleDelete = () => { if (window.confirm("Are you sure you wish to permanently delete this variant?")) ApiHelper.delete("/variants/" + props.variant.id.toString(), "LessonsApi").then(() => props.updatedCallback(null)); };
+  const handleDelete = () => { if (window.confirm("Are you sure you wish to permanently delete this variant?")) ApiHelper.delete("/variants/" + props.variant.id!.toString(), "LessonsApi").then(() => props.updatedCallback(null)); };
 
   const handleFileSaved = (file: FileInterface) => {
     const base = pendingValues ?? {};
@@ -57,7 +57,7 @@ export function VariantEdit(props: Props) {
           )} />
         </FormControl>
         <TextField fullWidth label="Variant Name" placeholder="PDF" error={!!e.name} helperText={e.name?.message} {...register("name", { required: "Please enter a variant name." })} />
-        <FileUpload resourceId={props.variant?.resourceId} fileId={props.variant?.fileId} pendingSave={pendingFileSave} saveCallback={handleFileSaved} />
+        <FileUpload resourceId={props.variant?.resourceId} fileId={props.variant?.fileId || ""} pendingSave={pendingFileSave} saveCallback={handleFileSaved} />
       </InputBox>
     );
   }

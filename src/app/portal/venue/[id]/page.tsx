@@ -35,15 +35,15 @@ type PageParams = { id: string };
 export default function Venue() {
   const params = useParams<PageParams>();
   const searchParams = useSearchParams();
-  const [venue, setVenue] = useState<VenueInterface>(null);
-  const [lesson, setLesson] = useState<LessonInterface>(null);
-  const [study, setStudy] = useState<StudyInterface>(null);
-  const [sections, setSections] = useState<SectionInterface[]>(null);
-  const [roles, setRoles] = useState<RoleInterface[]>(null);
-  const [actions, setActions] = useState<ActionInterface[]>(null);
+  const [venue, setVenue] = useState<VenueInterface>(null as unknown as VenueInterface);
+  const [lesson, setLesson] = useState<LessonInterface>(null as unknown as LessonInterface);
+  const [study, setStudy] = useState<StudyInterface>(null as unknown as StudyInterface);
+  const [sections, setSections] = useState<SectionInterface[]>(null as unknown as SectionInterface[]);
+  const [roles, setRoles] = useState<RoleInterface[]>(null as unknown as RoleInterface[]);
+  const [actions, setActions] = useState<ActionInterface[]>(null as unknown as ActionInterface[]);
   const [customizations, setCustomizations] = useState<CustomizationInterface[]>([]);
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
-  const [customizationFor, setCustomizationFor] = useState<string>(null);
+  const [customizationFor, setCustomizationFor] = useState<string | null>(null);
 
   const { isAuthenticated } = ApiHelper;
   const router = useRouter();
@@ -67,7 +67,7 @@ export default function Venue() {
     setAnchorEl(event.currentTarget);
     const contentType = event.currentTarget.dataset.contentType;
     const contentId = event.currentTarget.dataset.contentId;
-    const initialState = getInitialCustomizationState(contentType, contentId);
+    const initialState = getInitialCustomizationState(contentType || "", contentId || "");
     setCustomizationFor(initialState);
   };
 
@@ -96,13 +96,13 @@ export default function Venue() {
       if (type === "none") {
         await ApiHelper.delete("/customizations/" + ITEM.id, "LessonsApi");
       } else {
-        const id = type === "specific" ? classroomId : null;
+        const id = type === "specific" ? (classroomId ?? undefined) : undefined;
         const c: CustomizationInterface = { ...ITEM };
         c.classroomId = id;
         await ApiHelper.post("/customizations", [c], "LessonsApi");
       }
     } else {
-      const id = type === "specific" ? classroomId : null;
+      const id = type === "specific" ? (classroomId ?? undefined) : undefined;
       const c: CustomizationInterface = {
         contentType,
         contentId,
@@ -120,7 +120,7 @@ export default function Venue() {
     const contentCustomizations = ArrayHelper.getAll(customizations, "contentType", contentType);
     let itemCust: CustomizationInterface = ArrayHelper.getOne(contentCustomizations, "contentId", item.id);
     let swapCust: CustomizationInterface = ArrayHelper.getOne(contentCustomizations, "contentId", swap.id);
-    const id = type === "specific" ? classroomId : null;
+    const id = type === "specific" ? (classroomId ?? undefined) : undefined;
 
     if (!itemCust) {
       itemCust = {
@@ -158,12 +158,12 @@ export default function Venue() {
 
   const handleSave = (type: string) => {
     if (!anchorEl) return;
-    const contentType = anchorEl.dataset.contentType;
+    const contentType = anchorEl.dataset.contentType || "";
     if (anchorEl.id === "delete-button") {
-      toggleTrash(contentType, anchorEl.dataset.contentId, type);
+      toggleTrash(contentType, anchorEl.dataset.contentId || "", type);
     } else if (anchorEl.id === "up-button" || anchorEl.id === "down-button") {
-      const item = JSON.parse(anchorEl.dataset.item);
-      const swapItem = JSON.parse(anchorEl.dataset.swapItem);
+      const item = JSON.parse(anchorEl.dataset.item || "null");
+      const swapItem = JSON.parse(anchorEl.dataset.swapItem || "null");
       move(contentType, item, swapItem, type);
     }
     handleClose();
@@ -174,9 +174,9 @@ export default function Venue() {
     const sorted: SectionInterface[] = CustomizationHelper.applyCustomSort(customizations, sections, "section");
     let idx = 0;
     sorted.forEach(s => {
-      const removed = determineRemoved(s.id);
+      const removed = determineRemoved(s.id || "");
       const removedClass = removed ? " removed" : "";
-      const links = getLinks("section", s.id, false, idx, sorted);
+      const links = getLinks("section", s.id || "", false, idx, sorted);
 
       result.push(<tr className={"sectionRow hoverHighlight" + removedClass} key={`s-${s.id}`}>
         <td>
@@ -184,7 +184,7 @@ export default function Venue() {
         </td>
         <td>{links}</td>
       </tr>);
-      getRoles(s.id, removed).forEach(r => result.push(r));
+      getRoles(s.id || "", removed).forEach(r => result.push(r));
       idx++;
     });
     return result;
@@ -197,9 +197,9 @@ export default function Venue() {
       const filtered = ArrayHelper.getAll(roles, "sectionId", sectionId);
       const sorted: RoleInterface[] = CustomizationHelper.applyCustomSort(customizations, filtered, "role");
       sorted.forEach(r => {
-        const removed = parentRemoved || determineRemoved(r.id);
+        const removed = parentRemoved || determineRemoved(r.id || "");
         const removedClass = removed ? " removed" : "";
-        const links = getLinks("role", r.id, parentRemoved, idx, sorted);
+        const links = getLinks("role", r.id || "", parentRemoved, idx, sorted);
 
         result.push(<tr className={"roleRow hoverHighlight" + removedClass} key={`r-${r.id}`}>
           <td>
@@ -209,7 +209,7 @@ export default function Venue() {
           </td>
           <td>{links}</td>
         </tr>);
-        getActions(r.id, removed).forEach(i => result.push(i));
+        getActions(r.id || "", removed).forEach(i => result.push(i));
         idx++;
       });
     }
@@ -230,10 +230,10 @@ export default function Venue() {
       const filtered = ArrayHelper.getAll(actions, "roleId", roleId);
       const sorted: ActionInterface[] = CustomizationHelper.applyCustomSort(customizations, filtered, "action");
       sorted.forEach((a: ActionInterface) => {
-        const removed = parentRemoved || determineRemoved(a.id);
+        const removed = parentRemoved || determineRemoved(a.id || "");
         const removedClass = removed ? " removed" : "";
 
-        const links = getLinks("action", a.id, parentRemoved, idx, sorted);
+        const links = getLinks("action", a.id || "", parentRemoved, idx, sorted);
         result.push(<tr className={"actionRow hoverHighlight" + removedClass} key={`a-${a.id}`}>
           <td>
             <span>

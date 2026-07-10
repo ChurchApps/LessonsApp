@@ -8,8 +8,8 @@ import { VenueEdit } from "../index";
 interface Props { lessonId: string; }
 
 export function VenueList(props: Props) {
-  const [venues, setVenues] = useState<VenueInterface[]>(null);
-  const [editVenue, setEditVenue] = useState<VenueInterface>(null);
+  const [venues, setVenues] = useState<VenueInterface[] | null>(null);
+  const [editVenue, setEditVenue] = useState<VenueInterface | null>(null);
 
   const loadData = () => {
     if (props.lessonId) {

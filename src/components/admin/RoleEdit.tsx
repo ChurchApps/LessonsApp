@@ -4,7 +4,7 @@ import { Person as PersonIcon, Save as SaveIcon, Cancel as CancelIcon, Delete as
 import { useForm } from "react-hook-form";
 import { ApiHelper, RoleInterface } from "@/helpers";
 
-interface Props { role: RoleInterface; updatedCallback: (role: RoleInterface, created: boolean) => void; }
+interface Props { role: RoleInterface; updatedCallback: (role: RoleInterface | null, created: boolean) => void; }
 
 type AnyRecord = Record<string, any>;
 
@@ -21,7 +21,7 @@ export function RoleEdit(props: Props) {
     ApiHelper.post("/roles", [r], "LessonsApi").then((data: RoleInterface[]) => props.updatedCallback(data[0], !props.role.id));
   };
 
-  const handleDelete = () => { if (window.confirm("Are you sure you wish to permanently delete this role?")) ApiHelper.delete("/roles/" + props.role.id.toString(), "LessonsApi").then(() => props.updatedCallback(null, false)); };
+  const handleDelete = () => { if (window.confirm("Are you sure you wish to permanently delete this role?")) ApiHelper.delete("/roles/" + props.role.id!.toString(), "LessonsApi").then(() => props.updatedCallback(null, false)); };
 
   useEffect(() => {
     if (props.role) reset({ name: props.role.name ?? "", sort: props.role.sort ?? "" });

@@ -15,7 +15,7 @@ export default function Admin() {
   const router = useRouter();
   const { isAuthenticated } = ApiHelper;
 
-  const [program, setProgram] = useState<ProgramInterface>(null);
+  const [program, setProgram] = useState<ProgramInterface | null>(null);
   const [categoryNames, setCategoryNames] = useState<string[]>([]);
   const [categoryName, setCategoryName] = useState<string>("");
   const [studyCategories, setStudyCategories] = useState<StudyCategoryInterface[]>([]);
@@ -48,13 +48,13 @@ export default function Admin() {
 
   const moveUp = (index: number) => {
     const sc = studyCategories[index];
-    sc.sort = sc.sort - 1.1;
+    sc.sort = (sc.sort ?? 0) - 1.1;
     ApiHelper.post("/studyCategories", [sc], "LessonsApi").then(() => { loadCategory(); });
   };
 
   const moveDown = (index: number) => {
     const sc = studyCategories[index];
-    sc.sort = sc.sort + 1.1;
+    sc.sort = (sc.sort ?? 0) + 1.1;
     ApiHelper.post("/studyCategories", [sc], "LessonsApi").then(() => { loadCategory(); });
   };
 
@@ -68,7 +68,7 @@ export default function Admin() {
   const getEditContent = () => (
     <SmallButton
       icon="add"
-      onClick={() => { setCategoryName(prompt("Category Name")); }}
+      onClick={() => { setCategoryName(prompt("Category Name") || ""); }}
     />
   );
 
@@ -99,7 +99,7 @@ export default function Admin() {
         <td>
           <SmallButton
             icon="remove"
-            onClick={() => { handleRemove(sc.id); }}
+            onClick={() => { handleRemove(sc.id!); }}
           />
         </td>
         <td>{study?.name}</td>
@@ -130,7 +130,7 @@ export default function Admin() {
                   <td>
                     <SmallButton
                       icon="add"
-                      onClick={() => { handleAdd(s.id); }}
+                      onClick={() => { handleAdd(s.id!); }}
                     />
                   </td>
                   <td>{s.name}</td>

@@ -24,7 +24,7 @@ export function BundleEdit(props: Props) {
 
   const handleDelete = () => {
     if (window.confirm("Are you sure you wish to permanently delete this bundle?  This will delete all variants and assets.")) {
-      ApiHelper.delete("/bundles/" + props.bundle.id.toString(), "LessonsApi").then(() => props.updatedCallback(null));
+      ApiHelper.delete("/bundles/" + props.bundle.id?.toString(), "LessonsApi").then(() => props.updatedCallback(null as unknown as BundleInterface));
     }
   };
 

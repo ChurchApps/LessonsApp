@@ -12,7 +12,7 @@ interface Props {
 
 export function SectionCopy(props: Props) {
   const [copySection, setCopySection] = useState<CopySectionInterface>({} as CopySectionInterface);
-  const [errors, setErrors] = useState([]);
+  const [errors, setErrors] = useState<string[]>([]);
   const [venues, setVenues] = useState<VenueInterface[]>([]);
   const [sections, setSections] = useState<SectionInterface[]>([]);
 
@@ -26,7 +26,7 @@ export function SectionCopy(props: Props) {
   };
 
   const validate = () => {
-    const errors = [];
+    const errors: string[] = [];
     if (!copySection.sourceSectionId) errors.push("No section to copy from");
     setErrors(errors);
     return errors.length === 0;

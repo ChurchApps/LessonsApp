@@ -4,7 +4,7 @@ import { InputBox } from "@churchapps/apphelper";
 import { FeedFileInterface } from "@/helpers";
 import { useForm, Controller } from "react-hook-form";
 
-interface Props { file: FeedFileInterface; updatedCallback: (file: FeedFileInterface, cancelled: boolean) => void; }
+interface Props { file: FeedFileInterface; updatedCallback: (file: FeedFileInterface | null, cancelled: boolean) => void; }
 
 type AnyRecord = Record<string, any>;
 
@@ -29,7 +29,7 @@ export function OlfFileEdit(props: Props) {
       thumbnail: values.thumbnail,
       streamUrl: values.streamUrl,
       loop: values.loop === "true",
-      seconds: values.loop === "true" ? null : parseInt(values.seconds) || 0
+      seconds: values.loop === "true" ? undefined : parseInt(values.seconds) || 0
     };
     props.updatedCallback(f, false);
   };
