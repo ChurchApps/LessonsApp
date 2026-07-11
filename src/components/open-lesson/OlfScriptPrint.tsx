@@ -9,7 +9,7 @@ export function OlfScriptPrint(props: Props) {
     const result: React.JSX.Element[] = [];
     actions.forEach(a => {
       result.push(<li className={"olfAction " + a.actionType}>
-        <MarkdownPreviewLight value={a.content} />
+        <MarkdownPreviewLight value={a.content || ""} />
       </li>);
     });
     return result;
@@ -20,7 +20,7 @@ export function OlfScriptPrint(props: Props) {
     props.feed?.sections?.forEach((s, sectionIndex) => {
       result.push(<div className="olfScriptSection" key={"section" + sectionIndex}>
         <h2>{s.name}</h2>
-        {getActions(s.actions)}
+        {getActions(s.actions || [])}
       </div>);
     });
     return result;
@@ -38,7 +38,7 @@ export function OlfScriptPrint(props: Props) {
         <h2>{props.feed.lessonName}</h2>
         <h3>{props.feed.name}</h3>
         <div>
-          <MarkdownPreviewLight value={props.feed.lessonDescription} />
+          <MarkdownPreviewLight value={props.feed.lessonDescription || ""} />
         </div>
       </div>
       <div className="olfBody">{getSections()}</div>

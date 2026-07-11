@@ -21,7 +21,7 @@ export default function B1Venue() {
   const autoPrint = searchParams.get("autoPrint") === "1";
   const [data, setData] = React.useState<any>(null);
 
-  const loadInternal = async () => { const venue: FeedVenueInterface = await ApiHelper.get("/venues/public/feed/" + params.id, "LessonsApi"); return venue; };
+  const loadInternal = async () => { const venue: FeedVenueInterface = await ApiHelper.getAnonymous("/venues/public/feed/" + params.id, "LessonsApi"); return venue; };
 
   const loadExternal = async (externalProviderId: string, venueId: string) => { const venue = await ApiHelper.get("/externalProviders/" + externalProviderId + "/venue/" + venueId, "LessonsApi"); return venue; };
 
@@ -29,17 +29,17 @@ export default function B1Venue() {
     EnvironmentHelper.init();
     const search = new URLSearchParams(typeof window !== "undefined" ? window.location.search : "");
     const externalProviderId = search.get("externalProviderId");
-    let venue: FeedVenueInterface = null;
+    let venue: FeedVenueInterface | null = null;
     if (externalProviderId) venue = await loadExternal(externalProviderId, params.id.toString());
     else venue = await loadInternal();
 
     const classroomId = search.get("classroomId");
-    const classroom: ClassroomInterface = await ApiHelper.get("/classrooms/" + classroomId, "LessonsApi");
-    const customizations: CustomizationInterface[] = await ApiHelper.get("/customizations/public/venue/" + params.id + "/" + classroom.churchId + "?classroomId=" + classroomId, "LessonsApi");
-    const schedules: ScheduleInterface[] = await ApiHelper.get("/schedules/public/classroom/" + classroomId, "LessonsApi");
-    let currentSchedule: ScheduleInterface = null;
-    let prevSchedule: ScheduleInterface = null;
-    let nextSchedule: ScheduleInterface = null;
+    const classroom: ClassroomInterface = await ApiHelper.getAnonymous("/classrooms/" + classroomId, "LessonsApi");
+    const customizations: CustomizationInterface[] = await ApiHelper.getAnonymous("/customizations/public/venue/" + params.id + "/" + classroom.churchId + "?classroomId=" + classroomId, "LessonsApi");
+    const schedules: ScheduleInterface[] = await ApiHelper.getAnonymous("/schedules/public/classroom/" + classroomId, "LessonsApi");
+    let currentSchedule: ScheduleInterface | null = null;
+    let prevSchedule: ScheduleInterface | null = null;
+    let nextSchedule: ScheduleInterface | null = null;
 
     let currentIndex = -1;
     for (let i = 0; i < schedules.length; i++) if (schedules[i].venueId === params.id) currentIndex = i;

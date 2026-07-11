@@ -17,8 +17,8 @@ type PageParams = { providerId: string; programId: string; studyId: string };
 export default function StudyPage() {
   const params = useParams<PageParams>();
 
-  const [program, setProgram] = useState<ProgramInterface>(null);
-  const [study, setStudy] = useState<StudyInterface>(null);
+  const [program, setProgram] = useState<ProgramInterface | null>(null);
+  const [study, setStudy] = useState<StudyInterface | null>(null);
   const [lessons, setLessons] = useState<LessonInterface[]>([]);
 
   const loadData = async () => {
@@ -51,7 +51,7 @@ export default function StudyPage() {
             </Grid>
 
             <div style={{ height: 50 }}></div>
-            <Image className="badge" src={study.image ?? "/not-found"} alt={study.name} width={320} height={180} />
+            <Image className="badge" src={study.image ?? "/not-found"} alt={study.name || ""} width={320} height={180} />
           </Container>
         </div>
       </div>
@@ -60,7 +60,7 @@ export default function StudyPage() {
           <div id="studyIntro">
             <h2>Lessons</h2>
             <div>
-              <MarkdownPreviewLight value={study.description} />
+              <MarkdownPreviewLight value={study.description || ""} />
             </div>
           </div>
           {lessons?.length > 0 && (

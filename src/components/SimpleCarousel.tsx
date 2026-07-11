@@ -35,7 +35,6 @@ export function SimpleCarousel({
         alignItems: "center"
       }}
     >
-      {/* Content */}
       <Box
         sx={{
           width: "100%",
@@ -61,7 +60,6 @@ export function SimpleCarousel({
         ))}
       </Box>
 
-      {/* Navigation Buttons */}
       {(navButtonsAlwaysVisible || children.length > 1) && (
         <>
           <IconButton

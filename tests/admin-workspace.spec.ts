@@ -1,8 +1,3 @@
-// Coverage for the redesigned /admin 3-pane workspace.
-// Layout (left to right): program nav + study/lesson main pane + detail panel
-// with Details/Files/Venues tabs. Tests focus on the panel + nav UX, not on
-// CRUD persistence (which is covered in admin-{programs,studies,lessons}.spec.ts).
-
 import { adminTest as test, expect } from "./helpers/test-fixtures";
 import { SEED } from "./helpers/fixtures";
 
@@ -14,7 +9,6 @@ test.describe("Admin workspace layout", () => {
   });
 
   test("auto-selects a program so the main pane shows studies on first load", async ({ page }) => {
-    // Some program from the seed must be active in the main pane header.
     const mainPane = page.getByTestId("admin-main");
     await expect(mainPane.getByRole("button", { name: "Add Study" })).toBeVisible();
   });
@@ -108,12 +102,9 @@ test.describe("Admin workspace layout", () => {
     await nav.getByText(SEED.PROGRAMS.OT.name).click();
     await expect(panel.getByRole("heading", { name: "Edit Program" })).toBeVisible();
 
-    // Click the Files tab inside the panel.
     await panel.getByRole("button", { name: /Files/ }).click();
-    // Edit form heading is gone; bundle/resources content takes its place.
     await expect(panel.getByRole("heading", { name: "Edit Program" })).toBeHidden();
 
-    // Back to Details.
     await panel.getByRole("button", { name: /Details/ }).click();
     await expect(panel.getByRole("heading", { name: "Edit Program" })).toBeVisible();
   });
@@ -124,9 +115,7 @@ test.describe("Admin workspace layout", () => {
 
     await main.getByRole("button", { name: "Add Study" }).click();
     await expect(panel.getByRole("heading", { name: "Add Study" })).toBeVisible();
-    // Panel eyebrow indicates the entity type even before save.
     await expect(panel.getByText("Study", { exact: true })).toBeVisible();
-    // Files tab is disabled until the entity is persisted.
     const filesTab = panel.getByRole("button", { name: /Files/ });
     await expect(filesTab).toBeDisabled();
   });

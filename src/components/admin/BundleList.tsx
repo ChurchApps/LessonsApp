@@ -33,19 +33,19 @@ interface Props {
 }
 
 export const BundleList: React.FC<Props> = props => {
-  const [bundles, setBundles] = React.useState<BundleInterface[]>(null);
-  const [resources, setResources] = React.useState<ResourceInterface[]>(null);
-  const [assets, setAssets] = React.useState<AssetInterface[]>(null);
-  const [variants, setVariants] = React.useState<VariantInterface[]>(null);
-  const [externalVideos, setExternalVideos] = React.useState<ExternalVideoInterface[]>(null);
-  const [editVideo, setEditVideo] = React.useState<ExternalVideoInterface>(null);
-  const [editBundle, setEditBundle] = React.useState<BundleInterface>(null);
-  const [editResource, setEditResource] = React.useState<ResourceInterface>(null);
-  const [editVariant, setEditVariant] = React.useState<VariantInterface>(null);
-  const [editAsset, setEditAsset] = React.useState<AssetInterface>(null);
-  const [bulkResourceId, setBulkResourceId] = React.useState<string>(null);
+  const [bundles, setBundles] = React.useState<BundleInterface[] | null>(null);
+  const [resources, setResources] = React.useState<ResourceInterface[] | null>(null);
+  const [assets, setAssets] = React.useState<AssetInterface[] | null>(null);
+  const [variants, setVariants] = React.useState<VariantInterface[] | null>(null);
+  const [externalVideos, setExternalVideos] = React.useState<ExternalVideoInterface[] | null>(null);
+  const [editVideo, setEditVideo] = React.useState<ExternalVideoInterface | null>(null);
+  const [editBundle, setEditBundle] = React.useState<BundleInterface | null>(null);
+  const [editResource, setEditResource] = React.useState<ResourceInterface | null>(null);
+  const [editVariant, setEditVariant] = React.useState<VariantInterface | null>(null);
+  const [editAsset, setEditAsset] = React.useState<AssetInterface | null>(null);
+  const [bulkResourceId, setBulkResourceId] = React.useState<string | null>(null);
   const [menuAnchor, setMenuAnchor] = useState<null | any>(null);
-  const [menuResourceId, setMenuResourceId] = React.useState<string>(null);
+  const [menuResourceId, setMenuResourceId] = React.useState<string | null>(null);
   const [videoMenuAnchor, setVideoMenuAnchor] = useState<null | any>(null);
   const [expandedBundleId, setExpandedBundleId] = useState<string>("");
   const [expandedResourceId, setExpandedResourceId] = useState<string>("");
@@ -311,7 +311,7 @@ export const BundleList: React.FC<Props> = props => {
     );
   };
 
-  const getBundles = () => bundles.map(b => {
+  const getBundles = () => bundles!.map(b => {
     const bundle = b;
     return (
       <Paper
@@ -324,7 +324,7 @@ export const BundleList: React.FC<Props> = props => {
         }}>
         <Accordion
           expanded={expandedBundleId === b.id}
-          onChange={() => { setExpandedBundleId(expandedBundleId === b.id ? "" : b.id); }}
+          onChange={() => { setExpandedBundleId(expandedBundleId === b.id ? "" : (b.id || "")); }}
           elevation={0}
           disableGutters
           sx={{ "&:before": { display: "none" } }}>
@@ -334,7 +334,7 @@ export const BundleList: React.FC<Props> = props => {
                 <Tooltip title="Rebuild Zip" arrow>
                   <IconButton
                     size="small"
-                    onClick={(e) => { e.stopPropagation(); handleRebuildZip(bundle.id); }}
+                    onClick={(e) => { e.stopPropagation(); handleRebuildZip(bundle.id!); }}
                     sx={{ color: "var(--text-secondary)", "&:hover": { color: "var(--c1)" } }}>
                     <Icon fontSize="small">refresh</Icon>
                   </IconButton>
@@ -372,14 +372,14 @@ export const BundleList: React.FC<Props> = props => {
             </div>
           </AccordionSummary>
           <AccordionDetails sx={{ borderTop: "1px solid var(--admin-border-light)", background: "var(--admin-bg-lighter)" }}>
-            <div className="adminAccordion resourceAccordion">{getResources(b.id)}</div>
+            <div className="adminAccordion resourceAccordion">{getResources(b.id!)}</div>
           </AccordionDetails>
         </Accordion>
       </Paper>
     );
   });
 
-  const getVideos = () => externalVideos.map(v => {
+  const getVideos = () => externalVideos!.map(v => {
     const video = v;
     return (
       <Paper
@@ -423,15 +423,15 @@ export const BundleList: React.FC<Props> = props => {
     }
     return (
       <Stack spacing={3} className="adminAccordion">
-        {bundles?.length > 0 && (
+        {(bundles?.length || 0) > 0 && (
           <Box>
-            {renderSectionHeader("Bundles", bundles.length)}
+            {renderSectionHeader("Bundles", bundles!.length)}
             <Stack spacing={1}>{getBundles()}</Stack>
           </Box>
         )}
-        {externalVideos?.length > 0 && (
+        {(externalVideos?.length || 0) > 0 && (
           <Box>
-            {renderSectionHeader("External Videos", externalVideos.length)}
+            {renderSectionHeader("External Videos", externalVideos!.length)}
             <Stack spacing={1}>{getVideos()}</Stack>
           </Box>
         )}
@@ -444,8 +444,8 @@ export const BundleList: React.FC<Props> = props => {
   const bulkCreateAsset = (resourceId: string) => { const _resourceAssets = ArrayHelper.getAll(assets || [], "resourceId", resourceId); setBulkResourceId(resourceId); };
 
   const handleAssetCallback = (asset: AssetInterface) => {
-    if (asset && asset.id && !editAsset.id) {
-      createAsset(asset.resourceId);
+    if (asset && asset.id && !editAsset!.id) {
+      createAsset(asset.resourceId!);
     } else {
       setEditAsset(null);
       setMenuAnchor(null);

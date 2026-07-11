@@ -56,8 +56,8 @@ export function ActionEdit(props: Props) {
       addOnId: values.addOnId || null
     };
     if (a.actionType !== "Play" && a.actionType !== "Download") {
-      a.resourceId = null;
-      a.assetId = null;
+      a.resourceId = null as any;
+      a.assetId = null as any;
     } else if (a.resourceId === null && a.externalVideoId === null) {
       if (props.lessonResources.length > 0) a.resourceId = props.lessonResources[0].id;
       else if (props.studyResources.length > 0) a.resourceId = props.studyResources[0].id;
@@ -66,7 +66,7 @@ export function ActionEdit(props: Props) {
     ApiHelper.post("/actions", [a], "LessonsApi").then((data: ActionInterface[]) => props.updatedCallback(data[0], !props.action.id));
   };
 
-  const handleDelete = () => { if (window.confirm("Are you sure you wish to permanently delete this action?")) ApiHelper.delete("/actions/" + props.action.id.toString(), "LessonsApi").then(() => props.updatedCallback(null, false)); };
+  const handleDelete = () => { if (window.confirm("Are you sure you wish to permanently delete this action?")) ApiHelper.delete("/actions/" + props.action.id?.toString(), "LessonsApi").then(() => props.updatedCallback(null as unknown as ActionInterface, false)); };
 
   const onResourceChange = (val: string) => {
     if (val.startsWith("ev/")) {

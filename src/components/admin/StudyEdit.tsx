@@ -8,7 +8,7 @@ import { ApiHelper, ProgramInterface, StudyInterface } from "@/helpers";
 
 const ImageEditor = dynamic(() => import("../index").then(mod => ({ default: mod.ImageEditor })), { loading: () => <div>Loading image editor...</div> });
 
-interface Props { study: StudyInterface; updatedCallback: (study: StudyInterface) => void; onClose?: () => void; }
+interface Props { study: StudyInterface; updatedCallback: (study: StudyInterface | null) => void; onClose?: () => void; }
 
 type AnyRecord = Record<string, any>;
 
@@ -57,7 +57,7 @@ export function StudyEdit(props: Props) {
   const handleDelete = () => {
     if (!window.confirm("Are you sure you wish to permanently delete this study?")) return;
     props.onClose?.();
-    ApiHelper.delete("/studies/" + props.study.id.toString(), "LessonsApi").then(() => props.updatedCallback(null));
+    ApiHelper.delete("/studies/" + props.study.id!.toString(), "LessonsApi").then(() => props.updatedCallback(null));
   };
 
   const handleImageClick = (ev: React.MouseEvent) => { ev.preventDefault(); setShowImageEditor(true); };
@@ -79,7 +79,7 @@ export function StudyEdit(props: Props) {
         sort: props.study.sort ?? "",
         image: props.study.image || ""
       });
-      loadProgram(props.study.programId);
+      loadProgram(props.study.programId || "");
       if (props.study.slug) setChecked(true);
     }
   }, [props.study, reset]);

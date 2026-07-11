@@ -19,15 +19,15 @@ import { ClassroomEdit } from "../index";
 interface Props { classroomSelected: (classroomId: string) => void; showFeed: (classroomId: string) => void; }
 
 export function ClassroomList(props: Props) {
-  const [classrooms, setClassrooms] = useState<ClassroomInterface[]>(null);
-  const [editClassroom, setEditClassroom] = useState<ClassroomInterface>(null);
+  const [classrooms, setClassrooms] = useState<ClassroomInterface[] | null>(null);
+  const [editClassroom, setEditClassroom] = useState<ClassroomInterface | null>(null);
 
   const loadData = () => {
     ApiHelper.get("/classrooms", "LessonsApi").then((data: any) => { setClassrooms(data); });
   };
 
   const getRows = () => {
-    return classrooms.map(c => (
+    return (classrooms || []).map(c => (
       <TableRow
         key={c.id}
         sx={{ "&:hover": { backgroundColor: "rgba(0,0,0,0.04)" } }}>
@@ -46,7 +46,7 @@ export function ClassroomList(props: Props) {
                 fontWeight: 500,
                 "&:hover": { textDecoration: "underline" }
               }}
-              onClick={() => props.classroomSelected(c.id)}>
+              onClick={() => props.classroomSelected(c.id || "")}>
               {c.name}
             </Typography>
           </Stack>
@@ -55,7 +55,7 @@ export function ClassroomList(props: Props) {
           <Stack direction="row" spacing={1} justifyContent="flex-end">
             <IconButton
               size="small"
-              onClick={() => props.showFeed(c.id)}
+              onClick={() => props.showFeed(c.id || "")}
               sx={{
                 color: "var(--c1)",
                 "&:hover": { backgroundColor: "var(--c1l7)" }

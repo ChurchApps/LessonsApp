@@ -4,7 +4,7 @@ import { Edit as EditIcon, Save as SaveIcon, Delete as DeleteIcon, Cancel as Can
 import { useForm } from "react-hook-form";
 import { FeedSectionInterface } from "@/helpers";
 
-interface Props { section: FeedSectionInterface; updatedCallback: (section: FeedSectionInterface, cancelled: boolean) => void; }
+interface Props { section: FeedSectionInterface; updatedCallback: (section: FeedSectionInterface | null, cancelled: boolean) => void; }
 
 type AnyRecord = Record<string, any>;
 

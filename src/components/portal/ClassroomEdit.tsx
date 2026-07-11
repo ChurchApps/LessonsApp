@@ -5,7 +5,7 @@ import { Controller, useForm } from "react-hook-form";
 import { GroupInterface } from "@churchapps/helpers";
 import { ApiHelper, ClassroomInterface } from "@/helpers";
 
-interface Props { classroom: ClassroomInterface; updatedCallback: (classroom: ClassroomInterface) => void; }
+interface Props { classroom: ClassroomInterface; updatedCallback: (classroom: ClassroomInterface | null) => void; }
 
 type AnyRecord = Record<string, any>;
 
@@ -25,7 +25,7 @@ export function ClassroomEdit(props: Props) {
     ApiHelper.post("/classrooms", [c], "LessonsApi").then((data: ClassroomInterface[]) => props.updatedCallback(data[0]));
   };
 
-  const handleDelete = () => { if (window.confirm("Are you sure you wish to permanently delete this classroom?")) ApiHelper.delete("/classrooms/" + props.classroom.id.toString(), "LessonsApi").then(() => props.updatedCallback(null)); };
+  const handleDelete = () => { if (window.confirm("Are you sure you wish to permanently delete this classroom?")) ApiHelper.delete("/classrooms/" + props.classroom.id!.toString(), "LessonsApi").then(() => props.updatedCallback(null)); };
 
   const loadData = () => {
     ApiHelper.get("/groups/tag/standard", "MembershipApi").then(data => setGroups(data));

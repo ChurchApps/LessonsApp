@@ -20,7 +20,7 @@ export function AssetEdit(props: Props) {
 
   const handleCancel = () => props.updatedCallback(props.asset);
   const getDeleteFunction = () => (props.asset?.id ? handleDelete : undefined);
-  const handleDelete = () => { if (window.confirm("Are you sure you wish to permanently delete this asset?")) ApiHelper.delete("/assets/" + props.asset.id.toString(), "LessonsApi").then(() => props.updatedCallback(null)); };
+  const handleDelete = () => { if (window.confirm("Are you sure you wish to permanently delete this asset?")) ApiHelper.delete("/assets/" + props.asset.id?.toString(), "LessonsApi").then(() => props.updatedCallback(null as unknown as AssetInterface)); };
 
   const handleFileSaved = (file: FileInterface) => {
     const base = pendingValues ?? {};
@@ -47,7 +47,7 @@ export function AssetEdit(props: Props) {
         {summaryErrors.length > 0 && <Alert severity="error" sx={{ mb: 2 }}>{summaryErrors.map((msg) => <div key={msg}>{msg}</div>)}</Alert>}
         <TextField label="Order" fullWidth type="number" placeholder="1" {...register("sort")} />
         <TextField label="Asset Name" fullWidth placeholder="Asset 1" error={!!e.name} helperText={e.name?.message} {...register("name", { required: "Please enter a asset name." })} />
-        <FileUpload resourceId={props.asset?.resourceId} fileId={props.asset?.fileId} pendingSave={pendingFileSave} saveCallback={handleFileSaved} />
+        <FileUpload resourceId={props.asset?.resourceId || ""} fileId={props.asset?.fileId || ""} pendingSave={pendingFileSave} saveCallback={handleFileSaved} />
       </InputBox>
     </>
   );

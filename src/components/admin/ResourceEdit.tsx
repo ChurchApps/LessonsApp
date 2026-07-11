@@ -6,7 +6,7 @@ import { useForm, Controller } from "react-hook-form";
 
 interface Props {
   resource: ResourceInterface;
-  updatedCallback: (resource: ResourceInterface) => void;
+  updatedCallback: (resource: ResourceInterface | null) => void;
   contentDisplayName: string;
 }
 
@@ -25,7 +25,7 @@ export function ResourceEdit(props: Props) {
 
   const handleDelete = () => {
     if (window.confirm("Are you sure you wish to permanently delete this resource?  This will delete all variants and assets.")) {
-      ApiHelper.delete("/resources/" + props.resource.id.toString(), "LessonsApi").then(() => props.updatedCallback(null));
+      ApiHelper.delete("/resources/" + props.resource.id!.toString(), "LessonsApi").then(() => props.updatedCallback(null));
     }
   };
 
@@ -38,17 +38,17 @@ export function ResourceEdit(props: Props) {
     let programId = "";
     let studyId = "";
     switch (currentBundle.contentType) {
-      case "program": programId = currentBundle.contentId; break;
+      case "program": programId = currentBundle.contentId || ""; break;
       case "study":
-        studyId = currentBundle.contentId;
+        studyId = currentBundle.contentId || "";
         const study: StudyInterface = await ApiHelper.get("/studies/" + studyId, "LessonsApi");
-        programId = study.programId;
+        programId = study.programId || "";
         break;
       case "lesson":
         const lesson: LessonInterface = await ApiHelper.get("/lessons/" + currentBundle.contentId, "LessonsApi");
-        studyId = lesson.studyId;
+        studyId = lesson.studyId || "";
         const lessonStudy: StudyInterface = await ApiHelper.get("/studies/" + studyId, "LessonsApi");
-        programId = lessonStudy.programId;
+        programId = lessonStudy.programId || "";
         break;
     }
     const available: BundleInterface[] = await ApiHelper.get("/bundles/available?programId=" + programId + "&studyId=" + studyId, "LessonsApi");

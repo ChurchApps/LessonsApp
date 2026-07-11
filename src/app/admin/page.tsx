@@ -18,7 +18,7 @@ import { Box, Button, IconButton, Stack, Typography } from "@mui/material";
 import { Loading, PageHeader } from "@churchapps/apphelper";
 import { BundleList, ErrorBoundary, LessonEdit, ProgramEdit, StudyEdit, VenueList } from "@/components";
 import { Wrapper } from "@/components/Wrapper";
-import { ApiHelper, ArrayHelper, LessonInterface, ProgramInterface, ProviderInterface, StudyInterface } from "@/helpers";
+import { ApiHelper, ArrayHelper, LessonInterface, Permissions, ProgramInterface, ProviderInterface, StudyInterface, UserHelper } from "@/helpers";
 import { revalidate } from "../actions";
 
 type EntityType = "program" | "study" | "lesson";
@@ -30,24 +30,25 @@ export default function Admin() {
   const router = useRouter();
   const { isAuthenticated } = ApiHelper;
 
-  const [providers, setProviders] = useState<ProviderInterface[]>(null);
-  const [programs, setPrograms] = useState<ProgramInterface[]>(null);
-  const [studies, setStudies] = useState<StudyInterface[]>(null);
-  const [lessons, setLessons] = useState<LessonInterface[]>(null);
+  const [providers, setProviders] = useState<ProviderInterface[] | null>(null);
+  const [programs, setPrograms] = useState<ProgramInterface[] | null>(null);
+  const [studies, setStudies] = useState<StudyInterface[] | null>(null);
+  const [lessons, setLessons] = useState<LessonInterface[] | null>(null);
 
   const [selectedProgramId, setSelectedProgramId] = useState<string>("");
   const [expandedStudyId, setExpandedStudyId] = useState<string>("");
   const [panel, setPanel] = useState<PanelState | null>(null);
 
-  useEffect(() => { if (!isAuthenticated) router.push("/login"); }, []);
+  useEffect(() => {
+    if (!isAuthenticated) router.push("/login");
+    else if (!UserHelper.checkAccess?.(Permissions.lessonsApi.lessons.edit)) router.push("/");
+  }, []);
   useEffect(() => { if (isAuthenticated) loadData(); }, [isAuthenticated]);
 
-  // Keep selection valid: pick a default after first load and reset if the
-  // selected program disappears (e.g. after delete).
   useEffect(() => {
     if (programs && programs.length > 0) {
       if (!selectedProgramId || !programs.some(p => p.id === selectedProgramId)) {
-        setSelectedProgramId(programs[0].id);
+        setSelectedProgramId(programs[0].id || "");
       }
     }
   }, [programs]);
@@ -80,13 +81,12 @@ export default function Admin() {
       if (currentPanel.entityType === "study" && obj?.programId) setSelectedProgramId(obj.programId);
       if (currentPanel.entityType === "lesson" && obj?.studyId) {
         const s = studies?.find(x => x.id === obj.studyId);
-        if (s) setSelectedProgramId(s.programId);
+        if (s) setSelectedProgramId(s.programId || "");
         setExpandedStudyId(obj.studyId);
       }
     }
   }
 
-  // Selection helpers
   const selectedProgram = programs?.find(p => p.id === selectedProgramId) || null;
   const studyCountFor = (programId: string) => (studies || []).filter(s => s.programId === programId).length;
   const lessonCountFor = (programId: string) => {
@@ -99,16 +99,15 @@ export default function Admin() {
       .sort((a, b) => (a.name || "").localeCompare(b.name || ""))
     : [];
 
-  // === Render: left nav program item ===
   function renderProgramItem(p: ProgramInterface) {
     const isActive = selectedProgramId === p.id;
-    const sCount = studyCountFor(p.id);
-    const lCount = lessonCountFor(p.id);
+    const sCount = studyCountFor(p.id || "");
+    const lCount = lessonCountFor(p.id || "");
     return (
       <Box
         key={p.id}
         className="program-item"
-        onClick={() => { setSelectedProgramId(p.id); openPanel("program", p, "details"); }}
+        onClick={() => { setSelectedProgramId(p.id || ""); openPanel("program", p, "details"); }}
         sx={{
           padding: "12px 16px",
           borderLeft: "3px solid",
@@ -145,7 +144,6 @@ export default function Admin() {
     );
   }
 
-  // === Render: middle pane study card ===
   function renderStudyCard(s: StudyInterface) {
     const isExpanded = expandedStudyId === s.id;
     const isSelected = panel?.entityType === "study" && panel?.entity?.id === s.id;
@@ -169,7 +167,7 @@ export default function Admin() {
           alignItems="center"
           gap={1.5}
           onClick={() => {
-            setExpandedStudyId(isExpanded ? "" : s.id);
+            setExpandedStudyId(isExpanded ? "" : (s.id || ""));
             openPanel("study", s, "details");
           }}
           sx={{
@@ -311,7 +309,6 @@ export default function Admin() {
     );
   }
 
-  // === Right panel: header/tabs/body ===
   function renderPanelHeader() {
     if (!panel) return null;
     const { entityType, entity } = panel;
@@ -454,7 +451,6 @@ export default function Admin() {
     );
   }
 
-  // === Header buttons (topbar) ===
   const headerActions = [
     <Button
       key="add-program"
@@ -490,7 +486,6 @@ export default function Admin() {
           backgroundColor: "var(--admin-bg)",
           overflow: "hidden"
         }}>
-        {/* === LEFT NAV === */}
         <Box
           data-testid="admin-nav"
           sx={{
@@ -542,7 +537,6 @@ export default function Admin() {
           </Box>
         </Box>
 
-        {/* === MIDDLE PANE === */}
         <Box
           data-testid="admin-main"
           sx={{
@@ -579,8 +573,8 @@ export default function Admin() {
                   </Typography>
                   <Typography component="p" sx={{ fontSize: "0.875rem", color: "var(--text-secondary)", marginBottom: 0 }}>
                     {selectedProgram.shortDescription ? `${selectedProgram.shortDescription} · ` : ""}
-                    {studyCountFor(selectedProgram.id)} {studyCountFor(selectedProgram.id) === 1 ? "study" : "studies"}
-                    {lessonCountFor(selectedProgram.id) > 0 ? ` · ${lessonCountFor(selectedProgram.id)} lessons` : ""}
+                    {studyCountFor(selectedProgram.id || "")} {studyCountFor(selectedProgram.id || "") === 1 ? "study" : "studies"}
+                    {lessonCountFor(selectedProgram.id || "") > 0 ? ` · ${lessonCountFor(selectedProgram.id || "")} lessons` : ""}
                   </Typography>
                 </Box>
                 <Stack direction="row" alignItems="center" gap={0.5} flexShrink={0}>
@@ -635,7 +629,6 @@ export default function Admin() {
           )}
         </Box>
 
-        {/* === RIGHT PANEL === */}
         <Box
           data-testid="admin-panel"
           sx={{

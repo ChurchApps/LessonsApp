@@ -5,7 +5,7 @@ import { Controller, useForm } from "react-hook-form";
 import { MarkdownEditor } from "@churchapps/apphelper/markdown";
 import { FeedProgramInterface } from "@/helpers";
 
-interface Props { program: FeedProgramInterface; updatedCallback: (program: FeedProgramInterface, cancelled: boolean) => void; }
+interface Props { program: FeedProgramInterface; updatedCallback: (program: FeedProgramInterface | null, cancelled: boolean) => void; }
 
 type AnyRecord = Record<string, any>;
 

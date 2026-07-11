@@ -131,10 +131,10 @@ export default function EmbedExternalAction() {
       <Container maxWidth="lg" sx={{ py: 2 }}>
         <Card className="actionCard" sx={{ mb: 2 }}>
           <CardHeader
-            title={action.content?.substring(0, 50) + (action.content && action.content.length > 50 ? "..." : "") || getActionTypeLabel(action.actionType)}
+            title={action.content?.substring(0, 50) + (action.content && action.content.length > 50 ? "..." : "") || getActionTypeLabel(action.actionType || "")}
             subheader={
               <>
-                <b>{getActionTypeLabel(action.actionType)}</b>
+                <b>{getActionTypeLabel(action.actionType || "")}</b>
               </>
             }
             sx={{

@@ -7,20 +7,19 @@ import { Extension as ExtensionIcon, Movie as MovieIcon, Add as AddIcon } from "
 import { Wrapper } from "@/components/Wrapper";
 import { PageHeader } from "@churchapps/apphelper";
 import { AddOnEdit } from "@/components/admin/AddOnEdit";
-import { AddOnInterface, ApiHelper, ProviderInterface } from "@/helpers";
+import { AddOnInterface, ApiHelper, Permissions, ProviderInterface, UserHelper } from "@/helpers";
 
 export default function Admin() {
-  const [providers, setProviders] = useState<ProviderInterface[]>(null);
-  const [addOns, setAddOns] = useState<AddOnInterface[]>(null);
-  const [editAddOn, setEditAddOn] = useState<AddOnInterface>(null);
+  const [providers, setProviders] = useState<ProviderInterface[] | null>(null);
+  const [addOns, setAddOns] = useState<AddOnInterface[] | null>(null);
+  const [editAddOn, setEditAddOn] = useState<AddOnInterface | null>(null);
 
   const router = useRouter();
   const { isAuthenticated } = ApiHelper;
 
   useEffect(() => {
     if (!isAuthenticated) router.push("/login");
-
-
+    else if (!UserHelper.checkAccess?.(Permissions.lessonsApi.lessons.edit)) router.push("/");
   }, []);
 
   useEffect(() => { if (isAuthenticated) loadData(); }, [isAuthenticated]);
@@ -45,7 +44,7 @@ export default function Admin() {
   }
 
   function getAddOns() {
-    if (addOns.length === 0) {
+    if (!addOns || addOns.length === 0) {
       return (
         <Box sx={{ textAlign: "center", p: 4, color: "text.secondary" }}>
           <ExtensionIcon sx={{ fontSize: 48, mb: 2, opacity: 0.5 }} />
@@ -93,7 +92,7 @@ export default function Admin() {
   const handleAddNew = () => {
     clearEdits();
     setEditAddOn({
-      providerId: providers?.length > 0 ? providers[0].id : "",
+      providerId: providers && providers.length > 0 ? providers[0].id : "",
       addOnType: "externalVideo",
       category: "slow worship"
     });

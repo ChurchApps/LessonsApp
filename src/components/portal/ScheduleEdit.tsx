@@ -8,7 +8,7 @@ import { ApiHelper, ExternalProviderInterface, LessonTreeInterface, ScheduleInte
 interface Props {
   schedule: ScheduleInterface;
   schedules: ScheduleInterface[];
-  updatedCallback: (schedule: ScheduleInterface) => void;
+  updatedCallback: (schedule: ScheduleInterface | null) => void;
 }
 
 type AnyRecord = Record<string, any>;
@@ -58,11 +58,13 @@ export function ScheduleEdit(props: Props) {
     if (resolvedStudyId !== rawStudyId) setValue("studyId", resolvedStudyId);
     if (resolvedLessonId !== rawLessonId) setValue("lessonId", resolvedLessonId);
     if (resolvedVenueId !== rawVenueId) setValue("venueId", resolvedVenueId);
-  }, [resolvedProgramId, resolvedStudyId, resolvedLessonId, resolvedVenueId, rawProgramId, rawStudyId, rawLessonId, rawVenueId, setValue]);
+  }, [
+    resolvedProgramId, resolvedStudyId, resolvedLessonId, resolvedVenueId, rawProgramId, rawStudyId, rawLessonId, rawVenueId, setValue
+  ]);
 
   const loadExternalProviderData = async (providers: ExternalProviderInterface[], id: string) => {
     const ep: ExternalProviderInterface = ArrayHelper.getOne(providers, "id", id);
-    const data = await ApiHelper.fetchWithErrorHandling(ep.apiUrl, { method: "GET" });
+    const data = await ApiHelper.fetchWithErrorHandling(ep.apiUrl || "", { method: "GET" });
     setLessonTree(data);
   };
 
@@ -92,7 +94,7 @@ export function ScheduleEdit(props: Props) {
     const lessonName = currentLesson?.name;
     const s: ScheduleInterface = {
       ...props.schedule,
-      scheduledDate: values.scheduledDate ? new Date(values.scheduledDate) : null,
+      scheduledDate: values.scheduledDate ? new Date(values.scheduledDate) : undefined,
       externalProviderId: values.externalProviderId || null,
       programId: values.programId,
       studyId: values.studyId,
@@ -103,7 +105,7 @@ export function ScheduleEdit(props: Props) {
     ApiHelper.post("/schedules", [s], "LessonsApi").then((data: ScheduleInterface[]) => props.updatedCallback(data[0]));
   };
 
-  const handleDelete = () => { if (window.confirm("Are you sure you wish to permanently delete this schedule?")) ApiHelper.delete("/schedules/" + props.schedule.id.toString(), "LessonsApi").then(() => props.updatedCallback(null)); };
+  const handleDelete = () => { if (window.confirm("Are you sure you wish to permanently delete this schedule?")) ApiHelper.delete("/schedules/" + props.schedule.id!.toString(), "LessonsApi").then(() => props.updatedCallback(null)); };
 
   const loadData = async () => {
     await loadInternal();

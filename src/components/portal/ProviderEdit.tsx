@@ -4,11 +4,11 @@ import { Extension as ExtensionIcon, Save as SaveIcon, Cancel as CancelIcon, Del
 import { ErrorMessages } from "@churchapps/apphelper";
 import { ApiHelper, ExternalProviderInterface } from "@/helpers";
 
-interface Props { provider: ExternalProviderInterface; updatedCallback: (provider: ExternalProviderInterface) => void; }
+interface Props { provider: ExternalProviderInterface; updatedCallback: (provider: ExternalProviderInterface | null) => void; }
 
 export function ProviderEdit(props: Props) {
   const [provider, setProvider] = useState<ExternalProviderInterface>(props.provider);
-  const [errors, setErrors] = useState([]);
+  const [errors, setErrors] = useState<string[]>([]);
 
   const handleCancel = () => props.updatedCallback(provider);
 
@@ -20,7 +20,7 @@ export function ProviderEdit(props: Props) {
   };
 
   const validate = () => {
-    const errors = [];
+    const errors: string[] = [];
     if (!provider.name) errors.push("Please enter a provider name.");
     if (!provider.apiUrl) errors.push("Please enter an api url.");
     setErrors(errors);
@@ -34,7 +34,7 @@ export function ProviderEdit(props: Props) {
   };
 
   const handleDelete = () => {
-    if (window.confirm("Are you sure you wish to permanently delete this provider?")) { ApiHelper.delete("/externalProviders/" + provider.id.toString(), "LessonsApi").then(() => props.updatedCallback(null)); }
+    if (window.confirm("Are you sure you wish to permanently delete this provider?")) { ApiHelper.delete("/externalProviders/" + provider.id!.toString(), "LessonsApi").then(() => props.updatedCallback(null)); }
   };
 
   useEffect(() => { setProvider(props.provider); }, [props.provider]);
@@ -50,7 +50,6 @@ export function ProviderEdit(props: Props) {
           boxShadow: "var(--admin-shadow-sm)",
           overflow: "hidden"
         }}>
-        {/* HEADER */}
         <Box
           sx={{
             p: 2,
@@ -70,7 +69,6 @@ export function ProviderEdit(props: Props) {
           </Stack>
         </Box>
 
-        {/* CONTENT */}
         <Box sx={{ p: 3 }}>
           <ErrorMessages errors={errors} />
 
@@ -98,7 +96,6 @@ export function ProviderEdit(props: Props) {
           </Stack>
         </Box>
 
-        {/* FOOTER */}
         <Box
           sx={{
             p: 2,

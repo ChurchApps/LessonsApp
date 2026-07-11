@@ -20,21 +20,21 @@ export function Section(props: Props) {
   const getActions = (action: ActionInterface) => {
     let result: React.JSX.Element = <></>;
 
-    if (!shouldHide(action.id)) result = <Action action={action} lessonId={props.lessonId} key={action.id} />;
+    if (!shouldHide(action.id)) result = <Action action={action} lessonId={props.lessonId || ""} key={action.id} />;
 
     return result;
   };
 
-  const shouldHide = (id: string) => {
+  const shouldHide = (id: string | undefined) => {
     let result = false;
-    if (props.customizations?.length > 0) { const removeItems = ArrayHelper.getAll(props.customizations, "action", "remove"); result = ArrayHelper.getAll(removeItems, "contentId", id).length > 0; }
+    if (props.customizations && props.customizations.length > 0) { const removeItems = ArrayHelper.getAll(props.customizations, "action", "remove"); result = ArrayHelper.getAll(removeItems, "contentId", id).length > 0; }
     return result;
   };
 
   const getParts = () => {
     const result: React.JSX.Element[] = [];
     if (props.section?.actions) {
-      const customRoles = CustomizationHelper.applyCustomSort(props.customizations, props.section.actions, "role");
+      const customRoles = CustomizationHelper.applyCustomSort(props.customizations || [], props.section.actions, "role");
       customRoles.forEach(r => {
         if (!shouldHide(r.roleId)) {
           result.push(<div className="part" key={r.id}>

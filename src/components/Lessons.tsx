@@ -18,7 +18,7 @@ const Lessons = React.memo(({ lessons, slug }: Props) => {
               <Grid size={{ xs: 5 }}>
                 <Image
                   src={lesson.image || "/not-found"}
-                  alt={lesson.name}
+                  alt={lesson.name || ""}
                   width={640}
                   height={360}
                   style={{ height: "auto" }}

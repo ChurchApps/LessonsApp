@@ -10,7 +10,7 @@ export function login(data: Payload): Promise<LoginResponseInterface> {
       if (response.errors) reject(new Error(handleErrorType(response.errors)));
       resolve(response);
     } catch (err) {
-      reject(new Error(err.toString()));
+      reject(new Error(String(err)));
     }
   });
 }

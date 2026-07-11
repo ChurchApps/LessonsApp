@@ -29,8 +29,8 @@ import { ApiHelper, ExternalProviderInterface } from "@/helpers";
 export default function ThirdParty() {
   const router = useRouter();
   const { isAuthenticated } = ApiHelper;
-  const [providers, setProviders] = useState([]);
-  const [editProvider, setEditProvider] = useState<ExternalProviderInterface>(null);
+  const [providers, setProviders] = useState<ExternalProviderInterface[]>([]);
+  const [editProvider, setEditProvider] = useState<ExternalProviderInterface | null>(null);
 
   const loadData = () => {
     ApiHelper.get("/externalProviders", "LessonsApi").then((data: any) => { setProviders(data); });
@@ -117,7 +117,6 @@ export default function ThirdParty() {
             borderRadius: "0 0 8px 8px",
             minHeight: "calc(100vh - 200px)"
           }}>
-          {/* Edit Panel - appears at top when editing */}
           {editProvider && (
             <Box sx={{ mb: 3 }}>
               <ProviderEdit
@@ -127,7 +126,6 @@ export default function ThirdParty() {
             </Box>
           )}
 
-          {/* Providers List - Full Width */}
           <Paper
             sx={{
               borderRadius: 2,

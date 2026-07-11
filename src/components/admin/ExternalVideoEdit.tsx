@@ -6,7 +6,7 @@ import { useForm, Controller } from "react-hook-form";
 
 interface Props {
   externalVideo: ExternalVideoInterface;
-  updatedCallback: (externalVideo: ExternalVideoInterface) => void;
+  updatedCallback: (externalVideo: ExternalVideoInterface | null) => void;
   contentDisplayName: string;
 }
 
@@ -23,7 +23,7 @@ export function ExternalVideoEdit(props: Props) {
 
   const handleDelete = () => {
     if (window.confirm("Are you sure you wish to permanently delete this video?")) {
-      ApiHelper.delete("/externalVideos/" + props.externalVideo.id.toString(), "LessonsApi").then(() => props.updatedCallback(null));
+      ApiHelper.delete("/externalVideos/" + props.externalVideo.id!.toString(), "LessonsApi").then(() => props.updatedCallback(null));
     }
   };
 

@@ -59,26 +59,22 @@ export function SearchResults({ initialQuery }: Props) {
 
   return (
     <Box>
-      {/* Search input */}
       <Box sx={{ mb: 4, maxWidth: 600 }}>
         <SearchBar placeholder="Search for topics, themes, age groups..." autoFocus={!query} />
       </Box>
 
-      {/* Loading state */}
       {loading && (
         <Box sx={{ display: "flex", justifyContent: "center", py: 4 }}>
           <CircularProgress />
         </Box>
       )}
 
-      {/* Error state */}
       {error && (
         <Alert severity="error" sx={{ mb: 3 }}>
           {error}
         </Alert>
       )}
 
-      {/* Results */}
       {!loading && !error && results.length > 0 && (
         <>
           <Typography variant="body2" color="text.secondary" sx={{ mb: 2 }}>
@@ -175,7 +171,6 @@ export function SearchResults({ initialQuery }: Props) {
         </>
       )}
 
-      {/* No results */}
       {!loading && !error && query && results.length === 0 && (
         <Box sx={{ textAlign: "center", py: 6 }}>
           <Typography variant="h6" gutterBottom>
@@ -188,7 +183,6 @@ export function SearchResults({ initialQuery }: Props) {
         </Box>
       )}
 
-      {/* Empty state */}
       {!loading && !error && !query && (
         <Box sx={{ textAlign: "center", py: 6 }}>
           <Typography variant="h6" gutterBottom>

@@ -11,7 +11,7 @@ interface Props {
 
 export function ImageEditor(props: Props) {
   const [currentUrl, setCurrentUrl] = React.useState("about:blank");
-  const [dataUrl, setDataUrl] = React.useState(null);
+  const [dataUrl, setDataUrl] = React.useState<string | null>(null);
   let timeout: any = null;
 
   const handleUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -20,7 +20,7 @@ export function ImageEditor(props: Props) {
     if (e.target) files = e.target.files;
     const reader = new FileReader();
     reader.onload = () => {
-      const url = reader.result.toString();
+      const url = reader.result?.toString() || "";
       setCurrentUrl(url);
       setDataUrl(url);
       setTimeout(selectDefaultCropZone, 500);
@@ -33,13 +33,13 @@ export function ImageEditor(props: Props) {
       <input type="file" onChange={handleUpload} id="fileUpload" accept="image/*" style={{ display: "none" }} />
       <SmallButton
         text="Upload"
-        onClick={() => { document.getElementById("fileUpload").click(); }}
+        onClick={() => { document.getElementById("fileUpload")?.click(); }}
         icon="upload"
       />
     </div>
   );
 
-  const cropperRef = React.useRef(null);
+  const cropperRef = React.useRef<any>(null);
 
   const selectDefaultCropZone = () => {
     const imageElement: any = cropperRef?.current;
@@ -72,7 +72,7 @@ export function ImageEditor(props: Props) {
     timeout = window.setTimeout(cropCallback, 200);
   };
 
-  const handleSave = () => props.updatedFunction(dataUrl);
+  const handleSave = () => props.updatedFunction(dataUrl || "");
   const handleDelete = () => props.updatedFunction("");
 
   useEffect(() => { setCurrentUrl(props.imageUrl || "/images/blank.png"); }, [props.imageUrl]);

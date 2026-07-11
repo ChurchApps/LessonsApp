@@ -21,9 +21,9 @@ export function PersonInner() {
   const loadData = () => {
     const person = context?.person || UserHelper.person;
     console.log("PersonInner loadData", person);
-    if (context.person) {
+    if (context?.person) {
       const url = "/classrooms/person";
-      ApiHelper.get(url, "LessonsApi").then((c: ClassroomInterface[]) => { if (c.length === 0) router.replace("/b1/" + (params.get("churchId") || context.userChurch.church.id)); else setClassrooms(c); });
+      ApiHelper.get(url, "LessonsApi").then((c: ClassroomInterface[]) => { if (c.length === 0) router.replace("/b1/" + (params.get("churchId") || context?.userChurch?.church?.id)); else setClassrooms(c); });
     }
   };
 
@@ -31,7 +31,7 @@ export function PersonInner() {
     const result: React.JSX.Element[] = [];
     classrooms?.forEach(c => {
       let url = "/b1/classroom/" + c.id;
-      if (ArrayHelper.getOne(context.userChurch.groups, "id", c.recentGroupId)) url += "?recent=1";
+      if (ArrayHelper.getOne(context?.userChurch?.groups || [], "id", c.recentGroupId)) url += "?recent=1";
       result.push(<Link href={url} className="bigLink">
         {c.name}
       </Link>);

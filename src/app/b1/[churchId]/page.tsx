@@ -15,7 +15,7 @@ export async function generateMetadata(): Promise<Metadata> { return MetaHelper.
 export default async function Venue({ params }: { params: Promise<PageParams> }) {
   EnvironmentHelper.init();
   const { churchId } = await params;
-  const classrooms = await ApiHelper.get("/classrooms/public/church/" + churchId, "LessonsApi");
+  const classrooms = await ApiHelper.getAnonymous("/classrooms/public/church/" + churchId, "LessonsApi");
 
   const getRows = () => {
     const result: React.JSX.Element[] = [];

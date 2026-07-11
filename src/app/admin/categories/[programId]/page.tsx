@@ -6,7 +6,7 @@ import { useEffect, useState } from "react";
 import { Grid } from "@mui/material";
 import { ArrayHelper, Banner, DisplayBox, SmallButton } from "@churchapps/apphelper";
 import { Wrapper } from "@/components/Wrapper";
-import { ApiHelper, ProgramInterface, StudyCategoryInterface, StudyInterface } from "@/helpers";
+import { ApiHelper, Permissions, ProgramInterface, StudyCategoryInterface, StudyInterface, UserHelper } from "@/helpers";
 
 type PageParams = { programId: string };
 
@@ -15,7 +15,7 @@ export default function Admin() {
   const router = useRouter();
   const { isAuthenticated } = ApiHelper;
 
-  const [program, setProgram] = useState<ProgramInterface>(null);
+  const [program, setProgram] = useState<ProgramInterface | null>(null);
   const [categoryNames, setCategoryNames] = useState<string[]>([]);
   const [categoryName, setCategoryName] = useState<string>("");
   const [studyCategories, setStudyCategories] = useState<StudyCategoryInterface[]>([]);
@@ -28,7 +28,7 @@ export default function Admin() {
   };
 
   const loadCategory = () => {
-    ApiHelper.get("/studyCategories/" + programId + "?categoryName=" + escape(categoryName), "LessonsApi").then((data: any) => { setStudyCategories(data); });
+    ApiHelper.get("/studyCategories/" + programId + "?categoryName=" + encodeURIComponent(categoryName), "LessonsApi").then((data: any) => { setStudyCategories(data); });
     ApiHelper.get("/studies/program/" + programId, "LessonsApi").then((data: any) => { setStudies(data); });
   };
 
@@ -48,23 +48,27 @@ export default function Admin() {
 
   const moveUp = (index: number) => {
     const sc = studyCategories[index];
-    sc.sort = sc.sort - 1.1;
+    sc.sort = (sc.sort ?? 0) - 1.1;
     ApiHelper.post("/studyCategories", [sc], "LessonsApi").then(() => { loadCategory(); });
   };
 
   const moveDown = (index: number) => {
     const sc = studyCategories[index];
-    sc.sort = sc.sort + 1.1;
+    sc.sort = (sc.sort ?? 0) + 1.1;
     ApiHelper.post("/studyCategories", [sc], "LessonsApi").then(() => { loadCategory(); });
   };
 
-  useEffect(() => { if (isAuthenticated) loadData(); else router.push("/login"); }, [isAuthenticated]);
+  useEffect(() => {
+    if (!isAuthenticated) router.push("/login");
+    else if (!UserHelper.checkAccess?.(Permissions.lessonsApi.lessons.edit)) router.push("/");
+    else loadData();
+  }, [isAuthenticated]);
   useEffect(() => { if (categoryName) loadCategory(); }, [categoryName]);
 
   const getEditContent = () => (
     <SmallButton
       icon="add"
-      onClick={() => { setCategoryName(prompt("Category Name")); }}
+      onClick={() => { setCategoryName(prompt("Category Name") || ""); }}
     />
   );
 
@@ -95,7 +99,7 @@ export default function Admin() {
         <td>
           <SmallButton
             icon="remove"
-            onClick={() => { handleRemove(sc.id); }}
+            onClick={() => { handleRemove(sc.id!); }}
           />
         </td>
         <td>{study?.name}</td>
@@ -126,7 +130,7 @@ export default function Admin() {
                   <td>
                     <SmallButton
                       icon="add"
-                      onClick={() => { handleAdd(s.id); }}
+                      onClick={() => { handleAdd(s.id!); }}
                     />
                   </td>
                   <td>{s.name}</td>

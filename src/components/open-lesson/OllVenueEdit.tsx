@@ -4,7 +4,7 @@ import { Edit as EditIcon, Save as SaveIcon, Delete as DeleteIcon, Cancel as Can
 import { useForm } from "react-hook-form";
 import { FeedVenueLinkInterface } from "@/helpers";
 
-interface Props { venue: FeedVenueLinkInterface; updatedCallback: (venue: FeedVenueLinkInterface, cancelled: boolean) => void; }
+interface Props { venue: FeedVenueLinkInterface; updatedCallback: (venue: FeedVenueLinkInterface | null, cancelled: boolean) => void; }
 
 type AnyRecord = Record<string, any>;
 

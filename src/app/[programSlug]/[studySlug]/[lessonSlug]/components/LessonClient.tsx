@@ -46,7 +46,7 @@ export default function LessonClient(props: Props) {
             <div style={{ height: 50 }}></div>
             <Image
               src={selectedVenue.lessonImage || "/not-found"}
-              alt={selectedVenue.lessonName}
+              alt={selectedVenue.lessonName || ""}
               width={320}
               height={180}
               className="badge"

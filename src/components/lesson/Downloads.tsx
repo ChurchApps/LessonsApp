@@ -7,7 +7,7 @@ interface Props { downloads: FeedDownloadInterface[]; lessonId: string; }
 export function Downloads(props: Props) {
   const trackDownload = (download: FeedDownloadInterface) => {
     if (CommonEnvironmentHelper.GoogleAnalyticsTag && CommonEnvironmentHelper.GoogleAnalyticsTag !== "") {
-      const action = download.name;
+      const action = download.name || "";
       const label = window.location.pathname;
       try {
         AnalyticsHelper.logEvent("Download", action, label);

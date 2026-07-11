@@ -1,9 +1,5 @@
 import { defineConfig, devices } from "@playwright/test";
-import path from "path";
-
-const ROOT = process.cwd();
-export const STORAGE_STATE_LESSONS_ADMIN = path.join(ROOT, "tests", ".auth-lessons-admin.json");
-export const STORAGE_STATE_GRACE = path.join(ROOT, "tests", ".auth-grace.json");
+import { STORAGE_STATE_LESSONS_ADMIN } from "./tests/helpers/storage-paths";
 
 const baseURL = process.env.BASE_URL || "http://localhost:3501";
 
@@ -12,13 +8,8 @@ export default defineConfig({
   testMatch: /.*\.spec\.ts/,
   fullyParallel: false,
   forbidOnly: !!process.env.CI,
-  // One retry covers the occasional Next.js dev-server compilation hiccup
-  // when many parallel workers warm up routes simultaneously.
   retries: 1,
-  // 18+ concurrent Next.js dev compilations overwhelm the dev server. Match
-  // CI's worker count locally — at 4 workers the dev server intermittently
-  // returns "Loading..." stall on /login auto-login and "element detached from
-  // DOM" mid-fill races on portal/admin form tests.
+  // Limit workers to 2 to avoid dev-server overwhelm and race conditions.
   workers: 2,
   reporter: "list",
   timeout: 90 * 1000,
@@ -33,11 +24,9 @@ export default defineConfig({
     screenshot: "only-on-failure",
     video: "retain-on-failure",
     actionTimeout: 15 * 1000,
-    navigationTimeout: 30 * 1000,
+    navigationTimeout: 30 * 1000
   },
 
-  // Bring up the full stack: main Api (auth), LessonsApi (data), LessonsApp (UI).
-  // All marked reuseExistingServer so a developer running the API/UI manually doesn't conflict.
   webServer: [
     {
       command: "npm --prefix ../Api run dev",
@@ -45,7 +34,7 @@ export default defineConfig({
       reuseExistingServer: true,
       timeout: 90 * 1000,
       stdout: "pipe",
-      stderr: "pipe",
+      stderr: "pipe"
     },
     {
       command: "npm --prefix ../LessonsApi run dev",
@@ -53,25 +42,21 @@ export default defineConfig({
       reuseExistingServer: true,
       timeout: 90 * 1000,
       stdout: "pipe",
-      stderr: "pipe",
+      stderr: "pipe"
     },
     {
       command: "npm run dev",
-      // Hit /login because the app's `/` currently returns 500 from a pre-existing
-      // SSR bug; /login is a stable health probe for the dev server itself.
       url: "http://localhost:3501/login",
       reuseExistingServer: true,
-      timeout: 180 * 1000,
-    },
+      timeout: 180 * 1000
+    }
   ],
 
   projects: [
     {
       name: "chromium",
       use: { ...devices["Desktop Chrome"], headless: true },
-      // fullyParallel: false keeps tests within a file serial; multiple files
-      // run in parallel via the workers setting above.
-      fullyParallel: false,
-    },
-  ],
+      fullyParallel: false
+    }
+  ]
 });

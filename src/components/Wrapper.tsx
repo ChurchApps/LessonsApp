@@ -14,7 +14,7 @@ import { PortalHeader } from "./PortalHeader";
 interface Props { pageTitle?: string; children: React.ReactNode; }
 
 export const Wrapper: React.FC<Props> = props => {
-  const context = useUser();
+  const _context = useUser();
   const [tabs, setTabs] = useState<React.ReactElement[]>([]);
   const [isClient, setIsClient] = useState(false);
 
@@ -22,7 +22,6 @@ export const Wrapper: React.FC<Props> = props => {
 
   useEffect(() => { setIsClient(true); }, []);
 
-  // Protect portal routes - redirect to login if not authenticated
   useEffect(() => {
     if (isClient && typeof window !== "undefined") {
       const path = window.location.pathname;

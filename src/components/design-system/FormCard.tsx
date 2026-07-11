@@ -18,7 +18,6 @@ export function FormCard({ icon, title, children, actions, loading }: FormCardPr
         boxShadow: "var(--admin-shadow-sm)",
         overflow: "hidden"
       }}>
-      {/* Header */}
       <Box
         sx={{
           p: 2,
@@ -45,7 +44,6 @@ export function FormCard({ icon, title, children, actions, loading }: FormCardPr
         </Stack>
       </Box>
 
-      {/* Content */}
       <Box sx={{ p: 3 }}>
         {loading ? (
           <Box sx={{ textAlign: "center", py: 4 }}>
@@ -56,7 +54,6 @@ export function FormCard({ icon, title, children, actions, loading }: FormCardPr
         )}
       </Box>
 
-      {/* Footer with actions */}
       {actions && actions.length > 0 && (
         <Box
           sx={{

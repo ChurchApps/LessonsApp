@@ -22,7 +22,7 @@ export default function LessonsPage() {
   const [lessonData, setLessonData] = React.useState<any>(null);
   const [selectedVenue, setSelectedVenue] = React.useState<FeedVenueInterface>(lessonData?.venues?.[0]);
   const [print, setPrint] = React.useState<number>(0);
-  const [presenterFiles, setPresenterFiles] = React.useState<PlaylistFileInterface[]>(null);
+  const [presenterFiles, setPresenterFiles] = React.useState<PlaylistFileInterface[] | null>(null);
 
   const loadData = async () => {
     const lessonList = await ApiHelper.getAnonymous("/externalProviders/" + params.providerId + "/lessons", "LessonsApi");
@@ -97,7 +97,7 @@ export default function LessonsPage() {
             <div style={{ height: 50 }}></div>
             <Image
               src={selectedVenue.lessonImage || "/not-found"}
-              alt={selectedVenue.lessonName}
+              alt={selectedVenue.lessonName || ""}
               width={320}
               height={180}
               className="badge"

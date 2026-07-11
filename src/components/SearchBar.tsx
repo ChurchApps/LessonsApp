@@ -8,7 +8,6 @@ import { Box, Chip, CircularProgress, ClickAwayListener, IconButton, InputAdornm
 import { OramaClient } from "@oramacloud/client";
 import { SearchResult } from "@/helpers/SearchHelper";
 
-// Direct client-side Orama Cloud client for faster searches
 const oramaClient = new OramaClient({ endpoint: "https://cloud.orama.run/v1/indexes/lessons-v0ztnp", api_key: "WhbbkClNXUSLZfgeJIz7TRBOl2RfkHeW" });
 
 interface Props {
@@ -31,7 +30,6 @@ export function SearchBar({ placeholder = "Search curriculum (e.g., 'peace', 'ad
   const debounceTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
   const inputRef = useRef<HTMLInputElement>(null);
 
-  // Debounced search function - calls Orama Cloud directly for speed
   const performSearch = useCallback(async (searchQuery: string) => {
     if (!searchQuery.trim()) {
       setResults([]);
@@ -47,7 +45,7 @@ export function SearchBar({ placeholder = "Search curriculum (e.g., 'peace', 'ad
         mode: "fulltext"
       });
 
-      const searchResults: SearchResult[] = (data.hits || []).map((hit: any) => ({
+      const searchResults: SearchResult[] = (data?.hits || []).map((hit: any) => ({
         id: hit.document.id,
         type: hit.document.type,
         name: hit.document.name,
@@ -74,26 +72,21 @@ export function SearchBar({ placeholder = "Search curriculum (e.g., 'peace', 'ad
     }
   }, []);
 
-  // Handle input change with debounce
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
     setQuery(value);
     setShowDropdown(true);
 
-    // Clear existing timer
     if (debounceTimer.current) { clearTimeout(debounceTimer.current); }
 
-    // Set new debounce timer
     debounceTimer.current = setTimeout(() => { performSearch(value); }, 300);
   };
 
-  // Handle form submission
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (query.trim()) { setShowDropdown(false); router.push(`/search?q=${encodeURIComponent(query)}`); }
   };
 
-  // Handle result click
   const handleResultClick = (result: SearchResult) => {
     setShowDropdown(false);
     setQuery("");
@@ -107,7 +100,6 @@ export function SearchBar({ placeholder = "Search curriculum (e.g., 'peace', 'ad
     }
   };
 
-  // Handle clear
   const handleClear = () => {
     setQuery("");
     setResults([]);
@@ -119,23 +111,19 @@ export function SearchBar({ placeholder = "Search curriculum (e.g., 'peace', 'ad
     }
   };
 
-  // Handle click away - collapse if expandable
   const handleClickAway = () => {
     setShowDropdown(false);
     if (expandable && !query) { setExpanded(false); }
   };
 
-  // Handle expand
   const handleExpand = () => { setExpanded(true); setTimeout(() => inputRef.current?.focus(), 100); };
 
-  // Cleanup timer on unmount
   useEffect(() => {
     return () => {
       if (debounceTimer.current) { clearTimeout(debounceTimer.current); }
     };
   }, []);
 
-  // Expandable mode - show compact search bar when collapsed
   if (expandable && !expanded) {
     return (
       <Box sx={{ height: 40, display: "flex", alignItems: "center" }}>
@@ -215,7 +203,6 @@ export function SearchBar({ placeholder = "Search curriculum (e.g., 'peace', 'ad
           />
         </form>
 
-        {/* Dropdown results */}
         {showDropdown && (query || results.length > 0) && (
           <Paper
             elevation={4}

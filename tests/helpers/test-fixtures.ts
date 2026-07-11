@@ -1,9 +1,8 @@
 import { test as base, expect } from "@playwright/test";
-import { STORAGE_STATE_LESSONS_ADMIN, STORAGE_STATE_GRACE } from "../../playwright.config";
+import { STORAGE_STATE_LESSONS_ADMIN, STORAGE_STATE_GRACE } from "./storage-paths";
 import { navigateToAdmin, navigateToPortal } from "./navigation";
 
-// Hide Next.js's dev overlay/portal so it doesn't intercept pointer events.
-// Applied via addInitScript so it runs on every page navigation.
+// Hide Next.js dev overlay/portal to prevent pointer event interception.
 const HIDE_NEXTJS_OVERLAY = `
   (() => {
     const apply = () => {
@@ -28,27 +27,22 @@ const withInitScript = (setup: (p: any) => Promise<void> | void) => async ({ pag
   await use(page);
 };
 
-// adminTest: logged in as the curriculum publisher (CHU00000099 / lessons-admin),
-// already on /admin. Use for /admin/* spec coverage.
 export const adminTest = base.extend({
   storageState: STORAGE_STATE_LESSONS_ADMIN,
-  page: withInitScript(navigateToAdmin),
+  page: withInitScript(navigateToAdmin)
 });
 
-// portalTest: logged in as the church admin (CHU00000001 / demo@b1.church),
-// already on /portal. Use for /portal/* spec coverage.
 export const portalTest = base.extend({
   storageState: STORAGE_STATE_GRACE,
-  page: withInitScript(navigateToPortal),
+  page: withInitScript(navigateToPortal)
 });
 
-// browseTest: anonymous visitor (no storage state). Use for public browse routes.
 export const browseTest = base.extend({
   storageState: { cookies: [], origins: [] },
   page: async ({ page }, use) => {
     await page.addInitScript(HIDE_NEXTJS_OVERLAY);
     await use(page);
-  },
+  }
 });
 
 export { expect };

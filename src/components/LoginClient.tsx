@@ -32,27 +32,24 @@ export function LoginClient({ showLogo, redirectAfterLogin, loginContainerCssPro
     return cookieObj;
   });
 
+  if (!context) return null;
+
   const handleRedirect = (
     url: string,
-    user: any,
-    person: any,
-    currentUserChurch: any,
-    userChurches: any[]
+    user?: any,
+    person?: any,
+    currentUserChurch?: any,
+    userChurches?: any[]
   ) => {
-    console.log("Redirecting to:", url);
-    console.log("Auth data received:", { user, person, currentUserChurch, userChurches });
-
-    // Update UserHelper values to ensure they're available immediately
     UserHelper.user = user;
     UserHelper.person = person;
     UserHelper.currentUserChurch = currentUserChurch;
-    UserHelper.userChurches = userChurches;
+    UserHelper.userChurches = userChurches || [];
 
-    // Update context with values passed from LoginPage component
     context.setUser(user);
     context.setPerson(person);
     context.setUserChurch(currentUserChurch);
-    context.setUserChurches(userChurches);
+    context.setUserChurches(userChurches || []);
 
     router.replace(url);
   };
@@ -66,7 +63,7 @@ export function LoginClient({ showLogo, redirectAfterLogin, loginContainerCssPro
         You can log into a test church with the credentials demo@lessons.church / password .
       </Alert>)}
       <LoginPage
-        auth={searchParams.get("auth")}
+        auth={searchParams.get("auth") || ""}
         context={context}
         jwt={jwt}
         appName="Lessons.church"

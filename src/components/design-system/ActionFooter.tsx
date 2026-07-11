@@ -29,10 +29,8 @@ export function ActionFooter({
 
   return (
     <>
-      {/* Additional actions first */}
       {additionalActions}
 
-      {/* Standard actions */}
       <Button
         size="small"
         startIcon={<SaveIcon />}

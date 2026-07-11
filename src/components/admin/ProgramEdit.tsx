@@ -8,7 +8,7 @@ import { ApiHelper, ProgramInterface } from "@/helpers";
 
 const ImageEditor = dynamic(() => import("../index").then(mod => ({ default: mod.ImageEditor })), { loading: () => <div>Loading image editor...</div> });
 
-interface Props { program: ProgramInterface; updatedCallback: (program: ProgramInterface) => void; onClose?: () => void; }
+interface Props { program: ProgramInterface; updatedCallback: (program: ProgramInterface | null) => void; onClose?: () => void; }
 
 type AnyRecord = Record<string, any>;
 
@@ -47,7 +47,7 @@ export function ProgramEdit(props: Props) {
   const handleDelete = () => {
     if (!window.confirm("Are you sure you wish to permanently delete this program?")) return;
     props.onClose?.();
-    ApiHelper.delete("/programs/" + props.program.id.toString(), "LessonsApi").then(() => props.updatedCallback(null));
+    ApiHelper.delete("/programs/" + props.program.id!.toString(), "LessonsApi").then(() => props.updatedCallback(null));
   };
 
   const handleImageClick = (ev: React.MouseEvent) => { ev.preventDefault(); setShowImageEditor(true); };
