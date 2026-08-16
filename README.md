@@ -2,7 +2,7 @@
 
 # Lessons.church
 
-> **Lessons.church** is a website for hosting free video based lessons for churches.  The lessons can be scheduled in advance for classrooms and customized.  The companion [Lessons Screen](https://github.com/ChurchApps/LessonsScreen/) app runs on any Android TV device and will pre-fetch each weeks lesson in the classroom so they're ready to be displayed on Sunday without needing an Internet connection.
+> **Lessons.church** is a website for hosting free video based lessons for churches.  The lessons can be scheduled in advance for classrooms and customized.  The companion [FreePlay](https://freeplay.church) app runs on Apple TV, Amazon Fire TV, and Android TV and will pre-fetch each week's lesson in the classroom so they're ready to be displayed on Sunday without needing an Internet connection.
 
 ## Preview
 
