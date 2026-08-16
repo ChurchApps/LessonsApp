@@ -18,12 +18,15 @@ export function HomeConnect() {
                 Great curriculum can make your teaching far more effective, but only if you can reliably deliver it each
                 week.
               </p>
-              <div>TV APP</div>
+              <div>FREEPLAY</div>
               <Stack direction="row" spacing={2}>
-                <a href="https://play.google.com/store/apps/details?id=church.lessons.screen">
+                <a href="https://play.google.com/store/apps/details?id=church.freeplay">
                   <img src="/images/apps/google.png" alt="Google Play" className="img-fluid" />
                 </a>
-                <a href="https://www.amazon.com/Live-Church-Solutions-Lessons-church/dp/B09T38BNQG/">
+                <a href="https://apps.apple.com/us/app/id6758970546">
+                  <img src="/images/apps/apple.png" alt="Apple TV" className="img-fluid" />
+                </a>
+                <a href="https://www.amazon.com/dp/B0GMC4S3RS">
                   <img src="/images/apps/amazon.png" alt="Amazon App Store" className="img-fluid" />
                 </a>
               </Stack>

@@ -41,7 +41,7 @@ Every year churches spend millions of dollars on curriculum. We believe:
 ## Technology Platform
 
 - **Classroom Scheduling** - Schedule lessons for each classroom
-- **Venue TV App** - Android TV app for presenting lessons
+- **FreePlay** - TV app for presenting lessons on Android TV, Amazon Fire TV, and Apple TV (https://freeplay.church)
 - **Volunteer App** - Mobile app with lesson guides for volunteers
 - **FreeShow Integration** - Seamless presentation software integration
 
@@ -77,7 +77,7 @@ Group Publishing curriculum ranges $200-800 per curriculum set. Lessons.church p
 - Works with B1.church mobile app
 - Integrates with B1 Admin (formerly CHUMS) church management
 - FreeShow presentation software integration
-- Android TV classroom app
+- FreePlay classroom TV app (https://freeplay.church)
 - REST API for custom integrations
 
 ## Who Should Use Lessons.church
@@ -93,7 +93,7 @@ Group Publishing curriculum ranges $200-800 per curriculum set. Lessons.church p
 1. Visit https://lessons.church/register
 2. Browse available curriculum
 3. Schedule lessons for your classrooms
-4. Download the Venue app for classroom displays
+4. Download FreePlay for classroom displays (https://freeplay.church)
 5. Equip volunteers with the mobile app
 
 ## Part of ChurchApps
