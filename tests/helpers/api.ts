@@ -1,4 +1,5 @@
 import { APIRequestContext, request } from "@playwright/test";
+import { testIdentity } from "./auth";
 
 const MAIN_API = "http://localhost:8084";
 const LESSONS_API = "http://localhost:8090";
@@ -11,11 +12,11 @@ export type ApiHandle = {
 
 export async function getApi(identity: "lessons-admin" | "grace" = "lessons-admin"): Promise<ApiHandle> {
   const ctx = await request.newContext();
-  const email = identity === "lessons-admin" ? "lessons-admin@demo.churchapps.org" : "demo@b1.church";
+  const { email, password } = testIdentity(identity);
   const churchId = identity === "lessons-admin" ? "CHU00000099" : "CHU00000001";
 
   const res = await ctx.post(`${MAIN_API}/membership/users/login`, {
-    data: { email, password: "password" },
+    data: { email, password },
     headers: { "Content-Type": "application/json" }
   });
   if (!res.ok()) throw new Error(`login ${identity} failed: ${res.status()}`);
