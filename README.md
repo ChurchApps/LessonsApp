@@ -38,3 +38,4 @@ If you would like to contribute in any way, head over to our [Slack Channel](htt
 If you'd like to set up the project locally, see our [development guide](https://churchapps.org/dev).  For this app:
 1. Run `npm i` to install dependencies
 2. Run `npm run dev` to launch the project.
+3. Playwright: with local Api (`ENVIRONMENT=demo`) and LessonsApi (`APP_ENV=demo`) running, `yarn test` logs in as the demo accounts and writes gitignored `tests/.auth-*.json`. Do not commit those files. Optional overrides: `TEST_LESSONS_ADMIN_EMAIL`, `TEST_LESSONS_ADMIN_PASSWORD`, `TEST_GRACE_EMAIL`, `TEST_GRACE_PASSWORD` (see `dotenv.sample.txt`). The test runner loads `.env` the same way Next.js does, so those can live in `.env` or in real environment variables, which take precedence.

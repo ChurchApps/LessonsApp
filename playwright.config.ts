@@ -1,3 +1,4 @@
+import "./tests/setup/load-env.mjs";
 import { defineConfig, devices } from "@playwright/test";
 import { STORAGE_STATE_LESSONS_ADMIN } from "./tests/helpers/storage-paths";
 

@@ -18,3 +18,12 @@ NEXT_PUBLIC_CHURCH_APPS_URL=https://staging.churchapps.org
 # Optional
 NEXT_PUBLIC_ACCESS_API=
 NEXT_PUBLIC_GOOGLE_ANALYTICS=
+
+# Playwright (`yarn test`) mints gitignored tests/.auth-*.json via local demo login.
+# Defaults are LessonsApi demo.sql accounts. Override in .env or CI; do not commit JWTs.
+# The test runner loads this file via @next/env, so .env values apply to Playwright too.
+# Real environment variables take precedence over anything set here.
+# TEST_LESSONS_ADMIN_EMAIL=lessons-admin@demo.churchapps.org
+# TEST_LESSONS_ADMIN_PASSWORD=password
+# TEST_GRACE_EMAIL=demo@b1.church
+# TEST_GRACE_PASSWORD=password

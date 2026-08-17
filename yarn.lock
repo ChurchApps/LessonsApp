@@ -1450,6 +1450,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@next/env@npm:^16.2.6":
+  version: 16.3.0
+  resolution: "@next/env@npm:16.3.0"
+  checksum: 10c0/a1e3fccc76b4e59f0c8a3106ec2dde750b85bb2f1b628caca2067968cd5b28a5d1c33ca268f67564d7374c86dd2d47f733ef105956833b263ad71d6ca44a139f
+  languageName: node
+  linkType: hard
+
 "@next/eslint-plugin-next@npm:16.2.6":
   version: 16.2.6
   resolution: "@next/eslint-plugin-next@npm:16.2.6"
@@ -5635,6 +5642,7 @@ __metadata:
     "@mui/material": "npm:^7.3.11"
     "@mui/material-nextjs": "npm:^9.0.1"
     "@next/bundle-analyzer": "npm:^16.2.6"
+    "@next/env": "npm:^16.2.6"
     "@oramacloud/client": "npm:^2.1.4"
     "@playwright/test": "npm:^1.59.1"
     "@sentry/nextjs": "npm:^10.52.0"

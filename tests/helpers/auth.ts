@@ -1,3 +1,4 @@
+import "../setup/load-env.mjs";
 import { Page } from "@playwright/test";
 
 export type Identity = {
@@ -5,15 +6,21 @@ export type Identity = {
   password: string;
 };
 
-export const LESSONS_ADMIN: Identity = {
-  email: "lessons-admin@demo.churchapps.org",
-  password: "password"
-};
+export function testIdentity(kind: "lessons-admin" | "grace"): Identity {
+  if (kind === "lessons-admin") {
+    return {
+      email: process.env.TEST_LESSONS_ADMIN_EMAIL || "lessons-admin@demo.churchapps.org",
+      password: process.env.TEST_LESSONS_ADMIN_PASSWORD || "password"
+    };
+  }
+  return {
+    email: process.env.TEST_GRACE_EMAIL || "demo@b1.church",
+    password: process.env.TEST_GRACE_PASSWORD || "password"
+  };
+}
 
-export const GRACE_ADMIN: Identity = {
-  email: "demo@b1.church",
-  password: "password"
-};
+export const LESSONS_ADMIN: Identity = testIdentity("lessons-admin");
+export const GRACE_ADMIN: Identity = testIdentity("grace");
 
 export async function login(page: Page, identity: Identity = LESSONS_ADMIN) {
   await page.goto("/login");
