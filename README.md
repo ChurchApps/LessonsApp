@@ -2,7 +2,7 @@
 
 # Lessons.church
 
-> **Lessons.church** is a website for hosting free video based lessons for churches.  The lessons can be scheduled in advance for classrooms and customized.  The companion [Lessons Screen](https://github.com/ChurchApps/LessonsScreen/) app runs on any Android TV device and will pre-fetch each weeks lesson in the classroom so they're ready to be displayed on Sunday without needing an Internet connection.
+> **Lessons.church** is a website for hosting free video based lessons for churches.  The lessons can be scheduled in advance for classrooms and customized.  The companion [FreePlay](https://freeplay.church) app runs on Apple TV, Amazon Fire TV, and Android TV and will pre-fetch each week's lesson in the classroom so they're ready to be displayed on Sunday without needing an Internet connection.
 
 ## Preview
 
@@ -38,3 +38,4 @@ If you would like to contribute in any way, head over to our [Slack Channel](htt
 If you'd like to set up the project locally, see our [development guide](https://churchapps.org/dev).  For this app:
 1. Run `npm i` to install dependencies
 2. Run `npm run dev` to launch the project.
+3. Playwright: with local Api (`ENVIRONMENT=demo`) and LessonsApi (`APP_ENV=demo`) running, `yarn test` logs in as the demo accounts and writes gitignored `tests/.auth-*.json`. Do not commit those files. Optional overrides: `TEST_LESSONS_ADMIN_EMAIL`, `TEST_LESSONS_ADMIN_PASSWORD`, `TEST_GRACE_EMAIL`, `TEST_GRACE_PASSWORD` (see `dotenv.sample.txt`). The test runner loads `.env` the same way Next.js does, so those can live in `.env` or in real environment variables, which take precedence.

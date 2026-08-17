@@ -24,11 +24,11 @@ const faqs = [
   { question: "Can I use Lessons.church for multiple campuses?", answer: "Yes, there are no limits on the number of campuses or classrooms. Use Lessons.church across all your locations at no additional cost." },
   {
     question: "How does the classroom scheduling work?",
-    answer: "Our portal allows you to schedule which lessons play in each classroom. You can plan weeks or months in advance, and the Venue TV app will automatically display the scheduled content."
+    answer: "Our portal allows you to schedule which lessons play in each classroom. You can plan weeks or months in advance, and FreePlay will automatically display the scheduled content."
   },
   {
-    question: "What is the Venue TV app?",
-    answer: "The Venue app is an Android TV application that displays your scheduled lessons on classroom screens. Simply install it on an Android TV device, connect it to your church account, and it will automatically play the correct lesson for each classroom."
+    question: "What is FreePlay?",
+    answer: "FreePlay is a TV app for Android TV, Amazon Fire TV, and Apple TV that displays your scheduled lessons on classroom screens. Install it from freeplay.church, connect it to your church account, and it will automatically play the correct lesson for each classroom."
   },
   {
     question: "Is there a mobile app for volunteers?",
@@ -48,7 +48,7 @@ const faqs = [
   },
   {
     question: "Can I download materials for offline use?",
-    answer: "Yes, all printable materials including activity sheets, coloring pages, and leader guides can be downloaded. Video content can be cached in the Venue app for offline classroom use."
+    answer: "Yes, all printable materials including activity sheets, coloring pages, and leader guides can be downloaded. Video content can be cached in FreePlay for offline classroom use."
   },
   {
     question: "Is the curriculum theologically sound?",
@@ -56,7 +56,7 @@ const faqs = [
   },
   {
     question: "How do I get started with Lessons.church?",
-    answer: "Simply register for a free account at lessons.church/register, browse the available curriculum, schedule lessons for your classrooms, and download the Venue app. You can be up and running in minutes."
+    answer: "Simply register for a free account at lessons.church/register, browse the available curriculum, schedule lessons for your classrooms, and download FreePlay. You can be up and running in minutes."
   },
   { question: "Is Lessons.church open source?", answer: "Yes, all our code is open source and available on GitHub at github.com/ChurchApps. Churches can contribute improvements, and developers can see exactly how the platform works." }
 ];

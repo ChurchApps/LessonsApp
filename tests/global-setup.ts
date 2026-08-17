@@ -1,8 +1,10 @@
+import { existsSync, readFileSync, unlinkSync } from "fs";
 import { chromium, type FullConfig } from "@playwright/test";
 import { verifyEnv } from "./setup/verify-env.mjs";
 import { STORAGE_STATE_LESSONS_ADMIN, STORAGE_STATE_GRACE } from "./helpers/storage-paths";
+import { testIdentity } from "./helpers/auth";
 
-type Identity = {
+type SetupIdentity = {
   email: string;
   password: string;
   churchName: string;
@@ -10,24 +12,32 @@ type Identity = {
   label: string;
 };
 
-const IDENTITIES: Identity[] = [
+const IDENTITIES: SetupIdentity[] = [
   {
-    email: "lessons-admin@demo.churchapps.org",
-    password: "password",
+    ...testIdentity("lessons-admin"),
     churchName: "Lessons.church Free Curriculum",
     storagePath: STORAGE_STATE_LESSONS_ADMIN,
     label: "lessons-admin (CHU00000099)"
   },
   {
-    email: "demo@b1.church",
-    password: "password",
+    ...testIdentity("grace"),
     churchName: "Grace Community Church",
     storagePath: STORAGE_STATE_GRACE,
     label: "demo@b1.church (Grace)"
   }
 ];
 
-async function loginAndSave(baseURL: string, identity: Identity) {
+function clearStorage(filePath: string) {
+  if (existsSync(filePath)) unlinkSync(filePath);
+}
+
+function assertJwtCookie(filePath: string, label: string) {
+  const saved = JSON.parse(readFileSync(filePath, "utf8"));
+  const jwt = (saved.cookies || []).find((c: { name: string; value?: string }) => c.name === "jwt")?.value;
+  if (!jwt || jwt.split(".").length !== 3) throw new Error(`global-setup: ${label} storage is missing a jwt cookie`);
+}
+
+async function loginAndSave(baseURL: string, identity: SetupIdentity) {
   const browser = await chromium.launch();
   const context = await browser.newContext();
   const page = await context.newPage();
@@ -63,6 +73,7 @@ async function loginAndSave(baseURL: string, identity: Identity) {
     if (page.url().includes("/login")) throw new Error(`global-setup: login FAILED for ${identity.label} — still on ${page.url()}. Check API env (NEXT_PUBLIC_API_BASE) and demo data.`);
 
     await context.storageState({ path: identity.storagePath });
+    assertJwtCookie(identity.storagePath, identity.label);
     console.log(`global-setup: ${identity.label} OK -> ${identity.storagePath}`);
   } finally {
     await browser.close();
@@ -105,7 +116,7 @@ async function globalSetup(config: FullConfig) {
 
   await warmRoutes(baseURL);
 
-  // Run sequentially so the dev server doesn't have to compile every route at once.
+  for (const id of IDENTITIES) clearStorage(id.storagePath);
   for (const id of IDENTITIES) {
     await loginAndSave(baseURL, id);
   }
