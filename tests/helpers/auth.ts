@@ -1,3 +1,4 @@
+import "../setup/load-env.mjs";
 import { Page } from "@playwright/test";
 
 export type Identity = {
