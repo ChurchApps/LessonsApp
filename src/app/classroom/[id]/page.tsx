@@ -126,6 +126,14 @@ export default function Venue() {
               <p style={{ margin: "0 0 16px 0" }}>
                 <MarkdownPreviewLight value={lesson.description || ""} />
               </p>
+              {(lesson.bottomLine || lesson.verse || lesson.parentQuestion || lesson.parentNote) && (
+                <div data-testid="parent-take-home">
+                  {lesson.bottomLine && <p style={{ margin: "0 0 8px 0" }}><strong>Bottom line:</strong> {lesson.bottomLine}</p>}
+                  {lesson.verse && <p style={{ margin: "0 0 8px 0" }}><strong>Verse:</strong> {lesson.verse}</p>}
+                  {lesson.parentQuestion && <p style={{ margin: "0 0 8px 0" }}><strong>Question:</strong> {lesson.parentQuestion}</p>}
+                  {lesson.parentNote && <MarkdownPreviewLight value={lesson.parentNote} />}
+                </div>
+              )}
             </Grid>
           </Grid>
         </Link>);

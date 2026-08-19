@@ -50,6 +50,10 @@ export interface LessonInterface {
   live?: boolean;
   sort?: number;
   videoEmbedUrl?: string;
+  bottomLine?: string;
+  verse?: string;
+  parentQuestion?: string;
+  parentNote?: string;
 }
 
 export interface FileInterface {
@@ -283,6 +287,10 @@ export interface FeedVenueInterface {
   lessonName?: string;
   lessonImage?: string;
   lessonDescription?: string;
+  bottomLine?: string;
+  verse?: string;
+  parentQuestion?: string;
+  parentNote?: string;
   studyName?: string;
   studySlug?: string;
   programName?: string;
@@ -303,6 +311,10 @@ export interface FeedLessonInterface {
   slug?: string;
   image?: string;
   description?: string;
+  bottomLine?: string;
+  verse?: string;
+  parentQuestion?: string;
+  parentNote?: string;
   venues: FeedVenueLinkInterface[];
 }
 export interface FeedStudyInterface {

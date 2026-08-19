@@ -19,7 +19,7 @@ const LessonEdit = React.memo((props: Props) => {
   const [checked, setChecked] = useState<boolean>();
   const [slugCheckError, setSlugCheckError] = useState(false);
 
-  const { register, handleSubmit, reset, control, watch, setValue, formState } = useForm<AnyRecord>({ defaultValues: { name: "", title: "", slug: "", description: "", videoEmbedUrl: "", live: "false", sort: "", image: "" } });
+  const { register, handleSubmit, reset, control, watch, setValue, formState } = useForm<AnyRecord>({ defaultValues: { name: "", title: "", slug: "", description: "", videoEmbedUrl: "", live: "false", sort: "", image: "", bottomLine: "", verse: "", parentQuestion: "", parentNote: "" } });
   const e = formState.errors as any;
   const image = watch("image");
   const slug = watch("slug");
@@ -51,6 +51,10 @@ const LessonEdit = React.memo((props: Props) => {
       slug: values.slug,
       description: values.description,
       videoEmbedUrl: values.videoEmbedUrl,
+      bottomLine: values.bottomLine,
+      verse: values.verse,
+      parentQuestion: values.parentQuestion,
+      parentNote: values.parentNote,
       live: values.live === "true",
       sort: parseInt(values.sort) || 0,
       image: values.image
@@ -79,6 +83,10 @@ const LessonEdit = React.memo((props: Props) => {
         slug: props.lesson.slug || "",
         description: props.lesson.description || "",
         videoEmbedUrl: props.lesson.videoEmbedUrl || "",
+        bottomLine: props.lesson.bottomLine || "",
+        verse: props.lesson.verse || "",
+        parentQuestion: props.lesson.parentQuestion || "",
+        parentNote: props.lesson.parentNote || "",
         live: props.lesson.live ? "true" : "false",
         sort: props.lesson.sort ?? "",
         image: props.lesson.image || ""
@@ -163,6 +171,20 @@ const LessonEdit = React.memo((props: Props) => {
             )}
 
             <TextField fullWidth multiline rows={3} label="Description" {...register("description")} />
+
+            <Box data-testid="parent-take-home-fields">
+              <Typography variant="subtitle2" sx={{ mb: 0.5 }}>Parent take-home</Typography>
+              <Typography variant="body2" color="text.secondary" sx={{ mb: 2 }}>
+                Parents see this on their B1 group after class. Bottom line and one question matter more than an overview.
+              </Typography>
+              <Stack spacing={2}>
+                <TextField fullWidth label="Bottom line" placeholder="God keeps His promises." {...register("bottomLine")} />
+                <TextField fullWidth label="Verse" placeholder="Genesis 9:13 — I have set my rainbow in the clouds…" {...register("verse")} />
+                <TextField fullWidth label="Question" placeholder="What is one promise God has kept in our family?" {...register("parentQuestion")} />
+                <TextField fullWidth multiline rows={3} label="Optional note" helperText="Optional extra. Hidden from parents when empty." {...register("parentNote")} />
+              </Stack>
+            </Box>
+
             <TextField fullWidth label="Video Embed URL" placeholder="https://www.youtube.com/embed/..." {...register("videoEmbedUrl")} />
           </Stack>
         </Box>

@@ -10,7 +10,7 @@ interface Props { lesson: FeedLessonInterface; updatedCallback: (lesson: FeedLes
 type AnyRecord = Record<string, any>;
 
 export function OllLessonEdit(props: Props) {
-  const { register, handleSubmit, reset, control, formState } = useForm<AnyRecord>({ defaultValues: { id: "", name: "", image: "", description: "" } });
+  const { register, handleSubmit, reset, control, formState } = useForm<AnyRecord>({ defaultValues: { id: "", name: "", image: "", description: "", bottomLine: "", verse: "", parentQuestion: "", parentNote: "" } });
   const e = formState.errors as any;
   const summaryErrors: string[] = [];
   if (e.id?.message) summaryErrors.push(e.id.message);
@@ -19,13 +19,34 @@ export function OllLessonEdit(props: Props) {
   const handleCancel = () => props.updatedCallback(null, true);
 
   const onValid = (values: AnyRecord) => {
-    props.updatedCallback({ ...props.lesson, id: values.id, name: values.name, image: values.image, description: values.description }, false);
+    props.updatedCallback({
+      ...props.lesson,
+      id: values.id,
+      name: values.name,
+      image: values.image,
+      description: values.description,
+      bottomLine: values.bottomLine,
+      verse: values.verse,
+      parentQuestion: values.parentQuestion,
+      parentNote: values.parentNote
+    }, false);
   };
 
   const handleDelete = () => { if (window.confirm("Are you sure you wish to delete this lesson?")) props.updatedCallback(null, false); };
 
   useEffect(() => {
-    if (props.lesson) reset({ id: props.lesson.id ?? "", name: props.lesson.name ?? "", image: props.lesson.image ?? "", description: props.lesson.description ?? "" });
+    if (props.lesson) {
+      reset({
+        id: props.lesson.id ?? "",
+        name: props.lesson.name ?? "",
+        image: props.lesson.image ?? "",
+        description: props.lesson.description ?? "",
+        bottomLine: props.lesson.bottomLine ?? "",
+        verse: props.lesson.verse ?? "",
+        parentQuestion: props.lesson.parentQuestion ?? "",
+        parentNote: props.lesson.parentNote ?? ""
+      });
+    }
   }, [props.lesson, reset]);
 
   if (!props.lesson) return <></>;
@@ -53,6 +74,25 @@ export function OllLessonEdit(props: Props) {
               name="description"
               render={({ field }) => <MarkdownEditor value={field.value || ""} onChange={(v: string) => field.onChange(v)} />}
             />
+          </Box>
+          <Box data-testid="parent-take-home-fields">
+            <Typography variant="subtitle2" sx={{ mb: 0.5 }}>Parent take-home</Typography>
+            <Typography variant="body2" color="text.secondary" sx={{ mb: 2 }}>
+              Parents see this on their B1 group after class. Bottom line and one question matter more than an overview.
+            </Typography>
+            <Stack spacing={2}>
+              <TextField fullWidth label="Bottom line" {...register("bottomLine")} />
+              <TextField fullWidth label="Verse" {...register("verse")} />
+              <TextField fullWidth label="Question" {...register("parentQuestion")} />
+              <Box>
+                <Typography variant="body2" sx={{ fontSize: 13, mb: 1, color: "var(--text-secondary)" }}>Optional note</Typography>
+                <Controller
+                  control={control}
+                  name="parentNote"
+                  render={({ field }) => <MarkdownEditor value={field.value || ""} onChange={(v: string) => field.onChange(v)} />}
+                />
+              </Box>
+            </Stack>
           </Box>
         </Stack>
       </Box>
