@@ -1,6 +1,10 @@
-import "./tests/setup/load-env.mjs";
+import { createRequire } from "module";
+import path from "path";
 import { defineConfig, devices } from "@playwright/test";
 import { STORAGE_STATE_LESSONS_ADMIN } from "./tests/helpers/storage-paths";
+
+const { loadEnvConfig } = createRequire(__filename)("@next/env");
+loadEnvConfig(path.resolve(__dirname), true);
 
 const baseURL = process.env.BASE_URL || "http://localhost:3501";
 
