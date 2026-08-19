@@ -22,6 +22,10 @@ export const SEED = {
     PRESCHOOL: { id: "CLS00000001", name: "Preschool Room" },
     ELEMENTARY: { id: "CLS00000002", name: "Elementary Room" }
   },
+  YEAR_PLANS: {
+    ELEMENTARY: { id: "YPL00000001", name: "Elementary Year", slug: "elementary-year" },
+    PRESCHOOL: { id: "YPL00000002", name: "Preschool Year", slug: "preschool-year" }
+  },
   EXTERNAL_PROVIDER: { id: "EXT00000001", name: "Bible Project Lessons" }
 } as const;
 

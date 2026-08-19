@@ -179,6 +179,33 @@ export interface CustomizationInterface {
   actionContent?: string;
 }
 
+export interface YearPlanWeekInterface {
+  id?: string;
+  churchId?: string;
+  yearPlanId?: string;
+  week?: number;
+  lessonId?: string;
+  externalProviderId?: string;
+  programId?: string;
+  studyId?: string;
+  venueId?: string;
+  studyName?: string;
+  lessonName?: string;
+  venueName?: string;
+}
+
+export interface YearPlanInterface {
+  id?: string;
+  churchId?: string;
+  name?: string;
+  slug?: string;
+  programId?: string;
+  venuePreference?: string;
+  sort?: number;
+  live?: boolean;
+  weeks?: YearPlanWeekInterface[];
+}
+
 export interface ScheduleInterface {
   id?: string;
   churchId?: string;

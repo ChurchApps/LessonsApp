@@ -28,9 +28,11 @@ export class SecondaryMenuHelper {
     const menuItems: MenuItem[] = [];
     let label: string = "";
     menuItems.push({ url: "/admin", label: "Programs" });
+    menuItems.push({ url: "/admin/yearPlans", label: "Year Plans" });
     menuItems.push({ url: "/admin/addOns", label: "Add-ons" });
 
     if (path.startsWith("/admin/addOns")) label = "Add-ons";
+    if (path.startsWith("/admin/yearPlans")) label = "Year Plans";
     if (path === "/admin") label = "Programs";
 
     return { menuItems, label };

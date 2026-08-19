@@ -126,7 +126,7 @@ export default function FAQPage() {
           <div style={{ textAlign: "center", marginTop: 60, padding: "40px", backgroundColor: "#f0f7ff", borderRadius: 16 }}>
             <h2 style={{ marginBottom: 16 }}>Ready to Get Started?</h2>
             <p style={{ color: "#666", marginBottom: 24 }}>
-              Join thousands of churches using free curriculum from Lessons.church
+              Start with free curriculum from Lessons.church.
             </p>
             <div style={{ display: "flex", gap: 16, justifyContent: "center", flexWrap: "wrap" }}>
               <Button
