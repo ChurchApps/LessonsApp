@@ -73,23 +73,12 @@ adminTest.describe("Admin parent take-home", () => {
 });
 
 browseTest.describe("Public and classroom parent take-home", () => {
-  browseTest("shows For parents on a lesson with take-home fields", async ({ page }) => {
+  browseTest("does not show For parents on the public lesson page even with take-home fields", async ({ page }) => {
     const slug = `take-home-show-${Date.now()}`;
     await seedLiveLesson({ slug, takeHome: true });
 
     await page.goto(`/${SEED.PROGRAMS.OT.slug}/${SEED.STUDIES.GENESIS.slug}/${slug}`);
-    const block = page.getByTestId("parent-take-home");
-    await expect(block).toBeVisible({ timeout: 30000 });
-    await expect(block.getByRole("heading", { name: "For parents" })).toBeVisible();
-    await expect(block.getByText(TAKE_HOME.bottomLine)).toBeVisible();
-    await expect(block.getByText(TAKE_HOME.verse)).toBeVisible();
-    await expect(block.getByText(TAKE_HOME.parentQuestion)).toBeVisible();
-    await expect(block.getByText(TAKE_HOME.parentNote)).toBeVisible();
-  });
-
-  browseTest("does not show For parents when take-home fields are empty", async ({ page }) => {
-    await page.goto(`/${SEED.PROGRAMS.OT.slug}/${SEED.STUDIES.GENESIS.slug}/${SEED.LESSONS.CREATION.slug}`);
-    await expect(page.getByRole("heading", { name: /Creation|In the Beginning/ }).first()).toBeVisible({ timeout: 30000 });
+    await expect(page.getByRole("heading", { name: "Take Home Public" }).first()).toBeVisible({ timeout: 30000 });
     await expect(page.getByTestId("parent-take-home")).toHaveCount(0);
   });
 
