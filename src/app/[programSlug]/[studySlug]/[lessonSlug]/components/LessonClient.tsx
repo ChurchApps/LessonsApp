@@ -4,6 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 import { Container, Grid } from "@mui/material";
+import { MarkdownPreviewLight } from "@churchapps/apphelper/markdown";
 import { ErrorBoundary, Layout } from "@/components";
 import { Header } from "@/components/Header";
 import { LessonSidebar } from "@/components/lesson/LessonSidebar";
@@ -20,6 +21,8 @@ export default function LessonClient(props: Props) {
   const handleVenueChange = React.useCallback((v: FeedVenueInterface) => { setSelectedVenue(v); }, []);
 
   const handlePrint = React.useCallback(() => { setPrint(Math.random()); }, []);
+
+  const hasTakeHome = !!(selectedVenue?.bottomLine || selectedVenue?.verse || selectedVenue?.parentQuestion || selectedVenue?.parentNote);
 
   return (
     <Layout withoutNavbar>
@@ -38,6 +41,15 @@ export default function LessonClient(props: Props) {
                 <h1>{selectedVenue.lessonName}</h1>
                 {selectedVenue.lessonDescription && (
                   <div style={{ marginBottom: 20 }}>{selectedVenue.lessonDescription}</div>
+                )}
+                {hasTakeHome && (
+                  <div data-testid="parent-take-home" style={{ marginBottom: 20, maxWidth: 640 }}>
+                    <h2 style={{ fontSize: 20, margin: "0 0 8px 0" }}>For parents</h2>
+                    {selectedVenue.bottomLine && <p style={{ margin: "0 0 8px 0" }}><strong>Bottom line:</strong> {selectedVenue.bottomLine}</p>}
+                    {selectedVenue.verse && <p style={{ margin: "0 0 8px 0" }}><strong>Verse:</strong> {selectedVenue.verse}</p>}
+                    {selectedVenue.parentQuestion && <p style={{ margin: "0 0 8px 0" }}><strong>Question:</strong> {selectedVenue.parentQuestion}</p>}
+                    {selectedVenue.parentNote && <MarkdownPreviewLight value={selectedVenue.parentNote} />}
+                  </div>
                 )}
                 <PresenterLink selectedVenue={selectedVenue} />
               </Grid>
