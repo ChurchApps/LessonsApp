@@ -1,8 +1,8 @@
 import { APIRequestContext, request } from "@playwright/test";
 import { testIdentity } from "./auth";
 
-const MAIN_API = "http://localhost:8084";
-const LESSONS_API = "http://localhost:8090";
+const MAIN_API = process.env.API_BASE || "http://localhost:8084";
+const LESSONS_API = process.env.LESSONS_API_BASE || "http://localhost:8090";
 
 export type ApiHandle = {
   request: APIRequestContext;
