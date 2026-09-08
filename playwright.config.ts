@@ -35,7 +35,7 @@ export default defineConfig({
   webServer: [
     {
       command: "npm --prefix ../Api run dev",
-      url: "http://localhost:8084/health",
+      url: `${process.env.API_BASE || "http://localhost:8084"}/health`,
       reuseExistingServer: true,
       timeout: 90 * 1000,
       stdout: "pipe",
@@ -43,15 +43,15 @@ export default defineConfig({
     },
     {
       command: "npm --prefix ../LessonsApi run dev",
-      url: "http://localhost:8090/health",
+      url: `${process.env.LESSONS_API_BASE || "http://localhost:8090"}/health`,
       reuseExistingServer: true,
       timeout: 90 * 1000,
       stdout: "pipe",
       stderr: "pipe"
     },
     {
-      command: "npm run dev",
-      url: "http://localhost:3501/login",
+      command: `npm run dev -- --port ${new URL(baseURL).port || "3501"}`,
+      url: `${baseURL}/login`,
       reuseExistingServer: true,
       timeout: 180 * 1000
     }
