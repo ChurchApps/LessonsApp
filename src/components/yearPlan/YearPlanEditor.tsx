@@ -13,6 +13,21 @@ interface Props {
 
 const LESSONS_SOURCE = "lessons.church";
 
+const MONTHS = [
+  { value: 1, label: "January" },
+  { value: 2, label: "February" },
+  { value: 3, label: "March" },
+  { value: 4, label: "April" },
+  { value: 5, label: "May" },
+  { value: 6, label: "June" },
+  { value: 7, label: "July" },
+  { value: 8, label: "August" },
+  { value: 9, label: "September" },
+  { value: 10, label: "October" },
+  { value: 11, label: "November" },
+  { value: 12, label: "December" }
+];
+
 export function YearPlanEditor(props: Props) {
   const [sources, setSources] = useState<{ id: string; name: string; tree: LessonTreeInterface }[]>([]);
   const [sourceId, setSourceId] = useState("");
@@ -130,6 +145,18 @@ export function YearPlanEditor(props: Props) {
           helperText="Optional. Used when a week has no venue set. Comma-separated names, first match wins."
           data-testid="year-plan-venue-pref"
         />
+        <FormControl fullWidth>
+          <InputLabel>Year starts in</InputLabel>
+          <Select
+            label="Year starts in"
+            value={props.plan.startMonth ? String(props.plan.startMonth) : ""}
+            onChange={(e) => props.onChange({ ...props.plan, startMonth: e.target.value === "" ? undefined : Number(e.target.value) })}
+            data-testid="year-plan-start-month"
+          >
+            <MenuItem value="">Not calendar-anchored</MenuItem>
+            {MONTHS.map(m => <MenuItem key={m.value} value={String(m.value)}>{m.label}</MenuItem>)}
+          </Select>
+        </FormControl>
         <FormControlLabel control={<Checkbox checked={!!props.plan.live} onChange={(e) => props.onChange({ ...props.plan, live: e.target.checked })} data-testid="year-plan-publish" />} label="Publish (visible to churches in B1 Admin)" />
 
         <Typography variant="subtitle2">Add a week from any curriculum</Typography>
@@ -175,6 +202,7 @@ export function YearPlanEditor(props: Props) {
               <TableCell>Week</TableCell>
               <TableCell>Lesson</TableCell>
               <TableCell>Venue</TableCell>
+              <TableCell>Anchor</TableCell>
               <TableCell align="right" />
             </TableRow>
           </TableHead>
@@ -184,6 +212,23 @@ export function YearPlanEditor(props: Props) {
                 <TableCell>{w.week}</TableCell>
                 <TableCell>{w.studyName} — {w.lessonName}</TableCell>
                 <TableCell>{w.venueName || "—"}</TableCell>
+                <TableCell>
+                  <Select
+                    size="small"
+                    value={w.anchor || ""}
+                    onChange={(e) => {
+                      const weeks = [...(props.plan.weeks || [])];
+                      weeks[i] = { ...weeks[i], anchor: e.target.value || undefined };
+                      setWeeks(weeks);
+                    }}
+                    displayEmpty
+                    data-testid={`year-plan-week-anchor-${i}`}
+                  >
+                    <MenuItem value="">None</MenuItem>
+                    <MenuItem value="easter">Easter</MenuItem>
+                    <MenuItem value="christmas">Christmas</MenuItem>
+                  </Select>
+                </TableCell>
                 <TableCell align="right">
                   <IconButton size="small" onClick={() => move(i, -1)} disabled={i === 0} data-testid={`year-plan-week-up-${i}`}><ArrowUpward fontSize="small" /></IconButton>
                   <IconButton size="small" onClick={() => move(i, 1)} disabled={i === (props.plan.weeks || []).length - 1} data-testid={`year-plan-week-down-${i}`}><ArrowDownward fontSize="small" /></IconButton>
