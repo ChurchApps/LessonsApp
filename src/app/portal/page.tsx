@@ -1,24 +1,15 @@
 "use client";
 
-import { redirect } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { Box, Grid, Paper } from "@mui/material";
 import { ClassroomList, HomeConnect, ScheduleList } from "@/components";
 import { Wrapper } from "@/components/Wrapper";
 import { PageHeader } from "@churchapps/apphelper";
 import { PlaylistFeed } from "@/components/portal/PlaylistFeed";
-import { ApiHelper } from "@/helpers";
 
 export default function CP() {
-  const { isAuthenticated } = ApiHelper;
   const [classroomId, setClassroomId] = useState("");
   const [feedClassroomId, setFeedClassroomId] = useState("");
-
-  useEffect(() => {
-    if (!isAuthenticated) redirect("/login");
-
-
-  }, []);
 
   const handleShowFeed = (classroomId: string) => { setFeedClassroomId(classroomId); };
 

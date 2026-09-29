@@ -196,6 +196,7 @@ export interface YearPlanWeekInterface {
   studyName?: string;
   lessonName?: string;
   venueName?: string;
+  anchor?: string;
 }
 
 export interface YearPlanInterface {
@@ -205,6 +206,7 @@ export interface YearPlanInterface {
   slug?: string;
   programId?: string;
   venuePreference?: string;
+  startMonth?: number;
   sort?: number;
   live?: boolean;
   weeks?: YearPlanWeekInterface[];

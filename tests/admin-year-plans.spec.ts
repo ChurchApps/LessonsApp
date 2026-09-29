@@ -93,6 +93,10 @@ adminTest.describe("Year plans admin", () => {
       await expect(rows.nth(0)).toContainText(/Mary's Visit/);
       await expect(rows.nth(1)).toContainText(/Creation/);
 
+      await selectOption(page, "year-plan-start-month", "January");
+      await page.getByTestId("year-plan-week-anchor-1").click();
+      await page.getByRole("option", { name: "Christmas" }).click();
+
       await page.getByTestId("year-plan-save").click();
       await expect(page.getByRole("heading", { name: "New Plan" })).toHaveCount(0, { timeout: 15000 });
       await expect(page.getByRole("button", { name: NEW_PLAN_NAME })).toBeVisible();
@@ -104,6 +108,8 @@ adminTest.describe("Year plans admin", () => {
       await expect(page.getByRole("heading", { name: "Edit Plan" })).toBeVisible({ timeout: 15000 });
       await expect(page.getByTestId("year-plan-weeks").getByText(/Mary's Visit/)).toBeVisible();
       await expect(page.getByTestId("year-plan-weeks").getByText(/Creation/)).toBeVisible();
+      await expect(page.getByTestId("year-plan-start-month")).toContainText("January");
+      await expect(page.getByTestId("year-plan-week-anchor-1")).toContainText("Christmas");
 
       await page.getByTestId("year-plan-publish").uncheck();
       await page.getByTestId("year-plan-save").click();
