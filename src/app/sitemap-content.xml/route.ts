@@ -12,22 +12,20 @@ const escapeXml = (value: string) => value.replace(/&/g, "&amp;").replace(/</g, 
 export async function GET() {
   EnvironmentHelper.init();
   const paths: string[] = [];
-  try {
-    const programs: ProgramInterface[] = await ApiHelper.getAnonymous("/programs/public", "LessonsApi");
-    const studies: StudyInterface[] = await ApiHelper.getAnonymous("/studies/public", "LessonsApi");
-    const studyIds = studies.map((s) => s.id).filter(Boolean);
-    const lessons: LessonInterface[] = studyIds.length > 0 ? await ApiHelper.getAnonymous("/lessons/public/studies?ids=" + studyIds.join(","), "LessonsApi") : [];
+  const programs: ProgramInterface[] = await ApiHelper.getAnonymous("/programs/public", "LessonsApi");
+  const studies: StudyInterface[] = await ApiHelper.getAnonymous("/studies/public", "LessonsApi");
+  const studyIds = studies.map((s) => s.id).filter(Boolean);
+  const lessons: LessonInterface[] = studyIds.length > 0 ? await ApiHelper.getAnonymous("/lessons/public/studies?ids=" + studyIds.join(","), "LessonsApi") : [];
 
-    programs.filter((p) => p.slug).forEach((program) => {
-      const programPath = "/" + program.slug;
-      paths.push(programPath);
-      studies.filter((s) => s.programId === program.id && s.slug).forEach((study) => {
-        const studyPath = programPath + "/" + study.slug;
-        paths.push(studyPath);
-        lessons.filter((l) => l.studyId === study.id && l.slug).forEach((lesson) => paths.push(studyPath + "/" + lesson.slug));
-      });
+  programs.filter((p) => p.slug).forEach((program) => {
+    const programPath = "/" + program.slug;
+    paths.push(programPath);
+    studies.filter((s) => s.programId === program.id && s.slug).forEach((study) => {
+      const studyPath = programPath + "/" + study.slug;
+      paths.push(studyPath);
+      lessons.filter((l) => l.studyId === study.id && l.slug).forEach((lesson) => paths.push(studyPath + "/" + lesson.slug));
     });
-  } catch { /* an empty sitemap is better than a 500 */ }
+  });
 
   const body = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
     + "<urlset xmlns=\"http://www.sitemaps.org/schemas/sitemap/0.9\">\n"
