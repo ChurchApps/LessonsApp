@@ -231,16 +231,6 @@ export interface CopySectionInterface {
   sourceSectionId?: string;
 }
 
-export interface DownloadInterface {
-  id?: string;
-  lessonId?: string;
-  fileId?: string;
-  userId?: string;
-  ipAddress?: string;
-  downloadDate?: Date;
-  fileName?: string;
-}
-
 export interface AddOnInterface {
   id?: string;
   providerId?: string;
@@ -343,8 +333,6 @@ export interface PresignedUploadInterface {
   key: string;
   fields: Record<string, string>;
 }
-
-export interface UploadProgressInterface { loaded: number; total?: number; }
 
 export interface LessonTreeInterface {
   programs?: Array<{
