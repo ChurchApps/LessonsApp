@@ -24,4 +24,16 @@ test.describe("SEO", () => {
     const html = await (await request.get("/")).text();
     expect(linkHref(html, "canonical")).toEqual([SITE]);
   });
+
+  test("content sitemap lists programs, studies and lessons", async ({ request }) => {
+    const response = await request.get("/sitemap-content.xml");
+    expect(response.status()).toBe(200);
+    expect(response.headers()["content-type"]).toContain("xml");
+    const xml = await response.text();
+    const locs = [...xml.matchAll(/<loc>([^<]*)<\/loc>/g)].map((m) => m[1]);
+    expect(locs).toContain(SITE + programPath);
+    expect(locs).toContain(SITE + studyPath);
+    expect(locs).toContain(SITE + lessonPath);
+    expect(locs.every((l) => l.startsWith(SITE + "/"))).toBe(true);
+  });
 });
