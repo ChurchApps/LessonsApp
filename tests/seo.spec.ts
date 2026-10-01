@@ -25,6 +25,14 @@ test.describe("SEO", () => {
     expect(linkHref(html, "canonical")).toEqual([SITE]);
   });
 
+  for (const [label, parent] of [["program", ""], ["study", programPath], ["lesson", studyPath]]) {
+    test(`unknown ${label} is a real 404`, async ({ request }) => {
+      // Unique per run: the pages cache their API answer, so a reused slug could replay an older result.
+      const response = await request.get(`${parent}/missing-${Date.now()}`, { timeout: 30000 });
+      expect(response.status()).toBe(404);
+    });
+  }
+
   test("content sitemap lists programs, studies and lessons", async ({ request }) => {
     const response = await request.get("/sitemap-content.xml");
     expect(response.status()).toBe(200);

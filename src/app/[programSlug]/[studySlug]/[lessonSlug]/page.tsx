@@ -1,5 +1,6 @@
 import { Metadata } from "next";
 import { unstable_cache } from "next/cache";
+import { notFound } from "next/navigation";
 import React from "react";
 import { ApiHelper } from "@churchapps/apphelper";
 import Error from "@/components/Error";
@@ -14,7 +15,7 @@ const loadData = async (params: PageParams) => {
     EnvironmentHelper.init();
     const lessonData = await ApiHelper.getAnonymous("/lessons/public/slugAlt/" + params.programSlug + "/" + params.studySlug + "/" + params.lessonSlug, "LessonsApi");
 
-    if (!lessonData) return { errorMessage: "Lesson not found." };
+    if (!lessonData?.venues) return { lessonData: null, errorMessage: "" };
     if (!lessonData.venues || lessonData.venues.length === 0) return { errorMessage: "No venues for lesson." };
 
     return { lessonData, errorMessage: "" };
@@ -43,6 +44,7 @@ export async function generateMetadata({ params }: { params: Promise<PageParams>
 
 export default async function LessonsPage({ params }: { params: Promise<PageParams> }) {
   const { lessonData, errorMessage } = await loadSharedData(params);
+  if (!errorMessage && !lessonData) notFound();
   if (errorMessage) return <Error message={errorMessage} />;
   else return <LessonClient lessonData={lessonData} />;
 }
