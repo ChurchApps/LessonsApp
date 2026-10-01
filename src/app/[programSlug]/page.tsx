@@ -40,7 +40,7 @@ const loadSharedData = (programSlug: string) => { const result = unstable_cache(
 export async function generateMetadata({ params }: { params: Promise<PageParams> }): Promise<Metadata> {
   const { programSlug } = await params;
   const props = await loadSharedData(programSlug);
-  if (!props.errorMessage) return MetaHelper.getMetaData(props.program?.name + " - Free Church Curriculum", props.program?.description, props.program?.image);
+  if (!props.errorMessage) return MetaHelper.getMetaData(props.program?.name + " - Free Church Curriculum", props.program?.description, props.program?.image, undefined, "/" + programSlug);
   return MetaHelper.getMetaData();
 }
 

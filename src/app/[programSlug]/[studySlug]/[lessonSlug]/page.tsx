@@ -35,9 +35,10 @@ export async function generateMetadata({ params }: { params: Promise<PageParams>
 
   if (props.errorMessage || !props.lessonData || !props.lessonData.venues || props.lessonData.venues.length === 0) return MetaHelper.getMetaData("Lesson Not Found - Lessons.church", "The requested lesson could not be found.");
 
+  const { programSlug, studySlug, lessonSlug } = await params;
   const selectedVenue = props.lessonData.venues[0];
   const title = selectedVenue?.programName + ": " + selectedVenue?.lessonName + " - Free Church Curriculum";
-  return MetaHelper.getMetaData(title, selectedVenue?.lessonDescription, selectedVenue?.lessonImage);
+  return MetaHelper.getMetaData(title, selectedVenue?.lessonDescription, selectedVenue?.lessonImage, undefined, "/" + programSlug + "/" + studySlug + "/" + lessonSlug);
 }
 
 export default async function LessonsPage({ params }: { params: Promise<PageParams> }) {
