@@ -2,6 +2,7 @@ import { Metadata } from "next";
 import { unstable_cache } from "next/cache";
 import Image from "next/image";
 import Link from "next/link";
+import { notFound } from "next/navigation";
 import Container from "@mui/material/Container";
 import Grid from "@mui/material/Grid";
 import { ApiHelper } from "@churchapps/apphelper";
@@ -37,9 +38,10 @@ const loadSharedData = async (params: Promise<PageParams>) => {
 
 export async function generateMetadata({ params }: { params: Promise<PageParams> }): Promise<Metadata> {
   const props = await loadSharedData(params);
-  if (!props.errorMessage) {
+  if (!props.errorMessage && props.study?.id) {
+    const { programSlug, studySlug } = await params;
     const title = props.program?.name + ": " + props.study?.name + " - Free Church Curriculum";
-    return MetaHelper.getMetaData(title, props.study?.description, props.study?.image);
+    return MetaHelper.getMetaData(title, props.study?.description, props.study?.image, undefined, "/" + programSlug + "/" + studySlug);
   }
   return MetaHelper.getMetaData();
 }
@@ -48,6 +50,7 @@ export default async function StudyPage({ params }: { params: Promise<PageParams
   const { program, study, lessons, errorMessage } = await loadSharedData(params);
 
   if (errorMessage) return <Error message={errorMessage} />;
+  if (!study?.id) notFound();
 
   return (
     <>

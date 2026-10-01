@@ -1,6 +1,7 @@
 import { Metadata } from "next";
 import { unstable_cache } from "next/cache";
 import Image from "next/image";
+import { notFound } from "next/navigation";
 import { Container } from "@mui/material";
 import { ApiHelper } from "@churchapps/apphelper";
 import { HeaderWrapper } from "@/app/components/HeaderWrapper";
@@ -40,7 +41,7 @@ const loadSharedData = (programSlug: string) => { const result = unstable_cache(
 export async function generateMetadata({ params }: { params: Promise<PageParams> }): Promise<Metadata> {
   const { programSlug } = await params;
   const props = await loadSharedData(programSlug);
-  if (!props.errorMessage) return MetaHelper.getMetaData(props.program?.name + " - Free Church Curriculum", props.program?.description, props.program?.image);
+  if (!props.errorMessage && props.program?.id) return MetaHelper.getMetaData(props.program.name + " - Free Church Curriculum", props.program?.description, props.program?.image, undefined, "/" + programSlug);
   return MetaHelper.getMetaData();
 }
 
@@ -48,6 +49,7 @@ export default async function ProgramPage({ params }: { params: Promise<PagePara
   const { programSlug } = await params;
   const props = await loadSharedData(programSlug);
   if (props.errorMessage) return <Error message={props.errorMessage} />;
+  if (!props.program?.id) notFound();
 
   return (
     <Layout withoutNavbar>

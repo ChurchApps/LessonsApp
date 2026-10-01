@@ -63,7 +63,7 @@ const faqs = [
 
 export async function generateMetadata(): Promise<Metadata> {
   const description = "Frequently asked questions about Lessons.church - free church curriculum for children, youth, and adults. Learn about our features, pricing (free!), and how to get started.";
-  return MetaHelper.getMetaData("FAQ - Lessons.church", description);
+  return MetaHelper.getMetaData("FAQ - Lessons.church", description, undefined, undefined, "/faq");
 }
 
 export default function FAQPage() {
