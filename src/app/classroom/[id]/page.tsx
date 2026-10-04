@@ -70,12 +70,6 @@ export default function Venue() {
     setLessons(lessonArray);
     setStudies(studyArray);
     setPrograms(data.programs);
-    //const program = ArrayHelper.getOne(data.programs, "id", programId);
-
-    /*
-    setLessons(l);
-    const studyIds = ArrayHelper.getIds(l, "studyId");
-    if (studyIds.length > 0) { const st = await ApiHelper.getAnonymous("/studies/public/ids?ids=" + studyIds, "LessonsApi"); setStudies(st); }*/
   };
 
   const loadLessons = async (lessonIds: string[]) => {

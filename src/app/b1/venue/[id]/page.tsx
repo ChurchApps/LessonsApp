@@ -50,11 +50,9 @@ export default function B1Venue() {
       if (currentIndex < schedules.length - 1) nextSchedule = schedules[currentIndex + 1];
     }
 
-    //return {classroom, customizations, currentSchedule, prevSchedule, nextSchedule, venue};
     setData({ classroom, customizations, currentSchedule, prevSchedule, nextSchedule, venue });
   };
 
-  //const {classroom, customizations, currentSchedule, prevSchedule, nextSchedule, venue } = await loadData();
   useEffect(() => { loadData(); }, []);
 
   return (

@@ -16,7 +16,6 @@ export function Stats(props: Props) {
       setNewVal("studyCount", percent);
       setNewVal("lessonCount", percent);
       requestAnimationFrame(() => increaseCount(elapsed + 50));
-      //setTimeout(() => increaseCount(elapsed + 50), 50);
     }
   };
 
