@@ -80,8 +80,6 @@ export function SectionCopy(props: Props) {
   useEffect(init, [props.copySection.sourceLessonId]);
   useEffect(populateSections, [copySection.sourceVenueId]);
 
-  //return (<div>Hello WOrld</div>)
-
   return (
     <Paper
       sx={{

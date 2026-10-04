@@ -528,7 +528,6 @@ export const BundleList: React.FC<Props> = props => {
   );
 
   const getEditContent = () =>
-    //return (<SmallButton icon="add" onClick={() => { setEditBundle({ contentType: props.contentType, contentId: props.contentId }); }} />);
     getBundleVideoMenu();
   React.useEffect(() => { loadData(); }, [props.contentType, props.contentId]);
 

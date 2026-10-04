@@ -35,7 +35,6 @@ export const Map: React.FC<Props> = props => {
         />
       </Marker>);
     });
-    //result.push(<Marker coordinates={[-95, 36]}><circle r={1} fill="#FF5533" /></Marker>);
     return result;
   };
 

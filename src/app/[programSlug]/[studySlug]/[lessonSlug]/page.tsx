@@ -42,9 +42,37 @@ export async function generateMetadata({ params }: { params: Promise<PageParams>
   return MetaHelper.getMetaData(title, selectedVenue?.lessonDescription, selectedVenue?.lessonImage, undefined, "/" + programSlug + "/" + studySlug + "/" + lessonSlug);
 }
 
+const getJsonLd = (venue: any, path: PageParams) => {
+  const site = "https://lessons.church";
+  const programUrl = site + "/" + path.programSlug;
+  const studyUrl = programUrl + "/" + path.studySlug;
+  const result: Record<string, unknown> = {
+    "@context": "https://schema.org",
+    "@type": "LearningResource",
+    name: venue.lessonName,
+    url: studyUrl + "/" + path.lessonSlug,
+    isPartOf: {
+      "@type": "Course",
+      name: venue.studyName,
+      url: studyUrl,
+      isPartOf: { "@type": "Course", name: venue.programName, url: programUrl }
+    },
+    provider: { "@type": "Organization", name: "Lessons.church", sameAs: site }
+  };
+  if (venue.lessonDescription) result.description = venue.lessonDescription;
+  if (venue.lessonImage?.startsWith("http")) result.image = venue.lessonImage;
+  return result;
+};
+
 export default async function LessonsPage({ params }: { params: Promise<PageParams> }) {
   const { lessonData, errorMessage } = await loadSharedData(params);
   if (!errorMessage && !lessonData) notFound();
   if (errorMessage) return <Error message={errorMessage} />;
-  else return <LessonClient lessonData={lessonData} />;
+  const { programSlug, studySlug, lessonSlug } = await params;
+  return (
+    <>
+      <LessonClient lessonData={lessonData} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(getJsonLd(lessonData.venues[0], { programSlug, studySlug, lessonSlug })).replace(/</g, "\\u003c") }} />
+    </>
+  );
 }

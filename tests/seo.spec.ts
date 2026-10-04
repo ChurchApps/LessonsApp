@@ -7,6 +7,7 @@ const studyPath = `${programPath}/${SEED.STUDIES.GENESIS.slug}`;
 const lessonPath = `${studyPath}/${SEED.LESSONS.CREATION.slug}`;
 
 const linkHref = (html: string, rel: string) => [...html.matchAll(new RegExp(`<link[^>]*rel="${rel}"[^>]*>`, "g"))].map((m) => /href="([^"]*)"/.exec(m[0])?.[1]);
+const jsonLd = (html: string) => [...html.matchAll(/<script type="application\/ld\+json">([^<]*)<\/script>/g)].map((m) => JSON.parse(m[1]));
 const metaContent = (html: string, property: string) => [...html.matchAll(new RegExp(`<meta[^>]*property="${property}"[^>]*>`, "g"))].map((m) => /content="([^"]*)"/.exec(m[0])?.[1]);
 
 test.describe("SEO", () => {
@@ -43,5 +44,14 @@ test.describe("SEO", () => {
     expect(locs).toContain(SITE + studyPath);
     expect(locs).toContain(SITE + lessonPath);
     expect(locs.every((l) => l.startsWith(SITE + "/"))).toBe(true);
+  });
+
+  test("a lesson describes itself as a learning resource in its study and program", async ({ request }) => {
+    const html = await (await request.get(lessonPath)).text();
+    const lesson = jsonLd(html).find((d) => d["@type"] === "LearningResource");
+    expect(lesson).toBeTruthy();
+    expect(html).toContain(`<title>${SEED.PROGRAMS.OT.name}: ${lesson.name} - `);
+    expect(lesson.url).toBe(SITE + lessonPath);
+    expect(lesson.isPartOf).toMatchObject({ "@type": "Course", url: SITE + studyPath, isPartOf: { "@type": "Course", url: SITE + programPath } });
   });
 });
