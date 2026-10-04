@@ -88,7 +88,6 @@ export function FileUpload(props: Props) {
     const f = document.getElementById("fileUpload") as HTMLInputElement;
     if (!f || !f.files || !f.files[0]) { console.error("File input not found or no file selected"); return Promise.reject(new Error("No file selected")); }
     formData.append("file", f.files[0]);
-    //const requestOptions: RequestInit = { method: "POST", body: formData };
 
     const axiosConfig = {
       headers: { "Content-Type": "multipart/form-data" },

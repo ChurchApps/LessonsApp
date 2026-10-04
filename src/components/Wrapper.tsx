@@ -43,7 +43,6 @@ export const Wrapper: React.FC<Props> = props => {
   };
 
   const selectedTab = getSelectedTab();
-  //const dummyRouter = {}
   const handleNavigate = (url: string) => { router.push(url); };
 
   useEffect(() => {
