@@ -31,7 +31,6 @@ export function Header(props: Props) {
   );
 
   const _pathName = usePathname();
-  //const returnUrl = (router.pathname === "/") ? "" : `?returnUrl=${encodeURIComponent(pathName)}`;
 
   const userAction = isClient && ApiHelper.isAuthenticated ? (
     <>
@@ -69,7 +68,6 @@ export function Header(props: Props) {
       </Link>
     </>
   );
-  // <a href="about:blank"  onClick={(e) => { e.preventDefault(); setShowSupport(!showSupport) }} style={{paddingRight:15}}>Support</a>
 
   return (
     <div>

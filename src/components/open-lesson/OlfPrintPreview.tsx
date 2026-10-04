@@ -18,7 +18,6 @@ export const OlfPrintPreview: React.FC<Props> = (props: Props) => {
     const sections: React.JSX.Element[] = [];
 
     if (props.feed.sections) {
-      //const customSections = CustomizationHelper.applyCustomSort(props.customizations, props.venue?.sections, "section");
       props.feed.sections.forEach(s => {
         sections.push(<Section section={s} toggleActive={() => {}} activeSectionId={[]} key={s.name} customizations={[]} />);
       });
