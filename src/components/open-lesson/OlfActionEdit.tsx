@@ -15,7 +15,7 @@ export function OlfActionEdit(props: Props) {
   const [editFileIndex, setEditFileIndex] = useState<number | null>(null);
   const [ready, setReady] = useState(false);
 
-  const { register, handleSubmit, reset, control, watch, formState } = useForm<AnyRecord>({ defaultValues: { actionType: "", role: "", content: "" } });
+  const { register, handleSubmit, reset, control, watch, formState } = useForm<AnyRecord>({ defaultValues: { actionType: props.action?.actionType || "", role: props.action?.role || "", content: props.action?.content || "" } });
   const e = formState.errors as any;
   const actionType = watch("actionType");
   const summaryErrors: string[] = [];

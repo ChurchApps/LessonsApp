@@ -308,7 +308,7 @@ export default function Venue() {
         studyVideos={studyVideos || []}
         programVideos={programVideos || []}
         allAssets={allAssets || []}
-        key="actionEdit"
+        key={"actionEdit-" + (editAction.id || "new")}
         addOns={addOns || []}
       />);
     }
