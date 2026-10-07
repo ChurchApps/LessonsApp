@@ -29,7 +29,17 @@ interface Props {
 type AnyRecord = Record<string, any>;
 
 export function ActionEdit(props: Props) {
-  const { register, handleSubmit, reset, control, watch, setValue, getValues, formState } = useForm<AnyRecord>({ defaultValues: { sort: "", actionType: "", content: "", resourceId: "", externalVideoId: "", assetId: "", addOnId: "" } });
+  const { register, handleSubmit, reset, control, watch, setValue, getValues, formState } = useForm<AnyRecord>({
+    defaultValues: {
+      sort: props.action?.sort ?? "",
+      actionType: props.action?.actionType || "",
+      content: props.action?.content || "",
+      resourceId: props.action?.resourceId || "",
+      externalVideoId: props.action?.externalVideoId || "",
+      assetId: props.action?.assetId || "",
+      addOnId: props.action?.addOnId || ""
+    }
+  });
   const e = formState.errors as any;
   const actionType = watch("actionType");
   const resourceId = watch("resourceId");
