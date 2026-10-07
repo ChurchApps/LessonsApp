@@ -485,7 +485,7 @@ export default function OlfInner() {
               </Paper>
             </Grid>
             <Grid size={{ md: 4, xs: 12 }}>
-              {editAction && <OlfActionEdit action={editAction} updatedCallback={handleActionSave} />}
+              {editAction && <OlfActionEdit key={editSectionIndex + "-" + editActionIndex} action={editAction} updatedCallback={handleActionSave} />}
               {editSection && <OlfSectionEdit section={editSection} updatedCallback={handleSectionSave} />}
             </Grid>
           </Grid>
