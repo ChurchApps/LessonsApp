@@ -24,4 +24,10 @@ test.describe("Public search", () => {
     // Either the result appears as a link/card, or the page navigates.
     await expect(page.getByText(SEED.STUDIES.GENESIS.name).first()).toBeVisible({ timeout: 15000 });
   });
+
+  test("search page finds a seeded study without an error alert", async ({ page }) => {
+    await page.goto("/search?q=Genesis");
+    await expect(page.getByRole("heading", { name: SEED.STUDIES.GENESIS.name }).first()).toBeVisible({ timeout: 30000 });
+    await expect(page.locator(".MuiAlert-root")).toHaveCount(0);
+  });
 });

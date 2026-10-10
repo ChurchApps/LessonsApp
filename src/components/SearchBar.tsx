@@ -5,10 +5,7 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import ClearIcon from "@mui/icons-material/Clear";
 import SearchIcon from "@mui/icons-material/Search";
 import { Box, Chip, CircularProgress, ClickAwayListener, IconButton, InputAdornment, List, ListItem, ListItemAvatar, ListItemText, Paper, TextField, Typography } from "@mui/material";
-import { OramaClient } from "@oramacloud/client";
 import { SearchResult } from "@/helpers/SearchHelper";
-
-const oramaClient = new OramaClient({ endpoint: "https://cloud.orama.run/v1/indexes/lessons-v0ztnp", api_key: "WhbbkClNXUSLZfgeJIz7TRBOl2RfkHeW" });
 
 interface Props {
   placeholder?: string;
@@ -39,31 +36,9 @@ export function SearchBar({ placeholder = "Search curriculum (e.g., 'peace', 'ad
 
     setLoading(true);
     try {
-      const data = await oramaClient.search({
-        term: searchQuery,
-        limit: 8,
-        mode: "fulltext"
-      });
-
-      const searchResults: SearchResult[] = (data?.hits || []).map((hit: any) => ({
-        id: hit.document.id,
-        type: hit.document.type,
-        name: hit.document.name,
-        description: hit.document.description,
-        slug: hit.document.slug,
-        image: hit.document.image,
-        age: hit.document.age,
-        programName: hit.document.programName,
-        programSlug: hit.document.programSlug,
-        studyName: hit.document.studyName,
-        studySlug: hit.document.studySlug,
-        lessonSlug: hit.document.lessonSlug,
-        categories: hit.document.categories,
-        lessonCount: hit.document.lessonCount,
-        score: hit.score
-      }));
-
-      setResults(searchResults);
+      const response = await fetch(`/api/search?q=${encodeURIComponent(searchQuery)}&limit=8`);
+      const data = await response.json();
+      setResults(data.results || []);
     } catch (error) {
       console.error("Search error:", error);
       setResults([]);

@@ -41,7 +41,6 @@
     "@mui/icons-material": "^7.3.11",
     "@mui/material": "^7.3.11",
     "@mui/material-nextjs": "^9.0.1",
-    "@oramacloud/client": "^2.1.4",
     "@sentry/nextjs": "^10.52.0",
     "@stripe/react-stripe-js": "^3.10.0",
     "@stripe/stripe-js": "^7.9.0",
