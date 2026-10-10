@@ -1550,13 +1550,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@noble/hashes@npm:^1.1.5":
-  version: 1.8.0
-  resolution: "@noble/hashes@npm:1.8.0"
-  checksum: 10c0/06a0b52c81a6fa7f04d67762e08b2c476a00285858150caeaaff4037356dd5e119f45b2a530f638b77a5eeca013168ec1b655db41bae3236cb2e9d511484fc77
-  languageName: node
-  linkType: hard
-
 "@nodelib/fs.scandir@npm:2.1.5":
   version: 2.1.5
   resolution: "@nodelib/fs.scandir@npm:2.1.5"
@@ -1953,33 +1946,6 @@ __metadata:
   peerDependencies:
     "@opentelemetry/api": ^1.1.0
   checksum: 10c0/1774930abdad57a716662a3feffe8a7aca8e4494303356f04c3e958fddcdb1df29d464ca91db890e0501728b4fb6c4b578f3ecb83004bcdc9d7e81b739d24459
-  languageName: node
-  linkType: hard
-
-"@orama/cuid2@npm:^2.2.3":
-  version: 2.2.3
-  resolution: "@orama/cuid2@npm:2.2.3"
-  dependencies:
-    "@noble/hashes": "npm:^1.1.5"
-  checksum: 10c0/5d26c489547acfefc073533e6e2d417e16a539ed78bc37adadd0e24bc42999d3d3f1594eb038febb122678b1a2ec98f86263212162192a14e05574b534884921
-  languageName: node
-  linkType: hard
-
-"@orama/orama@npm:^3.0.0":
-  version: 3.1.18
-  resolution: "@orama/orama@npm:3.1.18"
-  checksum: 10c0/868be5143eb4a27e700d9cc866763d1cc04405ef0af6a6b6b6987dcf33ee5d4ba90d3a32cd134006d46d34d64e32500e13cd31436c718eadc396a940e793e7cd
-  languageName: node
-  linkType: hard
-
-"@oramacloud/client@npm:^2.1.4":
-  version: 2.1.4
-  resolution: "@oramacloud/client@npm:2.1.4"
-  dependencies:
-    "@orama/cuid2": "npm:^2.2.3"
-    "@orama/orama": "npm:^3.0.0"
-    lodash: "npm:^4.17.21"
-  checksum: 10c0/b90f1cc6feaec22d9ed26a4d34895b7348f43526b80a606c089b2e012ebce381d71ad285362b3dfa5ad1f01c49b0d7f749aba53673ef418c6c97622318c0f3e7
   languageName: node
   linkType: hard
 
@@ -5696,7 +5662,6 @@ __metadata:
     "@mui/material-nextjs": "npm:^9.0.1"
     "@next/bundle-analyzer": "npm:^16.2.6"
     "@next/env": "npm:^16.2.6"
-    "@oramacloud/client": "npm:^2.1.4"
     "@playwright/test": "npm:^1.59.1"
     "@sentry/nextjs": "npm:^10.52.0"
     "@stripe/react-stripe-js": "npm:^3.10.0"
