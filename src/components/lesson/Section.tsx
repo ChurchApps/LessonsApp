@@ -67,11 +67,5 @@ export function Section(props: Props) {
         <CardContent>{getParts()}</CardContent>
       </Card>
     );
-    /*
-    return (<div id={"section-" + props.section.id} style={{clear:"both", marginBottom:40}}>
-      <h3 style={{marginLeft:0, marginBottom:8, borderBottom: "1px solid #333", backgroundColor:"#03a9f4", color: "#FFFFFF", padding:10}}>{props.section.name}</h3>
-      {getMaterials()}
-      {getParts()}
-    </div>);*/
   }
 }

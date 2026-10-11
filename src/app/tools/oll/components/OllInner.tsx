@@ -26,14 +26,6 @@ export default function OllInner() {
 
   const searchParams = useSearchParams();
 
-  /*
-  const handleMarkdownChange = (newValue: string) => {
-    let d = { ...data };
-    d.lessonDescription = newValue;
-    setData(d);
-  }
-*/
-
   const handleDownload = () => {
     const content = JSON.stringify(data, null, 2);
     const link = document.createElement("a");

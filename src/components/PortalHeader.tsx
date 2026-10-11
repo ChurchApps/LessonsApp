@@ -54,7 +54,6 @@ export function PortalHeader(_props: Props) {
 
   useEffect(() => { const items = SecondaryMenuHelper.getSecondaryMenu(window.location.pathname, {}); setSecondaryMenu(items); }, [pathname]);
 
-  /*<Typography variant="h6" noWrap>{UserHelper.currentUserChurch?.church?.name || ""}</Typography>*/
   return (
     <SiteHeader
       primaryMenuItems={getPrimaryMenu()}
