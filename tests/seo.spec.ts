@@ -54,4 +54,19 @@ test.describe("SEO", () => {
     expect(lesson.url).toBe(SITE + lessonPath);
     expect(lesson.isPartOf).toMatchObject({ "@type": "Course", url: SITE + studyPath, isPartOf: { "@type": "Course", url: SITE + programPath } });
   });
+
+  test("a comparison page has its own canonical and social preview", async ({ request }) => {
+    const path = "/compare/answers-in-genesis";
+    const response = await request.get(path);
+    expect(response.status()).toBe(200);
+    const html = await response.text();
+    expect(linkHref(html, "canonical")).toEqual([SITE + path]);
+    expect(metaContent(html, "og:url")).toEqual([SITE + path]);
+    expect(metaContent(html, "og:image")[0]).toMatch(/^https:\/\//);
+  });
+
+  test("an unknown comparison is a real 404", async ({ request }) => {
+    const response = await request.get(`/compare/missing-${Date.now()}`);
+    expect(response.status()).toBe(404);
+  });
 });

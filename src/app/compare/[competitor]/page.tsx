@@ -1,4 +1,6 @@
 import { Metadata } from "next";
+import { notFound } from "next/navigation";
+import { MetaHelper } from "@/helpers/MetaHelper";
 import { comparisons } from "./comparisons";
 import { CompareClient } from "./CompareClient";
 
@@ -7,18 +9,15 @@ type PageParams = { competitor: string };
 export async function generateMetadata({ params }: { params: Promise<PageParams> }): Promise<Metadata> {
   const { competitor } = await params;
   const data = comparisons[competitor];
-  if (!data) return { title: "Curriculum Comparisons - Lessons.church", description: "See how Lessons.church compares to paid curriculum providers." };
-  return {
-    title: `Lessons.church vs ${data.competitor} - Free Church Curriculum Comparison`,
-    description: data.description,
-    alternates: { canonical: `https://lessons.church/compare/${competitor}` }
-  };
+  if (!data) return MetaHelper.getMetaData();
+  return MetaHelper.getMetaData(`Lessons.church vs ${data.competitor} - Free Church Curriculum Comparison`, data.description, undefined, undefined, `/compare/${competitor}`);
 }
 
 export default async function ComparePage({ params }: { params: Promise<PageParams> }) {
   const { competitor } = await params;
   const data = comparisons[competitor];
-  const schema = data && {
+  if (!data) notFound();
+  const schema = {
     "@context": "https://schema.org",
     "@type": "WebPage",
     "name": `Lessons.church vs ${data.competitor} Comparison`,
@@ -34,7 +33,7 @@ export default async function ComparePage({ params }: { params: Promise<PagePara
 
   return (
     <>
-      {schema && <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }} />}
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }} />
       <CompareClient competitor={competitor} />
     </>
   );
