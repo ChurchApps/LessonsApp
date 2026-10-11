@@ -106,11 +106,6 @@ export const Wrapper: React.FC<Props> = props => {
     </>
   );
 
-  /*
-  <Box sx={{ display: "flex", backgroundColor: "#EEE" }}>
-      <SiteWrapper navContent={navContent} context={context} appName="Lessons.church" router={router}>{props.children}</SiteWrapper>
-    </Box>*/
-
   return (
     <ThemeProvider theme={Themes.BaseTheme}>
       <PortalHeader />
