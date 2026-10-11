@@ -8,16 +8,6 @@ interface Props { stats: any; }
 
 export function HomeHero(props: Props) {
   const getAppBar = () => <Header position="static" />;
-  /*
-    <AppBar id="navbar" position="static">
-      <Container>
-        <Stack direction="row" justifyContent="space-between" alignItems="center">
-          <Link href="/" className="logo"><img src="/images/logo-dark.png" alt="Lessons.church - Free Curriculum for Churches" className="img-fluid" /></Link>
-          <Box sx={{ display: "flex", alignItems: "center", whiteSpace: "nowrap" }}>Test</Box>
-        </Stack>
-      </Container>
-    </AppBar>
-    */
 
   const getLeftContent = () => (
     <>

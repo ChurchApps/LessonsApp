@@ -8,7 +8,6 @@ export class SecondaryMenuHelper {
 
     if (path.startsWith("/portal")) result = this.getPortalMenu(path);
     else if (path.startsWith("/admin")) result = this.getAdminMenu(path);
-    //else if (path===("/")) result = this.getDashboardMenu(path);
     return result;
   };
 
