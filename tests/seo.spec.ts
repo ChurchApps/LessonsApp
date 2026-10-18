@@ -69,4 +69,12 @@ test.describe("SEO", () => {
     const response = await request.get(`/compare/missing-${Date.now()}`);
     expect(response.status()).toBe(404);
   });
+
+  // Embeds are iframed on church sites and previews are for editors; neither should show up in search.
+  for (const path of ["/embed/action/ACT00000001", "/embed/section/SEC00000001", "/embed/addon/ADD00000001", "/embed/external/provider/action/ACT00000001", "/preview/ACT00000001"]) {
+    test(`${path} is noindex`, async ({ request }) => {
+      const html = await (await request.get(path)).text();
+      expect(html).toMatch(/<meta name="robots" content="noindex/);
+    });
+  }
 });
