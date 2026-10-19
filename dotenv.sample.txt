@@ -3,17 +3,19 @@
 # before adding env variables make sure you know how env variables work with
 # nextjs - https://nextjs.org/docs/basic-features/environment-variables
 
-# Environment stage: "staging" or "prod" (defaults to dev/staging if not set)
-STAGE=staging
+# Environment stage: "demo", "prod", or unset for local dev. "staging" was retired on 2026-10-18
+# (its hosts no longer resolve); anything still set to it runs as demo.
+# STAGE=demo
 
-# LessonsApi base URL. Overrides the hardcoded staging/prod URLs at build time.
-NEXT_PUBLIC_LESSONS_API=https://api.staging.lessons.church
-NEXT_PUBLIC_CONTENT_ROOT=https://api.staging.lessons.church/content
-NEXT_PUBLIC_CHURCH_APPS_URL=https://staging.churchapps.org
+# LessonsApi base URL. Overrides the default (https://api.lessons.church, there is no demo LessonsApi) at build time.
+NEXT_PUBLIC_LESSONS_API=http://localhost:8090
+NEXT_PUBLIC_CONTENT_ROOT=http://localhost:8090/content
+NEXT_PUBLIC_CHURCH_APPS_URL=http://localhost:8084
 
-# ChurchApps API base used for authentication via MembershipApi (only honored when STAGE is unset/dev).
-# Self-hosted Railway deployments leave STAGE=prod so this defaults to https://api.churchapps.org.
-# NEXT_PUBLIC_API_BASE=https://api.staging.churchapps.org
+# ChurchApps API base used for authentication via MembershipApi (only honored when STAGE is unset).
+# Unset with STAGE unset means demo (https://api.demo.churchapps.org). Self-hosted Railway
+# deployments leave STAGE=prod so this defaults to https://api.churchapps.org.
+# NEXT_PUBLIC_API_BASE=http://localhost:8084
 
 # Optional
 NEXT_PUBLIC_ACCESS_API=
