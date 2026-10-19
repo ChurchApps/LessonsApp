@@ -34,6 +34,8 @@ export function VenueClient(props: Props) {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("md"));
 
+  const scheduleHref = (s: ScheduleInterface) => "/b1/venue/" + s.venueId + "?classroomId=" + props.classroom?.id + (s.externalProviderId ? "&externalProviderId=" + s.externalProviderId : "");
+
   const getVenue = () => {
     if (props.venue) {
       return (
@@ -169,7 +171,7 @@ export function VenueClient(props: Props) {
                 {props.prevSchedule && (
                   <Box sx={{ textAlign: isMobile ? "left" : "left", fontSize: isMobile ? "0.875rem" : "1rem" }}>
                     <Link
-                      href={"/b1/venue/" + props.prevSchedule?.venueId + "?classroomId=" + props.classroom?.id}
+                      href={scheduleHref(props.prevSchedule)}
                       style={{ textDecoration: "none" }}
                     >
                     ← {DateHelper.prettyDate(DateHelper.toDate(props.prevSchedule.scheduledDate))}
@@ -192,7 +194,7 @@ export function VenueClient(props: Props) {
                 {props.nextSchedule && (
                   <Box sx={{ textAlign: isMobile ? "left" : "right", fontSize: isMobile ? "0.875rem" : "1rem" }}>
                     <Link
-                      href={"/b1/venue/" + props.nextSchedule?.venueId + "?classroomId=" + props.classroom?.id}
+                      href={scheduleHref(props.nextSchedule)}
                       style={{ textDecoration: "none" }}
                     >
                       {DateHelper.prettyDate(DateHelper.toDate(props.nextSchedule.scheduledDate))} →

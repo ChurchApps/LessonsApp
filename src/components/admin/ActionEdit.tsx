@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { Alert, Box, Button, FormControl, IconButton, InputLabel, ListSubheader, MenuItem, Paper, Select, Stack, TextField, Typography } from "@mui/material";
 import { Check as CheckIcon, Save as SaveIcon, Cancel as CancelIcon, Delete as DeleteIcon } from "@mui/icons-material";
 import { Controller, useForm } from "react-hook-form";
@@ -40,6 +40,7 @@ export function ActionEdit(props: Props) {
       addOnId: props.action?.addOnId || ""
     }
   });
+  const [error, setError] = useState("");
   const e = formState.errors as any;
   const actionType = watch("actionType");
   const resourceId = watch("resourceId");
@@ -54,7 +55,7 @@ export function ActionEdit(props: Props) {
   const getCombinedResources = () => [...props.lessonResources, ...props.studyResources, ...props.programResources];
   const getCombinedVideos = () => [...props.lessonVideos, ...props.studyVideos, ...props.programVideos];
 
-  const onValid = (values: AnyRecord) => {
+  const onValid = async (values: AnyRecord) => {
     const a: ActionInterface = {
       ...props.action,
       sort: parseInt(values.sort) || 0,
@@ -68,12 +69,18 @@ export function ActionEdit(props: Props) {
     if (a.actionType !== "Play" && a.actionType !== "Download") {
       a.resourceId = null as any;
       a.assetId = null as any;
+      a.externalVideoId = null as any;
     } else if (a.resourceId === null && a.externalVideoId === null) {
       if (props.lessonResources.length > 0) a.resourceId = props.lessonResources[0].id;
       else if (props.studyResources.length > 0) a.resourceId = props.studyResources[0].id;
       else if (props.programResources.length > 0) a.resourceId = props.programResources[0].id;
     }
-    ApiHelper.post("/actions", [a], "LessonsApi").then((data: ActionInterface[]) => props.updatedCallback(data[0], !props.action.id));
+    if (a.actionType !== "Add-on") a.addOnId = null as any;
+    setError("");
+    try {
+      const data: ActionInterface[] = await ApiHelper.post("/actions", [a], "LessonsApi");
+      props.updatedCallback(data[0], !props.action.id);
+    } catch (err: any) { setError(err?.message || "Unable to save."); }
   };
 
   const handleDelete = () => { if (window.confirm("Are you sure you wish to permanently delete this action?")) ApiHelper.delete("/actions/" + props.action.id?.toString(), "LessonsApi").then(() => props.updatedCallback(null as unknown as ActionInterface, false)); };
@@ -222,6 +229,7 @@ export function ActionEdit(props: Props) {
 
       <Box sx={{ p: 3 }}>
         {summaryErrors.length > 0 && <Alert severity="error" sx={{ mb: 2 }}>{summaryErrors.map((msg) => <div key={msg}>{msg}</div>)}</Alert>}
+        {error && <Alert severity="error" sx={{ mb: 2 }}>{error}</Alert>}
 
         <Stack spacing={3}>
           <TextField fullWidth label="Order" type="number" placeholder="1" helperText="Display order for this action within the role" {...register("sort")} />
@@ -260,7 +268,7 @@ export function ActionEdit(props: Props) {
       </Box>
 
       <Box sx={{ p: 2, borderTop: "1px solid var(--admin-border)", backgroundColor: "var(--admin-bg)", display: "flex", justifyContent: "flex-end", gap: 1, flexWrap: "wrap" }}>
-        <Button startIcon={<SaveIcon />} variant="contained" onClick={handleSubmit(onValid)}>Save</Button>
+        <Button startIcon={<SaveIcon />} variant="contained" disabled={formState.isSubmitting} onClick={handleSubmit(onValid)}>Save</Button>
         <Button startIcon={<CancelIcon />} variant="outlined" onClick={handleCancel}>Cancel</Button>
         {props.action?.id && (
           <IconButton color="error" onClick={handleDelete}>

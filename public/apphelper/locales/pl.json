@@ -1,36 +1,39 @@
 {
   "b1Share": {
-    "comment": "Komentarz",
-    "commentPlaceholder": "Dołącz komentarz do swojego wpisu.",
-    "contentShared": "Treść udostępniona",
-    "group": "Grupa",
-    "sharingToGroup": "Udostępnianie {} do Grupy B1",
+    "comment": "Comment",
+    "commentPlaceholder": "Include a comment with your post.",
+    "contentShared": "Content Shared",
+    "group": "Group",
+    "sharingToGroup": "Sharing {} to B1 Group",
     "validate": {
-      "addComment": "Proszę dodaj komentarz.",
-      "loginFirst": "Proszę zaloguj się najpierw.",
-      "notMember": "Nie jesteś członkiem żadnych grup na B1.",
-      "selectGroup": "Proszę wybierz grupę."
+      "addComment": "Please add a comment.",
+      "loginFirst": "Please login first.",
+      "notMember": "You are not currently a member of any groups on B1.",
+      "selectGroup": "Please select a group."
     }
   },
   "common": {
-    "add": "Dodaj",
+    "add": "Add",
     "cancel": "Anuluj",
     "close": "Zamknij",
-    "date": "Data",
+    "date": "Date",
     "delete": "Usuń",
-    "edit": "Edytuj",
-    "error": "Błąd",
+    "edit": "Edit",
+    "error": "Error",
+    "optional": "Opcjonalne",
     "pleaseWait": "Proszę czekaj...",
+    "remove": "Usuń",
+    "required": "Wymagane",
     "save": "Zapisz",
     "search": "Szukaj",
-    "submit": "Wyślij",
+    "submit": "Submit",
     "update": "Aktualizuj"
   },
   "createPerson": {
-    "addNewPerson": "Dodaj nową osobę",
+    "addNewPerson": "Add a New Person",
     "email": "Email",
-    "firstName": "Imię",
-    "lastName": "Nazwisko"
+    "firstName": "First Name",
+    "lastName": "Last Name"
   },
   "donation": {
     "bankForm": {
@@ -38,7 +41,7 @@
       "added": "Konto bankowe dodane. Zweryfikuj swoje konto bankowe, aby dokonać darowizny.",
       "company": "Firma",
       "firstDeposit": "Pierwsza wpłata",
-      "holderName": "Wymagana jest nazwa posiadacza konta.",
+      "holderName": "Account holder name is required.",
       "individual": "Osoba fizyczna",
       "name": "Nazwa posiadacza konta",
       "needVerified": "Konta bankowe będą musiały być zweryfikowane przed dokonaniem darowizn. Twoje konto otrzyma dwie małe wpłaty w ciągu około 1-3 dni roboczych. Będziesz musiał podać kwoty tych wpłat, aby ukończyć weryfikację konta, wybierając link weryfikacji konta obok swojego konta bankowego w sekcji metod płatności.",
@@ -59,8 +62,13 @@
       "expirationYear": "Rok wygaśnięcia:",
       "updated": "Karta zaktualizowana pomyślnie."
     },
+    "common": {
+      "cancel": "Cancel",
+      "error": "Error"
+    },
     "donationForm": {
       "annually": "Corocznie",
+      "anonymous": "Give anonymously (one-time gifts only)",
       "biWeekly": "Co dwa tygodnie",
       "cancelled": "Darowizna cykliczna anulowana.",
       "confirmDelete": "Czy na pewno chcesz usunąć tę darowiznę cykliczną?",
@@ -75,7 +83,8 @@
       "makeRecurring": "Wnieś darowiznę cykliczną",
       "method": "Metoda",
       "monthly": "Miesięcznie",
-      "notes": "Notatki",
+      "notes": "Notes",
+      "orPayWith": "Or pay with",
       "preview": "Podgląd darowizny",
       "quarterly": "Kwartalnie",
       "recurringUpdated": "Darowizna cykliczna zaktualizowana.",
@@ -90,6 +99,7 @@
         "lastName": "Proszę podaj swoje nazwisko.",
         "validEmail": "Proszę podaj prawidłowy adres email."
       },
+      "walletFailed": "Wallet payment could not be completed. Please try again.",
       "weekly": "Tygodniowo"
     },
     "fundDonations": {
@@ -97,21 +107,57 @@
       "amount": "Kwota",
       "fund": "Fundusz"
     },
+    "kingdomFunding": {
+      "enterBankDetails": "Enter your bank account details",
+      "enterCardDetails": "Enter card details",
+      "errorProcessingDonation": "Error processing donation",
+      "failedToInitPaymentForm": "Failed to initialize payment form",
+      "failedToLoadPaymentForm": "Failed to load payment form",
+      "failedToProcessCard": "Failed to process card. Please check your card details and try again.",
+      "failedToTokenizeCard": "Failed to tokenize card",
+      "gatewayConfigMissing": "Payment form not available. Gateway configuration missing.",
+      "loadingPaymentForm": "Loading payment form...",
+      "memo": "Memo (optional)",
+      "missingTokenizationKey": "Missing tokenization key",
+      "payWithBank": "Bank (ACH)",
+      "payWithCard": "Card",
+      "paymentFormNotAvailable": "Payment form not available",
+      "paymentFormNotInitialized": "Payment form not initialized",
+      "paymentProvider": "Dostawca płatności",
+      "providerName": "Kingdom Funding",
+      "unexpectedError": "An unexpected error occurred. Please try again.",
+      "validate": {
+        "accountNumber": "Wprowadź prawidłowy numer konta",
+        "captchaFailed": "reCAPTCHA verification failed. Please try again.",
+        "captchaRequired": "Please complete the reCAPTCHA verification",
+        "routingNumber": "Wprowadź prawidłowy numer rozliczeniowy banku"
+      }
+    },
     "page": {
-      "amount": "Kwota",
-      "batch": "Partia",
-      "date": "Data",
-      "fund": "Fundusz",
-      "method": "Metoda",
-      "willAppear": "Darowizny pojawią się po wpisaniu darowizny."
+      "amount": "Amount",
+      "batch": "Batch",
+      "date": "Date",
+      "fund": "Fund",
+      "method": "Method",
+      "willAppear": "Donations will appear once a donation has been entered."
     },
     "paymentMethods": {
       "addBank": "Dodaj konto bankowe",
       "addCard": "Dodaj kartę",
       "confirmDelete": "Czy na pewno chcesz usunąć tę metodę płatności?",
       "deleted": "Metoda płatności usunięta.",
-      "noMethods": "Brak metod płatności. Dodaj metodę płatności, aby dokonać darowizny.",
+      "noMethod": "No Method",
       "verify": "Zweryfikuj konto"
+    },
+    "paypal": {
+      "approved": "PayPal payment approved. Choose Donate to finish your gift.",
+      "captchaRequired": "Please complete the reCAPTCHA verification"
+    },
+    "paystack": {
+      "emailRequired": "An email address is required to pay with Paystack.",
+      "paymentFailed": "Payment was not completed.",
+      "popupHint": "You'll complete payment in a secure Paystack window. Card, mobile money and bank transfer are accepted.",
+      "saveOnlyWithGift": "Payment methods are saved when you give — check \"Save this card\" while making a gift."
     },
     "preview": {
       "date": "Data darowizny",
@@ -123,13 +169,15 @@
       "notes": "Notatki",
       "startingOn": "Począwszy od",
       "total": "Razem",
-      "type": "Typ darowizny"
+      "type": "Typ darowizny",
+      "weekly": "Weekly"
     },
     "recurring": {
       "amount": "Kwota",
       "confirmPause": "Czy na pewno chcesz wstrzymać tę darowiznę cykliczną?",
       "every": "Co",
       "interval": "Przedział czasu",
+      "noSubscriptions": "No Subscriptions",
       "notFound": "Metoda płatności nie znaleziona.",
       "pauseFailed": "Nie udało się wstrzymać darowizny cyklicznej. Spróbuj ponownie.",
       "pauseTooltip": "Wstrzymaj darowiznę cykliczną",
@@ -183,13 +231,18 @@
       "toggleWeekday": "Przełącz {} dla powtarzania tygodniowego"
     }
   },
+  "fileUpload": {
+    "file": "File",
+    "quotaExceeded": "Storage quota exceeded. Delete unused files or upgrade your storage plan.",
+    "uploadFailed": "Upload failed. Please try again."
+  },
   "formSubmissionEdit": {
     "back": "Wstecz",
-    "continue": "Dalej",
-    "stepProgress": "{current} z {total}",
     "confirmDelete": "Czy na pewno chcesz usunąć te dane formularza?",
+    "continue": "Dalej",
     "editForm": "Edytuj formularz",
     "isRequired": "jest wymagane",
+    "stepProgress": "{current} z {total}",
     "submit": "Wyślij"
   },
   "gallery": {
@@ -198,21 +251,25 @@
     "freeForm": "Forma wolna"
   },
   "iconPicker": {
-    "iconsAvailable": "ikon dostępnych",
-    "matchingResults": "pasujące wyniki",
-    "search": "Szukaj ikon..."
+    "iconsAvailable": "icons available",
+    "matchingResults": "matching results",
+    "search": "Search icons..."
   },
   "login": {
-    "createAccount": "Utwórz konto",
+    "accountExists": "Masz już konto ChurchApps. Zaloguj się za jego pomocą.",
+    "continueGoogle": "Continue with Google",
+    "continueMicrosoft": "Continue with Microsoft",
+    "createAccount": "Create an Account",
     "email": "Email",
     "enterCode": "Wprowadź kod weryfikacyjny",
     "enterCodeInstructions": "Wprowadź 6-cyfrowy kod, który właśnie wysłaliśmy e-mailem.",
     "expiredLink": "Bieżące łącze wygasło.",
     "forgot": "Zapomniałeś hasła",
-    "goLogin": "Przejdź do logowania",
+    "goLogin": "Go to Login",
     "login": "Zaloguj się",
     "noAcc": "Nie masz konta?",
     "noAccountFound": "Nie znaleziono konta z tym adresem e-mail. Zarejestruj się, aby kontynuować.",
+    "or": "or",
     "password": "Hasło",
     "register": "Zarejestruj się",
     "registerThankYou": "Dziękuję za rejestrację! Sprawdź swój email, aby zweryfikować swoje konto.",
@@ -221,7 +278,7 @@
     "reset": "Resetuj",
     "resetInstructions": "Podaj swój adres email, aby poprosić o reset hasła.",
     "resetPassword": "Resetuj hasło",
-    "resetSent": "Email resetowania hasła wysłany!",
+    "resetSent": "Password reset email sent!",
     "setPassword": "Ustaw hasło",
     "signIn": "Zaloguj się",
     "signInTitle": "Proszę zaloguj się",
@@ -243,50 +300,65 @@
   },
   "markdownEditor": {
     "content": "Treść",
-    "markdownEditor": "Edytor Markdown",
+    "markdownEditor": "Markdown Editor",
     "markdownGuide": "Przewodnik Markdown"
   },
   "month": {
-    "april": "Kwiecień",
-    "august": "Sierpień",
-    "december": "Grudzień",
-    "february": "Luty",
-    "january": "Styczeń",
-    "july": "Lipiec",
-    "june": "Czerwiec",
-    "march": "Marzec",
-    "may": "Maj",
-    "november": "Listopad",
-    "october": "Październik",
-    "september": "Wrzesień"
+    "april": "April",
+    "august": "August",
+    "december": "December",
+    "february": "February",
+    "january": "January",
+    "july": "July",
+    "june": "June",
+    "march": "March",
+    "may": "May",
+    "november": "November",
+    "october": "October",
+    "september": "September"
   },
   "notes": {
     "comment": "komentarz",
     "comments": "komentarze",
     "notes": "Notatki",
-    "startConversation": "Rozpocznij rozmowę",
+    "notifyOff": "Notify Off",
+    "notifyOn": "Notify On",
+    "openFile": "Open file",
+    "startConversation": "Start a conversation",
     "validate": {
       "content": "Proszę podaj notatkę."
     },
-    "viewAll": "Wyświetl wszystkie"
+    "viewAll": "View all"
   },
   "person": {
     "email": "Email",
     "firstName": "Imię",
     "lastName": "Nazwisko",
     "name": "Nazwa",
-    "noRec": "Nie masz rekordu osoby?",
-    "person": "Osoba",
-    "years": "lat"
+    "noRec": "Don't have a person record?",
+    "person": "Person",
+    "years": "years"
+  },
+  "question": {
+    "checkbox": "Pole wyboru",
+    "currency": "Waluta",
+    "date": "Data",
+    "email": "E-mail",
+    "file": "Przesyłanie pliku",
+    "multiple": "Wielokrotny wybór",
+    "number": "Liczba",
+    "phone": "Telefon",
+    "textarea": "Obszar tekstowy",
+    "textbox": "Pole tekstowe"
   },
   "reporting": {
-    "detailed": "Raport szczegółowy",
-    "downloadOptions": "Opcje pobierania",
-    "noData": "Brak danych do wyświetlenia.",
-    "runReport": "Uruchom raport",
-    "sampleTemplate": "Przykładowy szablon Word",
-    "summary": "Podsumowanie",
-    "useFilter": "Użyj filtru, aby uruchomić raport."
+    "detailed": "Detailed Report",
+    "downloadOptions": "Download Options",
+    "noData": "There is no data to display.",
+    "runReport": "Run Report",
+    "sampleTemplate": "Sample Word Template",
+    "summary": "Summary",
+    "useFilter": "Use the filter to run the report."
   },
   "selectChurch": {
     "address1": "Linia adresu 1",
@@ -318,22 +390,35 @@
     "discussions": "Forum wsparcia",
     "documentation": "Dokumentacja"
   },
+  "validation": {
+    "date": "Wprowadź prawidłową datę",
+    "email": "Wprowadź prawidłowy adres e-mail",
+    "fileSize": "Rozmiar pliku musi być mniejszy niż {} MB",
+    "fileType": "Nieprawidłowy typ pliku",
+    "maxLength": "Może mieć maksymalnie {} znaków",
+    "minLength": "Musi mieć co najmniej {} znaków",
+    "number": "Wprowadź prawidłową liczbę",
+    "phone": "Wprowadź prawidłowy numer telefonu",
+    "required": "To pole jest wymagane"
+  },
   "wrapper": {
-    "chatWith": "Czat z",
-    "deleteChurch": "Usuń",
+    "chatWith": "Chat with",
+    "currentChurch": "Bieżący kościół",
+    "deleteChurch": "Delete",
     "editAccount": "Edytuj konto",
-    "editChurchProfile": "Edytuj profil kościoła",
+    "editChurchProfile": "Edytuj profil w kościele",
     "editProfile": "Edytuj profil",
-    "logout": "Wyloguj",
-    "messages": "Wiadomości",
+    "logout": "Logout",
+    "messages": "Messages",
     "newPrivateMessage": "Nowa wiadomość prywatna",
-    "notifications": "Powiadomienia",
+    "notifications": "Notifications",
+    "privateConversation": "Private Conversation",
     "privateMessage": "Wiadomość prywatna",
-    "profile": "Profil",
+    "profile": "Profile",
     "searchForPerson": "Szukaj osoby",
-    "support": "Wsparcie",
-    "sureRemoveChurch": "Czy na pewno chcesz usunąć ten kościół? Nie będziesz już członkiem {}.",
-    "switchApp": "Przełącz aplikację",
-    "switchChurch": "Przełącz kościół"
+    "support": "Support",
+    "sureRemoveChurch": "Are you sure you wish to delete this church? You no longer will be a member of {}.",
+    "switchApp": "Switch App",
+    "switchChurch": "Switch Church"
   }
 }

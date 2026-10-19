@@ -1,36 +1,39 @@
 {
   "b1Share": {
-    "comment": "Bình luận",
-    "commentPlaceholder": "Thêm bình luận vào bài đăng của bạn.",
-    "contentShared": "Đã chia sẻ nội dung",
-    "group": "Nhóm",
-    "sharingToGroup": "Chia sẻ {} với Nhóm B1",
+    "comment": "Comment",
+    "commentPlaceholder": "Include a comment with your post.",
+    "contentShared": "Content Shared",
+    "group": "Group",
+    "sharingToGroup": "Sharing {} to B1 Group",
     "validate": {
-      "addComment": "Vui lòng thêm một bình luận.",
-      "loginFirst": "Vui lòng đăng nhập trước.",
-      "notMember": "Bạn hiện không phải là thành viên của bất kỳ nhóm nào trên B1.",
-      "selectGroup": "Vui lòng chọn một nhóm."
+      "addComment": "Please add a comment.",
+      "loginFirst": "Please login first.",
+      "notMember": "You are not currently a member of any groups on B1.",
+      "selectGroup": "Please select a group."
     }
   },
   "common": {
-    "add": "Thêm",
+    "add": "Add",
     "cancel": "Hủy",
     "close": "Đóng",
-    "date": "Ngày",
+    "date": "Date",
     "delete": "Xóa",
-    "edit": "Chỉnh sửa",
-    "error": "Lỗi",
+    "edit": "Edit",
+    "error": "Error",
+    "optional": "Tùy chọn",
     "pleaseWait": "Vui lòng đợi...",
+    "remove": "Xóa",
+    "required": "Bắt buộc",
     "save": "Lưu",
     "search": "Tìm kiếm",
-    "submit": "Gửi",
+    "submit": "Submit",
     "update": "Cập nhật"
   },
   "createPerson": {
-    "addNewPerson": "Thêm người mới",
+    "addNewPerson": "Add a New Person",
     "email": "Email",
-    "firstName": "Tên",
-    "lastName": "Họ"
+    "firstName": "First Name",
+    "lastName": "Last Name"
   },
   "donation": {
     "bankForm": {
@@ -38,7 +41,7 @@
       "added": "Đã thêm tài khoản ngân hàng. Xác minh tài khoản ngân hàng của bạn để quyên góp.",
       "company": "Công ty",
       "firstDeposit": "Khoản tiền gửi đầu tiên",
-      "holderName": "Tên chủ tài khoản là bắt buộc.",
+      "holderName": "Account holder name is required.",
       "individual": "Cá nhân",
       "name": "Tên chủ tài khoản",
       "needVerified": "Các tài khoản ngân hàng sẽ cần được xác minh trước khi quyên góp. Tài khoản của bạn sẽ nhận được hai khoản tiền gửi nhỏ trong khoảng 1-3 ngày làm việc. Bạn sẽ cần nhập số tiền của những khoản tiền gửi đó để hoàn tất xác minh tài khoản bằng cách chọn liên kết xác minh tài khoản bên cạnh tài khoản ngân hàng của bạn trong phần phương thức thanh toán.",
@@ -59,8 +62,13 @@
       "expirationYear": "Năm hết hạn:",
       "updated": "Thẻ được cập nhật thành công."
     },
+    "common": {
+      "cancel": "Cancel",
+      "error": "Error"
+    },
     "donationForm": {
       "annually": "Hàng năm",
+      "anonymous": "Give anonymously (one-time gifts only)",
       "biWeekly": "Mỗi hai tuần",
       "cancelled": "Quyên góp định kỳ đã bị hủy.",
       "confirmDelete": "Bạn có chắc chắn muốn xóa quyên góp định kỳ này không?",
@@ -75,7 +83,8 @@
       "makeRecurring": "Thực hiện quyên góp định kỳ",
       "method": "Phương pháp",
       "monthly": "Hàng tháng",
-      "notes": "Ghi chú",
+      "notes": "Notes",
+      "orPayWith": "Or pay with",
       "preview": "Xem trước quyên góp",
       "quarterly": "Hàng quý",
       "recurringUpdated": "Đã cập nhật quyên góp định kỳ.",
@@ -90,6 +99,7 @@
         "lastName": "Vui lòng nhập họ của bạn.",
         "validEmail": "Vui lòng nhập một địa chỉ email hợp lệ."
       },
+      "walletFailed": "Wallet payment could not be completed. Please try again.",
       "weekly": "Hàng tuần"
     },
     "fundDonations": {
@@ -97,21 +107,57 @@
       "amount": "Số tiền",
       "fund": "Quỹ"
     },
+    "kingdomFunding": {
+      "enterBankDetails": "Enter your bank account details",
+      "enterCardDetails": "Enter card details",
+      "errorProcessingDonation": "Error processing donation",
+      "failedToInitPaymentForm": "Failed to initialize payment form",
+      "failedToLoadPaymentForm": "Failed to load payment form",
+      "failedToProcessCard": "Failed to process card. Please check your card details and try again.",
+      "failedToTokenizeCard": "Failed to tokenize card",
+      "gatewayConfigMissing": "Payment form not available. Gateway configuration missing.",
+      "loadingPaymentForm": "Loading payment form...",
+      "memo": "Memo (optional)",
+      "missingTokenizationKey": "Missing tokenization key",
+      "payWithBank": "Bank (ACH)",
+      "payWithCard": "Card",
+      "paymentFormNotAvailable": "Payment form not available",
+      "paymentFormNotInitialized": "Payment form not initialized",
+      "paymentProvider": "Nhà cung cấp thanh toán",
+      "providerName": "Kingdom Funding",
+      "unexpectedError": "An unexpected error occurred. Please try again.",
+      "validate": {
+        "accountNumber": "Vui lòng nhập số tài khoản hợp lệ",
+        "captchaFailed": "reCAPTCHA verification failed. Please try again.",
+        "captchaRequired": "Please complete the reCAPTCHA verification",
+        "routingNumber": "Vui lòng nhập số định tuyến ngân hàng hợp lệ"
+      }
+    },
     "page": {
-      "amount": "Số tiền",
-      "batch": "Lô",
-      "date": "Ngày",
-      "fund": "Quỹ",
-      "method": "Phương pháp",
-      "willAppear": "Quyên góp sẽ xuất hiện khi quyên góp được nhập."
+      "amount": "Amount",
+      "batch": "Batch",
+      "date": "Date",
+      "fund": "Fund",
+      "method": "Method",
+      "willAppear": "Donations will appear once a donation has been entered."
     },
     "paymentMethods": {
       "addBank": "Thêm tài khoản ngân hàng",
       "addCard": "Thêm thẻ",
       "confirmDelete": "Bạn có chắc chắn muốn xóa phương thức thanh toán này không?",
       "deleted": "Đã xóa phương thức thanh toán.",
-      "noMethods": "Không có phương thức thanh toán. Thêm phương thức thanh toán để quyên góp.",
+      "noMethod": "No Method",
       "verify": "Xác minh tài khoản"
+    },
+    "paypal": {
+      "approved": "PayPal payment approved. Choose Donate to finish your gift.",
+      "captchaRequired": "Please complete the reCAPTCHA verification"
+    },
+    "paystack": {
+      "emailRequired": "An email address is required to pay with Paystack.",
+      "paymentFailed": "Payment was not completed.",
+      "popupHint": "You'll complete payment in a secure Paystack window. Card, mobile money and bank transfer are accepted.",
+      "saveOnlyWithGift": "Payment methods are saved when you give — check \"Save this card\" while making a gift."
     },
     "preview": {
       "date": "Ngày quyên góp",
@@ -123,13 +169,15 @@
       "notes": "Ghi chú",
       "startingOn": "Bắt đầu từ",
       "total": "Tổng",
-      "type": "Loại quyên góp"
+      "type": "Loại quyên góp",
+      "weekly": "Weekly"
     },
     "recurring": {
       "amount": "Số tiền",
       "confirmPause": "Bạn có chắc chắn muốn tạm dừng quyên góp định kỳ này không?",
       "every": "Mỗi",
       "interval": "Khoảng thời gian",
+      "noSubscriptions": "No Subscriptions",
       "notFound": "Không tìm thấy phương thức thanh toán.",
       "pauseFailed": "Không thể tạm dừng quyên góp định kỳ. Vui lòng thử lại.",
       "pauseTooltip": "Tạm dừng quyên góp định kỳ",
@@ -183,13 +231,18 @@
       "toggleWeekday": "Bật/tắt {} cho lặp lại hàng tuần"
     }
   },
+  "fileUpload": {
+    "file": "File",
+    "quotaExceeded": "Storage quota exceeded. Delete unused files or upgrade your storage plan.",
+    "uploadFailed": "Upload failed. Please try again."
+  },
   "formSubmissionEdit": {
     "back": "Quay lại",
-    "continue": "Tiếp tục",
-    "stepProgress": "{current} / {total}",
     "confirmDelete": "Bạn có chắc chắn muốn xóa dữ liệu biểu mẫu này không?",
+    "continue": "Tiếp tục",
     "editForm": "Chỉnh sửa biểu mẫu",
     "isRequired": "là bắt buộc",
+    "stepProgress": "{current} / {total}",
     "submit": "Gửi"
   },
   "gallery": {
@@ -198,21 +251,25 @@
     "freeForm": "Hình thức tự do"
   },
   "iconPicker": {
-    "iconsAvailable": "biểu tượng có sẵn",
-    "matchingResults": "kết quả phù hợp",
-    "search": "Tìm kiếm biểu tượng..."
+    "iconsAvailable": "icons available",
+    "matchingResults": "matching results",
+    "search": "Search icons..."
   },
   "login": {
-    "createAccount": "Tạo một tài khoản",
+    "accountExists": "Bạn đã có tài khoản ChurchApps. Vui lòng đăng nhập bằng tài khoản đó.",
+    "continueGoogle": "Continue with Google",
+    "continueMicrosoft": "Continue with Microsoft",
+    "createAccount": "Create an Account",
     "email": "Email",
     "enterCode": "Nhập mã xác minh",
     "enterCodeInstructions": "Nhập mã 6 chữ số mà chúng tôi vừa gửi qua email.",
     "expiredLink": "Liên kết hiện tại đã hết hạn.",
     "forgot": "Quên mật khẩu",
-    "goLogin": "Đi đến đăng nhập",
+    "goLogin": "Go to Login",
     "login": "Đăng nhập",
     "noAcc": "Không có tài khoản?",
     "noAccountFound": "Không tìm thấy tài khoản nào với email đó. Vui lòng đăng ký để tiếp tục.",
+    "or": "or",
     "password": "Mật khẩu",
     "register": "Đăng ký",
     "registerThankYou": "Cảm ơn bạn đã đăng ký! Vui lòng kiểm tra email của bạn để xác minh tài khoản của bạn.",
@@ -221,7 +278,7 @@
     "reset": "Đặt lại",
     "resetInstructions": "Nhập địa chỉ email của bạn để yêu cầu đặt lại mật khẩu.",
     "resetPassword": "Đặt lại mật khẩu",
-    "resetSent": "Đã gửi email đặt lại mật khẩu!",
+    "resetSent": "Password reset email sent!",
     "setPassword": "Đặt mật khẩu",
     "signIn": "Đăng nhập",
     "signInTitle": "Vui lòng đăng nhập",
@@ -243,50 +300,65 @@
   },
   "markdownEditor": {
     "content": "Nội dung",
-    "markdownEditor": "Trình chỉnh sửa Markdown",
+    "markdownEditor": "Markdown Editor",
     "markdownGuide": "Hướng dẫn Markdown"
   },
   "month": {
-    "april": "Tháng tư",
-    "august": "Tháng 8",
-    "december": "Tháng mười hai",
-    "february": "Tháng hai",
-    "january": "Tháng một",
-    "july": "Tháng bảy",
-    "june": "Tháng sáu",
-    "march": "Tháng ba",
-    "may": "Có thể",
-    "november": "Tháng mười một",
-    "october": "Tháng mười",
-    "september": "Tháng chín"
+    "april": "April",
+    "august": "August",
+    "december": "December",
+    "february": "February",
+    "january": "January",
+    "july": "July",
+    "june": "June",
+    "march": "March",
+    "may": "May",
+    "november": "November",
+    "october": "October",
+    "september": "September"
   },
   "notes": {
     "comment": "bình luận",
     "comments": "bình luận",
     "notes": "Ghi chú",
-    "startConversation": "Bắt đầu một cuộc trò chuyện",
+    "notifyOff": "Notify Off",
+    "notifyOn": "Notify On",
+    "openFile": "Open file",
+    "startConversation": "Start a conversation",
     "validate": {
       "content": "Vui lòng nhập ghi chú."
     },
-    "viewAll": "Xem tất cả"
+    "viewAll": "View all"
   },
   "person": {
     "email": "Email",
     "firstName": "Tên",
     "lastName": "Họ",
     "name": "Tên",
-    "noRec": "Bạn không có hồ sơ người?",
-    "person": "Người",
-    "years": "năm"
+    "noRec": "Don't have a person record?",
+    "person": "Person",
+    "years": "years"
+  },
+  "question": {
+    "checkbox": "Hộp kiểm",
+    "currency": "Tiền tệ",
+    "date": "Ngày",
+    "email": "Email",
+    "file": "Tải tệp lên",
+    "multiple": "Nhiều lựa chọn",
+    "number": "Số",
+    "phone": "Điện thoại",
+    "textarea": "Vùng văn bản",
+    "textbox": "Hộp văn bản"
   },
   "reporting": {
-    "detailed": "Báo cáo chi tiết",
-    "downloadOptions": "Tùy chọn tải xuống",
-    "noData": "Không có dữ liệu để hiển thị.",
-    "runReport": "Chạy báo cáo",
-    "sampleTemplate": "Mẫu Word mẫu",
-    "summary": "Tóm tắt",
-    "useFilter": "Sử dụng bộ lọc để chạy báo cáo."
+    "detailed": "Detailed Report",
+    "downloadOptions": "Download Options",
+    "noData": "There is no data to display.",
+    "runReport": "Run Report",
+    "sampleTemplate": "Sample Word Template",
+    "summary": "Summary",
+    "useFilter": "Use the filter to run the report."
   },
   "selectChurch": {
     "address1": "Địa chỉ - dòng 1",
@@ -318,22 +390,35 @@
     "discussions": "Diễn đàn hỗ trợ",
     "documentation": "Tài liệu"
   },
+  "validation": {
+    "date": "Vui lòng nhập ngày hợp lệ",
+    "email": "Vui lòng nhập địa chỉ email hợp lệ",
+    "fileSize": "Kích thước tệp phải nhỏ hơn {} MB",
+    "fileType": "Loại tệp không hợp lệ",
+    "maxLength": "Không được dài quá {} ký tự",
+    "minLength": "Phải dài ít nhất {} ký tự",
+    "number": "Vui lòng nhập số hợp lệ",
+    "phone": "Vui lòng nhập số điện thoại hợp lệ",
+    "required": "Trường này là bắt buộc"
+  },
   "wrapper": {
-    "chatWith": "Trò chuyện với",
-    "deleteChurch": "Xóa",
+    "chatWith": "Chat with",
+    "currentChurch": "Hội thánh hiện tại",
+    "deleteChurch": "Delete",
     "editAccount": "Chỉnh sửa tài khoản",
-    "editChurchProfile": "Chỉnh sửa hồ sơ nhà thờ",
+    "editChurchProfile": "Chỉnh sửa hồ sơ hội thánh",
     "editProfile": "Chỉnh sửa hồ sơ",
-    "logout": "Đăng xuất",
-    "messages": "Tin nhắn",
+    "logout": "Logout",
+    "messages": "Messages",
     "newPrivateMessage": "Tin nhắn riêng tư mới",
-    "notifications": "Thông báo",
+    "notifications": "Notifications",
+    "privateConversation": "Private Conversation",
     "privateMessage": "Tin nhắn riêng tư",
-    "profile": "Hồ sơ",
+    "profile": "Profile",
     "searchForPerson": "Tìm kiếm một người",
-    "support": "Hỗ trợ",
-    "sureRemoveChurch": "Bạn có chắc chắn muốn xóa nhà thờ này không? Bạn sẽ không còn là thành viên của {}.",
-    "switchApp": "Chuyển ứng dụng",
-    "switchChurch": "Chuyển nhà thờ"
+    "support": "Support",
+    "sureRemoveChurch": "Are you sure you wish to delete this church? You no longer will be a member of {}.",
+    "switchApp": "Switch App",
+    "switchChurch": "Switch Church"
   }
 }

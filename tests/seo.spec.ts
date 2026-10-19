@@ -69,4 +69,25 @@ test.describe("SEO", () => {
     const response = await request.get(`/compare/missing-${Date.now()}`);
     expect(response.status()).toBe(404);
   });
+
+  // Embeds are iframed on church sites and should not show up in search.
+  for (const path of ["/embed/action/ACT00000001", "/embed/section/SEC00000001", "/embed/addon/ADD00000001", "/embed/external/provider/action/ACT00000001"]) {
+    test(`${path} is noindex`, async ({ request }) => {
+      const html = await (await request.get(path)).text();
+      expect(html).toMatch(/<meta name="robots" content="noindex/);
+    });
+  }
+
+  test("search results are noindex", async ({ request }) => {
+    const html = await (await request.get("/search?q=noah")).text();
+    expect(html).toMatch(/<meta name="robots" content="noindex/);
+  });
+
+  test("signed-in areas refuse framing while embeds allow it", async ({ request }) => {
+    const admin = await request.get("/login");
+    expect(admin.headers()["content-security-policy"]).toContain("frame-ancestors 'self'");
+    expect(admin.headers()["x-content-type-options"]).toBe("nosniff");
+    const embed = await request.get("/embed/action/ACT00000001");
+    expect(embed.headers()["content-security-policy"] || "").not.toContain("frame-ancestors");
+  });
 });

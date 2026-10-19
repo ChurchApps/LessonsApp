@@ -16,8 +16,8 @@ export function ImageEditor(props: Props) {
 
   const handleUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
     e.preventDefault();
-    let files;
-    if (e.target) files = e.target.files;
+    const file = e.target?.files?.[0];
+    if (!file) return;
     const reader = new FileReader();
     reader.onload = () => {
       const url = reader.result?.toString() || "";
@@ -25,7 +25,7 @@ export function ImageEditor(props: Props) {
       setDataUrl(url);
       setTimeout(selectDefaultCropZone, 500);
     };
-    reader.readAsDataURL(files[0]);
+    reader.readAsDataURL(file);
   };
 
   const getHeaderButton = () => (

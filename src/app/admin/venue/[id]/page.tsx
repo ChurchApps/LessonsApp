@@ -1,10 +1,13 @@
 "use client";
 
 import { useParams, useRouter } from "next/navigation";
-import { startTransition, useEffect, useState } from "react";
-import { Box, Button, CircularProgress, IconButton, List, ListItem, ListItemButton, ListItemIcon, ListItemText, Menu, MenuItem, Paper, Stack, Typography } from "@mui/material";
+import { useEffect, useState, useTransition } from "react";
+import { Box, Button, CircularProgress, IconButton, List, ListItem, ListItemButton, ListItemIcon, ListItemText, Menu, MenuItem, Paper, Snackbar, Stack, Typography } from "@mui/material";
 import { Add as AddIcon, Clear as ClearIcon, ContentCopy as CopyIcon, List as ListIcon, Person as PersonIcon, Check as CheckIcon } from "@mui/icons-material";
-import { ActionEdit, RoleEdit, SectionCopy, SectionEdit } from "@/components";
+import { ActionEdit } from "@/components/admin/ActionEdit";
+import { RoleEdit } from "@/components/admin/RoleEdit";
+import { SectionCopy } from "@/components/admin/SectionCopy";
+import { SectionEdit } from "@/components/admin/SectionEdit";
 import { PageHeader } from "@churchapps/apphelper";
 import { Wrapper } from "@/components/Wrapper";
 import {
@@ -52,6 +55,8 @@ export default function Venue() {
   const [programVideos, setProgramVideos] = useState<ExternalVideoInterface[] | null>(null);
 
   const [allAssets, setAllAssets] = useState<AssetInterface[] | null>(null);
+  const [cachePending, startCacheTransition] = useTransition();
+  const [cacheMessage, setCacheMessage] = useState("");
   const { isAuthenticated } = ApiHelper;
   const router = useRouter();
   const pathId = params.id;
@@ -64,7 +69,7 @@ export default function Venue() {
   useEffect(() => { if (isAuthenticated) loadData(); }, [pathId, isAuthenticated]);
   useEffect(() => {
     if (isAuthenticated) { loadResources(); loadVideos(); }
-  }, [lesson, study, isAuthenticated]);
+  }, [lesson?.id, study?.id, isAuthenticated]);
 
   useEffect(() => { if (isAuthenticated) loadAssets(); }, [lessonResources, studyResources, programResources, isAuthenticated]);
 
@@ -85,13 +90,11 @@ export default function Venue() {
   };
 
   function loadAssets() {
-    if (allAssets === null) {
-      if (lessonResources && studyResources && programResources) {
-        const allResources = ([] as ResourceInterface[]).concat(lessonResources).concat(studyResources).concat(programResources);
-        if (allResources.length > 0) {
-          const resourceIds: string[] = ArrayHelper.getUniqueValues(allResources, "id");
-          ApiHelper.get("/assets/resourceIds?resourceIds=" + resourceIds.join(","), "LessonsApi").then((data: any) => { setAllAssets(data); });
-        }
+    if (lessonResources && studyResources && programResources) {
+      const allResources = ([] as ResourceInterface[]).concat(lessonResources).concat(studyResources).concat(programResources);
+      if (allResources.length > 0) {
+        const resourceIds: string[] = ArrayHelper.getUniqueValues(allResources, "id");
+        ApiHelper.get("/assets/resourceIds?resourceIds=" + resourceIds.join(","), "LessonsApi").then((data: any) => { setAllAssets(data); });
       }
     }
   }
@@ -103,12 +106,18 @@ export default function Venue() {
         setLesson(data);
         ApiHelper.get("/studies/" + data.studyId, "LessonsApi").then((d: any) => { setStudy(d); });
       });
-      ApiHelper.get("/sections/venue/" + v.id, "LessonsApi").then((data: any) => { setSections(data); });
-      ApiHelper.get("/roles/public/lesson/" + v.lessonId, "LessonsApi").then((data: any) => { setRoles(data); });
-      ApiHelper.get("/actions/public/lesson/" + v.lessonId, "LessonsApi").then((data: any) => { setActions(data); });
+      loadStructure(v);
       ApiHelper.get("/addOns/public", "LessonsApi").then((data: any) => { setAddOns(data); });
     });
   }
+
+  function loadStructure(v: VenueInterface) {
+    ApiHelper.get("/sections/venue/" + v.id, "LessonsApi").then((data: any) => { setSections(data); });
+    ApiHelper.get("/roles/public/lesson/" + v.lessonId, "LessonsApi").then((data: any) => { setRoles(data); });
+    ApiHelper.get("/actions/public/lesson/" + v.lessonId, "LessonsApi").then((data: any) => { setActions(data); });
+  }
+
+  const cacheJwt = () => ApiHelper.getConfig("LessonsApi")?.jwt || "";
 
   const clearEdits = () => {
     setEditSection(null);
@@ -117,13 +126,17 @@ export default function Venue() {
     setCopySection(null);
   };
 
-  const handleUpdated = () => { loadData(); clearEdits(); };
+  const handleUpdated = (changed = true) => {
+    if (venue) loadStructure(venue);
+    clearEdits();
+    if (changed) revalidate("all", cacheJwt()).catch(() => false);
+  };
 
-  const handleSectionUpdated = (section: SectionInterface | null, created: boolean) => { handleUpdated(); if (created) createRole(section?.id || ""); };
+  const handleSectionUpdated = (section: SectionInterface | null, created: boolean) => { handleUpdated(section !== editSection); if (created) createRole(section?.id || ""); };
 
-  const handleRoleUpdated = (role: RoleInterface | null, created: boolean) => { handleUpdated(); if (created) createAction(role?.id || ""); };
+  const handleRoleUpdated = (role: RoleInterface | null, created: boolean) => { handleUpdated(role !== editRole); if (created) createAction(role?.id || ""); };
 
-  const handleActionUpdated = (action: ActionInterface, created: boolean) => { handleUpdated(); if (created) createAction(action.roleId || "", (action.sort ?? 0) + 1); };
+  const handleActionUpdated = (action: ActionInterface, created: boolean) => { handleUpdated(action !== editAction); if (created) createAction(action.roleId || "", (action.sort ?? 0) + 1); };
 
   const createSection = () => {
     clearEdits();
@@ -294,9 +307,9 @@ export default function Venue() {
     if (editSection) {
       result.push(<SectionEdit section={editSection} updatedCallback={handleSectionUpdated} key="sectionEdit" />);
     } else if (editRole) {
-      result.push(<RoleEdit role={editRole} updatedCallback={handleRoleUpdated} />);
+      result.push(<RoleEdit role={editRole} updatedCallback={handleRoleUpdated} key="roleEdit" />);
     } else if (copySection) {
-      result.push(<SectionCopy copySection={copySection} venueId={venue!.id || ""} updatedCallback={handleUpdated} />);
+      result.push(<SectionCopy copySection={copySection} venueId={venue!.id || ""} updatedCallback={() => handleUpdated()} key="sectionCopy" />);
     } else if (editAction) {
       result.push(<ActionEdit
         action={editAction}
@@ -320,7 +333,10 @@ export default function Venue() {
   const handleAddMenuClose = () => { setMenuAnchor(null); };
 
   const clearCache = () => {
-    startTransition(async () => { revalidate("all"); });
+    startCacheTransition(async () => {
+      const ok = await revalidate("all", cacheJwt()).catch(() => false);
+      setCacheMessage(ok ? "Cache cleared" : "Unable to clear cache");
+    });
   };
 
   return (
@@ -343,6 +359,7 @@ export default function Venue() {
             variant="outlined"
             startIcon={<ClearIcon />}
             onClick={clearCache}
+            disabled={cachePending}
             sx={{
               color: "white",
               borderColor: "rgba(255,255,255,0.5)",
@@ -427,6 +444,7 @@ export default function Venue() {
             Copy Existing Section
           </MenuItem>
         </Menu>
+        <Snackbar open={!!cacheMessage} autoHideDuration={3000} onClose={() => setCacheMessage("")} message={cacheMessage} />
       </Box>
     </Wrapper>
   );

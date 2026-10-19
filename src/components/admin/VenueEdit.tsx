@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { Alert, Box, Button, IconButton, Paper, Stack, TextField, Typography } from "@mui/material";
 import { LocationOn as LocationIcon, Save as SaveIcon, Cancel as CancelIcon, Delete as DeleteIcon } from "@mui/icons-material";
 import { useForm } from "react-hook-form";
@@ -10,15 +10,20 @@ type AnyRecord = Record<string, any>;
 
 export function VenueEdit(props: Props) {
   const { register, handleSubmit, reset, formState } = useForm<AnyRecord>({ defaultValues: { name: "", sort: "" } });
+  const [error, setError] = useState("");
   const e = formState.errors as any;
   const summaryErrors: string[] = [];
   if (e.name?.message) summaryErrors.push(e.name.message);
 
   const handleCancel = () => props.updatedCallback(props.venue);
 
-  const onValid = (values: AnyRecord) => {
+  const onValid = async (values: AnyRecord) => {
     const v: VenueInterface = { ...props.venue, name: values.name, sort: parseInt(values.sort) || 0 };
-    ApiHelper.post("/venues", [v], "LessonsApi").then((data: VenueInterface) => props.updatedCallback(data));
+    setError("");
+    try {
+      const data: VenueInterface = await ApiHelper.post("/venues", [v], "LessonsApi");
+      props.updatedCallback(data);
+    } catch (err: any) { setError(err?.message || "Unable to save."); }
   };
 
   const handleDelete = () => { if (window.confirm("Are you sure you wish to permanently delete this venue?")) ApiHelper.delete("/venues/" + props.venue.id!.toString(), "LessonsApi").then(() => props.updatedCallback(null)); };
@@ -38,6 +43,7 @@ export function VenueEdit(props: Props) {
 
       <Box sx={{ p: 3 }}>
         {summaryErrors.length > 0 && <Alert severity="error" sx={{ mb: 2 }}>{summaryErrors.map((msg) => <div key={msg}>{msg}</div>)}</Alert>}
+        {error && <Alert severity="error" sx={{ mb: 2 }}>{error}</Alert>}
 
         <Stack spacing={3}>
           <TextField fullWidth label="Order" type="number" placeholder="1" helperText="Display order for this venue" {...register("sort")} />
@@ -46,7 +52,7 @@ export function VenueEdit(props: Props) {
       </Box>
 
       <Box sx={{ p: 2, borderTop: "1px solid var(--admin-border)", backgroundColor: "var(--admin-bg)", display: "flex", justifyContent: "flex-end", gap: 1, flexWrap: "wrap" }}>
-        <Button startIcon={<SaveIcon />} variant="contained" onClick={handleSubmit(onValid)}>Save</Button>
+        <Button startIcon={<SaveIcon />} variant="contained" disabled={formState.isSubmitting} onClick={handleSubmit(onValid)}>Save</Button>
         <Button startIcon={<CancelIcon />} variant="outlined" onClick={handleCancel}>Cancel</Button>
         {props.venue?.id && (
           <IconButton color="error" onClick={handleDelete}>

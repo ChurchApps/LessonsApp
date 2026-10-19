@@ -26,6 +26,7 @@ export default function Admin() {
   const [churches, setChurches] = useState<ChurchInterface[]>([]);
   const [startDate, setStartDate] = useState<Date>(initialStartDate);
   const [endDate, setEndDate] = useState<Date>(initialEndDate);
+  const [appliedRange, setAppliedRange] = useState({ startDate: initialStartDate, endDate: initialEndDate });
 
   const router = useRouter();
   const { isAuthenticated } = ApiHelper;
@@ -43,6 +44,7 @@ export default function Admin() {
   }
 
   const filterResults = () => {
+    setAppliedRange({ startDate, endDate });
     const dateString = "?startDate=" + DateHelper.formatHtml5Date(startDate) + "&endDate=" + DateHelper.formatHtml5Date(endDate);
     ApiHelper.get("/downloads/" + programId + "/studies" + dateString, "LessonsApi").then((d: StudyStatsInterface[]) => setStudies(d));
     ApiHelper.get("/downloads/" + programId + "/churches" + dateString, "LessonsApi").then((churchList: ChurchInterface[]) => {
@@ -52,8 +54,9 @@ export default function Admin() {
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    const val = e.target.value;
-    switch (e.target.name) { case "startDate": setStartDate(new Date(val)); break; case "endDate": setEndDate(new Date(val)); break; }
+    const [y, m, d] = e.target.value.split("-").map(Number);
+    const val = new Date(y, m - 1, d);
+    switch (e.target.name) { case "startDate": setStartDate(val); break; case "endDate": setEndDate(val); break; }
   };
 
   const getStudyRows = () => {
@@ -174,7 +177,7 @@ export default function Admin() {
                   </Stack>
                 </Box>
                 <Box sx={{ p: 2 }}>
-                  <Map programId={program?.id || ""} startDate={startDate} endDate={endDate} />
+                  <Map programId={program?.id || ""} startDate={appliedRange.startDate} endDate={appliedRange.endDate} />
                 </Box>
               </Paper>
             </Grid>

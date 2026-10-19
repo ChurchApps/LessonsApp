@@ -4,9 +4,6 @@ import unusedImports from "eslint-plugin-unused-imports";
 import nextPlugin from "@next/eslint-plugin-next";
 import reactPlugin from "eslint-plugin-react";
 import reactHooksPlugin from "eslint-plugin-react-hooks";
-import { createRequire } from 'module';
-
-const require = createRequire(import.meta.url);
 
 export default [
   { ignores: ["node_modules/", "dist/", "build/", ".next/", "coverage/", "*.config.js"] },
@@ -24,6 +21,8 @@ export default [
       "react-hooks": reactHooksPlugin
     },
     rules: {
+      ...nextPlugin.configs["core-web-vitals"].rules,
+      "react-hooks/rules-of-hooks": "error",
       "prefer-const": "error",
       "@typescript-eslint/no-explicit-any": "off",
       "@typescript-eslint/no-unused-vars": ["warn", { args: "all", argsIgnorePattern: "^_", varsIgnorePattern: "^_" }],

@@ -1,36 +1,39 @@
 {
   "b1Share": {
-    "comment": "Yorum",
-    "commentPlaceholder": "Gönderinize bir yorum ekleyin.",
-    "contentShared": "İçerik Paylaşıldı",
-    "group": "Grup",
-    "sharingToGroup": "{} paylaşımı B1 Grubuna",
+    "comment": "Comment",
+    "commentPlaceholder": "Include a comment with your post.",
+    "contentShared": "Content Shared",
+    "group": "Group",
+    "sharingToGroup": "Sharing {} to B1 Group",
     "validate": {
-      "addComment": "Lütfen bir yorum ekleyin.",
-      "loginFirst": "Lütfen önce giriş yapın.",
-      "notMember": "Şu anda B1 üzerinde herhangi bir grubun üyesi değilsiniz.",
-      "selectGroup": "Lütfen bir grup seçin."
+      "addComment": "Please add a comment.",
+      "loginFirst": "Please login first.",
+      "notMember": "You are not currently a member of any groups on B1.",
+      "selectGroup": "Please select a group."
     }
   },
   "common": {
-    "add": "Ekle",
+    "add": "Add",
     "cancel": "İptal Et",
     "close": "Kapat",
-    "date": "Tarih",
+    "date": "Date",
     "delete": "Sil",
-    "edit": "Düzenle",
-    "error": "Hata",
+    "edit": "Edit",
+    "error": "Error",
+    "optional": "İsteğe bağlı",
     "pleaseWait": "Lütfen bekleyin...",
+    "remove": "Kaldır",
+    "required": "Zorunlu",
     "save": "Kaydet",
     "search": "Ara",
-    "submit": "Gönder",
+    "submit": "Submit",
     "update": "Güncelle"
   },
   "createPerson": {
-    "addNewPerson": "Yeni Kişi Ekle",
+    "addNewPerson": "Add a New Person",
     "email": "Email",
-    "firstName": "Ad",
-    "lastName": "Soyadı"
+    "firstName": "First Name",
+    "lastName": "Last Name"
   },
   "donation": {
     "bankForm": {
@@ -38,7 +41,7 @@
       "added": "Banka hesabı eklendi. Bağış yapmak için banka hesabınızı doğrulayın.",
       "company": "Şirket",
       "firstDeposit": "İlk Depozito",
-      "holderName": "Hesap sahibinin adı gereklidir.",
+      "holderName": "Account holder name is required.",
       "individual": "Bireysel",
       "name": "Hesap Sahibinin Adı",
       "needVerified": "Banka hesaplarının bağış yapılmadan önce doğrulanması gerekecektir. Hesabınız yaklaşık 1-3 iş günü içinde iki küçük mevduat alacaktır. Ödeme yöntemleri bölümünün altında banka hesabınızın yanındaki hesap doğrulama bağlantısını seçerek hesap doğrulamanızı tamamlamak için bu mevduat tutarlarını girmeniz gerekecektir.",
@@ -59,8 +62,13 @@
       "expirationYear": "Son Kullanma Yılı:",
       "updated": "Kart başarıyla güncellendi."
     },
+    "common": {
+      "cancel": "Cancel",
+      "error": "Error"
+    },
     "donationForm": {
       "annually": "Yıllık",
+      "anonymous": "Give anonymously (one-time gifts only)",
       "biWeekly": "İki haftada bir",
       "cancelled": "Tekrarlayan bağış iptal edildi.",
       "confirmDelete": "Bu tekrarlayan bağışı silmek istediğinizden emin misiniz?",
@@ -75,7 +83,8 @@
       "makeRecurring": "Tekrarlayan Bağış Yap",
       "method": "Yöntem",
       "monthly": "Aylık",
-      "notes": "Notlar",
+      "notes": "Notes",
+      "orPayWith": "Or pay with",
       "preview": "Bağış Önizlemesi",
       "quarterly": "Üç Aylık",
       "recurringUpdated": "Tekrarlayan bağış güncellendi.",
@@ -90,6 +99,7 @@
         "lastName": "Lütfen soyadınızı girin.",
         "validEmail": "Lütfen geçerli bir e-posta adresi girin."
       },
+      "walletFailed": "Wallet payment could not be completed. Please try again.",
       "weekly": "Haftalık"
     },
     "fundDonations": {
@@ -97,21 +107,57 @@
       "amount": "Tutar",
       "fund": "Fon"
     },
+    "kingdomFunding": {
+      "enterBankDetails": "Enter your bank account details",
+      "enterCardDetails": "Enter card details",
+      "errorProcessingDonation": "Error processing donation",
+      "failedToInitPaymentForm": "Failed to initialize payment form",
+      "failedToLoadPaymentForm": "Failed to load payment form",
+      "failedToProcessCard": "Failed to process card. Please check your card details and try again.",
+      "failedToTokenizeCard": "Failed to tokenize card",
+      "gatewayConfigMissing": "Payment form not available. Gateway configuration missing.",
+      "loadingPaymentForm": "Loading payment form...",
+      "memo": "Memo (optional)",
+      "missingTokenizationKey": "Missing tokenization key",
+      "payWithBank": "Bank (ACH)",
+      "payWithCard": "Card",
+      "paymentFormNotAvailable": "Payment form not available",
+      "paymentFormNotInitialized": "Payment form not initialized",
+      "paymentProvider": "Ödeme sağlayıcısı",
+      "providerName": "Kingdom Funding",
+      "unexpectedError": "An unexpected error occurred. Please try again.",
+      "validate": {
+        "accountNumber": "Lütfen geçerli bir hesap numarası girin",
+        "captchaFailed": "reCAPTCHA verification failed. Please try again.",
+        "captchaRequired": "Please complete the reCAPTCHA verification",
+        "routingNumber": "Lütfen geçerli bir banka yönlendirme numarası girin"
+      }
+    },
     "page": {
-      "amount": "Tutar",
-      "batch": "Toplu İş",
-      "date": "Tarih",
-      "fund": "Fon",
-      "method": "Yöntem",
-      "willAppear": "Bağışlar bir bağış girildiğinde görünecektir."
+      "amount": "Amount",
+      "batch": "Batch",
+      "date": "Date",
+      "fund": "Fund",
+      "method": "Method",
+      "willAppear": "Donations will appear once a donation has been entered."
     },
     "paymentMethods": {
       "addBank": "Banka Hesabı Ekle",
       "addCard": "Kart Ekle",
       "confirmDelete": "Bu ödeme yöntemini silmek istediğinizden emin misiniz?",
       "deleted": "Ödeme yöntemi silindi.",
-      "noMethods": "Ödeme yöntemi yok. Bağış yapmak için bir ödeme yöntemi ekleyin.",
+      "noMethod": "No Method",
       "verify": "Hesabı Doğrula"
+    },
+    "paypal": {
+      "approved": "PayPal payment approved. Choose Donate to finish your gift.",
+      "captchaRequired": "Please complete the reCAPTCHA verification"
+    },
+    "paystack": {
+      "emailRequired": "An email address is required to pay with Paystack.",
+      "paymentFailed": "Payment was not completed.",
+      "popupHint": "You'll complete payment in a secure Paystack window. Card, mobile money and bank transfer are accepted.",
+      "saveOnlyWithGift": "Payment methods are saved when you give — check \"Save this card\" while making a gift."
     },
     "preview": {
       "date": "Bağış Tarihi",
@@ -123,13 +169,15 @@
       "notes": "Notlar",
       "startingOn": "Başlangıç",
       "total": "Toplam",
-      "type": "Bağış Türü"
+      "type": "Bağış Türü",
+      "weekly": "Weekly"
     },
     "recurring": {
       "amount": "Tutar",
       "confirmPause": "Bu tekrarlayan bağışı duraklatmak istediğinizden emin misiniz?",
       "every": "Her",
       "interval": "Aralık",
+      "noSubscriptions": "No Subscriptions",
       "notFound": "Ödeme yöntemi bulunamadı.",
       "pauseFailed": "Tekrarlayan bağış duraklatılamadı. Lütfen tekrar deneyin.",
       "pauseTooltip": "Tekrarlayan bağışı duraklat",
@@ -183,13 +231,18 @@
       "toggleWeekday": "Haftalık tekrarlama için {} gününü değiştir"
     }
   },
+  "fileUpload": {
+    "file": "File",
+    "quotaExceeded": "Storage quota exceeded. Delete unused files or upgrade your storage plan.",
+    "uploadFailed": "Upload failed. Please try again."
+  },
   "formSubmissionEdit": {
     "back": "Geri",
-    "continue": "Devam",
-    "stepProgress": "{current} / {total}",
     "confirmDelete": "Bu form verilerini silmek istediğinizden emin misiniz?",
+    "continue": "Devam",
     "editForm": "Formu Düzenle",
     "isRequired": "gereklidir",
+    "stepProgress": "{current} / {total}",
     "submit": "Gönder"
   },
   "gallery": {
@@ -198,21 +251,25 @@
     "freeForm": "Serbest Form"
   },
   "iconPicker": {
-    "iconsAvailable": "simge kullanılabilir",
-    "matchingResults": "eşleşen sonuçlar",
-    "search": "Simgeleri ara..."
+    "iconsAvailable": "icons available",
+    "matchingResults": "matching results",
+    "search": "Search icons..."
   },
   "login": {
-    "createAccount": "Hesap Oluştur",
+    "accountExists": "Zaten bir ChurchApps hesabınız var. Lütfen bunun yerine onunla giriş yapın.",
+    "continueGoogle": "Continue with Google",
+    "continueMicrosoft": "Continue with Microsoft",
+    "createAccount": "Create an Account",
     "email": "Email",
     "enterCode": "Doğrulama Kodunu Girin",
     "enterCodeInstructions": "Size az önce e-postayla gönderdiğimiz 6 haneli kodu girin.",
     "expiredLink": "Mevcut bağlantı süresi dolmuş.",
     "forgot": "Şifremi Unuttum",
-    "goLogin": "Giriş Sayfasına Git",
+    "goLogin": "Go to Login",
     "login": "Giriş Yap",
     "noAcc": "Hesabınız yok mu?",
     "noAccountFound": "Bu e-posta ile hesap bulunamadı. Devam etmek için lütfen kayıt olun.",
+    "or": "or",
     "password": "Şifre",
     "register": "Kaydol",
     "registerThankYou": "Kaydolduğunuz için teşekkür ederiz! Hesabınızı doğrulamak için lütfen e-postanızı kontrol edin.",
@@ -221,7 +278,7 @@
     "reset": "Sıfırla",
     "resetInstructions": "Şifre sıfırlaması istemek için e-posta adresinizi girin.",
     "resetPassword": "Şifreyi Sıfırla",
-    "resetSent": "Şifre sıfırlama e-postası gönderildi!",
+    "resetSent": "Password reset email sent!",
     "setPassword": "Şifre Belirle",
     "signIn": "Giriş Yap",
     "signInTitle": "Lütfen Giriş Yapın",
@@ -243,50 +300,65 @@
   },
   "markdownEditor": {
     "content": "İçerik",
-    "markdownEditor": "Markdown Editörü",
+    "markdownEditor": "Markdown Editor",
     "markdownGuide": "Markdown Kılavuzu"
   },
   "month": {
-    "april": "Nisan",
-    "august": "Ağustos",
-    "december": "Aralık",
-    "february": "Şubat",
-    "january": "Ocak",
-    "july": "Temmuz",
-    "june": "Haziran",
-    "march": "Mart",
-    "may": "Mayıs",
-    "november": "Kasım",
-    "october": "Ekim",
-    "september": "Eylül"
+    "april": "April",
+    "august": "August",
+    "december": "December",
+    "february": "February",
+    "january": "January",
+    "july": "July",
+    "june": "June",
+    "march": "March",
+    "may": "May",
+    "november": "November",
+    "october": "October",
+    "september": "September"
   },
   "notes": {
     "comment": "yorum",
     "comments": "yorumlar",
     "notes": "Notlar",
-    "startConversation": "Bir konuşma başlat",
+    "notifyOff": "Notify Off",
+    "notifyOn": "Notify On",
+    "openFile": "Open file",
+    "startConversation": "Start a conversation",
     "validate": {
       "content": "Lütfen bir not girin."
     },
-    "viewAll": "Hepsini Göster"
+    "viewAll": "View all"
   },
   "person": {
     "email": "Email",
     "firstName": "Ad",
     "lastName": "Soyadı",
     "name": "Ad",
-    "noRec": "Kişi kaydınız yok mu?",
-    "person": "Kişi",
-    "years": "yıl"
+    "noRec": "Don't have a person record?",
+    "person": "Person",
+    "years": "years"
+  },
+  "question": {
+    "checkbox": "Onay kutusu",
+    "currency": "Para birimi",
+    "date": "Tarih",
+    "email": "E-posta",
+    "file": "Dosya yükleme",
+    "multiple": "Çoktan seçmeli",
+    "number": "Sayı",
+    "phone": "Telefon",
+    "textarea": "Metin alanı",
+    "textbox": "Metin kutusu"
   },
   "reporting": {
-    "detailed": "Ayrıntılı Rapor",
-    "downloadOptions": "İndirme Seçenekleri",
-    "noData": "Görüntülenecek veri yok.",
-    "runReport": "Raporu Çalıştır",
-    "sampleTemplate": "Örnek Word Şablonu",
-    "summary": "Özet",
-    "useFilter": "Raporu çalıştırmak için filtreyi kullanın."
+    "detailed": "Detailed Report",
+    "downloadOptions": "Download Options",
+    "noData": "There is no data to display.",
+    "runReport": "Run Report",
+    "sampleTemplate": "Sample Word Template",
+    "summary": "Summary",
+    "useFilter": "Use the filter to run the report."
   },
   "selectChurch": {
     "address1": "Adres Satırı 1",
@@ -318,22 +390,35 @@
     "discussions": "Destek Forumu",
     "documentation": "Dokümantasyon"
   },
+  "validation": {
+    "date": "Lütfen geçerli bir tarih girin",
+    "email": "Lütfen geçerli bir e-posta adresi girin",
+    "fileSize": "Dosya boyutu {} MB'tan küçük olmalıdır",
+    "fileType": "Geçersiz dosya türü",
+    "maxLength": "En fazla {} karakter olmalıdır",
+    "minLength": "En az {} karakter olmalıdır",
+    "number": "Lütfen geçerli bir sayı girin",
+    "phone": "Lütfen geçerli bir telefon numarası girin",
+    "required": "Bu alan zorunludur"
+  },
   "wrapper": {
-    "chatWith": "Sohbet",
-    "deleteChurch": "Sil",
+    "chatWith": "Chat with",
+    "currentChurch": "Mevcut kilise",
+    "deleteChurch": "Delete",
     "editAccount": "Hesabı Düzenle",
     "editChurchProfile": "Kilise Profilini Düzenle",
     "editProfile": "Profili Düzenle",
-    "logout": "Çıkış Yap",
-    "messages": "Mesajlar",
+    "logout": "Logout",
+    "messages": "Messages",
     "newPrivateMessage": "Yeni Özel Mesaj",
-    "notifications": "Bildirimler",
+    "notifications": "Notifications",
+    "privateConversation": "Private Conversation",
     "privateMessage": "Özel Mesaj",
-    "profile": "Profil",
+    "profile": "Profile",
     "searchForPerson": "Kişi Ara",
-    "support": "Destek",
-    "sureRemoveChurch": "Bu kilisenin silinmesinden emin misiniz? Artık {} üyesi olmayacaksınız.",
-    "switchApp": "Uygulamayı Değiştir",
-    "switchChurch": "Kilisey Değiştir"
+    "support": "Support",
+    "sureRemoveChurch": "Are you sure you wish to delete this church? You no longer will be a member of {}.",
+    "switchApp": "Switch App",
+    "switchChurch": "Switch Church"
   }
 }

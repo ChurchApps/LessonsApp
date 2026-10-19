@@ -81,7 +81,7 @@ const LessonSidebar = React.memo((props: Props) => {
     props.selectedVenue?.sections?.map((s, idx) =>
       (s.actions?.length || 0) > 0 && (
         <li key={"section-" + idx}>
-          <a className="sectionLink" id={"sectionLink-" + idx} href={"#section-" + s.name}>
+          <a className="sectionLink" id={"sectionLink-" + s.name} href={"#section-" + s.name}>
             {s.name}
           </a>
         </li>

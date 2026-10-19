@@ -1,18 +1,22 @@
 import { useState } from "react";
+import { Alert } from "@mui/material";
 import { InputBox } from "@churchapps/apphelper";
 import { ApiHelper, AssetInterface, FileInterface } from "@/helpers";
 import { BulkFileUpload } from "./BulkFileUpload";
 
-interface Props { resourceId: string; updatedCallback: () => void; }
+interface Props { resourceId: string; existingCount?: number; updatedCallback: () => void; }
 
 export function BulkAssetAdd(props: Props) {
   const [pendingFileSave, setPendingFileSave] = useState(false);
+  const [error, setError] = useState("");
 
   const handleCancel = () => props.updatedCallback();
 
+  const handleFileError = (message: string) => { setPendingFileSave(false); setError(message); };
+
   const handleFilesSaved = (files: FileInterface[]) => {
     const assets: AssetInterface[] = [];
-    let i = 1;
+    let i = (props.existingCount || 0) + 1;
     files.forEach(f => {
       assets.push({
         fileId: f.id,
@@ -23,10 +27,10 @@ export function BulkAssetAdd(props: Props) {
       i++;
     });
 
-    ApiHelper.post("/assets", assets, "LessonsApi").then(() => { setPendingFileSave(false); props.updatedCallback(); });
+    ApiHelper.post("/assets", assets, "LessonsApi").then(() => { setPendingFileSave(false); props.updatedCallback(); }).catch((err: Error) => handleFileError(err.message));
   };
 
-  const handleSave = () => { setPendingFileSave(true); };
+  const handleSave = () => { setError(""); setPendingFileSave(true); };
 
   return (
     <>
@@ -36,7 +40,8 @@ export function BulkAssetAdd(props: Props) {
         headerIcon="content_copy"
         saveFunction={handleSave}
         cancelFunction={handleCancel}>
-        <BulkFileUpload resourceId={props.resourceId} pendingSave={pendingFileSave} saveCallback={handleFilesSaved} />
+        {error && <Alert severity="error" sx={{ mb: 2 }}>{error}</Alert>}
+        <BulkFileUpload resourceId={props.resourceId} pendingSave={pendingFileSave} saveCallback={handleFilesSaved} errorCallback={handleFileError} />
       </InputBox>
     </>
   );

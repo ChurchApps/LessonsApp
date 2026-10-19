@@ -5,7 +5,7 @@ import { CookiesProvider } from "react-cookie";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
 import { AnalyticsHelper, ErrorLogInterface, UserHelper, ErrorHelper, ErrorMessages } from "@churchapps/apphelper";
 import { ErrorAppDataInterface } from "@churchapps/helpers";
-import { ErrorBoundary } from "@/components";
+import ErrorBoundary from "@/components/ErrorBoundary";
 import { EnvironmentHelper } from "@/helpers/EnvironmentHelper";
 import { UserProvider } from "./context/UserContext";
 
@@ -14,10 +14,7 @@ if (typeof window !== "undefined") EnvironmentHelper.init();
 
 function ClientLayout({ children }: { children: React.ReactNode }) {
   const [errors, setErrors] = useState<string[]>([]);
-  const [isClient, setIsClient] = useState(false);
-
   useEffect(() => {
-    setIsClient(true);
     EnvironmentHelper.initLocale();
     EnvironmentHelper.init();
 
@@ -29,7 +26,8 @@ function ClientLayout({ children }: { children: React.ReactNode }) {
 
     ErrorHelper.init(getErrorAppData, customErrorHandler);
 
-    // Load HubSpot script after hydration to prevent hydration mismatch
+    // Embeds, B1 webviews and classroom displays run on other sites and screens; keep the marketing tracker off them.
+    if (/^\/(embed|b1|classroom)(\/|$)/.test(window.location.pathname)) return;
     const script = document.createElement("script");
     script.type = "text/javascript";
     script.id = "hs-script-loader";
@@ -38,16 +36,6 @@ function ClientLayout({ children }: { children: React.ReactNode }) {
     script.src = "//js.hs-scripts.com/20077299.js";
     document.body.appendChild(script);
   }, []);
-
-  useEffect(() => {
-    if (isClient) {
-      try {
-        AnalyticsHelper.logPageView();
-      } catch (error) {
-        console.warn("Analytics page view logging failed:", error);
-      }
-    }
-  }, [isClient]);
 
   const getErrorAppData = () => {
     const result: ErrorAppDataInterface = {

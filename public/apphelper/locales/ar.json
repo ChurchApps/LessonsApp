@@ -1,36 +1,39 @@
 {
   "b1Share": {
-    "comment": "تعليق",
-    "commentPlaceholder": "أضف تعليقاً مع منشورك.",
-    "contentShared": "تم مشاركة المحتوى",
-    "group": "مجموعة",
-    "sharingToGroup": "مشاركة {} إلى مجموعة B1",
+    "comment": "Comment",
+    "commentPlaceholder": "Include a comment with your post.",
+    "contentShared": "Content Shared",
+    "group": "Group",
+    "sharingToGroup": "Sharing {} to B1 Group",
     "validate": {
-      "addComment": "يرجى إضافة تعليق.",
-      "loginFirst": "يرجى تسجيل الدخول أولاً.",
-      "notMember": "أنت حالياً لست عضواً في أي مجموعات على B1.",
-      "selectGroup": "يرجى تحديد مجموعة."
+      "addComment": "Please add a comment.",
+      "loginFirst": "Please login first.",
+      "notMember": "You are not currently a member of any groups on B1.",
+      "selectGroup": "Please select a group."
     }
   },
   "common": {
-    "add": "إضافة",
+    "add": "Add",
     "cancel": "إلغاء",
     "close": "إغلاق",
-    "date": "التاريخ",
+    "date": "Date",
     "delete": "حذف",
-    "edit": "تعديل",
-    "error": "خطأ",
+    "edit": "Edit",
+    "error": "Error",
+    "optional": "اختياري",
     "pleaseWait": "يرجى الانتظار...",
+    "remove": "إزالة",
+    "required": "مطلوب",
     "save": "حفظ",
     "search": "بحث",
-    "submit": "إرسال",
+    "submit": "Submit",
     "update": "تحديث"
   },
   "createPerson": {
-    "addNewPerson": "إضافة شخص جديد",
-    "email": "البريد الإلكتروني",
-    "firstName": "الاسم الأول",
-    "lastName": "الاسم الأخير"
+    "addNewPerson": "Add a New Person",
+    "email": "Email",
+    "firstName": "First Name",
+    "lastName": "Last Name"
   },
   "donation": {
     "bankForm": {
@@ -38,7 +41,7 @@
       "added": "تمت إضافة حساب بنكي. تحقق من حسابك البنكي لإجراء تبرع.",
       "company": "شركة",
       "firstDeposit": "الإيداع الأول",
-      "holderName": "اسم صاحب الحساب مطلوب.",
+      "holderName": "Account holder name is required.",
       "individual": "فرد",
       "name": "اسم صاحب الحساب",
       "needVerified": "سيتعين التحقق من الحسابات البنكية قبل إجراء أي تبرعات. سيتلقى حسابك إيداعين صغيرين في غضون 1-3 أيام عمل تقريباً. ستحتاج إلى إدخال مبالغ الإيداع تلك لإكمال التحقق من حسابك بتحديد رابط التحقق بجانب حسابك البنكي تحت قسم طرق الدفع.",
@@ -59,8 +62,13 @@
       "expirationYear": "سنة الانتهاء:",
       "updated": "تم تحديث البطاقة بنجاح."
     },
+    "common": {
+      "cancel": "Cancel",
+      "error": "Error"
+    },
     "donationForm": {
       "annually": "سنويا",
+      "anonymous": "Give anonymously (one-time gifts only)",
       "biWeekly": "كل أسبوعين",
       "cancelled": "تم إلغاء التبرع المتكرر.",
       "confirmDelete": "هل أنت متأكد من رغبتك في حذف هذا التبرع المتكرر؟",
@@ -75,7 +83,8 @@
       "makeRecurring": "تقديم تبرع متكرر",
       "method": "الطريقة",
       "monthly": "شهري",
-      "notes": "ملاحظات",
+      "notes": "Notes",
+      "orPayWith": "Or pay with",
       "preview": "معاينة التبرع",
       "quarterly": "ربع سنوي",
       "recurringUpdated": "تم تحديث التبرع المتكرر.",
@@ -90,6 +99,7 @@
         "lastName": "يرجى إدخال اسمك الأخير.",
         "validEmail": "يرجى إدخال عنوان بريد إلكتروني صحيح."
       },
+      "walletFailed": "Wallet payment could not be completed. Please try again.",
       "weekly": "أسبوعي"
     },
     "fundDonations": {
@@ -97,21 +107,57 @@
       "amount": "المبلغ",
       "fund": "صندوق"
     },
+    "kingdomFunding": {
+      "enterBankDetails": "Enter your bank account details",
+      "enterCardDetails": "Enter card details",
+      "errorProcessingDonation": "Error processing donation",
+      "failedToInitPaymentForm": "Failed to initialize payment form",
+      "failedToLoadPaymentForm": "Failed to load payment form",
+      "failedToProcessCard": "Failed to process card. Please check your card details and try again.",
+      "failedToTokenizeCard": "Failed to tokenize card",
+      "gatewayConfigMissing": "Payment form not available. Gateway configuration missing.",
+      "loadingPaymentForm": "Loading payment form...",
+      "memo": "Memo (optional)",
+      "missingTokenizationKey": "Missing tokenization key",
+      "payWithBank": "Bank (ACH)",
+      "payWithCard": "Card",
+      "paymentFormNotAvailable": "Payment form not available",
+      "paymentFormNotInitialized": "Payment form not initialized",
+      "paymentProvider": "مزود الدفع",
+      "providerName": "Kingdom Funding",
+      "unexpectedError": "An unexpected error occurred. Please try again.",
+      "validate": {
+        "accountNumber": "يرجى إدخال رقم حساب صالح",
+        "captchaFailed": "reCAPTCHA verification failed. Please try again.",
+        "captchaRequired": "Please complete the reCAPTCHA verification",
+        "routingNumber": "يرجى إدخال رقم توجيه مصرفي صالح"
+      }
+    },
     "page": {
-      "amount": "المبلغ",
-      "batch": "دفعة",
-      "date": "التاريخ",
-      "fund": "صندوق",
-      "method": "الطريقة",
-      "willAppear": "ستظهر التبرعات بمجرد إدخال تبرع."
+      "amount": "Amount",
+      "batch": "Batch",
+      "date": "Date",
+      "fund": "Fund",
+      "method": "Method",
+      "willAppear": "Donations will appear once a donation has been entered."
     },
     "paymentMethods": {
       "addBank": "إضافة حساب بنكي",
       "addCard": "إضافة بطاقة",
       "confirmDelete": "هل أنت متأكد من رغبتك في حذف طريقة الدفع هذه؟",
       "deleted": "تم حذف طريقة الدفع.",
-      "noMethods": "لا توجد طرق دفع. أضف طريقة دفع لتقديم تبرع.",
+      "noMethod": "No Method",
       "verify": "التحقق من الحساب"
+    },
+    "paypal": {
+      "approved": "PayPal payment approved. Choose Donate to finish your gift.",
+      "captchaRequired": "Please complete the reCAPTCHA verification"
+    },
+    "paystack": {
+      "emailRequired": "An email address is required to pay with Paystack.",
+      "paymentFailed": "Payment was not completed.",
+      "popupHint": "You'll complete payment in a secure Paystack window. Card, mobile money and bank transfer are accepted.",
+      "saveOnlyWithGift": "Payment methods are saved when you give — check \"Save this card\" while making a gift."
     },
     "preview": {
       "date": "تاريخ التبرع",
@@ -123,13 +169,15 @@
       "notes": "ملاحظات",
       "startingOn": "ابتداءً من",
       "total": "الإجمالي",
-      "type": "نوع التبرع"
+      "type": "نوع التبرع",
+      "weekly": "Weekly"
     },
     "recurring": {
       "amount": "المبلغ",
       "confirmPause": "هل أنت متأكد من رغبتك في إيقاف هذا التبرع المتكرر مؤقتًا؟",
       "every": "كل",
       "interval": "الفترة الزمنية",
+      "noSubscriptions": "No Subscriptions",
       "notFound": "لم يتم العثور على طريقة الدفع.",
       "pauseFailed": "فشل إيقاف التبرع المتكرر مؤقتًا. يرجى المحاولة مرة أخرى.",
       "pauseTooltip": "إيقاف التبرع المتكرر مؤقتًا",
@@ -183,13 +231,18 @@
       "toggleWeekday": "تبديل {} للتكرار الأسبوعي"
     }
   },
+  "fileUpload": {
+    "file": "File",
+    "quotaExceeded": "Storage quota exceeded. Delete unused files or upgrade your storage plan.",
+    "uploadFailed": "Upload failed. Please try again."
+  },
   "formSubmissionEdit": {
     "back": "رجوع",
-    "continue": "متابعة",
-    "stepProgress": "{current} من {total}",
     "confirmDelete": "هل أنت متأكد من رغبتك في حذف بيانات النموذج هذه؟",
+    "continue": "متابعة",
     "editForm": "تعديل النموذج",
     "isRequired": "مطلوب",
+    "stepProgress": "{current} من {total}",
     "submit": "إرسال"
   },
   "gallery": {
@@ -198,21 +251,25 @@
     "freeForm": "نموذج حر"
   },
   "iconPicker": {
-    "iconsAvailable": "أيقونات متاحة",
-    "matchingResults": "نتائج مطابقة",
-    "search": "البحث عن الأيقونات..."
+    "iconsAvailable": "icons available",
+    "matchingResults": "matching results",
+    "search": "Search icons..."
   },
   "login": {
-    "createAccount": "إنشاء حساب",
+    "accountExists": "لديك بالفعل حساب ChurchApps. يرجى تسجيل الدخول به بدلاً من ذلك.",
+    "continueGoogle": "Continue with Google",
+    "continueMicrosoft": "Continue with Microsoft",
+    "createAccount": "Create an Account",
     "email": "البريد الإلكتروني",
     "enterCode": "أدخل رمز التحقق",
     "enterCodeInstructions": "أدخل الرمز المكون من 6 أرقام الذي أرسلناه إليك للتو عبر البريد الإلكتروني.",
     "expiredLink": "الرابط الحالي منتهي الصلاحية.",
     "forgot": "هل نسيت كلمة المرور",
-    "goLogin": "الذهاب إلى تسجيل الدخول",
+    "goLogin": "Go to Login",
     "login": "تسجيل الدخول",
     "noAcc": "ليس لديك حساب؟",
     "noAccountFound": "لم يتم العثور على حساب بهذا البريد الإلكتروني. يرجى التسجيل للمتابعة.",
+    "or": "or",
     "password": "كلمة المرور",
     "register": "تسجيل",
     "registerThankYou": "شكراً لك على التسجيل! يرجى التحقق من بريدك الإلكتروني للتحقق من حسابك.",
@@ -221,7 +278,7 @@
     "reset": "إعادة تعيين",
     "resetInstructions": "أدخل عنوان بريدك الإلكتروني لطلب إعادة تعيين كلمة المرور.",
     "resetPassword": "إعادة تعيين كلمة المرور",
-    "resetSent": "تم إرسال بريد إعادة تعيين كلمة المرور!",
+    "resetSent": "Password reset email sent!",
     "setPassword": "تعيين كلمة المرور",
     "signIn": "تسجيل الدخول",
     "signInTitle": "يرجى تسجيل الدخول",
@@ -243,50 +300,65 @@
   },
   "markdownEditor": {
     "content": "المحتوى",
-    "markdownEditor": "محرر Markdown",
+    "markdownEditor": "Markdown Editor",
     "markdownGuide": "دليل Markdown"
   },
   "month": {
-    "april": "أبريل",
-    "august": "أغسطس",
-    "december": "ديسمبر",
-    "february": "فبراير",
-    "january": "يناير",
-    "july": "يوليو",
-    "june": "يونيو",
-    "march": "مارس",
-    "may": "مايو",
-    "november": "نوفمبر",
-    "october": "أكتوبر",
-    "september": "سبتمبر"
+    "april": "April",
+    "august": "August",
+    "december": "December",
+    "february": "February",
+    "january": "January",
+    "july": "July",
+    "june": "June",
+    "march": "March",
+    "may": "May",
+    "november": "November",
+    "october": "October",
+    "september": "September"
   },
   "notes": {
     "comment": "تعليق",
     "comments": "تعليقات",
     "notes": "ملاحظات",
-    "startConversation": "بدء محادثة",
+    "notifyOff": "Notify Off",
+    "notifyOn": "Notify On",
+    "openFile": "Open file",
+    "startConversation": "Start a conversation",
     "validate": {
       "content": "يرجى إدخال ملاحظة."
     },
-    "viewAll": "عرض الكل"
+    "viewAll": "View all"
   },
   "person": {
     "email": "البريد الإلكتروني",
     "firstName": "الاسم الأول",
     "lastName": "الاسم الأخير",
     "name": "الاسم",
-    "noRec": "ليس لديك سجل شخصي؟",
-    "person": "شخص",
-    "years": "سنوات"
+    "noRec": "Don't have a person record?",
+    "person": "Person",
+    "years": "years"
+  },
+  "question": {
+    "checkbox": "خانة اختيار",
+    "currency": "العملة",
+    "date": "التاريخ",
+    "email": "البريد الإلكتروني",
+    "file": "تحميل ملف",
+    "multiple": "اختيار من متعدد",
+    "number": "رقم",
+    "phone": "الهاتف",
+    "textarea": "منطقة نص",
+    "textbox": "مربع نص"
   },
   "reporting": {
-    "detailed": "تقرير مفصل",
-    "downloadOptions": "خيارات التنزيل",
-    "noData": "لا توجد بيانات للعرض.",
-    "runReport": "تشغيل التقرير",
-    "sampleTemplate": "نموذج Word نموذجي",
-    "summary": "ملخص",
-    "useFilter": "استخدم المرشح لتشغيل التقرير."
+    "detailed": "Detailed Report",
+    "downloadOptions": "Download Options",
+    "noData": "There is no data to display.",
+    "runReport": "Run Report",
+    "sampleTemplate": "Sample Word Template",
+    "summary": "Summary",
+    "useFilter": "Use the filter to run the report."
   },
   "selectChurch": {
     "address1": "السطر الأول للعنوان",
@@ -318,22 +390,35 @@
     "discussions": "منتدى الدعم",
     "documentation": "التوثيق"
   },
+  "validation": {
+    "date": "يرجى إدخال تاريخ صالح",
+    "email": "يرجى إدخال عنوان بريد إلكتروني صالح",
+    "fileSize": "يجب أن يكون حجم الملف أقل من {} ميغابايت",
+    "fileType": "نوع ملف غير صالح",
+    "maxLength": "يجب ألا يزيد عن {} حرفًا",
+    "minLength": "يجب ألا يقل عن {} أحرف",
+    "number": "يرجى إدخال رقم صالح",
+    "phone": "يرجى إدخال رقم هاتف صالح",
+    "required": "هذا الحقل مطلوب"
+  },
   "wrapper": {
-    "chatWith": "التحدث مع",
-    "deleteChurch": "حذف",
+    "chatWith": "Chat with",
+    "currentChurch": "الكنيسة الحالية",
+    "deleteChurch": "Delete",
     "editAccount": "تعديل الحساب",
-    "editChurchProfile": "تعديل ملف الكنيسة",
+    "editChurchProfile": "تعديل ملف الكنيسة الشخصي",
     "editProfile": "تعديل الملف الشخصي",
-    "logout": "تسجيل الخروج",
-    "messages": "الرسائل",
+    "logout": "Logout",
+    "messages": "Messages",
     "newPrivateMessage": "رسالة خاصة جديدة",
-    "notifications": "الإخطارات",
+    "notifications": "Notifications",
+    "privateConversation": "Private Conversation",
     "privateMessage": "رسالة خاصة",
-    "profile": "الملف الشخصي",
+    "profile": "Profile",
     "searchForPerson": "البحث عن شخص",
-    "support": "الدعم",
-    "sureRemoveChurch": "هل أنت متأكد من رغبتك في حذف هذه الكنيسة؟ لن تكون عضواً في {}.",
-    "switchApp": "تبديل التطبيق",
-    "switchChurch": "تبديل الكنيسة"
+    "support": "Support",
+    "sureRemoveChurch": "Are you sure you wish to delete this church? You no longer will be a member of {}.",
+    "switchApp": "Switch App",
+    "switchChurch": "Switch Church"
   }
 }

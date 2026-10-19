@@ -25,9 +25,10 @@ export const Map: React.FC<Props> = props => {
 
   const getMarkers = () => {
     const result: React.JSX.Element[] = [];
-    ipData.forEach(ip => {
-      result.push(<Marker coordinates={[ip.lon, ip.lat]}>
+    ipData.forEach((ip, index) => {
+      result.push(<Marker key={index} coordinates={[ip.lon, ip.lat]}>
         <circle
+          data-tooltip-id="map-tooltip"
           r={2}
           fill="var(--c1)"
           onMouseOver={() => { setTooltipIp(ip); }}
@@ -59,7 +60,7 @@ export const Map: React.FC<Props> = props => {
   return (
     <DisplayBox headerText="Map of Downloads" headerIcon="map">
       <div>
-        <ComposableMap data-tip="">
+        <ComposableMap>
           <ZoomableGroup center={[0, 0]} zoom={1}>
             <Geographies geography={geoUrl}>
               {({ geographies }) =>
@@ -69,7 +70,7 @@ export const Map: React.FC<Props> = props => {
             {getMarkers()}
           </ZoomableGroup>
         </ComposableMap>
-        <Tooltip>{getTooltip()}</Tooltip>
+        <Tooltip id="map-tooltip">{getTooltip()}</Tooltip>
       </div>
     </DisplayBox>
   );

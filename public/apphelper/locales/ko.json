@@ -1,36 +1,39 @@
 {
   "b1Share": {
-    "comment": "논평",
-    "commentPlaceholder": "게시물에 댓글을 포함하세요.",
-    "contentShared": "콘텐츠 공유",
-    "group": "그룹",
-    "sharingToGroup": "B1 그룹에 {} 공유",
+    "comment": "Comment",
+    "commentPlaceholder": "Include a comment with your post.",
+    "contentShared": "Content Shared",
+    "group": "Group",
+    "sharingToGroup": "Sharing {} to B1 Group",
     "validate": {
-      "addComment": "의견을 추가해 주세요.",
-      "loginFirst": "먼저 로그인을 해주세요.",
-      "notMember": "귀하는 현재 B1 그룹의 회원이 아닙니다.",
-      "selectGroup": "그룹을 선택하세요."
+      "addComment": "Please add a comment.",
+      "loginFirst": "Please login first.",
+      "notMember": "You are not currently a member of any groups on B1.",
+      "selectGroup": "Please select a group."
     }
   },
   "common": {
-    "add": "추가하다",
+    "add": "Add",
     "cancel": "취소",
     "close": "닫다",
-    "date": "날짜",
+    "date": "Date",
     "delete": "삭제",
-    "edit": "편집하다",
-    "error": "오류",
+    "edit": "Edit",
+    "error": "Error",
+    "optional": "선택 사항",
     "pleaseWait": "기다리세요...",
+    "remove": "제거",
+    "required": "필수",
     "save": "구하다",
     "search": "찾다",
-    "submit": "제출하다",
+    "submit": "Submit",
     "update": "업데이트"
   },
   "createPerson": {
-    "addNewPerson": "새 사람 추가",
-    "email": "이메일",
-    "firstName": "이름",
-    "lastName": "성"
+    "addNewPerson": "Add a New Person",
+    "email": "Email",
+    "firstName": "First Name",
+    "lastName": "Last Name"
   },
   "donation": {
     "bankForm": {
@@ -38,7 +41,7 @@
       "added": "은행 계좌가 추가되었습니다. ",
       "company": "회사",
       "firstDeposit": "첫 입금",
-      "holderName": "계좌 소유자 이름이 필요합니다.",
+      "holderName": "Account holder name is required.",
       "individual": "개인",
       "name": "계좌 소유자 이름",
       "needVerified": "기부하기 전에 은행 계좌를 확인해야 합니다. ",
@@ -59,8 +62,13 @@
       "expirationYear": "만료 연도:",
       "updated": "카드가 성공적으로 업데이트되었습니다."
     },
+    "common": {
+      "cancel": "Cancel",
+      "error": "Error"
+    },
     "donationForm": {
       "annually": "매년",
+      "anonymous": "Give anonymously (one-time gifts only)",
       "biWeekly": "격주 간행물",
       "cancelled": "정기 기부가 취소되었습니다.",
       "confirmDelete": "이 반복 기부를 삭제하시겠습니까?",
@@ -75,7 +83,8 @@
       "makeRecurring": "정기 기부하기",
       "method": "방법",
       "monthly": "월간 간행물",
-      "notes": "노트",
+      "notes": "Notes",
+      "orPayWith": "Or pay with",
       "preview": "미리보기 기부",
       "quarterly": "계간지",
       "recurringUpdated": "정기 기부가 업데이트되었습니다.",
@@ -90,6 +99,7 @@
         "lastName": "당신의 성을 입력하세요.",
         "validEmail": "유효한 이메일 주소를 입력하세요."
       },
+      "walletFailed": "Wallet payment could not be completed. Please try again.",
       "weekly": "주간"
     },
     "fundDonations": {
@@ -97,21 +107,57 @@
       "amount": "양",
       "fund": "축적"
     },
+    "kingdomFunding": {
+      "enterBankDetails": "Enter your bank account details",
+      "enterCardDetails": "Enter card details",
+      "errorProcessingDonation": "Error processing donation",
+      "failedToInitPaymentForm": "Failed to initialize payment form",
+      "failedToLoadPaymentForm": "Failed to load payment form",
+      "failedToProcessCard": "Failed to process card. Please check your card details and try again.",
+      "failedToTokenizeCard": "Failed to tokenize card",
+      "gatewayConfigMissing": "Payment form not available. Gateway configuration missing.",
+      "loadingPaymentForm": "Loading payment form...",
+      "memo": "Memo (optional)",
+      "missingTokenizationKey": "Missing tokenization key",
+      "payWithBank": "Bank (ACH)",
+      "payWithCard": "Card",
+      "paymentFormNotAvailable": "Payment form not available",
+      "paymentFormNotInitialized": "Payment form not initialized",
+      "paymentProvider": "결제 제공업체",
+      "providerName": "Kingdom Funding",
+      "unexpectedError": "An unexpected error occurred. Please try again.",
+      "validate": {
+        "accountNumber": "유효한 계좌 번호를 입력하세요",
+        "captchaFailed": "reCAPTCHA verification failed. Please try again.",
+        "captchaRequired": "Please complete the reCAPTCHA verification",
+        "routingNumber": "유효한 은행 라우팅 번호를 입력하세요"
+      }
+    },
     "page": {
-      "amount": "양",
-      "batch": "일괄",
-      "date": "날짜",
-      "fund": "축적",
-      "method": "방법",
-      "willAppear": "기부금을 입력하면 기부금이 표시됩니다."
+      "amount": "Amount",
+      "batch": "Batch",
+      "date": "Date",
+      "fund": "Fund",
+      "method": "Method",
+      "willAppear": "Donations will appear once a donation has been entered."
     },
     "paymentMethods": {
       "addBank": "은행 계좌 추가",
       "addCard": "카드 추가",
       "confirmDelete": "이 결제 수단을 삭제하시겠습니까?",
       "deleted": "결제 수단이 삭제되었습니다.",
-      "noMethods": "결제 수단이 없습니다.  ",
+      "noMethod": "No Method",
       "verify": "계정 확인"
+    },
+    "paypal": {
+      "approved": "PayPal payment approved. Choose Donate to finish your gift.",
+      "captchaRequired": "Please complete the reCAPTCHA verification"
+    },
+    "paystack": {
+      "emailRequired": "An email address is required to pay with Paystack.",
+      "paymentFailed": "Payment was not completed.",
+      "popupHint": "You'll complete payment in a secure Paystack window. Card, mobile money and bank transfer are accepted.",
+      "saveOnlyWithGift": "Payment methods are saved when you give — check \"Save this card\" while making a gift."
     },
     "preview": {
       "date": "기부일자",
@@ -123,13 +169,15 @@
       "notes": "노트",
       "startingOn": "시작일",
       "total": "총",
-      "type": "기부 유형"
+      "type": "기부 유형",
+      "weekly": "Weekly"
     },
     "recurring": {
       "amount": "양",
       "confirmPause": "이 정기 기부를 일시정지하시겠습니까?",
       "every": "모든",
       "interval": "간격",
+      "noSubscriptions": "No Subscriptions",
       "notFound": "결제 수단을 찾을 수 없습니다.",
       "pauseFailed": "정기 기부 일시정지에 실패했습니다. 다시 시도해 주세요.",
       "pauseTooltip": "정기 기부 일시정지",
@@ -183,13 +231,18 @@
       "toggleWeekday": "주간 반복을 위한 {} 토글"
     }
   },
+  "fileUpload": {
+    "file": "File",
+    "quotaExceeded": "Storage quota exceeded. Delete unused files or upgrade your storage plan.",
+    "uploadFailed": "Upload failed. Please try again."
+  },
   "formSubmissionEdit": {
     "back": "뒤로",
-    "continue": "계속",
-    "stepProgress": "{total} 중 {current}",
     "confirmDelete": "이 양식 데이터를 삭제하시겠습니까?",
+    "continue": "계속",
     "editForm": "양식 편집",
     "isRequired": "필수",
+    "stepProgress": "{total} 중 {current}",
     "submit": "제출하다"
   },
   "gallery": {
@@ -198,21 +251,25 @@
     "freeForm": "자유 형식"
   },
   "iconPicker": {
-    "iconsAvailable": "사용 가능한 아이콘",
-    "matchingResults": "일치하는 결과",
-    "search": "아이콘 검색..."
+    "iconsAvailable": "icons available",
+    "matchingResults": "matching results",
+    "search": "Search icons..."
   },
   "login": {
-    "createAccount": "계정 만들기",
+    "accountExists": "이미 ChurchApps 계정이 있습니다. 해당 계정으로 로그인하세요.",
+    "continueGoogle": "Continue with Google",
+    "continueMicrosoft": "Continue with Microsoft",
+    "createAccount": "Create an Account",
     "email": "이메일",
     "enterCode": "인증 코드 입력",
     "enterCodeInstructions": "방금 이메일로 보낸 6자리 코드를 입력하세요.",
     "expiredLink": "현재 링크가 만료되었습니다.",
     "forgot": "비밀번호를 잊으 셨나요",
-    "goLogin": "로그인으로 이동",
+    "goLogin": "Go to Login",
     "login": "로그인",
     "noAcc": "계정이 없으신가요?",
     "noAccountFound": "해당 이메일로 등록된 계정이 없습니다. 계속하려면 등록해 주세요.",
+    "or": "or",
     "password": "비밀번호",
     "register": "등록하다",
     "registerThankYou": "등록해주셔서 감사합니다! ",
@@ -221,7 +278,7 @@
     "reset": "초기화",
     "resetInstructions": "비밀번호 재설정을 요청하려면 이메일 주소를 입력하세요.",
     "resetPassword": "암호를 재설정",
-    "resetSent": "비밀번호 재설정 메일이 발송되었습니다!",
+    "resetSent": "Password reset email sent!",
     "setPassword": "암호를 설정하세요",
     "signIn": "로그인",
     "signInTitle": "로그인 해주세요",
@@ -243,50 +300,65 @@
   },
   "markdownEditor": {
     "content": "콘텐츠",
-    "markdownEditor": "마크다운 편집기",
+    "markdownEditor": "Markdown Editor",
     "markdownGuide": "마크다운 가이드"
   },
   "month": {
-    "april": "4월",
-    "august": "팔월",
-    "december": "12월",
-    "february": "2월",
-    "january": "1월",
-    "july": "칠월",
-    "june": "6월",
-    "march": "3월",
-    "may": "5월",
-    "november": "십일월",
-    "october": "십월",
-    "september": "구월"
+    "april": "April",
+    "august": "August",
+    "december": "December",
+    "february": "February",
+    "january": "January",
+    "july": "July",
+    "june": "June",
+    "march": "March",
+    "may": "May",
+    "november": "November",
+    "october": "October",
+    "september": "September"
   },
   "notes": {
     "comment": "논평",
     "comments": "코멘트",
     "notes": "노트",
-    "startConversation": "대화 시작",
+    "notifyOff": "Notify Off",
+    "notifyOn": "Notify On",
+    "openFile": "Open file",
+    "startConversation": "Start a conversation",
     "validate": {
       "content": "메모를 입력하세요."
     },
-    "viewAll": "모두보기"
+    "viewAll": "View all"
   },
   "person": {
     "email": "이메일",
     "firstName": "이름",
     "lastName": "성",
     "name": "이름",
-    "noRec": "개인 기록이 없으신가요?",
-    "person": "사람",
-    "years": "연령"
+    "noRec": "Don't have a person record?",
+    "person": "Person",
+    "years": "years"
+  },
+  "question": {
+    "checkbox": "체크박스",
+    "currency": "통화",
+    "date": "날짜",
+    "email": "이메일",
+    "file": "파일 업로드",
+    "multiple": "객관식",
+    "number": "숫자",
+    "phone": "전화",
+    "textarea": "텍스트 영역",
+    "textbox": "텍스트 상자"
   },
   "reporting": {
-    "detailed": "상세 보고서",
-    "downloadOptions": "다운로드 옵션",
-    "noData": "표시할 데이터가 없습니다.",
-    "runReport": "보고서 실행",
-    "sampleTemplate": "샘플 Word 템플릿",
-    "summary": "요약",
-    "useFilter": "필터를 사용하여 보고서를 실행하세요."
+    "detailed": "Detailed Report",
+    "downloadOptions": "Download Options",
+    "noData": "There is no data to display.",
+    "runReport": "Run Report",
+    "sampleTemplate": "Sample Word Template",
+    "summary": "Summary",
+    "useFilter": "Use the filter to run the report."
   },
   "selectChurch": {
     "address1": "주소 라인 1",
@@ -318,22 +390,35 @@
     "discussions": "지원 포럼",
     "documentation": "문서"
   },
+  "validation": {
+    "date": "유효한 날짜를 입력하세요",
+    "email": "유효한 이메일 주소를 입력하세요",
+    "fileSize": "파일 크기는 {}MB 미만이어야 합니다",
+    "fileType": "잘못된 파일 형식입니다",
+    "maxLength": "{}자 이하로 입력해야 합니다",
+    "minLength": "{}자 이상 입력해야 합니다",
+    "number": "유효한 숫자를 입력하세요",
+    "phone": "유효한 전화번호를 입력하세요",
+    "required": "이 필드는 필수입니다"
+  },
   "wrapper": {
-    "chatWith": "채팅",
-    "deleteChurch": "목록에서 교회 삭제",
+    "chatWith": "Chat with",
+    "currentChurch": "현재 교회",
+    "deleteChurch": "Delete",
     "editAccount": "계정 편집",
     "editChurchProfile": "교회 프로필 편집",
     "editProfile": "프로필 편집",
-    "logout": "로그 아웃",
-    "messages": "메시지",
+    "logout": "Logout",
+    "messages": "Messages",
     "newPrivateMessage": "새 비공개 메시지",
-    "notifications": "알림",
+    "notifications": "Notifications",
+    "privateConversation": "Private Conversation",
     "privateMessage": "사신",
-    "profile": "프로필",
+    "profile": "Profile",
     "searchForPerson": "사람 검색",
-    "support": "지원하다",
-    "sureRemoveChurch": "목록에서 {}을(를) 삭제하시겠습니까?",
-    "switchApp": "앱 전환",
-    "switchChurch": "스위치교회"
+    "support": "Support",
+    "sureRemoveChurch": "Are you sure you wish to delete this church? You no longer will be a member of {}.",
+    "switchApp": "Switch App",
+    "switchChurch": "Switch Church"
   }
 }

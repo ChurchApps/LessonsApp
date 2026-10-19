@@ -17,23 +17,24 @@ import { LessonInterface, ProgramInterface, StudyInterface } from "@/helpers/int
 
 type PageParams = { programSlug: string; studySlug: string };
 
-const loadData = async (params: PageParams) => {
+type LoadDataResult = { program?: ProgramInterface; study?: StudyInterface; lessons?: LessonInterface[]; errorMessage: string };
+
+const loadData = async (params: PageParams): Promise<LoadDataResult> => {
+  EnvironmentHelper.init();
+  const program: ProgramInterface = await ApiHelper.getAnonymous("/programs/public/slug/" + params.programSlug, "LessonsApi");
+  const study: StudyInterface = await ApiHelper.getAnonymous("/studies/public/slug/" + program?.id + "/" + params.studySlug, "LessonsApi");
+  const lessons: LessonInterface[] = await ApiHelper.getAnonymous("/lessons/public/study/" + study?.id, "LessonsApi");
+  return { program, study, lessons, errorMessage: "" };
+};
+
+// loadData throws on failure so a failed load is never cached.
+const loadSharedData = async (params: Promise<PageParams>): Promise<LoadDataResult> => {
+  const { programSlug, studySlug } = await params;
   try {
-    EnvironmentHelper.init();
-    const program: ProgramInterface = await ApiHelper.getAnonymous("/programs/public/slug/" + params.programSlug, "LessonsApi");
-    const study: StudyInterface = await ApiHelper.getAnonymous("/studies/public/slug/" + program?.id + "/" + params.studySlug, "LessonsApi");
-    const lessons: LessonInterface[] = await ApiHelper.getAnonymous("/lessons/public/study/" + study?.id, "LessonsApi");
-    return { program, study, lessons, errorMessage: "" };
+    return await unstable_cache(loadData, ["/[programSlug]/[studySlug]", programSlug, studySlug], { tags: ["all"], revalidate: 3600 })({ programSlug, studySlug });
   } catch (error: any) {
     return { errorMessage: error.message };
   }
-};
-
-const loadSharedData = async (params: Promise<PageParams>) => {
-  const { programSlug, studySlug } = await params;
-  const p = { programSlug, studySlug };
-  const result = unstable_cache(loadData, ["/[programSlug]/[studySlug]", programSlug, studySlug], { tags: ["all"] });
-  return result(p);
 };
 
 export async function generateMetadata({ params }: { params: Promise<PageParams> }): Promise<Metadata> {
@@ -108,7 +109,7 @@ export default async function StudyPage({ params }: { params: Promise<PageParams
                 sameAs: "https://lessons.church"
               },
               isPartOf: { "@type": "Course", name: program!.name }
-            })
+            }).replace(/</g, "\\u003c")
           }}
         />
       </Layout>

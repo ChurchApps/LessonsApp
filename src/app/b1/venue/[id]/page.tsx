@@ -53,8 +53,11 @@ export default function B1Venue() {
     setData({ classroom, customizations, currentSchedule, prevSchedule, nextSchedule, venue });
   };
 
-  useEffect(() => { loadData(); }, []);
+  const [error, setError] = React.useState("");
 
+  useEffect(() => { setError(""); loadData().catch(() => setError("This lesson could not be loaded.")); }, [params.id]);
+
+  if (error) return <p style={{ padding: 16 }}>{error}</p>;
   return (
     <VenueClient
       venue={data?.venue}

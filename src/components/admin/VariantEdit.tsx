@@ -12,6 +12,7 @@ type AnyRecord = Record<string, any>;
 export function VariantEdit(props: Props) {
   const [pendingFileSave, setPendingFileSave] = useState(false);
   const [pendingValues, setPendingValues] = useState<AnyRecord | null>(null);
+  const [error, setError] = useState("");
 
   const { control, register, handleSubmit, reset, formState } = useForm<AnyRecord>({ defaultValues: { name: "", hidden: "false" } });
   const e = formState.errors as any;
@@ -29,10 +30,13 @@ export function VariantEdit(props: Props) {
       setPendingFileSave(false);
       setPendingValues(null);
       props.updatedCallback(data);
-    });
+    }).catch((err: Error) => handleFileError(err.message));
   };
 
+  const handleFileError = (message: string) => { setPendingFileSave(false); setError(message); };
+
   const onValid = (values: AnyRecord) => {
+    setError("");
     setPendingValues(values);
     setPendingFileSave(true);
   };
@@ -47,6 +51,7 @@ export function VariantEdit(props: Props) {
     return (
       <InputBox id="variantDetailsBox" headerText="Edit Variant" headerIcon="content_copy" saveFunction={handleSubmit(onValid)} cancelFunction={handleCancel} deleteFunction={getDeleteFunction()}>
         {summaryErrors.length > 0 && <Alert severity="error" sx={{ mb: 2 }}>{summaryErrors.map((msg) => <div key={msg}>{msg}</div>)}</Alert>}
+        {error && <Alert severity="error" sx={{ mb: 2 }}>{error}</Alert>}
         <FormControl fullWidth>
           <InputLabel>Hidden</InputLabel>
           <Controller name="hidden" control={control} render={({ field }) => (
@@ -57,7 +62,7 @@ export function VariantEdit(props: Props) {
           )} />
         </FormControl>
         <TextField fullWidth label="Variant Name" placeholder="PDF" error={!!e.name} helperText={e.name?.message} {...register("name", { required: "Please enter a variant name." })} />
-        <FileUpload resourceId={props.variant?.resourceId} fileId={props.variant?.fileId || ""} pendingSave={pendingFileSave} saveCallback={handleFileSaved} />
+        <FileUpload resourceId={props.variant?.resourceId} fileId={props.variant?.fileId || ""} pendingSave={pendingFileSave} saveCallback={handleFileSaved} errorCallback={handleFileError} />
       </InputBox>
     );
   }

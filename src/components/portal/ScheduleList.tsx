@@ -22,7 +22,7 @@ import {
 } from "@mui/material";
 import { ArrayHelper, DateHelper, Loading } from "@churchapps/apphelper";
 import { ApiHelper, ScheduleInterface } from "@/helpers";
-import { ScheduleEdit } from "../index";
+import { ScheduleEdit } from "./ScheduleEdit";
 
 interface Props { classroomId: string; }
 

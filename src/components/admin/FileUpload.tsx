@@ -12,6 +12,7 @@ interface Props {
   fileId: string;
   pendingSave: boolean;
   saveCallback: (file: FileInterface) => void;
+  errorCallback?: (message: string) => void;
 }
 
 export function FileUpload(props: Props) {
@@ -45,9 +46,7 @@ export function FileUpload(props: Props) {
     f.contentType = props.contentType;
     f.contentId = props.contentId;
 
-    console.log("Handling file save", f);
     const preUploaded: boolean = await preUpload();
-    console.log("Preuploaded", preUploaded);
     if (!preUploaded) { const base64 = await convertBase64(); f.fileContents = base64 as string; }
     const data: FileInterface[] = await ApiHelper.post("/files", [f], "LessonsApi");
     setFile(data[0]);
@@ -55,8 +54,9 @@ export function FileUpload(props: Props) {
   };
 
   const checkSave = () => {
-    console.log("CHECK SAVE", props.pendingSave);
-    if (props.pendingSave) { if (uploadedFile.size > 0) handleSave(); else props.saveCallback(file); }
+    if (!props.pendingSave) return;
+    if (uploadedFile.size > 0) handleSave().catch((err: Error) => { setUploadProgress(-1); props.errorCallback?.(err?.message || "Upload failed."); });
+    else props.saveCallback(file);
   };
 
   const getResourcePresigned = async () => {

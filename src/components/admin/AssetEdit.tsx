@@ -12,6 +12,7 @@ type AnyRecord = Record<string, any>;
 export function AssetEdit(props: Props) {
   const [pendingFileSave, setPendingFileSave] = useState(false);
   const [pendingValues, setPendingValues] = useState<AnyRecord | null>(null);
+  const [error, setError] = useState("");
 
   const { register, handleSubmit, reset, formState } = useForm<AnyRecord>({ defaultValues: { name: "", sort: "" } });
   const e = formState.errors as any;
@@ -29,10 +30,13 @@ export function AssetEdit(props: Props) {
       setPendingFileSave(false);
       setPendingValues(null);
       props.updatedCallback(data[0]);
-    });
+    }).catch((err: Error) => handleFileError(err.message));
   };
 
+  const handleFileError = (message: string) => { setPendingFileSave(false); setError(message); };
+
   const onValid = (values: AnyRecord) => {
+    setError("");
     setPendingValues(values);
     setPendingFileSave(true);
   };
@@ -45,9 +49,10 @@ export function AssetEdit(props: Props) {
     <>
       <InputBox id="assetDetailsBox" headerText="Edit Asset" headerIcon="content_copy" saveFunction={handleSubmit(onValid)} cancelFunction={handleCancel} deleteFunction={getDeleteFunction()}>
         {summaryErrors.length > 0 && <Alert severity="error" sx={{ mb: 2 }}>{summaryErrors.map((msg) => <div key={msg}>{msg}</div>)}</Alert>}
+        {error && <Alert severity="error" sx={{ mb: 2 }}>{error}</Alert>}
         <TextField label="Order" fullWidth type="number" placeholder="1" {...register("sort")} />
         <TextField label="Asset Name" fullWidth placeholder="Asset 1" error={!!e.name} helperText={e.name?.message} {...register("name", { required: "Please enter a asset name." })} />
-        <FileUpload resourceId={props.asset?.resourceId || ""} fileId={props.asset?.fileId || ""} pendingSave={pendingFileSave} saveCallback={handleFileSaved} />
+        <FileUpload resourceId={props.asset?.resourceId || ""} fileId={props.asset?.fileId || ""} pendingSave={pendingFileSave} saveCallback={handleFileSaved} errorCallback={handleFileError} />
       </InputBox>
     </>
   );

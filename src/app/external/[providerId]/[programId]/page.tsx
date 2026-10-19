@@ -23,14 +23,13 @@ export default function ProgramPage() {
     const lessonList = await ApiHelper.getAnonymous("/externalProviders/" + params.providerId + "/lessons", "LessonsApi");
     const program = ArrayHelper.getOne(lessonList.programs, "id", params.programId);
     setProgram(program);
-    setFilteredStudies(program.studies);
+    setFilteredStudies(program?.studies || []);
   };
 
   useEffect(() => { loadData(); }, [category]);
 
-  const video = program.videoEmbedUrl && <EmbeddedVideo videoEmbedUrl={program.videoEmbedUrl} title={program.name || ""} />;
-
   if (!program) return <></>;
+  const video = program.videoEmbedUrl && <EmbeddedVideo videoEmbedUrl={program.videoEmbedUrl} title={program.name || ""} />;
   return (
     <Layout
       pageTitle={program.name + " - Free Church Curriculum"}

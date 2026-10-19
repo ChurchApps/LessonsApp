@@ -1,6 +1,7 @@
 import { Icon } from "@mui/material";
 import { AnalyticsHelper, CommonEnvironmentHelper } from "@churchapps/apphelper";
-import { ApiHelper, FeedDownloadInterface, UserHelper } from "@/helpers";
+import { FeedDownloadInterface, UserHelper } from "@/helpers";
+import { logDownload } from "@/helpers/DownloadLogger";
 
 interface Props { downloads: FeedDownloadInterface[]; lessonId: string; }
 
@@ -25,7 +26,7 @@ export function Downloads(props: Props) {
       downloadDate: new Date(),
       fileName: download.name
     };
-    ApiHelper.post("/downloads", [d], "LessonsApi");
+    logDownload(d);
   };
 
   const getDownloads = () => {

@@ -95,7 +95,7 @@ export default function Admin() {
           />
       );
       i++;
-      result.push(<tr>
+      result.push(<tr key={sc.id}>
         <td>
           <SmallButton
             icon="remove"
@@ -120,13 +120,13 @@ export default function Admin() {
         <Grid container spacing={3} alignItems="center">
           <Grid size={{ xs: 6 }} style={{ alignSelf: "start" }}>
             <h2>Included Studies</h2>
-            <table>{getStudyCategories()}</table>
+            <table><tbody>{getStudyCategories()}</tbody></table>
           </Grid>
           <Grid size={{ xs: 6 }}>
             <h2>Available Studies</h2>
-            <table>
+            <table><tbody>
               {studies.map(s => (
-                <tr>
+                <tr key={s.id}>
                   <td>
                     <SmallButton
                       icon="add"
@@ -136,7 +136,7 @@ export default function Admin() {
                   <td>{s.name}</td>
                 </tr>
               ))}
-            </table>
+            </tbody></table>
           </Grid>
         </Grid>
       );
@@ -158,21 +158,19 @@ export default function Admin() {
           </Grid>
           <Grid size={{ md: 4, xs: 12 }}>
             <DisplayBox headerText="Categories" headerIcon="edit_note" editContent={getEditContent()}>
-              <table className="table table-striped">
+              <table className="table table-striped"><tbody>
                 {categoryNames.map(c => (
-                  <>
-                    <tr>
-                      <td>
-                        <a
-                          href="about:blank"
-                          onClick={e => { e.preventDefault(); setCategoryName(c); }}>
-                          {c}
-                        </a>
-                      </td>
-                    </tr>
-                  </>
+                  <tr key={c}>
+                    <td>
+                      <a
+                        href="about:blank"
+                        onClick={e => { e.preventDefault(); setCategoryName(c); }}>
+                        {c}
+                      </a>
+                    </td>
+                  </tr>
                 ))}
-              </table>
+              </tbody></table>
             </DisplayBox>
           </Grid>
         </Grid>
