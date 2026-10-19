@@ -2,7 +2,8 @@ import Image from "next/image";
 import React from "react";
 import { AnalyticsHelper } from "@churchapps/apphelper";
 import { MarkdownPreviewLight } from "@churchapps/apphelper/markdown";
-import { ApiHelper, FeedActionInterface, FeedFileInterface, UserHelper } from "@/helpers";
+import { FeedActionInterface, FeedFileInterface, UserHelper } from "@/helpers";
+import { logDownload } from "@/helpers/DownloadLogger";
 import { ImageModal } from "../ImageModal";
 import { VideoModal } from "../VideoModal";
 
@@ -27,7 +28,7 @@ export function Action(props: Props) {
       downloadDate: new Date(),
       fileName: "Variant - " + variant.name
     }
-    ApiHelper.post("/downloads", [download], "LessonsApi");
+    logDownload(download);
   }
 
   const trackView = (video: ExternalVideoInterface) => {
@@ -44,7 +45,7 @@ export function Action(props: Props) {
       downloadDate: new Date(),
       fileName: "Video - " + video.name
     }
-    ApiHelper.post("/downloads", [download], "LessonsApi");
+    logDownload(download);
   }
   */
   /*
@@ -173,7 +174,7 @@ export function Action(props: Props) {
       downloadDate: new Date(),
       fileName: file.name
     };
-    ApiHelper.post("/downloads", [download], "LessonsApi");
+    logDownload(download);
     setShowPreview(true);
   };
 
