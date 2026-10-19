@@ -11,7 +11,7 @@
     "start": "next start",
     "lint": "yarn eslint --fix \"src/**/*.{ts,tsx,js,jsx}\"",
     "test": "node tests/setup/pretest.mjs && playwright test",
-    "test:unit": "node --experimental-strip-types --test tests/unit/downloadRequest.test.ts",
+    "test:unit": "node --experimental-strip-types --test tests/unit/*.test.ts",
     "test:ui": "playwright test --ui",
     "test:headed": "playwright test --headed",
     "test:debug": "playwright test --debug",
