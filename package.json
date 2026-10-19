@@ -24,6 +24,10 @@
   "engines": {
     "node": ">=20.0.0"
   },
+  "resolutions": {
+    "jsdom": "25.0.1",
+    "cssstyle": "4.1.0"
+  },
   "dependenciesMeta": {
     "@sentry/cli": {
       "built": true
