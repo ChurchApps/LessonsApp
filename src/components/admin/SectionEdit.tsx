@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { Alert, Box, Button, IconButton, Paper, Stack, TextField, Typography } from "@mui/material";
 import { List as ListIcon, Save as SaveIcon, Cancel as CancelIcon, Delete as DeleteIcon } from "@mui/icons-material";
 import { useForm } from "react-hook-form";
@@ -10,15 +10,20 @@ type AnyRecord = Record<string, any>;
 
 export function SectionEdit(props: Props) {
   const { register, handleSubmit, reset, formState } = useForm<AnyRecord>({ defaultValues: { name: "", materials: "", sort: "" } });
+  const [error, setError] = useState("");
   const e = formState.errors as any;
   const summaryErrors: string[] = [];
   if (e.name?.message) summaryErrors.push(e.name.message);
 
   const handleCancel = () => props.updatedCallback(props.section, false);
 
-  const onValid = (values: AnyRecord) => {
+  const onValid = async (values: AnyRecord) => {
     const s: SectionInterface = { ...props.section, name: values.name, materials: values.materials, sort: parseInt(values.sort) || 0 };
-    ApiHelper.post("/sections", [s], "LessonsApi").then((data: SectionInterface[]) => props.updatedCallback(data[0], !props.section.id));
+    setError("");
+    try {
+      const data: SectionInterface[] = await ApiHelper.post("/sections", [s], "LessonsApi");
+      props.updatedCallback(data[0], !props.section.id);
+    } catch (err: any) { setError(err?.message || "Unable to save."); }
   };
 
   const handleDelete = () => {
@@ -42,6 +47,7 @@ export function SectionEdit(props: Props) {
 
       <Box sx={{ p: 3 }}>
         {summaryErrors.length > 0 && <Alert severity="error" sx={{ mb: 2 }}>{summaryErrors.map((msg) => <div key={msg}>{msg}</div>)}</Alert>}
+        {error && <Alert severity="error" sx={{ mb: 2 }}>{error}</Alert>}
 
         <Stack spacing={3}>
           <TextField label="Order" fullWidth type="number" placeholder="1" helperText="Display order for this section" {...register("sort")} />
@@ -51,7 +57,7 @@ export function SectionEdit(props: Props) {
       </Box>
 
       <Box sx={{ p: 2, borderTop: "1px solid var(--admin-border)", backgroundColor: "var(--admin-bg)", display: "flex", justifyContent: "flex-end", gap: 1, flexWrap: "wrap" }}>
-        <Button startIcon={<SaveIcon />} variant="contained" onClick={handleSubmit(onValid)}>Save</Button>
+        <Button startIcon={<SaveIcon />} variant="contained" disabled={formState.isSubmitting} onClick={handleSubmit(onValid)}>Save</Button>
         <Button startIcon={<CancelIcon />} variant="outlined" onClick={handleCancel}>Cancel</Button>
         {props.section?.id && (
           <IconButton color="error" onClick={handleDelete}>

@@ -11,7 +11,8 @@ export async function generateMetadata(props: Props): Promise<Metadata> {
 
   return {
     title: query ? `Search: ${query} | Lessons.church` : "Search | Lessons.church",
-    description: query ? `Search results for "${query}" - Find free church curriculum at Lessons.church` : "Search for free church curriculum at Lessons.church"
+    description: query ? `Search results for "${query}" - Find free church curriculum at Lessons.church` : "Search for free church curriculum at Lessons.church",
+    robots: { index: false, follow: true }
   };
 }
 

@@ -6,7 +6,7 @@ import { SlugHelper } from "@churchapps/apphelper";
 import { Controller, useForm } from "react-hook-form";
 import { ApiHelper, ProgramInterface, StudyInterface } from "@/helpers";
 
-const ImageEditor = dynamic(() => import("../index").then(mod => ({ default: mod.ImageEditor })), { loading: () => <div>Loading image editor...</div> });
+const ImageEditor = dynamic(() => import("./ImageEditor").then(mod => ({ default: mod.ImageEditor })), { loading: () => <div>Loading image editor...</div> });
 
 interface Props { study: StudyInterface; updatedCallback: (study: StudyInterface | null) => void; onClose?: () => void; }
 
@@ -15,6 +15,7 @@ type AnyRecord = Record<string, any>;
 export function StudyEdit(props: Props) {
   const [program, setProgram] = useState<ProgramInterface>({});
   const [showImageEditor, setShowImageEditor] = useState<boolean>(false);
+  const [error, setError] = useState("");
   const [checked, setChecked] = useState<boolean>();
   const [slugCheckError, setSlugCheckError] = useState(false);
 
@@ -37,7 +38,7 @@ export function StudyEdit(props: Props) {
     setShowImageEditor(false);
   };
 
-  const onValid = (values: AnyRecord) => {
+  const onValid = async (values: AnyRecord) => {
     if (!checked) { setSlugCheckError(true); return; }
     setSlugCheckError(false);
     const s: StudyInterface = {
@@ -51,13 +52,21 @@ export function StudyEdit(props: Props) {
       sort: parseInt(values.sort) || 0,
       image: values.image
     };
-    ApiHelper.post("/studies", [s], "LessonsApi").then((data: StudyInterface[]) => props.updatedCallback(data[0]));
+    setError("");
+    try {
+      const data: StudyInterface[] = await ApiHelper.post("/studies", [s], "LessonsApi");
+      props.updatedCallback(data[0]);
+    } catch (err: any) { setError(err?.message || "Unable to save."); }
   };
 
-  const handleDelete = () => {
+  const handleDelete = async () => {
     if (!window.confirm("Are you sure you wish to permanently delete this study?")) return;
-    props.onClose?.();
-    ApiHelper.delete("/studies/" + props.study.id!.toString(), "LessonsApi").then(() => props.updatedCallback(null));
+    setError("");
+    try {
+      await ApiHelper.delete("/studies/" + props.study.id!.toString(), "LessonsApi");
+      props.onClose?.();
+      props.updatedCallback(null);
+    } catch (err: any) { setError(err?.message || "Unable to delete."); }
   };
 
   const handleImageClick = (ev: React.MouseEvent) => { ev.preventDefault(); setShowImageEditor(true); };
@@ -80,7 +89,7 @@ export function StudyEdit(props: Props) {
         image: props.study.image || ""
       });
       loadProgram(props.study.programId || "");
-      if (props.study.slug) setChecked(true);
+      setChecked(!!props.study.slug);
     }
   }, [props.study, reset]);
 
@@ -99,6 +108,7 @@ export function StudyEdit(props: Props) {
 
         <Box sx={{ p: 3 }}>
           {summaryErrors.length > 0 && <Alert severity="error" sx={{ mb: 2 }}>{summaryErrors.map((msg) => <div key={msg}>{msg}</div>)}</Alert>}
+          {error && <Alert severity="error" sx={{ mb: 2 }}>{error}</Alert>}
 
           <Stack spacing={3}>
             <Box>
@@ -164,7 +174,7 @@ export function StudyEdit(props: Props) {
         </Box>
 
         <Box sx={{ p: 2, borderTop: "1px solid var(--admin-border)", backgroundColor: "var(--admin-bg)", display: "flex", justifyContent: "flex-end", gap: 1 }}>
-          <Button size="small" startIcon={<SaveIcon />} onClick={handleSubmit(onValid)} variant="contained" sx={{ backgroundColor: "var(--c1)", "&:hover": { backgroundColor: "var(--c1d1)" } }}>Save</Button>
+          <Button size="small" startIcon={<SaveIcon />} onClick={handleSubmit(onValid)} disabled={formState.isSubmitting} variant="contained" sx={{ backgroundColor: "var(--c1)", "&:hover": { backgroundColor: "var(--c1d1)" } }}>Save</Button>
           <Button size="small" startIcon={<CancelIcon />} onClick={handleCancel} variant="outlined" sx={{ color: "var(--c1d2)", borderColor: "var(--c1d2)" }}>Cancel</Button>
           {props.study?.id && (
             <IconButton size="small" onClick={handleDelete} sx={{ color: "#d32f2f", "&:hover": { backgroundColor: "rgba(211, 47, 47, 0.1)" } }} title="Delete study">

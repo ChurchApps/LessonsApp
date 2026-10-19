@@ -1,36 +1,39 @@
 {
   "b1Share": {
-    "comment": "Комментарий",
-    "commentPlaceholder": "Добавьте комментарий к своему сообщению.",
-    "contentShared": "Общий контент",
-    "group": "Группа",
-    "sharingToGroup": "Публикация {} в группе B1",
+    "comment": "Comment",
+    "commentPlaceholder": "Include a comment with your post.",
+    "contentShared": "Content Shared",
+    "group": "Group",
+    "sharingToGroup": "Sharing {} to B1 Group",
     "validate": {
-      "addComment": "Пожалуйста, добавьте комментарий.",
-      "loginFirst": "Пожалуйста, войдите сначала.",
-      "notMember": "В настоящее время вы не состоите ни в одной группе на B1.",
-      "selectGroup": "Пожалуйста, выберите группу."
+      "addComment": "Please add a comment.",
+      "loginFirst": "Please login first.",
+      "notMember": "You are not currently a member of any groups on B1.",
+      "selectGroup": "Please select a group."
     }
   },
   "common": {
-    "add": "Добавлять",
+    "add": "Add",
     "cancel": "Отмена",
     "close": "Закрывать",
-    "date": "Дата",
+    "date": "Date",
     "delete": "Удалить",
-    "edit": "Редактировать",
-    "error": "Ошибка",
+    "edit": "Edit",
+    "error": "Error",
+    "optional": "Необязательно",
     "pleaseWait": "Пожалуйста, подождите...",
+    "remove": "Удалить",
+    "required": "Обязательно",
     "save": "Сохранять",
     "search": "Поиск",
-    "submit": "Представлять на рассмотрение",
+    "submit": "Submit",
     "update": "Обновлять"
   },
   "createPerson": {
-    "addNewPerson": "Добавить нового человека",
-    "email": "Электронная почта",
-    "firstName": "Имя",
-    "lastName": "Фамилия"
+    "addNewPerson": "Add a New Person",
+    "email": "Email",
+    "firstName": "First Name",
+    "lastName": "Last Name"
   },
   "donation": {
     "bankForm": {
@@ -38,7 +41,7 @@
       "added": "Добавлен банковский счет. ",
       "company": "Компания",
       "firstDeposit": "Первый депозит",
-      "holderName": "Требуется имя владельца счета.",
+      "holderName": "Account holder name is required.",
       "individual": "Индивидуальный",
       "name": "имя владельца счета",
       "needVerified": "Банковские счета необходимо будет подтвердить, прежде чем делать какие-либо пожертвования. ",
@@ -59,8 +62,13 @@
       "expirationYear": "Год истечения срока действия:",
       "updated": "Карта успешно обновлена."
     },
+    "common": {
+      "cancel": "Cancel",
+      "error": "Error"
+    },
     "donationForm": {
       "annually": "Ежегодно",
+      "anonymous": "Give anonymously (one-time gifts only)",
       "biWeekly": "Раз в две недели",
       "cancelled": "Регулярное пожертвование отменено.",
       "confirmDelete": "Вы уверены, что хотите удалить это регулярное пожертвование?",
@@ -75,7 +83,8 @@
       "makeRecurring": "Сделайте регулярное пожертвование",
       "method": "Метод",
       "monthly": "Ежемесячно",
-      "notes": "Примечания",
+      "notes": "Notes",
+      "orPayWith": "Or pay with",
       "preview": "Предварительный просмотр пожертвования",
       "quarterly": "Ежеквартальный",
       "recurringUpdated": "Регулярное пожертвование обновлено.",
@@ -90,6 +99,7 @@
         "lastName": "Пожалуйста, введите свою фамилию.",
         "validEmail": "Пожалуйста, введите действительный адрес электронной почты."
       },
+      "walletFailed": "Wallet payment could not be completed. Please try again.",
       "weekly": "Еженедельно"
     },
     "fundDonations": {
@@ -97,21 +107,57 @@
       "amount": "Количество",
       "fund": "Фонд"
     },
+    "kingdomFunding": {
+      "enterBankDetails": "Enter your bank account details",
+      "enterCardDetails": "Enter card details",
+      "errorProcessingDonation": "Error processing donation",
+      "failedToInitPaymentForm": "Failed to initialize payment form",
+      "failedToLoadPaymentForm": "Failed to load payment form",
+      "failedToProcessCard": "Failed to process card. Please check your card details and try again.",
+      "failedToTokenizeCard": "Failed to tokenize card",
+      "gatewayConfigMissing": "Payment form not available. Gateway configuration missing.",
+      "loadingPaymentForm": "Loading payment form...",
+      "memo": "Memo (optional)",
+      "missingTokenizationKey": "Missing tokenization key",
+      "payWithBank": "Bank (ACH)",
+      "payWithCard": "Card",
+      "paymentFormNotAvailable": "Payment form not available",
+      "paymentFormNotInitialized": "Payment form not initialized",
+      "paymentProvider": "Платёжный провайдер",
+      "providerName": "Kingdom Funding",
+      "unexpectedError": "An unexpected error occurred. Please try again.",
+      "validate": {
+        "accountNumber": "Введите действительный номер счёта",
+        "captchaFailed": "reCAPTCHA verification failed. Please try again.",
+        "captchaRequired": "Please complete the reCAPTCHA verification",
+        "routingNumber": "Введите действительный банковский маршрутный номер"
+      }
+    },
     "page": {
-      "amount": "Количество",
-      "batch": "Партия",
-      "date": "Дата",
-      "fund": "Фонд",
-      "method": "Метод",
-      "willAppear": "Пожертвования появятся после ввода пожертвования."
+      "amount": "Amount",
+      "batch": "Batch",
+      "date": "Date",
+      "fund": "Fund",
+      "method": "Method",
+      "willAppear": "Donations will appear once a donation has been entered."
     },
     "paymentMethods": {
       "addBank": "Добавить банковский счет",
       "addCard": "Добавить карту",
       "confirmDelete": "Вы уверены, что хотите удалить этот способ оплаты?",
       "deleted": "Способ оплаты удален.",
-      "noMethods": "Нет способов оплаты.  ",
+      "noMethod": "No Method",
       "verify": "подтвердить учетную запись"
+    },
+    "paypal": {
+      "approved": "PayPal payment approved. Choose Donate to finish your gift.",
+      "captchaRequired": "Please complete the reCAPTCHA verification"
+    },
+    "paystack": {
+      "emailRequired": "An email address is required to pay with Paystack.",
+      "paymentFailed": "Payment was not completed.",
+      "popupHint": "You'll complete payment in a secure Paystack window. Card, mobile money and bank transfer are accepted.",
+      "saveOnlyWithGift": "Payment methods are saved when you give — check \"Save this card\" while making a gift."
     },
     "preview": {
       "date": "Дата пожертвования",
@@ -123,13 +169,15 @@
       "notes": "Примечания",
       "startingOn": "Начиная с",
       "total": "Общий",
-      "type": "Тип пожертвования"
+      "type": "Тип пожертвования",
+      "weekly": "Weekly"
     },
     "recurring": {
       "amount": "Количество",
       "confirmPause": "Вы уверены, что хотите приостановить это регулярное пожертвование?",
       "every": "Каждый",
       "interval": "Интервал",
+      "noSubscriptions": "No Subscriptions",
       "notFound": "Способ оплаты не найден.",
       "pauseFailed": "Не удалось приостановить регулярное пожертвование. Пожалуйста, попробуйте ещё раз.",
       "pauseTooltip": "Приостановить регулярное пожертвование",
@@ -183,13 +231,18 @@
       "toggleWeekday": "Переключить {} для еженедельного повторения"
     }
   },
+  "fileUpload": {
+    "file": "File",
+    "quotaExceeded": "Storage quota exceeded. Delete unused files or upgrade your storage plan.",
+    "uploadFailed": "Upload failed. Please try again."
+  },
   "formSubmissionEdit": {
     "back": "Назад",
-    "continue": "Продолжить",
-    "stepProgress": "{current} из {total}",
     "confirmDelete": "Вы уверены, что хотите удалить данные этой формы?",
+    "continue": "Продолжить",
     "editForm": "Редактировать форму",
     "isRequired": "требуется",
+    "stepProgress": "{current} из {total}",
     "submit": "Представлять на рассмотрение"
   },
   "gallery": {
@@ -198,21 +251,25 @@
     "freeForm": "Свободная форма"
   },
   "iconPicker": {
-    "iconsAvailable": "доступны значки",
-    "matchingResults": "совпадающие результаты",
-    "search": "Иконки поиска..."
+    "iconsAvailable": "icons available",
+    "matchingResults": "matching results",
+    "search": "Search icons..."
   },
   "login": {
-    "createAccount": "Завести аккаунт",
+    "accountExists": "У вас уже есть учётная запись ChurchApps. Войдите с её помощью.",
+    "continueGoogle": "Continue with Google",
+    "continueMicrosoft": "Continue with Microsoft",
+    "createAccount": "Create an Account",
     "email": "Электронная почта",
     "enterCode": "Введите код подтверждения",
     "enterCodeInstructions": "Введите 6-значный код, который мы только что отправили вам по электронной почте.",
     "expiredLink": "Текущая ссылка устарела.",
     "forgot": "Забыли пароль",
-    "goLogin": "Перейти к входу",
+    "goLogin": "Go to Login",
     "login": "Авторизоваться",
     "noAcc": "Нет учетной записи?",
     "noAccountFound": "Учетная запись с таким адресом электронной почты не найдена. Пожалуйста, зарегистрируйтесь, чтобы продолжить.",
+    "or": "or",
     "password": "Пароль",
     "register": "регистр",
     "registerThankYou": "Спасибо за регистрацию! ",
@@ -221,7 +278,7 @@
     "reset": "Перезагрузить",
     "resetInstructions": "Введите свой адрес электронной почты, чтобы запросить сброс пароля.",
     "resetPassword": "Сброс пароля",
-    "resetSent": "Письмо для сброса пароля отправлено!",
+    "resetSent": "Password reset email sent!",
     "setPassword": "Установка пароля",
     "signIn": "Войти",
     "signInTitle": "Пожалуйста войдите",
@@ -243,50 +300,65 @@
   },
   "markdownEditor": {
     "content": "Содержание",
-    "markdownEditor": "Редактор уценки",
+    "markdownEditor": "Markdown Editor",
     "markdownGuide": "Руководство по уценке"
   },
   "month": {
-    "april": "апрель",
-    "august": "Август",
-    "december": "Декабрь",
-    "february": "февраль",
-    "january": "январь",
-    "july": "Июль",
-    "june": "Июнь",
-    "march": "Маршировать",
-    "may": "Может",
-    "november": "ноябрь",
-    "october": "Октябрь",
-    "september": "Сентябрь"
+    "april": "April",
+    "august": "August",
+    "december": "December",
+    "february": "February",
+    "january": "January",
+    "july": "July",
+    "june": "June",
+    "march": "March",
+    "may": "May",
+    "november": "November",
+    "october": "October",
+    "september": "September"
   },
   "notes": {
     "comment": "комментарий",
     "comments": "Комментарии",
     "notes": "Примечания",
-    "startConversation": "Начать разговор",
+    "notifyOff": "Notify Off",
+    "notifyOn": "Notify On",
+    "openFile": "Open file",
+    "startConversation": "Start a conversation",
     "validate": {
       "content": "Пожалуйста, введите примечание."
     },
-    "viewAll": "Посмотреть все"
+    "viewAll": "View all"
   },
   "person": {
     "email": "Электронная почта",
     "firstName": "Имя",
     "lastName": "Фамилия",
     "name": "Имя",
-    "noRec": "Нет записи о человеке?",
-    "person": "Человек",
-    "years": "годы"
+    "noRec": "Don't have a person record?",
+    "person": "Person",
+    "years": "years"
+  },
+  "question": {
+    "checkbox": "Флажок",
+    "currency": "Валюта",
+    "date": "Дата",
+    "email": "Электронная почта",
+    "file": "Загрузка файла",
+    "multiple": "Множественный выбор",
+    "number": "Число",
+    "phone": "Телефон",
+    "textarea": "Текстовая область",
+    "textbox": "Текстовое поле"
   },
   "reporting": {
-    "detailed": "Подробный отчет",
-    "downloadOptions": "Варианты загрузки",
-    "noData": "Нет данных для отображения.",
-    "runReport": "Запустить отчет",
-    "sampleTemplate": "Образец шаблона Word",
-    "summary": "Сводка",
-    "useFilter": "Используйте фильтр для запуска отчета."
+    "detailed": "Detailed Report",
+    "downloadOptions": "Download Options",
+    "noData": "There is no data to display.",
+    "runReport": "Run Report",
+    "sampleTemplate": "Sample Word Template",
+    "summary": "Summary",
+    "useFilter": "Use the filter to run the report."
   },
   "selectChurch": {
     "address1": "Адресная строка 1",
@@ -318,22 +390,35 @@
     "discussions": "Форум поддержки",
     "documentation": "Документация"
   },
+  "validation": {
+    "date": "Введите действительную дату",
+    "email": "Введите действительный адрес электронной почты",
+    "fileSize": "Размер файла должен быть меньше {} МБ",
+    "fileType": "Недопустимый тип файла",
+    "maxLength": "Должно содержать не более {} символов",
+    "minLength": "Должно содержать не менее {} символов",
+    "number": "Введите действительное число",
+    "phone": "Введите действительный номер телефона",
+    "required": "Это поле обязательно для заполнения"
+  },
   "wrapper": {
-    "chatWith": "Чат с",
-    "deleteChurch": "Удалить церковь из списка",
+    "chatWith": "Chat with",
+    "currentChurch": "Текущая церковь",
+    "deleteChurch": "Delete",
     "editAccount": "Редактировать аккаунт",
-    "editChurchProfile": "Редактировать профиль церкви",
+    "editChurchProfile": "Редактировать профиль в церкви",
     "editProfile": "Редактировать профиль",
-    "logout": "Выйти",
-    "messages": "Сообщения",
+    "logout": "Logout",
+    "messages": "Messages",
     "newPrivateMessage": "Новое личное сообщение",
-    "notifications": "Уведомления",
+    "notifications": "Notifications",
+    "privateConversation": "Private Conversation",
     "privateMessage": "Личное сообщение",
-    "profile": "Профиль",
+    "profile": "Profile",
     "searchForPerson": "Поиск человека",
-    "support": "Поддерживать",
-    "sureRemoveChurch": "Вы уверены, что хотите удалить {} из списка?",
-    "switchApp": "Переключить приложение",
-    "switchChurch": "Переключить церковь"
+    "support": "Support",
+    "sureRemoveChurch": "Are you sure you wish to delete this church? You no longer will be a member of {}.",
+    "switchApp": "Switch App",
+    "switchChurch": "Switch Church"
   }
 }

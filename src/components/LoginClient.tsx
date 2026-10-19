@@ -8,6 +8,16 @@ import { UserHelper } from "@churchapps/apphelper";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useUser } from "@/app/context/UserContext";
 
+// Paths like "/\evil.com" start with "/" but resolve off-site; keep redirects on this origin.
+const sameOriginPath = (url: string) => {
+  try {
+    const u = new URL(url, window.location.origin);
+    return u.origin === window.location.origin ? u.pathname + u.search + u.hash : "/portal";
+  } catch {
+    return "/portal";
+  }
+};
+
 interface Props {
   showLogo?: boolean;
   redirectAfterLogin?: string;
@@ -51,7 +61,7 @@ export function LoginClient({ showLogo, redirectAfterLogin, loginContainerCssPro
     context.setUserChurch(currentUserChurch);
     context.setUserChurches(userChurches || []);
 
-    router.replace(url);
+    router.replace(sameOriginPath(url));
   };
 
   const jwt = searchParams.get("jwt") || cookies.jwt;

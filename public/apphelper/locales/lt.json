@@ -1,36 +1,39 @@
 {
   "b1Share": {
-    "comment": "Komentaras",
-    "commentPlaceholder": "Įtraukite komentarą į savo postą.",
-    "contentShared": "Turinys bendrintas",
-    "group": "Grupė",
-    "sharingToGroup": "{} bendrinimas B1 grupei",
+    "comment": "Comment",
+    "commentPlaceholder": "Include a comment with your post.",
+    "contentShared": "Content Shared",
+    "group": "Group",
+    "sharingToGroup": "Sharing {} to B1 Group",
     "validate": {
-      "addComment": "Prašome pridėti komentarą.",
-      "loginFirst": "Prašome pirmiausia prisijungti.",
-      "notMember": "Jūs šiuo metu nesate jokios B1 grupės narys.",
-      "selectGroup": "Prašome pasirinkti grupę."
+      "addComment": "Please add a comment.",
+      "loginFirst": "Please login first.",
+      "notMember": "You are not currently a member of any groups on B1.",
+      "selectGroup": "Please select a group."
     }
   },
   "common": {
-    "add": "Pridėti",
+    "add": "Add",
     "cancel": "Atšaukti",
     "close": "Uždaryti",
-    "date": "Data",
+    "date": "Date",
     "delete": "Ištrinti",
-    "edit": "Redaguoti",
-    "error": "Klaida",
+    "edit": "Edit",
+    "error": "Error",
+    "optional": "Neprivaloma",
     "pleaseWait": "Prašome palaukti...",
+    "remove": "Pašalinti",
+    "required": "Privaloma",
     "save": "Išsaugoti",
     "search": "Paieška",
-    "submit": "Pateikti",
+    "submit": "Submit",
     "update": "Atnaujinti"
   },
   "createPerson": {
-    "addNewPerson": "Pridėti naują asmenį",
-    "email": "El. paštas",
-    "firstName": "Vardas",
-    "lastName": "Pavardė"
+    "addNewPerson": "Add a New Person",
+    "email": "Email",
+    "firstName": "First Name",
+    "lastName": "Last Name"
   },
   "donation": {
     "bankForm": {
@@ -38,7 +41,7 @@
       "added": "Banko sąskaita pridėta. Patvirtinkite banko sąskaitą, kad atliktumėte auką.",
       "company": "Įmonė",
       "firstDeposit": "Pirmas indėlis",
-      "holderName": "Reikalingas sąskaitos savininko vardas.",
+      "holderName": "Account holder name is required.",
       "individual": "Asmeninis",
       "name": "Sąskaitos savininko vardas",
       "needVerified": "Banko sąskaitos turi būti patvirtintos prieš atliekant aukas. Jūsų sąskaita per maždaug 1-3 darbo dienas gaus du mažus indėlius. Turėsite įvesti šias indėlio sumas, kad baigtusite sąskaitos patvirtinimą, pasirinkdami patvirtinimo saitą šalia banko sąskaitos mokėjimo būdų skyriuje.",
@@ -59,8 +62,13 @@
       "expirationYear": "Galiojimo pabaiga (metai):",
       "updated": "Kortelė sėkmingai atnaujinta."
     },
+    "common": {
+      "cancel": "Cancel",
+      "error": "Error"
+    },
     "donationForm": {
       "annually": "Kasmet",
+      "anonymous": "Give anonymously (one-time gifts only)",
       "biWeekly": "Kas dvi savaites",
       "cancelled": "Pasikartojanti auka atšaukta.",
       "confirmDelete": "Ar tikrai norite ištrinti šią pasikartojančią auką?",
@@ -75,7 +83,8 @@
       "makeRecurring": "Padaryk pasikartojančią auką",
       "method": "Metodas",
       "monthly": "Kas mėnesį",
-      "notes": "Pastabos",
+      "notes": "Notes",
+      "orPayWith": "Or pay with",
       "preview": "Peržiūrėti auką",
       "quarterly": "Kas ketvirtį",
       "recurringUpdated": "Pasikartojanti auka atnaujinta.",
@@ -90,6 +99,7 @@
         "lastName": "Prašome įvesti savo pavardę.",
         "validEmail": "Prašome įvesti galiojantį el. pašto adresą."
       },
+      "walletFailed": "Wallet payment could not be completed. Please try again.",
       "weekly": "Kas savaitę"
     },
     "fundDonations": {
@@ -97,21 +107,57 @@
       "amount": "Suma",
       "fund": "Fondas"
     },
+    "kingdomFunding": {
+      "enterBankDetails": "Enter your bank account details",
+      "enterCardDetails": "Enter card details",
+      "errorProcessingDonation": "Error processing donation",
+      "failedToInitPaymentForm": "Failed to initialize payment form",
+      "failedToLoadPaymentForm": "Failed to load payment form",
+      "failedToProcessCard": "Failed to process card. Please check your card details and try again.",
+      "failedToTokenizeCard": "Failed to tokenize card",
+      "gatewayConfigMissing": "Payment form not available. Gateway configuration missing.",
+      "loadingPaymentForm": "Loading payment form...",
+      "memo": "Memo (optional)",
+      "missingTokenizationKey": "Missing tokenization key",
+      "payWithBank": "Bank (ACH)",
+      "payWithCard": "Card",
+      "paymentFormNotAvailable": "Payment form not available",
+      "paymentFormNotInitialized": "Payment form not initialized",
+      "paymentProvider": "Mokėjimų teikėjas",
+      "providerName": "Kingdom Funding",
+      "unexpectedError": "An unexpected error occurred. Please try again.",
+      "validate": {
+        "accountNumber": "Įveskite galiojantį sąskaitos numerį",
+        "captchaFailed": "reCAPTCHA verification failed. Please try again.",
+        "captchaRequired": "Please complete the reCAPTCHA verification",
+        "routingNumber": "Įveskite galiojantį banko maršruto numerį"
+      }
+    },
     "page": {
-      "amount": "Suma",
-      "batch": "Partija",
-      "date": "Data",
-      "fund": "Fondas",
-      "method": "Metodas",
-      "willAppear": "Aukos pasirodyti, kai auka bus įvesta."
+      "amount": "Amount",
+      "batch": "Batch",
+      "date": "Date",
+      "fund": "Fund",
+      "method": "Method",
+      "willAppear": "Donations will appear once a donation has been entered."
     },
     "paymentMethods": {
       "addBank": "Pridėti banko sąskaitą",
       "addCard": "Pridėti kortelę",
       "confirmDelete": "Ar tikrai norite ištrinti šį mokėjimo būdą?",
       "deleted": "Mokėjimo būdas ištrintas.",
-      "noMethods": "Nėra mokėjimo būdų. Pridėkite mokėjimo būdą, norėdami aukoti.",
+      "noMethod": "No Method",
       "verify": "Patvirtinti sąskaitą"
+    },
+    "paypal": {
+      "approved": "PayPal payment approved. Choose Donate to finish your gift.",
+      "captchaRequired": "Please complete the reCAPTCHA verification"
+    },
+    "paystack": {
+      "emailRequired": "An email address is required to pay with Paystack.",
+      "paymentFailed": "Payment was not completed.",
+      "popupHint": "You'll complete payment in a secure Paystack window. Card, mobile money and bank transfer are accepted.",
+      "saveOnlyWithGift": "Payment methods are saved when you give — check \"Save this card\" while making a gift."
     },
     "preview": {
       "date": "Aukos data",
@@ -123,13 +169,15 @@
       "notes": "Pastabos",
       "startingOn": "Pradedant nuo",
       "total": "Iš viso",
-      "type": "Aukos tipas"
+      "type": "Aukos tipas",
+      "weekly": "Weekly"
     },
     "recurring": {
       "amount": "Suma",
       "confirmPause": "Ar tikrai norite pristabdyti šią pasikartojančią auką?",
       "every": "Kiekvienas",
       "interval": "Intervalas",
+      "noSubscriptions": "No Subscriptions",
       "notFound": "Mokėjimo būdas nerastas.",
       "pauseFailed": "Nepavyko pristabdyti pasikartojančios aukos. Bandykite dar kartą.",
       "pauseTooltip": "Pristabdyti pasikartojančią auką",
@@ -183,13 +231,18 @@
       "toggleWeekday": "Perjungti {} savaitiniam pasikartojimui"
     }
   },
+  "fileUpload": {
+    "file": "File",
+    "quotaExceeded": "Storage quota exceeded. Delete unused files or upgrade your storage plan.",
+    "uploadFailed": "Upload failed. Please try again."
+  },
   "formSubmissionEdit": {
     "back": "Atgal",
-    "continue": "Tęsti",
-    "stepProgress": "{current} iš {total}",
     "confirmDelete": "Ar tikrai norite ištrinti šiuos formos duomenis?",
+    "continue": "Tęsti",
     "editForm": "Redaguoti formą",
     "isRequired": "reikalinga",
+    "stepProgress": "{current} iš {total}",
     "submit": "Pateikti"
   },
   "gallery": {
@@ -198,30 +251,39 @@
     "freeForm": "Laisva forma"
   },
   "iconPicker": {
-    "iconsAvailable": "ikona yra prieinama",
-    "matchingResults": "atitinkantys rezultatai",
-    "search": "Ieškoti ikonų..."
+    "iconsAvailable": "icons available",
+    "matchingResults": "matching results",
+    "search": "Search icons..."
   },
   "login": {
-    "createAccount": "Sukurti sąskaitą",
+    "accountExists": "Jūs jau turite ChurchApps paskyrą. Prisijunkite su ja.",
+    "continueGoogle": "Continue with Google",
+    "continueMicrosoft": "Continue with Microsoft",
+    "createAccount": "Create an Account",
     "email": "El. paštas",
+    "enterCode": "Enter Verification Code",
+    "enterCodeInstructions": "Enter the 6-digit code we just emailed you.",
     "expiredLink": "Dabartinė nuoroda yra pasibaigusi.",
     "forgot": "Pamiršote slaptažodį",
-    "goLogin": "Eiti į prisijungimą",
+    "goLogin": "Go to Login",
     "login": "Prisijungti",
     "noAcc": "Neturite sąskaitos?",
+    "noAccountFound": "No account was found with that email. Please register to continue.",
+    "or": "or",
     "password": "Slaptažodis",
     "register": "Registruotis",
     "registerThankYou": "Ačiū, kad užsiregistravote! Patikrinkite savo el. paštą, kad patvirtintumėte savo sąskaitą.",
     "requestLink": "Paprašyti naujo nustatymo ryšio",
+    "resendCode": "Resend code",
     "reset": "Iš naujo nustatyti",
     "resetInstructions": "Įveskite savo el. pašto adresą, norėdami paprašyti slaptažodžio atstatymo.",
     "resetPassword": "Iš naujo nustatyti slaptažodį",
-    "resetSent": "Slaptažodžio atstatymo el. laiškas išsiųstas!",
+    "resetSent": "Password reset email sent!",
     "setPassword": "Nustatyti slaptažodį",
     "signIn": "Prisijungti",
     "signInTitle": "Prašome prisijungti",
     "validate": {
+      "code": "Please enter the 6-digit code.",
       "email": "Prašome įvesti galiojantį el. pašto adresą.",
       "firstName": "Prašome įvesti savo vardą.",
       "invalid": "Negaliojantis prisijungimas. Patikrinkite savo el. pašto adresą arba slaptažodį.",
@@ -231,56 +293,72 @@
       "passwordMatch": "Slaptažodžiai nesutampa.",
       "selectingChurch": "Klaida pasirenkant bažnyčią. Patikrinkite ir bandykite iš naujo"
     },
+    "verifyCode": "Verify Code",
     "verifyPassword": "Patvirtinti slaptažodį",
     "welcomeBack": "Sveiki sugrįžę",
     "welcomeName": "Sveiki sugrįžę, <b>{}</b>! Prašome palaukti, kol kraupiame jūsų duomenis."
   },
   "markdownEditor": {
     "content": "Turinys",
-    "markdownEditor": "Markdown redaktorius",
+    "markdownEditor": "Markdown Editor",
     "markdownGuide": "Markdown vadovas"
   },
   "month": {
-    "april": "Balandis",
-    "august": "Rugpjūtis",
-    "december": "Gruodis",
-    "february": "Vasaris",
-    "january": "Sausis",
-    "july": "Liepa",
-    "june": "Birželis",
-    "march": "Kovas",
-    "may": "Gegužė",
-    "november": "Lapkritis",
-    "october": "Spalis",
-    "september": "Rugsėjis"
+    "april": "April",
+    "august": "August",
+    "december": "December",
+    "february": "February",
+    "january": "January",
+    "july": "July",
+    "june": "June",
+    "march": "March",
+    "may": "May",
+    "november": "November",
+    "october": "October",
+    "september": "September"
   },
   "notes": {
     "comment": "komentaras",
     "comments": "komentarai",
     "notes": "Pastabos",
-    "startConversation": "Pradėti pokalbį",
+    "notifyOff": "Notify Off",
+    "notifyOn": "Notify On",
+    "openFile": "Open file",
+    "startConversation": "Start a conversation",
     "validate": {
       "content": "Prašome įvesti pastabą."
     },
-    "viewAll": "Žiūrėti visus"
+    "viewAll": "View all"
   },
   "person": {
     "email": "El. paštas",
     "firstName": "Vardas",
     "lastName": "Pavardė",
     "name": "Vardas",
-    "noRec": "Nėra asmeninių įrašų?",
-    "person": "Asmuo",
-    "years": "metų"
+    "noRec": "Don't have a person record?",
+    "person": "Person",
+    "years": "years"
+  },
+  "question": {
+    "checkbox": "Žymimasis laukelis",
+    "currency": "Valiuta",
+    "date": "Data",
+    "email": "El. paštas",
+    "file": "Failo įkėlimas",
+    "multiple": "Keli pasirinkimai",
+    "number": "Skaičius",
+    "phone": "Telefonas",
+    "textarea": "Teksto sritis",
+    "textbox": "Teksto laukas"
   },
   "reporting": {
-    "detailed": "Išsamus ataskaita",
-    "downloadOptions": "Atsisiuntimo variantai",
-    "noData": "Nėra duomenų rodymui.",
-    "runReport": "Paleisti ataskaitą",
-    "sampleTemplate": "Pavyzdinė Word šablono",
-    "summary": "Santrauka",
-    "useFilter": "Norėdami paleisti ataskaitą, naudokite filtrą."
+    "detailed": "Detailed Report",
+    "downloadOptions": "Download Options",
+    "noData": "There is no data to display.",
+    "runReport": "Run Report",
+    "sampleTemplate": "Sample Word Template",
+    "summary": "Summary",
+    "useFilter": "Use the filter to run the report."
   },
   "selectChurch": {
     "address1": "Adresas 1",
@@ -312,22 +390,35 @@
     "discussions": "Palaikymo forumas",
     "documentation": "Dokumentacija"
   },
+  "validation": {
+    "date": "Įveskite galiojančią datą",
+    "email": "Įveskite galiojantį el. pašto adresą",
+    "fileSize": "Failo dydis turi būti mažesnis nei {} MB",
+    "fileType": "Netinkamas failo tipas",
+    "maxLength": "Negali būti ilgesnis nei {} simbolių",
+    "minLength": "Turi būti bent {} simbolių",
+    "number": "Įveskite galiojantį skaičių",
+    "phone": "Įveskite galiojantį telefono numerį",
+    "required": "Šis laukas yra privalomas"
+  },
   "wrapper": {
-    "chatWith": "Pokalbis su",
-    "deleteChurch": "Ištrinti",
-    "editAccount": "Redaguoti sąskaitą",
+    "chatWith": "Chat with",
+    "currentChurch": "Dabartinė bažnyčia",
+    "deleteChurch": "Delete",
+    "editAccount": "Redaguoti paskyrą",
     "editChurchProfile": "Redaguoti bažnyčios profilį",
     "editProfile": "Redaguoti profilį",
-    "logout": "Atsijungti",
-    "messages": "Žinutės",
+    "logout": "Logout",
+    "messages": "Messages",
     "newPrivateMessage": "Nauja privati žinutė",
-    "notifications": "Pranešimai",
+    "notifications": "Notifications",
+    "privateConversation": "Private Conversation",
     "privateMessage": "Privati žinutė",
-    "profile": "Profilis",
+    "profile": "Profile",
     "searchForPerson": "Ieškoti asmens",
-    "support": "Palaikyti",
-    "sureRemoveChurch": "Ar tikrai norite ištrinti šią bažnyčią? Jūs nebegrąsite būti {}.",
-    "switchApp": "Perjungti programą",
-    "switchChurch": "Perjungti bažnyčią"
+    "support": "Support",
+    "sureRemoveChurch": "Are you sure you wish to delete this church? You no longer will be a member of {}.",
+    "switchApp": "Switch App",
+    "switchChurch": "Switch Church"
   }
 }

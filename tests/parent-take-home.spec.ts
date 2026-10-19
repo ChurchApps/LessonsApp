@@ -78,7 +78,7 @@ browseTest.describe("Public and classroom parent take-home", () => {
     await seedLiveLesson({ slug, takeHome: true });
 
     await page.goto(`/${SEED.PROGRAMS.OT.slug}/${SEED.STUDIES.GENESIS.slug}/${slug}`);
-    await expect(page.getByRole("heading", { name: "Take Home Public" }).first()).toBeVisible({ timeout: 30000 });
+    await expect(page.getByRole("heading", { level: 1, name: "Parent Preview" })).toBeVisible({ timeout: 30000 });
     await expect(page.getByTestId("parent-take-home")).toHaveCount(0);
   });
 

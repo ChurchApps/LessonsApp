@@ -9,6 +9,7 @@ interface Props {
   resourceId: string;
   pendingSave: boolean;
   saveCallback: (files: FileInterface[]) => void;
+  errorCallback?: (message: string) => void;
 }
 
 export function BulkFileUpload(props: Props) {
@@ -18,7 +19,7 @@ export function BulkFileUpload(props: Props) {
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => { e.preventDefault(); setUploadedFiles(e.target.files); };
 
   const handleSave = async () => {
-    if (!uploadedFiles) return;
+    if (!uploadedFiles || uploadedFiles.length === 0) throw new Error("Please select at least one file.");
     const files: FileInterface[] = [];
     for (let i = 0; i < uploadedFiles.length; i++) { const uf = uploadedFiles[i]; files.push({ size: uf.size, fileType: uf.type, fileName: uf.name, resourceId: props.resourceId }); }
     await preUpload();
@@ -26,7 +27,7 @@ export function BulkFileUpload(props: Props) {
     props.saveCallback(data);
   };
 
-  const checkSave = () => { if (props.pendingSave) handleSave(); };
+  const checkSave = () => { if (props.pendingSave) handleSave().catch((err: Error) => { setUploadProgress(-1); props.errorCallback?.(err?.message || "Upload failed."); }); };
 
   const preUpload = async () => {
     if (!uploadedFiles) return;
@@ -46,7 +47,6 @@ export function BulkFileUpload(props: Props) {
     formData.append("Content-Type", uploadedFile.type);
 
     for (const property in presigned.fields) formData.append(property, presigned.fields[property]);
-    const _f = document.getElementById("fileUpload") as HTMLInputElement;
     formData.append("file", uploadedFile);
 
     const completedPercent = Math.round((index / uploadedFiles!.length) * 100);

@@ -26,17 +26,20 @@ interface LoadDataResult {
 //NOTE: These api calls only fire once per page load.  NextJS remembers the results and reuses them on subsequent calls.
 const loadData = async (programSlug: string): Promise<LoadDataResult> => {
   EnvironmentHelper.init();
+  const program: ProgramInterface = await ApiHelper.getAnonymous("/programs/public/slug/" + programSlug, "LessonsApi");
+  const studies: StudyInterface[] = await ApiHelper.getAnonymous("/studies/public/program/" + program?.id, "LessonsApi");
+  const studyCategories: StudyCategoryInterface[] = await ApiHelper.getAnonymous("/studyCategories/public/program/" + program?.id, "LessonsApi");
+  return { program, studies, studyCategories, errorMessage: "" };
+};
+
+// loadData throws on failure so a failed load is never cached.
+const loadSharedData = async (programSlug: string): Promise<LoadDataResult> => {
   try {
-    const program: ProgramInterface = await ApiHelper.getAnonymous("/programs/public/slug/" + programSlug, "LessonsApi");
-    const studies: StudyInterface[] = await ApiHelper.getAnonymous("/studies/public/program/" + program?.id, "LessonsApi");
-    const studyCategories: StudyCategoryInterface[] = await ApiHelper.getAnonymous("/studyCategories/public/program/" + program?.id, "LessonsApi");
-    return { program, studies, studyCategories, errorMessage: "" };
+    return await unstable_cache(loadData, ["/[programSlug]", programSlug], { tags: ["all"], revalidate: 3600 })(programSlug);
   } catch (error: unknown) {
     return { errorMessage: String(error) };
   }
 };
-
-const loadSharedData = (programSlug: string) => { const result = unstable_cache(loadData, ["/[programSlug]", programSlug], { tags: ["all"] }); return result(programSlug); };
 
 export async function generateMetadata({ params }: { params: Promise<PageParams> }): Promise<Metadata> {
   const { programSlug } = await params;
@@ -104,7 +107,7 @@ export default async function ProgramPage({ params }: { params: Promise<PagePara
               name: "Lessons.church",
               sameAs: "https://lessons.church"
             }
-          })
+          }).replace(/</g, "\\u003c")
         }}
       />
     </Layout>

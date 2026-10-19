@@ -17,21 +17,24 @@ import { FloatingSupportWrapper } from "./components/FloatingSupportWrapper";
 
 const loadData = async () => {
   EnvironmentHelper.init();
-  try {
-    const excludeIds = ["CMCkovCA00e", "yBl-EUBxm17"];
-    let programs: ProgramInterface[] = await ApiHelper.getAnonymous("/programs/public", "LessonsApi");
-    const providers: ProviderInterface[] = await ApiHelper.getAnonymous("/providers/public", "LessonsApi");
-    const studies: ProviderInterface[] = await ApiHelper.getAnonymous("/studies/public", "LessonsApi");
-    const stats: { churchCount: number; lessonCount: number; studyCount: number; programCount: number } = await ApiHelper.getAnonymous("/providers/stats", "LessonsApi");
+  const excludeIds = ["CMCkovCA00e", "yBl-EUBxm17"];
+  let programs: ProgramInterface[] = await ApiHelper.getAnonymous("/programs/public", "LessonsApi");
+  const providers: ProviderInterface[] = await ApiHelper.getAnonymous("/providers/public", "LessonsApi");
+  const studies: ProviderInterface[] = await ApiHelper.getAnonymous("/studies/public", "LessonsApi");
+  const stats: { churchCount: number; lessonCount: number; studyCount: number; programCount: number } = await ApiHelper.getAnonymous("/providers/stats", "LessonsApi");
 
-    programs = programs.filter(p => !excludeIds.includes(p.id || ""));
-    return { programs, providers, studies, stats, errorMessage: "" };
+  programs = programs.filter(p => !excludeIds.includes(p.id || ""));
+  return { programs, providers, studies, stats, errorMessage: "" };
+};
+
+// loadData throws on failure so a failed load is never cached.
+const loadSharedData = async () => {
+  try {
+    return await unstable_cache(loadData, ["/home"], { tags: ["all"], revalidate: 3600 })();
   } catch (error: unknown) {
     return { programs: [], providers: [], studies: [], stats: undefined, errorMessage: String(error) };
   }
 };
-
-const loadSharedData = () => { const result = unstable_cache(loadData, ["/home"], { tags: ["all"] }); return result(); };
 
 export async function generateMetadata(): Promise<Metadata> { return MetaHelper.getMetaData(); }
 

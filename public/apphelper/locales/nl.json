@@ -1,36 +1,39 @@
 {
   "b1Share": {
-    "comment": "Opmerking",
-    "commentPlaceholder": "Voeg een opmerking toe bij uw bericht.",
-    "contentShared": "Inhoud gedeeld",
-    "group": "Groep",
-    "sharingToGroup": "{} delen met B1-groep",
+    "comment": "Comment",
+    "commentPlaceholder": "Include a comment with your post.",
+    "contentShared": "Content Shared",
+    "group": "Group",
+    "sharingToGroup": "Sharing {} to B1 Group",
     "validate": {
-      "addComment": "Voeg een opmerking toe.",
-      "loginFirst": "Log eerst in.",
-      "notMember": "U bent momenteel geen lid van een groep op B1.",
-      "selectGroup": "Selecteer een groep."
+      "addComment": "Please add a comment.",
+      "loginFirst": "Please login first.",
+      "notMember": "You are not currently a member of any groups on B1.",
+      "selectGroup": "Please select a group."
     }
   },
   "common": {
-    "add": "Toevoegen",
+    "add": "Add",
     "cancel": "Annuleren",
     "close": "Sluiten",
-    "date": "Datum",
+    "date": "Date",
     "delete": "Verwijderen",
-    "edit": "Bewerken",
-    "error": "Fout",
+    "edit": "Edit",
+    "error": "Error",
+    "optional": "Optioneel",
     "pleaseWait": "Even geduld...",
+    "remove": "Verwijderen",
+    "required": "Verplicht",
     "save": "Opslaan",
     "search": "Zoeken",
-    "submit": "Verzenden",
+    "submit": "Submit",
     "update": "Bijwerken"
   },
   "createPerson": {
-    "addNewPerson": "Nieuwe persoon toevoegen",
-    "email": "E-mail",
-    "firstName": "Voornaam",
-    "lastName": "Achternaam"
+    "addNewPerson": "Add a New Person",
+    "email": "Email",
+    "firstName": "First Name",
+    "lastName": "Last Name"
   },
   "donation": {
     "bankForm": {
@@ -38,7 +41,7 @@
       "added": "Bankrekening toegevoegd. Verifieer uw bankrekening om een donatie te doen.",
       "company": "Bedrijf",
       "firstDeposit": "Eerste storting",
-      "holderName": "Naam van rekeninghouder is verplicht.",
+      "holderName": "Account holder name is required.",
       "individual": "Individueel",
       "name": "Naam van rekeninghouder",
       "needVerified": "Bankrekeningen moeten geverifieerd worden voordat u een donatie kunt doen. Uw rekening ontvangt twee kleine stortingen binnen ongeveer 1-3 werkdagen. U moet deze stortingsbedragen invoeren om uw rekening te verifiëren via de verificatielink naast uw bankrekening onder de sectie betaalmethoden.",
@@ -59,8 +62,13 @@
       "expirationYear": "Vervaljaar:",
       "updated": "Kaart succesvol bijgewerkt."
     },
+    "common": {
+      "cancel": "Cancel",
+      "error": "Error"
+    },
     "donationForm": {
       "annually": "Jaarlijks",
+      "anonymous": "Give anonymously (one-time gifts only)",
       "biWeekly": "Tweewekelijks",
       "cancelled": "Terugkerende donatie geannuleerd.",
       "confirmDelete": "Weet u zeker dat u deze terugkerende donatie wilt verwijderen?",
@@ -75,7 +83,8 @@
       "makeRecurring": "Een terugkerende donatie doen",
       "method": "Methode",
       "monthly": "Maandelijks",
-      "notes": "Notities",
+      "notes": "Notes",
+      "orPayWith": "Or pay with",
       "preview": "Donatie voorbeeld",
       "quarterly": "Per kwartaal",
       "recurringUpdated": "Terugkerende donatie bijgewerkt.",
@@ -90,6 +99,7 @@
         "lastName": "Voer uw achternaam in.",
         "validEmail": "Voer een geldig e-mailadres in."
       },
+      "walletFailed": "Wallet payment could not be completed. Please try again.",
       "weekly": "Wekelijks"
     },
     "fundDonations": {
@@ -97,21 +107,57 @@
       "amount": "Bedrag",
       "fund": "Fonds"
     },
+    "kingdomFunding": {
+      "enterBankDetails": "Enter your bank account details",
+      "enterCardDetails": "Enter card details",
+      "errorProcessingDonation": "Error processing donation",
+      "failedToInitPaymentForm": "Failed to initialize payment form",
+      "failedToLoadPaymentForm": "Failed to load payment form",
+      "failedToProcessCard": "Failed to process card. Please check your card details and try again.",
+      "failedToTokenizeCard": "Failed to tokenize card",
+      "gatewayConfigMissing": "Payment form not available. Gateway configuration missing.",
+      "loadingPaymentForm": "Loading payment form...",
+      "memo": "Memo (optional)",
+      "missingTokenizationKey": "Missing tokenization key",
+      "payWithBank": "Bank (ACH)",
+      "payWithCard": "Card",
+      "paymentFormNotAvailable": "Payment form not available",
+      "paymentFormNotInitialized": "Payment form not initialized",
+      "paymentProvider": "Betalingsprovider",
+      "providerName": "Kingdom Funding",
+      "unexpectedError": "An unexpected error occurred. Please try again.",
+      "validate": {
+        "accountNumber": "Voer een geldig rekeningnummer in",
+        "captchaFailed": "reCAPTCHA verification failed. Please try again.",
+        "captchaRequired": "Please complete the reCAPTCHA verification",
+        "routingNumber": "Voer een geldig bankroutenummer in"
+      }
+    },
     "page": {
-      "amount": "Bedrag",
+      "amount": "Amount",
       "batch": "Batch",
-      "date": "Datum",
-      "fund": "Fonds",
-      "method": "Methode",
-      "willAppear": "Donaties verschijnen zodra er een donatie is ingevoerd."
+      "date": "Date",
+      "fund": "Fund",
+      "method": "Method",
+      "willAppear": "Donations will appear once a donation has been entered."
     },
     "paymentMethods": {
       "addBank": "Bankrekening toevoegen",
       "addCard": "Kaart toevoegen",
       "confirmDelete": "Weet u zeker dat u deze betaalmethode wilt verwijderen?",
       "deleted": "Betaalmethode verwijderd.",
-      "noMethods": "Geen betaalmethoden. Voeg een betaalmethode toe om een donatie te doen.",
+      "noMethod": "No Method",
       "verify": "Rekening verifiëren"
+    },
+    "paypal": {
+      "approved": "PayPal payment approved. Choose Donate to finish your gift.",
+      "captchaRequired": "Please complete the reCAPTCHA verification"
+    },
+    "paystack": {
+      "emailRequired": "An email address is required to pay with Paystack.",
+      "paymentFailed": "Payment was not completed.",
+      "popupHint": "You'll complete payment in a secure Paystack window. Card, mobile money and bank transfer are accepted.",
+      "saveOnlyWithGift": "Payment methods are saved when you give — check \"Save this card\" while making a gift."
     },
     "preview": {
       "date": "Donatiedatum",
@@ -123,13 +169,15 @@
       "notes": "Notities",
       "startingOn": "Vanaf",
       "total": "Totaal",
-      "type": "Donatietype"
+      "type": "Donatietype",
+      "weekly": "Weekly"
     },
     "recurring": {
       "amount": "Bedrag",
       "confirmPause": "Weet u zeker dat u deze terugkerende donatie wilt pauzeren?",
       "every": "Elke",
       "interval": "Interval",
+      "noSubscriptions": "No Subscriptions",
       "notFound": "Betaalmethode niet gevonden.",
       "pauseFailed": "Terugkerende donatie pauzeren mislukt. Probeer het opnieuw.",
       "pauseTooltip": "Terugkerende donatie pauzeren",
@@ -183,13 +231,18 @@
       "toggleWeekday": "Schakel {} in/uit voor wekelijkse herhaling"
     }
   },
+  "fileUpload": {
+    "file": "File",
+    "quotaExceeded": "Storage quota exceeded. Delete unused files or upgrade your storage plan.",
+    "uploadFailed": "Upload failed. Please try again."
+  },
   "formSubmissionEdit": {
     "back": "Terug",
-    "continue": "Doorgaan",
-    "stepProgress": "{current} van {total}",
     "confirmDelete": "Weet u zeker dat u deze formuliergegevens wilt verwijderen?",
+    "continue": "Doorgaan",
     "editForm": "Formulier bewerken",
     "isRequired": "is verplicht",
+    "stepProgress": "{current} van {total}",
     "submit": "Verzenden"
   },
   "gallery": {
@@ -198,21 +251,25 @@
     "freeForm": "Vrije vorm"
   },
   "iconPicker": {
-    "iconsAvailable": "pictogrammen beschikbaar",
-    "matchingResults": "overeenkomende resultaten",
-    "search": "Pictogrammen zoeken..."
+    "iconsAvailable": "icons available",
+    "matchingResults": "matching results",
+    "search": "Search icons..."
   },
   "login": {
-    "createAccount": "Account aanmaken",
+    "accountExists": "U hebt al een ChurchApps-account. Log in plaats daarvan daarmee in.",
+    "continueGoogle": "Continue with Google",
+    "continueMicrosoft": "Continue with Microsoft",
+    "createAccount": "Create an Account",
     "email": "E-mail",
     "enterCode": "Voer verificatiecode in",
     "enterCodeInstructions": "Voer de 6-cijferige code in die we u zojuist per e-mail hebben gestuurd.",
     "expiredLink": "De huidige link is verlopen.",
     "forgot": "Wachtwoord vergeten",
-    "goLogin": "Ga naar inloggen",
+    "goLogin": "Go to Login",
     "login": "Inloggen",
     "noAcc": "Heeft u geen account?",
     "noAccountFound": "Er is geen account gevonden met dat e-mailadres. Registreer om door te gaan.",
+    "or": "or",
     "password": "Wachtwoord",
     "register": "Registreren",
     "registerThankYou": "Bedankt voor uw registratie! Controleer uw e-mail om uw account te verifiëren.",
@@ -221,7 +278,7 @@
     "reset": "Resetten",
     "resetInstructions": "Voer uw e-mailadres in om een wachtwoordreset aan te vragen.",
     "resetPassword": "Wachtwoord resetten",
-    "resetSent": "E-mail voor wachtwoordreset verzonden!",
+    "resetSent": "Password reset email sent!",
     "setPassword": "Wachtwoord instellen",
     "signIn": "Aanmelden",
     "signInTitle": "Meld u aan",
@@ -243,50 +300,65 @@
   },
   "markdownEditor": {
     "content": "Inhoud",
-    "markdownEditor": "Markdown-editor",
+    "markdownEditor": "Markdown Editor",
     "markdownGuide": "Markdown-gids"
   },
   "month": {
     "april": "April",
-    "august": "Augustus",
+    "august": "August",
     "december": "December",
-    "february": "Februari",
-    "january": "Januari",
-    "july": "Juli",
-    "june": "Juni",
-    "march": "Maart",
-    "may": "Mei",
+    "february": "February",
+    "january": "January",
+    "july": "July",
+    "june": "June",
+    "march": "March",
+    "may": "May",
     "november": "November",
-    "october": "Oktober",
+    "october": "October",
     "september": "September"
   },
   "notes": {
     "comment": "opmerking",
     "comments": "opmerkingen",
     "notes": "Notities",
-    "startConversation": "Start een gesprek",
+    "notifyOff": "Notify Off",
+    "notifyOn": "Notify On",
+    "openFile": "Open file",
+    "startConversation": "Start a conversation",
     "validate": {
       "content": "Voer een notitie in."
     },
-    "viewAll": "Alles bekijken"
+    "viewAll": "View all"
   },
   "person": {
     "email": "E-mail",
     "firstName": "Voornaam",
     "lastName": "Achternaam",
     "name": "Naam",
-    "noRec": "Heeft u geen persoonsgegevens?",
-    "person": "Persoon",
-    "years": "jaar"
+    "noRec": "Don't have a person record?",
+    "person": "Person",
+    "years": "years"
+  },
+  "question": {
+    "checkbox": "Selectievakje",
+    "currency": "Valuta",
+    "date": "Datum",
+    "email": "E-mail",
+    "file": "Bestand uploaden",
+    "multiple": "Meerkeuze",
+    "number": "Getal",
+    "phone": "Telefoon",
+    "textarea": "Tekstgebied",
+    "textbox": "Tekstvak"
   },
   "reporting": {
-    "detailed": "Gedetailleerd rapport",
-    "downloadOptions": "Downloadopties",
-    "noData": "Er zijn geen gegevens om weer te geven.",
-    "runReport": "Rapport uitvoeren",
-    "sampleTemplate": "Voorbeeld Word-sjabloon",
-    "summary": "Samenvatting",
-    "useFilter": "Gebruik het filter om het rapport uit te voeren."
+    "detailed": "Detailed Report",
+    "downloadOptions": "Download Options",
+    "noData": "There is no data to display.",
+    "runReport": "Run Report",
+    "sampleTemplate": "Sample Word Template",
+    "summary": "Summary",
+    "useFilter": "Use the filter to run the report."
   },
   "selectChurch": {
     "address1": "Adresregel 1",
@@ -318,22 +390,35 @@
     "discussions": "Ondersteuningsforum",
     "documentation": "Documentatie"
   },
+  "validation": {
+    "date": "Voer een geldige datum in",
+    "email": "Voer een geldig e-mailadres in",
+    "fileSize": "Bestandsgrootte moet kleiner zijn dan {} MB",
+    "fileType": "Ongeldig bestandstype",
+    "maxLength": "Mag niet langer zijn dan {} tekens",
+    "minLength": "Moet minstens {} tekens lang zijn",
+    "number": "Voer een geldig getal in",
+    "phone": "Voer een geldig telefoonnummer in",
+    "required": "Dit veld is verplicht"
+  },
   "wrapper": {
-    "chatWith": "Chat met",
-    "deleteChurch": "Verwijderen",
+    "chatWith": "Chat with",
+    "currentChurch": "Huidige kerk",
+    "deleteChurch": "Delete",
     "editAccount": "Account bewerken",
     "editChurchProfile": "Kerkprofiel bewerken",
     "editProfile": "Profiel bewerken",
-    "logout": "Uitloggen",
-    "messages": "Berichten",
+    "logout": "Logout",
+    "messages": "Messages",
     "newPrivateMessage": "Nieuw privébericht",
-    "notifications": "Meldingen",
+    "notifications": "Notifications",
+    "privateConversation": "Private Conversation",
     "privateMessage": "Privébericht",
-    "profile": "Profiel",
+    "profile": "Profile",
     "searchForPerson": "Zoek naar een persoon",
-    "support": "Ondersteuning",
-    "sureRemoveChurch": "Weet u zeker dat u deze kerk wilt verwijderen? U bent dan geen lid meer van {}.",
-    "switchApp": "App wisselen",
-    "switchChurch": "Kerk wisselen"
+    "support": "Support",
+    "sureRemoveChurch": "Are you sure you wish to delete this church? You no longer will be a member of {}.",
+    "switchApp": "Switch App",
+    "switchChurch": "Switch Church"
   }
 }

@@ -51,6 +51,7 @@ export function SectionCopy(props: Props) {
   };
 
   const populateSections = () => {
+    if (!copySection.sourceVenueId) return;
     ApiHelper.get("/sections/venue/" + copySection.sourceVenueId, "LessonsApi").then((data: SectionInterface[]) => {
       setSections(data);
       if (data.length > 0) {
@@ -64,7 +65,7 @@ export function SectionCopy(props: Props) {
   const getVenueOptions = () => {
     const result: React.JSX.Element[] = [];
     venues.forEach(v => {
-      result.push(<MenuItem value={v.id}>{v.name}</MenuItem>);
+      result.push(<MenuItem key={v.id} value={v.id}>{v.name}</MenuItem>);
     });
     return result;
   };
@@ -72,7 +73,7 @@ export function SectionCopy(props: Props) {
   const getSectionOptions = () => {
     const result: React.JSX.Element[] = [];
     sections.forEach(s => {
-      result.push(<MenuItem value={s.id}>{s.name}</MenuItem>);
+      result.push(<MenuItem key={s.id} value={s.id}>{s.name}</MenuItem>);
     });
     return result;
   };

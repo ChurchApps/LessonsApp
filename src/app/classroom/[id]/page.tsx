@@ -4,7 +4,7 @@ import Link from "next/link";
 import { useParams, useSearchParams } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import { AppBar, Container, Grid, Stack } from "@mui/material";
-import { ArrayHelper, ChurchInterface, DateHelper } from "@churchapps/apphelper";
+import { ArrayHelper, ChurchInterface, DateHelper, UserHelper } from "@churchapps/apphelper";
 import { MarkdownPreviewLight } from "@churchapps/apphelper/markdown";
 import { Layout } from "@/components";
 import {
@@ -45,7 +45,10 @@ export default function Venue() {
       const c = await ApiHelper.getAnonymous("/classrooms/" + id, "LessonsApi");
       setClassroom(c);
 
-      ApiHelper.get("/churches/" + c.churchId, "MembershipApi").then((ch: ChurchInterface) => { setChurch(ch); ApiHelper.get("/settings/public/" + ch.id, "MembershipApi").then((set: any[]) => setChurchSettings(set)); });
+      // Parents are anonymous; /churches/:id needs a member token, so the name only shows for the church's own users.
+      const ownChurch = UserHelper.currentUserChurch?.church;
+      if (ownChurch?.id === c.churchId) setChurch(ownChurch);
+      ApiHelper.getAnonymous("/settings/public/" + c.churchId, "MembershipApi").then((set: any[]) => setChurchSettings(set));
 
       const s = await ApiHelper.getAnonymous("/schedules/public/classroom/" + c.id, "LessonsApi");
       const filteredSchedules = filterSchedules(s);

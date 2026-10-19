@@ -6,7 +6,7 @@ import { Controller, useForm } from "react-hook-form";
 import { AddOnInterface, ApiHelper, ExternalVideoInterface, FileInterface } from "@/helpers";
 import { FileUpload } from "./FileUpload";
 
-const ImageEditor = dynamic(() => import("../index").then(mod => ({ default: mod.ImageEditor })), { loading: () => <div>Loading image editor...</div> });
+const ImageEditor = dynamic(() => import("./ImageEditor").then(mod => ({ default: mod.ImageEditor })), { loading: () => <div>Loading image editor...</div> });
 
 interface Props { addOn: AddOnInterface; updatedCallback: (addOn: AddOnInterface) => void; }
 
@@ -17,6 +17,7 @@ export function AddOnEdit(props: Props) {
   const [externalVideo, setExternalVideo] = useState<ExternalVideoInterface | null>(null);
   const [pendingFileSave, setPendingFileSave] = useState(false);
   const [pendingValues, setPendingValues] = useState<AnyRecord | null>(null);
+  const [error, setError] = useState("");
 
   const { register, handleSubmit, reset, control, watch, setValue, formState } = useForm<AnyRecord>({ defaultValues: { category: "slow worship", name: "", addOnType: "file", image: "" } });
   const e = formState.errors as any;
@@ -33,19 +34,20 @@ export function AddOnEdit(props: Props) {
     setShowImageEditor(false);
   };
 
+  const handleFileError = (message: string) => { setPendingFileSave(false); setError(message); };
+
   const onValid = (values: AnyRecord) => {
-    if (values.addOnType === "externalVideo" && !externalVideo?.videoId) return;
-    const a: AddOnInterface = { ...props.addOn, category: values.category, name: values.name, addOnType: values.addOnType, image: values.image };
-    setPendingValues(values);
-    ApiHelper.post("/addOns", [a], "LessonsApi").then((data: AddOnInterface[]) => {
-      if (values.addOnType === "file") {
-        setPendingFileSave(true);
-        setPendingValues({ ...values, savedAddOn: data[0] });
-      } else {
+    setError("");
+    if (values.addOnType === "externalVideo" && !externalVideo?.videoId) { setError("Please enter a video id."); return; }
+    const a: AddOnInterface = { ...props.addOn, id: pendingValues?.savedAddOn?.id || props.addOn.id, category: values.category, name: values.name, addOnType: values.addOnType, image: values.image };
+    return ApiHelper.post("/addOns", [a], "LessonsApi").then((data: AddOnInterface[]) => {
+      setPendingValues({ ...values, savedAddOn: data[0] });
+      if (values.addOnType === "file") setPendingFileSave(true);
+      else {
         const ev = { ...externalVideo, contentType: "addOn", contentId: data[0].id, name: data[0].name };
-        ApiHelper.post("/externalVideos", [ev], "LessonsApi").then(() => props.updatedCallback(data[0]));
+        return ApiHelper.post("/externalVideos", [ev], "LessonsApi").then(() => props.updatedCallback(data[0]));
       }
-    });
+    }).catch((err: Error) => setError(err.message));
   };
 
   const handleDelete = () => { if (window.confirm("Are you sure you wish to permanently delete this add-on?")) ApiHelper.delete("/addOns/" + props.addOn.id?.toString(), "LessonsApi").then(() => props.updatedCallback(null as unknown as AddOnInterface)); };
@@ -59,7 +61,7 @@ export function AddOnEdit(props: Props) {
       setPendingFileSave(false);
       setPendingValues(null);
       props.updatedCallback(data[0]);
-    });
+    }).catch((err: Error) => handleFileError(err.message));
   };
 
   const loadContent = async (a: AddOnInterface) => {
@@ -76,6 +78,10 @@ export function AddOnEdit(props: Props) {
       loadContent(props.addOn);
     }
   }, [props.addOn, reset]);
+
+  useEffect(() => {
+    if (addOnType === "externalVideo" && !externalVideo) setExternalVideo({ id: "", videoProvider: "Vimeo", videoId: "", loopVideo: false });
+  }, [addOnType, externalVideo]);
 
   const handleExternalVideoChange = (name: string, value: string) => {
     setExternalVideo((prev) => ({ ...prev, [name]: name === "loopVideo" ? value === "true" : value } as ExternalVideoInterface));
@@ -110,21 +116,14 @@ export function AddOnEdit(props: Props) {
   };
 
   const getFileFields = () => (
-    <FileUpload key="fileUpload" contentType="addOn" contentId={props.addOn.id || ""} fileId={props.addOn?.fileId || ""} pendingSave={pendingFileSave} saveCallback={handleFileSaved} resourceId={""} />
+    <FileUpload key="fileUpload" contentType="addOn" contentId={pendingValues?.savedAddOn?.id || props.addOn.id || ""} fileId={props.addOn?.fileId || ""} pendingSave={pendingFileSave} saveCallback={handleFileSaved} errorCallback={handleFileError} resourceId={""} />
   );
 
   const getTypeFields = () => addOnType === "file" ? getFileFields() : getExternalVideoFields();
 
-  const getImageEditor = () => {
-    if (showImageEditor) {
-      return <ImageEditor updatedFunction={handleImageUpdated} imageUrl={image} onCancel={() => setShowImageEditor(false)} />;
-    }
-  };
-
   if (!props.addOn) return <></>;
   return (
     <>
-      {getImageEditor()}
       <Paper sx={{ borderRadius: 2, border: "1px solid var(--admin-border)", boxShadow: "var(--admin-shadow-sm)", overflow: "hidden" }}>
         <Box sx={{ p: 2, borderBottom: "1px solid var(--admin-border)", backgroundColor: "var(--c1l7)" }}>
           <Stack direction="row" alignItems="center" spacing={1}>
@@ -135,6 +134,7 @@ export function AddOnEdit(props: Props) {
 
         <Box sx={{ p: 3 }}>
           {summaryErrors.length > 0 && <Alert severity="error" sx={{ mb: 2 }}>{summaryErrors.map((msg) => <div key={msg}>{msg}</div>)}</Alert>}
+          {error && <Alert severity="error" sx={{ mb: 2 }}>{error}</Alert>}
 
           <Grid container spacing={3}>
             <Grid size={{ xs: 12, md: 8 }}>
@@ -207,7 +207,7 @@ export function AddOnEdit(props: Props) {
         </Box>
 
         <Box sx={{ p: 2, borderTop: "1px solid var(--admin-border)", backgroundColor: "var(--admin-bg)", display: "flex", justifyContent: "flex-end", gap: 1, flexWrap: "wrap" }}>
-          <Button startIcon={<SaveIcon />} variant="contained" onClick={handleSubmit(onValid)}>Save</Button>
+          <Button startIcon={<SaveIcon />} variant="contained" disabled={formState.isSubmitting || pendingFileSave} onClick={handleSubmit(onValid)}>Save</Button>
           <Button startIcon={<CancelIcon />} variant="outlined" onClick={handleCancel}>Cancel</Button>
           {props.addOn?.id && (
             <IconButton color="error" onClick={handleDelete}>

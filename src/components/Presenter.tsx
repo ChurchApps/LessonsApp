@@ -1,4 +1,6 @@
 import { useEffect, useState } from "react";
+import { IconButton } from "@mui/material";
+import { Close as CloseIcon } from "@mui/icons-material";
 import { SimpleCarousel } from "./SimpleCarousel";
 import { PlaylistFileInterface } from "@/helpers";
 import { PresenterSlide } from "./PresenterSlide";
@@ -16,16 +18,20 @@ export function Presenter(props: Props) {
     if (data.key.toString() === "ArrowLeft") setPendingGoBack(Math.random());
 
     if (data.key.toString() === "ArrowRight") setPendingGoForward(Math.random());
+
+    if (data.key.toString() === "Escape" && !document.fullscreenElement) props.onClose();
+  };
+
+  const handleClose = () => {
+    if (document.fullscreenElement) document.exitFullscreen().catch(() => props.onClose());
+    else props.onClose();
   };
 
   useEffect(() => {
     const element = document.getElementById("presenter");
-    if (element && window) {
-      try {
-        element.requestFullscreen();
-      } catch (_ex) {
-        props.onClose();
-      }
+    if (element) {
+      // Fullscreen can be refused (expired gesture, iframe, iPhone); the fixed overlay and close button still work.
+      element.requestFullscreen?.().catch(() => null);
       element.addEventListener("fullscreenchange", handleFullScreenChanged);
     }
     window.addEventListener("keyup", upHandler);
@@ -36,7 +42,10 @@ export function Presenter(props: Props) {
   useEffect(() => { if (pendingGoForward !== 0 && index < props.files?.length - 1) setIndex(index + 1); }, [pendingGoForward]);
 
   return (
-    <div id="presenter">
+    <div id="presenter" style={{ position: "fixed", inset: 0, zIndex: 1300, backgroundColor: "#000" }}>
+      <IconButton aria-label="Close presenter" onClick={handleClose} sx={{ position: "absolute", top: 8, right: 8, zIndex: 2, color: "#fff", backgroundColor: "rgba(0,0,0,0.4)", "&:hover": { backgroundColor: "rgba(0,0,0,0.6)" } }}>
+        <CloseIcon />
+      </IconButton>
       <SimpleCarousel
         height={"100vh"}
         autoPlay={false}

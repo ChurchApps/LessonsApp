@@ -1,36 +1,39 @@
 {
   "b1Share": {
-    "comment": "Komentář",
-    "commentPlaceholder": "Přidejte komentář ke svému příspěvku.",
-    "contentShared": "Obsah sdílen",
-    "group": "Skupina",
-    "sharingToGroup": "Sdílení {} do skupiny B1",
+    "comment": "Comment",
+    "commentPlaceholder": "Include a comment with your post.",
+    "contentShared": "Content Shared",
+    "group": "Group",
+    "sharingToGroup": "Sharing {} to B1 Group",
     "validate": {
-      "addComment": "Prosím přidejte komentář.",
-      "loginFirst": "Prosím nejprve se přihlaste.",
-      "notMember": "V současné době nejste členem žádné skupiny na B1.",
-      "selectGroup": "Prosím vyberte skupinu."
+      "addComment": "Please add a comment.",
+      "loginFirst": "Please login first.",
+      "notMember": "You are not currently a member of any groups on B1.",
+      "selectGroup": "Please select a group."
     }
   },
   "common": {
-    "add": "Přidat",
+    "add": "Add",
     "cancel": "Zrušit",
     "close": "Zavřít",
-    "date": "Datum",
+    "date": "Date",
     "delete": "Smazat",
-    "edit": "Upravit",
-    "error": "Chyba",
+    "edit": "Edit",
+    "error": "Error",
+    "optional": "Volitelné",
     "pleaseWait": "Prosím čekejte...",
+    "remove": "Odebrat",
+    "required": "Povinné",
     "save": "Uložit",
     "search": "Hledat",
-    "submit": "Odeslat",
+    "submit": "Submit",
     "update": "Aktualizovat"
   },
   "createPerson": {
-    "addNewPerson": "Přidat novou osobu",
-    "email": "E-mail",
-    "firstName": "Jméno",
-    "lastName": "Příjmení"
+    "addNewPerson": "Add a New Person",
+    "email": "Email",
+    "firstName": "First Name",
+    "lastName": "Last Name"
   },
   "donation": {
     "bankForm": {
@@ -38,7 +41,7 @@
       "added": "Bankovní účet přidán. Pro provedení daru ověřte svůj bankovní účet.",
       "company": "Firma",
       "firstDeposit": "První vklad",
-      "holderName": "Jméno majitele účtu je povinné.",
+      "holderName": "Account holder name is required.",
       "individual": "Fyzická osoba",
       "name": "Jméno majitele účtu",
       "needVerified": "Bankovní účty musí být ověřeny před provedením jakýchkoli darů. Na váš účet budou připsány dva malé vklady přibližně za 1–3 pracovní dny. Pro dokončení ověření účtu budete muset zadat částky těchto vkladů kliknutím na odkaz pro ověření účtu vedle vašeho bankovního účtu v sekci platebních metod.",
@@ -59,8 +62,13 @@
       "expirationYear": "Rok expirace:",
       "updated": "Karta úspěšně aktualizována."
     },
+    "common": {
+      "cancel": "Cancel",
+      "error": "Error"
+    },
     "donationForm": {
       "annually": "Ročně",
+      "anonymous": "Give anonymously (one-time gifts only)",
       "biWeekly": "Jednou za dva týdny",
       "cancelled": "Opakovaný dar zrušen.",
       "confirmDelete": "Opravdu chcete smazat tento opakovaný dar?",
@@ -75,7 +83,8 @@
       "makeRecurring": "Nastavit opakovaný dar",
       "method": "Metoda",
       "monthly": "Měsíčně",
-      "notes": "Poznámky",
+      "notes": "Notes",
+      "orPayWith": "Or pay with",
       "preview": "Náhled daru",
       "quarterly": "Čtvrtletně",
       "recurringUpdated": "Opakovaný dar aktualizován.",
@@ -90,6 +99,7 @@
         "lastName": "Prosím zadejte své příjmení.",
         "validEmail": "Prosím zadejte platnou e-mailovou adresu."
       },
+      "walletFailed": "Wallet payment could not be completed. Please try again.",
       "weekly": "Týdně"
     },
     "fundDonations": {
@@ -97,21 +107,57 @@
       "amount": "Částka",
       "fund": "Fond"
     },
+    "kingdomFunding": {
+      "enterBankDetails": "Enter your bank account details",
+      "enterCardDetails": "Enter card details",
+      "errorProcessingDonation": "Error processing donation",
+      "failedToInitPaymentForm": "Failed to initialize payment form",
+      "failedToLoadPaymentForm": "Failed to load payment form",
+      "failedToProcessCard": "Failed to process card. Please check your card details and try again.",
+      "failedToTokenizeCard": "Failed to tokenize card",
+      "gatewayConfigMissing": "Payment form not available. Gateway configuration missing.",
+      "loadingPaymentForm": "Loading payment form...",
+      "memo": "Memo (optional)",
+      "missingTokenizationKey": "Missing tokenization key",
+      "payWithBank": "Bank (ACH)",
+      "payWithCard": "Card",
+      "paymentFormNotAvailable": "Payment form not available",
+      "paymentFormNotInitialized": "Payment form not initialized",
+      "paymentProvider": "Poskytovatel plateb",
+      "providerName": "Kingdom Funding",
+      "unexpectedError": "An unexpected error occurred. Please try again.",
+      "validate": {
+        "accountNumber": "Zadejte platné číslo účtu",
+        "captchaFailed": "reCAPTCHA verification failed. Please try again.",
+        "captchaRequired": "Please complete the reCAPTCHA verification",
+        "routingNumber": "Zadejte platný směrovací kód banky"
+      }
+    },
     "page": {
-      "amount": "Částka",
-      "batch": "Dávka",
-      "date": "Datum",
-      "fund": "Fond",
-      "method": "Metoda",
-      "willAppear": "Dary se zobrazí po zadání daru."
+      "amount": "Amount",
+      "batch": "Batch",
+      "date": "Date",
+      "fund": "Fund",
+      "method": "Method",
+      "willAppear": "Donations will appear once a donation has been entered."
     },
     "paymentMethods": {
       "addBank": "Přidat bankovní účet",
       "addCard": "Přidat kartu",
       "confirmDelete": "Opravdu chcete smazat tuto platební metodu?",
       "deleted": "Platební metoda smazána.",
-      "noMethods": "Žádné platební metody. Pro provedení daru přidejte platební metodu.",
+      "noMethod": "No Method",
       "verify": "Ověřit účet"
+    },
+    "paypal": {
+      "approved": "PayPal payment approved. Choose Donate to finish your gift.",
+      "captchaRequired": "Please complete the reCAPTCHA verification"
+    },
+    "paystack": {
+      "emailRequired": "An email address is required to pay with Paystack.",
+      "paymentFailed": "Payment was not completed.",
+      "popupHint": "You'll complete payment in a secure Paystack window. Card, mobile money and bank transfer are accepted.",
+      "saveOnlyWithGift": "Payment methods are saved when you give — check \"Save this card\" while making a gift."
     },
     "preview": {
       "date": "Datum daru",
@@ -123,13 +169,15 @@
       "notes": "Poznámky",
       "startingOn": "Počínaje",
       "total": "Celkem",
-      "type": "Typ daru"
+      "type": "Typ daru",
+      "weekly": "Weekly"
     },
     "recurring": {
       "amount": "Částka",
       "confirmPause": "Opravdu chcete pozastavit tento opakovaný dar?",
       "every": "Každý",
       "interval": "Interval",
+      "noSubscriptions": "No Subscriptions",
       "notFound": "Platební metoda nenalezena.",
       "pauseFailed": "Nepodařilo se pozastavit opakovaný dar. Zkuste to prosím znovu.",
       "pauseTooltip": "Pozastavit opakovaný dar",
@@ -183,13 +231,18 @@
       "toggleWeekday": "Přepnout {} pro týdenní opakování"
     }
   },
+  "fileUpload": {
+    "file": "File",
+    "quotaExceeded": "Storage quota exceeded. Delete unused files or upgrade your storage plan.",
+    "uploadFailed": "Upload failed. Please try again."
+  },
   "formSubmissionEdit": {
     "back": "Zpět",
-    "continue": "Pokračovat",
-    "stepProgress": "{current} z {total}",
     "confirmDelete": "Opravdu chcete smazat tyto údaje formuláře?",
+    "continue": "Pokračovat",
     "editForm": "Upravit formulář",
     "isRequired": "je povinné",
+    "stepProgress": "{current} z {total}",
     "submit": "Odeslat"
   },
   "gallery": {
@@ -198,21 +251,25 @@
     "freeForm": "Volný formát"
   },
   "iconPicker": {
-    "iconsAvailable": "dostupných ikon",
-    "matchingResults": "odpovídajících výsledků",
-    "search": "Hledat ikony..."
+    "iconsAvailable": "icons available",
+    "matchingResults": "matching results",
+    "search": "Search icons..."
   },
   "login": {
-    "createAccount": "Vytvořit účet",
+    "accountExists": "Již máte účet ChurchApps. Přihlaste se prosím pomocí něj.",
+    "continueGoogle": "Continue with Google",
+    "continueMicrosoft": "Continue with Microsoft",
+    "createAccount": "Create an Account",
     "email": "E-mail",
     "enterCode": "Zadejte ověřovací kód",
     "enterCodeInstructions": "Zadejte 6místný kód, který jsme vám právě odeslali e-mailem.",
     "expiredLink": "Aktuální odkaz vypršel.",
     "forgot": "Zapomenuté heslo",
-    "goLogin": "Přejít na přihlášení",
+    "goLogin": "Go to Login",
     "login": "Přihlásit se",
     "noAcc": "Nemáte účet?",
     "noAccountFound": "Pro tento e-mail nebyl nalezen žádný účet. Pokračujte registrací.",
+    "or": "or",
     "password": "Heslo",
     "register": "Registrovat",
     "registerThankYou": "Děkujeme za registraci! Zkontrolujte prosím svůj e-mail pro ověření účtu.",
@@ -221,7 +278,7 @@
     "reset": "Obnovit",
     "resetInstructions": "Zadejte svou e-mailovou adresu pro obnovení hesla.",
     "resetPassword": "Obnovit heslo",
-    "resetSent": "E-mail pro obnovení hesla odeslán!",
+    "resetSent": "Password reset email sent!",
     "setPassword": "Nastavit heslo",
     "signIn": "Přihlásit se",
     "signInTitle": "Prosím přihlaste se",
@@ -243,50 +300,65 @@
   },
   "markdownEditor": {
     "content": "Obsah",
-    "markdownEditor": "Markdown editor",
+    "markdownEditor": "Markdown Editor",
     "markdownGuide": "Průvodce Markdownem"
   },
   "month": {
-    "april": "Duben",
-    "august": "Srpen",
-    "december": "Prosinec",
-    "february": "Únor",
-    "january": "Leden",
-    "july": "Červenec",
-    "june": "Červen",
-    "march": "Březen",
-    "may": "Květen",
-    "november": "Listopad",
-    "october": "Říjen",
-    "september": "Září"
+    "april": "April",
+    "august": "August",
+    "december": "December",
+    "february": "February",
+    "january": "January",
+    "july": "July",
+    "june": "June",
+    "march": "March",
+    "may": "May",
+    "november": "November",
+    "october": "October",
+    "september": "September"
   },
   "notes": {
     "comment": "komentář",
     "comments": "komentáře",
     "notes": "Poznámky",
-    "startConversation": "Zahájit konverzaci",
+    "notifyOff": "Notify Off",
+    "notifyOn": "Notify On",
+    "openFile": "Open file",
+    "startConversation": "Start a conversation",
     "validate": {
       "content": "Prosím zadejte poznámku."
     },
-    "viewAll": "Zobrazit vše"
+    "viewAll": "View all"
   },
   "person": {
     "email": "E-mail",
     "firstName": "Jméno",
     "lastName": "Příjmení",
     "name": "Jméno",
-    "noRec": "Nemáte záznam osoby?",
-    "person": "Osoba",
-    "years": "let"
+    "noRec": "Don't have a person record?",
+    "person": "Person",
+    "years": "years"
+  },
+  "question": {
+    "checkbox": "Zaškrtávací políčko",
+    "currency": "Měna",
+    "date": "Datum",
+    "email": "E-mail",
+    "file": "Nahrání souboru",
+    "multiple": "Výběr z více možností",
+    "number": "Číslo",
+    "phone": "Telefon",
+    "textarea": "Textová oblast",
+    "textbox": "Textové pole"
   },
   "reporting": {
-    "detailed": "Podrobná zpráva",
-    "downloadOptions": "Možnosti stažení",
-    "noData": "Nejsou k dispozici žádná data.",
-    "runReport": "Spustit zprávu",
-    "sampleTemplate": "Vzorová šablona pro Word",
-    "summary": "Souhrn",
-    "useFilter": "Použijte filtr ke spuštění zprávy."
+    "detailed": "Detailed Report",
+    "downloadOptions": "Download Options",
+    "noData": "There is no data to display.",
+    "runReport": "Run Report",
+    "sampleTemplate": "Sample Word Template",
+    "summary": "Summary",
+    "useFilter": "Use the filter to run the report."
   },
   "selectChurch": {
     "address1": "Adresa – řádek 1",
@@ -318,22 +390,35 @@
     "discussions": "Fórum podpory",
     "documentation": "Dokumentace"
   },
+  "validation": {
+    "date": "Zadejte platné datum",
+    "email": "Zadejte platnou e-mailovou adresu",
+    "fileSize": "Velikost souboru musí být menší než {} MB",
+    "fileType": "Neplatný typ souboru",
+    "maxLength": "Může mít nejvýše {} znaků",
+    "minLength": "Musí mít alespoň {} znaků",
+    "number": "Zadejte platné číslo",
+    "phone": "Zadejte platné telefonní číslo",
+    "required": "Toto pole je povinné"
+  },
   "wrapper": {
-    "chatWith": "Chatovat s",
-    "deleteChurch": "Smazat",
+    "chatWith": "Chat with",
+    "currentChurch": "Aktuální církev",
+    "deleteChurch": "Delete",
     "editAccount": "Upravit účet",
-    "editChurchProfile": "Upravit profil sboru",
+    "editChurchProfile": "Upravit profil v církvi",
     "editProfile": "Upravit profil",
-    "logout": "Odhlásit se",
-    "messages": "Zprávy",
+    "logout": "Logout",
+    "messages": "Messages",
     "newPrivateMessage": "Nová soukromá zpráva",
-    "notifications": "Oznámení",
+    "notifications": "Notifications",
+    "privateConversation": "Private Conversation",
     "privateMessage": "Soukromá zpráva",
-    "profile": "Profil",
+    "profile": "Profile",
     "searchForPerson": "Hledat osobu",
-    "support": "Podpora",
-    "sureRemoveChurch": "Opravdu chcete smazat tento sbor? Již nebudete členem {}.",
-    "switchApp": "Přepnout aplikaci",
-    "switchChurch": "Přepnout sbor"
+    "support": "Support",
+    "sureRemoveChurch": "Are you sure you wish to delete this church? You no longer will be a member of {}.",
+    "switchApp": "Switch App",
+    "switchChurch": "Switch Church"
   }
 }

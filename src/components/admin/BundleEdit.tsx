@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { Alert, TextField } from "@mui/material";
 import { InputBox } from "@churchapps/apphelper";
 import { ApiHelper, BundleInterface } from "@/helpers";
@@ -14,6 +14,7 @@ type AnyRecord = Record<string, any>;
 
 export function BundleEdit(props: Props) {
   const { register, handleSubmit, reset, formState } = useForm<AnyRecord>({ defaultValues: { name: "" } });
+  const [error, setError] = useState("");
   const e = formState.errors as any;
   const summaryErrors: string[] = [];
   if (e.name?.message) summaryErrors.push(e.name.message);
@@ -28,9 +29,12 @@ export function BundleEdit(props: Props) {
     }
   };
 
-  const onValid = (values: AnyRecord) => {
+  const onValid = async (values: AnyRecord) => {
     const b: BundleInterface = { ...props.bundle, name: values.name };
-    ApiHelper.post("/bundles", [b], "LessonsApi").then(data => { props.updatedCallback(data); });
+    setError("");
+    try {
+      props.updatedCallback(await ApiHelper.post("/bundles", [b], "LessonsApi"));
+    } catch (err: any) { setError(err?.message || "Unable to save."); }
   };
 
   useEffect(() => {
@@ -39,8 +43,9 @@ export function BundleEdit(props: Props) {
 
   return (
     <>
-      <InputBox id="bundleDetailsBox" headerText={props.contentDisplayName} headerIcon="insert_drive_file" saveFunction={handleSubmit(onValid)} cancelFunction={handleCancel} deleteFunction={getDeleteFunction()}>
+      <InputBox id="bundleDetailsBox" headerText={props.contentDisplayName} headerIcon="insert_drive_file" saveFunction={handleSubmit(onValid)} isSubmitting={formState.isSubmitting} cancelFunction={handleCancel} deleteFunction={getDeleteFunction()}>
         {summaryErrors.length > 0 && <Alert severity="error" sx={{ mb: 2 }}>{summaryErrors.map((msg) => <div key={msg}>{msg}</div>)}</Alert>}
+        {error && <Alert severity="error" sx={{ mb: 2 }}>{error}</Alert>}
         <TextField fullWidth label="Bundle Name" placeholder="Countdown Video" error={!!e.name} helperText={e.name?.message} {...register("name", { required: "Please enter a bundle name." })} />
       </InputBox>
     </>

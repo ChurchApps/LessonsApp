@@ -122,7 +122,7 @@ export default function Admin() {
           }}>
           {editAddOn && (
             <Box sx={{ mb: 3 }}>
-              <AddOnEdit addOn={editAddOn} updatedCallback={handleUpdated} />
+              <AddOnEdit key={editAddOn.id || "new"} addOn={editAddOn} updatedCallback={handleUpdated} />
             </Box>
           )}
 

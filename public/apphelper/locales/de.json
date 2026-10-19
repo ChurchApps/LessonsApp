@@ -1,36 +1,39 @@
 {
   "b1Share": {
-    "comment": "Kommentar",
-    "commentPlaceholder": "Fügen Sie Ihrem Beitrag einen Kommentar hinzu.",
-    "contentShared": "Geteilter Inhalt",
-    "group": "Gruppe",
-    "sharingToGroup": "Teilen von {} mit der B1-Gruppe",
+    "comment": "Comment",
+    "commentPlaceholder": "Include a comment with your post.",
+    "contentShared": "Content Shared",
+    "group": "Group",
+    "sharingToGroup": "Sharing {} to B1 Group",
     "validate": {
-      "addComment": "Bitte fügen Sie einen Kommentar hinzu.",
-      "loginFirst": "Bitte loggen Sie sich zuerst ein.",
-      "notMember": "Sie sind derzeit in keiner Gruppe auf B1 Mitglied.",
-      "selectGroup": "Bitte wählen Sie eine Gruppe aus."
+      "addComment": "Please add a comment.",
+      "loginFirst": "Please login first.",
+      "notMember": "You are not currently a member of any groups on B1.",
+      "selectGroup": "Please select a group."
     }
   },
   "common": {
-    "add": "Hinzufügen",
+    "add": "Add",
     "cancel": "Stornieren",
     "close": "Schließen",
-    "date": "Datum",
+    "date": "Date",
     "delete": "Löschen",
-    "edit": "Bearbeiten",
-    "error": "Fehler",
+    "edit": "Edit",
+    "error": "Error",
+    "optional": "Optional",
     "pleaseWait": "Bitte warten...",
+    "remove": "Entfernen",
+    "required": "Erforderlich",
     "save": "Speichern",
     "search": "Suchen",
-    "submit": "Einreichen",
+    "submit": "Submit",
     "update": "Aktualisieren"
   },
   "createPerson": {
-    "addNewPerson": "Fügen Sie eine neue Person hinzu",
-    "email": "E-Mail",
-    "firstName": "Vorname",
-    "lastName": "Familienname, Nachname"
+    "addNewPerson": "Add a New Person",
+    "email": "Email",
+    "firstName": "First Name",
+    "lastName": "Last Name"
   },
   "donation": {
     "bankForm": {
@@ -38,7 +41,7 @@
       "added": "Bankkonto hinzugefügt. ",
       "company": "Unternehmen",
       "firstDeposit": "Erste Einzahlung",
-      "holderName": "Der Name des Kontoinhabers ist erforderlich.",
+      "holderName": "Account holder name is required.",
       "individual": "Individuell",
       "name": "Name des Kontoinhabers",
       "needVerified": "Bankkonten müssen vor jeder Spende überprüft werden. ",
@@ -59,8 +62,13 @@
       "expirationYear": "Ablaufjahr:",
       "updated": "Karte erfolgreich aktualisiert."
     },
+    "common": {
+      "cancel": "Cancel",
+      "error": "Error"
+    },
     "donationForm": {
       "annually": "Jährlich",
+      "anonymous": "Give anonymously (one-time gifts only)",
       "biWeekly": "Zweiwöchentlich",
       "cancelled": "Wiederkehrende Spende abgesagt.",
       "confirmDelete": "Sind Sie sicher, dass Sie diese wiederkehrende Spende löschen möchten?",
@@ -75,7 +83,8 @@
       "makeRecurring": "Machen Sie eine wiederkehrende Spende",
       "method": "Methode",
       "monthly": "Monatlich",
-      "notes": "Anmerkungen",
+      "notes": "Notes",
+      "orPayWith": "Or pay with",
       "preview": "Vorschau der Spende",
       "quarterly": "Vierteljährlich",
       "recurringUpdated": "Wiederkehrende Spende aktualisiert.",
@@ -90,6 +99,7 @@
         "lastName": "Bitte geben Sie ihren Nachnamen ein.",
         "validEmail": "Bitte geben Sie eine gültige E-Mail-Adresse ein."
       },
+      "walletFailed": "Wallet payment could not be completed. Please try again.",
       "weekly": "Wöchentlich"
     },
     "fundDonations": {
@@ -97,21 +107,57 @@
       "amount": "Menge",
       "fund": "Fonds"
     },
+    "kingdomFunding": {
+      "enterBankDetails": "Enter your bank account details",
+      "enterCardDetails": "Enter card details",
+      "errorProcessingDonation": "Error processing donation",
+      "failedToInitPaymentForm": "Failed to initialize payment form",
+      "failedToLoadPaymentForm": "Failed to load payment form",
+      "failedToProcessCard": "Failed to process card. Please check your card details and try again.",
+      "failedToTokenizeCard": "Failed to tokenize card",
+      "gatewayConfigMissing": "Payment form not available. Gateway configuration missing.",
+      "loadingPaymentForm": "Loading payment form...",
+      "memo": "Memo (optional)",
+      "missingTokenizationKey": "Missing tokenization key",
+      "payWithBank": "Bank (ACH)",
+      "payWithCard": "Card",
+      "paymentFormNotAvailable": "Payment form not available",
+      "paymentFormNotInitialized": "Payment form not initialized",
+      "paymentProvider": "Zahlungsanbieter",
+      "providerName": "Kingdom Funding",
+      "unexpectedError": "An unexpected error occurred. Please try again.",
+      "validate": {
+        "accountNumber": "Bitte geben Sie eine gültige Kontonummer ein",
+        "captchaFailed": "reCAPTCHA verification failed. Please try again.",
+        "captchaRequired": "Please complete the reCAPTCHA verification",
+        "routingNumber": "Bitte geben Sie eine gültige Bankleitzahl ein"
+      }
+    },
     "page": {
-      "amount": "Menge",
-      "batch": "Charge",
-      "date": "Datum",
-      "fund": "Fonds",
-      "method": "Methode",
-      "willAppear": "Spenden werden angezeigt, sobald eine Spende eingegeben wurde."
+      "amount": "Amount",
+      "batch": "Batch",
+      "date": "Date",
+      "fund": "Fund",
+      "method": "Method",
+      "willAppear": "Donations will appear once a donation has been entered."
     },
     "paymentMethods": {
       "addBank": "Bankkonto hinzufügen",
       "addCard": "Karte hinzufügen",
       "confirmDelete": "Sind Sie sicher, dass Sie diese Zahlungsmethode löschen möchten?",
       "deleted": "Zahlungsmethode gelöscht.",
-      "noMethods": "Keine Zahlungsmethoden.  ",
+      "noMethod": "No Method",
       "verify": "Konto überprüfen"
+    },
+    "paypal": {
+      "approved": "PayPal payment approved. Choose Donate to finish your gift.",
+      "captchaRequired": "Please complete the reCAPTCHA verification"
+    },
+    "paystack": {
+      "emailRequired": "An email address is required to pay with Paystack.",
+      "paymentFailed": "Payment was not completed.",
+      "popupHint": "You'll complete payment in a secure Paystack window. Card, mobile money and bank transfer are accepted.",
+      "saveOnlyWithGift": "Payment methods are saved when you give — check \"Save this card\" while making a gift."
     },
     "preview": {
       "date": "Spendedatum",
@@ -123,13 +169,15 @@
       "notes": "Anmerkungen",
       "startingOn": "Beginnt am",
       "total": "Gesamt",
-      "type": "Spendenart"
+      "type": "Spendenart",
+      "weekly": "Weekly"
     },
     "recurring": {
       "amount": "Menge",
       "confirmPause": "Sind Sie sicher, dass Sie diese wiederkehrende Spende pausieren möchten?",
       "every": "Jeden",
       "interval": "Intervall",
+      "noSubscriptions": "No Subscriptions",
       "notFound": "Zahlungsmethode nicht gefunden.",
       "pauseFailed": "Wiederkehrende Spende konnte nicht pausiert werden. Bitte versuchen Sie es erneut.",
       "pauseTooltip": "Wiederkehrende Spende pausieren",
@@ -183,13 +231,18 @@
       "toggleWeekday": "{} für wöchentliche Wiederholung umschalten"
     }
   },
+  "fileUpload": {
+    "file": "File",
+    "quotaExceeded": "Storage quota exceeded. Delete unused files or upgrade your storage plan.",
+    "uploadFailed": "Upload failed. Please try again."
+  },
   "formSubmissionEdit": {
     "back": "Zurück",
-    "continue": "Weiter",
-    "stepProgress": "{current} von {total}",
     "confirmDelete": "Sind Sie sicher, dass Sie diese Formulardaten löschen möchten?",
+    "continue": "Weiter",
     "editForm": "Formular bearbeiten",
     "isRequired": "ist erforderlich",
+    "stepProgress": "{current} von {total}",
     "submit": "Einreichen"
   },
   "gallery": {
@@ -198,21 +251,25 @@
     "freeForm": "Freie Form"
   },
   "iconPicker": {
-    "iconsAvailable": "Symbole verfügbar",
-    "matchingResults": "passende Ergebnisse",
-    "search": "Suchsymbole..."
+    "iconsAvailable": "icons available",
+    "matchingResults": "matching results",
+    "search": "Search icons..."
   },
   "login": {
-    "createAccount": "Ein Konto erstellen",
+    "accountExists": "Sie haben bereits ein ChurchApps-Konto. Bitte melden Sie sich stattdessen damit an.",
+    "continueGoogle": "Continue with Google",
+    "continueMicrosoft": "Continue with Microsoft",
+    "createAccount": "Create an Account",
     "email": "Email",
     "enterCode": "Bestätigungscode eingeben",
     "enterCodeInstructions": "Geben Sie den 6-stelligen Code ein, den wir Ihnen gerade per E-Mail gesendet haben.",
     "expiredLink": "Der aktuelle Link ist abgelaufen.",
     "forgot": "Passwort vergessen",
-    "goLogin": "Gehen Sie zu Anmelden",
+    "goLogin": "Go to Login",
     "login": "Anmeldung",
     "noAcc": "Sie haben noch kein Konto?",
     "noAccountFound": "Mit dieser E-Mail wurde kein Konto gefunden. Bitte registrieren Sie sich, um fortzufahren.",
+    "or": "or",
     "password": "Passwort",
     "register": "Registrieren",
     "registerThankYou": "Danke für die Registrierung! ",
@@ -221,7 +278,7 @@
     "reset": "Zurücksetzen",
     "resetInstructions": "Geben Sie Ihre E-Mail-Adresse ein, um eine Passwortzurücksetzung anzufordern.",
     "resetPassword": "Passwort zurücksetzen",
-    "resetSent": "E-Mail zum Zurücksetzen des Passworts gesendet!",
+    "resetSent": "Password reset email sent!",
     "setPassword": "Passwort festlegen",
     "signIn": "Anmelden",
     "signInTitle": "Bitte einloggen",
@@ -243,50 +300,65 @@
   },
   "markdownEditor": {
     "content": "Inhalt",
-    "markdownEditor": "Markdown-Editor",
+    "markdownEditor": "Markdown Editor",
     "markdownGuide": "Markdown-Leitfaden"
   },
   "month": {
     "april": "April",
     "august": "August",
-    "december": "Dezember",
-    "february": "Februar",
-    "january": "Januar",
-    "july": "Juli",
-    "june": "Juni",
-    "march": "Marsch",
-    "may": "Mai",
+    "december": "December",
+    "february": "February",
+    "january": "January",
+    "july": "July",
+    "june": "June",
+    "march": "March",
+    "may": "May",
     "november": "November",
-    "october": "Oktober",
+    "october": "October",
     "september": "September"
   },
   "notes": {
     "comment": "Kommentar",
     "comments": "Kommentare",
     "notes": "Anmerkungen",
-    "startConversation": "Eine Konversation beginnen",
+    "notifyOff": "Notify Off",
+    "notifyOn": "Notify On",
+    "openFile": "Open file",
+    "startConversation": "Start a conversation",
     "validate": {
       "content": "Bitte geben Sie eine Notiz ein."
     },
-    "viewAll": "Alle ansehen"
+    "viewAll": "View all"
   },
   "person": {
     "email": "Email",
     "firstName": "Vorname",
     "lastName": "Familienname, Nachname",
     "name": "Name",
-    "noRec": "Keinen Personendatensatz vorhanden?",
+    "noRec": "Don't have a person record?",
     "person": "Person",
-    "years": "Jahre"
+    "years": "years"
+  },
+  "question": {
+    "checkbox": "Kontrollkästchen",
+    "currency": "Währung",
+    "date": "Datum",
+    "email": "E-Mail",
+    "file": "Datei-Upload",
+    "multiple": "Mehrfachauswahl",
+    "number": "Zahl",
+    "phone": "Telefon",
+    "textarea": "Textbereich",
+    "textbox": "Textfeld"
   },
   "reporting": {
-    "detailed": "Detaillierter Bericht",
-    "downloadOptions": "Download-Optionen",
-    "noData": "Es sind keine Daten zum Anzeigen vorhanden.",
-    "runReport": "Bericht ausführen",
-    "sampleTemplate": "Beispiel-Word-Vorlage",
-    "summary": "Zusammenfassung",
-    "useFilter": "Verwenden Sie den Filter, um den Bericht auszuführen."
+    "detailed": "Detailed Report",
+    "downloadOptions": "Download Options",
+    "noData": "There is no data to display.",
+    "runReport": "Run Report",
+    "sampleTemplate": "Sample Word Template",
+    "summary": "Summary",
+    "useFilter": "Use the filter to run the report."
   },
   "selectChurch": {
     "address1": "Anschrift Zeile 1",
@@ -318,22 +390,35 @@
     "discussions": "Support-Forum",
     "documentation": "Dokumentation"
   },
+  "validation": {
+    "date": "Bitte geben Sie ein gültiges Datum ein",
+    "email": "Bitte geben Sie eine gültige E-Mail-Adresse ein",
+    "fileSize": "Die Dateigröße muss kleiner als {} MB sein",
+    "fileType": "Ungültiger Dateityp",
+    "maxLength": "Darf höchstens {} Zeichen lang sein",
+    "minLength": "Muss mindestens {} Zeichen lang sein",
+    "number": "Bitte geben Sie eine gültige Zahl ein",
+    "phone": "Bitte geben Sie eine gültige Telefonnummer ein",
+    "required": "Dieses Feld ist erforderlich"
+  },
   "wrapper": {
-    "chatWith": "Plaudern mit",
-    "deleteChurch": "Kirche aus der Liste löschen",
+    "chatWith": "Chat with",
+    "currentChurch": "Aktuelle Gemeinde",
+    "deleteChurch": "Delete",
     "editAccount": "Konto bearbeiten",
-    "editChurchProfile": "Kirchenprofil bearbeiten",
+    "editChurchProfile": "Gemeindeprofil bearbeiten",
     "editProfile": "Profil bearbeiten",
-    "logout": "Ausloggen",
-    "messages": "Nachrichten",
+    "logout": "Logout",
+    "messages": "Messages",
     "newPrivateMessage": "Neue private Nachricht",
-    "notifications": "Benachrichtigungen",
+    "notifications": "Notifications",
+    "privateConversation": "Private Conversation",
     "privateMessage": "Private Nachricht",
-    "profile": "Profil",
+    "profile": "Profile",
     "searchForPerson": "Suche nach einer Person",
-    "support": "Unterstützung",
-    "sureRemoveChurch": "Sind Sie sicher, dass Sie {} aus der Liste löschen möchten?",
-    "switchApp": "App wechseln",
-    "switchChurch": "Kirche wechseln"
+    "support": "Support",
+    "sureRemoveChurch": "Are you sure you wish to delete this church? You no longer will be a member of {}.",
+    "switchApp": "Switch App",
+    "switchChurch": "Switch Church"
   }
 }

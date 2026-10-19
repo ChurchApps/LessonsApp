@@ -1,7 +1,7 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-import { startTransition, useEffect, useState } from "react";
+import { useEffect, useState, useTransition } from "react";
 import {
   Add as AddIcon,
   Assessment as StatsIcon,
@@ -9,14 +9,21 @@ import {
   Clear as ClearIcon,
   Close as CloseIcon,
   Description as DescriptionIcon,
+  Edit as EditIcon,
   FileUpload as FilesIcon,
   Layers as LayersIcon,
   LocationOn as VenueIcon,
   School as SchoolIcon
 } from "@mui/icons-material";
-import { Box, Button, IconButton, Stack, Typography } from "@mui/material";
+import { Box, Button, Drawer, IconButton, MenuItem, Select, Snackbar, Stack, Typography, useMediaQuery } from "@mui/material";
+import type { Theme } from "@mui/material";
 import { Loading, PageHeader } from "@churchapps/apphelper";
-import { BundleList, ErrorBoundary, LessonEdit, ProgramEdit, StudyEdit, VenueList } from "@/components";
+import ErrorBoundary from "@/components/ErrorBoundary";
+import { BundleList } from "@/components/admin/BundleList";
+import { LessonEdit } from "@/components/admin/LessonEdit";
+import { ProgramEdit } from "@/components/admin/ProgramEdit";
+import { StudyEdit } from "@/components/admin/StudyEdit";
+import { VenueList } from "@/components/admin/VenueList";
 import { Wrapper } from "@/components/Wrapper";
 import { ApiHelper, ArrayHelper, LessonInterface, Permissions, ProgramInterface, ProviderInterface, StudyInterface, UserHelper } from "@/helpers";
 import { revalidate } from "../actions";
@@ -38,6 +45,9 @@ export default function Admin() {
   const [selectedProgramId, setSelectedProgramId] = useState<string>("");
   const [expandedStudyId, setExpandedStudyId] = useState<string>("");
   const [panel, setPanel] = useState<PanelState | null>(null);
+  const [cachePending, startCacheTransition] = useTransition();
+  const [cacheMessage, setCacheMessage] = useState("");
+  const isNarrow = useMediaQuery((theme: Theme) => theme.breakpoints.down("md"));
 
   useEffect(() => {
     if (!isAuthenticated) router.push("/login");
@@ -60,8 +70,13 @@ export default function Admin() {
     ApiHelper.get("/lessons", "LessonsApi").then((d: any) => setLessons(d));
   }
 
+  const cacheJwt = () => ApiHelper.getConfig("LessonsApi")?.jwt || "";
+
   function clearCache() {
-    startTransition(async () => { revalidate("all"); });
+    startCacheTransition(async () => {
+      const ok = await revalidate("all", cacheJwt()).catch(() => false);
+      setCacheMessage(ok ? "Cache cleared" : "Unable to clear cache");
+    });
   }
 
   function openPanel(entityType: EntityType, entity: any, tab: PanelTab = "details") {
@@ -75,6 +90,7 @@ export default function Admin() {
 
     setPanel(null);
     loadData();
+    if (saved !== currentPanel?.entity) revalidate("all", cacheJwt()).catch(() => false);
 
     if (currentPanel) {
       if (currentPanel.entityType === "program" && obj?.id) setSelectedProgramId(obj.id);
@@ -465,10 +481,21 @@ export default function Admin() {
       variant="outlined"
       startIcon={<ClearIcon />}
       onClick={clearCache}
+      disabled={cachePending}
       sx={{ color: "white", borderColor: "rgba(255,255,255,0.5)", "&:hover": { borderColor: "white", backgroundColor: "rgba(255,255,255,0.1)" } }}>
       Clear Cache
     </Button>
   ];
+
+  const panelContent = panel ? (
+    <>
+      {renderPanelHeader()}
+      {renderPanelTabs()}
+      <Box sx={{ flex: 1, overflowY: "auto" }}>
+        <ErrorBoundary key={`${panel.entityType}-${panel.entity?.id || "new"}`}>{renderPanelBody()}</ErrorBoundary>
+      </Box>
+    </>
+  ) : null;
 
   return (
     <Wrapper>
@@ -546,6 +573,14 @@ export default function Admin() {
             overflowY: "auto",
             minWidth: 0
           }}>
+          {isNarrow && programs && programs.length > 0 && (
+            <Stack direction="row" alignItems="center" gap={1} sx={{ padding: "12px 16px", background: "var(--admin-surface)", borderBottom: "1px solid var(--admin-border-light)" }}>
+              <Select fullWidth size="small" value={selectedProgramId} onChange={(ev) => setSelectedProgramId(ev.target.value as string)} inputProps={{ "aria-label": "Program" }}>
+                {programs.map(p => <MenuItem key={p.id} value={p.id}>{p.name}</MenuItem>)}
+              </Select>
+              {selectedProgram && <IconButton size="small" title="Edit program" onClick={() => openPanel("program", selectedProgram, "details")}><EditIcon fontSize="small" /></IconButton>}
+            </Stack>
+          )}
           {selectedProgram ? (
             <>
               <Stack
@@ -638,17 +673,13 @@ export default function Admin() {
             flexDirection: "column",
             overflow: "hidden"
           }}>
-          {panel ? (
-            <>
-              {renderPanelHeader()}
-              {renderPanelTabs()}
-              <Box sx={{ flex: 1, overflowY: "auto" }}>
-                <ErrorBoundary>{renderPanelBody()}</ErrorBoundary>
-              </Box>
-            </>
-          ) : renderEmptyPanel()}
+          {isNarrow ? null : panelContent || renderEmptyPanel()}
         </Box>
       </Box>
+      <Drawer anchor="right" open={isNarrow && !!panel} onClose={closePanel} slotProps={{ paper: { sx: { width: "100%", display: "flex", flexDirection: "column" } } }}>
+        {isNarrow && panelContent}
+      </Drawer>
+      <Snackbar open={!!cacheMessage} autoHideDuration={3000} onClose={() => setCacheMessage("")} message={cacheMessage} />
     </Wrapper>
   );
 }

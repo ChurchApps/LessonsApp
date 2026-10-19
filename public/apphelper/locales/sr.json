@@ -1,36 +1,39 @@
 {
   "b1Share": {
-    "comment": "Коментар",
-    "commentPlaceholder": "Укључите коментар са својом објавом.",
-    "contentShared": "Садржај подељен",
-    "group": "Група",
-    "sharingToGroup": "Дељење {} у B1 групу",
+    "comment": "Comment",
+    "commentPlaceholder": "Include a comment with your post.",
+    "contentShared": "Content Shared",
+    "group": "Group",
+    "sharingToGroup": "Sharing {} to B1 Group",
     "validate": {
-      "addComment": "Молим додајте коментар.",
-      "loginFirst": "Молим пријавите се прво.",
-      "notMember": "Тренутно нисте члан ниједне групе на B1.",
-      "selectGroup": "Молим изаберите групу."
+      "addComment": "Please add a comment.",
+      "loginFirst": "Please login first.",
+      "notMember": "You are not currently a member of any groups on B1.",
+      "selectGroup": "Please select a group."
     }
   },
   "common": {
-    "add": "Додај",
+    "add": "Add",
     "cancel": "Отказ",
     "close": "Затвори",
-    "date": "Датум",
+    "date": "Date",
     "delete": "Избриши",
-    "edit": "Уреди",
-    "error": "Грешка",
+    "edit": "Edit",
+    "error": "Error",
+    "optional": "Opciono",
     "pleaseWait": "Молим сачекајте...",
+    "remove": "Ukloni",
+    "required": "Obavezno",
     "save": "Сачувај",
     "search": "Претрага",
-    "submit": "Пошаљи",
+    "submit": "Submit",
     "update": "Ажурирај"
   },
   "createPerson": {
-    "addNewPerson": "Додај новог човека",
+    "addNewPerson": "Add a New Person",
     "email": "Email",
-    "firstName": "Име",
-    "lastName": "Презиме"
+    "firstName": "First Name",
+    "lastName": "Last Name"
   },
   "donation": {
     "bankForm": {
@@ -38,7 +41,7 @@
       "added": "Банкарски рачун је додан. Потврдите свој банкарски рачун да бисте направили донацију.",
       "company": "Компанија",
       "firstDeposit": "Прва уплата",
-      "holderName": "Име власника рачуна је обавезно.",
+      "holderName": "Account holder name is required.",
       "individual": "Физичко лице",
       "name": "Име власника рачуна",
       "needVerified": "Банкарски рачуни мораће бити потврђени пре него што направите донацију. Ваш рачун ће добити две мале уплате за приблизно 1-3 радна дана. Мораћете унети износе тих уплата да бисте довршили верификацију рачуна кликом на везу за верификацију рачуна поред вашег банкарског рачуна у одељку начин плаћања.",
@@ -59,8 +62,13 @@
       "expirationYear": "Година истека:",
       "updated": "Картица је успешно ажурирана."
     },
+    "common": {
+      "cancel": "Cancel",
+      "error": "Error"
+    },
     "donationForm": {
       "annually": "Годишње",
+      "anonymous": "Give anonymously (one-time gifts only)",
       "biWeekly": "Свих две недеље",
       "cancelled": "Периодична донација отказана.",
       "confirmDelete": "Да ли сте сигурни да желите избрисати ову периодичну донацију?",
@@ -75,7 +83,8 @@
       "makeRecurring": "Направи периодичну донацију",
       "method": "Метод",
       "monthly": "Месечно",
-      "notes": "Напомене",
+      "notes": "Notes",
+      "orPayWith": "Or pay with",
       "preview": "Преглед донације",
       "quarterly": "Тромесечно",
       "recurringUpdated": "Периодична донација је ажурирана.",
@@ -90,6 +99,7 @@
         "lastName": "Молим унесите своје презиме.",
         "validEmail": "Молим унесите важећу имејл адресу."
       },
+      "walletFailed": "Wallet payment could not be completed. Please try again.",
       "weekly": "Недељно"
     },
     "fundDonations": {
@@ -97,21 +107,57 @@
       "amount": "Износ",
       "fund": "Фонд"
     },
+    "kingdomFunding": {
+      "enterBankDetails": "Enter your bank account details",
+      "enterCardDetails": "Enter card details",
+      "errorProcessingDonation": "Error processing donation",
+      "failedToInitPaymentForm": "Failed to initialize payment form",
+      "failedToLoadPaymentForm": "Failed to load payment form",
+      "failedToProcessCard": "Failed to process card. Please check your card details and try again.",
+      "failedToTokenizeCard": "Failed to tokenize card",
+      "gatewayConfigMissing": "Payment form not available. Gateway configuration missing.",
+      "loadingPaymentForm": "Loading payment form...",
+      "memo": "Memo (optional)",
+      "missingTokenizationKey": "Missing tokenization key",
+      "payWithBank": "Bank (ACH)",
+      "payWithCard": "Card",
+      "paymentFormNotAvailable": "Payment form not available",
+      "paymentFormNotInitialized": "Payment form not initialized",
+      "paymentProvider": "Pružalac plaćanja",
+      "providerName": "Kingdom Funding",
+      "unexpectedError": "An unexpected error occurred. Please try again.",
+      "validate": {
+        "accountNumber": "Unesite važeći broj računa",
+        "captchaFailed": "reCAPTCHA verification failed. Please try again.",
+        "captchaRequired": "Please complete the reCAPTCHA verification",
+        "routingNumber": "Unesite važeći bankovni routing broj"
+      }
+    },
     "page": {
-      "amount": "Износ",
-      "batch": "Серија",
-      "date": "Датум",
-      "fund": "Фонд",
-      "method": "Метод",
-      "willAppear": "Донације ће се појавити када буде унесена донација."
+      "amount": "Amount",
+      "batch": "Batch",
+      "date": "Date",
+      "fund": "Fund",
+      "method": "Method",
+      "willAppear": "Donations will appear once a donation has been entered."
     },
     "paymentMethods": {
       "addBank": "Додај банкарски рачун",
       "addCard": "Додај картицу",
       "confirmDelete": "Да ли сте сигурни да желите избрисати овај начин плаћања?",
       "deleted": "Начин плаћања је избрисан.",
-      "noMethods": "Без начина плаћања. Додајте начин плаћања да бисте направили донацију.",
+      "noMethod": "No Method",
       "verify": "Потврди рачун"
+    },
+    "paypal": {
+      "approved": "PayPal payment approved. Choose Donate to finish your gift.",
+      "captchaRequired": "Please complete the reCAPTCHA verification"
+    },
+    "paystack": {
+      "emailRequired": "An email address is required to pay with Paystack.",
+      "paymentFailed": "Payment was not completed.",
+      "popupHint": "You'll complete payment in a secure Paystack window. Card, mobile money and bank transfer are accepted.",
+      "saveOnlyWithGift": "Payment methods are saved when you give — check \"Save this card\" while making a gift."
     },
     "preview": {
       "date": "Датум донације",
@@ -123,13 +169,15 @@
       "notes": "Напомене",
       "startingOn": "Почињући од",
       "total": "Укупно",
-      "type": "Врста донације"
+      "type": "Врста донације",
+      "weekly": "Weekly"
     },
     "recurring": {
       "amount": "Износ",
       "confirmPause": "Да ли сте сигурни да желите паузирати ову периодичну донацију?",
       "every": "Сваких",
       "interval": "Интервал",
+      "noSubscriptions": "No Subscriptions",
       "notFound": "Начин плаћања није пронађен.",
       "pauseFailed": "Паузирање периодичне донације није успело. Молимо покушајте поново.",
       "pauseTooltip": "Паузирај периодичну донацију",
@@ -183,13 +231,18 @@
       "toggleWeekday": "Укључи/искључи {} за седмично понављање"
     }
   },
+  "fileUpload": {
+    "file": "File",
+    "quotaExceeded": "Storage quota exceeded. Delete unused files or upgrade your storage plan.",
+    "uploadFailed": "Upload failed. Please try again."
+  },
   "formSubmissionEdit": {
     "back": "Назад",
-    "continue": "Настави",
-    "stepProgress": "{current} од {total}",
     "confirmDelete": "Да ли сте сигурни да желите избрисати ове податке обрасца?",
+    "continue": "Настави",
     "editForm": "Уреди образац",
     "isRequired": "је обавезно",
+    "stepProgress": "{current} од {total}",
     "submit": "Пошаљи"
   },
   "gallery": {
@@ -198,21 +251,25 @@
     "freeForm": "Слободна форма"
   },
   "iconPicker": {
-    "iconsAvailable": "икона доступна",
-    "matchingResults": "одговарајућих резултата",
-    "search": "Претрага икона..."
+    "iconsAvailable": "icons available",
+    "matchingResults": "matching results",
+    "search": "Search icons..."
   },
   "login": {
-    "createAccount": "Направи налог",
+    "accountExists": "Već imate ChurchApps nalog. Prijavite se pomoću njega.",
+    "continueGoogle": "Continue with Google",
+    "continueMicrosoft": "Continue with Microsoft",
+    "createAccount": "Create an Account",
     "email": "Email",
     "enterCode": "Унесите верификациони код",
     "enterCodeInstructions": "Унесите 6-цифрени код који смо вам управо послали е-поштом.",
     "expiredLink": "Тренутна веза је истекла.",
     "forgot": "Заборављена лозинка",
-    "goLogin": "Иди на пријаву",
+    "goLogin": "Go to Login",
     "login": "Пријава",
     "noAcc": "Немате налог?",
     "noAccountFound": "Налог са том е-поштом није пронађен. Региструјте се за наставак.",
+    "or": "or",
     "password": "Лозинка",
     "register": "Регистрирај се",
     "registerThankYou": "Хвала што сте се регистровали! Молим проверите своју имејл поруку да верификујете свој налог.",
@@ -221,7 +278,7 @@
     "reset": "Ресетуј",
     "resetInstructions": "Унесите своју имејл адресу да бисте затражили ресетовање лозинке.",
     "resetPassword": "Ресетуј лозинку",
-    "resetSent": "Послата имејл порука за ресетовање лозинке!",
+    "resetSent": "Password reset email sent!",
     "setPassword": "Постави лозинку",
     "signIn": "Пријава",
     "signInTitle": "Молим пријавите се",
@@ -243,50 +300,65 @@
   },
   "markdownEditor": {
     "content": "Садржај",
-    "markdownEditor": "Markdown уредник",
+    "markdownEditor": "Markdown Editor",
     "markdownGuide": "Markdown водич"
   },
   "month": {
-    "april": "Април",
-    "august": "Август",
-    "december": "Децембар",
-    "february": "Фебруар",
-    "january": "Јануар",
-    "july": "Јул",
-    "june": "Јун",
-    "march": "Март",
-    "may": "Мај",
-    "november": "Новембар",
-    "october": "Октобар",
-    "september": "Септембар"
+    "april": "April",
+    "august": "August",
+    "december": "December",
+    "february": "February",
+    "january": "January",
+    "july": "July",
+    "june": "June",
+    "march": "March",
+    "may": "May",
+    "november": "November",
+    "october": "October",
+    "september": "September"
   },
   "notes": {
     "comment": "коментар",
     "comments": "коментари",
     "notes": "Напомене",
-    "startConversation": "Почни разговор",
+    "notifyOff": "Notify Off",
+    "notifyOn": "Notify On",
+    "openFile": "Open file",
+    "startConversation": "Start a conversation",
     "validate": {
       "content": "Молим унесите напомену."
     },
-    "viewAll": "Погледајте све"
+    "viewAll": "View all"
   },
   "person": {
     "email": "Email",
     "firstName": "Име",
     "lastName": "Презиме",
     "name": "Име",
-    "noRec": "Немате запис о особи?",
-    "person": "Човек",
-    "years": "година"
+    "noRec": "Don't have a person record?",
+    "person": "Person",
+    "years": "years"
+  },
+  "question": {
+    "checkbox": "Polje za potvrdu",
+    "currency": "Valuta",
+    "date": "Datum",
+    "email": "E-pošta",
+    "file": "Otpremanje datoteke",
+    "multiple": "Višestruki izbor",
+    "number": "Broj",
+    "phone": "Telefon",
+    "textarea": "Tekstualna oblast",
+    "textbox": "Tekstualno polje"
   },
   "reporting": {
-    "detailed": "Детаљан извештај",
-    "downloadOptions": "Опције преузимања",
-    "noData": "Нема подстака за приказ.",
-    "runReport": "Покрени извештај",
-    "sampleTemplate": "Узорак шаблона Word",
-    "summary": "Резиме",
-    "useFilter": "Користи филтер да покренеш извештај."
+    "detailed": "Detailed Report",
+    "downloadOptions": "Download Options",
+    "noData": "There is no data to display.",
+    "runReport": "Run Report",
+    "sampleTemplate": "Sample Word Template",
+    "summary": "Summary",
+    "useFilter": "Use the filter to run the report."
   },
   "selectChurch": {
     "address1": "Адреса - линија 1",
@@ -318,22 +390,35 @@
     "discussions": "Форум подршке",
     "documentation": "Документација"
   },
+  "validation": {
+    "date": "Unesite važeći datum",
+    "email": "Unesite važeću adresu e-pošte",
+    "fileSize": "Veličina datoteke mora biti manja od {} MB",
+    "fileType": "Nevažeći tip datoteke",
+    "maxLength": "Ne sme imati više od {} znakova",
+    "minLength": "Mora imati najmanje {} znakova",
+    "number": "Unesite važeći broj",
+    "phone": "Unesite važeći broj telefona",
+    "required": "Ovo polje je obavezno"
+  },
   "wrapper": {
-    "chatWith": "Ћаскај са",
-    "deleteChurch": "Избриши",
-    "editAccount": "Уреди налог",
-    "editChurchProfile": "Уреди профил цркве",
-    "editProfile": "Уреди профил",
-    "logout": "Одјава",
-    "messages": "Поруке",
+    "chatWith": "Chat with",
+    "currentChurch": "Тренутна црква",
+    "deleteChurch": "Delete",
+    "editAccount": "Измени налог",
+    "editChurchProfile": "Измени црквени профил",
+    "editProfile": "Измени профил",
+    "logout": "Logout",
+    "messages": "Messages",
     "newPrivateMessage": "Нова приватна порука",
-    "notifications": "Обавештења",
+    "notifications": "Notifications",
+    "privateConversation": "Private Conversation",
     "privateMessage": "Приватна порука",
-    "profile": "Профил",
+    "profile": "Profile",
     "searchForPerson": "Претрага особе",
-    "support": "Подршка",
-    "sureRemoveChurch": "Да ли сте сигурни да желите да избришете ову цркву? Више нећете бити члан {}.",
-    "switchApp": "Пребаци апликацију",
-    "switchChurch": "Пребаци цркву"
+    "support": "Support",
+    "sureRemoveChurch": "Are you sure you wish to delete this church? You no longer will be a member of {}.",
+    "switchApp": "Switch App",
+    "switchChurch": "Switch Church"
   }
 }

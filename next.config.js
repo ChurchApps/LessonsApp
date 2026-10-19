@@ -17,14 +17,18 @@ const config = {
     ]
   },
   transpilePackages: ["@churchapps/apphelper", "mui-tel-input", "react-ga4", "@mui/material", "@mui/styled-engine"],
-  serverExternalPackages: ["@xenova/transformers"],
-  webpack: (config, { isServer }) => {
-    config.resolve.alias = {
-      ...config.resolve.alias,
-      "sharp$": false,
-      "onnxruntime-node$": false,
-    };
-    return config;
+  async headers() {
+    const common = [
+      { key: "Strict-Transport-Security", value: "max-age=63072000; includeSubDomains" },
+      { key: "X-Content-Type-Options", value: "nosniff" },
+      { key: "Referrer-Policy", value: "strict-origin-when-cross-origin" }
+    ];
+    // Embeds and classroom pages are iframed on church sites; only the signed-in areas refuse framing.
+    const noFraming = [{ key: "Content-Security-Policy", value: "frame-ancestors 'self'" }, { key: "X-Frame-Options", value: "SAMEORIGIN" }];
+    return [
+      { source: "/:path*", headers: common },
+      ...["/admin", "/admin/:path*", "/portal", "/portal/:path*", "/login"].map(source => ({ source, headers: noFraming }))
+    ];
   },
 }
 

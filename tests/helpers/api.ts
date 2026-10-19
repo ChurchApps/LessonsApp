@@ -21,7 +21,8 @@ export async function getApi(identity: "lessons-admin" | "grace" = "lessons-admi
   });
   if (!res.ok()) throw new Error(`login ${identity} failed: ${res.status()}`);
   const body = await res.json();
-  const lessonsApi = body.userChurches[0].apis.find((a: any) => a.keyName === "LessonsApi");
+  const userChurch = body.userChurches.find((uc: any) => uc.church?.id === churchId) || body.userChurches[0];
+  const lessonsApi = userChurch.apis.find((a: any) => a.keyName === "LessonsApi");
   if (!lessonsApi?.jwt) throw new Error("LessonsApi JWT not present in login response");
   return { request: ctx, jwt: lessonsApi.jwt, churchId };
 }

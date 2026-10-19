@@ -1,36 +1,39 @@
 {
   "b1Share": {
-    "comment": "Komentár",
-    "commentPlaceholder": "Pridajte komentár k svojmu príspevku.",
-    "contentShared": "Obsah zdieľaný",
-    "group": "Skupina",
-    "sharingToGroup": "Zdieľanie {} do skupiny B1",
+    "comment": "Comment",
+    "commentPlaceholder": "Include a comment with your post.",
+    "contentShared": "Content Shared",
+    "group": "Group",
+    "sharingToGroup": "Sharing {} to B1 Group",
     "validate": {
-      "addComment": "Prosím pridajte komentár.",
-      "loginFirst": "Prosím prihláste sa najprv.",
-      "notMember": "V súčasnosti nie ste členom žiadnej skupiny na B1.",
-      "selectGroup": "Prosím vyberte skupinu."
+      "addComment": "Please add a comment.",
+      "loginFirst": "Please login first.",
+      "notMember": "You are not currently a member of any groups on B1.",
+      "selectGroup": "Please select a group."
     }
   },
   "common": {
-    "add": "Pridať",
+    "add": "Add",
     "cancel": "Zrušiť",
     "close": "Zatvoriť",
-    "date": "Dátum",
+    "date": "Date",
     "delete": "Odstrániť",
-    "edit": "Upraviť",
-    "error": "Chyba",
+    "edit": "Edit",
+    "error": "Error",
+    "optional": "Voliteľné",
     "pleaseWait": "Prosím čakajte...",
+    "remove": "Odstrániť",
+    "required": "Povinné",
     "save": "Uložiť",
     "search": "Hľadať",
-    "submit": "Odoslať",
+    "submit": "Submit",
     "update": "Aktualizovať"
   },
   "createPerson": {
-    "addNewPerson": "Pridať novú osobu",
+    "addNewPerson": "Add a New Person",
     "email": "Email",
-    "firstName": "Krstné meno",
-    "lastName": "Priezvisko"
+    "firstName": "First Name",
+    "lastName": "Last Name"
   },
   "donation": {
     "bankForm": {
@@ -38,7 +41,7 @@
       "added": "Bankový účet pridaný. Overte si bankový účet, aby ste mohli darovať.",
       "company": "Spoločnosť",
       "firstDeposit": "Prvý vklad",
-      "holderName": "Je povinné meno majiteľa účtu.",
+      "holderName": "Account holder name is required.",
       "individual": "Jednotlivec",
       "name": "Meno majiteľa účtu",
       "needVerified": "Bankové účty budú musieť byť overené predtým, ako budete môcť darovať. Váš účet dostane dva malé vklady približne 1-3 pracovné dni. Budete musieť zadať sumy týchto vkladov, aby ste dokončili overenie vášho účtu výberom odkazu na overenie účtu vedľa vášho bankového účtu v časti spôsob platby.",
@@ -59,8 +62,13 @@
       "expirationYear": "Rok expirácie:",
       "updated": "Karta úspešne aktualizovaná."
     },
+    "common": {
+      "cancel": "Cancel",
+      "error": "Error"
+    },
     "donationForm": {
       "annually": "Ročne",
+      "anonymous": "Give anonymously (one-time gifts only)",
       "biWeekly": "Biweekly",
       "cancelled": "Pravidelný dar zrušený.",
       "confirmDelete": "Ste si istí, že chcete odstrániť túto pravideľnú donáciu?",
@@ -75,7 +83,8 @@
       "makeRecurring": "Urobiť pravideľnú donáciu",
       "method": "Metóda",
       "monthly": "Mesačne",
-      "notes": "Poznámky",
+      "notes": "Notes",
+      "orPayWith": "Or pay with",
       "preview": "Náhľad donácie",
       "quarterly": "Štvrťročne",
       "recurringUpdated": "Pravidelná donácia aktualizovaná.",
@@ -90,6 +99,7 @@
         "lastName": "Prosím zadajte svoje priezvisko.",
         "validEmail": "Prosím zadajte platnú e-mailovú adresu."
       },
+      "walletFailed": "Wallet payment could not be completed. Please try again.",
       "weekly": "Týždenne"
     },
     "fundDonations": {
@@ -97,21 +107,57 @@
       "amount": "Suma",
       "fund": "Fond"
     },
+    "kingdomFunding": {
+      "enterBankDetails": "Enter your bank account details",
+      "enterCardDetails": "Enter card details",
+      "errorProcessingDonation": "Error processing donation",
+      "failedToInitPaymentForm": "Failed to initialize payment form",
+      "failedToLoadPaymentForm": "Failed to load payment form",
+      "failedToProcessCard": "Failed to process card. Please check your card details and try again.",
+      "failedToTokenizeCard": "Failed to tokenize card",
+      "gatewayConfigMissing": "Payment form not available. Gateway configuration missing.",
+      "loadingPaymentForm": "Loading payment form...",
+      "memo": "Memo (optional)",
+      "missingTokenizationKey": "Missing tokenization key",
+      "payWithBank": "Bank (ACH)",
+      "payWithCard": "Card",
+      "paymentFormNotAvailable": "Payment form not available",
+      "paymentFormNotInitialized": "Payment form not initialized",
+      "paymentProvider": "Poskytovateľ platieb",
+      "providerName": "Kingdom Funding",
+      "unexpectedError": "An unexpected error occurred. Please try again.",
+      "validate": {
+        "accountNumber": "Zadajte platné číslo účtu",
+        "captchaFailed": "reCAPTCHA verification failed. Please try again.",
+        "captchaRequired": "Please complete the reCAPTCHA verification",
+        "routingNumber": "Zadajte platný smerovací kód banky"
+      }
+    },
     "page": {
-      "amount": "Suma",
-      "batch": "Dávka",
-      "date": "Dátum",
-      "fund": "Fond",
-      "method": "Metóda",
-      "willAppear": "Donácie sa objavia po zadaní donácie."
+      "amount": "Amount",
+      "batch": "Batch",
+      "date": "Date",
+      "fund": "Fund",
+      "method": "Method",
+      "willAppear": "Donations will appear once a donation has been entered."
     },
     "paymentMethods": {
       "addBank": "Pridať bankový účet",
       "addCard": "Pridať kartu",
       "confirmDelete": "Ste si istí, že chcete odstrániť túto spôsob platby?",
       "deleted": "Spôsob platby odstránený.",
-      "noMethods": "Žiadne spôsoby platby. Pridajte spôsob platby, aby ste mohli darovať.",
+      "noMethod": "No Method",
       "verify": "Overiť účet"
+    },
+    "paypal": {
+      "approved": "PayPal payment approved. Choose Donate to finish your gift.",
+      "captchaRequired": "Please complete the reCAPTCHA verification"
+    },
+    "paystack": {
+      "emailRequired": "An email address is required to pay with Paystack.",
+      "paymentFailed": "Payment was not completed.",
+      "popupHint": "You'll complete payment in a secure Paystack window. Card, mobile money and bank transfer are accepted.",
+      "saveOnlyWithGift": "Payment methods are saved when you give — check \"Save this card\" while making a gift."
     },
     "preview": {
       "date": "Dátum donácie",
@@ -123,13 +169,15 @@
       "notes": "Poznámky",
       "startingOn": "Začína dňa",
       "total": "Celkom",
-      "type": "Typ donácie"
+      "type": "Typ donácie",
+      "weekly": "Weekly"
     },
     "recurring": {
       "amount": "Suma",
       "confirmPause": "Ste si istí, že chcete pozastaviť túto pravidelnú donáciu?",
       "every": "Každých",
       "interval": "Interval",
+      "noSubscriptions": "No Subscriptions",
       "notFound": "Spôsob platby nenájdený.",
       "pauseFailed": "Nepodarilo sa pozastaviť pravidelnú donáciu. Skúste to znova.",
       "pauseTooltip": "Pozastaviť pravidelnú donáciu",
@@ -183,13 +231,18 @@
       "toggleWeekday": "Prepnúť {} pre týždenné opakovanie"
     }
   },
+  "fileUpload": {
+    "file": "File",
+    "quotaExceeded": "Storage quota exceeded. Delete unused files or upgrade your storage plan.",
+    "uploadFailed": "Upload failed. Please try again."
+  },
   "formSubmissionEdit": {
     "back": "Späť",
-    "continue": "Pokračovať",
-    "stepProgress": "{current} z {total}",
     "confirmDelete": "Ste si istí, že chcete odstrániť tieto údaje formulára?",
+    "continue": "Pokračovať",
     "editForm": "Upraviť formulár",
     "isRequired": "je povinný",
+    "stepProgress": "{current} z {total}",
     "submit": "Odoslať"
   },
   "gallery": {
@@ -198,21 +251,25 @@
     "freeForm": "Voľná forma"
   },
   "iconPicker": {
-    "iconsAvailable": "dostupných ikon",
-    "matchingResults": "zhodných výsledkov",
-    "search": "Hľadať ikony..."
+    "iconsAvailable": "icons available",
+    "matchingResults": "matching results",
+    "search": "Search icons..."
   },
   "login": {
-    "createAccount": "Vytvorte účet",
+    "accountExists": "Už máte účet ChurchApps. Prihláste sa pomocou neho.",
+    "continueGoogle": "Continue with Google",
+    "continueMicrosoft": "Continue with Microsoft",
+    "createAccount": "Create an Account",
     "email": "Email",
     "enterCode": "Zadajte overovací kód",
     "enterCodeInstructions": "Zadajte 6-miestny kód, ktorý sme vám práve poslali e-mailom.",
     "expiredLink": "Aktuálny odkaz vypršal.",
     "forgot": "Zabudli ste heslo",
-    "goLogin": "Prejsť na prihlásenie",
+    "goLogin": "Go to Login",
     "login": "Prihlásiť sa",
     "noAcc": "Nemáte účet?",
     "noAccountFound": "Pre tento e-mail sa nenašiel žiadny účet. Pokračujte registráciou.",
+    "or": "or",
     "password": "Heslo",
     "register": "Registrovať sa",
     "registerThankYou": "Ďakujeme za registráciu! Skontrolujte si prosím e-mail a overte si svoj účet.",
@@ -221,7 +278,7 @@
     "reset": "Resetovať",
     "resetInstructions": "Zadajte svoju e-mailovú adresu a požiadajte o resetovanie hesla.",
     "resetPassword": "Resetovať heslo",
-    "resetSent": "E-mail na resetovanie hesla bol odoslaný!",
+    "resetSent": "Password reset email sent!",
     "setPassword": "Nastaviť heslo",
     "signIn": "Prihlásiť sa",
     "signInTitle": "Prosím prihláste sa",
@@ -243,50 +300,65 @@
   },
   "markdownEditor": {
     "content": "Obsah",
-    "markdownEditor": "Editor Markdown",
+    "markdownEditor": "Markdown Editor",
     "markdownGuide": "Sprievodca Markdown"
   },
   "month": {
-    "april": "Apríl",
+    "april": "April",
     "august": "August",
     "december": "December",
-    "february": "Február",
-    "january": "január",
-    "july": "Júl",
-    "june": "Jún",
-    "march": "Marec",
-    "may": "Máj",
+    "february": "February",
+    "january": "January",
+    "july": "July",
+    "june": "June",
+    "march": "March",
+    "may": "May",
     "november": "November",
-    "october": "Október",
+    "october": "October",
     "september": "September"
   },
   "notes": {
     "comment": "komentár",
     "comments": "komentáre",
     "notes": "Poznámky",
-    "startConversation": "Spustite rozhovor",
+    "notifyOff": "Notify Off",
+    "notifyOn": "Notify On",
+    "openFile": "Open file",
+    "startConversation": "Start a conversation",
     "validate": {
       "content": "Prosím zadajte poznámku."
     },
-    "viewAll": "Zobraziť všetky"
+    "viewAll": "View all"
   },
   "person": {
     "email": "Email",
     "firstName": "Krstné meno",
     "lastName": "Priezvisko",
     "name": "Meno",
-    "noRec": "Nemáte záznam o osobe?",
-    "person": "Osoba",
-    "years": "rokov"
+    "noRec": "Don't have a person record?",
+    "person": "Person",
+    "years": "years"
+  },
+  "question": {
+    "checkbox": "Začiarkavacie políčko",
+    "currency": "Mena",
+    "date": "Dátum",
+    "email": "E-mail",
+    "file": "Nahranie súboru",
+    "multiple": "Výber z viacerých možností",
+    "number": "Číslo",
+    "phone": "Telefón",
+    "textarea": "Textová oblasť",
+    "textbox": "Textové pole"
   },
   "reporting": {
-    "detailed": "Podrobná správa",
-    "downloadOptions": "Možnosti sťahovania",
-    "noData": "Nie sú žiadne údaje na zobrazenie.",
-    "runReport": "Spustiť správu",
-    "sampleTemplate": "Príklad šablóny Word",
-    "summary": "Zhrnutie",
-    "useFilter": "Na spustenie správy použite filter."
+    "detailed": "Detailed Report",
+    "downloadOptions": "Download Options",
+    "noData": "There is no data to display.",
+    "runReport": "Run Report",
+    "sampleTemplate": "Sample Word Template",
+    "summary": "Summary",
+    "useFilter": "Use the filter to run the report."
   },
   "selectChurch": {
     "address1": "Adresa - riadok 1",
@@ -318,22 +390,35 @@
     "discussions": "Fórum podpory",
     "documentation": "Dokumentácia"
   },
+  "validation": {
+    "date": "Zadajte platný dátum",
+    "email": "Zadajte platnú e-mailovú adresu",
+    "fileSize": "Veľkosť súboru musí byť menšia ako {} MB",
+    "fileType": "Neplatný typ súboru",
+    "maxLength": "Môže mať najviac {} znakov",
+    "minLength": "Musí mať aspoň {} znakov",
+    "number": "Zadajte platné číslo",
+    "phone": "Zadajte platné telefónne číslo",
+    "required": "Toto pole je povinné"
+  },
   "wrapper": {
-    "chatWith": "Konverzácia s",
-    "deleteChurch": "Odstrániť",
+    "chatWith": "Chat with",
+    "currentChurch": "Aktuálny zbor",
+    "deleteChurch": "Delete",
     "editAccount": "Upraviť účet",
-    "editChurchProfile": "Upraviť profil cirkvi",
+    "editChurchProfile": "Upraviť profil v zbore",
     "editProfile": "Upraviť profil",
-    "logout": "Odhlásiť sa",
-    "messages": "Správy",
+    "logout": "Logout",
+    "messages": "Messages",
     "newPrivateMessage": "Nová súkromná správa",
-    "notifications": "Oznámenia",
+    "notifications": "Notifications",
+    "privateConversation": "Private Conversation",
     "privateMessage": "Súkromná správa",
-    "profile": "Profil",
+    "profile": "Profile",
     "searchForPerson": "Hľadať osobu",
-    "support": "Podpora",
-    "sureRemoveChurch": "Ste si istí, že chcete odstrániť túto cirkev? Už nebudete členom {}.",
-    "switchApp": "Prepnúť aplikáciu",
-    "switchChurch": "Prepnúť cirkev"
+    "support": "Support",
+    "sureRemoveChurch": "Are you sure you wish to delete this church? You no longer will be a member of {}.",
+    "switchApp": "Switch App",
+    "switchChurch": "Switch Church"
   }
 }

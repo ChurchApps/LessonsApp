@@ -104,6 +104,7 @@ export const BundleList: React.FC<Props> = props => {
       ArrayHelper.getAll(resources, "bundleId", bundleId).forEach(r => {
         const resource = r;
         result.push(<Accordion
+          key={r.id}
           expanded={expandedResourceId === r.id}
           onChange={() => { setExpandedResourceId(expandedResourceId === resource.id ? "" : resource.id); }}
           elevation={0}>
@@ -441,7 +442,7 @@ export const BundleList: React.FC<Props> = props => {
 
   const createAsset = (resourceId: string) => { const resourceAssets = ArrayHelper.getAll(assets || [], "resourceId", resourceId); setEditAsset({ resourceId: resourceId, sort: resourceAssets?.length + 1 || 1 }); };
 
-  const bulkCreateAsset = (resourceId: string) => { const _resourceAssets = ArrayHelper.getAll(assets || [], "resourceId", resourceId); setBulkResourceId(resourceId); };
+  const bulkCreateAsset = (resourceId: string) => { setBulkResourceId(resourceId); };
 
   const handleAssetCallback = (asset: AssetInterface) => {
     if (asset && asset.id && !editAsset!.id) {
@@ -544,7 +545,7 @@ export const BundleList: React.FC<Props> = props => {
     );
   }
   if (editAsset) return <AssetEdit asset={editAsset} updatedCallback={handleAssetCallback} />;
-  if (bulkResourceId) return <BulkAssetAdd resourceId={bulkResourceId} updatedCallback={handleBulkAssetCallback} />;
+  if (bulkResourceId) return <BulkAssetAdd resourceId={bulkResourceId} existingCount={ArrayHelper.getAll(assets || [], "resourceId", bulkResourceId).length} updatedCallback={handleBulkAssetCallback} />;
   if (editResource) {
     return (
       <ResourceEdit

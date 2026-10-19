@@ -1,36 +1,39 @@
 {
   "b1Share": {
-    "comment": "评论",
-    "commentPlaceholder": "在您的帖子中添加评论。",
-    "contentShared": "共享内容",
-    "group": "团体",
-    "sharingToGroup": "与 B1 组共享 {}",
+    "comment": "Comment",
+    "commentPlaceholder": "Include a comment with your post.",
+    "contentShared": "Content Shared",
+    "group": "Group",
+    "sharingToGroup": "Sharing {} to B1 Group",
     "validate": {
-      "addComment": "请添加评论。",
-      "loginFirst": "请先登录。",
-      "notMember": "您当前不是 B1 上任何群组的成员。",
-      "selectGroup": "请选择一个组。"
+      "addComment": "Please add a comment.",
+      "loginFirst": "Please login first.",
+      "notMember": "You are not currently a member of any groups on B1.",
+      "selectGroup": "Please select a group."
     }
   },
   "common": {
-    "add": "添加",
+    "add": "Add",
     "cancel": "取消",
     "close": "关闭",
-    "date": "日期",
+    "date": "Date",
     "delete": "删除",
-    "edit": "编辑",
-    "error": "错误",
+    "edit": "Edit",
+    "error": "Error",
+    "optional": "可选",
     "pleaseWait": "请稍等...",
+    "remove": "移除",
+    "required": "必填",
     "save": "节省",
     "search": "搜索",
-    "submit": "提交",
+    "submit": "Submit",
     "update": "更新"
   },
   "createPerson": {
-    "addNewPerson": "添加新人",
-    "email": "电子邮件",
-    "firstName": "名",
-    "lastName": "姓"
+    "addNewPerson": "Add a New Person",
+    "email": "Email",
+    "firstName": "First Name",
+    "lastName": "Last Name"
   },
   "donation": {
     "bankForm": {
@@ -38,7 +41,7 @@
       "added": "银行账户已添加。",
       "company": "公司",
       "firstDeposit": "首次存款",
-      "holderName": "帐户持有人姓名为必填项。",
+      "holderName": "Account holder name is required.",
       "individual": "个人",
       "name": "账户持有人姓名",
       "needVerified": "在进行任何捐赠之前，需要验证银行账户。",
@@ -59,8 +62,13 @@
       "expirationYear": "到期年份：",
       "updated": "卡更新成功。"
     },
+    "common": {
+      "cancel": "Cancel",
+      "error": "Error"
+    },
     "donationForm": {
       "annually": "每年",
+      "anonymous": "Give anonymously (one-time gifts only)",
       "biWeekly": "双周刊",
       "cancelled": "经常性捐款已取消。",
       "confirmDelete": "您确定要删除此定期捐赠吗？",
@@ -75,7 +83,8 @@
       "makeRecurring": "定期捐款",
       "method": "方法",
       "monthly": "每月",
-      "notes": "笔记",
+      "notes": "Notes",
+      "orPayWith": "Or pay with",
       "preview": "预览捐赠",
       "quarterly": "季刊",
       "recurringUpdated": "经常性捐款已更新。",
@@ -90,6 +99,7 @@
         "lastName": "请输入您的姓氏。",
         "validEmail": "请输入有效的电子邮件地址。"
       },
+      "walletFailed": "Wallet payment could not be completed. Please try again.",
       "weekly": "每周"
     },
     "fundDonations": {
@@ -97,21 +107,57 @@
       "amount": "数量",
       "fund": "基金"
     },
+    "kingdomFunding": {
+      "enterBankDetails": "Enter your bank account details",
+      "enterCardDetails": "Enter card details",
+      "errorProcessingDonation": "Error processing donation",
+      "failedToInitPaymentForm": "Failed to initialize payment form",
+      "failedToLoadPaymentForm": "Failed to load payment form",
+      "failedToProcessCard": "Failed to process card. Please check your card details and try again.",
+      "failedToTokenizeCard": "Failed to tokenize card",
+      "gatewayConfigMissing": "Payment form not available. Gateway configuration missing.",
+      "loadingPaymentForm": "Loading payment form...",
+      "memo": "Memo (optional)",
+      "missingTokenizationKey": "Missing tokenization key",
+      "payWithBank": "Bank (ACH)",
+      "payWithCard": "Card",
+      "paymentFormNotAvailable": "Payment form not available",
+      "paymentFormNotInitialized": "Payment form not initialized",
+      "paymentProvider": "支付提供商",
+      "providerName": "Kingdom Funding",
+      "unexpectedError": "An unexpected error occurred. Please try again.",
+      "validate": {
+        "accountNumber": "请输入有效的账号",
+        "captchaFailed": "reCAPTCHA verification failed. Please try again.",
+        "captchaRequired": "Please complete the reCAPTCHA verification",
+        "routingNumber": "请输入有效的银行路由号码"
+      }
+    },
     "page": {
-      "amount": "数量",
-      "batch": "批",
-      "date": "日期",
-      "fund": "基金",
-      "method": "方法",
-      "willAppear": "一旦输入捐款，捐款就会出现。"
+      "amount": "Amount",
+      "batch": "Batch",
+      "date": "Date",
+      "fund": "Fund",
+      "method": "Method",
+      "willAppear": "Donations will appear once a donation has been entered."
     },
     "paymentMethods": {
       "addBank": "添加银行账户",
       "addCard": "添加卡",
       "confirmDelete": "您确定要删除此付款方式吗？",
       "deleted": "付款方式已删除。",
-      "noMethods": "没有付款方式。  ",
+      "noMethod": "No Method",
       "verify": "验证账户"
+    },
+    "paypal": {
+      "approved": "PayPal payment approved. Choose Donate to finish your gift.",
+      "captchaRequired": "Please complete the reCAPTCHA verification"
+    },
+    "paystack": {
+      "emailRequired": "An email address is required to pay with Paystack.",
+      "paymentFailed": "Payment was not completed.",
+      "popupHint": "You'll complete payment in a secure Paystack window. Card, mobile money and bank transfer are accepted.",
+      "saveOnlyWithGift": "Payment methods are saved when you give — check \"Save this card\" while making a gift."
     },
     "preview": {
       "date": "捐赠日期",
@@ -123,13 +169,15 @@
       "notes": "笔记",
       "startingOn": "开始于",
       "total": "全部的",
-      "type": "捐赠类型"
+      "type": "捐赠类型",
+      "weekly": "Weekly"
     },
     "recurring": {
       "amount": "数量",
       "confirmPause": "您确定要暂停此定期捐赠吗？",
       "every": "每一个",
       "interval": "间隔",
+      "noSubscriptions": "No Subscriptions",
       "notFound": "未找到付款方式。",
       "pauseFailed": "暂停定期捐赠失败。请重试。",
       "pauseTooltip": "暂停定期捐赠",
@@ -183,13 +231,18 @@
       "toggleWeekday": "切换 {} 用于每周重复"
     }
   },
+  "fileUpload": {
+    "file": "File",
+    "quotaExceeded": "Storage quota exceeded. Delete unused files or upgrade your storage plan.",
+    "uploadFailed": "Upload failed. Please try again."
+  },
   "formSubmissionEdit": {
     "back": "返回",
-    "continue": "继续",
-    "stepProgress": "{current} / {total}",
     "confirmDelete": "您确定要删除此表单数据吗？",
+    "continue": "继续",
     "editForm": "编辑表格",
     "isRequired": "是必须的",
+    "stepProgress": "{current} / {total}",
     "submit": "提交"
   },
   "gallery": {
@@ -198,21 +251,25 @@
     "freeForm": "自由形式"
   },
   "iconPicker": {
-    "iconsAvailable": "可用图标",
-    "matchingResults": "匹配结果",
-    "search": "搜索图标..."
+    "iconsAvailable": "icons available",
+    "matchingResults": "matching results",
+    "search": "Search icons..."
   },
   "login": {
-    "createAccount": "创建一个帐户",
+    "accountExists": "您已拥有 ChurchApps 账户。请改用该账户登录。",
+    "continueGoogle": "Continue with Google",
+    "continueMicrosoft": "Continue with Microsoft",
+    "createAccount": "Create an Account",
     "email": "电子邮件",
     "enterCode": "输入验证码",
     "enterCodeInstructions": "输入我们刚刚通过电子邮件发送给您的6位数代码。",
     "expiredLink": "当前链接已过期。",
     "forgot": "忘记密码",
-    "goLogin": "前往登录",
+    "goLogin": "Go to Login",
     "login": "登录",
     "noAcc": "没有账户？",
     "noAccountFound": "未找到该电子邮件对应的账户。请注册以继续。",
+    "or": "or",
     "password": "密码",
     "register": "登记",
     "registerThankYou": "感谢您注册！",
@@ -221,7 +278,7 @@
     "reset": "重置",
     "resetInstructions": "输入您的电子邮件地址以请求重置密码。",
     "resetPassword": "重设密码",
-    "resetSent": "密码重置电子邮件已发送！",
+    "resetSent": "Password reset email sent!",
     "setPassword": "设置密码",
     "signIn": "登入",
     "signInTitle": "请登录",
@@ -243,50 +300,65 @@
   },
   "markdownEditor": {
     "content": "内容",
-    "markdownEditor": "降价编辑器",
+    "markdownEditor": "Markdown Editor",
     "markdownGuide": "降价指南"
   },
   "month": {
-    "april": "四月",
-    "august": "八月",
-    "december": "十二月",
-    "february": "二月",
-    "january": "一月",
-    "july": "七月",
-    "june": "六月",
-    "march": "行进",
-    "may": "可能",
-    "november": "十一月",
-    "october": "十月",
-    "september": "九月"
+    "april": "April",
+    "august": "August",
+    "december": "December",
+    "february": "February",
+    "january": "January",
+    "july": "July",
+    "june": "June",
+    "march": "March",
+    "may": "May",
+    "november": "November",
+    "october": "October",
+    "september": "September"
   },
   "notes": {
     "comment": "评论",
     "comments": "评论",
     "notes": "笔记",
-    "startConversation": "开始对话",
+    "notifyOff": "Notify Off",
+    "notifyOn": "Notify On",
+    "openFile": "Open file",
+    "startConversation": "Start a conversation",
     "validate": {
       "content": "请输入注释。"
     },
-    "viewAll": "查看全部"
+    "viewAll": "View all"
   },
   "person": {
     "email": "电子邮件",
     "firstName": "名",
     "lastName": "姓",
     "name": "姓名",
-    "noRec": "没有个人记录？",
-    "person": "人",
-    "years": "年"
+    "noRec": "Don't have a person record?",
+    "person": "Person",
+    "years": "years"
+  },
+  "question": {
+    "checkbox": "复选框",
+    "currency": "货币",
+    "date": "日期",
+    "email": "电子邮件",
+    "file": "文件上传",
+    "multiple": "多项选择",
+    "number": "数字",
+    "phone": "电话",
+    "textarea": "文本区域",
+    "textbox": "文本框"
   },
   "reporting": {
-    "detailed": "详细报告",
-    "downloadOptions": "下载选项",
-    "noData": "没有数据可显示。",
-    "runReport": "运行报告",
-    "sampleTemplate": "示例 Word 模板",
-    "summary": "摘要",
-    "useFilter": "使用过滤器运行报告。"
+    "detailed": "Detailed Report",
+    "downloadOptions": "Download Options",
+    "noData": "There is no data to display.",
+    "runReport": "Run Report",
+    "sampleTemplate": "Sample Word Template",
+    "summary": "Summary",
+    "useFilter": "Use the filter to run the report."
   },
   "selectChurch": {
     "address1": "地址第一行",
@@ -318,22 +390,35 @@
     "discussions": "支持论坛",
     "documentation": "文档"
   },
+  "validation": {
+    "date": "请输入有效的日期",
+    "email": "请输入有效的电子邮件地址",
+    "fileSize": "文件大小必须小于 {} MB",
+    "fileType": "文件类型无效",
+    "maxLength": "长度不能超过 {} 个字符",
+    "minLength": "长度至少为 {} 个字符",
+    "number": "请输入有效的数字",
+    "phone": "请输入有效的电话号码",
+    "required": "此字段为必填项"
+  },
   "wrapper": {
-    "chatWith": "和...聊天",
-    "deleteChurch": "从列表中删除教堂",
+    "chatWith": "Chat with",
+    "currentChurch": "当前教会",
+    "deleteChurch": "Delete",
     "editAccount": "编辑账户",
     "editChurchProfile": "编辑教会资料",
     "editProfile": "编辑个人资料",
-    "logout": "登出",
-    "messages": "消息",
+    "logout": "Logout",
+    "messages": "Messages",
     "newPrivateMessage": "新私信",
-    "notifications": "通知",
+    "notifications": "Notifications",
+    "privateConversation": "Private Conversation",
     "privateMessage": "私人信息",
-    "profile": "轮廓",
+    "profile": "Profile",
     "searchForPerson": "寻找一个人",
-    "support": "支持",
-    "sureRemoveChurch": "您确定要从列表中删除 {} 吗？",
-    "switchApp": "切换应用程序",
-    "switchChurch": "开关教堂"
+    "support": "Support",
+    "sureRemoveChurch": "Are you sure you wish to delete this church? You no longer will be a member of {}.",
+    "switchApp": "Switch App",
+    "switchChurch": "Switch Church"
   }
 }

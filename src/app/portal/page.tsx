@@ -2,7 +2,9 @@
 
 import { useState } from "react";
 import { Box, Grid, Paper } from "@mui/material";
-import { ClassroomList, HomeConnect, ScheduleList } from "@/components";
+import { HomeConnect } from "@/components";
+import { ClassroomList } from "@/components/portal/ClassroomList";
+import { ScheduleList } from "@/components/portal/ScheduleList";
 import { Wrapper } from "@/components/Wrapper";
 import { PageHeader } from "@churchapps/apphelper";
 import { PlaylistFeed } from "@/components/portal/PlaylistFeed";

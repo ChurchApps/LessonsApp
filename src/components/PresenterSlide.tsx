@@ -4,7 +4,6 @@ import { PlaylistFileInterface } from "@/helpers";
 interface Props { file: PlaylistFileInterface; }
 
 export function PresenterSlide(props: Props) {
-  if (!props.file) return null;
   const videoRef = useRef<HTMLVideoElement>(null);
 
   useEffect(() => {
@@ -12,6 +11,8 @@ export function PresenterSlide(props: Props) {
     videoRef.current.load();
     videoRef.current.play().catch(() => null);
   }, [props.file?.url]);
+
+  if (!props.file) return null;
 
   let result = (
     <img

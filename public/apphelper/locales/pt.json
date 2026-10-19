@@ -1,36 +1,39 @@
 {
   "b1Share": {
-    "comment": "Comente",
-    "commentPlaceholder": "Inclua um comentário em sua postagem.",
-    "contentShared": "Conteúdo compartilhado",
-    "group": "Grupo",
-    "sharingToGroup": "Compartilhando {} com o grupo B1",
+    "comment": "Comment",
+    "commentPlaceholder": "Include a comment with your post.",
+    "contentShared": "Content Shared",
+    "group": "Group",
+    "sharingToGroup": "Sharing {} to B1 Group",
     "validate": {
-      "addComment": "Por favor, adicione um comentário.",
-      "loginFirst": "Faça login primeiro.",
-      "notMember": "Atualmente você não é membro de nenhum grupo no B1.",
-      "selectGroup": "Selecione um grupo."
+      "addComment": "Please add a comment.",
+      "loginFirst": "Please login first.",
+      "notMember": "You are not currently a member of any groups on B1.",
+      "selectGroup": "Please select a group."
     }
   },
   "common": {
-    "add": "Adicionar",
+    "add": "Add",
     "cancel": "Cancelar",
     "close": "Fechar",
-    "date": "Data",
+    "date": "Date",
     "delete": "Excluir",
-    "edit": "Editar",
-    "error": "Erro",
+    "edit": "Edit",
+    "error": "Error",
+    "optional": "Opcional",
     "pleaseWait": "Por favor, aguarde...",
+    "remove": "Remover",
+    "required": "Obrigatório",
     "save": "Salvar",
     "search": "Procurar",
-    "submit": "Enviar",
+    "submit": "Submit",
     "update": "Atualizar"
   },
   "createPerson": {
-    "addNewPerson": "Adicionar uma nova pessoa",
-    "email": "E-mail",
-    "firstName": "Primeiro nome",
-    "lastName": "Sobrenome"
+    "addNewPerson": "Add a New Person",
+    "email": "Email",
+    "firstName": "First Name",
+    "lastName": "Last Name"
   },
   "donation": {
     "bankForm": {
@@ -38,7 +41,7 @@
       "added": "Conta bancária adicionada. ",
       "company": "Empresa",
       "firstDeposit": "Primeiro Depósito",
-      "holderName": "O nome do titular da conta é obrigatório.",
+      "holderName": "Account holder name is required.",
       "individual": "Individual",
       "name": "nome do titular da conta",
       "needVerified": "As contas bancárias precisarão ser verificadas antes de fazer qualquer doação. ",
@@ -59,8 +62,13 @@
       "expirationYear": "Ano de expiração:",
       "updated": "Cartão atualizado com sucesso."
     },
+    "common": {
+      "cancel": "Cancel",
+      "error": "Error"
+    },
     "donationForm": {
       "annually": "Anualmente",
+      "anonymous": "Give anonymously (one-time gifts only)",
       "biWeekly": "Quinzenal",
       "cancelled": "Doação recorrente cancelada.",
       "confirmDelete": "Tem certeza de que deseja excluir esta doação recorrente?",
@@ -75,7 +83,8 @@
       "makeRecurring": "Faça uma doação recorrente",
       "method": "Método",
       "monthly": "Por mês",
-      "notes": "Notas",
+      "notes": "Notes",
+      "orPayWith": "Or pay with",
       "preview": "Visualizar doação",
       "quarterly": "Trimestral",
       "recurringUpdated": "Doação recorrente atualizada.",
@@ -90,6 +99,7 @@
         "lastName": "Por favor insira seu sobrenome.",
         "validEmail": "Por favor insira um endereço de e-mail válido."
       },
+      "walletFailed": "Wallet payment could not be completed. Please try again.",
       "weekly": "Semanalmente"
     },
     "fundDonations": {
@@ -97,21 +107,57 @@
       "amount": "Quantia",
       "fund": "Fundo"
     },
+    "kingdomFunding": {
+      "enterBankDetails": "Enter your bank account details",
+      "enterCardDetails": "Enter card details",
+      "errorProcessingDonation": "Error processing donation",
+      "failedToInitPaymentForm": "Failed to initialize payment form",
+      "failedToLoadPaymentForm": "Failed to load payment form",
+      "failedToProcessCard": "Failed to process card. Please check your card details and try again.",
+      "failedToTokenizeCard": "Failed to tokenize card",
+      "gatewayConfigMissing": "Payment form not available. Gateway configuration missing.",
+      "loadingPaymentForm": "Loading payment form...",
+      "memo": "Memo (optional)",
+      "missingTokenizationKey": "Missing tokenization key",
+      "payWithBank": "Bank (ACH)",
+      "payWithCard": "Card",
+      "paymentFormNotAvailable": "Payment form not available",
+      "paymentFormNotInitialized": "Payment form not initialized",
+      "paymentProvider": "Provedor de pagamento",
+      "providerName": "Kingdom Funding",
+      "unexpectedError": "An unexpected error occurred. Please try again.",
+      "validate": {
+        "accountNumber": "Insira um número de conta válido",
+        "captchaFailed": "reCAPTCHA verification failed. Please try again.",
+        "captchaRequired": "Please complete the reCAPTCHA verification",
+        "routingNumber": "Insira um número de roteamento bancário válido"
+      }
+    },
     "page": {
-      "amount": "Quantia",
-      "batch": "Lote",
-      "date": "Data",
-      "fund": "Fundo",
-      "method": "Método",
-      "willAppear": "As doações aparecerão assim que uma doação for inserida."
+      "amount": "Amount",
+      "batch": "Batch",
+      "date": "Date",
+      "fund": "Fund",
+      "method": "Method",
+      "willAppear": "Donations will appear once a donation has been entered."
     },
     "paymentMethods": {
       "addBank": "Adicionar conta bancária",
       "addCard": "Adicionar cartão",
       "confirmDelete": "Tem certeza de que deseja excluir esta forma de pagamento?",
       "deleted": "Forma de pagamento excluída.",
-      "noMethods": "Sem métodos de pagamento.  ",
+      "noMethod": "No Method",
       "verify": "Verificar conta"
+    },
+    "paypal": {
+      "approved": "PayPal payment approved. Choose Donate to finish your gift.",
+      "captchaRequired": "Please complete the reCAPTCHA verification"
+    },
+    "paystack": {
+      "emailRequired": "An email address is required to pay with Paystack.",
+      "paymentFailed": "Payment was not completed.",
+      "popupHint": "You'll complete payment in a secure Paystack window. Card, mobile money and bank transfer are accepted.",
+      "saveOnlyWithGift": "Payment methods are saved when you give — check \"Save this card\" while making a gift."
     },
     "preview": {
       "date": "Data da Doação",
@@ -123,13 +169,15 @@
       "notes": "Notas",
       "startingOn": "Começando",
       "total": "Total",
-      "type": "Tipo de doação"
+      "type": "Tipo de doação",
+      "weekly": "Weekly"
     },
     "recurring": {
       "amount": "Quantia",
       "confirmPause": "Tem certeza de que deseja pausar esta doação recorrente?",
       "every": "Todo",
       "interval": "Intervalo",
+      "noSubscriptions": "No Subscriptions",
       "notFound": "Forma de pagamento não encontrada.",
       "pauseFailed": "Falha ao pausar a doação recorrente. Por favor, tente novamente.",
       "pauseTooltip": "Pausar doação recorrente",
@@ -183,13 +231,18 @@
       "toggleWeekday": "Alternar {} para recorrência semanal"
     }
   },
+  "fileUpload": {
+    "file": "File",
+    "quotaExceeded": "Storage quota exceeded. Delete unused files or upgrade your storage plan.",
+    "uploadFailed": "Upload failed. Please try again."
+  },
   "formSubmissionEdit": {
     "back": "Voltar",
-    "continue": "Continuar",
-    "stepProgress": "{current} de {total}",
     "confirmDelete": "Tem certeza de que deseja excluir os dados deste formulário?",
+    "continue": "Continuar",
     "editForm": "Editar formulário",
     "isRequired": "é necessário",
+    "stepProgress": "{current} de {total}",
     "submit": "Enviar"
   },
   "gallery": {
@@ -198,21 +251,25 @@
     "freeForm": "Forma livre"
   },
   "iconPicker": {
-    "iconsAvailable": "ícones disponíveis",
-    "matchingResults": "resultados correspondentes",
-    "search": "Pesquisar ícones..."
+    "iconsAvailable": "icons available",
+    "matchingResults": "matching results",
+    "search": "Search icons..."
   },
   "login": {
-    "createAccount": "Crie a sua conta aqui",
+    "accountExists": "Você já tem uma conta ChurchApps. Faça login com ela.",
+    "continueGoogle": "Continue with Google",
+    "continueMicrosoft": "Continue with Microsoft",
+    "createAccount": "Create an Account",
     "email": "E-mail",
     "enterCode": "Digite o código de verificação",
     "enterCodeInstructions": "Digite o código de 6 dígitos que acabamos de enviar por e-mail.",
     "expiredLink": "O link atual expirou.",
     "forgot": "Esqueceu sua senha",
-    "goLogin": "Vá para Entrar",
+    "goLogin": "Go to Login",
     "login": "Conecte-se",
     "noAcc": "Não tem uma conta?",
     "noAccountFound": "Nenhuma conta foi encontrada com esse e-mail. Por favor, registre-se para continuar.",
+    "or": "or",
     "password": "Senha",
     "register": "Registro",
     "registerThankYou": "Obrigado por se registrar! ",
@@ -221,7 +278,7 @@
     "reset": "Reiniciar",
     "resetInstructions": "Digite seu endereço de e-mail para solicitar uma redefinição de senha.",
     "resetPassword": "Redefinir senha",
-    "resetSent": "E-mail de redefinição de senha enviado!",
+    "resetSent": "Password reset email sent!",
     "setPassword": "Configurar senha",
     "signIn": "Entrar",
     "signInTitle": "Por favor, inscreva-se",
@@ -243,50 +300,65 @@
   },
   "markdownEditor": {
     "content": "Contente",
-    "markdownEditor": "Editor de redução",
+    "markdownEditor": "Markdown Editor",
     "markdownGuide": "Guia de redução"
   },
   "month": {
-    "april": "abril",
-    "august": "Agosto",
-    "december": "dezembro",
-    "february": "Fevereiro",
-    "january": "Janeiro",
-    "july": "Julho",
-    "june": "Junho",
-    "march": "Marchar",
-    "may": "Poderia",
-    "november": "novembro",
-    "october": "Outubro",
-    "september": "Setembro"
+    "april": "April",
+    "august": "August",
+    "december": "December",
+    "february": "February",
+    "january": "January",
+    "july": "July",
+    "june": "June",
+    "march": "March",
+    "may": "May",
+    "november": "November",
+    "october": "October",
+    "september": "September"
   },
   "notes": {
     "comment": "Comente",
     "comments": "comentários",
     "notes": "Notas",
-    "startConversation": "Inicie uma conversa",
+    "notifyOff": "Notify Off",
+    "notifyOn": "Notify On",
+    "openFile": "Open file",
+    "startConversation": "Start a conversation",
     "validate": {
       "content": "Por favor, insira uma observação."
     },
-    "viewAll": "Ver tudo"
+    "viewAll": "View all"
   },
   "person": {
     "email": "E-mail",
     "firstName": "Primeiro nome",
     "lastName": "Sobrenome",
     "name": "Nome",
-    "noRec": "Não tem um registro de pessoa?",
-    "person": "Pessoa",
-    "years": "anos"
+    "noRec": "Don't have a person record?",
+    "person": "Person",
+    "years": "years"
+  },
+  "question": {
+    "checkbox": "Caixa de seleção",
+    "currency": "Moeda",
+    "date": "Data",
+    "email": "E-mail",
+    "file": "Envio de arquivo",
+    "multiple": "Múltipla escolha",
+    "number": "Número",
+    "phone": "Telefone",
+    "textarea": "Área de texto",
+    "textbox": "Caixa de texto"
   },
   "reporting": {
-    "detailed": "Relatório detalhado",
-    "downloadOptions": "Opções de download",
-    "noData": "Não há dados para exibir.",
-    "runReport": "Executar relatório",
-    "sampleTemplate": "Modelo Word de exemplo",
-    "summary": "Resumo",
-    "useFilter": "Use o filtro para gerar o relatório."
+    "detailed": "Detailed Report",
+    "downloadOptions": "Download Options",
+    "noData": "There is no data to display.",
+    "runReport": "Run Report",
+    "sampleTemplate": "Sample Word Template",
+    "summary": "Summary",
+    "useFilter": "Use the filter to run the report."
   },
   "selectChurch": {
     "address1": "Endereço Linha 1",
@@ -318,22 +390,35 @@
     "discussions": "Fórum de suporte",
     "documentation": "Documentação"
   },
+  "validation": {
+    "date": "Insira uma data válida",
+    "email": "Insira um endereço de e-mail válido",
+    "fileSize": "O tamanho do arquivo deve ser menor que {} MB",
+    "fileType": "Tipo de arquivo inválido",
+    "maxLength": "Deve ter no máximo {} caracteres",
+    "minLength": "Deve ter pelo menos {} caracteres",
+    "number": "Insira um número válido",
+    "phone": "Insira um número de telefone válido",
+    "required": "Este campo é obrigatório"
+  },
   "wrapper": {
-    "chatWith": "Conversar com",
-    "deleteChurch": "Excluir igreja da lista",
-    "editAccount": "Editar Conta",
-    "editChurchProfile": "Editar Perfil da Igreja",
-    "editProfile": "Editar Perfil",
-    "logout": "Sair",
-    "messages": "Mensagens",
+    "chatWith": "Chat with",
+    "currentChurch": "Igreja atual",
+    "deleteChurch": "Delete",
+    "editAccount": "Editar conta",
+    "editChurchProfile": "Editar perfil da igreja",
+    "editProfile": "Editar perfil",
+    "logout": "Logout",
+    "messages": "Messages",
     "newPrivateMessage": "Nova Mensagem Privada",
-    "notifications": "Notificações",
+    "notifications": "Notifications",
+    "privateConversation": "Private Conversation",
     "privateMessage": "Mensagem privada",
-    "profile": "Perfil",
+    "profile": "Profile",
     "searchForPerson": "Procure uma pessoa",
-    "support": "Apoiar",
-    "sureRemoveChurch": "Tem certeza de que deseja excluir {} da lista?",
-    "switchApp": "Trocar de aplicativo",
-    "switchChurch": "Mudar de Igreja"
+    "support": "Support",
+    "sureRemoveChurch": "Are you sure you wish to delete this church? You no longer will be a member of {}.",
+    "switchApp": "Switch App",
+    "switchChurch": "Switch Church"
   }
 }

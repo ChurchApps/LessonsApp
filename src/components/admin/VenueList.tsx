@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { Box, Button, CircularProgress, IconButton, List, ListItem, ListItemButton, ListItemIcon, ListItemText, Paper, Stack, Typography } from "@mui/material";
 import { LocationOn as LocationIcon, Add as AddIcon, Edit as EditIcon } from "@mui/icons-material";
 import { ApiHelper, VenueInterface } from "@/helpers";
-import { VenueEdit } from "../index";
+import { VenueEdit } from "./VenueEdit";
 
 interface Props { lessonId: string; }
 

@@ -14,7 +14,7 @@ import {
 } from "@mui/material";
 import { Loading } from "@churchapps/apphelper";
 import { ApiHelper, ClassroomInterface } from "@/helpers";
-import { ClassroomEdit } from "../index";
+import { ClassroomEdit } from "./ClassroomEdit";
 
 interface Props { classroomSelected: (classroomId: string) => void; showFeed: (classroomId: string) => void; }
 

@@ -1,36 +1,39 @@
 {
   "b1Share": {
-    "comment": "टिप्पणी",
-    "commentPlaceholder": "अपनी पोस्ट के साथ एक टिप्पणी शामिल करें.",
-    "contentShared": "सामग्री साझा की गई",
-    "group": "समूह",
-    "sharingToGroup": "{} को बी1 समूह में साझा करना",
+    "comment": "Comment",
+    "commentPlaceholder": "Include a comment with your post.",
+    "contentShared": "Content Shared",
+    "group": "Group",
+    "sharingToGroup": "Sharing {} to B1 Group",
     "validate": {
-      "addComment": "कृपया एक टिप्पणी जोड़ें.",
-      "loginFirst": "कृपया पहले लौग इन करें।",
-      "notMember": "आप वर्तमान में B1 पर किसी भी समूह के सदस्य नहीं हैं।",
-      "selectGroup": "कृपया एक समूह चुनें."
+      "addComment": "Please add a comment.",
+      "loginFirst": "Please login first.",
+      "notMember": "You are not currently a member of any groups on B1.",
+      "selectGroup": "Please select a group."
     }
   },
   "common": {
-    "add": "जोड़ना",
+    "add": "Add",
     "cancel": "रद्द करना",
     "close": "बंद करना",
-    "date": "तारीख",
+    "date": "Date",
     "delete": "मिटाना",
-    "edit": "संपादन करना",
-    "error": "गलती",
+    "edit": "Edit",
+    "error": "Error",
+    "optional": "वैकल्पिक",
     "pleaseWait": "कृपया प्रतीक्षा करें...",
+    "remove": "हटाएं",
+    "required": "आवश्यक",
     "save": "बचाना",
     "search": "खोज",
-    "submit": "जमा करना",
+    "submit": "Submit",
     "update": "अद्यतन"
   },
   "createPerson": {
-    "addNewPerson": "एक नया व्यक्ति जोड़ें",
-    "email": "ईमेल",
-    "firstName": "पहला नाम",
-    "lastName": "उपनाम"
+    "addNewPerson": "Add a New Person",
+    "email": "Email",
+    "firstName": "First Name",
+    "lastName": "Last Name"
   },
   "donation": {
     "bankForm": {
@@ -38,7 +41,7 @@
       "added": "बैंक खाता जोड़ा गया. ",
       "company": "कंपनी",
       "firstDeposit": "पहला जमा",
-      "holderName": "खाताधारक का नाम आवश्यक है.",
+      "holderName": "Account holder name is required.",
       "individual": "व्यक्ति",
       "name": "खाता धारक का नाम",
       "needVerified": "कोई भी दान देने से पहले बैंक खातों को सत्यापित करना होगा। ",
@@ -59,8 +62,13 @@
       "expirationYear": "समाप्ति वर्ष:",
       "updated": "कार्ड सफलतापूर्वक अपडेट किया गया."
     },
+    "common": {
+      "cancel": "Cancel",
+      "error": "Error"
+    },
     "donationForm": {
       "annually": "हर साल",
+      "anonymous": "Give anonymously (one-time gifts only)",
       "biWeekly": "द्वि-साप्ताहिक",
       "cancelled": "आवर्ती दान रद्द कर दिया गया.",
       "confirmDelete": "क्या आप वाकई इस आवर्ती दान को हटाना चाहते हैं?",
@@ -75,7 +83,8 @@
       "makeRecurring": "आवर्ती दान करें",
       "method": "तरीका",
       "monthly": "महीने के",
-      "notes": "टिप्पणियाँ",
+      "notes": "Notes",
+      "orPayWith": "Or pay with",
       "preview": "दान का पूर्वावलोकन करें",
       "quarterly": "त्रैमासिक",
       "recurringUpdated": "आवर्ती दान अद्यतन किया गया।",
@@ -90,6 +99,7 @@
         "lastName": "कृपया अपना अंतिम नाम दर्ज करें।",
         "validEmail": "कृपया एक मान्य ईमेल पता प्रविष्ट करें।"
       },
+      "walletFailed": "Wallet payment could not be completed. Please try again.",
       "weekly": "साप्ताहिक"
     },
     "fundDonations": {
@@ -97,21 +107,57 @@
       "amount": "मात्रा",
       "fund": "निधि"
     },
+    "kingdomFunding": {
+      "enterBankDetails": "Enter your bank account details",
+      "enterCardDetails": "Enter card details",
+      "errorProcessingDonation": "Error processing donation",
+      "failedToInitPaymentForm": "Failed to initialize payment form",
+      "failedToLoadPaymentForm": "Failed to load payment form",
+      "failedToProcessCard": "Failed to process card. Please check your card details and try again.",
+      "failedToTokenizeCard": "Failed to tokenize card",
+      "gatewayConfigMissing": "Payment form not available. Gateway configuration missing.",
+      "loadingPaymentForm": "Loading payment form...",
+      "memo": "Memo (optional)",
+      "missingTokenizationKey": "Missing tokenization key",
+      "payWithBank": "Bank (ACH)",
+      "payWithCard": "Card",
+      "paymentFormNotAvailable": "Payment form not available",
+      "paymentFormNotInitialized": "Payment form not initialized",
+      "paymentProvider": "भुगतान प्रदाता",
+      "providerName": "Kingdom Funding",
+      "unexpectedError": "An unexpected error occurred. Please try again.",
+      "validate": {
+        "accountNumber": "कृपया एक मान्य खाता संख्या दर्ज करें",
+        "captchaFailed": "reCAPTCHA verification failed. Please try again.",
+        "captchaRequired": "Please complete the reCAPTCHA verification",
+        "routingNumber": "कृपया एक मान्य बैंक रूटिंग नंबर दर्ज करें"
+      }
+    },
     "page": {
-      "amount": "मात्रा",
-      "batch": "बैच",
-      "date": "तारीख",
-      "fund": "निधि",
-      "method": "तरीका",
-      "willAppear": "दान दर्ज करने के बाद दान दिखाई देगा।"
+      "amount": "Amount",
+      "batch": "Batch",
+      "date": "Date",
+      "fund": "Fund",
+      "method": "Method",
+      "willAppear": "Donations will appear once a donation has been entered."
     },
     "paymentMethods": {
       "addBank": "बैंक खाता जोड़ें",
       "addCard": "कार्ड जोड़ें",
       "confirmDelete": "क्या आप वाकई इस भुगतान विधि को हटाना चाहते हैं?",
       "deleted": "भुगतान विधि हटा दी गई.",
-      "noMethods": "कोई भुगतान विधि नहीं.  ",
+      "noMethod": "No Method",
       "verify": "खाता सत्यापित करें"
+    },
+    "paypal": {
+      "approved": "PayPal payment approved. Choose Donate to finish your gift.",
+      "captchaRequired": "Please complete the reCAPTCHA verification"
+    },
+    "paystack": {
+      "emailRequired": "An email address is required to pay with Paystack.",
+      "paymentFailed": "Payment was not completed.",
+      "popupHint": "You'll complete payment in a secure Paystack window. Card, mobile money and bank transfer are accepted.",
+      "saveOnlyWithGift": "Payment methods are saved when you give — check \"Save this card\" while making a gift."
     },
     "preview": {
       "date": "दान तिथि",
@@ -123,13 +169,15 @@
       "notes": "टिप्पणियाँ",
       "startingOn": "शुरू",
       "total": "कुल",
-      "type": "दान का प्रकार"
+      "type": "दान का प्रकार",
+      "weekly": "Weekly"
     },
     "recurring": {
       "amount": "मात्रा",
       "confirmPause": "क्या आप वाकई इस आवर्ती दान को रोकना चाहते हैं?",
       "every": "प्रत्येक",
       "interval": "मध्यान्तर",
+      "noSubscriptions": "No Subscriptions",
       "notFound": "भुगतान विधि नहीं मिली.",
       "pauseFailed": "आवर्ती दान रोकने में विफल। कृपया पुनः प्रयास करें।",
       "pauseTooltip": "आवर्ती दान रोकें",
@@ -183,13 +231,18 @@
       "toggleWeekday": "साप्ताहिक पुनरावृत्ति के लिए {} टॉगल करें"
     }
   },
+  "fileUpload": {
+    "file": "File",
+    "quotaExceeded": "Storage quota exceeded. Delete unused files or upgrade your storage plan.",
+    "uploadFailed": "Upload failed. Please try again."
+  },
   "formSubmissionEdit": {
     "back": "वापस",
-    "continue": "जारी रखें",
-    "stepProgress": "{total} में से {current}",
     "confirmDelete": "क्या आप वाकई इस फ़ॉर्म डेटा को हटाना चाहते हैं?",
+    "continue": "जारी रखें",
     "editForm": "प्रपत्र संपादित करें",
     "isRequired": "आवश्यक है",
+    "stepProgress": "{total} में से {current}",
     "submit": "जमा करना"
   },
   "gallery": {
@@ -198,21 +251,25 @@
     "freeForm": "मुफ्त फॉर्म"
   },
   "iconPicker": {
-    "iconsAvailable": "चिह्न उपलब्ध हैं",
-    "matchingResults": "मिलान परिणाम",
-    "search": "चिह्न खोजें..."
+    "iconsAvailable": "icons available",
+    "matchingResults": "matching results",
+    "search": "Search icons..."
   },
   "login": {
-    "createAccount": "खाता बनाएं",
+    "accountExists": "आपके पास पहले से ही एक ChurchApps खाता है। कृपया इसके बजाय उससे साइन इन करें।",
+    "continueGoogle": "Continue with Google",
+    "continueMicrosoft": "Continue with Microsoft",
+    "createAccount": "Create an Account",
     "email": "ईमेल",
     "enterCode": "सत्यापन कोड दर्ज करें",
     "enterCodeInstructions": "6 अंकों का वह कोड दर्ज करें जो हमने आपको अभी ईमेल किया है।",
     "expiredLink": "वर्तमान लिंक की समय सीमा समाप्त हो गई है।",
     "forgot": "पासवर्ड भूल गए",
-    "goLogin": "लॉगइन पर जाएं",
+    "goLogin": "Go to Login",
     "login": "लॉग इन करें",
     "noAcc": "खाता नहीं है?",
     "noAccountFound": "उस ईमेल से कोई खाता नहीं मिला। जारी रखने के लिए कृपया पंजीकरण करें।",
+    "or": "or",
     "password": "पासवर्ड",
     "register": "पंजीकरण करवाना",
     "registerThankYou": "पंजीकरण प्रक्रिया के लिए धन्यवाद! ",
@@ -221,7 +278,7 @@
     "reset": "रीसेट",
     "resetInstructions": "पासवर्ड रीसेट का अनुरोध करने के लिए अपना ईमेल पता दर्ज करें।",
     "resetPassword": "पासवर्ड रीसेट",
-    "resetSent": "पासवर्ड रीसेट ईमेल भेजा गया!",
+    "resetSent": "Password reset email sent!",
     "setPassword": "सांकेतिक शब्द लगना",
     "signIn": "दाखिल करना",
     "signInTitle": "साइन इन करें",
@@ -243,50 +300,65 @@
   },
   "markdownEditor": {
     "content": "सामग्री",
-    "markdownEditor": "मार्कडाउन संपादक",
+    "markdownEditor": "Markdown Editor",
     "markdownGuide": "मार्कडाउन गाइड"
   },
   "month": {
-    "april": "अप्रैल",
-    "august": "अगस्त",
-    "december": "दिसंबर",
-    "february": "फ़रवरी",
-    "january": "जनवरी",
-    "july": "जुलाई",
-    "june": "जून",
-    "march": "मार्च",
-    "may": "मई",
-    "november": "नवंबर",
-    "october": "अक्टूबर",
-    "september": "सितम्बर"
+    "april": "April",
+    "august": "August",
+    "december": "December",
+    "february": "February",
+    "january": "January",
+    "july": "July",
+    "june": "June",
+    "march": "March",
+    "may": "May",
+    "november": "November",
+    "october": "October",
+    "september": "September"
   },
   "notes": {
     "comment": "टिप्पणी",
     "comments": "टिप्पणियाँ",
     "notes": "टिप्पणियाँ",
-    "startConversation": "एक बातचीत शुरू",
+    "notifyOff": "Notify Off",
+    "notifyOn": "Notify On",
+    "openFile": "Open file",
+    "startConversation": "Start a conversation",
     "validate": {
       "content": "कृपया एक नोट दर्ज करें."
     },
-    "viewAll": "सभी को देखें"
+    "viewAll": "View all"
   },
   "person": {
     "email": "ईमेल",
     "firstName": "पहला नाम",
     "lastName": "उपनाम",
     "name": "नाम",
-    "noRec": "व्यक्ति का रिकॉर्ड नहीं है?",
-    "person": "व्यक्ति",
-    "years": "साल"
+    "noRec": "Don't have a person record?",
+    "person": "Person",
+    "years": "years"
+  },
+  "question": {
+    "checkbox": "चेकबॉक्स",
+    "currency": "मुद्रा",
+    "date": "तारीख",
+    "email": "ईमेल",
+    "file": "फ़ाइल अपलोड",
+    "multiple": "बहुविकल्पी",
+    "number": "संख्या",
+    "phone": "फ़ोन",
+    "textarea": "टेक्स्ट क्षेत्र",
+    "textbox": "टेक्स्ट बॉक्स"
   },
   "reporting": {
-    "detailed": "विस्तृत रिपोर्ट",
-    "downloadOptions": "विकल्प डाउनलोड करें",
-    "noData": "प्रदर्शित करने के लिए कोई डेटा नहीं है.",
-    "runReport": "रिपोर्ट चलाएं",
-    "sampleTemplate": "नमूना वर्ड टेम्पलेट",
-    "summary": "सारांश",
-    "useFilter": "रिपोर्ट चलाने के लिए फ़िल्टर का उपयोग करें."
+    "detailed": "Detailed Report",
+    "downloadOptions": "Download Options",
+    "noData": "There is no data to display.",
+    "runReport": "Run Report",
+    "sampleTemplate": "Sample Word Template",
+    "summary": "Summary",
+    "useFilter": "Use the filter to run the report."
   },
   "selectChurch": {
     "address1": "पता पंक्ति 1",
@@ -318,22 +390,35 @@
     "discussions": "सहायता फोरम",
     "documentation": "दस्तावेज़ीकरण"
   },
+  "validation": {
+    "date": "कृपया एक मान्य तारीख दर्ज करें",
+    "email": "कृपया एक मान्य ईमेल पता दर्ज करें",
+    "fileSize": "फ़ाइल का आकार {} MB से कम होना चाहिए",
+    "fileType": "अमान्य फ़ाइल प्रकार",
+    "maxLength": "{} वर्णों से अधिक नहीं होना चाहिए",
+    "minLength": "कम से कम {} वर्ण लंबा होना चाहिए",
+    "number": "कृपया एक मान्य संख्या दर्ज करें",
+    "phone": "कृपया एक मान्य फ़ोन नंबर दर्ज करें",
+    "required": "यह फ़ील्ड आवश्यक है"
+  },
   "wrapper": {
-    "chatWith": "साथ बात",
-    "deleteChurch": "चर्च को सूची से हटा दें",
+    "chatWith": "Chat with",
+    "currentChurch": "वर्तमान चर्च",
+    "deleteChurch": "Delete",
     "editAccount": "खाता संपादित करें",
     "editChurchProfile": "चर्च प्रोफ़ाइल संपादित करें",
     "editProfile": "प्रोफ़ाइल संपादित करें",
-    "logout": "लॉग आउट",
-    "messages": "संदेश",
+    "logout": "Logout",
+    "messages": "Messages",
     "newPrivateMessage": "नया निजी संदेश",
-    "notifications": "सूचनाएं",
+    "notifications": "Notifications",
+    "privateConversation": "Private Conversation",
     "privateMessage": "निजी संदेश",
-    "profile": "प्रोफ़ाइल",
+    "profile": "Profile",
     "searchForPerson": "किसी व्यक्ति को खोजें",
-    "support": "सहायता",
-    "sureRemoveChurch": "क्या आप वाकई सूची से {} हटाना चाहते हैं?",
-    "switchApp": "ऐप स्विच करें",
-    "switchChurch": "स्विच चर्च"
+    "support": "Support",
+    "sureRemoveChurch": "Are you sure you wish to delete this church? You no longer will be a member of {}.",
+    "switchApp": "Switch App",
+    "switchChurch": "Switch Church"
   }
 }

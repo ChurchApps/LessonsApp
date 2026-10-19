@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { Alert, Box, Button, IconButton, Paper, Stack, TextField, Typography } from "@mui/material";
 import { Person as PersonIcon, Save as SaveIcon, Cancel as CancelIcon, Delete as DeleteIcon } from "@mui/icons-material";
 import { useForm } from "react-hook-form";
@@ -10,15 +10,20 @@ type AnyRecord = Record<string, any>;
 
 export function RoleEdit(props: Props) {
   const { register, handleSubmit, reset, formState } = useForm<AnyRecord>({ defaultValues: { name: "", sort: "" } });
+  const [error, setError] = useState("");
   const e = formState.errors as any;
   const summaryErrors: string[] = [];
   if (e.name?.message) summaryErrors.push(e.name.message);
 
   const handleCancel = () => props.updatedCallback(props.role, false);
 
-  const onValid = (values: AnyRecord) => {
+  const onValid = async (values: AnyRecord) => {
     const r: RoleInterface = { ...props.role, name: values.name, sort: parseInt(values.sort) || 0 };
-    ApiHelper.post("/roles", [r], "LessonsApi").then((data: RoleInterface[]) => props.updatedCallback(data[0], !props.role.id));
+    setError("");
+    try {
+      const data: RoleInterface[] = await ApiHelper.post("/roles", [r], "LessonsApi");
+      props.updatedCallback(data[0], !props.role.id);
+    } catch (err: any) { setError(err?.message || "Unable to save."); }
   };
 
   const handleDelete = () => { if (window.confirm("Are you sure you wish to permanently delete this role?")) ApiHelper.delete("/roles/" + props.role.id!.toString(), "LessonsApi").then(() => props.updatedCallback(null, false)); };
@@ -40,6 +45,7 @@ export function RoleEdit(props: Props) {
 
       <Box sx={{ p: 3 }}>
         {summaryErrors.length > 0 && <Alert severity="error" sx={{ mb: 2 }}>{summaryErrors.map((msg) => <div key={msg}>{msg}</div>)}</Alert>}
+        {error && <Alert severity="error" sx={{ mb: 2 }}>{error}</Alert>}
 
         <Stack spacing={3}>
           <TextField fullWidth label="Order" type="number" placeholder="1" helperText="Display order for this role within the section" {...register("sort")} />
@@ -48,7 +54,7 @@ export function RoleEdit(props: Props) {
       </Box>
 
       <Box sx={{ p: 2, borderTop: "1px solid var(--admin-border)", backgroundColor: "var(--admin-bg)", display: "flex", justifyContent: "flex-end", gap: 1, flexWrap: "wrap" }}>
-        <Button startIcon={<SaveIcon />} variant="contained" onClick={handleSubmit(onValid)}>Save</Button>
+        <Button startIcon={<SaveIcon />} variant="contained" disabled={formState.isSubmitting} onClick={handleSubmit(onValid)}>Save</Button>
         <Button startIcon={<CancelIcon />} variant="outlined" onClick={handleCancel}>Cancel</Button>
         {props.role?.id && (
           <IconButton color="error" onClick={handleDelete}>

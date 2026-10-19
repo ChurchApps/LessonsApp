@@ -1,6 +1,4 @@
 on:
-  schedule:
-    - cron: '10 8 * * 1'
   workflow_dispatch:
 
 name: Deploy Prod

@@ -50,6 +50,7 @@ const Venue = React.memo(({ hidePrint = true, ...props }: Props) => {
         if (!shouldHide(s.id)) {
           sections.push(<Section
             section={s}
+            lessonId={props.venue?.lessonId}
             toggleActive={handleToggle}
             activeSectionId={activeSectionId}
             key={s.id}

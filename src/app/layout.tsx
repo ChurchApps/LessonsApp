@@ -1,5 +1,5 @@
 import { Roboto } from "next/font/google";
-import { AppRouterCacheProvider } from "@mui/material-nextjs/v15-appRouter";
+import { AppRouterCacheProvider } from "@mui/material-nextjs/v16-appRouter";
 import { EnvironmentHelper } from "@/helpers/EnvironmentHelper";
 import "@/styles/globals.css";
 import ClientLayout from "./ClientLayout";
@@ -28,7 +28,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
         <script
           async
           type="module"
-          src="https://cdn.jsdelivr.net/npm/@slightlyoff/lite-vimeo@0.1.1/lite-vimeo.js"></script>
+          src="/js/lite-vimeo.js"></script>
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
