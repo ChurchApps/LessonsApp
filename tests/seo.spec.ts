@@ -78,6 +78,14 @@ test.describe("SEO", () => {
     });
   }
 
+  // Both render only in the browser behind a generic title; their lessons are indexed on their own pages.
+  for (const path of ["/classroom/CLS00000001", "/external/provider/program"]) {
+    test(`${path} is noindex`, async ({ request }) => {
+      const html = await (await request.get(path)).text();
+      expect(html).toMatch(/<meta name="robots" content="noindex, follow"/);
+    });
+  }
+
   test("search results are noindex", async ({ request }) => {
     const html = await (await request.get("/search?q=noah")).text();
     expect(html).toMatch(/<meta name="robots" content="noindex/);
