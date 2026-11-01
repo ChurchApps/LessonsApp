@@ -86,6 +86,19 @@ test.describe("SEO", () => {
     });
   }
 
+  // Both are in the sitemap but render in the browser, so these tags and the h1 come from their layouts.
+  for (const [path, title] of [["/tools/olf", "Open Lesson Format Builder"], ["/tools/oll", "Open Lesson List Builder"]]) {
+    test(`${path} describes itself`, async ({ request }) => {
+      const html = await (await request.get(path)).text();
+      expect(html).toContain(`<title>${title} - Lessons.church</title>`);
+      expect(/<meta name="description" content="([^"]{50,})"/.test(html)).toBe(true);
+      expect(linkHref(html, "canonical")).toEqual([SITE + path]);
+      expect(metaContent(html, "og:url")).toEqual([SITE + path]);
+      expect([...html.matchAll(/<h1[\s>]/g)].length).toBe(1);
+      expect(html).toMatch(new RegExp(`<h1[^>]*>${title}</h1>`));
+    });
+  }
+
   test("search results are noindex", async ({ request }) => {
     const html = await (await request.get("/search?q=noah")).text();
     expect(html).toMatch(/<meta name="robots" content="noindex/);
