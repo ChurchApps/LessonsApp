@@ -7,7 +7,7 @@ export function HomeConnect() {
         <div className="apps">
           <Grid container justifyContent="center" spacing={3}>
             <Grid size={{ md: 6, xs: 12 }}>
-              <img src="/images/home/apps.png" alt="Church Apps" className="img-fluid" />
+              <img src="/images/home/apps.webp" alt="FreePlay TV app and B1 mobile app" width={708} height={443} loading="lazy" className="img-fluid" />
             </Grid>
             <Grid size={{ md: 6, xs: 12 }}>
               <div className="title">

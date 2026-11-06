@@ -2,20 +2,24 @@ import { Metadata } from "next";
 import { unstable_cache } from "next/cache";
 import Image from "next/image";
 import Link from "next/link";
-import { notFound } from "next/navigation";
+import { notFound, permanentRedirect } from "next/navigation";
 import Container from "@mui/material/Container";
 import Grid from "@mui/material/Grid";
 import { ApiHelper } from "@churchapps/apphelper";
 import { HeaderWrapper } from "@/app/components/HeaderWrapper";
 import { MarkdownWrapper } from "@/app/components/MarkdownWrapper";
-import Error from "@/components/Error";
 import { Layout } from "@/components/Layout";
 import { Lessons } from "@/components/Lessons";
 import { EnvironmentHelper } from "@/helpers";
 import { MetaHelper } from "@/helpers/MetaHelper";
+import { SITE_URL, SeoHelper } from "@/helpers/SeoHelper";
 import { LessonInterface, ProgramInterface, StudyInterface } from "@/helpers/interfaces";
 
 type PageParams = { programSlug: string; studySlug: string };
+
+// Render each study on first request, then serve it from the cache and refresh hourly.
+export const revalidate = 3600;
+export async function generateStaticParams(): Promise<PageParams[]> { return []; }
 
 type LoadDataResult = { program?: ProgramInterface; study?: StudyInterface; lessons?: LessonInterface[]; errorMessage: string };
 
@@ -37,12 +41,37 @@ const loadSharedData = async (params: Promise<PageParams>): Promise<LoadDataResu
   }
 };
 
+const getJsonLd = (program: ProgramInterface, study: StudyInterface, lessonCount: number) => {
+  const programUrl = SITE_URL + "/" + program.slug;
+  const url = programUrl + "/" + study.slug;
+  const programName = SeoHelper.cleanName(program.name);
+  const name = SeoHelper.cleanName(study.name);
+  return {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "Course",
+        "@id": url + "#course",
+        name,
+        url,
+        description: SeoHelper.studyDescription(programName, name, lessonCount, study.description),
+        ...(study.image ? { image: study.image } : {}),
+        ...SeoHelper.common(SeoHelper.publisherFromAbout(program.aboutSection), program.age),
+        isPartOf: { "@type": "Course", "@id": programUrl + "#course", name: programName, url: programUrl }
+      },
+      SeoHelper.breadcrumbs([{ name: programName, url: programUrl }, { name, url }])
+    ]
+  };
+};
+
 export async function generateMetadata({ params }: { params: Promise<PageParams> }): Promise<Metadata> {
   const props = await loadSharedData(params);
   if (!props.errorMessage && props.study?.id) {
-    const { programSlug, studySlug } = await params;
-    const title = props.program?.name + ": " + props.study?.name + " - Free Church Curriculum";
-    return MetaHelper.getMetaData(title, props.study?.description, props.study?.image, undefined, "/" + programSlug + "/" + studySlug);
+    const programName = SeoHelper.cleanName(props.program?.name);
+    const studyName = SeoHelper.cleanName(props.study.name);
+    const title = SeoHelper.studyTitle(programName, studyName);
+    const description = SeoHelper.studyDescription(programName, studyName, props.lessons?.length, props.study.description);
+    return MetaHelper.getMetaData(title, description, props.study.image, undefined, "/" + props.program?.slug + "/" + props.study.slug);
   }
   return MetaHelper.getMetaData();
 }
@@ -50,8 +79,12 @@ export async function generateMetadata({ params }: { params: Promise<PageParams>
 export default async function StudyPage({ params }: { params: Promise<PageParams> }) {
   const { program, study, lessons, errorMessage } = await loadSharedData(params);
 
-  if (errorMessage) return <Error message={errorMessage} />;
+  // Throw rather than render an error page, so a failed API call is never cached as a 200.
+  if (errorMessage) throw new Error(errorMessage);
   if (!study?.id) notFound();
+  // Slug lookups are case-insensitive; redirect case variants to the one canonical URL.
+  const { programSlug, studySlug } = await params;
+  if (program?.slug && study.slug && (program.slug !== programSlug || study.slug !== studySlug)) permanentRedirect("/" + program.slug + "/" + study.slug);
 
   return (
     <>
@@ -95,23 +128,7 @@ export default async function StudyPage({ params }: { params: Promise<PageParams
           </Container>
         </div>
 
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{
-            __html: JSON.stringify({
-              "@context": "https://schema.org",
-              "@type": "Course",
-              name: study!.name,
-              description: study!.description,
-              provider: {
-                "@type": "Organization",
-                name: "Lessons.church",
-                sameAs: "https://lessons.church"
-              },
-              isPartOf: { "@type": "Course", name: program!.name }
-            }).replace(/</g, "\\u003c")
-          }}
-        />
+        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: SeoHelper.jsonLd(getJsonLd(program!, study!, lessons?.length ?? 0)) }} />
       </Layout>
     </>
   );
