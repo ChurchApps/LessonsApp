@@ -11,6 +11,27 @@ Lessons.church is a free, open-source hub for Christian church curriculum. We ag
 - **Next Level** - Adult Bible study curriculum
 - **Partner Programs** - Curriculum from contributing church partners
 
+## Programs
+
+- [Ark Kids Junior](https://lessons.church/ark-preschool): Preschool curriculum from The Ark Church, with lessons for 2-year-olds through Kindergarten
+- [Ark Kids Elementary](https://lessons.church/ark): Elementary curriculum from The Ark Church
+- [High Voltage Elementary](https://lessons.church/high-voltage): Elementary curriculum from High Voltage Kids
+- [Faith Kidz](https://lessons.church/faith-kidz): Elementary curriculum from FaithKidz
+- [West Ridge](https://lessons.church/west-ridge): Family-focused elementary series from West Ridge Church
+- [For Ministry Resources Youth Series](https://lessons.church/forministryresources): Monthly youth sermon series with graphics and small group guides
+- [NextLevel Online](https://lessons.church/next-level): Adult Bible courses from Ozark Christian College
+- [Following Jesus Together](https://lessons.church/following-jesus-together): Adult small group studies
+
+## Key Pages
+
+- [Home](https://lessons.church/): Overview of all free curriculum
+- [FAQ](https://lessons.church/faq): Common questions about cost, licensing and how Lessons.church works
+- [Create a free account](https://lessons.church/login?action=register): Register to schedule lessons for classrooms
+- [Lessons.church vs Answers in Genesis](https://lessons.church/compare/answers-in-genesis)
+- [Lessons.church vs Think Orange](https://lessons.church/compare/think-orange)
+- [Lessons.church vs RightNow Media](https://lessons.church/compare/rightnow-media)
+- [Lessons.church vs Grow Curriculum](https://lessons.church/compare/grow-curriculum)
+
 ## Why Lessons.church Exists
 
 Every year churches spend millions of dollars on curriculum. We believe:
@@ -46,6 +67,8 @@ Every year churches spend millions of dollars on curriculum. We believe:
 - **FreeShow Integration** - Seamless presentation software integration
 
 ## Pricing
+
+Competitor prices below are approximate list prices and may have changed; check each publisher for current pricing.
 
 | Feature | Lessons.church | Answers in Genesis | Think Orange | RightNow Media |
 |---------|---------------|-------------------|--------------|----------------|
@@ -90,7 +113,7 @@ Group Publishing curriculum ranges $200-800 per curriculum set. Lessons.church p
 
 ## Getting Started
 
-1. Visit https://lessons.church/register
+1. Create a free account at https://lessons.church/login?action=register
 2. Browse available curriculum
 3. Schedule lessons for your classrooms
 4. Download FreePlay for classroom displays (https://freeplay.church)
@@ -117,7 +140,7 @@ All tools are free and work together seamlessly.
 
 - Main Site: https://lessons.church
 - Ark Kids Landing: https://lessons.church/landing/ark
-- Registration: https://lessons.church/register
+- Registration: https://lessons.church/login?action=register
 - Parent Organization: https://churchapps.org
 
 ## Open Source

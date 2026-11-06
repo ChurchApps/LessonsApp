@@ -103,8 +103,14 @@ export function SearchBar({ placeholder = "Search curriculum (e.g., 'peace', 'ad
     return (
       <Box sx={{ height: 40, display: "flex", alignItems: "center" }}>
         <Box
+          component="button"
+          type="button"
+          aria-label="Search curriculum"
           onClick={handleExpand}
           sx={{
+            border: 0,
+            color: "inherit",
+            font: "inherit",
             display: "flex",
             alignItems: "center",
             backgroundColor: "rgba(255, 255, 255, 0.15)",
