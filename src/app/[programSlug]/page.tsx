@@ -1,20 +1,24 @@
 import { Metadata } from "next";
 import { unstable_cache } from "next/cache";
 import Image from "next/image";
-import { notFound } from "next/navigation";
+import { notFound, permanentRedirect } from "next/navigation";
 import { Container } from "@mui/material";
 import { ApiHelper } from "@churchapps/apphelper";
 import { HeaderWrapper } from "@/app/components/HeaderWrapper";
 import { MarkdownWrapper } from "@/app/components/MarkdownWrapper";
-import Error from "@/components/Error";
 import { Layout } from "@/components/Layout";
 import { EnvironmentHelper } from "@/helpers";
 import { MetaHelper } from "@/helpers/MetaHelper";
+import { SITE_URL, SeoHelper } from "@/helpers/SeoHelper";
 import { ProgramInterface, StudyCategoryInterface, StudyInterface } from "@/helpers/interfaces";
 import { CategoriesAndStudies } from "./components/CategoriesAndStudies";
 import { ProgramVideo } from "./components/ProgramVideo";
 
 type PageParams = { programSlug: string };
+
+// Render each program on first request, then serve it from the cache and refresh hourly.
+export const revalidate = 3600;
+export async function generateStaticParams(): Promise<PageParams[]> { return []; }
 
 interface LoadDataResult {
   program?: ProgramInterface;
@@ -41,18 +45,45 @@ const loadSharedData = async (programSlug: string): Promise<LoadDataResult> => {
   }
 };
 
+const getJsonLd = (program: ProgramInterface) => {
+  const url = SITE_URL + "/" + program.slug;
+  const name = SeoHelper.cleanName(program.name);
+  return {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "Course",
+        "@id": url + "#course",
+        name,
+        url,
+        description: SeoHelper.programDescription(name, program.age, program.description),
+        ...(program.image ? { image: program.image } : {}),
+        ...SeoHelper.common(SeoHelper.publisherFromAbout(program.aboutSection), program.age)
+      },
+      SeoHelper.breadcrumbs([{ name, url }])
+    ]
+  };
+};
+
 export async function generateMetadata({ params }: { params: Promise<PageParams> }): Promise<Metadata> {
   const { programSlug } = await params;
   const props = await loadSharedData(programSlug);
-  if (!props.errorMessage && props.program?.id) return MetaHelper.getMetaData(props.program.name + " - Free Church Curriculum", props.program?.description, props.program?.image, undefined, "/" + programSlug);
+  const program = props.program;
+  if (!props.errorMessage && program?.id) {
+    const name = SeoHelper.cleanName(program.name);
+    return MetaHelper.getMetaData(name + " - Free Church Curriculum", SeoHelper.programDescription(name, program.age, program.description), program.image, undefined, "/" + program.slug);
+  }
   return MetaHelper.getMetaData();
 }
 
 export default async function ProgramPage({ params }: { params: Promise<PageParams> }) {
   const { programSlug } = await params;
   const props = await loadSharedData(programSlug);
-  if (props.errorMessage) return <Error message={props.errorMessage} />;
+  // Throw rather than render an error page, so a failed API call is never cached as a 200.
+  if (props.errorMessage) throw new Error(props.errorMessage);
   if (!props.program?.id) notFound();
+  // The slug lookup is case-insensitive; send /Ark-Preschool to /ark-preschool instead of serving a duplicate.
+  if (props.program.slug && props.program.slug !== programSlug) permanentRedirect("/" + props.program.slug);
 
   return (
     <Layout withoutNavbar>
@@ -94,22 +125,7 @@ export default async function ProgramPage({ params }: { params: Promise<PagePara
         </Container>
       </div>
 
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify({
-            "@context": "https://schema.org",
-            "@type": "Course",
-            name: props.program!.name,
-            description: props.program!.description,
-            provider: {
-              "@type": "Organization",
-              name: "Lessons.church",
-              sameAs: "https://lessons.church"
-            }
-          }).replace(/</g, "\\u003c")
-        }}
-      />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: SeoHelper.jsonLd(getJsonLd(props.program!)) }} />
     </Layout>
   );
 }

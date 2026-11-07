@@ -93,6 +93,9 @@ export function CompareClient({ competitor }: { competitor: string }) {
               </Paper>
             </Grid>
           </Grid>
+          <p style={{ color: "#888", fontSize: "0.85rem", textAlign: "center", marginTop: -32, marginBottom: 40 }}>
+            {data.competitor} pricing is an approximate list price and may have changed. Check {data.competitor} directly for current pricing.
+          </p>
 
           <TableContainer component={Paper} sx={{ marginBottom: 6, borderRadius: 3, overflow: "hidden" }}>
             <Table>

@@ -1,6 +1,7 @@
 import { Metadata } from "next";
 import { unstable_cache } from "next/cache";
 import Image from "next/image";
+import { preload } from "react-dom";
 import { Container, Grid, Link } from "@mui/material";
 import { ApiHelper } from "@churchapps/apphelper";
 import { HomeAbout } from "@/app/components/HomeAbout";
@@ -42,6 +43,9 @@ export default async function Home() {
   const { programs, providers, studies, stats, errorMessage } = await loadSharedData();
 
   if (errorMessage) return <Error message={errorMessage} />;
+
+  // The hero background is the desktop LCP element; CSS backgrounds are otherwise discovered late.
+  preload("/images/home/home-hero.webp", { as: "image", fetchPriority: "high" });
 
   const getElmPrograms = () => (
     <>
@@ -88,7 +92,7 @@ export default async function Home() {
   );
 
   const getElementaryDiv = () => (
-    <div className="programPromo" style={{ backgroundImage: "url('/images/home/elementary.png')" }}>
+    <div className="programPromo" style={{ backgroundImage: "url('/images/home/elementary.webp')" }}>
       <div className="programHeroContent">
         <Container fixed>
           <Grid container spacing={3}>

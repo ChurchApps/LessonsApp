@@ -37,7 +37,7 @@ export function HomeHero(props: Props) {
   const getAge = (name: string, anchor: string) => (
     <a href={"#" + anchor} className="ageBox" key={anchor}>
       <div className="ageIcon">
-        <img src={"/images/home/hero-" + name.toLowerCase() + ".png"} alt={name} className="img-fluid" />
+        <img src={"/images/home/hero-" + name.toLowerCase() + ".webp"} alt={name + " curriculum"} width={290} height={230} className="img-fluid" />
       </div>
     </a>
   );

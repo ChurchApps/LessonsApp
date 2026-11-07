@@ -28,13 +28,24 @@ function ClientLayout({ children }: { children: React.ReactNode }) {
 
     // Embeds, B1 webviews and classroom displays run on other sites and screens; keep the marketing tracker off them.
     if (/^\/(embed|b1|classroom)(\/|$)/.test(window.location.pathname)) return;
-    const script = document.createElement("script");
-    script.type = "text/javascript";
-    script.id = "hs-script-loader";
-    script.async = true;
-    script.defer = true;
-    script.src = "//js.hs-scripts.com/20077299.js";
-    document.body.appendChild(script);
+    // Load HubSpot after the first interaction or once the page is idle, so it stays off the critical path.
+    let loaded = false;
+    const events = ["pointerdown", "keydown", "scroll", "touchstart"];
+    const loadHubSpot = () => {
+      if (loaded) return;
+      loaded = true;
+      events.forEach(e => window.removeEventListener(e, loadHubSpot));
+      const script = document.createElement("script");
+      script.type = "text/javascript";
+      script.id = "hs-script-loader";
+      script.async = true;
+      script.defer = true;
+      script.src = "//js.hs-scripts.com/20077299.js";
+      document.body.appendChild(script);
+    };
+    events.forEach(e => window.addEventListener(e, loadHubSpot, { once: true, passive: true }));
+    const timer = window.setTimeout(loadHubSpot, 5000);
+    return () => { window.clearTimeout(timer); events.forEach(e => window.removeEventListener(e, loadHubSpot)); };
   }, []);
 
   const getErrorAppData = () => {
