@@ -7,7 +7,8 @@ const studyPath = `${programPath}/${SEED.STUDIES.GENESIS.slug}`;
 const lessonPath = `${studyPath}/${SEED.LESSONS.CREATION.slug}`;
 
 const linkHref = (html: string, rel: string) => [...html.matchAll(new RegExp(`<link[^>]*rel="${rel}"[^>]*>`, "g"))].map((m) => /href="([^"]*)"/.exec(m[0])?.[1]);
-const jsonLd = (html: string) => [...html.matchAll(/<script type="application\/ld\+json">([^<]*)<\/script>/g)].map((m) => JSON.parse(m[1]));
+// Each script is either one node or an @graph of nodes; flatten to the nodes.
+const jsonLd = (html: string) => [...html.matchAll(/<script type="application\/ld\+json">([^<]*)<\/script>/g)].flatMap((m) => { const data = JSON.parse(m[1]); return data["@graph"] ?? [data]; });
 const metaContent = (html: string, property: string) => [...html.matchAll(new RegExp(`<meta[^>]*property="${property}"[^>]*>`, "g"))].map((m) => /content="([^"]*)"/.exec(m[0])?.[1]);
 
 test.describe("SEO", () => {
@@ -50,7 +51,7 @@ test.describe("SEO", () => {
     const html = await (await request.get(lessonPath)).text();
     const lesson = jsonLd(html).find((d) => d["@type"] === "LearningResource");
     expect(lesson).toBeTruthy();
-    expect(html).toContain(`<title>${SEED.PROGRAMS.OT.name}: ${lesson.name} - `);
+    expect(html).toContain(`<title>${lesson.name} | Free ${SEED.PROGRAMS.OT.name} Lesson</title>`);
     expect(lesson.url).toBe(SITE + lessonPath);
     expect(lesson.isPartOf).toMatchObject({ "@type": "Course", url: SITE + studyPath, isPartOf: { "@type": "Course", url: SITE + programPath } });
   });
