@@ -187,9 +187,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@churchapps/apphelper@npm:^1.11.1":
-  version: 1.11.1
-  resolution: "@churchapps/apphelper@npm:1.11.1"
+"@churchapps/apphelper@npm:^1.11.3":
+  version: 1.11.3
+  resolution: "@churchapps/apphelper@npm:1.11.3"
   dependencies:
     "@emotion/cache": "npm:^11.14.0"
     "@emotion/react": "npm:^11.14.0"
@@ -251,7 +251,7 @@ __metadata:
       optional: true
     react-google-recaptcha:
       optional: true
-  checksum: 10c0/857ae34592c7c47f50936c70e92399aa66914b2c348818b5288ea454aca0c78d73e05dcab5ff82fbf0ec4969605cfa8837f5867609a0973a66b00b6e0fb34bd7
+  checksum: 10c0/4ec0b0cad52cc91614de1c821e28e2516751950a22c2faeeeaef7edfc7932a2519fc79dc38aa118d7e3feb23f2ab60f2bbb43fc94bba8f4842bfbd33cc267a00
   languageName: node
   linkType: hard
 
@@ -5313,7 +5313,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "lesson-app@workspace:."
   dependencies:
-    "@churchapps/apphelper": "npm:^1.11.1"
+    "@churchapps/apphelper": "npm:^1.11.3"
     "@churchapps/helpers": "npm:^2.15.2"
     "@mui/icons-material": "npm:^7.3.11"
     "@mui/material": "npm:^7.3.11"
