@@ -25,6 +25,7 @@ const config = {
       { key: "Permissions-Policy", value: "camera=(), microphone=(), geolocation=(), payment=(), usb=(), interest-cohort=()" }
     ];
     // Embeds and classroom pages are iframed on church sites; only the signed-in areas refuse framing.
+    // /b1/login is the B1 app's token handoff into its Lessons tab and must stay off this list.
     const noFraming = [{ key: "Content-Security-Policy", value: "frame-ancestors 'self'" }, { key: "X-Frame-Options", value: "SAMEORIGIN" }];
     return [
       { source: "/:path*", headers: common },
