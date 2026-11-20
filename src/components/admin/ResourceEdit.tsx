@@ -7,17 +7,17 @@ import { useForm, Controller } from "react-hook-form";
 interface Props {
   resource: ResourceInterface;
   updatedCallback: (resource: ResourceInterface | null) => void;
-  contentDisplayName: string;
+  contentDisplayName?: string;
 }
 
-type AnyRecord = Record<string, any>;
+interface FormValues { name: string; bundleId: string; loopVideo: string; }
 
 export function ResourceEdit(props: Props) {
   const [bundles, setBundles] = useState<BundleInterface[]>([]);
 
-  const { control, register, handleSubmit, reset, formState } = useForm<AnyRecord>({ defaultValues: { name: "", bundleId: "", loopVideo: "false" } });
+  const { control, register, handleSubmit, reset, formState } = useForm<FormValues>({ defaultValues: { name: "", bundleId: "", loopVideo: "false" } });
   const [error, setError] = useState("");
-  const e = formState.errors as any;
+  const e = formState.errors;
   const summaryErrors: string[] = [];
   if (e.name?.message) summaryErrors.push(e.name.message);
 
@@ -30,12 +30,12 @@ export function ResourceEdit(props: Props) {
     }
   };
 
-  const onValid = async (values: AnyRecord) => {
+  const onValid = async (values: FormValues) => {
     const r: ResourceInterface = { ...props.resource, name: values.name, bundleId: values.bundleId, loopVideo: values.loopVideo === "true" };
     setError("");
     try {
       props.updatedCallback(await ApiHelper.post("/resources", [r], "LessonsApi"));
-    } catch (err: any) { setError(err?.message || "Unable to save."); }
+    } catch (err) { setError((err instanceof Error ? err.message : "") || "Unable to save."); }
   };
 
   const loadBundles = async (currentBundle: BundleInterface) => {

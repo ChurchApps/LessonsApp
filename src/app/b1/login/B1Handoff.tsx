@@ -3,6 +3,7 @@
 import { useEffect, useRef } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { ApiHelper, ArrayHelper, UserHelper } from "@churchapps/apphelper";
+import type { LoginUserChurchInterface } from "@churchapps/helpers";
 import { useUser } from "@/app/context/UserContext";
 
 // Paths like "/\evil.com" start with "/" but resolve off-site; keep redirects on this origin.
@@ -42,7 +43,7 @@ export function B1Handoff() {
       try {
         const resp = await ApiHelper.postAnonymous("/users/login", { jwt }, "MembershipApi");
         if (!resp?.user || resp.mfaRequired) { toLogin(); return; }
-        (resp.userChurches || []).forEach((uc: any) => { if (!uc.apis) uc.apis = []; });
+        (resp.userChurches || []).forEach((uc: LoginUserChurchInterface) => { if (!uc.apis) uc.apis = []; });
         UserHelper.user = resp.user;
         UserHelper.userChurches = resp.userChurches || [];
         ApiHelper.setDefaultPermissions(resp.user.jwt || "");

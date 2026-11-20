@@ -12,7 +12,7 @@ export function PlaylistFeed(props: Props) {
   const handleCancel = () => { props.hideFeed(); };
 
   const loadData = () => {
-    ApiHelper.get("/venues/names/classroom/" + props.classroomId, "LessonsApi").then((data: any) => { setVenues(data); if (data.length > 0) setVenueName(data[0].name); });
+    ApiHelper.get("/venues/names/classroom/" + props.classroomId, "LessonsApi").then((data: (VenueInterface & { name: string })[]) => { setVenues(data); if (data.length > 0) setVenueName(data[0].name); });
   };
 
   useEffect(loadData, [props.classroomId]);

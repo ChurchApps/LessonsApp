@@ -8,10 +8,10 @@ import { ErrorBoundary, Layout } from "@/components";
 import { Header } from "@/components/Header";
 import { LessonSidebar } from "@/components/lesson/LessonSidebar";
 import { Venue } from "@/components/lesson/Venue";
-import { FeedVenueInterface } from "@/helpers/interfaces";
+import { FeedVenueInterface, LessonFeedDataInterface } from "@/helpers/interfaces";
 import { PresenterLink } from "./PresenterLink";
 
-interface Props { lessonData: any; }
+interface Props { lessonData: LessonFeedDataInterface; }
 
 export default function LessonClient(props: Props) {
   const [selectedVenue, setSelectedVenue] = React.useState<FeedVenueInterface>(props.lessonData?.venues?.[0]);

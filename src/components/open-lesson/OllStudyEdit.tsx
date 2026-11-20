@@ -7,18 +7,18 @@ import { FeedStudyInterface } from "@/helpers";
 
 interface Props { study: FeedStudyInterface; updatedCallback: (study: FeedStudyInterface | null, cancelled: boolean) => void; }
 
-type AnyRecord = Record<string, any>;
+interface FormValues { id: string; name: string; image: string; description: string; }
 
 export function OllStudyEdit(props: Props) {
-  const { register, handleSubmit, reset, control, formState } = useForm<AnyRecord>({ defaultValues: { id: "", name: "", image: "", description: "" } });
-  const e = formState.errors as any;
+  const { register, handleSubmit, reset, control, formState } = useForm<FormValues>({ defaultValues: { id: "", name: "", image: "", description: "" } });
+  const e = formState.errors;
   const summaryErrors: string[] = [];
   if (e.id?.message) summaryErrors.push(e.id.message);
   if (e.name?.message) summaryErrors.push(e.name.message);
 
   const handleCancel = () => props.updatedCallback(null, true);
 
-  const onValid = (values: AnyRecord) => {
+  const onValid = (values: FormValues) => {
     props.updatedCallback({ ...props.study, id: values.id, name: values.name, image: values.image, description: values.description }, false);
   };
 

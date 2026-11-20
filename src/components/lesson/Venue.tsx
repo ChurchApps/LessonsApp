@@ -12,6 +12,8 @@ interface Props {
   print: number;
 }
 
+interface ReactNativeWebView { postMessage: (message: string) => void; }
+
 const Venue = React.memo(({ hidePrint = true, ...props }: Props) => {
   const contentRef = React.useRef<HTMLDivElement>(null);
   const [activeSectionId, setActiveSectionId] = React.useState<string>(props.venue?.sections?.[0]?.name || "");
@@ -23,8 +25,9 @@ const Venue = React.memo(({ hidePrint = true, ...props }: Props) => {
 
   const checkPrint = React.useCallback(() => {
     try {
-      const w = window as any;
-      w.ReactNativeWebView.postMessage("print");
+      // Outside the React Native app there is no bridge; the call throws and we print in the browser.
+      const w: Window & { ReactNativeWebView?: ReactNativeWebView } = window;
+      (w.ReactNativeWebView as ReactNativeWebView).postMessage("print");
     } catch {
       handlePrint();
     }
@@ -34,7 +37,7 @@ const Venue = React.memo(({ hidePrint = true, ...props }: Props) => {
     if (displaySection) { checkPrint(); setDisplaySection(false); }
   }, [displaySection, checkPrint]);
 
-  const shouldHide = React.useCallback((id: string) => {
+  const shouldHide = React.useCallback((id: string | undefined) => {
     let result = false;
     if (props.customizations && props.customizations.length > 0) { const removeItems = ArrayHelper.getAll(props.customizations, "action", "remove"); if (removeItems.length > 0) result = ArrayHelper.getOne(removeItems, "contentId", id) !== null; }
     return result;

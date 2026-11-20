@@ -31,7 +31,7 @@ export function ScheduleList(props: Props) {
   const [editSchedule, setEditSchedule] = useState<ScheduleInterface | null>(null);
 
   const loadData = () => {
-    ApiHelper.get("/schedules/classroom/" + props.classroomId, "LessonsApi").then((data: any) => { ArrayHelper.sortBy(data, "scheduledDate", true); setSchedules(data); });
+    ApiHelper.get("/schedules/classroom/" + props.classroomId, "LessonsApi").then((data: ScheduleInterface[]) => { ArrayHelper.sortBy(data, "scheduledDate", true); setSchedules(data); });
   };
 
   const getRows = () => {

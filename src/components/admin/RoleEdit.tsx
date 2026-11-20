@@ -6,24 +6,24 @@ import { ApiHelper, RoleInterface } from "@/helpers";
 
 interface Props { role: RoleInterface; updatedCallback: (role: RoleInterface | null, created: boolean) => void; }
 
-type AnyRecord = Record<string, any>;
+interface FormValues { name: string; sort: string | number; }
 
 export function RoleEdit(props: Props) {
-  const { register, handleSubmit, reset, formState } = useForm<AnyRecord>({ defaultValues: { name: "", sort: "" } });
+  const { register, handleSubmit, reset, formState } = useForm<FormValues>({ defaultValues: { name: "", sort: "" } });
   const [error, setError] = useState("");
-  const e = formState.errors as any;
+  const e = formState.errors;
   const summaryErrors: string[] = [];
   if (e.name?.message) summaryErrors.push(e.name.message);
 
   const handleCancel = () => props.updatedCallback(props.role, false);
 
-  const onValid = async (values: AnyRecord) => {
-    const r: RoleInterface = { ...props.role, name: values.name, sort: parseInt(values.sort) || 0 };
+  const onValid = async (values: FormValues) => {
+    const r: RoleInterface = { ...props.role, name: values.name, sort: parseInt(String(values.sort)) || 0 };
     setError("");
     try {
       const data: RoleInterface[] = await ApiHelper.post("/roles", [r], "LessonsApi");
       props.updatedCallback(data[0], !props.role.id);
-    } catch (err: any) { setError(err?.message || "Unable to save."); }
+    } catch (err) { setError((err instanceof Error ? err.message : "") || "Unable to save."); }
   };
 
   const handleDelete = () => { if (window.confirm("Are you sure you wish to permanently delete this role?")) ApiHelper.delete("/roles/" + props.role.id!.toString(), "LessonsApi").then(() => props.updatedCallback(null, false)); };

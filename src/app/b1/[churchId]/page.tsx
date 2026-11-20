@@ -6,6 +6,7 @@ import { Container } from "@mui/material";
 import { ApiHelper } from "@churchapps/apphelper";
 import { Layout } from "@/components/Layout";
 import { EnvironmentHelper } from "@/helpers/EnvironmentHelper";
+import { ClassroomInterface } from "@/helpers/interfaces";
 import { MetaHelper } from "@/helpers/MetaHelper";
 
 type PageParams = { churchId: string };
@@ -15,11 +16,11 @@ export async function generateMetadata(): Promise<Metadata> { return MetaHelper.
 export default async function Venue({ params }: { params: Promise<PageParams> }) {
   EnvironmentHelper.init();
   const { churchId } = await params;
-  const classrooms = await ApiHelper.getAnonymous("/classrooms/public/church/" + churchId, "LessonsApi");
+  const classrooms: ClassroomInterface[] = await ApiHelper.getAnonymous("/classrooms/public/church/" + churchId, "LessonsApi");
 
   const getRows = () => {
     const result: React.JSX.Element[] = [];
-    classrooms?.forEach((c: any) => {
+    classrooms?.forEach((c: ClassroomInterface) => {
       const url = "/b1/classroom/" + c.id;
       result.push(<Link href={url} className="bigLink">
         {c.name}

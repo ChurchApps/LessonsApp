@@ -7,15 +7,15 @@ import { useForm, Controller } from "react-hook-form";
 interface Props {
   externalVideo: ExternalVideoInterface;
   updatedCallback: (externalVideo: ExternalVideoInterface | null) => void;
-  contentDisplayName: string;
+  contentDisplayName?: string;
 }
 
-type AnyRecord = Record<string, any>;
+interface FormValues { name: string; videoProvider: string; videoId: string; loopVideo: string; }
 
 export function ExternalVideoEdit(props: Props) {
-  const { control, register, handleSubmit, reset, formState } = useForm<AnyRecord>({ defaultValues: { name: "", videoProvider: "Vimeo", videoId: "", loopVideo: "false" } });
+  const { control, register, handleSubmit, reset, formState } = useForm<FormValues>({ defaultValues: { name: "", videoProvider: "Vimeo", videoId: "", loopVideo: "false" } });
   const [error, setError] = useState("");
-  const e = formState.errors as any;
+  const e = formState.errors;
   const summaryErrors: string[] = [];
   if (e.name?.message) summaryErrors.push(e.name.message);
 
@@ -28,12 +28,12 @@ export function ExternalVideoEdit(props: Props) {
     }
   };
 
-  const onValid = async (values: AnyRecord) => {
+  const onValid = async (values: FormValues) => {
     const v: ExternalVideoInterface = { ...props.externalVideo, name: values.name, videoProvider: values.videoProvider, videoId: values.videoId, loopVideo: values.loopVideo === "true" };
     setError("");
     try {
       props.updatedCallback(await ApiHelper.post("/externalVideos", [v], "LessonsApi"));
-    } catch (err: any) { setError(err?.message || "Unable to save."); }
+    } catch (err) { setError((err instanceof Error ? err.message : "") || "Unable to save."); }
   };
 
   useEffect(() => {
