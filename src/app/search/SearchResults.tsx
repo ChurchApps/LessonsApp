@@ -37,7 +37,7 @@ export function SearchResults({ initialQuery }: Props) {
         setResults(data.results || []);
         setSearchTime(data.elapsed);
       }
-    } catch (_err) {
+    } catch {
       setError("Failed to perform search. Please try again.");
       setResults([]);
     } finally {

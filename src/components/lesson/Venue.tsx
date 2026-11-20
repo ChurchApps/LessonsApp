@@ -25,7 +25,7 @@ const Venue = React.memo(({ hidePrint = true, ...props }: Props) => {
     try {
       const w = window as any;
       w.ReactNativeWebView.postMessage("print");
-    } catch (e) {
+    } catch {
       handlePrint();
     }
   }, [handlePrint]);

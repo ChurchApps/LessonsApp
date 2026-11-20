@@ -6,10 +6,8 @@ import { VenueInterface } from "@/helpers/interfaces";
 interface Props { classroomId: string; hideFeed: () => void; }
 
 export function PlaylistFeed(props: Props) {
-  const [venues, setVenues] = useState<VenueInterface[]>([]);
-  const [venueName, setVenueName] = useState("");
-
-  const handleChange = (e: React.ChangeEvent<HTMLSelectElement>) => { e.preventDefault(); setVenueName(e.currentTarget.value); };
+  const [, setVenues] = useState<VenueInterface[]>([]);
+  const [, setVenueName] = useState("");
 
   const handleCancel = () => { props.hideFeed(); };
 
