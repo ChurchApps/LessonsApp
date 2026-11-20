@@ -10,14 +10,14 @@ const ImageEditor = dynamic(() => import("./ImageEditor").then(mod => ({ default
 
 interface Props { program: ProgramInterface; updatedCallback: (program: ProgramInterface | null) => void; onClose?: () => void; }
 
-type AnyRecord = Record<string, any>;
+interface FormValues { name: string; slug: string; shortDescription: string; description: string; aboutSection: string; videoEmbedUrl: string; live: string; image: string; }
 
 export function ProgramEdit(props: Props) {
   const [showImageEditor, setShowImageEditor] = useState<boolean>(false);
   const [error, setError] = useState("");
 
-  const { register, handleSubmit, reset, control, watch, setValue, formState } = useForm<AnyRecord>({ defaultValues: { name: "", slug: "", shortDescription: "", description: "", aboutSection: "", videoEmbedUrl: "", live: "false", image: "" } });
-  const e = formState.errors as any;
+  const { register, handleSubmit, reset, control, watch, setValue, formState } = useForm<FormValues>({ defaultValues: { name: "", slug: "", shortDescription: "", description: "", aboutSection: "", videoEmbedUrl: "", live: "false", image: "" } });
+  const e = formState.errors;
   const image = watch("image");
   const slug = watch("slug");
   const summaryErrors: string[] = [];
@@ -30,7 +30,7 @@ export function ProgramEdit(props: Props) {
     setShowImageEditor(false);
   };
 
-  const onValid = async (values: AnyRecord) => {
+  const onValid = async (values: FormValues) => {
     const p: ProgramInterface = {
       ...props.program,
       name: values.name,
@@ -46,7 +46,7 @@ export function ProgramEdit(props: Props) {
     try {
       const data: ProgramInterface[] = await ApiHelper.post("/programs", [p], "LessonsApi");
       props.updatedCallback(data[0]);
-    } catch (err: any) { setError(err?.message || "Unable to save."); }
+    } catch (err) { setError((err instanceof Error ? err.message : "") || "Unable to save."); }
   };
 
   const handleDelete = async () => {
@@ -56,7 +56,7 @@ export function ProgramEdit(props: Props) {
       await ApiHelper.delete("/programs/" + props.program.id!.toString(), "LessonsApi");
       props.onClose?.();
       props.updatedCallback(null);
-    } catch (err: any) { setError(err?.message || "Unable to delete."); }
+    } catch (err) { setError((err instanceof Error ? err.message : "") || "Unable to delete."); }
   };
 
   const handleImageClick = (ev: React.MouseEvent) => { ev.preventDefault(); setShowImageEditor(true); };

@@ -36,7 +36,7 @@ export default function OllInner() {
     URL.revokeObjectURL(link.href);
   };
 
-  const handleUpload = () => { const f: any = document.getElementById("fileUpload"); f.click(); };
+  const handleUpload = () => { const f = document.getElementById("fileUpload") as HTMLInputElement; f.click(); };
 
   const moveProgram = (index: number, direction: "up" | "down") => {
     const d = { ...data };
@@ -54,9 +54,9 @@ export default function OllInner() {
     const f = document.getElementById("fileUpload") as HTMLInputElement;
     if (!f || !f.files || !f.files[0]) return;
     const reader = new FileReader();
-    reader.onload = (e: any) => {
+    reader.onload = () => {
       setData(null as unknown as FeedListInterface);
-      setTimeout(() => { setData(JSON.parse(e.target.result)); }, 50);
+      setTimeout(() => { setData(JSON.parse(reader.result as string)); }, 50);
     };
     reader.readAsText(f.files[0]);
   };

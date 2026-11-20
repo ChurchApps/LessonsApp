@@ -2,8 +2,9 @@
 
 import { useEffect } from "react";
 import { Grid } from "@mui/material";
+import { ProviderStatsInterface } from "@/helpers/interfaces";
 
-interface Props { stats: any; }
+interface Props { stats?: ProviderStatsInterface; }
 
 export function Stats(props: Props) {
   const countDuration = 5000;

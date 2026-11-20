@@ -6,24 +6,24 @@ import { ApiHelper, VenueInterface } from "@/helpers";
 
 interface Props { venue: VenueInterface; updatedCallback: (venue: VenueInterface | null) => void; }
 
-type AnyRecord = Record<string, any>;
+interface FormValues { name: string; sort: string | number; }
 
 export function VenueEdit(props: Props) {
-  const { register, handleSubmit, reset, formState } = useForm<AnyRecord>({ defaultValues: { name: "", sort: "" } });
+  const { register, handleSubmit, reset, formState } = useForm<FormValues>({ defaultValues: { name: "", sort: "" } });
   const [error, setError] = useState("");
-  const e = formState.errors as any;
+  const e = formState.errors;
   const summaryErrors: string[] = [];
   if (e.name?.message) summaryErrors.push(e.name.message);
 
   const handleCancel = () => props.updatedCallback(props.venue);
 
-  const onValid = async (values: AnyRecord) => {
-    const v: VenueInterface = { ...props.venue, name: values.name, sort: parseInt(values.sort) || 0 };
+  const onValid = async (values: FormValues) => {
+    const v: VenueInterface = { ...props.venue, name: values.name, sort: parseInt(String(values.sort)) || 0 };
     setError("");
     try {
       const data: VenueInterface = await ApiHelper.post("/venues", [v], "LessonsApi");
       props.updatedCallback(data);
-    } catch (err: any) { setError(err?.message || "Unable to save."); }
+    } catch (err) { setError((err instanceof Error ? err.message : "") || "Unable to save."); }
   };
 
   const handleDelete = () => { if (window.confirm("Are you sure you wish to permanently delete this venue?")) ApiHelper.delete("/venues/" + props.venue.id!.toString(), "LessonsApi").then(() => props.updatedCallback(null)); };

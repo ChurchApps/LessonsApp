@@ -10,17 +10,17 @@ const ImageEditor = dynamic(() => import("./ImageEditor").then(mod => ({ default
 
 interface Props { addOn: AddOnInterface; updatedCallback: (addOn: AddOnInterface) => void; }
 
-type AnyRecord = Record<string, any>;
+interface FormValues { category: string; name: string; addOnType: string; image: string; videoId?: string; }
 
 export function AddOnEdit(props: Props) {
   const [showImageEditor, setShowImageEditor] = useState<boolean>(false);
   const [externalVideo, setExternalVideo] = useState<ExternalVideoInterface | null>(null);
   const [pendingFileSave, setPendingFileSave] = useState(false);
-  const [pendingValues, setPendingValues] = useState<AnyRecord | null>(null);
+  const [pendingValues, setPendingValues] = useState<(FormValues & { savedAddOn?: AddOnInterface }) | null>(null);
   const [error, setError] = useState("");
 
-  const { register, handleSubmit, reset, control, watch, setValue, formState } = useForm<AnyRecord>({ defaultValues: { category: "slow worship", name: "", addOnType: "file", image: "" } });
-  const e = formState.errors as any;
+  const { register, handleSubmit, reset, control, watch, setValue, formState } = useForm<FormValues>({ defaultValues: { category: "slow worship", name: "", addOnType: "file", image: "" } });
+  const e = formState.errors;
   const addOnType = watch("addOnType");
   const image = watch("image");
   const summaryErrors: string[] = [];
@@ -36,7 +36,7 @@ export function AddOnEdit(props: Props) {
 
   const handleFileError = (message: string) => { setPendingFileSave(false); setError(message); };
 
-  const onValid = (values: AnyRecord) => {
+  const onValid = (values: FormValues) => {
     setError("");
     if (values.addOnType === "externalVideo" && !externalVideo?.videoId) { setError("Please enter a video id."); return; }
     const a: AddOnInterface = { ...props.addOn, id: pendingValues?.savedAddOn?.id || props.addOn.id, category: values.category, name: values.name, addOnType: values.addOnType, image: values.image };

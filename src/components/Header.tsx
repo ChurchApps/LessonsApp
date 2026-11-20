@@ -12,7 +12,7 @@ import { SearchBar } from "./SearchBar";
 interface Props { position?: "fixed" | "sticky" | "static" | "relative" | "absolute"; }
 
 export function Header(props: Props) {
-  const [menuAnchor, setMenuAnchor] = useState<any>(null);
+  const [menuAnchor, setMenuAnchor] = useState<HTMLElement | null>(null);
   const [showSupport, setShowSupport] = useState(false);
   const [isClient, setIsClient] = useState(false);
 
@@ -38,7 +38,7 @@ export function Header(props: Props) {
         <a
           id="userMenuLink"
           href="about:blank"
-          onClick={e => { e.preventDefault(); setMenuAnchor(Boolean(menuAnchor) ? null : e.target); }}>
+          onClick={e => { e.preventDefault(); setMenuAnchor(Boolean(menuAnchor) ? null : e.target as HTMLElement); }}>
           {UserHelper.user ? `${UserHelper.user.firstName} ${UserHelper.user.lastName}` : "User"}
           <Icon style={{ paddingTop: 6 }}>expand_more</Icon>
         </a>

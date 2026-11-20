@@ -1,7 +1,8 @@
 "use client";
 
 import { useState } from "react";
-import { Alert } from "@mui/material";
+import { Alert, PaperProps } from "@mui/material";
+import type { LoginUserChurchInterface, PersonInterface, UserInterface } from "@churchapps/helpers";
 import { Layout } from "@/components";
 import { LoginPage } from "@churchapps/apphelper/login";
 import { UserHelper } from "@churchapps/apphelper";
@@ -21,7 +22,7 @@ const sameOriginPath = (url: string) => {
 interface Props {
   showLogo?: boolean;
   redirectAfterLogin?: string;
-  loginContainerCssProps?: any;
+  loginContainerCssProps?: PaperProps;
   keyName?: string;
 }
 
@@ -32,9 +33,9 @@ export function LoginClient({ showLogo, redirectAfterLogin, loginContainerCssPro
   // Read cookies synchronously on first client render so the jwt is available
   // before LoginPage's init() runs — otherwise auto-login from an existing
   // session cookie misses its window. SSR returns an empty object.
-  const [cookies] = useState<any>(() => {
+  const [cookies] = useState<Record<string, string>>(() => {
     if (typeof document === "undefined") return {};
-    const cookieObj: any = {};
+    const cookieObj: Record<string, string> = {};
     document.cookie.split(";").forEach(cookie => {
       const [key, value] = cookie.trim().split("=");
       if (key && value) { cookieObj[key] = value; }
@@ -46,19 +47,19 @@ export function LoginClient({ showLogo, redirectAfterLogin, loginContainerCssPro
 
   const handleRedirect = (
     url: string,
-    user?: any,
-    person?: any,
-    currentUserChurch?: any,
-    userChurches?: any[]
+    user?: UserInterface,
+    person?: PersonInterface,
+    currentUserChurch?: LoginUserChurchInterface,
+    userChurches?: LoginUserChurchInterface[]
   ) => {
-    UserHelper.user = user;
-    UserHelper.person = person;
-    UserHelper.currentUserChurch = currentUserChurch;
+    UserHelper.user = user as UserInterface;
+    UserHelper.person = person as PersonInterface;
+    UserHelper.currentUserChurch = currentUserChurch as LoginUserChurchInterface;
     UserHelper.userChurches = userChurches || [];
 
-    context.setUser(user);
-    context.setPerson(person);
-    context.setUserChurch(currentUserChurch);
+    context.setUser(user as UserInterface);
+    context.setPerson(person as PersonInterface);
+    context.setUserChurch(currentUserChurch as LoginUserChurchInterface);
     context.setUserChurches(userChurches || []);
 
     router.replace(sameOriginPath(url));

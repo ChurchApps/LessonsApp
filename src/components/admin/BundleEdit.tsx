@@ -7,15 +7,15 @@ import { useForm } from "react-hook-form";
 interface Props {
   bundle: BundleInterface;
   updatedCallback: (bundle: BundleInterface) => void;
-  contentDisplayName: string;
+  contentDisplayName?: string;
 }
 
-type AnyRecord = Record<string, any>;
+interface FormValues { name: string; }
 
 export function BundleEdit(props: Props) {
-  const { register, handleSubmit, reset, formState } = useForm<AnyRecord>({ defaultValues: { name: "" } });
+  const { register, handleSubmit, reset, formState } = useForm<FormValues>({ defaultValues: { name: "" } });
   const [error, setError] = useState("");
-  const e = formState.errors as any;
+  const e = formState.errors;
   const summaryErrors: string[] = [];
   if (e.name?.message) summaryErrors.push(e.name.message);
 
@@ -29,12 +29,12 @@ export function BundleEdit(props: Props) {
     }
   };
 
-  const onValid = async (values: AnyRecord) => {
+  const onValid = async (values: FormValues) => {
     const b: BundleInterface = { ...props.bundle, name: values.name };
     setError("");
     try {
       props.updatedCallback(await ApiHelper.post("/bundles", [b], "LessonsApi"));
-    } catch (err: any) { setError(err?.message || "Unable to save."); }
+    } catch (err) { setError((err instanceof Error ? err.message : "") || "Unable to save."); }
   };
 
   useEffect(() => {

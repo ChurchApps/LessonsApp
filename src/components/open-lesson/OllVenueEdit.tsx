@@ -6,11 +6,11 @@ import { FeedVenueLinkInterface } from "@/helpers";
 
 interface Props { venue: FeedVenueLinkInterface; updatedCallback: (venue: FeedVenueLinkInterface | null, cancelled: boolean) => void; }
 
-type AnyRecord = Record<string, any>;
+interface FormValues { id: string; name: string; apiUrl: string; }
 
 export function OllVenueEdit(props: Props) {
-  const { register, handleSubmit, reset, formState } = useForm<AnyRecord>({ defaultValues: { id: "", name: "", apiUrl: "" } });
-  const e = formState.errors as any;
+  const { register, handleSubmit, reset, formState } = useForm<FormValues>({ defaultValues: { id: "", name: "", apiUrl: "" } });
+  const e = formState.errors;
   const summaryErrors: string[] = [];
   if (e.id?.message) summaryErrors.push(e.id.message);
   if (e.name?.message) summaryErrors.push(e.name.message);
@@ -18,7 +18,7 @@ export function OllVenueEdit(props: Props) {
 
   const handleCancel = () => props.updatedCallback(null, true);
 
-  const onValid = (values: AnyRecord) => {
+  const onValid = (values: FormValues) => {
     props.updatedCallback({ ...props.venue, id: values.id, name: values.name, apiUrl: values.apiUrl }, false);
   };
 

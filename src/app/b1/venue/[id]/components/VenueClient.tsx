@@ -20,12 +20,12 @@ import {
 } from "@/helpers/interfaces";
 
 interface Props {
-  classroom: ClassroomInterface;
-  customizations: CustomizationInterface[];
-  currentSchedule: ScheduleInterface;
-  prevSchedule: ScheduleInterface;
-  nextSchedule: ScheduleInterface;
-  venue: FeedVenueInterface;
+  classroom?: ClassroomInterface;
+  customizations?: CustomizationInterface[];
+  currentSchedule?: ScheduleInterface | null;
+  prevSchedule?: ScheduleInterface | null;
+  nextSchedule?: ScheduleInterface | null;
+  venue?: FeedVenueInterface | null;
   autoPrint: boolean;
 }
 
@@ -107,7 +107,7 @@ export function VenueClient(props: Props) {
     let result = "";
     const offset = isMobile ? 100 : 120;
     for (let i = 0; i < elements.length; i++) {
-      const el: any = elements[i];
+      const el = elements[i] as HTMLElement;
       if (window.scrollY >= el.offsetTop - offset && el.offsetTop > 0) {
         if (el.offsetTop > maxTop) { maxTop = el.offsetTop; result = el.id.replace("section-", ""); }
       }

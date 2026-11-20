@@ -11,7 +11,7 @@ import { Layout, Venue } from "@/components";
 import { Header } from "@/components/Header";
 import { Presenter } from "@/components/Presenter";
 import { LessonSidebar } from "@/components/lesson/LessonSidebar";
-import { ApiHelper, FeedVenueInterface, PlaylistFileInterface } from "@/helpers";
+import { ApiHelper, FeedVenueInterface, LessonFeedDataInterface, PlaylistFileInterface, PlaylistMessageInterface, PlaylistResponseInterface } from "@/helpers";
 import { ExternalProviderHelper } from "@/helpers/ExternalProviderHelper";
 
 type PageParams = { providerId: string; programId: string; studyId: string; lessonId: string };
@@ -19,8 +19,8 @@ type PageParams = { providerId: string; programId: string; studyId: string; less
 export default function LessonsPage() {
   const params = useParams<PageParams>();
 
-  const [lessonData, setLessonData] = React.useState<any>(null);
-  const [selectedVenue, setSelectedVenue] = React.useState<FeedVenueInterface>(lessonData?.venues?.[0]);
+  const [lessonData, setLessonData] = React.useState<LessonFeedDataInterface | null>(null);
+  const [selectedVenue, setSelectedVenue] = React.useState<FeedVenueInterface>(lessonData?.venues?.[0] as FeedVenueInterface);
   const [print, setPrint] = React.useState<number>(0);
   const [presenterFiles, setPresenterFiles] = React.useState<PlaylistFileInterface[] | null>(null);
 
@@ -42,16 +42,16 @@ export default function LessonsPage() {
     setSelectedVenue(data?.venues?.[0]);
   };
 
-  const loadPresenterData = () => {
+  const loadPresenterData = (loaded: LessonFeedDataInterface) => {
     try {
       AnalyticsHelper.logEvent("Presenter", "Start", selectedVenue.name);
     } catch (error) {
       console.warn("Analytics logging failed:", error);
     }
-    const url = `/externalProviders/playlist/${lessonData.providerId}/${lessonData.programId}/${lessonData.studyId}/${lessonData.lessonId}/${lessonData.venueId}`;
-    ApiHelper.get(url, "LessonsApi").then((data: any) => {
+    const url = `/externalProviders/playlist/${loaded.providerId}/${loaded.programId}/${loaded.studyId}/${loaded.lessonId}/${loaded.venueId}`;
+    ApiHelper.get(url, "LessonsApi").then((data: PlaylistResponseInterface) => {
       const result: PlaylistFileInterface[] = [];
-      data?.messages?.forEach((m: any) => {
+      data?.messages?.forEach((m: PlaylistMessageInterface) => {
         m.files?.forEach((f: PlaylistFileInterface) => { result.push(f); });
       });
       setPresenterFiles(result);
@@ -87,7 +87,7 @@ export default function LessonsPage() {
                 )}
                 <a
                   href="about:blank"
-                  onClick={e => { e.preventDefault(); loadPresenterData(); }}
+                  onClick={e => { e.preventDefault(); loadPresenterData(lessonData); }}
                   className="cta">
                   <Icon style={{ float: "left", marginRight: 10 }}>play_circle</Icon>Start Lesson
                 </a>

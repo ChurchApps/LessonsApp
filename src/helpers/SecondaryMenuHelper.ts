@@ -3,7 +3,7 @@ import { Locale } from "@churchapps/apphelper";
 interface MenuItem { url: string; label: string; }
 
 export class SecondaryMenuHelper {
-  static getSecondaryMenu = (path: string, data?: unknown) => {
+  static getSecondaryMenu = (path: string, _data?: unknown) => {
     let result: { menuItems: MenuItem[]; label: string } = { menuItems: [], label: "" };
 
     if (path.startsWith("/portal")) result = this.getPortalMenu(path);

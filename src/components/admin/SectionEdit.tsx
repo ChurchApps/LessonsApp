@@ -6,24 +6,24 @@ import { ApiHelper, SectionInterface } from "@/helpers";
 
 interface Props { section: SectionInterface; updatedCallback: (section: SectionInterface | null, created: boolean) => void; }
 
-type AnyRecord = Record<string, any>;
+interface FormValues { name: string; materials: string; sort: string | number; }
 
 export function SectionEdit(props: Props) {
-  const { register, handleSubmit, reset, formState } = useForm<AnyRecord>({ defaultValues: { name: "", materials: "", sort: "" } });
+  const { register, handleSubmit, reset, formState } = useForm<FormValues>({ defaultValues: { name: "", materials: "", sort: "" } });
   const [error, setError] = useState("");
-  const e = formState.errors as any;
+  const e = formState.errors;
   const summaryErrors: string[] = [];
   if (e.name?.message) summaryErrors.push(e.name.message);
 
   const handleCancel = () => props.updatedCallback(props.section, false);
 
-  const onValid = async (values: AnyRecord) => {
-    const s: SectionInterface = { ...props.section, name: values.name, materials: values.materials, sort: parseInt(values.sort) || 0 };
+  const onValid = async (values: FormValues) => {
+    const s: SectionInterface = { ...props.section, name: values.name, materials: values.materials, sort: parseInt(String(values.sort)) || 0 };
     setError("");
     try {
       const data: SectionInterface[] = await ApiHelper.post("/sections", [s], "LessonsApi");
       props.updatedCallback(data[0], !props.section.id);
-    } catch (err: any) { setError(err?.message || "Unable to save."); }
+    } catch (err) { setError((err instanceof Error ? err.message : "") || "Unable to save."); }
   };
 
   const handleDelete = () => {

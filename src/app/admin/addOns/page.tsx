@@ -25,8 +25,8 @@ export default function Admin() {
   useEffect(() => { if (isAuthenticated) loadData(); }, [isAuthenticated]);
 
   async function loadData() {
-    ApiHelper.get("/providers", "LessonsApi").then((data: any) => { setProviders(data); });
-    ApiHelper.get("/addOns", "LessonsApi").then((data: any) => { setAddOns(data); });
+    ApiHelper.get("/providers", "LessonsApi").then((data: ProviderInterface[]) => { setProviders(data); });
+    ApiHelper.get("/addOns", "LessonsApi").then((data: AddOnInterface[]) => { setAddOns(data); });
   }
 
   function clearEdits() { setEditAddOn(null); }

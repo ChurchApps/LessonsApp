@@ -8,22 +8,22 @@ import { OlfFileEdit } from "./OlfFileEdit";
 
 interface Props { action: FeedActionInterface; updatedCallback: (action: FeedActionInterface | null, cancelled: boolean) => void; }
 
-type AnyRecord = Record<string, any>;
+interface FormValues { actionType: string; role: string; content: string; }
 
 export function OlfActionEdit(props: Props) {
   const [files, setFiles] = useState<FeedFileInterface[]>([]);
   const [editFileIndex, setEditFileIndex] = useState<number | null>(null);
   const [ready, setReady] = useState(false);
 
-  const { register, handleSubmit, reset, control, watch, formState } = useForm<AnyRecord>({ defaultValues: { actionType: props.action?.actionType || "", role: props.action?.role || "", content: props.action?.content || "" } });
-  const e = formState.errors as any;
+  const { register, handleSubmit, reset, control, watch, formState } = useForm<FormValues>({ defaultValues: { actionType: props.action?.actionType || "", role: props.action?.role || "", content: props.action?.content || "" } });
+  const e = formState.errors;
   const actionType = watch("actionType");
   const summaryErrors: string[] = [];
   if (e.content?.message) summaryErrors.push(e.content.message);
 
   const handleCancel = () => props.updatedCallback(null, true);
 
-  const onValid = (values: AnyRecord) => {
+  const onValid = (values: FormValues) => {
     const a: FeedActionInterface = {
       ...props.action,
       actionType: values.actionType || "say",

@@ -43,7 +43,7 @@ export default function Venue() {
   const [editSection, setEditSection] = useState<SectionInterface | null>(null);
   const [editRole, setEditRole] = useState<RoleInterface | null>(null);
   const [editAction, setEditAction] = useState<ActionInterface | null>(null);
-  const [menuAnchor, setMenuAnchor] = useState<any>(null);
+  const [menuAnchor, setMenuAnchor] = useState<HTMLElement | null>(null);
 
   const [lessonResources, setLessonResources] = useState<ResourceInterface[] | null>(null);
   const [studyResources, setStudyResources] = useState<ResourceInterface[] | null>(null);
@@ -75,17 +75,17 @@ export default function Venue() {
 
   function loadResources() {
     if (lesson && study) {
-      ApiHelper.get("/resources/content/lesson/" + lesson.id, "LessonsApi").then((data: any) => { setLessonResources(data); });
-      ApiHelper.get("/resources/content/study/" + study.id, "LessonsApi").then((data: any) => { setStudyResources(data); });
-      ApiHelper.get("/resources/content/program/" + study.programId, "LessonsApi").then((data: any) => { setProgramResources(data); });
+      ApiHelper.get("/resources/content/lesson/" + lesson.id, "LessonsApi").then((data: ResourceInterface[]) => { setLessonResources(data); });
+      ApiHelper.get("/resources/content/study/" + study.id, "LessonsApi").then((data: ResourceInterface[]) => { setStudyResources(data); });
+      ApiHelper.get("/resources/content/program/" + study.programId, "LessonsApi").then((data: ResourceInterface[]) => { setProgramResources(data); });
     }
   }
 
   const loadVideos = () => {
     if (lesson && study) {
-      ApiHelper.get("/externalVideos/content/lesson/" + lesson.id, "LessonsApi").then((data: any) => { setLessonVideos(data); });
-      ApiHelper.get("/externalVideos/content/study/" + study.id, "LessonsApi").then((data: any) => { setStudyVideos(data); });
-      ApiHelper.get("/externalVideos/content/program/" + study.programId, "LessonsApi").then((data: any) => { setProgramVideos(data); });
+      ApiHelper.get("/externalVideos/content/lesson/" + lesson.id, "LessonsApi").then((data: ExternalVideoInterface[]) => { setLessonVideos(data); });
+      ApiHelper.get("/externalVideos/content/study/" + study.id, "LessonsApi").then((data: ExternalVideoInterface[]) => { setStudyVideos(data); });
+      ApiHelper.get("/externalVideos/content/program/" + study.programId, "LessonsApi").then((data: ExternalVideoInterface[]) => { setProgramVideos(data); });
     }
   };
 
@@ -94,7 +94,7 @@ export default function Venue() {
       const allResources = ([] as ResourceInterface[]).concat(lessonResources).concat(studyResources).concat(programResources);
       if (allResources.length > 0) {
         const resourceIds: string[] = ArrayHelper.getUniqueValues(allResources, "id");
-        ApiHelper.get("/assets/resourceIds?resourceIds=" + resourceIds.join(","), "LessonsApi").then((data: any) => { setAllAssets(data); });
+        ApiHelper.get("/assets/resourceIds?resourceIds=" + resourceIds.join(","), "LessonsApi").then((data: AssetInterface[]) => { setAllAssets(data); });
       }
     }
   }
@@ -102,19 +102,19 @@ export default function Venue() {
   async function loadData() {
     ApiHelper.get("/venues/" + pathId, "LessonsApi").then((v: VenueInterface) => {
       setVenue(v);
-      ApiHelper.get("/lessons/" + v.lessonId, "LessonsApi").then((data: any) => {
+      ApiHelper.get("/lessons/" + v.lessonId, "LessonsApi").then((data: LessonInterface) => {
         setLesson(data);
-        ApiHelper.get("/studies/" + data.studyId, "LessonsApi").then((d: any) => { setStudy(d); });
+        ApiHelper.get("/studies/" + data.studyId, "LessonsApi").then((d: StudyInterface) => { setStudy(d); });
       });
       loadStructure(v);
-      ApiHelper.get("/addOns/public", "LessonsApi").then((data: any) => { setAddOns(data); });
+      ApiHelper.get("/addOns/public", "LessonsApi").then((data: AddOnInterface[]) => { setAddOns(data); });
     });
   }
 
   function loadStructure(v: VenueInterface) {
-    ApiHelper.get("/sections/venue/" + v.id, "LessonsApi").then((data: any) => { setSections(data); });
-    ApiHelper.get("/roles/public/lesson/" + v.lessonId, "LessonsApi").then((data: any) => { setRoles(data); });
-    ApiHelper.get("/actions/public/lesson/" + v.lessonId, "LessonsApi").then((data: any) => { setActions(data); });
+    ApiHelper.get("/sections/venue/" + v.id, "LessonsApi").then((data: SectionInterface[]) => { setSections(data); });
+    ApiHelper.get("/roles/public/lesson/" + v.lessonId, "LessonsApi").then((data: RoleInterface[]) => { setRoles(data); });
+    ApiHelper.get("/actions/public/lesson/" + v.lessonId, "LessonsApi").then((data: ActionInterface[]) => { setActions(data); });
   }
 
   const cacheJwt = () => ApiHelper.getConfig("LessonsApi")?.jwt || "";

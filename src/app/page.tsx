@@ -13,7 +13,7 @@ import Error from "@/components/Error";
 import { Layout } from "@/components/Layout";
 import { EnvironmentHelper } from "@/helpers/EnvironmentHelper";
 import { MetaHelper } from "@/helpers/MetaHelper";
-import { ProgramInterface, ProviderInterface } from "@/helpers/interfaces";
+import { ProgramInterface, ProviderInterface, ProviderStatsInterface } from "@/helpers/interfaces";
 import { FloatingSupportWrapper } from "./components/FloatingSupportWrapper";
 
 const loadData = async () => {
@@ -22,7 +22,7 @@ const loadData = async () => {
   let programs: ProgramInterface[] = await ApiHelper.getAnonymous("/programs/public", "LessonsApi");
   const providers: ProviderInterface[] = await ApiHelper.getAnonymous("/providers/public", "LessonsApi");
   const studies: ProviderInterface[] = await ApiHelper.getAnonymous("/studies/public", "LessonsApi");
-  const stats: { churchCount: number; lessonCount: number; studyCount: number; programCount: number } = await ApiHelper.getAnonymous("/providers/stats", "LessonsApi");
+  const stats: ProviderStatsInterface = await ApiHelper.getAnonymous("/providers/stats", "LessonsApi");
 
   programs = programs.filter(p => !excludeIds.includes(p.id || ""));
   return { programs, providers, studies, stats, errorMessage: "" };
