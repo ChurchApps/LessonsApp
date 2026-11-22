@@ -56,7 +56,7 @@ const faqs = [
   },
   {
     question: "How do I get started with Lessons.church?",
-    answer: "Simply register for a free account at lessons.church/register, browse the available curriculum, schedule lessons for your classrooms, and download FreePlay. You can be up and running in minutes."
+    answer: "Simply register for a free account at lessons.church, browse the available curriculum, schedule lessons for your classrooms, and download FreePlay. You can be up and running in minutes."
   },
   { question: "Is Lessons.church open source?", answer: "Yes, all our code is open source and available on GitHub at github.com/ChurchApps. Churches can contribute improvements, and developers can see exactly how the platform works." }
 ];
@@ -133,7 +133,7 @@ export default function FAQPage() {
                 variant="contained"
                 color="primary"
                 size="large"
-                href="/register"
+                href="/login?action=register"
               >
                 Start Free Today
               </Button>
