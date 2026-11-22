@@ -14,12 +14,21 @@ import { VenueClient } from "./components/VenueClient";
 
 type PageParams = { id: string };
 
+interface VenueData {
+  classroom: ClassroomInterface;
+  customizations: CustomizationInterface[];
+  currentSchedule: ScheduleInterface | null;
+  prevSchedule: ScheduleInterface | null;
+  nextSchedule: ScheduleInterface | null;
+  venue: FeedVenueInterface | null;
+}
+
 export default function B1Venue() {
   const params = useParams<PageParams>();
 
   const searchParams = useSearchParams();
   const autoPrint = searchParams.get("autoPrint") === "1";
-  const [data, setData] = React.useState<any>(null);
+  const [data, setData] = React.useState<VenueData | null>(null);
 
   const loadInternal = async () => { const venue: FeedVenueInterface = await ApiHelper.getAnonymous("/venues/public/feed/" + params.id, "LessonsApi"); return venue; };
 

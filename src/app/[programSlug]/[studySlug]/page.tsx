@@ -36,8 +36,8 @@ const loadSharedData = async (params: Promise<PageParams>): Promise<LoadDataResu
   const { programSlug, studySlug } = await params;
   try {
     return await unstable_cache(loadData, ["/[programSlug]/[studySlug]", programSlug, studySlug], { tags: ["all"], revalidate: 3600 })({ programSlug, studySlug });
-  } catch (error: any) {
-    return { errorMessage: error.message };
+  } catch (error) {
+    return { errorMessage: error instanceof Error ? error.message : String(error) };
   }
 };
 

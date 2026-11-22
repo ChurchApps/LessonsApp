@@ -1,10 +1,11 @@
 "use client";
 
 import { Container, Fade, Grid, Link, Slide, Stack } from "@mui/material";
+import { ProviderStatsInterface } from "@/helpers/interfaces";
 import { Header } from "../../components/Header";
 import { Stats } from "./Stats";
 
-interface Props { stats: any; }
+interface Props { stats?: ProviderStatsInterface; }
 
 export function HomeHero(props: Props) {
   const getAppBar = () => <Header position="static" />;

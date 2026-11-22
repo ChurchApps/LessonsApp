@@ -26,10 +26,10 @@ interface Props {
   updatedCallback: (action: ActionInterface, created: boolean) => void;
 }
 
-type AnyRecord = Record<string, any>;
+interface FormValues { sort: string | number; actionType: string; content: string; resourceId: string | undefined; externalVideoId: string | undefined; assetId: string | undefined; addOnId: string | undefined; }
 
 export function ActionEdit(props: Props) {
-  const { register, handleSubmit, reset, control, watch, setValue, getValues, formState } = useForm<AnyRecord>({
+  const { register, handleSubmit, reset, control, watch, setValue, getValues, formState } = useForm<FormValues>({
     defaultValues: {
       sort: props.action?.sort ?? "",
       actionType: props.action?.actionType || "",
@@ -41,7 +41,7 @@ export function ActionEdit(props: Props) {
     }
   });
   const [error, setError] = useState("");
-  const e = formState.errors as any;
+  const e = formState.errors;
   const actionType = watch("actionType");
   const resourceId = watch("resourceId");
   const externalVideoId = watch("externalVideoId");
@@ -55,10 +55,10 @@ export function ActionEdit(props: Props) {
   const getCombinedResources = () => [...props.lessonResources, ...props.studyResources, ...props.programResources];
   const getCombinedVideos = () => [...props.lessonVideos, ...props.studyVideos, ...props.programVideos];
 
-  const onValid = async (values: AnyRecord) => {
+  const onValid = async (values: FormValues) => {
     const a: ActionInterface = {
       ...props.action,
-      sort: parseInt(values.sort) || 0,
+      sort: parseInt(String(values.sort)) || 0,
       actionType: values.actionType || "Say",
       content: values.content,
       resourceId: values.resourceId || null,
@@ -67,20 +67,20 @@ export function ActionEdit(props: Props) {
       addOnId: values.addOnId || null
     };
     if (a.actionType !== "Play" && a.actionType !== "Download") {
-      a.resourceId = null as any;
-      a.assetId = null as any;
-      a.externalVideoId = null as any;
+      a.resourceId = null;
+      a.assetId = null;
+      a.externalVideoId = null;
     } else if (a.resourceId === null && a.externalVideoId === null) {
       if (props.lessonResources.length > 0) a.resourceId = props.lessonResources[0].id;
       else if (props.studyResources.length > 0) a.resourceId = props.studyResources[0].id;
       else if (props.programResources.length > 0) a.resourceId = props.programResources[0].id;
     }
-    if (a.actionType !== "Add-on") a.addOnId = null as any;
+    if (a.actionType !== "Add-on") a.addOnId = null;
     setError("");
     try {
       const data: ActionInterface[] = await ApiHelper.post("/actions", [a], "LessonsApi");
       props.updatedCallback(data[0], !props.action.id);
-    } catch (err: any) { setError(err?.message || "Unable to save."); }
+    } catch (err) { setError((err instanceof Error ? err.message : "") || "Unable to save."); }
   };
 
   const handleDelete = () => { if (window.confirm("Are you sure you wish to permanently delete this action?")) ApiHelper.delete("/actions/" + props.action.id?.toString(), "LessonsApi").then(() => props.updatedCallback(null as unknown as ActionInterface, false)); };
@@ -200,7 +200,7 @@ export function ActionEdit(props: Props) {
         const resources = getCombinedResources();
         if (resources.length > 0 && ArrayHelper.getOne(resources, "id", resourceId) === null) {
           setValue("resourceId", resources[0].id);
-          setValue("content", resources[0].name);
+          setValue("content", resources[0].name as string);
           setValue("assetId", "");
           setValue("addOnId", "");
         }
@@ -208,7 +208,7 @@ export function ActionEdit(props: Props) {
     } else if (actionType === "Add-on") {
       if (addOnId && props.addOns.length > 0 && ArrayHelper.getOne(props.addOns, "id", addOnId) === null) {
         setValue("addOnId", props.addOns[0].id);
-        setValue("content", props.addOns[0].name);
+        setValue("content", props.addOns[0].name as string);
         setValue("assetId", "");
         setValue("resourceId", "");
       }

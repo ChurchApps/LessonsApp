@@ -39,7 +39,7 @@ const LessonSidebar = React.memo((props: Props) => {
     let maxTop = 0;
     let result = "";
     for (let i = 0; i < elements.length; i++) {
-      const el: any = elements[i];
+      const el = elements[i] as HTMLElement;
       if (window.scrollY >= el.offsetTop - 20 && el.offsetTop > 0) {
         if (el.offsetTop > maxTop) { maxTop = el.offsetTop; result = el.id.replace("section-", "sectionLink-"); }
       }

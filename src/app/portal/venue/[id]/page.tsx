@@ -30,6 +30,8 @@ import {
   VenueInterface
 } from "@/helpers";
 
+type SortableItem = SectionInterface | RoleInterface | ActionInterface;
+
 type PageParams = { id: string };
 
 export default function Venue() {
@@ -76,13 +78,13 @@ export default function Venue() {
   function loadData() {
     ApiHelper.get("/venues/public/" + pathId, "LessonsApi").then((v: VenueInterface) => {
       setVenue(v);
-      ApiHelper.get("/lessons/public/" + v.lessonId, "LessonsApi").then((data: any) => {
+      ApiHelper.get("/lessons/public/" + v.lessonId, "LessonsApi").then((data: LessonInterface) => {
         setLesson(data);
-        ApiHelper.get("/studies/public/" + data.studyId, "LessonsApi").then((d: any) => { setStudy(d); });
+        ApiHelper.get("/studies/public/" + data.studyId, "LessonsApi").then((d: StudyInterface) => { setStudy(d); });
       });
-      ApiHelper.get("/sections/public/venue/" + v.id, "LessonsApi").then((data: any) => { setSections(data); });
-      ApiHelper.get("/roles/public/lesson/" + v.lessonId, "LessonsApi").then((data: any) => { setRoles(data); });
-      ApiHelper.get("/actions/public/lesson/" + v.lessonId, "LessonsApi").then((data: any) => { setActions(data); });
+      ApiHelper.get("/sections/public/venue/" + v.id, "LessonsApi").then((data: SectionInterface[]) => { setSections(data); });
+      ApiHelper.get("/roles/public/lesson/" + v.lessonId, "LessonsApi").then((data: RoleInterface[]) => { setRoles(data); });
+      ApiHelper.get("/actions/public/lesson/" + v.lessonId, "LessonsApi").then((data: ActionInterface[]) => { setActions(data); });
       ApiHelper.get("/customizations/venue/" + v.id + "?classroomId=" + classroomId, "LessonsApi").then((data: CustomizationInterface[]) =>
         setCustomizations(data));
     });
@@ -116,7 +118,7 @@ export default function Venue() {
       setCustomizations(data));
   };
 
-  const move = async (contentType: string, item: any, swap: any, type: string) => {
+  const move = async (contentType: string, item: SortableItem, swap: SortableItem, type: string) => {
     const contentCustomizations = ArrayHelper.getAll(customizations, "contentType", contentType);
     let itemCust: CustomizationInterface = ArrayHelper.getOne(contentCustomizations, "contentId", item.id);
     let swapCust: CustomizationInterface = ArrayHelper.getOne(contentCustomizations, "contentId", swap.id);
@@ -274,7 +276,7 @@ export default function Venue() {
     </Button>
   );
 
-  const getUpLink = (contentType: string, item: any, swapItem: any) => (
+  const getUpLink = (contentType: string, item: SortableItem, swapItem: SortableItem) => (
     <Button
       id="up-button"
       data-content-type={contentType}
@@ -289,7 +291,7 @@ export default function Venue() {
     </Button>
   );
 
-  const getDownLink = (contentType: string, item: any, swapItem: any) => (
+  const getDownLink = (contentType: string, item: SortableItem, swapItem: SortableItem) => (
     <Button
       id="down-button"
       data-content-type={contentType}
@@ -304,7 +306,7 @@ export default function Venue() {
     </Button>
   );
 
-  const getLinks = (contentType: string, contentId: string, parentRemoved: boolean, index: number, array: any[]) => {
+  const getLinks = (contentType: string, contentId: string, parentRemoved: boolean, index: number, array: SortableItem[]) => {
     const result: React.JSX.Element[] = [];
     if (index > 0) result.push(getUpLink(contentType, array[index], array[index - 1]));
     if (index < array.length - 1) result.push(getDownLink(contentType, array[index], array[index + 1]));

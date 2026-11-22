@@ -33,7 +33,7 @@ export default function ThirdParty() {
   const [editProvider, setEditProvider] = useState<ExternalProviderInterface | null>(null);
 
   const loadData = () => {
-    ApiHelper.get("/externalProviders", "LessonsApi").then((data: any) => { setProviders(data); });
+    ApiHelper.get("/externalProviders", "LessonsApi").then((data: ExternalProviderInterface[]) => { setProviders(data); });
   };
 
   useEffect(() => {

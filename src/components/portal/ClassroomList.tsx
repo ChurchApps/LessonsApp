@@ -23,7 +23,7 @@ export function ClassroomList(props: Props) {
   const [editClassroom, setEditClassroom] = useState<ClassroomInterface | null>(null);
 
   const loadData = () => {
-    ApiHelper.get("/classrooms", "LessonsApi").then((data: any) => { setClassrooms(data); });
+    ApiHelper.get("/classrooms", "LessonsApi").then((data: ClassroomInterface[]) => { setClassrooms(data); });
   };
 
   const getRows = () => {

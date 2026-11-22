@@ -6,15 +6,13 @@ import { VenueInterface } from "@/helpers/interfaces";
 interface Props { classroomId: string; hideFeed: () => void; }
 
 export function PlaylistFeed(props: Props) {
-  const [venues, setVenues] = useState<VenueInterface[]>([]);
-  const [venueName, setVenueName] = useState("");
-
-  const handleChange = (e: React.ChangeEvent<HTMLSelectElement>) => { e.preventDefault(); setVenueName(e.currentTarget.value); };
+  const [, setVenues] = useState<VenueInterface[]>([]);
+  const [, setVenueName] = useState("");
 
   const handleCancel = () => { props.hideFeed(); };
 
   const loadData = () => {
-    ApiHelper.get("/venues/names/classroom/" + props.classroomId, "LessonsApi").then((data: any) => { setVenues(data); if (data.length > 0) setVenueName(data[0].name); });
+    ApiHelper.get("/venues/names/classroom/" + props.classroomId, "LessonsApi").then((data: (VenueInterface & { name: string })[]) => { setVenues(data); if (data.length > 0) setVenueName(data[0].name); });
   };
 
   useEffect(loadData, [props.classroomId]);

@@ -11,14 +11,19 @@ interface Props {
   updatedCallback: (schedule: ScheduleInterface | null) => void;
 }
 
-type AnyRecord = Record<string, any>;
+type TreeProgram = NonNullable<LessonTreeInterface["programs"]>[number];
+type TreeStudy = NonNullable<TreeProgram["studies"]>[number];
+type TreeLesson = NonNullable<TreeStudy["lessons"]>[number];
+type TreeVenue = NonNullable<TreeLesson["venues"]>[number];
+
+interface FormValues { scheduledDate: string; externalProviderId: string; programId: string; studyId: string; lessonId: string; venueId: string; }
 
 export function ScheduleEdit(props: Props) {
   const [externalProviders, setExternalProviders] = useState<ExternalProviderInterface[]>([]);
   const [lessonTree, setLessonTree] = useState<LessonTreeInterface>({});
 
-  const { register, handleSubmit, reset, watch, setValue, formState } = useForm<AnyRecord>({ defaultValues: { scheduledDate: "", externalProviderId: "", programId: "", studyId: "", lessonId: "", venueId: "" } });
-  const e = formState.errors as any;
+  const { register, handleSubmit, reset, watch, setValue, formState } = useForm<FormValues>({ defaultValues: { scheduledDate: "", externalProviderId: "", programId: "", studyId: "", lessonId: "", venueId: "" } });
+  const e = formState.errors;
   const rawProgramId = watch("programId");
   const rawStudyId = watch("studyId");
   const rawLessonId = watch("lessonId");
@@ -89,7 +94,7 @@ export function ScheduleEdit(props: Props) {
     else loadExternalProviderData(externalProviders, val);
   };
 
-  const onValid = (values: AnyRecord) => {
+  const onValid = (values: FormValues) => {
     const studyName = currentStudy?.name;
     const lessonName = currentLesson?.name;
     const s: ScheduleInterface = {
@@ -156,22 +161,22 @@ export function ScheduleEdit(props: Props) {
           <FormControl fullWidth>
             <InputLabel>Program</InputLabel>
             <Select label="Program" name="program" value={resolvedProgramId || ""} onChange={(ev) => setValue("programId", ev.target.value as string)}>
-              {lessonTree?.programs?.map((p: any) => <MenuItem key={p.id} value={p.id}>{p.name}</MenuItem>)}
+              {lessonTree?.programs?.map(p => <MenuItem key={p.id} value={p.id}>{p.name}</MenuItem>)}
             </Select>
           </FormControl>
 
           <FormControl fullWidth>
             <InputLabel>Study</InputLabel>
             <Select label="Study" name="study" value={resolvedStudyId || ""} onChange={(ev) => setValue("studyId", ev.target.value as string)}>
-              {currentProgram?.studies?.map((s: any) => <MenuItem key={s.id} value={s.id}>{s.name}</MenuItem>)}
+              {currentProgram?.studies?.map((s: TreeStudy) => <MenuItem key={s.id} value={s.id}>{s.name}</MenuItem>)}
             </Select>
           </FormControl>
 
           <FormControl fullWidth>
             <InputLabel id="lessonLabel">Lesson</InputLabel>
             <Select labelId="lessonLabel" label="Lesson" name="lesson" value={resolvedLessonId || ""} onChange={(ev) => setValue("lessonId", ev.target.value as string)}>
-              {currentStudy?.lessons?.map((l: any) => {
-                const sx: any = {};
+              {currentStudy?.lessons?.map((l: TreeLesson) => {
+                const sx: { color?: string } = {};
                 const existing: ScheduleInterface = ArrayHelper.getOne(props.schedules, "lessonId", l.id);
                 if (existing && existing.scheduledDate !== props.schedule.scheduledDate) sx.color = "#999";
                 return <MenuItem key={l.id} value={l.id} sx={sx}>{l.name}</MenuItem>;
@@ -182,7 +187,7 @@ export function ScheduleEdit(props: Props) {
           <FormControl fullWidth>
             <InputLabel id="venueLabel">Venue</InputLabel>
             <Select labelId="venueLabel" label="Venue" name="venue" id="venue" value={resolvedVenueId || ""} onChange={(ev) => setValue("venueId", ev.target.value as string)}>
-              {currentLesson?.venues?.map((v: any) => <MenuItem key={v.id} value={v.id}>{v.name}</MenuItem>)}
+              {currentLesson?.venues?.map((v: TreeVenue) => <MenuItem key={v.id} value={v.id}>{v.name}</MenuItem>)}
             </Select>
           </FormControl>
         </Stack>

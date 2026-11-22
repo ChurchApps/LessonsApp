@@ -30,7 +30,7 @@ export default function Venue() {
   const [studies, setStudies] = useState<StudyInterface[]>([]);
   const [programs, setPrograms] = useState<ProgramInterface[]>([]);
   const [church, setChurch] = useState<ChurchInterface | null>(null);
-  const [churchSettings, setChurchSettings] = useState<any>({});
+  const [churchSettings, setChurchSettings] = useState<Record<string, string>>({});
 
   const id = params.id;
   const upcoming = searchParams.get("upcoming") === "1";
@@ -48,7 +48,7 @@ export default function Venue() {
       // Parents are anonymous; /churches/:id needs a member token, so the name only shows for the church's own users.
       const ownChurch = UserHelper.currentUserChurch?.church;
       if (ownChurch?.id === c.churchId) setChurch(ownChurch);
-      ApiHelper.getAnonymous("/settings/public/" + c.churchId, "MembershipApi").then((set: any[]) => setChurchSettings(set));
+      ApiHelper.getAnonymous("/settings/public/" + c.churchId, "MembershipApi").then((set: Record<string, string>) => setChurchSettings(set));
 
       const s = await ApiHelper.getAnonymous("/schedules/public/classroom/" + c.id, "LessonsApi");
       const filteredSchedules = filterSchedules(s);

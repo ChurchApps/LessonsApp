@@ -17,6 +17,7 @@ import {
 } from "@mui/icons-material";
 import { Box, Button, Drawer, IconButton, MenuItem, Select, Snackbar, Stack, Typography, useMediaQuery } from "@mui/material";
 import type { Theme } from "@mui/material";
+import type { SvgIconComponent } from "@mui/icons-material";
 import { Loading, PageHeader } from "@churchapps/apphelper";
 import ErrorBoundary from "@/components/ErrorBoundary";
 import { BundleList } from "@/components/admin/BundleList";
@@ -31,7 +32,9 @@ import { revalidate } from "../actions";
 type EntityType = "program" | "study" | "lesson";
 type PanelTab = "details" | "files" | "venues";
 
-interface PanelState { entityType: EntityType; entity: any; tab: PanelTab; }
+type PanelEntity = ProgramInterface | StudyInterface | LessonInterface;
+
+interface PanelState { entityType: EntityType; entity: PanelEntity; tab: PanelTab; }
 
 export default function Admin() {
   const router = useRouter();
@@ -64,10 +67,10 @@ export default function Admin() {
   }, [programs]);
 
   async function loadData() {
-    ApiHelper.get("/providers", "LessonsApi").then((d: any) => setProviders(d));
-    ApiHelper.get("/programs", "LessonsApi").then((d: any) => setPrograms(d));
-    ApiHelper.get("/studies", "LessonsApi").then((d: any) => setStudies(d));
-    ApiHelper.get("/lessons", "LessonsApi").then((d: any) => setLessons(d));
+    ApiHelper.get("/providers", "LessonsApi").then((d: ProviderInterface[]) => setProviders(d));
+    ApiHelper.get("/programs", "LessonsApi").then((d: ProgramInterface[]) => setPrograms(d));
+    ApiHelper.get("/studies", "LessonsApi").then((d: StudyInterface[]) => setStudies(d));
+    ApiHelper.get("/lessons", "LessonsApi").then((d: LessonInterface[]) => setLessons(d));
   }
 
   const cacheJwt = () => ApiHelper.getConfig("LessonsApi")?.jwt || "";
@@ -79,14 +82,14 @@ export default function Admin() {
     });
   }
 
-  function openPanel(entityType: EntityType, entity: any, tab: PanelTab = "details") {
+  function openPanel(entityType: EntityType, entity: PanelEntity, tab: PanelTab = "details") {
     setPanel({ entityType, entity, tab });
   }
   function closePanel() { setPanel(null); }
 
-  function handlePanelSaved(saved?: any) {
+  function handlePanelSaved(saved?: PanelEntity | null) {
     const currentPanel = panel;
-    const obj = Array.isArray(saved) ? saved[0] : saved;
+    const obj: (StudyInterface & LessonInterface) | null | undefined = Array.isArray(saved) ? saved[0] : saved;
 
     setPanel(null);
     loadData();
@@ -380,7 +383,7 @@ export default function Admin() {
 
   function renderPanelTabs() {
     if (!panel) return null;
-    const tabs: { id: PanelTab; label: string; Icon: any }[] = [
+    const tabs: { id: PanelTab; label: string; Icon: SvgIconComponent }[] = [
       { id: "details", label: "Details", Icon: DescriptionIcon },
       { id: "files", label: "Files", Icon: FilesIcon }
     ];

@@ -100,6 +100,20 @@ test.describe("SEO", () => {
     });
   }
 
+  // Crawlers and visitors follow these pages' sign-up buttons; every internal link must land on a real page.
+  for (const path of ["/faq", "/compare/answers-in-genesis"]) {
+    test(`${path} links only to pages that exist`, async ({ request }) => {
+      const html = await (await request.get(path)).text();
+      const hrefs = [...new Set([...html.matchAll(/href="(\/[^"#]*)"/g)].map((m) => m[1].replace(/&amp;/g, "&")))]
+        .filter((href) => !href.startsWith("/_next/") && !/\.(png|jpe?g|webp|svg|ico|css|woff2?|json|xml)$/.test(href));
+      expect(hrefs.length).toBeGreaterThan(0);
+      for (const href of hrefs) {
+        const response = await request.get(href, { maxRedirects: 0 });
+        expect(response.status(), href).toBeLessThan(400);
+      }
+    });
+  }
+
   test("search results are noindex", async ({ request }) => {
     const html = await (await request.get("/search?q=noah")).text();
     expect(html).toMatch(/<meta name="robots" content="noindex/);

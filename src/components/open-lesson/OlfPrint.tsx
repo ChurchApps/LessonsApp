@@ -12,7 +12,7 @@ export function OlfPrint(props: Props) {
       result.push(<div className="olfActionBlock">
         <table>
           <tr>
-            <td>{b.actions[0].actionType.toUpperCase()}</td>
+            <td>{(b.actions[0].actionType as string).toUpperCase()}</td>
             <td>
               <ul>{getActions(b.actions)}</ul>
             </td>
@@ -35,7 +35,7 @@ export function OlfPrint(props: Props) {
 
   const groupActions = (actions: FeedActionInterface[]) => {
     let lastActionType = "";
-    const result: any[] = [];
+    const result: { actions: FeedActionInterface[] }[] = [];
     actions?.forEach(a => {
       if (lastActionType !== a.actionType || result.length === 0) {
         result.push({ actions: [a] });

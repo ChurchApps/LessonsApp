@@ -7,20 +7,20 @@ import { ApiHelper, ClassroomInterface } from "@/helpers";
 
 interface Props { classroom: ClassroomInterface; updatedCallback: (classroom: ClassroomInterface | null) => void; }
 
-type AnyRecord = Record<string, any>;
+interface FormValues { name: string; upcomingGroupId: string; recentGroupId: string; }
 
 export function ClassroomEdit(props: Props) {
   const [groups, setGroups] = useState<GroupInterface[]>([]);
   const [teams, setTeams] = useState<GroupInterface[]>([]);
 
-  const { register, handleSubmit, reset, control, formState } = useForm<AnyRecord>({ defaultValues: { name: "", upcomingGroupId: "", recentGroupId: "" } });
-  const e = formState.errors as any;
+  const { register, handleSubmit, reset, control, formState } = useForm<FormValues>({ defaultValues: { name: "", upcomingGroupId: "", recentGroupId: "" } });
+  const e = formState.errors;
   const summaryErrors: string[] = [];
   if (e.name?.message) summaryErrors.push(e.name.message);
 
   const handleCancel = () => props.updatedCallback(props.classroom);
 
-  const onValid = (values: AnyRecord) => {
+  const onValid = (values: FormValues) => {
     const c: ClassroomInterface = { ...props.classroom, name: values.name, upcomingGroupId: values.upcomingGroupId || null, recentGroupId: values.recentGroupId || null };
     ApiHelper.post("/classrooms", [c], "LessonsApi").then((data: ClassroomInterface[]) => props.updatedCallback(data[0]));
   };

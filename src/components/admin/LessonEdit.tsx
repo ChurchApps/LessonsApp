@@ -10,7 +10,7 @@ const ImageEditor = dynamic(() => import("./ImageEditor").then(mod => ({ default
 
 interface Props { lesson: LessonInterface; updatedCallback: (lesson: LessonInterface | null) => void; onClose?: () => void; }
 
-type AnyRecord = Record<string, any>;
+interface FormValues { name: string; title: string; slug: string; description: string; videoEmbedUrl: string; live: string; sort: string | number; image: string; bottomLine: string; verse: string; parentQuestion: string; parentNote: string; }
 
 const LessonEdit = React.memo((props: Props) => {
   const [study, setStudy] = useState<StudyInterface>({});
@@ -20,8 +20,8 @@ const LessonEdit = React.memo((props: Props) => {
   const [checked, setChecked] = useState<boolean>();
   const [slugCheckError, setSlugCheckError] = useState(false);
 
-  const { register, handleSubmit, reset, control, watch, setValue, formState } = useForm<AnyRecord>({ defaultValues: { name: "", title: "", slug: "", description: "", videoEmbedUrl: "", live: "false", sort: "", image: "", bottomLine: "", verse: "", parentQuestion: "", parentNote: "" } });
-  const e = formState.errors as any;
+  const { register, handleSubmit, reset, control, watch, setValue, formState } = useForm<FormValues>({ defaultValues: { name: "", title: "", slug: "", description: "", videoEmbedUrl: "", live: "false", sort: "", image: "", bottomLine: "", verse: "", parentQuestion: "", parentNote: "" } });
+  const e = formState.errors;
   const image = watch("image");
   const slug = watch("slug");
   const summaryErrors: string[] = [];
@@ -42,7 +42,7 @@ const LessonEdit = React.memo((props: Props) => {
     setShowImageEditor(false);
   };
 
-  const onValid = async (values: AnyRecord) => {
+  const onValid = async (values: FormValues) => {
     if (!checked) { setSlugCheckError(true); return; }
     setSlugCheckError(false);
     const l: LessonInterface = {
@@ -57,14 +57,14 @@ const LessonEdit = React.memo((props: Props) => {
       parentQuestion: values.parentQuestion,
       parentNote: values.parentNote,
       live: values.live === "true",
-      sort: parseInt(values.sort) || 0,
+      sort: parseInt(String(values.sort)) || 0,
       image: values.image
     };
     setError("");
     try {
       const data: LessonInterface[] = await ApiHelper.post("/lessons", [l], "LessonsApi");
       props.updatedCallback(data[0]);
-    } catch (err: any) { setError(err?.message || "Unable to save."); }
+    } catch (err) { setError((err instanceof Error ? err.message : "") || "Unable to save."); }
   };
 
   const handleDelete = async () => {
@@ -74,7 +74,7 @@ const LessonEdit = React.memo((props: Props) => {
       await ApiHelper.delete("/lessons/" + props.lesson.id!.toString(), "LessonsApi");
       props.onClose?.();
       props.updatedCallback(null);
-    } catch (err: any) { setError(err?.message || "Unable to delete."); }
+    } catch (err) { setError((err instanceof Error ? err.message : "") || "Unable to delete."); }
   };
 
   const handleImageClick = (ev: React.MouseEvent) => { ev.preventDefault(); setShowImageEditor(true); };

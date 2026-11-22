@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { ComposableMap, Geographies, Geography, Marker, ZoomableGroup } from "react-simple-maps";
 import { Tooltip } from "react-tooltip";
 import { DateHelper, DisplayBox } from "@churchapps/apphelper";
-import { ApiHelper } from "@/helpers";
+import { ApiHelper, DownloadGeoInterface } from "@/helpers";
 
 interface Props {
   programId: string;
@@ -12,15 +12,15 @@ interface Props {
 
 export const Map: React.FC<Props> = props => {
   const geoUrl = "/countries-10m.json";
-  const [ipData, setIpData] = useState<any[]>([]);
-  const [tooltipIp, setTooltipIp] = useState<any>(null);
+  const [ipData, setIpData] = useState<DownloadGeoInterface[]>([]);
+  const [tooltipIp, setTooltipIp] = useState<DownloadGeoInterface | null>(null);
 
   const loadData = () => {
     const dateString = "?startDate=" +
       DateHelper.formatHtml5Date(props.startDate) +
       "&endDate=" +
       DateHelper.formatHtml5Date(props.endDate);
-    ApiHelper.get("/downloads/" + props.programId + "/geo" + dateString, "LessonsApi").then(d => setIpData(d));
+    ApiHelper.get("/downloads/" + props.programId + "/geo" + dateString, "LessonsApi").then((d: DownloadGeoInterface[]) => setIpData(d));
   };
 
   const getMarkers = () => {

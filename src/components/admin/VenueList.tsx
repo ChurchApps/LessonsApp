@@ -13,7 +13,7 @@ export function VenueList(props: Props) {
 
   const loadData = () => {
     if (props.lessonId) {
-      ApiHelper.get("/venues/lesson/" + props.lessonId, "LessonsApi").then((data: any) => { setVenues(data); });
+      ApiHelper.get("/venues/lesson/" + props.lessonId, "LessonsApi").then((data: VenueInterface[]) => { setVenues(data); });
     }
   };
 

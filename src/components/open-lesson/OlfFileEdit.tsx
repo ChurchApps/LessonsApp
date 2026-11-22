@@ -6,11 +6,11 @@ import { useForm, Controller } from "react-hook-form";
 
 interface Props { file: FeedFileInterface; updatedCallback: (file: FeedFileInterface | null, cancelled: boolean) => void; }
 
-type AnyRecord = Record<string, any>;
+interface FormValues { name: string; url: string; thumbnail: string; streamUrl: string; loop: string; seconds: string | number; }
 
 export function OlfFileEdit(props: Props) {
-  const { control, register, handleSubmit, reset, watch, formState } = useForm<AnyRecord>({ defaultValues: { name: "", url: "", thumbnail: "", streamUrl: "", loop: "false", seconds: 0 } });
-  const e = formState.errors as any;
+  const { control, register, handleSubmit, reset, watch, formState } = useForm<FormValues>({ defaultValues: { name: "", url: "", thumbnail: "", streamUrl: "", loop: "false", seconds: 0 } });
+  const e = formState.errors;
   const summaryErrors: string[] = [];
   if (e.name?.message) summaryErrors.push(e.name.message);
   if (e.url?.message) summaryErrors.push(e.url.message);
@@ -21,7 +21,7 @@ export function OlfFileEdit(props: Props) {
 
   const handleDelete = () => { if (window.confirm("Are you sure you wish to delete this action?")) props.updatedCallback(null, false); };
 
-  const onValid = (values: AnyRecord) => {
+  const onValid = (values: FormValues) => {
     const f: FeedFileInterface = {
       ...props.file,
       name: values.name,
@@ -29,7 +29,7 @@ export function OlfFileEdit(props: Props) {
       thumbnail: values.thumbnail,
       streamUrl: values.streamUrl,
       loop: values.loop === "true",
-      seconds: values.loop === "true" ? undefined : parseInt(values.seconds) || 0
+      seconds: values.loop === "true" ? undefined : parseInt(String(values.seconds)) || 0
     };
     props.updatedCallback(f, false);
   };

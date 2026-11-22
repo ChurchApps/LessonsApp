@@ -10,7 +10,7 @@ const ImageEditor = dynamic(() => import("./ImageEditor").then(mod => ({ default
 
 interface Props { study: StudyInterface; updatedCallback: (study: StudyInterface | null) => void; onClose?: () => void; }
 
-type AnyRecord = Record<string, any>;
+interface FormValues { name: string; slug: string; shortDescription: string; description: string; videoEmbedUrl: string; live: string; sort: string | number; image: string; }
 
 export function StudyEdit(props: Props) {
   const [program, setProgram] = useState<ProgramInterface>({});
@@ -19,8 +19,8 @@ export function StudyEdit(props: Props) {
   const [checked, setChecked] = useState<boolean>();
   const [slugCheckError, setSlugCheckError] = useState(false);
 
-  const { register, handleSubmit, reset, control, watch, setValue, formState } = useForm<AnyRecord>({ defaultValues: { name: "", slug: "", shortDescription: "", description: "", videoEmbedUrl: "", live: "false", sort: "", image: "" } });
-  const e = formState.errors as any;
+  const { register, handleSubmit, reset, control, watch, setValue, formState } = useForm<FormValues>({ defaultValues: { name: "", slug: "", shortDescription: "", description: "", videoEmbedUrl: "", live: "false", sort: "", image: "" } });
+  const e = formState.errors;
   const image = watch("image");
   const slug = watch("slug");
   const summaryErrors: string[] = [];
@@ -38,7 +38,7 @@ export function StudyEdit(props: Props) {
     setShowImageEditor(false);
   };
 
-  const onValid = async (values: AnyRecord) => {
+  const onValid = async (values: FormValues) => {
     if (!checked) { setSlugCheckError(true); return; }
     setSlugCheckError(false);
     const s: StudyInterface = {
@@ -49,14 +49,14 @@ export function StudyEdit(props: Props) {
       description: values.description,
       videoEmbedUrl: values.videoEmbedUrl,
       live: values.live === "true",
-      sort: parseInt(values.sort) || 0,
+      sort: parseInt(String(values.sort)) || 0,
       image: values.image
     };
     setError("");
     try {
       const data: StudyInterface[] = await ApiHelper.post("/studies", [s], "LessonsApi");
       props.updatedCallback(data[0]);
-    } catch (err: any) { setError(err?.message || "Unable to save."); }
+    } catch (err) { setError((err instanceof Error ? err.message : "") || "Unable to save."); }
   };
 
   const handleDelete = async () => {
@@ -66,7 +66,7 @@ export function StudyEdit(props: Props) {
       await ApiHelper.delete("/studies/" + props.study.id!.toString(), "LessonsApi");
       props.onClose?.();
       props.updatedCallback(null);
-    } catch (err: any) { setError(err?.message || "Unable to delete."); }
+    } catch (err) { setError((err instanceof Error ? err.message : "") || "Unable to delete."); }
   };
 
   const handleImageClick = (ev: React.MouseEvent) => { ev.preventDefault(); setShowImageEditor(true); };

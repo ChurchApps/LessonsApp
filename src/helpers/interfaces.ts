@@ -101,10 +101,10 @@ export interface ActionInterface {
   actionType?: string;
   content?: string;
   sort?: number;
-  resourceId?: string;
-  assetId?: string;
-  addOnId?: string;
-  externalVideoId?: string;
+  resourceId?: string | null;
+  assetId?: string | null;
+  addOnId?: string | null;
+  externalVideoId?: string | null;
 }
 
 export interface AssetInterface {
@@ -168,8 +168,8 @@ export interface ClassroomInterface {
   id?: string;
   churchId?: string;
   name?: string;
-  recentGroupId?: string;
-  upcomingGroupId?: string;
+  recentGroupId?: string | null;
+  upcomingGroupId?: string | null;
 }
 
 export interface CustomizationInterface {
@@ -180,7 +180,7 @@ export interface CustomizationInterface {
   contentType?: string;
   contentId?: string;
   action?: string;
-  actionContent?: string;
+  actionContent?: string | number;
 }
 
 export interface YearPlanWeekInterface {
@@ -217,7 +217,7 @@ export interface ScheduleInterface {
   churchId?: string;
   classroomId?: string;
   scheduledDate?: Date;
-  externalProviderId?: string;
+  externalProviderId?: string | null;
   programId?: string;
   studyId?: string;
   lessonId?: string;
@@ -253,6 +253,9 @@ export interface FeedActionInterface {
   content?: string;
   role?: string;
   files?: FeedFileInterface[];
+  id?: string;
+  sort?: number;
+  roleId?: string;
 }
 export interface FeedDownloadInterface { name?: string; files?: FeedFileInterface[]; }
 export interface FeedFileInterface {
@@ -271,6 +274,8 @@ export interface FeedSectionInterface {
   name?: string;
   actions?: FeedActionInterface[];
   materials?: string;
+  id?: string;
+  sort?: number;
 }
 export interface FeedVenueInterface {
   id?: string;
@@ -355,3 +360,23 @@ export interface PlaylistMessageInterface { files?: PlaylistFileInterface[]; }
 export interface PlaylistResponseInterface { messages?: PlaylistMessageInterface[]; }
 
 export interface StudyStatsInterface { studyName: string; downloadCount: number; }
+
+export interface LessonFeedDataInterface {
+  venues: FeedVenueInterface[];
+  providerId?: string;
+  programId?: string;
+  studyId?: string;
+  lessonId?: string;
+  venueId?: string;
+}
+
+export interface ProviderStatsInterface { providers: number; studies: number; lessons: number; }
+
+export interface DownloadGeoInterface {
+  lat: number;
+  lon: number;
+  city?: string;
+  state?: string;
+  country?: string;
+  totalDownloads?: number;
+}

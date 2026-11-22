@@ -38,7 +38,7 @@ export const OlfPrintPreview: React.FC<Props> = (props: Props) => {
       <Box sx={{ borderBottom: 1, borderColor: "divider" }} style={{ marginRight: 30 }}>
         <Tabs
           value={format}
-          onChange={(e, newValue) => { setFormat(newValue); }}
+          onChange={(_e, newValue) => { setFormat(newValue); }}
           aria-label="basic tabs example">
           <Tab label="Lessons.church" value="lessons.church" />
           <Tab label="Color Coded" value="colorCoded" />

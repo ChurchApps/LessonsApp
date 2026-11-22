@@ -29,7 +29,7 @@ import { VariantEdit } from "./VariantEdit";
 interface Props {
   contentType: string;
   contentId: string;
-  contentDisplayName: string;
+  contentDisplayName?: string;
 }
 
 export const BundleList: React.FC<Props> = props => {
@@ -44,9 +44,9 @@ export const BundleList: React.FC<Props> = props => {
   const [editVariant, setEditVariant] = React.useState<VariantInterface | null>(null);
   const [editAsset, setEditAsset] = React.useState<AssetInterface | null>(null);
   const [bulkResourceId, setBulkResourceId] = React.useState<string | null>(null);
-  const [menuAnchor, setMenuAnchor] = useState<null | any>(null);
+  const [menuAnchor, setMenuAnchor] = useState<null | HTMLElement>(null);
   const [menuResourceId, setMenuResourceId] = React.useState<string | null>(null);
-  const [videoMenuAnchor, setVideoMenuAnchor] = useState<null | any>(null);
+  const [videoMenuAnchor, setVideoMenuAnchor] = useState<null | HTMLElement>(null);
   const [expandedBundleId, setExpandedBundleId] = useState<string>("");
   const [expandedResourceId, setExpandedResourceId] = useState<string>("");
 
@@ -90,8 +90,8 @@ export const BundleList: React.FC<Props> = props => {
             setAssets([]);
             setVariants([]);
           } else {
-            ApiHelper.get("/assets/content/" + props.contentType + "/" + props.contentId, "LessonsApi").then((data: any) => { setAssets(data); });
-            ApiHelper.get("/variants/content/" + props.contentType + "/" + props.contentId, "LessonsApi").then((data: any) => { setVariants(data); });
+            ApiHelper.get("/assets/content/" + props.contentType + "/" + props.contentId, "LessonsApi").then((data: AssetInterface[]) => { setAssets(data); });
+            ApiHelper.get("/variants/content/" + props.contentType + "/" + props.contentId, "LessonsApi").then((data: VariantInterface[]) => { setVariants(data); });
           }
         });
       }

@@ -1,6 +1,7 @@
 import "cropperjs/dist/cropper.css";
 import React, { useEffect } from "react";
-import Cropper from "react-cropper";
+import type CropperJs from "cropperjs";
+import Cropper, { ReactCropperElement } from "react-cropper";
 import { InputBox, SmallButton } from "@churchapps/apphelper";
 
 interface Props {
@@ -9,10 +10,13 @@ interface Props {
   onCancel: () => void;
 }
 
+// cropperjs keeps canvasData on the instance but does not declare it.
+type CropperWithCanvas = CropperJs & { canvasData: CropperJs.CanvasData };
+
 export function ImageEditor(props: Props) {
   const [currentUrl, setCurrentUrl] = React.useState("about:blank");
   const [dataUrl, setDataUrl] = React.useState<string | null>(null);
-  let timeout: any = null;
+  let timeout: number | null = null;
 
   const handleUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
     e.preventDefault();
@@ -39,11 +43,11 @@ export function ImageEditor(props: Props) {
     </div>
   );
 
-  const cropperRef = React.useRef<any>(null);
+  const cropperRef = React.useRef<ReactCropperElement>(null);
 
   const selectDefaultCropZone = () => {
-    const imageElement: any = cropperRef?.current;
-    const cropper: any = imageElement?.cropper;
+    const imageElement = cropperRef?.current;
+    const cropper = imageElement?.cropper as CropperWithCanvas;
     const aspectRatio = 16 / 9;
 
     const desiredAspect = aspectRatio;

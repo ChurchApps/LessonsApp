@@ -138,7 +138,7 @@ export function CompareClient({ competitor }: { competitor: string }) {
               variant="contained"
               color="primary"
               size="large"
-              href="/register"
+              href="/login?action=register"
             >
               Get Started Free
             </Button>

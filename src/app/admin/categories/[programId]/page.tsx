@@ -23,13 +23,13 @@ export default function Admin() {
   const programId = params.programId as string;
 
   const loadData = () => {
-    ApiHelper.get("/programs/" + programId, "LessonsApi").then((data: any) => { setProgram(data); });
-    ApiHelper.get("/studyCategories/categoryNames/" + programId, "LessonsApi").then((data: any) => { setCategoryNames(data); });
+    ApiHelper.get("/programs/" + programId, "LessonsApi").then((data: ProgramInterface) => { setProgram(data); });
+    ApiHelper.get("/studyCategories/categoryNames/" + programId, "LessonsApi").then((data: string[]) => { setCategoryNames(data); });
   };
 
   const loadCategory = () => {
-    ApiHelper.get("/studyCategories/" + programId + "?categoryName=" + encodeURIComponent(categoryName), "LessonsApi").then((data: any) => { setStudyCategories(data); });
-    ApiHelper.get("/studies/program/" + programId, "LessonsApi").then((data: any) => { setStudies(data); });
+    ApiHelper.get("/studyCategories/" + programId + "?categoryName=" + encodeURIComponent(categoryName), "LessonsApi").then((data: StudyCategoryInterface[]) => { setStudyCategories(data); });
+    ApiHelper.get("/studies/program/" + programId, "LessonsApi").then((data: StudyInterface[]) => { setStudies(data); });
   };
 
   const handleAdd = (studyId: string) => {

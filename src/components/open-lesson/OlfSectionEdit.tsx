@@ -6,17 +6,17 @@ import { FeedSectionInterface } from "@/helpers";
 
 interface Props { section: FeedSectionInterface; updatedCallback: (section: FeedSectionInterface | null, cancelled: boolean) => void; }
 
-type AnyRecord = Record<string, any>;
+interface FormValues { name: string; }
 
 export function OlfSectionEdit(props: Props) {
-  const { register, handleSubmit, reset, formState } = useForm<AnyRecord>({ defaultValues: { name: "" } });
-  const e = formState.errors as any;
+  const { register, handleSubmit, reset, formState } = useForm<FormValues>({ defaultValues: { name: "" } });
+  const e = formState.errors;
   const summaryErrors: string[] = [];
   if (e.name?.message) summaryErrors.push(e.name.message);
 
   const handleCancel = () => props.updatedCallback(null, true);
 
-  const onValid = (values: AnyRecord) => {
+  const onValid = (values: FormValues) => {
     props.updatedCallback({ ...props.section, name: values.name }, false);
   };
 

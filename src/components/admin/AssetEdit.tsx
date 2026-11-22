@@ -7,15 +7,15 @@ import { useForm } from "react-hook-form";
 
 interface Props { asset: AssetInterface; updatedCallback: (asset: AssetInterface) => void; }
 
-type AnyRecord = Record<string, any>;
+interface FormValues { name: string; sort: string | number; }
 
 export function AssetEdit(props: Props) {
   const [pendingFileSave, setPendingFileSave] = useState(false);
-  const [pendingValues, setPendingValues] = useState<AnyRecord | null>(null);
+  const [pendingValues, setPendingValues] = useState<FormValues | null>(null);
   const [error, setError] = useState("");
 
-  const { register, handleSubmit, reset, formState } = useForm<AnyRecord>({ defaultValues: { name: "", sort: "" } });
-  const e = formState.errors as any;
+  const { register, handleSubmit, reset, formState } = useForm<FormValues>({ defaultValues: { name: "", sort: "" } });
+  const e = formState.errors;
   const summaryErrors: string[] = [];
   if (e.name?.message) summaryErrors.push(e.name.message);
 
@@ -24,8 +24,8 @@ export function AssetEdit(props: Props) {
   const handleDelete = () => { if (window.confirm("Are you sure you wish to permanently delete this asset?")) ApiHelper.delete("/assets/" + props.asset.id?.toString(), "LessonsApi").then(() => props.updatedCallback(null as unknown as AssetInterface)); };
 
   const handleFileSaved = (file: FileInterface) => {
-    const base = pendingValues ?? {};
-    const v: AssetInterface = { ...props.asset, name: base.name, sort: parseInt(base.sort) || 0, fileId: file.id };
+    const base: Partial<FormValues> = pendingValues ?? {};
+    const v: AssetInterface = { ...props.asset, name: base.name, sort: parseInt(String(base.sort)) || 0, fileId: file.id };
     ApiHelper.post("/assets", [v], "LessonsApi").then((data: AssetInterface[]) => {
       setPendingFileSave(false);
       setPendingValues(null);
@@ -35,7 +35,7 @@ export function AssetEdit(props: Props) {
 
   const handleFileError = (message: string) => { setPendingFileSave(false); setError(message); };
 
-  const onValid = (values: AnyRecord) => {
+  const onValid = (values: FormValues) => {
     setError("");
     setPendingValues(values);
     setPendingFileSave(true);

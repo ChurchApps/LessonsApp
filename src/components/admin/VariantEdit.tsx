@@ -7,15 +7,15 @@ import { useForm, Controller } from "react-hook-form";
 
 interface Props { variant: VariantInterface; updatedCallback: (variant: VariantInterface | null) => void; }
 
-type AnyRecord = Record<string, any>;
+interface FormValues { name: string; hidden: string; }
 
 export function VariantEdit(props: Props) {
   const [pendingFileSave, setPendingFileSave] = useState(false);
-  const [pendingValues, setPendingValues] = useState<AnyRecord | null>(null);
+  const [pendingValues, setPendingValues] = useState<FormValues | null>(null);
   const [error, setError] = useState("");
 
-  const { control, register, handleSubmit, reset, formState } = useForm<AnyRecord>({ defaultValues: { name: "", hidden: "false" } });
-  const e = formState.errors as any;
+  const { control, register, handleSubmit, reset, formState } = useForm<FormValues>({ defaultValues: { name: "", hidden: "false" } });
+  const e = formState.errors;
   const summaryErrors: string[] = [];
   if (e.name?.message) summaryErrors.push(e.name.message);
 
@@ -24,7 +24,7 @@ export function VariantEdit(props: Props) {
   const handleDelete = () => { if (window.confirm("Are you sure you wish to permanently delete this variant?")) ApiHelper.delete("/variants/" + props.variant.id!.toString(), "LessonsApi").then(() => props.updatedCallback(null)); };
 
   const handleFileSaved = (file: FileInterface) => {
-    const base = pendingValues ?? {};
+    const base: Partial<FormValues> = pendingValues ?? {};
     const v: VariantInterface = { ...props.variant, name: base.name, hidden: base.hidden === "true", fileId: file.id };
     ApiHelper.post("/variants", [v], "LessonsApi").then(data => {
       setPendingFileSave(false);
@@ -35,7 +35,7 @@ export function VariantEdit(props: Props) {
 
   const handleFileError = (message: string) => { setPendingFileSave(false); setError(message); };
 
-  const onValid = (values: AnyRecord) => {
+  const onValid = (values: FormValues) => {
     setError("");
     setPendingValues(values);
     setPendingFileSave(true);
