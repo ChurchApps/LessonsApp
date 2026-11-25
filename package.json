@@ -41,7 +41,7 @@
     }
   },
   "dependencies": {
-    "@churchapps/apphelper": "^1.14.0",
+    "@churchapps/apphelper": "^1.14.1",
     "@churchapps/helpers": "^2.18.0",
     "@mui/icons-material": "^7.3.11",
     "@mui/material": "^7.3.11",
